@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class="title">hello word</view>
+
+  <view class="top_tip">每一份人情都值得礼记</view>
+
+</view>

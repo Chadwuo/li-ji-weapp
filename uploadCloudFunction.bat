@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Tencent\微信web开发者工具\cli.bat" cloud functions deploy --e liji-1gzjub9o9bdf6d00 --n quickstartFunctions --r --project "F:\MyGitHub\li-ji-weapp" --report_first --report
