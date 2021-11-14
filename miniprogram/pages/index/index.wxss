@@ -1,94 +1,73 @@
-/**index.wxss**/
-
-page {
-  padding-top: 54rpx;
-  background-color: #f6f6f6;
-  padding-bottom: 60rpx;
+/* 头部 */
+.home-header {
+  height: 240rpx;
+  background-color: #F76664 !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
 }
 
-.title {
-  font-family: PingFang SC;
+/* 头部背景 */
+.home-header .bg {
+  height: 100%;
+  width: 100%;
+}
+
+.home-header .content {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+
+.home-header .content .item .calendar{
+  color: #fff;
+  font-size: 36rpx;
+  padding-top: 28rpx;
+}
+.home-header .content .item .num{
+  color: #fff;
+  font-size: 48rpx;
   font-weight: 500;
+}
+.home-header .content .item .title{
+  color: #fff;
+  font-size: 24rpx;
+}
+
+/* 内容 */
+.wrapper {
+  padding: 0 32rpx;
+}
+
+/* 卡片 */
+.wrapper .nav {
+  background-color: #fff;
+  border-radius: 20rpx;
+  margin-top: 20rpx;
+}
+
+.wrapper .nav .content {
+  flex: 1;
+  text-align: left;
+  padding-left: 48rpx;
+}
+
+.wrapper .nav .content .title {
   color: #000000;
   font-size: 44rpx;
-  margin-bottom: 40rpx;
+  font-weight: 500;
+  margin: 25rpx 0 15rpx 0;
 }
 
-.top_tip {
-  font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 400;
+.wrapper .nav .content .info {
   color: #888888;
-  margin-bottom: 28rpx;
-}
-
-.power {
-  margin-top: 30rpx;
-  border-radius: 5px;
-  background-color: white;
-  width: 93%;
-  padding-bottom: 1rpx;
-}
-
-.power_info {
-  display: flex;
-  padding: 30rpx 25rpx;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.power_info_more {
-  width: 30rpx;
-  height: 30rpx;
-  transform: rotate(90deg);
-}
-
-.power_info_less {
-  width: 30rpx;
-  height: 30rpx;
-  transform: rotate(270deg);
-}
-
-.power_info_text {
-  display: flex;
-  flex-direction: column;
-}
-
-.power_info_text_title {
-  margin-bottom: 10rpx;
-  font-weight: 400;
-  font-size: 35rpx;
-}
-
-.power_info_text_tip {
-  color: rgba(0, 0, 0, 0.4);
-  font-size: 25rpx;
-}
-
-.power_item {
-  padding: 30rpx 25rpx;
-  display: flex;
-  justify-content: space-between;
-}
-
-.power_item_title {
-  font-size: 30rpx;
-}
-
-.power_item_icon {
-  width: 30rpx;
-  height: 30rpx;
-}
-
-.line {
-  width: 95%;
-  margin: 0 auto;
-  height: 2rpx;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.environment {
-  color: rgba(0, 0, 0, 0.4);
   font-size: 24rpx;
-  margin-top: 25%;
+  font-family: PingFang SC;
+  margin-bottom: 15rpx;
+}
+
+.wrapper .nav .label {
+  flex: 1;
+  text-align: center;
 }
