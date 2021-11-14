@@ -1,27 +1,86 @@
-/**app.wxss**/
+
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   box-sizing: border-box;
-} 
-
-button {
-  background: initial;
+  background-color: #f4f4f4;
+  font-family: PingFangSC-Light, helvetica, 'Heiti SC';
 }
-
-button:focus{
-  outline: 0;
-}
-
-button::after{
-  border: none;
-}
-
 
 page {
-  background: #f6f6f6;
+  font-size: 28rpx;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+view {
+  box-sizing: border-box;
+}
+
+.acea-row {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.acea-row.row-top {
+  align-items: flex-start;
+}
+
+.acea-row.row-middle {
+  align-items: center;
+}
+
+.acea-row.row-bottom {
+  align-items: flex-end;
+}
+
+.acea-row.row-left {
   justify-content: flex-start;
 }
+
+.acea-row.row-center {
+  justify-content: center;
+}
+
+.acea-row.row-right {
+  justify-content: flex-end;
+}
+
+.acea-row.row-between {
+  justify-content: space-between;
+}
+
+.acea-row.row-around {
+  justify-content: space-around;
+}
+
+.acea-row.row-column {
+  flex-direction: column;
+}
+
+.acea-row.row-column-between {
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.acea-row.row-column-around {
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.acea-row.row-center-wrapper {
+  align-items: center;
+  justify-content: center;
+}
+
+.acea-row.row-between-wrapper {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.font-color {
+  color: #fc4141 !important;
+}
+
+.bg-color {
+  background-color: #F76664 !important;
+}
+.line1{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
