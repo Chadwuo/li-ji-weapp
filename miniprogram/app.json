@@ -13,23 +13,33 @@
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
-    "custom": true,
-    "list": [
-      {
+    "color": "#7A7E83",
+    "selectedColor": "#F76664",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [{
         "pagePath": "pages/index/index",
-        "text": "首页"
+        "text": "首页",
+        "iconPath": "./images/home_gray.png",
+        "selectedIconPath": "./images/home_red.png"
       },
       {
         "pagePath": "pages/books/books",
-        "text": "礼簿"
+        "text": "礼簿",
+        "iconPath": "./images/book_gray.png",
+        "selectedIconPath": "./images/book_red.png"
       },
       {
         "pagePath": "pages/friends/friends",
-        "text": "联系人"
+        "text": "联系人",
+        "iconPath": "./images/contact_gray.png",
+        "selectedIconPath": "./images/contact_red.png"
       },
       {
         "pagePath": "pages/profile/profile",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "./images/mine_gray.png",
+        "selectedIconPath": "./images/mine_red.png"
       }
     ]
   },
@@ -40,6 +50,8 @@
     "van-cell": "@vant/weapp/cell/index",
     "van-cell-group": "@vant/weapp/cell-group/index",
     "van-tag": "@vant/weapp/tag/index",
-    "van-icon": "@vant/weapp/icon/index"
-  }
+    "van-icon": "@vant/weapp/icon/index",
+    "van-divider": "@vant/weapp/divider/index"
+  },
+  "style": "v2"
 }
