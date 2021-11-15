@@ -6,11 +6,11 @@
     "pages/friends/friends"
   ],
   "window": {
-    "backgroundColor": "#F6F6F6",
+    "backgroundColor": "#F76664",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarBackgroundColor": "#F76664",
     "navigationBarTitleText": "礼记",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "custom": true,
@@ -35,6 +35,11 @@
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
+    "van-row": "@vant/weapp/row/index",
+    "van-col": "@vant/weapp/col/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-tag": "@vant/weapp/tag/index",
     "van-icon": "@vant/weapp/icon/index"
   }
 }
