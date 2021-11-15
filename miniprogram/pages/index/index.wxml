@@ -6,7 +6,7 @@
       <van-row>
         <van-col span="8">
           <view class='item' hover-class='none'>
-            <view class='calendar'>2021年
+            <view class='calendar' bindtap="yearPickerShow">{{year}}年
               <van-icon name="arrow-down" />
             </view>
           </view>
@@ -84,7 +84,8 @@
       </view>
     </view>
   </view>
-  <van-popup show="{{false}}" round  closeable position="bottom" custom-style="height: 30%;margin-bottom: 50rpx;" bind:close="onClose">
-    <van-picker columns="{{ columns }}" default-index="{{ 2 }}" bind:change="onChange" />
+  <van-popup show="{{showYearPicker}}" round closeable position="bottom" bind:close="yearPickerClose" custom-style="height: 36%">
+    <van-picker columns="{{ yearData }}" default-index="{{ 2 }}" bind:change="yearPickerChange" />
   </van-popup>
+  <van-divider contentPosition="center" customStyle="font-size: 12px;">每一份人情都值得礼记</van-divider>
 </view>
