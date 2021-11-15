@@ -3,6 +3,7 @@
 Thumbs.db
 $RECYCLE.BIN/
 /dist
+/miniprogram/miniprogram_npm
 
 # macOS
 .DS_Store
@@ -32,3 +33,4 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
