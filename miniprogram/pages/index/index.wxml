@@ -1,8 +1,90 @@
 <!--index.wxml-->
 <view class="container">
+  <view class="home-header">
+    <image class="bg" src="/images/bg_summary.png" mode="center"></image>
+    <view class="content">
+      <van-row>
+        <van-col span="8">
+          <view class='item' hover-class='none'>
+            <view class='calendar'>2021年
+              <van-icon name="arrow-down" />
+            </view>
+          </view>
+        </van-col>
+        <van-col span="8">
+          <view class='item' hover-class='none'>
+            <view class='num'>{{"666"}}</view>
+            <view class='title'>收礼</view>
+          </view>
+        </van-col>
+        <van-col span="8">
+          <view class='item' hover-class='none'>
+            <view class='num'>{{"666"}}</view>
+            <view class='title'>送礼</view>
+          </view>
+        </van-col>
+      </van-row>
+    </view>
+  </view>
 
-  <view class="title">hello word</view>
-
-  <view class="top_tip">每一份人情都值得礼记</view>
-
+  <view class="wrapper">
+    <view class='nav acea-row row-middle'>
+      <view class='content' hover-class='none'>
+        <view class='title'>{{"666"}}</view>
+        <view class='info'>收礼</view>
+        <view class='info'>2021年7月20日</view>
+      </view>
+      <view class='label' hover-class='none'>
+        <van-tag round type="success">支</van-tag>
+        <view>22222</view>
+      </view>
+    </view>
+    <view class='nav acea-row row-middle'>
+      <view class='content' hover-class='none'>
+        <view class='title'>{{"666"}}</view>
+        <view class='info'>收礼</view>
+        <view class='info'>2021年7月20日</view>
+      </view>
+      <view class='label' hover-class='none'>
+        <van-tag round type="success">支</van-tag>
+        <view>22222</view>
+      </view>
+    </view>
+    <view class='nav acea-row row-middle'>
+      <view class='content' hover-class='none'>
+        <view class='title'>{{"666"}}</view>
+        <view class='info'>收礼</view>
+        <view class='info'>2021年7月20日</view>
+      </view>
+      <view class='label' hover-class='none'>
+        <van-tag round type="success">支</van-tag>
+        <view>22222</view>
+      </view>
+    </view>
+    <view class='nav acea-row row-middle'>
+      <view class='content' hover-class='none'>
+        <view class='title'>{{"666"}}</view>
+        <view class='info'>收礼</view>
+        <view class='info'>2021年7月20日</view>
+      </view>
+      <view class='label' hover-class='none'>
+        <van-tag round type="success">支</van-tag>
+        <view>22222</view>
+      </view>
+    </view>
+    <view class='nav acea-row row-middle'>
+      <view class='content' hover-class='none'>
+        <view class='title'>{{"666"}}</view>
+        <view class='info'>收礼</view>
+        <view class='info'>2021年7月20日</view>
+      </view>
+      <view class='label' hover-class='none'>
+        <van-tag round type="success">支</van-tag>
+        <view>22222</view>
+      </view>
+    </view>
+  </view>
+  <van-popup show="{{false}}" round  closeable position="bottom" custom-style="height: 30%;margin-bottom: 50rpx;" bind:close="onClose">
+    <van-picker columns="{{ columns }}" default-index="{{ 2 }}" bind:change="onChange" />
+  </van-popup>
 </view>
