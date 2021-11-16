@@ -1,0 +1,20 @@
+<!--pages/about/index.wxml-->
+<view class="container">
+    <view class="logo">
+        <image src="/images/logo.png"></image>
+    </view>
+    <view class="title">礼记</view>
+    <view class="title_info">Version 1.0</view>
+    <text class="top_tip">
+        礼尚往来，是中华民族的传统美德，老一辈人一般会在举行宴席的时候用手写人情簿的方式来记录每一个亲友的送礼，然后在对方有宴席邀请的时候翻阅人情簿，以便计算出下次送礼金额。
+        「礼记」是一个基于小程序的在线人情簿，带来了全新的使用体验。可随身携带，快速查找，让每一份人情一直都在！
+    </text>
+    <view style="width: 100%;margin-top: 58rpx;">
+        <van-cell title="作者微信" value="Micahhuan" />
+        <van-cell title="使用帮助" is-link  />
+        <van-cell title="推荐给好友" is-link  />
+    </view>
+    <view style="position:absolute; justify-content: center; align-items: center;bottom:16px;">
+        <van-divider contentPosition="center" customStyle="font-size: 12px;">可能是新站区最好用的记账程序</van-divider>
+    </view>
+</view>

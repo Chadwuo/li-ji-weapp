@@ -1,17 +1,11 @@
+page {
+  background-color: #f6f6f6;
+}
 
 .container {
-  box-sizing: border-box;
-  background-color: #f4f4f4;
-  font-family: PingFangSC-Light, helvetica, 'Heiti SC';
-}
-
-page {
-  font-size: 28rpx;
-  background-color: #f5f5f5;
-  color: #333;
-}
-
-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   box-sizing: border-box;
 }
 
@@ -83,4 +77,9 @@ view {
 .bg-color {
   background-color: #F76664 !important;
 }
-.line1{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+.line1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

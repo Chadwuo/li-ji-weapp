@@ -1,31 +1,34 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="home-header">
+<view>
+  <van-sticky offset-top="{{ -30 }}">
+    <view class="home-header">
     <image class="bg" src="/images/bg_summary.png" mode="center"></image>
     <view class="content">
-      <van-row>
-        <van-col span="8">
-          <view class='item' hover-class='none'>
-            <view class='calendar' bindtap="yearPickerShow">{{year}}年
-              <van-icon name="arrow-down" />
+        <van-row>
+          <van-col span="8">
+            <view class='item' hover-class='none'>
+              <view class='calendar' bindtap="yearPickerShow">{{year}}年
+                <van-icon name="arrow-down" />
+              </view>
             </view>
-          </view>
-        </van-col>
-        <van-col span="8">
-          <view class='item' hover-class='none'>
-            <view class='num'>{{"666"}}</view>
-            <view class='title'>收礼</view>
-          </view>
-        </van-col>
-        <van-col span="8">
-          <view class='item' hover-class='none'>
-            <view class='num'>{{"666"}}</view>
-            <view class='title'>送礼</view>
-          </view>
-        </van-col>
-      </van-row>
-    </view>
+          </van-col>
+          <van-col span="8">
+            <view class='item' hover-class='none'>
+              <view class='num'>{{"666"}}</view>
+              <view class='title'>收礼</view>
+            </view>
+          </van-col>
+          <van-col span="8">
+            <view class='item' hover-class='none'>
+              <view class='num'>{{"666"}}</view>
+              <view class='title'>送礼</view>
+            </view>
+          </van-col>
+        </van-row>
+      </view>
   </view>
+  </van-sticky>
+  
 
   <view class="wrapper">
     <view class='nav acea-row row-middle'>
@@ -36,7 +39,7 @@
       </view>
       <view class='label' hover-class='none'>
         <van-tag round type="success">支</van-tag>
-        <view>22222</view>
+        22222
       </view>
     </view>
     <view class='nav acea-row row-middle'>
@@ -47,7 +50,7 @@
       </view>
       <view class='label' hover-class='none'>
         <van-tag round type="success">支</van-tag>
-        <view>22222</view>
+        22222
       </view>
     </view>
     <view class='nav acea-row row-middle'>
@@ -58,7 +61,7 @@
       </view>
       <view class='label' hover-class='none'>
         <van-tag round type="success">支</van-tag>
-        <view>22222</view>
+        22222
       </view>
     </view>
     <view class='nav acea-row row-middle'>
@@ -69,7 +72,7 @@
       </view>
       <view class='label' hover-class='none'>
         <van-tag round type="success">支</van-tag>
-        <view>22222</view>
+        22222
       </view>
     </view>
     <view class='nav acea-row row-middle'>
@@ -80,7 +83,7 @@
       </view>
       <view class='label' hover-class='none'>
         <van-tag round type="success">支</van-tag>
-        <view>22222</view>
+        22222
       </view>
     </view>
   </view>

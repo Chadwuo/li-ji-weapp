@@ -31,7 +31,7 @@
     </view>
     <view class='myService'>
       <view class='serviceList acea-row row-middle'>
-        <view class='item' wx:for="{{MyMenus}}" wx:key="index" bindtap='goPages' data-url='{{item.url}}' wx:if="{{item.url!='#'}}">
+        <view class='item' wx:for="{{MyMenus}}" wx:key="index" bindtap='jumpPage' data-page='{{item.page}}' wx:if="{{item.page!='#'}}">
           <view class='pictrue'>
             <van-icon size="64rpx" name="{{item.icon}}" />
           </view>

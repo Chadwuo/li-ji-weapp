@@ -18,6 +18,7 @@
   position: absolute;
   width: 100%;
   text-align: center;
+  padding: 32rpx 0;
 }
 
 .home-header .content .item .calendar{
