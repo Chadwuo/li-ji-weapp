@@ -6,15 +6,26 @@ Page({
    */
   data: {
     MyMenus: [
-      { url: "/pages/ucenter/footprint/footprint", icon: "shop-o", name: "我的家庭" },
-      { url: "/pages/groupon/myGroupon/myGroupon", icon: "peer-pay", name: "数据导出" },
-      { url: "/pages/ucenter/collect/collect", icon:"fire-o",name:"版本功能"},
-      { url: "/pages/ucenter/collect/collect", icon:"good-job-o",name:"赞助"},
-      { url: "/pages/ucenter/collect/collect", icon:"smile-comment-o",name:"意见反馈"},
-      { url: "/pages/ucenter/address/address", icon: "info-o", name: "关于" }
+      { page: "dev", icon: "shop-o", name: "我的家庭" },
+      { page: "dev", icon: "peer-pay", name: "数据导出" },
+      { page: "dev", icon:"fire-o",name:"版本功能"},
+      { page: "dev", icon:"good-job-o",name:"赞助"},
+      { page: "dev", icon:"smile-comment-o",name:"意见反馈"},
+      { page: "about", icon: "info-o", name: "关于" }
       ]
   },
-
+  jumpPage(e) {
+    if (e.currentTarget.dataset.page==='dev') {
+      wx.showToast({
+        title: '开发中...',
+        icon:'none',
+      })
+      return
+    }
+    wx.navigateTo({
+      url: `/pages/${e.currentTarget.dataset.page}/index`,
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */

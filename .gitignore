@@ -35,4 +35,3 @@ pnpm-debug.log*
 *.sw?
 
 /project.private.config.json
-/project.config.json
