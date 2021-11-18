@@ -28,8 +28,6 @@
       </view>
   </view>
   </van-sticky>
-  
-
   <view class="wrapper">
     <view class='nav acea-row row-middle'>
       <view class='content' hover-class='none'>

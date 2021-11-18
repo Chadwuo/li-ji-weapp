@@ -9,6 +9,20 @@ page {
   box-sizing: border-box;
 }
 
+.font-color {
+  color: #fc4141 !important;
+}
+
+.bg-color {
+  background-color: #F76664 !important;
+}
+
+.line1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .acea-row {
   display: flex;
   flex-wrap: wrap;
@@ -68,18 +82,4 @@ page {
 .acea-row.row-between-wrapper {
   align-items: center;
   justify-content: space-between;
-}
-
-.font-color {
-  color: #fc4141 !important;
-}
-
-.bg-color {
-  background-color: #F76664 !important;
-}
-
-.line1 {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }

@@ -31,7 +31,6 @@
 .top_tip {
     font-size: 28rpx;
     font-family: PingFang SC;
-    font-weight: 400;
     color: #888888;
     margin-bottom: 28rpx;
 }
