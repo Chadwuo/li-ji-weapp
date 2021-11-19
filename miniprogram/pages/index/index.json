@@ -1,5 +1,6 @@
 {
   "usingComponents": {
+    "footer": "/components/footer",
     "van-popup": "@vant/weapp/popup/index",
     "van-picker": "@vant/weapp/picker/index",
     "van-sticky": "@vant/weapp/sticky/index"

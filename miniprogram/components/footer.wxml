@@ -1,0 +1,3 @@
+<!--components/footer.wxml-->
+<van-divider contentPosition="center" customStyle="font-size: 12px;">{{innerText}}</van-divider>
+

@@ -1,0 +1,49 @@
+<!--pages/issues/index.wxml-->
+<view class="container">
+    <van-tabs sticky animated swipeable>
+        <van-tab title="问题反馈">
+            <view class="tab-item">
+                <van-cell-group inset>
+                    <van-field model:value="{{ value }}" placeholder="标题" />
+                    <van-field value="{{ message }}" type="textarea" placeholder="请输入留言" autosize="{ maxHeight: 200, minHeight: 150 }" border="{{ false }}" />
+                </van-cell-group>
+            </view>
+            <view class="tab-item" style="padding: 0 20px;">
+                <van-button block color="#F76664" round icon="guide-o">发送</van-button>
+            </view>
+        </van-tab>
+        <van-tab title="意见墙">
+            <view class="tab-item">
+                <van-cell-group inset>
+                    <van-cell value="7月20日" label="软件真好用！！！" title-width="70%">
+                        <view slot="title">
+                            <view class="line1">不愿意透露姓名的唐马儒先生</view>
+                        </view>
+                    </van-cell>
+                    <van-cell title="开发者回复" value="7月21日" label="谢谢鼓励" />
+                </van-cell-group>
+            </view>
+            <view class="tab-item">
+                <van-cell-group inset>
+                    <van-cell value="7月20日" label="软件真好用！！！" title-width="70%">
+                        <view slot="title">
+                            <view class="line1">不愿意透露姓名的唐马儒先生</view>
+                        </view>
+                    </van-cell>
+                    <van-cell title="开发者回复" value="7月21日" label="谢谢鼓励" />
+                </van-cell-group>
+            </view>
+        </van-tab>
+        <van-tab title="Q&A">
+            <view class="tab-item">
+                <van-cell-group inset>
+                    <van-cell title="Q：这个软件收费吗？" label="A：本项目是开源的公益项目，不会收取用户任何费用。" />
+                    <van-cell title="Q：作者是一个人完成所有开发工作吗？" label="A：目前是的，欢迎PR。" />
+                    <van-cell title="Q：数据安全吗？" label="A：软件使用微信官方提供得云开发模式，数据保存在微信服务器。用户在使用该软件时，会生成一个加密标识，你的标识只能读写你所创建的数据，可以确保数据安全。" />
+                    <van-cell title="Q：我没有授权，但是软件已经获取了我的微信头像和昵称？" label="A：这部分信息是由微信官方提供的开放控件Open-Data获取的，仅作显示使用，软件并没有读取存储你的微信信息。" />
+                </van-cell-group>
+            </view>
+        </van-tab>
+    </van-tabs>
+</view>
+<footer></footer>
