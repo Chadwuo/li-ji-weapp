@@ -1,9 +1,9 @@
 <!--index.wxml-->
-<view>
+<view class="container">
   <van-sticky offset-top="{{ -30 }}">
     <view class="home-header">
-    <image class="bg" src="/images/bg_summary.png" mode="center"></image>
-    <view class="content">
+      <image class="bg" src="/images/bg_summary.png" mode="center"></image>
+      <view class="content">
         <van-row>
           <van-col span="8">
             <view class='item' hover-class='none'>
@@ -26,31 +26,9 @@
           </van-col>
         </van-row>
       </view>
-  </view>
+    </view>
   </van-sticky>
   <view class="wrapper">
-    <view class='nav acea-row row-middle'>
-      <view class='content' hover-class='none'>
-        <view class='title'>{{"666"}}</view>
-        <view class='info'>收礼</view>
-        <view class='info'>2021年7月20日</view>
-      </view>
-      <view class='label' hover-class='none'>
-        <van-tag round type="success">支</van-tag>
-        22222
-      </view>
-    </view>
-    <view class='nav acea-row row-middle'>
-      <view class='content' hover-class='none'>
-        <view class='title'>{{"666"}}</view>
-        <view class='info'>收礼</view>
-        <view class='info'>2021年7月20日</view>
-      </view>
-      <view class='label' hover-class='none'>
-        <van-tag round type="success">支</van-tag>
-        22222
-      </view>
-    </view>
     <view class='nav acea-row row-middle'>
       <view class='content' hover-class='none'>
         <view class='title'>{{"666"}}</view>
@@ -88,5 +66,5 @@
   <van-popup show="{{showYearPicker}}" round closeable position="bottom" bind:close="yearPickerClose" custom-style="height: 36%">
     <van-picker columns="{{ yearData }}" default-index="{{ 2 }}" bind:change="yearPickerChange" />
   </van-popup>
-  <van-divider contentPosition="center" customStyle="font-size: 12px;">每一份人情都值得礼记</van-divider>
 </view>
+<footer></footer>

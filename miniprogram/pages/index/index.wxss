@@ -1,11 +1,10 @@
+
 /* 头部 */
 .home-header {
   height: 240rpx;
   background-color: #F76664 !important;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  position: relative;
 }
 
 /* 头部背景 */

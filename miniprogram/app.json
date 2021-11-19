@@ -4,7 +4,8 @@
         "pages/profile/profile",
         "pages/books/books",
         "pages/friends/friends",
-        "pages/about/index"
+        "pages/about/index",
+        "pages/issues/index"
     ],
     "window": {
         "backgroundColor": "#F76664",
@@ -51,8 +52,10 @@
         "van-col": "@vant/weapp/col/index",
         "van-cell": "@vant/weapp/cell/index",
         "van-cell-group": "@vant/weapp/cell-group/index",
+        "van-button": "@vant/weapp/button/index",
         "van-tag": "@vant/weapp/tag/index",
         "van-icon": "@vant/weapp/icon/index",
         "van-divider": "@vant/weapp/divider/index"
+       
     }
 }

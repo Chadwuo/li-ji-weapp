@@ -1,16 +1,21 @@
+/* 整个页面的布局 */
 page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
   background-color: #f6f6f6;
+  justify-content: space-between;
 }
 
+/* 页面内容区 */
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   box-sizing: border-box;
 }
 
 .font-color {
-  color: #fc4141 !important;
+  color: #F76664 !important;
 }
 
 .bg-color {

@@ -1,27 +1,14 @@
-// pages/about/index.js
+// pages/issues/index.js
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
+        value: '',
+        message:''
+    },
 
-    },
-    goGuide(){
-        wx.showToast({
-            title: '开发中...',
-            icon:'none',
-          })
-    },
-    micahh(){
-        const arr = ['你拍了拍作者头顶\r\n却没摸到秀发', '用技术提供无限可能', '记得住恩情 守得住初心', '每一份人情\r\n都值得礼记']
-        const index = Math.floor(Math.random() * arr.length)
-        wx.showToast({
-            title: arr[index],
-            icon:'none',
-            duration: 2500
-          })
-    },
     /**
      * 生命周期函数--监听页面加载
      */
@@ -75,6 +62,6 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function () {
-        
-    },
+
+    }
 })

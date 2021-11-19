@@ -23,7 +23,6 @@
         <view class='num'>{{"666"}}</view>
         <view class='title'>收礼</view>
       </view>
-      
       <view class='item' hover-class='none'>
         <view class='num'>{{"666"}}</view>
         <view class='title'>送礼</view>
