@@ -12,13 +12,14 @@ Page({
         loading: false,
         issuesData: [],
         pageNo: 0,
-        pageEnd:false
+        pageEnd: false
     },
     onTabsClick(event) {
         // 进入意见片墙
         if (event.detail.name === 'issues') {
+            this.data.pageNo = 0
             this.getIssuesPage(this.data.pageNo, 10).then(res => {
-                if (res.data.length===0) {
+                if (res.data.length === 0) {
                     this.setData({
                         pageEnd: true,
                     });
