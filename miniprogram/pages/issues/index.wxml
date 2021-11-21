@@ -1,6 +1,6 @@
 <!--pages/issues/index.wxml-->
 <view class="container">
-    <van-tabs sticky animated swipeable>
+    <van-tabs sticky animated swipeable bind:click="onTabsClick">
         <van-tab title="问题反馈">
             <view class="tab-item">
                 <van-cell-group inset>
@@ -12,25 +12,16 @@
                 <van-button block color="#F76664" round icon="guide-o">发送</van-button>
             </view>
         </van-tab>
-        <van-tab title="意见墙">
-            <view class="tab-item">
+        <van-tab title="意见墙" name="issues">
+            <van-empty wx:if="{{!issuesData}}" description="暂无数据" />
+            <view class="tab-item"  wx:for="{{issuesData}}" wx:key="index">
                 <van-cell-group inset>
-                    <van-cell value="7月20日" label="软件真好用！！！" title-width="70%">
+                    <van-cell value="{{item.createTime}}" label="{{item.content}}" title-width="70%">
                         <view slot="title">
-                            <view class="line1">不愿意透露姓名的唐马儒先生</view>
+                            <view class="line1">{{item.title}}</view>
                         </view>
                     </van-cell>
-                    <van-cell title="开发者回复" value="7月21日" label="谢谢鼓励" />
-                </van-cell-group>
-            </view>
-            <view class="tab-item">
-                <van-cell-group inset>
-                    <van-cell value="7月20日" label="软件真好用！！！" title-width="70%">
-                        <view slot="title">
-                            <view class="line1">不愿意透露姓名的唐马儒先生</view>
-                        </view>
-                    </van-cell>
-                    <van-cell title="开发者回复" value="7月21日" label="谢谢鼓励" />
+                    <van-cell wx:if="{{item.reply}}" title="开发者回复" value="{{item.replyTime}}" label="{{item.reply}}" />
                 </van-cell-group>
             </view>
         </van-tab>
@@ -46,4 +37,4 @@
         </van-tab>
     </van-tabs>
 </view>
-<footer></footer>
+<footer loading="{{loading}}"></footer>

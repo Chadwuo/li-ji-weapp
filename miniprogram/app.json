@@ -55,7 +55,8 @@
         "van-button": "@vant/weapp/button/index",
         "van-tag": "@vant/weapp/tag/index",
         "van-icon": "@vant/weapp/icon/index",
-        "van-divider": "@vant/weapp/divider/index"
+        "van-divider": "@vant/weapp/divider/index",
+        "van-empty": "@vant/weapp/empty/index"
        
     }
 }

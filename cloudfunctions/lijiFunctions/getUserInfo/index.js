@@ -4,14 +4,12 @@ cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
 });
 
-// 获取openId云函数入口函数
+const db = cloud.database();
+
 exports.main = async (event, context) => {
   // 获取基础信息
   const wxContext = cloud.getWXContext();
-
-  return {
-    openid: wxContext.OPENID,
-    appid: wxContext.APPID,
-    unionid: wxContext.UNIONID,
-  };
+  return await db.collection('user').where({
+    openId: wxContext.OPENID,
+  }).get()
 };

@@ -29,37 +29,17 @@
     </view>
   </van-sticky>
   <view class="wrapper">
-    <view class='nav acea-row row-middle'>
-      <view class='content' hover-class='none'>
-        <view class='title'>{{"666"}}</view>
-        <view class='info'>收礼</view>
-        <view class='info'>2021年7月20日</view>
+    <van-empty wx:if="{{!giftData}}" description="还没有记录哦~"></van-empty>
+    <view class='nav acea-row row-middle' wx:for="{{giftData}}" wx:key="index">
+      <view class='content'>
+        <view class='title'>{{item.name}}</view>
+        <view class='info'>{{item.name}}</view>
+        <view class='info'>{{item.luckDay}}</view>
       </view>
-      <view class='label' hover-class='none'>
-        <van-tag round type="success">支</van-tag>
-        22222
-      </view>
-    </view>
-    <view class='nav acea-row row-middle'>
-      <view class='content' hover-class='none'>
-        <view class='title'>{{"666"}}</view>
-        <view class='info'>收礼</view>
-        <view class='info'>2021年7月20日</view>
-      </view>
-      <view class='label' hover-class='none'>
-        <van-tag round type="success">支</van-tag>
-        22222
-      </view>
-    </view>
-    <view class='nav acea-row row-middle'>
-      <view class='content' hover-class='none'>
-        <view class='title'>{{"666"}}</view>
-        <view class='info'>收礼</view>
-        <view class='info'>2021年7月20日</view>
-      </view>
-      <view class='label' hover-class='none'>
-        <van-tag round type="success">支</van-tag>
-        22222
+      <view class='label'>
+        <van-tag round type="success" wx:if="{{item.type==='送'}}">送</van-tag>
+        <van-tag round color="#F76664" wx:else>收</van-tag>
+        {{item.money}}
       </view>
     </view>
   </view>

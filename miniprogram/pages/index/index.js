@@ -1,8 +1,10 @@
 // index.js
-// const app = getApp()
+const app = getApp()
+const db = wx.cloud.database()
 Page({
   data: {
-    year:'2021',
+    giftData: [],
+    year: '2021',
     // 年度选择
     showYearPicker: false,
     // 年度选择集合
@@ -33,9 +35,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getGiftPage(0, 10).then(res => {
+      console.log(res)
+      this.setData({
+        giftData: res.data
+      });
+    })
   },
-
+  // 分页获取送礼数据
+  getGiftPage(page, limit) {
+    return db.collection('gift')
+      .where({
+        userId: app.globalData.user._id
+      })
+      .orderBy('luckyDay', 'desc')
+      .skip(page * limit)
+      .limit(limit)
+      .get()
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -47,7 +64,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-   
+
   },
 
   /**
