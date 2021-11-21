@@ -7,6 +7,10 @@ Component({
         innerText: {
             type: String,
             value: '每一份人情都值得礼记',
+        },
+        loading:{
+            type: Boolean,
+            value: false,
         }
     },
 

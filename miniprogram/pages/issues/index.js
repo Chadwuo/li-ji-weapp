@@ -1,4 +1,6 @@
 // pages/issues/index.js
+const app = getApp()
+const db = wx.cloud.database()
 Page({
 
     /**
@@ -6,7 +8,34 @@ Page({
      */
     data: {
         value: '',
-        message:''
+        message: '',
+        loading: false,
+        issuesData: [],
+        pageNo: 0,
+        pageEnd:false
+    },
+    onTabsClick(event) {
+        // 进入意见片墙
+        if (event.detail.name === 'issues') {
+            this.getIssuesPage(this.data.pageNo, 10).then(res => {
+                if (res.data.length===0) {
+                    this.setData({
+                        pageEnd: true,
+                    });
+                }
+                this.setData({
+                    issuesData: res.data,
+                    pageNo: this.data.pageNo + 1
+                });
+            })
+        }
+    },
+    getIssuesPage(page, limit) {
+        return db.collection('issues')
+            .orderBy('createTime', 'desc')
+            .skip(page * limit)
+            .limit(limit)
+            .get()
     },
 
     /**
@@ -55,7 +84,24 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
-
+        if (!this.data.pageEnd) {
+            this.setData({
+                loading: true,
+            });
+            this.getIssuesPage(this.data.pageNo, 10).then(res => {
+                if (res.data.length > 0) {
+                    let issuesData = this.data.issuesData.concat(res.data)
+                    this.setData({
+                        issuesData,
+                        pageNo: this.data.pageNo + 1
+                    });
+                }
+            }).finally(
+                this.setData({
+                    loading: false,
+                })
+            );
+        }
     },
 
     /**
