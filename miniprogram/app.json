@@ -5,7 +5,8 @@
         "pages/books/books",
         "pages/friends/friends",
         "pages/about/index",
-        "pages/issues/index"
+        "pages/issues/index",
+        "pages/appreciate/index"
     ],
     "window": {
         "backgroundColor": "#F76664",
@@ -57,6 +58,5 @@
         "van-icon": "@vant/weapp/icon/index",
         "van-divider": "@vant/weapp/divider/index",
         "van-empty": "@vant/weapp/empty/index"
-       
     }
 }

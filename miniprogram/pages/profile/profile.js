@@ -9,7 +9,7 @@ Page({
       { page: "dev", icon: "shop-o", name: "我的家庭" },
       { page: "dev", icon: "peer-pay", name: "数据导出" },
       { page: "dev", icon:"fire-o",name:"版本功能"},
-      { page: "dev", icon:"good-job-o",name:"赞助"},
+      { page: "appreciate", icon:"good-job-o",name:"赞赏"},
       { page: "issues", icon:"smile-comment-o",name:"意见反馈"},
       { page: "about", icon: "info-o", name: "关于" }
       ]
