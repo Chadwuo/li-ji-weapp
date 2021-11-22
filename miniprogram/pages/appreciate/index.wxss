@@ -1,6 +1,13 @@
 /* pages/appreciate/index.wxss */
 .container {
+    height: 100%;
     align-items: center;
     padding: 24rpx 50rpx;
-    align-items: center;
+}
+
+.top_tip {
+    font-size: 28rpx;
+    font-family: PingFang SC;
+    color: #888888;
+    padding: 0 30rpx;
 }
