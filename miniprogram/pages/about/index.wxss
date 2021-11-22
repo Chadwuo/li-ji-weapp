@@ -26,8 +26,8 @@
     font-family: PingFang SC;
     font-weight: 300;
     color: #000000;
-    font-size: 32rpx;
-    margin-bottom: 48rpx;
+    font-size: 30rpx;
+    margin-bottom: 28rpx;
 }
 
 .top_tip {

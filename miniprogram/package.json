@@ -9,6 +9,7 @@
   "author": "micahh",
   "license": "ISC",
   "dependencies": {
-    "@vant/weapp": "^1.9.2"
+    "@vant/weapp": "^1.9.2",
+    "dayjs": "^1.10.7"
   }
 }

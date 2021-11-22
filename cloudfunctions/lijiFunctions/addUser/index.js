@@ -15,7 +15,8 @@ exports.main = async (event, context) => {
       familyId: "",
       createTime: db.serverDate(),
       openId: wxContext.OPENID,
-      vip: false
+      vip: false,
+      isAdmin: false
     }
   })
 };
