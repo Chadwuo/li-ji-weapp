@@ -1,0 +1,7 @@
+<!--pages/appreciate/index.wxml-->
+<view class="container">
+    <image src="/images/appreciate_img.jpg" mode="aspectFit" show-menu-by-longpress bindtap="previewImage"></image>
+
+    <barrage  bind:done="barrageDone" top="650rpx" shakeSpeed="1000" rowSpacing="60rpx" list="{{barrageList}}"></barrage>
+</view>
+<footer inner-text="倘若你觉得很赞 欢迎小额赞赏"></footer>

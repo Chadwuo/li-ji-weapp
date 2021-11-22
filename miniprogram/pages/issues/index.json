@@ -2,7 +2,7 @@
   "navigationBarTitleText": "意见反馈",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "footer": "/components/footer",
+    "footer": "/components/footer/index",
     "van-tab": "@vant/weapp/tab/index",
     "van-tabs": "@vant/weapp/tabs/index",
     "van-sticky": "@vant/weapp/sticky/index",

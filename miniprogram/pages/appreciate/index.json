@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "赞赏作者",
+  "usingComponents": {
+    "footer": "/components/footer/index",
+    "barrage": "/components/barrage"
+  }
+}

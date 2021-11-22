@@ -1,0 +1,6 @@
+/* pages/appreciate/index.wxss */
+.container {
+    align-items: center;
+    padding: 24rpx 50rpx;
+    align-items: center;
+}

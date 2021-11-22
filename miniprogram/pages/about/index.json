@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "关于礼记",
   "usingComponents": {
-    "footer": "/components/footer"
+    "footer": "/components/footer/index"
   }
 }

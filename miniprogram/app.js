@@ -20,7 +20,7 @@ App({
         traceUser: true,
       });
       // 获取storage中用户信息
-      let user = false//wx.getStorageSync(this.globalData.env.app_user_key)
+      let user = wx.getStorageSync(this.globalData.env.app_user_key)
       if (user) {
         this.globalData.user = JSON.parse(user)
       } else {
