@@ -2,6 +2,11 @@
 <view class="container">
     <image src="/images/appreciate_img.jpg" mode="aspectFit" show-menu-by-longpress bindtap="previewImage"></image>
 
-    <barrage  bind:done="barrageDone" top="650rpx" shakeSpeed="1000" rowSpacing="60rpx" list="{{barrageList}}"></barrage>
+    <barrage  bind:done="barrageDone" top="750rpx" shakeSpeed="1000" rowSpacing="60rpx" list="{{barrageList}}"></barrage>
+
+    <text class="top_tip">
+        非常感谢热心网友们对开源项目的赞助和支持。以下是项目的赞助名单
+         (如有遗漏疏忽，请务必告知)
+    </text>
 </view>
 <footer inner-text="倘若你觉得很赞 欢迎小额赞赏"></footer>

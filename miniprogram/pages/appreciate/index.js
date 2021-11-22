@@ -1,4 +1,5 @@
 // pages/appreciate/index.js
+const db = wx.cloud.database()
 Page({
 
     /**
@@ -6,6 +7,8 @@ Page({
      */
     data: {
         barrageList: [{
+                "name": "紫花纱",
+                "money": "99",
                 "words": "恭喜橙cc ʚ🧸ྀིɞ抽到米丽Molly",
                 "avatar": "https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKN7icTnnckpsFYianVNtSgSRh1eGHQqUBsGKOjqxWViczy4ich7GYZaNYBFVibo3RpbuHcgffYlzmbu4A/132"
             },
@@ -127,7 +130,7 @@ Page({
             }
         ]
     },
-    barrageDone(){
+    barrageDone() {
         console.log('回调完成')
     },
     previewImage() {
