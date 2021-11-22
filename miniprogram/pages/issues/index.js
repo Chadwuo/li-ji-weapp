@@ -1,18 +1,23 @@
 // pages/issues/index.js
+// 引入 dayjs
+const dayjs = require('dayjs');
 const app = getApp()
 const db = wx.cloud.database()
 Page({
-
     /**
      * 页面的初始数据
      */
     data: {
-        value: '',
-        message: '',
+        issuesTitle: '',
+        issuesContent: '',
+        issuesId: '',
+        replyContent: '',
         loading: false,
-        issuesData: [],
+        issuesList: [],
         pageNo: 0,
-        pageEnd: false
+        pageEnd: false,
+        isAdmin: false,
+        showAddPopup: false,
     },
     onTabsClick(event) {
         // 进入意见片墙
@@ -24,13 +29,19 @@ Page({
                         pageEnd: true,
                     });
                 }
+                let list = res.data.map((i) => {
+                    i.createTime = dayjs(i.createTime).format('YYYY-MM-DD')
+                    i.replyTime = dayjs(i.replyTime).format('YYYY-MM-DD')
+                    return i
+                })
                 this.setData({
-                    issuesData: res.data,
+                    issuesList: list,
                     pageNo: this.data.pageNo + 1
                 });
             })
         }
     },
+    // 获取分页数据
     getIssuesPage(page, limit) {
         return db.collection('issues')
             .orderBy('createTime', 'desc')
@@ -38,11 +49,67 @@ Page({
             .limit(limit)
             .get()
     },
-
+    // 添加
+    onAddIssues() {
+        db.collection('issues').add({
+            data: {
+                title: this.data.issuesTitle,
+                content: this.data.issuesContent,
+                createTime: db.serverDate(),
+            }
+        }).then(res => {
+            this.setData({
+                issuesTitle: '',
+                issuesContent: ''
+            });
+            wx.showToast({
+                title: '提交成功，感谢你',
+            })
+        })
+    },
+    // 提交回复
+    onReplyIssues() {
+        db.collection('issues').doc(this.data.issuesId).update({
+            data: {
+                reply: this.data.replyContent,
+                replyTime: db.serverDate()
+            }
+        }).then(res => {
+            wx.showToast({
+                title: '回复成功',
+            })
+        })
+    },
+    onDelIssues(e) {
+        const issuesId = e.currentTarget.dataset.issuesid
+        db.collection('issues').doc(issuesId).remove().then(res => {
+            wx.showToast({
+                title: '删除成功',
+            })
+        })
+    },
+    // 打开回复弹窗
+    onShowPopup(e) {
+        let info = e.currentTarget.dataset.info
+        this.setData({
+            showAddPopup: true,
+            replyContent: info.reply,
+            issuesId: info._id,
+        });
+    },
+    // 关闭回复弹窗
+    onClosePopup() {
+        this.setData({
+            showAddPopup: false,
+            replyContent: '',
+            issuesId: ''
+        });
+    },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+
 
     },
 
@@ -57,7 +124,9 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        this.setData({
+            isAdmin: app.globalData.user.isAdmin,
+        });
     },
 
     /**
@@ -78,7 +147,14 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
-
+        this.onTabsClick({
+            detail: {
+                name: 'issues'
+            }
+        })
+        setTimeout(() => {
+            wx.stopPullDownRefresh()
+        }, 2000);
     },
 
     /**
@@ -91,9 +167,9 @@ Page({
             });
             this.getIssuesPage(this.data.pageNo, 10).then(res => {
                 if (res.data.length > 0) {
-                    let issuesData = this.data.issuesData.concat(res.data)
+                    let issuesData = this.data.issuesList.concat(res.data)
                     this.setData({
-                        issuesData,
+                        issuesList: issuesData,
                         pageNo: this.data.pageNo + 1
                     });
                 }

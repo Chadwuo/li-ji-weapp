@@ -29,8 +29,8 @@
     </view>
   </van-sticky>
   <view class="wrapper">
-    <van-empty wx:if="{{!giftData}}" description="还没有记录哦~"></van-empty>
-    <view class='nav acea-row row-middle' wx:for="{{giftData}}" wx:key="index">
+    <van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
+    <view class='nav acea-row row-middle' wx:for="{{giftList}}" wx:key="index">
       <view class='content'>
         <view class='title'>{{item.name}}</view>
         <view class='info'>{{item.name}}</view>

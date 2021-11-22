@@ -3,7 +3,7 @@ const app = getApp()
 const db = wx.cloud.database()
 Page({
   data: {
-    giftData: [],
+    giftList: [],
     year: '2021',
     // 年度选择
     showYearPicker: false,
@@ -38,7 +38,7 @@ Page({
     this.getGiftPage(0, 10).then(res => {
       console.log(res)
       this.setData({
-        giftData: res.data
+        giftList: res.data
       });
     })
   },
