@@ -2,11 +2,27 @@
 <view class="container">
     <image src="/images/appreciate_img.jpg" mode="aspectFit" show-menu-by-longpress bindtap="previewImage"></image>
 
-    <barrage  bind:done="barrageDone" top="750rpx" shakeSpeed="1000" rowSpacing="60rpx" list="{{barrageList}}"></barrage>
+    <barrage bind:done="barrageDone" top="750rpx" shakeSpeed="1000" rowSpacing="60rpx" list="{{barrageList}}"></barrage>
 
     <text class="top_tip">
         非常感谢热心网友们对开源项目的赞助和支持。以下是项目的赞助名单
-         (如有遗漏疏忽，请务必告知)
+        (如有遗漏疏忽，请务必告知)
     </text>
+    <view wx:if="{{isAdmin==='true'}}">
+        <van-button color="#F76664" size="mini" bind:click="onShowPopup">添加</van-button>
+    </view>
 </view>
+<van-popup show="{{ showAddPopup }}" position="top" round closeable custom-style="height: 32%;" bind:close="onClosePopup">
+        <view style="display: flex;flex-direction: column;justify-content: space-between;height: 100%;">
+            <van-cell-group inset>
+                <van-field model:value="{{ name }}" placeholder="姓名"/>
+                <van-field model:value="{{ money }}" placeholder="金额" />
+                <van-field model:value="{{ words }}" placeholder="留言" type="textarea" autosize="{{ { minHeight: 60} }}" />
+            </van-cell-group>
+            <view style="display: flex;justify-content: space-around;margin: 24rpx 0;">
+                <van-button color="#F76664" round icon="guide-o" bind:click="onAdd" size="mini">添加</van-button>
+                <van-button color="#F76664" round icon="revoke" bind:click="onClosePopup" plain size="mini">关闭</van-button>
+            </view>
+        </view>
+    </van-popup>
 <footer inner-text="倘若你觉得很赞 欢迎小额赞赏"></footer>

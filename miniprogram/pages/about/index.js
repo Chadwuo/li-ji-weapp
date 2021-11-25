@@ -14,7 +14,7 @@ Page({
           })
     },
     micahh(){
-        const arr = ['你拍了拍作者头顶\r\n却没摸到秀发', '记得住恩情 守得住初心', '每一份人情\r\n都值得礼记']
+        const arr = ['你拍了拍作者头顶\r\n却没摸到秀发', '要不要来一把LOL', '你好啊 勇士']
         const index = Math.floor(Math.random() * arr.length)
         wx.showToast({
             title: arr[index],
