@@ -4,7 +4,7 @@
   
   <view class="box">
         <!-- <image src="{{_item.avatar}}"></image> -->
-        <text>{{_item.name}} 赞赏{{_item.money}}元：{{_item.words}}</text>
+        <text>{{_item.name}} 赞赏{{_item.money}}元 {{_item.words}}</text>
   </view>
   </view>
 </view>
