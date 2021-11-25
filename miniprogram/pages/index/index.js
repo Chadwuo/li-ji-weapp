@@ -35,8 +35,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    return
     this.getGiftPage(0, 10).then(res => {
-      console.log(res)
       this.setData({
         giftList: res.data
       });
