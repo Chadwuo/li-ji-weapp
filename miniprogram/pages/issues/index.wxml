@@ -35,7 +35,7 @@
         <van-tab title="Q&A">
             <view class="tab-item">
                 <van-cell-group inset>
-                    <van-cell title="Q：这个软件收费吗？" label="A：本项目是开源的公益项目，不会收取用户任何费用。" />
+                    <van-cell title="Q：这个软件收费吗？" label="A：本项目是个人开源的学习项目，不会收取用户任何费用。" />
                     <van-cell title="Q：作者是一个人完成所有开发工作吗？" label="A：目前是的，欢迎PR。" />
                     <van-cell title="Q：数据安全吗？" label="A：软件使用微信官方提供得云开发模式，数据保存在微信服务器。用户在使用该软件时，会生成一个加密标识，你的标识只能读写你所创建的数据，可以确保数据安全。" />
                     <van-cell title="Q：我没有授权，但是软件已经获取了我的微信头像和昵称？" label="A：这部分信息是由微信官方提供的开放控件Open-Data获取的，仅作显示使用，软件并没有读取存储你的微信信息。" />
