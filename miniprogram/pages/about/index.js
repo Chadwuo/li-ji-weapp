@@ -7,12 +7,6 @@ Page({
     data: {
 
     },
-    goGuide(){
-        wx.showToast({
-            title: '开发中...',
-            icon:'none',
-          })
-    },
     micahh(){
         const arr = ['你拍了拍作者头顶\r\n却没摸到秀发', '要不要来一把LOL', '你好啊 勇士']
         const index = Math.floor(Math.random() * arr.length)
