@@ -5,12 +5,12 @@ Page({
    */
   data: {
     MyMenus: [{
-        page: "dev",
+        page: "family",
         icon: "shop-o",
         name: "我的家庭"
       },
       {
-        page: "dev",
+        page: "export",
         icon: "peer-pay",
         name: "数据导出"
       },
@@ -37,9 +37,16 @@ Page({
     ]
   },
   jumpPage(e) {
-    if (e.currentTarget.dataset.page === 'dev') {
+    if (e.currentTarget.dataset.page === 'family') {
       wx.showToast({
-        title: '开发中...理解万岁',
+        title: '家庭共享记账，即将上线...',
+        icon: 'none',
+      })
+      return
+    }
+    if (e.currentTarget.dataset.page === 'export') {
+      wx.showToast({
+        title: '数据导出，收支明细汇总打印，即将上线...',
         icon: 'none',
       })
       return

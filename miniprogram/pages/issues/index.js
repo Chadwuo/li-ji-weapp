@@ -63,7 +63,7 @@ Page({
                 issuesContent: ''
             });
             wx.showToast({
-                title: '提交成功，感谢你',
+                title: '提交成功，意见已记录，感谢你',
             })
         })
     },
