@@ -5,8 +5,9 @@
     <barrage bind:done="barrageDone" top="750rpx" shakeSpeed="1000" rowSpacing="60rpx" list="{{barrageList}}"></barrage>
 
     <text class="top_tip">
-        非常感谢热心网友们对开源项目的赞助和支持。以下是项目的赞助名单
-        (如有遗漏疏忽，请务必告知)
+        如果你也喜欢这个项目，可以通过上方的二维码来赞助 礼记 的开发 —— 就好像偶尔给我买杯咖啡 :)
+        
+        以下是项目的赞助名单(如有遗漏疏忽，请务必告知)
     </text>
     <view wx:if="{{isAdmin==='true'}}" style="position: absolute;bottom: 150rpx;">
         <van-button color="#F76664" size="small" bind:click="onShowPopup">添加</van-button>
