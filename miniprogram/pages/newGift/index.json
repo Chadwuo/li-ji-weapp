@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "添加来往",
+  "usingComponents": {
+    "van-calendar": "@vant/weapp/calendar/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-radio": "@vant/weapp/radio/index",
+    "van-radio-group": "@vant/weapp/radio-group/index"
+  }
+}

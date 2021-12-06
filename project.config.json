@@ -20,9 +20,9 @@
         "uploadWithSourceMap": true,
         "compileHotReLoad": false,
         "lazyloadPlaceholderEnable": false,
-        "useMultiFrameRuntime": true,
-        "useApiHook": true,
-        "useApiHostProcess": true,
+        "useMultiFrameRuntime": false,
+        "useApiHook": false,
+        "useApiHostProcess": false,
         "babelSetting": {
             "ignore": [],
             "disablePlugins": [],
@@ -39,7 +39,7 @@
         "showES6CompileOption": false,
         "useCompilerPlugins": false
     },
-    "appid": "wx200dacbd79781fa0",
+    "appid": "touristappid",
     "projectname": "li-ji-weapp",
     "libVersion": "2.14.1",
     "cloudfunctionTemplateRoot": "cloudfunctionTemplate",

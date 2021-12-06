@@ -3,10 +3,13 @@
         "pages/index/index",
         "pages/profile/profile",
         "pages/books/books",
+        "pages/newGift/index",
         "pages/friends/friends",
         "pages/about/index",
         "pages/issues/index",
-        "pages/appreciate/index"
+        "pages/appreciate/index",
+        "pages/newFriend/index",
+        "pages/newBook/index"
     ],
     "window": {
         "backgroundColor": "#F76664",
@@ -32,6 +35,12 @@
                 "text": "礼簿",
                 "iconPath": "./images/book_gray.png",
                 "selectedIconPath": "./images/book_red.png"
+            },
+            {
+                "text": "记一笔",
+                "pagePath": "pages/newGift/index",
+                "iconPath": "./images/add_gray.png",
+                "selectedIconPath": "./images/add_red.png"
             },
             {
                 "pagePath": "pages/friends/friends",
