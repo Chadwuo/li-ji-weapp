@@ -1,4 +1,4 @@
-// pages/newFriend/index.js
+// pages/editFriend/index.js
 Page({
 
     /**

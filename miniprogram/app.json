@@ -3,13 +3,13 @@
         "pages/index/index",
         "pages/profile/profile",
         "pages/books/books",
-        "pages/newGift/index",
+        "pages/editGift/index",
         "pages/friends/friends",
         "pages/about/index",
         "pages/issues/index",
         "pages/appreciate/index",
-        "pages/newFriend/index",
-        "pages/newBook/index"
+        "pages/editFriend/index",
+        "pages/editBook/index"
     ],
     "window": {
         "backgroundColor": "#F76664",
@@ -38,7 +38,7 @@
             },
             {
                 "text": "记一笔",
-                "pagePath": "pages/newGift/index",
+                "pagePath": "pages/editGift/index",
                 "iconPath": "./images/add_gray.png",
                 "selectedIconPath": "./images/add_red.png"
             },

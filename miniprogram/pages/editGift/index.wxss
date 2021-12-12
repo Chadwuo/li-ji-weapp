@@ -1,0 +1,34 @@
+/* pages/editGift/index.wxss */
+.operation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.operation-right {
+    width: 40%;
+}
+
+.operation-left {
+    width: 40%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.operation-left .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.operation-left .item .item-icon {
+    width: 64rpx;
+    height: 64rpx;
+}
+
+.operation-left .item .item-title {
+    font-size: 24rpx;
+    font-family: PingFang SC;
+    font-weight: 400;
+    color: #888888;
+}
