@@ -1,0 +1,34 @@
+<view>
+    <van-cell-group inset>
+        <van-tabs active="{{ active }}" bind:change="onGiftTypeChange">
+            <van-tab title="收礼" name="a"></van-tab>
+            <van-tab title="送礼" name="b"></van-tab>
+        </van-tabs>
+        <van-cell title="{{date}}" is-link icon="calendar-o" bind:click="onDisplay" />
+        <van-field left-icon="contact" right-icon="friends-o" model:value="{{ value }}" placeholder="姓名" bind:click-icon="onSelectFriends"/>
+        <van-field left-icon="label-o" model:value="{{ value }}" placeholder="重名备注" />
+        <van-field left-icon="balance-o" model:value="{{ value }}" placeholder="金额" />
+        <van-field left-icon="point-gift-o" model:value="{{ value }}" placeholder="事由" />
+        <van-divider hairline />
+        <view class="operation">
+            <view class="operation-left">
+                <view class="item">
+                    <view class="item-icon">
+                        <van-icon name="orders-o" />
+                    </view>
+                    <view class="item-title">查看往来</view>
+                </view>
+                <view class="item">
+                    <view class="item-icon">
+                        <van-icon name="delete-o" />
+                    </view>
+                    <view class="item-title">删除</view>
+                </view>
+            </view>
+            <view class="operation-right">
+                <van-button round color="#F76664" block>保存</van-button>
+            </view>
+        </view>
+    </van-cell-group>
+    <van-calendar show="{{ show }}" show-confirm="{{ false }}" bind:confirm="onConfirm" />
+</view>
