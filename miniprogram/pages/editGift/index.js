@@ -1,9 +1,11 @@
+const dayjs = require('dayjs');
+
 Page({
     /**
      * 页面的初始数据
      */
     data: {
-      date: '',
+      date: dayjs().format('YYYY-MM-DD'),
       show: false,
     },
   
@@ -26,6 +28,9 @@ Page({
         show: false,
         date: this.formatDate(event.detail),
       });
+    },
+    onClose() {
+      this.setData({ show: false });
     },
     onGiftTypeChange(event) {
       console.log(event.detail.name)

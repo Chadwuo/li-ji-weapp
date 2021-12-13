@@ -21,11 +21,6 @@
     align-items: center;
 }
 
-.operation-left .item .item-icon {
-    width: 64rpx;
-    height: 64rpx;
-}
-
 .operation-left .item .item-title {
     font-size: 24rpx;
     font-family: PingFang SC;
