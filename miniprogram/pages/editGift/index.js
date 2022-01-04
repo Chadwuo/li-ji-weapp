@@ -5,35 +5,37 @@ Page({
      * 页面的初始数据
      */
     data: {
-      date: dayjs().format('YYYY-MM-DD'),
-      show: false,
+      luckDay: dayjs().format('YYYY-MM-DD'),
+      bookId:'',
+      money:'',
+      type:'',
+      wishes:'',
+      showCalendar: false
     },
   
     onDisplay() {
       this.setData({
-        show: true
+        showCalendar: true
       });
     },
     onClose() {
       this.setData({
-        show: false
+        showCalendar: false
       });
     },
     formatDate(date) {
-      date = new Date(date);
-      return `${date.getMonth() + 1}/${date.getDate()}`;
+      return dayjs(date).format('YYYY-MM-DD');
     },
     onConfirm(event) {
       this.setData({
-        show: false,
-        date: this.formatDate(event.detail),
+        showCalendar: false,
+        luckDay: this.formatDate(event.detail),
       });
     },
-    onClose() {
-      this.setData({ show: false });
-    },
     onGiftTypeChange(event) {
-      console.log(event.detail.name)
+      this.setData({
+        type: event.detail.name
+      });
     },
     onSelectFriends(){
       console.log('选择亲友')
