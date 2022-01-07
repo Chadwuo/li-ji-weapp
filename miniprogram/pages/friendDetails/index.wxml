@@ -5,8 +5,11 @@
             <image class="bg" src="/images/bg_summary.png" mode="center"></image>
             <view class="content">
                 <view class='item friend'>
-                    <van-icon size="64rpx" color="#fff" name="contact" style="margin-right: 10rpx;" />
-                    <span class="num">姐姐</span>
+                    <view>
+                        <van-icon size="64rpx" color="#fff" name="contact" style="margin-right: 10rpx;" />
+                        <span class="num">姐姐</span>
+                    </view>
+                    <van-icon name="edit" size="52rpx" color="#fff" bind:tap="onEditClick" />
                 </view>
                 <view class='item'>
                     <span class='num'>{{"666"}}</span>

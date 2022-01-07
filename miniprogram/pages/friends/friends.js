@@ -22,10 +22,9 @@ Page({
     });
   },
   onAdd() {
-    wx.showToast({
-      title: '添加...马上写完，真的',
-      icon: 'none',
-    })
+    wx.navigateTo({
+      url: `/pages/friendEdit/index`,
+    });
   },
   onDelete() {
     wx.showModal({
@@ -88,7 +87,6 @@ Page({
       this.setData({
         friendsList: list,
       });
-      console.log(this.data.friendsList)
     })
   },
 
