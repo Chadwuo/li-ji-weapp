@@ -1,9 +1,4 @@
 {
   "navigationBarTitleText": "赞赏作者",
-  "usingComponents": {
-    "footer": "/components/footer/index",
-    "barrage": "/components/barrage",
-    "van-field": "@vant/weapp/field/index",
-    "van-popup": "@vant/weapp/popup/index"
-  }
+  "usingComponents": {}
 }

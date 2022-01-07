@@ -5,9 +5,74 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    keyword: '',
+    giftBooks: [{
+        id: 1,
+        name: "婚礼",
+        count: 30,
+        total: 556,
+      },
+      {
+        id: 2,
+        name: "弄璋之喜",
+        count: 24,
+        total: 666,
+      },
+      {
+        id: 3,
+        name: "弄瓦之喜",
+        count: 24,
+        total: 866,
+      },
+    ],
+    showBookAction: false,
+    bookActions: [{
+        name: '编辑',
+      },
+      {
+        name: '删除',
+        subname: '该礼簿所有来往都将被删除',
+      },
+    ],
   },
-
+  onSearch() {
+    wx.showToast({
+      title: '搜索...马上写完，真的',
+      icon: 'none',
+    })
+  },
+  onAdd() {
+    wx.showToast({
+      title: '添加...马上写完，真的',
+      icon: 'none',
+    })
+  },
+  onBookClick(e) {
+    console.log(e.currentTarget.dataset.bookid)
+    wx.showToast({
+      title: '查看...马上写完，真的',
+      icon: 'none',
+    })
+    // wx.navigateTo({
+    //   url: `/pages/bookDetails/index`,
+    // });
+  },
+  onBookLongPress() {
+    this.setData({
+      showBookAction: true
+    });
+  },
+  onCloseBookAction() {
+    this.setData({
+      showBookAction: false
+    });
+  },
+  onSelectBookAction(event) {
+    wx.showToast({
+      title: event.detail.name + '...马上写完，真的',
+      icon: 'none',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -25,8 +90,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  },
+  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏

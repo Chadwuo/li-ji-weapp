@@ -1,24 +1,24 @@
 <view style="margin-top: 28rpx;">
     <van-cell-group inset>
-        <van-tabs bind:change="onGiftTypeChange">
+        <van-tabs bind:change="onGiftTypeChange" animated>
             <van-tab title="收礼" name="收"></van-tab>
             <van-tab title="送礼" name="送"></van-tab>
         </van-tabs>
         <van-cell title="{{ luckDay }}" is-link icon="calendar-o" bind:click="onDisplay" />
-        <van-field left-icon="contact" right-icon="friends-o" model:value="{{ value }}" placeholder="姓名" bind:click-icon="onSelectFriends"/>
-        <van-field left-icon="label-o" model:value="{{ value }}" placeholder="关系" />
+        <van-field left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="姓名" bind:click-icon="onSelectFriends"/>
+        <van-field left-icon="label-o" model:value="{{ friendKinship }}" placeholder="关系" />
         <van-field left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="金额" />
-        <van-field left-icon="point-gift-o" model:value="{{ value }}" placeholder="事由" />
+        <van-field left-icon="point-gift-o" model:value="{{ name }}" placeholder="事由" />
         <van-divider hairline />
         <view class="operation">
             <view class="operation-left">
-                <view class="item">
+                <view  wx:if="{{id}}" class="item" bindtap="delGift">
                     <van-icon size="52rpx" name="delete-o" />
                     <view class="item-title">删除</view>
                 </view>
             </view>
             <view class="operation-right">
-                <van-button round color="#F76664" block>保存</van-button>
+                <van-button round color="#F76664" block bind:click="saveGift">保存</van-button>
             </view>
         </view>
     </van-cell-group>

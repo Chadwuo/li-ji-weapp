@@ -1,6 +1,4 @@
 {
   "navigationBarTitleText": "",
-  "usingComponents": {
-    "van-notify": "@vant/weapp/notify/index"
-  }
+  "usingComponents": {}
 }

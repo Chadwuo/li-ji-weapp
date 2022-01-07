@@ -1,4 +1,4 @@
-// pages/editBook/index.js
+// pages/bookDetails/index.js
 Page({
 
     /**

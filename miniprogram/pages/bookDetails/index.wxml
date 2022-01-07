@@ -1,0 +1,7 @@
+<!--pages/bookDetails/index.wxml-->
+<text>pages/bookDetails/index.wxml</text>
+<view>
+    <van-dropdown-menu>
+        <van-dropdown-item value="{{ value2 }}" options="{{ option2 }}" />
+    </van-dropdown-menu>
+</view>

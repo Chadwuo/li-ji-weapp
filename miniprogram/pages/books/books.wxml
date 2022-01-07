@@ -1,2 +1,19 @@
 <!--pages/books/books.wxml-->
-<text>pages/books/books.wxml</text>
+<view>
+    <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch">
+        <view slot="action" bind:tap="onAdd">
+            <van-icon name="plus" size="48rpx" color="#F76664" />
+        </view>
+    </van-search>
+    <view class="book-wrapper">
+        <view class="book-item" wx:for="{{giftBooks}}" wx:key="index" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-bookid='{{item.id}}'>
+            <image class="bg" src="/images/bg_book.png" mode="scaleToFill"></image>
+            <view class="content">
+                <view class="name">{{ item.name }}</view>
+                <view class="count">共{{ item.count }}笔</view>
+                <view class="total">￥{{ item.total }}</view>
+            </view>
+        </view>
+    </view>
+</view>
+<van-action-sheet show="{{ showBookAction }}" actions="{{ bookActions }}" bind:close="onCloseBookAction" bind:cancel="onCloseBookAction" bind:select="onSelectBookAction" cancel-text="取消" close-on-click-overlay />
