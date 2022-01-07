@@ -22,6 +22,9 @@
 ### 在线体验
  <img src="doc/code.png" alt="Logo" width="240" height="240">
 
+### 效果图
+
+
 ### 文件目录说明
 
 ```
@@ -30,14 +33,22 @@ li-ji-weapp
 ├── README.md
 ├── /cloudfunctions/--云函数
 ├── /miniprogram/--小程序
-│  ├── /pages/
+│  ├── /components/--自定义组件
+│  ├── /custom-tab-bar/--自定义tabbar
+│  ├── /images/--图片
+│  ├── /pages/--页面
 │  │  ├── /index/--首页
 │  │  ├── /books/--礼簿
+│  │  │  ├── /bookEdit/--编辑礼簿
+│  │  │  ├── /bookDetails/--礼簿详情
 │  │  ├── /profile/--个人中心
 │  │  ├── /friends/--联系人
-│  ├── /images/
-│  ├── babel.config.js
-│  ├── package-lock.json
+│  │  │  ├── /friendEdit/--编辑联系人
+│  │  │  ├── /friendDetails/--联系人详情
+│  ├── app.js
+│  ├── app.json
+│  ├── app.wxss
+
 ```
 
 ### 使用到的框架
@@ -59,7 +70,7 @@ li-ji-weapp
 
 ### 鸣谢
 
-- GCTV
+- [wxmpbarrage](https://github.com/woswk/wxmpbarrage)：小程序弹幕组件
 
 <!-- links -->
 [license-url]: https://github.com/micahh28/li-ji-weapp/blob/master/LICENSE.txt

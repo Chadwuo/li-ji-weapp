@@ -1,0 +1,48 @@
+<!--index.wxml-->
+<view class="container">
+    <van-sticky offset-top="{{ -30 }}">
+        <view class="home-header">
+            <image class="bg" src="/images/bg_summary.png" mode="center"></image>
+            <view class="content">
+                <view class='item friend'>
+                    <van-icon size="64rpx" color="#fff" name="contact" style="margin-right: 10rpx;" />
+                    <span class="num">姐姐</span>
+                </view>
+                <view class='item'>
+                    <span class='num'>{{"666"}}</span>
+                    <span class='title'>(收支差)</span>
+                </view>
+                <van-row>
+                    <van-col span="12">
+                        <view class='item' hover-class='none'>
+                            <view class='num'>{{"666"}}</view>
+                            <view class='title'>收礼</view>
+                        </view>
+                    </van-col>
+                    <van-col span="12">
+                        <view class='item' hover-class='none'>
+                            <view class='num'>{{"666"}}</view>
+                            <view class='title'>送礼</view>
+                        </view>
+                    </van-col>
+                </van-row>
+            </view>
+        </view>
+    </van-sticky>
+    <view class="wrapper">
+        <van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
+        <view class='nav acea-row row-middle' wx:for="{{giftList}}" wx:key="index">
+            <view class='content'>
+                <view class='title'>{{item.name}}</view>
+                <view class='info'>{{item.name}}</view>
+                <view class='info'>{{item.luckDay}}</view>
+            </view>
+            <view class='label'>
+                <van-tag round type="success" wx:if="{{item.type==='送'}}">送</van-tag>
+                <van-tag round color="#F76664" wx:else>收</van-tag>
+                {{item.money}}
+            </view>
+        </view>
+    </view>
+</view>
+<footer></footer>

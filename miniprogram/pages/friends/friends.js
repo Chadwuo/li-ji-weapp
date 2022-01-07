@@ -11,9 +11,15 @@ Page({
   },
   onSearch() {
     wx.showToast({
-      title: 'keyword:' + this.data.keyword,
+      title: '搜索:' + this.data.keyword + '...马上写完，真的',
       icon: 'none',
     })
+  },
+  onFriendClick(e) {
+    console.log(e.currentTarget.dataset.friendid)
+    wx.navigateTo({
+      url: `/pages/friendDetails/index`,
+    });
   },
   onAdd() {
     wx.showToast({
