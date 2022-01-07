@@ -2,14 +2,15 @@
     "pages": [
         "pages/index/index",
         "pages/profile/profile",
-        "pages/books/books",
-        "pages/editGift/index",
+        "pages/giftEdit/index",
         "pages/friends/friends",
+        "pages/friendEdit/index",
         "pages/about/index",
         "pages/issues/index",
         "pages/appreciate/index",
-        "pages/editFriend/index",
-        "pages/editBook/index"
+        "pages/books/books",
+        "pages/bookEdit/index",
+        "pages/bookDetails/index"
     ],
     "window": {
         "backgroundColor": "#F76664",
@@ -23,8 +24,7 @@
         "selectedColor": "#F76664",
         "borderStyle": "black",
         "backgroundColor": "#ffffff",
-        "list": [
-            {
+        "list": [{
                 "pagePath": "pages/index/index",
                 "text": "首页",
                 "iconPath": "./images/home_gray.png",
@@ -38,7 +38,7 @@
             },
             {
                 "text": "记一笔",
-                "pagePath": "pages/editGift/index",
+                "pagePath": "pages/giftEdit/index",
                 "iconPath": "./images/add_gray.png",
                 "selectedIconPath": "./images/add_red.png"
             },
@@ -66,6 +66,26 @@
         "van-tag": "@vant/weapp/tag/index",
         "van-icon": "@vant/weapp/icon/index",
         "van-divider": "@vant/weapp/divider/index",
-        "van-empty": "@vant/weapp/empty/index"
+        "van-empty": "@vant/weapp/empty/index",
+        "van-notify": "@vant/weapp/notify/index",
+        "van-tab": "@vant/weapp/tab/index",
+        "van-tabs": "@vant/weapp/tabs/index",
+        "van-field": "@vant/weapp/field/index",
+        "footer": "/components/footer/index",
+        "van-popup": "@vant/weapp/popup/index",
+        "van-picker": "@vant/weapp/picker/index",
+        "van-sticky": "@vant/weapp/sticky/index",
+        "van-search": "@vant/weapp/search/index",
+        "van-swipe-cell": "@vant/weapp/swipe-cell/index",
+        "van-index-bar": "@vant/weapp/index-bar/index",
+        "van-index-anchor": "@vant/weapp/index-anchor/index",
+        "van-dialog": "@vant/weapp/dialog/index",
+        "van-calendar": "@vant/weapp/calendar/index",
+        "van-radio": "@vant/weapp/radio/index",
+        "van-radio-group": "@vant/weapp/radio-group/index",
+        "van-action-sheet": "@vant/weapp/action-sheet/index",
+        "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
+        "van-dropdown-item": "@vant/weapp/dropdown-item/index",
+        "barrage": "/components/barrage"
     }
 }

@@ -44,7 +44,7 @@
     </view>
   </view>
   <van-popup show="{{showYearPicker}}" round closeable position="bottom" bind:close="yearPickerClose" custom-style="height: 36%">
-    <van-picker columns="{{ yearData }}" default-index="{{ 2 }}" bind:change="yearPickerChange" />
+    <van-picker columns="{{ yearData }}" default-index="{{ 2 }}" bind:change="yearPickerChange"/>
   </van-popup>
 </view>
 <footer></footer>

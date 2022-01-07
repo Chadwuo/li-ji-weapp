@@ -17,7 +17,8 @@ Page({
   },
   onAdd() {
     wx.showToast({
-      title: '添加...',
+      title: '添加...马上写完，真的',
+      icon: 'none',
     })
   },
   onDelete() {
