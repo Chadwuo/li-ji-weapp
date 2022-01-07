@@ -15,9 +15,14 @@ Page({
       })
     },
     delFriend(){
-      wx.showToast({
-        title: '删除...马上写完，真的',
-        icon: 'none',
+      wx.showModal({
+        title: '删除联系人？',
+        content: '该联系人所有来往记录都将被删除，确定删除？',
+        success (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          }
+        }
       })
     },
     /**

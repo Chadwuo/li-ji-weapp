@@ -1,37 +1,22 @@
 // pages/books/books.js
+const app = getApp()
+const db = wx.cloud.database()
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     keyword: '',
-    giftBooks: [{
-        id: 1,
-        name: "婚礼",
-        count: 30,
-        total: 556,
-      },
-      {
-        id: 2,
-        name: "弄璋之喜",
-        count: 24,
-        total: 666,
-      },
-      {
-        id: 3,
-        name: "弄瓦之喜",
-        count: 24,
-        total: 866,
-      },
-    ],
+    pageNo: 0,
+    pageEnd: false,
+    giftBooks: [],
     showBookAction: false,
     bookActions: [{
         name: '编辑',
       },
       {
         name: '删除',
-        subname: '该礼簿所有来往都将被删除',
+        subname: '该礼簿所有来往记录都将被删除',
       },
     ],
   },
@@ -42,10 +27,9 @@ Page({
     })
   },
   onAdd() {
-    wx.showToast({
-      title: '添加...马上写完，真的',
-      icon: 'none',
-    })
+    wx.navigateTo({
+      url: `/pages/bookEdit/index`,
+    });
   },
   onBookClick(e) {
     console.log(e.currentTarget.dataset.bookid)
@@ -70,9 +54,14 @@ Page({
   onSelectBookAction(event) {
     switch (event.detail.name) {
       case '删除':
-        wx.showToast({
-          title: event.detail.name + '...马上写完，真的',
-          icon: 'none',
+        wx.showModal({
+          title: '删除礼簿？',
+          content: '该礼簿所有来往记录都将被删除，确定删除？',
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            }
+          }
         })
         break;
       case '编辑':
@@ -84,11 +73,33 @@ Page({
         break;
     }
   },
+  // 分页获取送礼数据
+  getPage(page, limit) {
+    return db.collection('book')
+      .where({
+        userId: app.globalData.user._id
+      })
+      .orderBy('luckyDay', 'desc')
+      .skip(page * limit)
+      .limit(limit)
+      .get()
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.data.pageNo = 0
+    this.getPage(this.data.pageNo, 10).then(res => {
+      if (res.data.length === 0) {
+        this.setData({
+          pageEnd: true,
+        });
+      }
+      this.setData({
+        giftBooks: res.data,
+        pageNo: this.data.pageNo + 1
+      });
+    })
   },
 
   /**
@@ -128,7 +139,20 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if (!this.data.pageEnd) {
+      // this.setData({
+      //   loading: true,
+      // });
+      this.getPage(this.data.pageNo, 10).then(res => {
+        if (res.data.length > 0) {
+          let datas = this.data.issuesData.concat(res.data)
+          this.data.pageNo + 1
+          this.setData({
+            giftBooks: datas
+          });
+        }
+      })
+    }
   },
 
   /**
