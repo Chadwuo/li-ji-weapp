@@ -1,2 +1,20 @@
-<!--pages/bookEdit/index.wxml-->
-<text>pages/bookEdit/index.wxml</text>
+<view style="margin-top: 28rpx;">
+    <van-cell-group inset>
+        <van-field label="礼簿名称" left-icon="label-o" model:value="{{ name }}" placeholder="请输入" />
+        <van-field label="良辰吉日" left-icon="calendar-o" model:value="{{ luckDay }}"  bind:click-input="onDisplay" />
+        <van-field label="备注" left-icon="bookmark-o" model:value="{{ remarks }}" type="textarea" placeholder="选填" autosize="{{ { minHeight: 120} }}"/>
+        <van-divider hairline />
+        <view class="operation">
+            <view class="operation-left">
+                <view  wx:if="{{id}}" class="item" bindtap="delBook">
+                    <van-icon size="52rpx" name="delete-o" />
+                    <view class="item-title">删除</view>
+                </view>
+            </view>
+            <view class="operation-right">
+                <van-button round color="#F76664" block bind:click="saveBook">保存</van-button>
+            </view>
+        </view>
+    </van-cell-group>
+    <van-calendar show="{{ showCalendar }}" show-confirm="{{ false }}" bind:close="onClose" bind:confirm="onConfirm" />
+</view>

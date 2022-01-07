@@ -68,10 +68,21 @@ Page({
     });
   },
   onSelectBookAction(event) {
-    wx.showToast({
-      title: event.detail.name + '...马上写完，真的',
-      icon: 'none',
-    })
+    switch (event.detail.name) {
+      case '删除':
+        wx.showToast({
+          title: event.detail.name + '...马上写完，真的',
+          icon: 'none',
+        })
+        break;
+      case '编辑':
+        wx.navigateTo({
+          url: `/pages/bookEdit/index`,
+        });
+        break;
+      default:
+        break;
+    }
   },
   /**
    * 生命周期函数--监听页面加载

@@ -9,12 +9,13 @@
 
 /* 头部背景 */
 .home-header .bg {
+  position: absolute;
   height: 100%;
   width: 100%;
+  z-index: -1;
 }
 
 .home-header .content {
-  position: absolute;
   width: 100%;
   text-align: center;
   padding: 32rpx 0;
