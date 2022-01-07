@@ -51,10 +51,6 @@ li-ji-weapp
 
 ```
 
-### 使用到的框架
-
-- [Vant weapp](https://github.com/youzan/vant-weapp)
-
 ### 作者
 
 - [micahh28](https://github.com/micahh28)
@@ -70,6 +66,7 @@ li-ji-weapp
 
 ### 鸣谢
 
+- [Vant weapp](https://github.com/youzan/vant-weapp)：轻量、可靠的小程序 UI 组件库
 - [wxmpbarrage](https://github.com/woswk/wxmpbarrage)：小程序弹幕组件
 
 <!-- links -->
