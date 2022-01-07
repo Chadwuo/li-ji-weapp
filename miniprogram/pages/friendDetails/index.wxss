@@ -1,77 +1,77 @@
-
 /* 头部 */
 .home-header {
-    height: 290rpx;
-    background-color: #F76664 !important;
-    display: flex;
-    align-items: center;
-  }
-  
-  /* 头部背景 */
-  .home-header .bg {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-  }
-  
-  .home-header .content {
-    width: 100%;
-    text-align: center;
-    padding: 32rpx 0;
-  }
+  height: 290rpx;
+  background-color: #F76664 !important;
+  display: flex;
+  align-items: center;
+}
 
-  .home-header .content .friend{
-    width: 100%;
-    text-align: left;
-    padding-left: 32rpx;
-    padding-bottom: 24rpx;
-  }
+/* 头部背景 */
+.home-header .bg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
 
-  .home-header .content .item .num{
-    color: #fff;
-    font-size: 48rpx;
-    font-weight: 500;
-  }
-  .home-header .content .item .title{
-    color: #fff;
-    font-size: 24rpx;
-  }
-  
-  /* 内容 */
-  .wrapper {
-    padding: 0 32rpx;
-  }
-  
-  /* 卡片 */
-  .wrapper .nav {
-    background-color: #fff;
-    border-radius: 20rpx;
-    margin-top: 20rpx;
-  }
-  
-  .wrapper .nav .content {
-    flex: 1;
-    text-align: left;
-    padding-left: 48rpx;
-  }
-  
-  .wrapper .nav .content .title {
-    color: #000000;
-    font-size: 44rpx;
-    font-weight: 500;
-    margin: 25rpx 0 15rpx 0;
-  }
-  
-  .wrapper .nav .content .info {
-    color: #888888;
-    font-size: 24rpx;
-    font-family: PingFang SC;
-    margin-bottom: 15rpx;
-  }
-  
-  .wrapper .nav .label {
-    flex: 1;
-    text-align: center;
-  }
-  
+.home-header .content {
+  width: 100%;
+  text-align: center;
+  padding: 32rpx 0;
+}
+
+.home-header .content .friend {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 32rpx;
+  padding-bottom: 24rpx;
+}
+
+.home-header .content .item .num {
+  color: #fff;
+  font-size: 48rpx;
+  font-weight: 500;
+}
+
+.home-header .content .item .title {
+  color: #fff;
+  font-size: 24rpx;
+}
+
+/* 内容 */
+.wrapper {
+  padding: 0 32rpx;
+}
+
+/* 卡片 */
+.wrapper .nav {
+  background-color: #fff;
+  border-radius: 20rpx;
+  margin-top: 20rpx;
+}
+
+.wrapper .nav .content {
+  flex: 1;
+  text-align: left;
+  padding-left: 48rpx;
+}
+
+.wrapper .nav .content .title {
+  color: #000000;
+  font-size: 44rpx;
+  font-weight: 500;
+  margin: 25rpx 0 15rpx 0;
+}
+
+.wrapper .nav .content .info {
+  color: #888888;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  margin-bottom: 15rpx;
+}
+
+.wrapper .nav .label {
+  flex: 1;
+  text-align: center;
+}
