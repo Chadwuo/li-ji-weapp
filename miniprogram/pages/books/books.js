@@ -10,6 +10,7 @@ Page({
     pageNo: 0,
     pageEnd: false,
     giftBooks: [],
+    actionId: '',
     showBookAction: false,
     bookActions: [{
         name: '编辑',
@@ -32,7 +33,6 @@ Page({
     });
   },
   onBookClick(e) {
-    console.log(e.currentTarget.dataset.bookid)
     wx.showToast({
       title: '查看...马上写完，真的',
       icon: 'none',
@@ -41,9 +41,10 @@ Page({
     //   url: `/pages/bookDetails/index`,
     // });
   },
-  onBookLongPress() {
+  onBookLongPress(e) {
     this.setData({
-      showBookAction: true
+      showBookAction: true,
+      actionId: e.currentTarget.dataset.bookid
     });
   },
   onCloseBookAction() {
@@ -52,6 +53,7 @@ Page({
     });
   },
   onSelectBookAction(event) {
+    var that = this
     switch (event.detail.name) {
       case '删除':
         wx.showModal({
@@ -59,21 +61,30 @@ Page({
           content: '该礼簿所有来往记录都将被删除，确定删除？',
           success(res) {
             if (res.confirm) {
-              console.log('用户点击确定')
+              db.collection('book').doc(that.data.actionId).remove({
+                success: function (res) {
+                  that.setData({
+                    giftBooks: that.data.giftBooks.filter(item => item._id != that.data.actionId)
+                  })
+                  wx.showToast({
+                    title: '删除成功',
+                  })
+                }
+              })
             }
           }
         })
         break;
       case '编辑':
         wx.navigateTo({
-          url: `/pages/bookEdit/index`,
+          url: `/pages/bookEdit/index?bookId=${this.data.actionId}`,
         });
         break;
       default:
         break;
     }
   },
-  // 分页获取送礼数据
+  // 分页获取数据
   getPage(page, limit) {
     return db.collection('book')
       .where({
@@ -88,6 +99,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
     this.data.pageNo = 0
     this.getPage(this.data.pageNo, 10).then(res => {
       if (res.data.length === 0) {
@@ -101,18 +126,6 @@ Page({
       });
     })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏

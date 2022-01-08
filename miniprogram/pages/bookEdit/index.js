@@ -50,13 +50,15 @@ Page({
     }
   },
   delBook() {
+    var that = this
     wx.showModal({
       title: '删除礼簿？',
       content: '该礼簿所有来往记录都将被删除，确定删除？',
       success(res) {
         if (res.confirm) {
-          db.collection('book').doc(this.data.id).remove({
-            success: function(res) {
+          db.collection('book').doc(that.data.id).remove({
+            success: function (res) {
+              wx.navigateBack()
               wx.showToast({
                 title: '删除成功',
               })
@@ -86,9 +88,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this
+    if (options.bookId) {
+      db.collection('book').doc(options.bookId).get({
+        success: function (res) {
+          that.setData({
+            id: res.data._id,
+            luckDay: that.formatDate(res.data.luckDay),
+            name: res.data.name,
+          });
+          wx.setNavigationBarTitle({
+            title: res.data.name
+          })
+        }
+      })
+    }
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
