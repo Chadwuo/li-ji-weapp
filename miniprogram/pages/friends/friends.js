@@ -1,5 +1,4 @@
 // pages/friends/friends.js
-import pinyin from "wl-pinyin";
 const db = wx.cloud.database()
 Page({
   /**
@@ -16,9 +15,8 @@ Page({
     })
   },
   onFriendClick(e) {
-    console.log(e.currentTarget.dataset.friendid)
     wx.navigateTo({
-      url: `/pages/friendDetails/index`,
+      url: `/pages/friendDetails/index?friendId=${e.currentTarget.dataset.friend._id}&friendName=${e.currentTarget.dataset.friend.name}`,
     });
   },
   onAdd() {
@@ -69,7 +67,7 @@ Page({
       name: 'lijiFunctions',
       data: {
         type: 'getAllData',
-        table: 'friend'
+        table: 'friend',
       }
     }).then(res => {
       for (const item of res.result.data) {
@@ -108,7 +106,11 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.onShow()
+    
+    setTimeout(() => {
+      wx.stopPullDownRefresh()
+    }, 2000);
   },
 
   /**

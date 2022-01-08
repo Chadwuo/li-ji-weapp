@@ -7,25 +7,25 @@
                 <view class='item friend'>
                     <view>
                         <van-icon size="64rpx" color="#fff" name="contact" style="margin-right: 10rpx;" />
-                        <span class="num">姐姐</span>
+                        <span class="num">{{name}}</span>
                     </view>
                     <van-icon name="edit" size="52rpx" color="#fff" bind:tap="onEditClick" />
                 </view>
                 <view class='item'>
-                    <span class='num'>{{"666"}}</span>
+                    <span class='num'>{{happyOrSad}}</span>
                     <span class='title'>(收支差)</span>
                 </view>
                 <van-row>
                     <van-col span="12">
                         <view class='item' hover-class='none'>
-                            <view class='num'>{{"666"}}</view>
-                            <view class='title'>收礼</view>
+                            <view class='num'>{{happyTotal}}</view>
+                            <view class='title'>收礼({{happyCount}})</view>
                         </view>
                     </van-col>
                     <van-col span="12">
                         <view class='item' hover-class='none'>
-                            <view class='num'>{{"666"}}</view>
-                            <view class='title'>送礼</view>
+                            <view class='num'>{{sadTotal}}</view>
+                            <view class='title'>送礼({{sadCount}})</view>
                         </view>
                     </van-col>
                 </van-row>
