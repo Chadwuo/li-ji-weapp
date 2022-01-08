@@ -5,13 +5,14 @@
             <van-icon name="plus" size="48rpx" color="#F76664" />
         </view>
     </van-search>
+    <van-empty wx:if="{{giftBooks.length===0}}" description="还没有记录哦~"></van-empty>
     <view class="book-wrapper">
-        <view class="book-item" wx:for="{{giftBooks}}" wx:key="index" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-bookid='{{item.id}}'>
+        <view class="book-item" wx:for="{{giftBooks}}" wx:key="index" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-bookid='{{item._id}}'>
             <image class="bg" src="/images/bg_book.png" mode="scaleToFill"></image>
             <view class="content">
                 <view class="name">{{ item.name }}</view>
-                <view class="count">共{{ item.count }}笔</view>
-                <view class="total">￥{{ item.total }}</view>
+                <view class="count">共 {{ item.count||0 }} 笔</view>
+                <view class="total">￥ {{ item.total||'0.00' }}</view>
             </view>
         </view>
     </view>
