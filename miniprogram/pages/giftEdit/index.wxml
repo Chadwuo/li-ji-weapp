@@ -5,11 +5,10 @@
             <van-tab title="送礼" name="送"></van-tab>
         </van-tabs>
         <van-cell title="{{ luckDay }}" is-link icon="calendar-o" bind:click="onDisplay" />
-        <van-field left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="姓名" bind:click-icon="onSelectFriends"/>
-        <van-field left-icon="balance-list-o" right-icon="balance-list-o" model:value="{{ bookName }}" placeholder="礼簿" bind:click-icon="onSelectFriends"/>
-        <van-field left-icon="label-o" model:value="{{ friendKinship }}" placeholder="关系" />
-        <van-field left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="金额" />
+        <van-field left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="亲友" bind:click-icon="onSelectFriends"/>
         <van-field left-icon="point-gift-o" model:value="{{ name }}" placeholder="事由" />
+        <van-field left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="金额" />
+        <van-field left-icon="balance-list-o" right-icon="balance-list-o" model:value="{{ bookName }}" placeholder="礼簿" bind:click-icon="onSelectBooks"/>
         <van-divider hairline />
         <view class="operation">
             <view class="operation-left">

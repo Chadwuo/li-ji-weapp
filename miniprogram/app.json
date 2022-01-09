@@ -6,12 +6,14 @@
         "pages/friends/friends",
         "pages/friendEdit/index",
         "pages/friendDetails/index",
+        "pages/friendSelect/index",
         "pages/about/index",
         "pages/issues/index",
         "pages/appreciate/index",
         "pages/books/books",
         "pages/bookEdit/index",
-        "pages/bookDetails/index"
+        "pages/bookDetails/index",
+        "pages/bookSelect/index"
     ],
     "window": {
         "backgroundColor": "#F76664",

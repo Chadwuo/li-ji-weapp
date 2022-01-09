@@ -3,6 +3,8 @@ const app = getApp()
 const db = wx.cloud.database()
 Page({
   data: {
+    pageNo: 0,
+    pageEnd: false,
     giftList: [],
     year: '2021',
     // 年度选择
@@ -35,15 +37,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    return
-    this.getGiftPage(0, 10).then(res => {
-      this.setData({
-        giftList: res.data
-      });
-    })
+
   },
-  // 分页获取送礼数据
-  getGiftPage(page, limit) {
+  // 分页获取数据
+  getPage(page, limit) {
     return db.collection('gift')
       .where({
         userId: app.globalData.user._id
@@ -64,7 +61,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.data.pageNo = 0
+    this.getPage(this.data.pageNo, 10).then(res => {
+      if (res.data.length === 0) {
+        this.setData({
+          pageEnd: true,
+        });
+      }
+      this.setData({
+        giftList: res.data,
+        pageNo: this.data.pageNo + 1
+      });
+    })
   },
 
   /**
@@ -85,7 +93,20 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    if (!this.data.pageEnd) {
+      // this.setData({
+      //   loading: true,
+      // });
+      this.getPage(this.data.pageNo, 10).then(res => {
+        if (res.data.length > 0) {
+          let datas = this.data.giftList.concat(res.data)
+          this.data.pageNo + 1
+          this.setData({
+            giftList: datas
+          });
+        }
+      })
+    }
   },
 
   /**

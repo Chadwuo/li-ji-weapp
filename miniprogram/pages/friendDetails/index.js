@@ -5,11 +5,11 @@ Page({
     giftList: [],
     id: '',
     name: '',
-    happyCount: '',
-    happyTotal: '',
-    sadCount: '',
-    sadTotal: '',
-    happyOrSad: ''
+    happyCount: '0',
+    happyTotal: '0.00',
+    sadCount: '0',
+    sadTotal: '0.00',
+    happyOrSad: '0.00'
   },
   // 计算统计往来记录
   computedGift(arr) {
@@ -17,13 +17,13 @@ Page({
     let happy = arr.filter(i => i.type == '收')
     let happyTotal = 0
     for (let item of happy) {
-      happyTotal = happyTotal + item.money
+      happyTotal += Number(item.money)
     }
     // 送出去的人情
     let sad = arr.filter(i => i.type == '送')
     let sadTotal = 0
     for (let item of sad) {
-      sadTotal = sadTotal + item.money
+      sadTotal += Number(item.money)
     }
     this.setData({
       happyCount: happy.length,
