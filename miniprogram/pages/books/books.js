@@ -33,13 +33,9 @@ Page({
     });
   },
   onBookClick(e) {
-    wx.showToast({
-      title: '查看...马上写完，真的',
-      icon: 'none',
-    })
-    // wx.navigateTo({
-    //   url: `/pages/bookDetails/index`,
-    // });
+    wx.navigateTo({
+      url: `/pages/bookDetails/index?bookId=${e.currentTarget.dataset.bookid}`,
+    });
   },
   onBookLongPress(e) {
     this.setData({
@@ -99,7 +95,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   /**
@@ -158,7 +154,7 @@ Page({
       // });
       this.getPage(this.data.pageNo, 10).then(res => {
         if (res.data.length > 0) {
-          let datas = this.data.issuesData.concat(res.data)
+          let datas = this.data.giftBooks.concat(res.data)
           this.data.pageNo + 1
           this.setData({
             giftBooks: datas

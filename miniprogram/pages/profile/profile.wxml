@@ -20,11 +20,11 @@
   <view class='wrapper'>
     <view class='nav acea-row row-middle'>
       <view class='item' hover-class='none'>
-        <view class='num'>{{"666"}}</view>
+        <view class='num'>{{"0.00"}}</view>
         <view class='title'>收礼</view>
       </view>
       <view class='item' hover-class='none'>
-        <view class='num'>{{"666"}}</view>
+        <view class='num'>{{"0.00"}}</view>
         <view class='title'>送礼</view>
       </view>
     </view>
