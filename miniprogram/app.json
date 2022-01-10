@@ -2,6 +2,7 @@
     "pages": [
         "pages/index/index",
         "pages/profile/profile",
+        "pages/giftAdd/index",
         "pages/giftEdit/index",
         "pages/friends/friends",
         "pages/friendEdit/index",
@@ -41,7 +42,7 @@
             },
             {
                 "text": "记一笔",
-                "pagePath": "pages/giftEdit/index",
+                "pagePath": "pages/giftAdd/index",
                 "iconPath": "./images/add_gray.png",
                 "selectedIconPath": "./images/add_red.png"
             },
@@ -89,6 +90,7 @@
         "van-action-sheet": "@vant/weapp/action-sheet/index",
         "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
         "van-dropdown-item": "@vant/weapp/dropdown-item/index",
-        "barrage": "/components/barrage"
+        "barrage": "/components/barrage",
+        "van-submit-bar": "@vant/weapp/submit-bar/index"
     }
 }
