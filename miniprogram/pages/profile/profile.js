@@ -1,9 +1,13 @@
 // pages/profile/profile.js
+const app = getApp()
+const db = wx.cloud.database()
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    giveTotal: 0.00,
+    receiveTotal: 0.00,
     MyMenus: [{
         page: "family",
         icon: "shop-o",
@@ -79,7 +83,42 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    const $ = db.command.aggregate
+    db.collection('gift')
+      .aggregate()
+      .match({
+        userId: app.globalData.user._id,
+        type: '收'
+      })
+      .group({
+        _id: null,
+        total: $.sum('$money')
+      })
+      .end()
+      .then(res => {
+        this.setData({
+          receiveTotal: res.list[0].total.toFixed(2),
+        });
+      })
+
+    db.collection('gift')
+      .aggregate()
+      .match({
+        userId: app.globalData.user._id,
+        type: '送'
+      })
+      .group({
+        _id: null,
+        total: $.sum('$money')
+      })
+      .end()
+      .then(res => {
+        this.setData({
+          giveTotal: res.list[0].total.toFixed(2),
+        });
+      })
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
