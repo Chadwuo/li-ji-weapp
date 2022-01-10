@@ -14,52 +14,32 @@ Page({
     type: '收',
     wishes: '',
     friendName: '',
-    showCalendar: false
+    showCalendar: false,
+    tip: '',
+    price: 0
   },
   formatDate(date) {
     return dayjs(date).format('YYYY-MM-DD');
   },
   saveGift() {
-    if (this.data.id) {
-      db.collection('gift').doc(this.data.id).update({
-        data: {
-          userId: app.globalData.user._id,
-          luckDay: this.data.luckDay,
-          name: this.data.name,
-          bookId: this.data.bookId,
-          money: Number(this.data.money),
-          type: this.data.type,
-          wishes: this.data.wishes,
-          friendId: this.data.friendName,
-        },
-        success: function (res) {
-          console.log(res)
-          wx.showToast({
-            title: '修改成功',
-          })
-        }
-      })
-    } else {
-      db.collection('gift').add({
-        data: {
-          userId: app.globalData.user._id,
-          luckDay: this.data.luckDay,
-          name: this.data.name,
-          bookId: this.data.bookId,
-          money: Number(this.data.money),
-          type: this.data.type,
-          wishes: this.data.wishes,
-          friendName: this.data.friendName,
-        }
-      }).then(res => {
-        this.setData({
-          id: res._id
-        });
+    db.collection('gift').doc(this.data.id).update({
+      data: {
+        userId: app.globalData.user._id,
+        luckDay: this.data.luckDay,
+        name: this.data.name,
+        bookId: this.data.bookId,
+        money: Number(this.data.money),
+        type: this.data.type,
+        wishes: this.data.wishes,
+        friendId: this.data.friendName,
+      },
+      success: function (res) {
+        console.log(res)
         wx.showToast({
-          title: '保存成功',
+          title: '修改成功',
         })
-      })
-    }
+      }
+    })
   },
   delGift() {
     var that = this
@@ -77,6 +57,12 @@ Page({
           })
         }
       }
+    })
+  },
+  onMoneyBlur(e) {
+    console.log(e)
+    this.setData({
+      price: Number(e.detail.value) * 100
     })
   },
   onDisplay() {
@@ -116,7 +102,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this
+    db.collection('gift').doc(options.giftId).get().then(res => {
+      that.setData({
+        luckDay: this.data.luckDay,
+        name: this.data.name,
+        bookId: this.data.bookId,
+        money: Number(this.data.money),
+        type: this.data.type,
+        wishes: this.data.wishes,
+        friendId: this.data.friendId,
+      });
+    })
   },
 
   /**
