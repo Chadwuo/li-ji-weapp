@@ -1,18 +1,36 @@
-// pages/bookSelect/index.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    bookList: []
   },
-
+  onSelectBook(e) {
+    console.log(e.currentTarget.dataset.book)
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.emit('acceptDataFromBookPage', e.currentTarget.dataset.book);
+    wx.navigateBack()
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.cloud.callFunction({
+      name: 'lijiFunctions',
+      data: {
+        type: 'getAllData',
+        table: 'book',
+        where: {
+          userId: app.globalData.user._id,
+        }
+      }
+    }).then(res => {
+      this.setData({
+        bookList: res.result.data,
+      });
+    })
   },
 
   /**

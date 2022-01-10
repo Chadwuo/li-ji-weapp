@@ -1,18 +1,35 @@
-// pages/friendSelect/index.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    friendList: []
   },
-
+  onSelectFriend(e) {
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.emit('acceptDataFromFriendPage', e.currentTarget.dataset.friend);
+    wx.navigateBack()
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.cloud.callFunction({
+      name: 'lijiFunctions',
+      data: {
+        type: 'getAllData',
+        table: 'friend',
+        where: {
+          userId: app.globalData.user._id,
+        }
+      }
+    }).then(res => {
+      this.setData({
+        friendList: res.result.data,
+      });
+    })
   },
 
   /**
