@@ -26,6 +26,7 @@ Page({
     async saveGift() {
         let that = this
         if (!this.data.friendId) {
+            // 先把联系人存起来
             await db.collection('friend').add({
                 data: {
                     name: that.data.friendName,
@@ -70,15 +71,17 @@ Page({
     },
     onFriendBlur(e) {
         let that = this
+        // 查询数据库中有无同名亲友
         db.collection('friend').where({
                 userId: app.globalData.user._id,
                 name: e.detail.value
             })
             .get()
             .then(res => {
-                // 亲友联系人中有数据
                 if (res.data.length != 0) {
+                    // 有数据
                     that.setData({
+                        friendId: res.data[0]._id,
                         tip: `已有同名联系人【${res.data[0].name}】，记录会添加在与该亲友的来往记录中`
                     });
                 }

@@ -21,7 +21,22 @@ Page({
   formatDate(date) {
     return dayjs(date).format('YYYY-MM-DD');
   },
-  saveGift() {
+  async saveGift() {
+    let that = this
+    if (!this.data.friendId) {
+      // 先把联系人存起来
+      await db.collection('friend').add({
+        data: {
+          name: that.data.friendName,
+          userId: app.globalData.user._id,
+          firstLetter: pinyin.getFirstLetter(that.data.friendName.substr(0, 1))
+        }
+      }).then(res => {
+        that.setData({
+          friendId: res._id,
+        });
+      })
+    }
     db.collection('gift').doc(this.data.id).update({
       data: {
         userId: app.globalData.user._id,
@@ -31,7 +46,7 @@ Page({
         money: Number(this.data.money),
         type: this.data.type,
         wishes: this.data.wishes,
-        friendId: this.data.friendName,
+        friendId: this.data.friendId,
       },
       success: function (res) {
         console.log(res)
@@ -58,6 +73,23 @@ Page({
         }
       }
     })
+  },
+  onFriendBlur(e) {
+    let that = this
+    db.collection('friend').where({
+        userId: app.globalData.user._id,
+        name: e.detail.value
+      })
+      .get()
+      .then(res => {
+        if (res.data.length != 0) {
+          // 有数据
+          that.setData({
+            friendId: res.data[0]._id,
+            tip: `已有同名联系人【${res.data[0].name}】，记录会添加在与该亲友的来往记录中`
+          });
+        }
+      })
   },
   onMoneyBlur(e) {
     console.log(e)
@@ -86,16 +118,36 @@ Page({
       type: event.detail.name
     });
   },
+  // 选择联系人
   onSelectFriends() {
-    wx.showToast({
-      title: '选择亲友...马上写完，真的',
-      icon: 'none',
+    let that = this
+    wx.navigateTo({
+      url: '/pages/friendSelect/index',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        acceptDataFromFriendPage: function (data) {
+          that.setData({
+            friendName: data.name,
+            friendId: data._id,
+          })
+        }
+      }
     })
   },
+  // 选择礼簿
   onSelectBooks() {
-    wx.showToast({
-      title: '选择礼簿...马上写完，真的',
-      icon: 'none',
+    let that = this
+    wx.navigateTo({
+      url: '/pages/bookSelect/index',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        acceptDataFromBookPage: function (data) {
+          that.setData({
+            bookName: data.name,
+            bookId: data._id,
+          })
+        }
+      }
     })
   },
   /**
