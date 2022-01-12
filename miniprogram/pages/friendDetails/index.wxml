@@ -12,7 +12,7 @@
                     <van-icon name="edit" size="52rpx" color="#fff" bind:tap="onEditClick" />
                 </view>
                 <view class='item'>
-                    <span class='num'>{{happyOrSad}}</span>
+                    <span class='num'>{{happyTotal-sadTotal}}</span>
                     <span class='title'>(收支差)</span>
                 </view>
                 <van-row>

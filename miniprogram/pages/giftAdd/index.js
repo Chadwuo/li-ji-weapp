@@ -24,6 +24,7 @@ Page({
         return dayjs(date).format('YYYY-MM-DD');
     },
     async saveGift() {
+        
         let that = this
         if (!this.data.friendId) {
             // 先把联系人存起来

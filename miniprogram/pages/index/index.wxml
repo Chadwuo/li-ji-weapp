@@ -5,7 +5,7 @@
       <image class="bg" src="/images/bg_summary.png" mode="center"></image>
       <view class="content">
         <van-row>
-          <van-col span="8">
+          <van-col span="8" wx:if="{{false}}">
             <view class='item' hover-class='none'>
               <view class='calendar' bindtap="yearPickerShow">{{year}}年
                 <van-icon name="arrow-down" />
@@ -14,13 +14,13 @@
           </van-col>
           <van-col span="8">
             <view class='item' hover-class='none'>
-              <view class='num'>{{"666"}}</view>
+              <view class='num'>{{receiveTotal}}</view>
               <view class='title'>收礼</view>
             </view>
           </van-col>
           <van-col span="8">
             <view class='item' hover-class='none'>
-              <view class='num'>{{"666"}}</view>
+              <view class='num'>{{giveTotal}}</view>
               <view class='title'>送礼</view>
             </view>
           </van-col>
@@ -32,7 +32,7 @@
     <van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
     <view class='nav acea-row row-middle' wx:for="{{giftList}}" wx:key="index">
       <view class='content'>
-        <view class='title'>{{item.name}}</view>
+        <view class='title'>{{item.friendInfo.name}}</view>
         <view class='info'>{{item.name}}</view>
         <view class='info'>{{item.luckDay}}</view>
       </view>
@@ -44,7 +44,7 @@
     </view>
   </view>
   <van-popup show="{{showYearPicker}}" round closeable position="bottom" bind:close="yearPickerClose" custom-style="height: 36%">
-    <van-picker columns="{{ yearData }}" default-index="{{ 2 }}" bind:change="yearPickerChange"/>
+    <van-picker columns="{{ yearData }}" default-index="{{ 2 }}" bind:change="yearPickerChange" />
   </van-popup>
 </view>
 <footer></footer>
