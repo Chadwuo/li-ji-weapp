@@ -78,80 +78,53 @@ Page({
 
   },
 
-  // 联表查询亲友信息
-  joinFriend(arr) {
-
-    for (item of arr) {
-      db.collection('friend').doc(item.friendId).then(res => {
-        console.log(res)
-      })
-
-    }
-
-    // let results = await Promise.all(arr.map((item) => {
-    //   db.collection('friend').doc(item.friendId)
-    // }))
-    // results.then(res => {
-    //   console.log(res)
-    // })
-
-    // // 承载所有读操作的 promise 的数组
-    // const tasks = []
-    // list.map(i => {
-    //   const promise = db.collection('friend').doc(i.friendId)
-    //   tasks.push(promise)
-    // })
-    // // 等待所有
-    // return (await Promise.all(tasks)).reduce((acc, cur) => {
-    //   return {
-    //     data: acc.data.concat(cur.data),
-    //     errMsg: acc.errMsg,
-    //   }
-    // })
-
-    // let res = await Promise.all(list.map(async (i) => {
-    //   db.collection('friend').doc(i.friendId).then(res => {
-    //     console.log(res)
-    //   })
-    //   return await asyncWorker(i)
-    //   //i.friendInfo = db.collection('friend').doc(i.friendId)
-    // }))
-  },
+  // // 联表查询亲友信息
+  // async joinFriend(arr) {
+  //   await Promise.all(arr.map(i => {
+  //     db.collection('friend').doc(i.friendId).get().then(res => {
+  //       i.friendname = res.data.name
+  //     })
+  //   }));
+  //   console.log(arr)
+  //   this.setData({
+  //     giftList: arr,
+  //   });
+  // },
 
   // 分页获取数据
-  getPage(page, limit) {
-    return db.collection('gift')
-      .where({
-        userId: app.globalData.user._id
-      })
-      .orderBy('luckyDay', 'desc')
-      .skip(page * limit)
-      .limit(limit)
-      .get()
+  // getPage(page, limit) {
+  //   return db.collection('gift')
+  //     .where({
+  //       userId: app.globalData.user._id
+  //     })
+  //     .orderBy('luckyDay', 'desc')
+  //     .skip(page * limit)
+  //     .limit(limit)
+  //     .get()
 
-    // 联表查询 不支持在小程序端使用 穷人使用不起云函数
-    // var $ = db.command.aggregate
-    // return db.collection('gift').aggregate()
-    //   .match({
-    //     userId: app.globalData.user._id,
-    //   })
-    //   .skip(page * limit)
-    //   .limit(limit)
-    //   .lookup({
-    //     from: "friend",
-    //     localField: "friendId",
-    //     foreignField: "_id",
-    //     as: "friendList"
-    //   })
-    //   // 并将 friend 匹配到的数组结果直接 merge 到 gift 记录中
-    //   .addFields({
-    //     friendInfo: $.mergeObjects([$.arrayElemAt(['$friendList', 0]), '$$ROOT'])
-    //   })
-    //   .project({
-    //     friendList: 0
-    //   })
-    //   .end()
-  },
+  //   // 联表查询 不支持在小程序端使用 穷人使用不起云函数
+  //   // var $ = db.command.aggregate
+  //   // return db.collection('gift').aggregate()
+  //   //   .match({
+  //   //     userId: app.globalData.user._id,
+  //   //   })
+  //   //   .skip(page * limit)
+  //   //   .limit(limit)
+  //   //   .lookup({
+  //   //     from: "friend",
+  //   //     localField: "friendId",
+  //   //     foreignField: "_id",
+  //   //     as: "friendList"
+  //   //   })
+  //   //   // 并将 friend 匹配到的数组结果直接 merge 到 gift 记录中
+  //   //   .addFields({
+  //   //     friendInfo: $.mergeObjects([$.arrayElemAt(['$friendList', 0]), '$$ROOT'])
+  //   //   })
+  //   //   .project({
+  //   //     friendList: 0
+  //   //   })
+  //   //   .end()
+  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -166,17 +139,18 @@ Page({
     this.computedGiftTotl();
     this.data.pageNo = 0
     let that = this
-    this.getPage(this.data.pageNo, 10).then(res => {
-      if (res.data.length === 0) {
-        this.setData({
-          pageEnd: true,
-        });
+    wx.cloud.callFunction({
+      name: 'lijiFunctions',
+      data: {
+        type: 'lookupGiftFriend',
+        page: this.data.pageNo,
+        limit: 10
       }
+    }).then(res => {
       that.setData({
-        giftList: res.data,
+        giftList: res.result.list,
         pageNo: that.data.pageNo + 1
       });
-      console.log(that.data.giftList)
     })
   },
 
@@ -205,16 +179,21 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    let that = this
     if (!this.data.pageEnd) {
-      // this.setData({
-      //   loading: true,
-      // });
-      this.getPage(this.data.pageNo, 10).then(res => {
-        if (res.data.length > 0) {
-          let datas = this.data.giftList.concat(res.data)
-          this.data.pageNo + 1
+      wx.cloud.callFunction({
+        name: 'lijiFunctions',
+        data: {
+          type: 'lookupGiftFriend',
+          page: this.data.pageNo,
+          limit: 10
+        }
+      }).then(res => {
+        if (res.result.list.length > 0) {
+          let datas = this.data.giftList.concat(res.result.list)
           this.setData({
-            giftList: datas
+            giftList: datas,
+            pageNo: that.data.pageNo + 1
           });
         }
       })
