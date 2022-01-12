@@ -80,6 +80,32 @@ Page({
         break;
     }
   },
+
+  computeTotal(datas) {
+    let total = 0
+    for (let item of datas) {
+      if (item.type == '收') {
+        total += Number(item.money)
+      } else {
+        total -= Number(item.money)
+      }
+    }
+    return total
+  },
+
+  // 添加礼簿下记录总计和个数信息
+  joinGifts(list) {
+    let that = this
+    return list.map(i => {
+      db.collection('gift').where({
+        userId: app.globalData.user._id,
+        bookId: i._id
+      }).get().then(res => {
+        i.total = that.computeTotal(res.data)
+        i.count = res.data.length
+      })
+    })
+  },
   // 分页获取数据
   getPage(page, limit) {
     return db.collection('book')
@@ -117,7 +143,7 @@ Page({
         });
       }
       this.setData({
-        giftBooks: res.data,
+        giftBooks: this.joinGifts(res.data),
         pageNo: this.data.pageNo + 1
       });
     })
@@ -157,7 +183,7 @@ Page({
           let datas = this.data.giftBooks.concat(res.data)
           this.data.pageNo + 1
           this.setData({
-            giftBooks: datas
+            giftBooks: this.joinGifts(datas)
           });
         }
       })
