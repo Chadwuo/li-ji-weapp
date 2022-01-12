@@ -2,6 +2,8 @@ const app = getApp()
 const db = wx.cloud.database()
 Page({
   data: {
+    pageNo: 0,
+    pageEnd: false,
     giftList: [],
     id: '',
     name: '',
@@ -9,34 +11,55 @@ Page({
     happyTotal: '0.00',
     sadCount: '0',
     sadTotal: '0.00',
-    happyOrSad: '0.00'
   },
   // 计算统计往来记录
-  computedGift(arr) {
-    // 收到的人情
-    let happy = arr.filter(i => i.type == '收')
-    let happyTotal = 0
-    for (let item of happy) {
-      happyTotal += Number(item.money)
-    }
-    // 送出去的人情
-    let sad = arr.filter(i => i.type == '送')
-    let sadTotal = 0
-    for (let item of sad) {
-      sadTotal += Number(item.money)
-    }
-    this.setData({
-      happyCount: happy.length,
-      happyTotal: happyTotal,
-      sadCount: sad.length,
-      sadTotal: sadTotal,
-      happyOrSad: happyTotal - sadTotal
-    });
+  computedGiftTotal() {
+    const $ = db.command.aggregate
+    db.collection('gift')
+      .aggregate()
+      .match({
+        userId: app.globalData.user._id,
+        friendId: this.data.id,
+        type: '收'
+      })
+      .group({
+        _id: null,
+        total: $.sum('$money')
+      })
+      .count('count')
+      .end()
+      .then(res => {
+        this.setData({
+          happyTotal: res.list[0].total.toFixed(2),
+          happyCount: res.count
+        });
+      })
+
+    db.collection('gift')
+      .aggregate()
+      .match({
+        userId: app.globalData.user._id,
+        friendId: this.data.id,
+        type: '送'
+      })
+      .group({
+        _id: null,
+        total: $.sum('$money')
+      })
+      .count('count')
+      .end()
+      .then(res => {
+        this.setData({
+          sadTotal: res.list[0].total.toFixed(2),
+          sadCount: res.count
+        });
+      })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.computedGiftTotal();
     let that = this
     // 亲友基本信息
     that.setData({
@@ -44,21 +67,17 @@ Page({
       name: options.friendName,
     });
     // 获取亲友来往记录
-    wx.cloud.callFunction({
-      name: 'lijiFunctions',
-      data: {
-        type: 'getAllData',
-        table: 'gift',
-        where: {
-          userId: app.globalData.user._id,
-          friendId: options.friendId
-        }
+    this.data.pageNo = 0
+    this.getPage(this.data.pageNo, 10).then(res => {
+      if (res.data.length === 0) {
+        this.setData({
+          pageEnd: true,
+        });
       }
-    }).then(res => {
-      that.setData({
-        giftList: res.result.data
+      this.setData({
+        giftList: res.result.data,
+        pageNo: this.data.pageNo + 1
       });
-      that.computedGift(res.result.data)
     })
   },
   // 编辑按钮
@@ -66,6 +85,18 @@ Page({
     wx.navigateTo({
       url: `/pages/friendEdit/index?friendId=${this.data.id}`,
     });
+  },
+  // 分页获取数据
+  getPage(page, limit) {
+    return db.collection('gift')
+      .where({
+        userId: app.globalData.user._id,
+        friendId: this.data.id
+      })
+      .orderBy('luckyDay', 'desc')
+      .skip(page * limit)
+      .limit(limit)
+      .get()
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -99,14 +130,24 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.computedGiftTotal();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if (!this.data.pageEnd) {
+      this.getPage(this.data.pageNo, 10).then(res => {
+        if (res.data.length > 0) {
+          let datas = this.data.giftList.concat(res.data)
+          this.data.pageNo + 1
+          this.setData({
+            giftList: datas
+          });
+        }
+      })
+    }
   },
 
   /**

@@ -2,6 +2,8 @@ const getUserInfo = require('./getUserInfo/index');
 const addUser = require('./addUser/index');
 const getAllAppreciate = require('./getAllAppreciate/index');
 const getAllData = require('./getAllData/index');
+const deleteAllData = require('./deleteAllData/index');
+
 // 云函数入口函数
 exports.main = async (event, context) => {
   switch (event.type) {
@@ -13,5 +15,7 @@ exports.main = async (event, context) => {
       return await getAllAppreciate.main(event, context);
     case 'getAllData':
       return await getAllData.main(event, context);
+    case 'deleteAllData':
+      return await deleteAllData.main(event, context);
   }
 };
