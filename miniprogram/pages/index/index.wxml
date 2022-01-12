@@ -12,13 +12,13 @@
               </view>
             </view>
           </van-col>
-          <van-col span="8">
+          <van-col span="12">
             <view class='item' hover-class='none'>
               <view class='num'>{{receiveTotal}}</view>
               <view class='title'>收礼</view>
             </view>
           </van-col>
-          <van-col span="8">
+          <van-col span="12">
             <view class='item' hover-class='none'>
               <view class='num'>{{giveTotal}}</view>
               <view class='title'>送礼</view>
