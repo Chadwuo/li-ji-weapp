@@ -7,7 +7,7 @@ const db = cloud.database()
 var $ = db.command.aggregate
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
-  return await db.collection('gift').aggregate()
+  return await db.collection('book').aggregate()
     .match({
       _openid: wxContext.OPENID,
     })
