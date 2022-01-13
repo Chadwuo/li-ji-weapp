@@ -48,6 +48,7 @@ Page({
       showBookAction: false
     });
   },
+  // 长按选择礼簿
   onSelectBookAction(event) {
     var that = this
     switch (event.detail.name) {
@@ -80,43 +81,21 @@ Page({
         break;
     }
   },
-
   computeTotal(datas) {
-    let total = 0
-    for (let item of datas) {
-      if (item.type == '收') {
-        total += Number(item.money)
-      } else {
-        total -= Number(item.money)
+    return datas.map(i => {
+      i.giftCount = i.giftList.length
+      i.giftTotal = 0
+      for (let item of i.giftList) {
+        if (item.type == '收') {
+          i.giftTotal += Number(item.money)
+        } else {
+          i.giftTotal -= Number(item.money)
+        }
       }
-    }
-    return total
-  },
-
-  // 添加礼簿下记录总计和个数信息
-  joinGifts(list) {
-    let that = this
-    return list.map(i => {
-      db.collection('gift').where({
-        userId: app.globalData.user._id,
-        bookId: i._id
-      }).get().then(res => {
-        i.total = that.computeTotal(res.data)
-        i.count = res.data.length
-      })
+      return i
     })
   },
-  // 分页获取数据
-  getPage(page, limit) {
-    return db.collection('book')
-      .where({
-        userId: app.globalData.user._id
-      })
-      .orderBy('luckyDay', 'desc')
-      .skip(page * limit)
-      .limit(limit)
-      .get()
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -145,8 +124,9 @@ Page({
         limit: 10
       }
     }).then(res => {
+      const resList = that.computeTotal(res.result.list)
       that.setData({
-        giftBooks: res.result.list,
+        giftBooks: resList,
         pageNo: that.data.pageNo + 1
       });
     })
@@ -187,9 +167,9 @@ Page({
         }
       }).then(res => {
         if (res.result.list.length > 0) {
-          let datas = this.data.giftBooks.concat(res.result.list)
+          const resList = that.computeTotal(this.data.giftBooks.concat(res.result.list))
           this.setData({
-            giftList: datas,
+            giftList: resList,
             pageNo: that.data.pageNo + 1
           });
         }
