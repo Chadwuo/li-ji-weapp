@@ -24,9 +24,9 @@ Page({
       })
       .group({
         _id: null,
-        total: $.sum('$money')
+        total: $.sum('$money'),
+        count: $.sum(1),
       })
-      .count('count')
       .end()
       .then(res => {
         this.setData({
@@ -44,9 +44,9 @@ Page({
       })
       .group({
         _id: null,
-        total: $.sum('$money')
+        total: $.sum('$money'),
+        count: $.sum(1),
       })
-      .count('count')
       .end()
       .then(res => {
         this.setData({
@@ -59,25 +59,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.computedGiftTotal();
-    let that = this
     // 亲友基本信息
-    that.setData({
+    this.setData({
       id: options.friendId,
       name: options.friendName,
+      pageNo: 0
     });
+
+    this.computedGiftTotal();
+    let that = this
     // 获取亲友来往记录
-    this.data.pageNo = 0
     this.getPage(this.data.pageNo, 10).then(res => {
       if (res.data.length === 0) {
         this.setData({
           pageEnd: true,
         });
+      } else {
+        that.setData({
+          giftList: res.data,
+          pageNo: that.data.pageNo + 1
+        });
       }
-      this.setData({
-        giftList: res.result.data,
-        pageNo: this.data.pageNo + 1
-      });
     })
   },
   // 编辑按钮

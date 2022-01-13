@@ -78,53 +78,6 @@ Page({
 
   },
 
-  // // 联表查询亲友信息
-  // async joinFriend(arr) {
-  //   await Promise.all(arr.map(i => {
-  //     db.collection('friend').doc(i.friendId).get().then(res => {
-  //       i.friendname = res.data.name
-  //     })
-  //   }));
-  //   console.log(arr)
-  //   this.setData({
-  //     giftList: arr,
-  //   });
-  // },
-
-  // 分页获取数据
-  // getPage(page, limit) {
-  //   return db.collection('gift')
-  //     .where({
-  //       userId: app.globalData.user._id
-  //     })
-  //     .orderBy('luckyDay', 'desc')
-  //     .skip(page * limit)
-  //     .limit(limit)
-  //     .get()
-
-  //   // 联表查询 不支持在小程序端使用 穷人使用不起云函数
-  //   // var $ = db.command.aggregate
-  //   // return db.collection('gift').aggregate()
-  //   //   .match({
-  //   //     userId: app.globalData.user._id,
-  //   //   })
-  //   //   .skip(page * limit)
-  //   //   .limit(limit)
-  //   //   .lookup({
-  //   //     from: "friend",
-  //   //     localField: "friendId",
-  //   //     foreignField: "_id",
-  //   //     as: "friendList"
-  //   //   })
-  //   //   // 并将 friend 匹配到的数组结果直接 merge 到 gift 记录中
-  //   //   .addFields({
-  //   //     friendInfo: $.mergeObjects([$.arrayElemAt(['$friendList', 0]), '$$ROOT'])
-  //   //   })
-  //   //   .project({
-  //   //     friendList: 0
-  //   //   })
-  //   //   .end()
-  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
