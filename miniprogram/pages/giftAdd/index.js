@@ -24,7 +24,6 @@ Page({
         return dayjs(date).format('YYYY-MM-DD');
     },
     async saveGift() {
-        
         let that = this
         if (!this.data.friendId) {
             // 先把联系人存起来
@@ -60,10 +59,12 @@ Page({
                 luckDay: dayjs().format('YYYY-MM-DD'),
                 name: '',
                 bookId: '',
+                bookName: '',
                 money: '',
                 type: '收',
                 wishes: '',
                 friendName: '',
+                friendId: '',
                 showCalendar: false,
                 tip: '',
                 price: 0

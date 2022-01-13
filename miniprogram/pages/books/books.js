@@ -136,15 +136,18 @@ Page({
    */
   onShow: function () {
     this.data.pageNo = 0
-    this.getPage(this.data.pageNo, 10).then(res => {
-      if (res.data.length === 0) {
-        this.setData({
-          pageEnd: true,
-        });
+    let that = this
+    wx.cloud.callFunction({
+      name: 'lijiFunctions',
+      data: {
+        type: 'lookupBookGift',
+        page: this.data.pageNo,
+        limit: 10
       }
-      this.setData({
-        giftBooks: this.joinGifts(res.data),
-        pageNo: this.data.pageNo + 1
+    }).then(res => {
+      that.setData({
+        giftBooks: res.result.list,
+        pageNo: that.data.pageNo + 1
       });
     })
   },
@@ -175,15 +178,19 @@ Page({
    */
   onReachBottom: function () {
     if (!this.data.pageEnd) {
-      // this.setData({
-      //   loading: true,
-      // });
-      this.getPage(this.data.pageNo, 10).then(res => {
-        if (res.data.length > 0) {
-          let datas = this.data.giftBooks.concat(res.data)
-          this.data.pageNo + 1
+      wx.cloud.callFunction({
+        name: 'lijiFunctions',
+        data: {
+          type: 'lookupBookGift',
+          page: this.data.pageNo,
+          limit: 10
+        }
+      }).then(res => {
+        if (res.result.list.length > 0) {
+          let datas = this.data.giftBooks.concat(res.result.list)
           this.setData({
-            giftBooks: this.joinGifts(datas)
+            giftList: datas,
+            pageNo: that.data.pageNo + 1
           });
         }
       })
