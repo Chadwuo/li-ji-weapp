@@ -21,7 +21,6 @@ Page({
         data: {
           luckDay: this.data.luckDay,
           name: this.data.name,
-          userId: app.globalData.user._id,
           type: '',
         },
         success: function (res) {
