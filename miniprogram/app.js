@@ -36,7 +36,8 @@ App({
               familyId: "",
               createTime: db.serverDate(),
               vip: false,
-              isAdmin: false
+              isAdmin: false,
+              tips_hide_book: false
             }
           }).then(res => {
             user._id = res.result._id
