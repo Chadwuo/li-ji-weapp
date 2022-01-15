@@ -71,6 +71,11 @@ Page({
     // todo 加载对应年度的账单
     // ...
   },
+  onGiftClick(e) {
+    wx.navigateTo({
+      url: `/pages/giftEdit/index?giftId=${e.currentTarget.dataset.giftid}`,
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
