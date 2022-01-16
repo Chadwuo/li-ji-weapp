@@ -13,6 +13,7 @@ Page({
     yearData: ['2021', ],
     receiveTotal: '0.00',
     giveTotal: '0.00',
+    service_stopped: false
   },
   computedGiftTotl() {
     const $ = db.command.aggregate
@@ -76,24 +77,15 @@ Page({
       url: `/pages/giftEdit/index?giftId=${e.currentTarget.dataset.giftid}`,
     });
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
 
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+  loadData() {
+    // 如果服务已经停止
+    if (app.globalData.serviceStopped) {
+      this.setData({
+        service_stopped: true
+      })
+      return
+    }
     this.computedGiftTotl();
     this.data.pageNo = 0
     let that = this
@@ -110,6 +102,36 @@ Page({
         pageNo: that.data.pageNo + 1
       });
     })
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    // 用延时器 简单解决一下app.onLaunch的异步执行问题，后面一定好好解决
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+
+    setTimeout(() => {
+      wx.hideLoading()
+      this.loadData()
+    }, 1500)
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
   },
 
   /**
@@ -130,7 +152,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.computedGiftTotl();
+    this.loadData()
+    setTimeout(() => {
+      wx.stopPullDownRefresh()
+    }, 2000);
   },
 
   /**
