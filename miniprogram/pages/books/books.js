@@ -107,24 +107,8 @@ Page({
       }
     })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
 
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+  loadData() {
     this.setData({
       pageNo: 0,
       isHideTips: app.globalData.user.tips_hide_book
@@ -147,6 +131,27 @@ Page({
   },
 
   /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.loadData()
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
@@ -164,7 +169,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.loadData()
+    setTimeout(() => {
+      wx.stopPullDownRefresh()
+    }, 2000);
   },
 
   /**

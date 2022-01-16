@@ -49,7 +49,6 @@ Page({
         friendId: this.data.friendId,
       },
       success: function (res) {
-        console.log(res)
         wx.showToast({
           title: '修改成功',
         })
@@ -156,7 +155,6 @@ Page({
   onLoad: function (options) {
     let that = this
     db.collection('gift').doc(options.giftId).get().then(res => {
-      console.log(res)
       that.setData({
         luckDay: res.data.luckDay,
         name: res.data.name,
@@ -173,6 +171,7 @@ Page({
     })
   },
   getFriendName(id) {
+    let that = this
     db.collection('friend').doc(id).get().then(res => {
       that.setData({
         friendName: res.data.name
@@ -180,6 +179,7 @@ Page({
     })
   },
   getBookName(id) {
+    let that = this
     db.collection('book').doc(id).get().then(res => {
       that.setData({
         bookName: res.data.name
