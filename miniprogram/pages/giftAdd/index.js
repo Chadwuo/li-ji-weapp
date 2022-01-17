@@ -7,6 +7,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        minDate: new Date().setFullYear((new Date().getFullYear()-1)),
         luckDay: dayjs().format('YYYY-MM-DD'),
         name: '',
         bookId: '',
