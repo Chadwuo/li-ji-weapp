@@ -1,5 +1,6 @@
 <!--index.wxml-->
 <view class="container">
+  <van-notice-bar wx:if="{{service_stopped}}" left-icon="volume-o" text="抱歉,礼记的服务器资源已超限，系统将限制服务继续使用，服务会在明日恢复。" />
   <van-sticky offset-top="{{ -30 }}">
     <view class="home-header">
       <image class="bg" src="/images/bg_summary.png" mode="center"></image>
@@ -29,8 +30,9 @@
     </view>
   </van-sticky>
   <view class="wrapper">
-    <van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
-    <view class='nav acea-row row-middle' wx:for="{{giftList}}" wx:key="index">
+    <van-empty wx:if="{{service_stopped}}" image="network" description="与服务器断开连接" />
+    <van-empty wx:elif="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
+    <view class='nav acea-row row-middle' wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-giftid='{{item._id}}'>
       <view class='content'>
         <view class='title'>{{item.friendInfo.name}}</view>
         <view class='info'>{{item.name}}</view>

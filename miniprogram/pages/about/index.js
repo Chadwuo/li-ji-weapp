@@ -8,7 +8,7 @@ Page({
 
     },
     micahh(){
-        const arr = ['你拍了拍作者头顶\r\n却没摸到秀发', '要不要来一把LOL', '你好啊 勇士']
+        const arr = ['你拍了拍作者头顶\r\n却没摸到秀发', '要不要来一把LOL', '花生，你发现了彩蛋']
         const index = Math.floor(Math.random() * arr.length)
         wx.showToast({
             title: arr[index],

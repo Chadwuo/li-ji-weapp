@@ -49,7 +49,6 @@ Page({
         friendId: this.data.friendId,
       },
       success: function (res) {
-        console.log(res)
         wx.showToast({
           title: '修改成功',
         })
@@ -157,17 +156,36 @@ Page({
     let that = this
     db.collection('gift').doc(options.giftId).get().then(res => {
       that.setData({
-        luckDay: this.data.luckDay,
-        name: this.data.name,
-        bookId: this.data.bookId,
-        money: Number(this.data.money),
-        type: this.data.type,
-        wishes: this.data.wishes,
-        friendId: this.data.friendId,
+        luckDay: res.data.luckDay,
+        name: res.data.name,
+        bookId: res.data.bookId,
+        money: res.data.money,
+        type: res.data.type,
+        wishes: res.data.wishes,
+        friendId: res.data.friendId,
+        // friendName: that.getFriendName(res.data.friendId),
+        // bookName: that.getBookName(res.data.bookId)
+      });
+      that.getFriendName(res.data.friendId)
+      that.getBookName(res.data.bookId)
+    })
+  },
+  getFriendName(id) {
+    let that = this
+    db.collection('friend').doc(id).get().then(res => {
+      that.setData({
+        friendName: res.data.name
       });
     })
   },
-
+  getBookName(id) {
+    let that = this
+    db.collection('book').doc(id).get().then(res => {
+      that.setData({
+        bookName: res.data.name
+      });
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

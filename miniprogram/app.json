@@ -91,6 +91,7 @@
         "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
         "van-dropdown-item": "@vant/weapp/dropdown-item/index",
         "barrage": "/components/barrage",
-        "van-submit-bar": "@vant/weapp/submit-bar/index"
+        "van-submit-bar": "@vant/weapp/submit-bar/index",
+        "van-notice-bar": "@vant/weapp/notice-bar/index"
     }
 }
