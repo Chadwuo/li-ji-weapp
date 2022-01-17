@@ -5,7 +5,10 @@ App({
       env: {
         app_user_key: 'app.user'
       },
-      user: {}
+      user: {
+        _id: 'id'
+      },
+      serviceStopped: false,
     };
 
     if (!wx.cloud) {
@@ -21,7 +24,6 @@ App({
       });
 
       const db = wx.cloud.database()
-      let user = {}
       // 获取远端数据库中用户信息
       wx.cloud.callFunction({
         name: 'lijiFunctions',
@@ -29,22 +31,31 @@ App({
           type: 'getUserInfo'
         }
       }).then(res => {
-        if (res.result.data.length === 0) {
+        if (res.errMsg != "cloud.callFunction:ok") {
+          wx.showModal({
+            title: '资源超限暂停通知',
+            content: '抱歉，礼记的服务器资源已超限，系统将限制服务继续使用，服务会在明日恢复。',
+            showCancel: false,
+            confirmText: '理解万岁'
+          })
+          this.globalData.serviceStopped = true
+          return
+        }
+        if (res.result.data.length != 0) {
+          this.globalData.user = res.result.data[0]
+        } else {
           // 注册一下
           db.collection('user').add({
             data: {
               familyId: "",
               createTime: db.serverDate(),
               vip: false,
-              isAdmin: false
+              isAdmin: false,
+              tips_hide_book: false
             }
           }).then(res => {
-            user._id = res.result._id
-            this.globalData.user = user
+            this.globalData.user._id = res.result._id
           })
-        } else {
-          user = res.result.data[0]
-          this.globalData.user = user
         }
       })
     }

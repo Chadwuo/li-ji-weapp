@@ -31,7 +31,7 @@ Page({
       .then(res => {
         this.setData({
           happyTotal: res.list[0].total.toFixed(2),
-          happyCount: res.count
+          happyCount: res.list[0].count
         });
       })
 
@@ -51,7 +51,7 @@ Page({
       .then(res => {
         this.setData({
           sadTotal: res.list[0].total.toFixed(2),
-          sadCount: res.count
+          sadCount: res.list[0].count
         });
       })
   },

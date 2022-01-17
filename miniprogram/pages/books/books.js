@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isHideTips: false,
     keyword: '',
     pageNo: 0,
     pageEnd: false,
@@ -95,26 +96,23 @@ Page({
       return i
     })
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  onCloseTips() {
+    console.log("dsaf")
+    db.collection('user').doc(app.globalData.user._id).update({
+      data: {
+        tips_hide_book: true,
+      },
+      success: function (res) {
+        console.log(res)
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    this.data.pageNo = 0
+  loadData() {
+    this.setData({
+      pageNo: 0,
+      isHideTips: app.globalData.user.tips_hide_book
+    })
     let that = this
     wx.cloud.callFunction({
       name: 'lijiFunctions',
@@ -130,6 +128,27 @@ Page({
         pageNo: that.data.pageNo + 1
       });
     })
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.loadData()
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
   },
 
   /**
@@ -150,7 +169,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.loadData()
+    setTimeout(() => {
+      wx.stopPullDownRefresh()
+    }, 2000);
   },
 
   /**
