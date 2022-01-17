@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<wxs module="filters" src="/pages/friendDetails/filter.wxs"></wxs>
 <view class="container">
     <van-sticky offset-top="{{ -30 }}">
         <view class="home-header">
@@ -12,7 +13,7 @@
                     <van-icon name="edit" size="52rpx" color="#fff" bind:tap="onEditClick" />
                 </view>
                 <view class='item'>
-                    <span class='num'>{{happyTotal-sadTotal}}</span>
+                    <span class='num'>{{filters.toFix(happyTotal-sadTotal)}}</span>
                     <span class='title'>(收支差)</span>
                 </view>
                 <van-row>
