@@ -127,7 +127,6 @@ Page({
     });
   },
   onConfirm(event) {
-    console.log(event)
     this.setData({
       showCalendar: false,
       luckDay: event.detail,

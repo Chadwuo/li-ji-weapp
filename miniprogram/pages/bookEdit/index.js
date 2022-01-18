@@ -7,10 +7,23 @@ Page({
    */
   data: {
     id: '',
-    luckDay: dayjs().format('YYYY-MM-DD'),
+    luckDay: new Date().getTime(),
+    luckDayFormat: dayjs().format('YYYY-MM-DD'),
     name: '',
     remarks: '',
-    showCalendar: false
+    showCalendar: false,
+    formatter(type, value) {
+      if (type === 'year') {
+        return `${value}年`;
+      }
+      if (type === 'month') {
+        return `${value}月`;
+      }
+      if (type === 'day') {
+        return `${value}日`;
+      }
+      return value;
+    },
   },
   formatDate(date) {
     return dayjs(date).format('YYYY-MM-DD');
@@ -19,7 +32,7 @@ Page({
     if (this.data.id) {
       db.collection('book').doc(this.data.id).update({
         data: {
-          luckDay: this.data.luckDay,
+          luckDay: new Date(this.data.luckDay),
           name: this.data.name,
           type: '',
         },
@@ -33,7 +46,7 @@ Page({
     } else {
       db.collection('book').add({
         data: {
-          luckDay: this.data.luckDay,
+          luckDay: new Date(this.data.luckDay),
           name: this.data.name,
           userId: app.globalData.user._id,
           type: '',
@@ -105,9 +118,11 @@ Page({
     });
   },
   onConfirm(event) {
+    console.log(event)
     this.setData({
       showCalendar: false,
-      luckDay: this.formatDate(event.detail),
+      luckDay: event.detail,
+      luckDayFormat: this.formatDate(event.detail),
     });
   },
   /**
@@ -120,7 +135,8 @@ Page({
         success: function (res) {
           that.setData({
             id: res.data._id,
-            luckDay: that.formatDate(res.data.luckDay),
+            luckDay: new Date(res.data.luckDay).getTime(),
+            luckDayFormat: that.formatDate(res.data.luckDay),
             name: res.data.name,
           });
           wx.setNavigationBarTitle({
