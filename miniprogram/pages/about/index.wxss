@@ -26,12 +26,12 @@
     font-weight: 300;
     color: #000000;
     font-size: 30rpx;
-    margin-bottom: 28rpx;
+    margin-bottom: 24rpx;
 }
 
 .top_tip {
     font-size: 28rpx;
     font-family: PingFang SC;
     color: #888888;
-    margin-bottom: 28rpx;
+    margin-bottom: 24rpx;
 }
