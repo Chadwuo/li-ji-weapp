@@ -1,5 +1,6 @@
 // index.js
 const app = getApp()
+const dayjs = require('dayjs');
 const db = wx.cloud.database()
 Page({
   data: {
@@ -14,6 +15,9 @@ Page({
     receiveTotal: '0.00',
     giveTotal: '0.00',
     service_stopped: false
+  },
+  formatDate(date) {
+    return dayjs(date).format('YYYY-MM-DD');
   },
   computedGiftTotl() {
     const $ = db.command.aggregate
@@ -78,27 +82,39 @@ Page({
     });
   },
 
-  loadData() {
+  loadData(page) {
     // 如果服务已经停止
     if (app.globalData.serviceStopped) {
       this.setData({
-        service_stopped: true
+        service_stopped: true,
+        giftList: []
       })
       return
     }
-    this.computedGiftTotl();
-    this.data.pageNo = 0
+    if (page == 0) {
+      this.data.giftList = []
+    }
     let that = this
     wx.cloud.callFunction({
       name: 'lijiFunctions',
       data: {
         type: 'lookupGiftFriend',
-        page: this.data.pageNo,
+        page: page,
         limit: 10
       }
     }).then(res => {
+      if (res.result.list.length === 0) {
+        that.data.pageEnd = true
+        return
+      }
+      let datas = this.data.giftList.concat(res.result.list)
+      datas.map(i => {
+        if (i.luckDay) {
+          i.luckDay = that.formatDate(i.luckDay)
+        }
+      })
       that.setData({
-        giftList: res.result.list,
+        giftList: datas,
         pageNo: that.data.pageNo + 1
       });
     })
@@ -108,16 +124,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // 用延时器 简单解决一下app.onLaunch的异步执行问题，后面一定好好解决
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
 
-    setTimeout(() => {
-      wx.hideLoading()
-      this.loadData()
-    }, 1500)
   },
 
   /**
@@ -131,7 +138,21 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if (app.globalData.user._id) {
+      this.loadData(0)
+      this.computedGiftTotl();
+    } else {
+      // 用延时器 简单解决一下app.onLaunch的异步执行问题，后面一定好好解决
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      })
+      setTimeout(() => {
+        wx.hideLoading()
+        this.loadData(0)
+        this.computedGiftTotl();
+      }, 1500)
+    }
   },
 
   /**
@@ -152,7 +173,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.loadData()
+    this.loadData(0)
     setTimeout(() => {
       wx.stopPullDownRefresh()
     }, 2000);
@@ -162,24 +183,8 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    let that = this
     if (!this.data.pageEnd) {
-      wx.cloud.callFunction({
-        name: 'lijiFunctions',
-        data: {
-          type: 'lookupGiftFriend',
-          page: this.data.pageNo,
-          limit: 10
-        }
-      }).then(res => {
-        if (res.result.list.length > 0) {
-          let datas = this.data.giftList.concat(res.result.list)
-          this.setData({
-            giftList: datas,
-            pageNo: that.data.pageNo + 1
-          });
-        }
-      })
+      this.loadData(this.data.pageNo)
     }
   },
 

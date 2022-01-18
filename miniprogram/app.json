@@ -92,6 +92,7 @@
         "van-dropdown-item": "@vant/weapp/dropdown-item/index",
         "barrage": "/components/barrage",
         "van-submit-bar": "@vant/weapp/submit-bar/index",
-        "van-notice-bar": "@vant/weapp/notice-bar/index"
+        "van-notice-bar": "@vant/weapp/notice-bar/index",
+        "van-datetime-picker": "@vant/weapp/datetime-picker/index"
     }
 }

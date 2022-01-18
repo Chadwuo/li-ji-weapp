@@ -7,8 +7,9 @@ Page({
      * 页面的初始数据
      */
     data: {
-        minDate: new Date().setFullYear((new Date().getFullYear()-1)),
-        luckDay: dayjs().format('YYYY-MM-DD'),
+        minDate: new Date().setMonth((new Date().getMonth() - 6)),
+        luckDay: '',
+        luckDayFormat: dayjs().format('YYYY-MM-DD'),
         name: '',
         bookId: '',
         bookName: '',
@@ -19,7 +20,7 @@ Page({
         friendName: '',
         showCalendar: false,
         tip: '',
-        price: 0
+        price: 0,
     },
     formatDate(date) {
         return dayjs(date).format('YYYY-MM-DD');
@@ -57,12 +58,10 @@ Page({
                 title: '保存成功',
             })
             that.setData({
-                luckDay: dayjs().format('YYYY-MM-DD'),
                 name: '',
                 bookId: '',
                 bookName: '',
                 money: '',
-                type: '收',
                 wishes: '',
                 friendName: '',
                 friendId: '',
@@ -87,6 +86,11 @@ Page({
                         friendId: res.data[0]._id,
                         tip: `已有同名联系人【${res.data[0].name}】，记录会添加在与该亲友的来往记录中`
                     });
+                } else {
+                    // 名字改了 数据库没有相关人信息，friendId 置空
+                    that.setData({
+                        friendId: '',
+                    });
                 }
             })
     },
@@ -106,10 +110,12 @@ Page({
             showCalendar: false
         });
     },
+    // 日历选择
     onConfirm(event) {
         this.setData({
             showCalendar: false,
-            luckDay: this.formatDate(event.detail),
+            luckDayFormat: this.formatDate(event.detail),
+            luckDay: event.detail,
         });
     },
     onGiftTypeChange(event) {
@@ -167,7 +173,8 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        // 这什么问题  在data里赋值不起作用？？？
+        this.data.luckDay = new Date()
     },
 
     /**

@@ -1,4 +1,5 @@
 const app = getApp()
+const dayjs = require('dayjs');
 const db = wx.cloud.database()
 Page({
   data: {
@@ -11,6 +12,9 @@ Page({
     happyTotal: '0.00',
     sadCount: '0',
     sadTotal: '0.00',
+  },
+  formatDate(date) {
+    return dayjs(date).format('YYYY-MM-DD');
   },
   // 计算统计往来记录
   computedGiftTotal() {
@@ -76,7 +80,12 @@ Page({
         });
       } else {
         that.setData({
-          giftList: res.data,
+          giftList: res.data.map(i => {
+            if (i.luckDay) {
+              i.luckDay = that.formatDate(i.luckDay)
+            }
+            return i
+          }),
           pageNo: that.data.pageNo + 1
         });
       }
@@ -145,7 +154,12 @@ Page({
           let datas = this.data.giftList.concat(res.data)
           this.data.pageNo + 1
           this.setData({
-            giftList: datas
+            giftList: datas.map(i => {
+              if (i.luckDay) {
+                i.luckDay = that.formatDate(i.luckDay)
+              }
+              return i
+            }),
           });
         }
       })
