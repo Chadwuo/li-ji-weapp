@@ -1,13 +1,15 @@
-const app = getApp()
+const app = getApp();
 const dayjs = require('dayjs');
-const db = wx.cloud.database()
+const db = wx.cloud.database();
+import pinyin from "wl-pinyin";
 Page({
   /**
    * 页面的初始数据
    */
   data: {
     id: '',
-    luckDay: dayjs().format('YYYY-MM-DD'),
+    luckDay: new Date().getTime(),
+    luckDayFormat: dayjs().format('YYYY-MM-DD'),
     name: '',
     bookId: '',
     money: '',
@@ -16,7 +18,19 @@ Page({
     friendName: '',
     showCalendar: false,
     tip: '',
-    price: 0
+    price: 0,
+    formatter(type, value) {
+      if (type === 'year') {
+        return `${value}年`;
+      }
+      if (type === 'month') {
+        return `${value}月`;
+      }
+      if (type === 'day') {
+        return `${value}日`;
+      }
+      return value;
+    },
   },
   formatDate(date) {
     return dayjs(date).format('YYYY-MM-DD');
@@ -40,7 +54,7 @@ Page({
     db.collection('gift').doc(this.data.id).update({
       data: {
         userId: app.globalData.user._id,
-        luckDay: this.data.luckDay,
+        luckDay: new Date(this.data.luckDay),
         name: this.data.name,
         bookId: this.data.bookId,
         money: Number(this.data.money),
@@ -49,6 +63,7 @@ Page({
         friendId: this.data.friendId,
       },
       success: function (res) {
+        console.log(res)
         wx.showToast({
           title: '修改成功',
         })
@@ -89,7 +104,7 @@ Page({
             tip: `已有同名联系人【${res.data[0].name}】，记录会添加在与该亲友的来往记录中`
           });
         } else {
-          // 名字改了，friendId 置空
+          // 名字改了 数据库没有相关人信息，friendId 置空
           that.setData({
             friendId: '',
           });
@@ -97,7 +112,6 @@ Page({
       })
   },
   onMoneyBlur(e) {
-    console.log(e)
     this.setData({
       price: Number(e.detail.value) * 100
     })
@@ -113,9 +127,11 @@ Page({
     });
   },
   onConfirm(event) {
+    console.log(event)
     this.setData({
       showCalendar: false,
-      luckDay: this.formatDate(event.detail),
+      luckDay: event.detail,
+      luckDayFormat: this.formatDate(event.detail),
     });
   },
   onGiftTypeChange(event) {
@@ -162,7 +178,9 @@ Page({
     let that = this
     db.collection('gift').doc(options.giftId).get().then(res => {
       that.setData({
-        luckDay: res.data.luckDay,
+        id: res.data._id,
+        luckDay: new Date(res.data.luckDay).getTime(),
+        luckDayFormat: this.formatDate(res.data.luckDay),
         name: res.data.name,
         bookId: res.data.bookId,
         money: res.data.money,
@@ -172,8 +190,12 @@ Page({
         // friendName: that.getFriendName(res.data.friendId),
         // bookName: that.getBookName(res.data.bookId)
       });
-      that.getFriendName(res.data.friendId)
-      that.getBookName(res.data.bookId)
+      if (res.data.friendId) {
+        that.getFriendName(res.data.friendId)
+      }
+      if (res.data.bookId) {
+        that.getBookName(res.data.bookId)
+      }
     })
   },
   getFriendName(id) {

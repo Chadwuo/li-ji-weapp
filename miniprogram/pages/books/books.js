@@ -108,9 +108,11 @@ Page({
     })
   },
 
-  loadData() {
+  loadData(page) {
+    if (page == 0) {
+      this.data.giftBooks = []
+    }
     this.setData({
-      pageNo: 0,
       isHideTips: app.globalData.user.tips_hide_book
     })
     let that = this
@@ -118,13 +120,17 @@ Page({
       name: 'lijiFunctions',
       data: {
         type: 'lookupBookGift',
-        page: this.data.pageNo,
+        page: page,
         limit: 10
       }
     }).then(res => {
-      const resList = that.computeTotal(res.result.list)
+      if (res.result.list.length === 0) {
+        that.data.pageEnd = true
+        return
+      }
+      const resList = that.computeTotal(this.data.giftBooks.concat(res.result.list))
       that.setData({
-        giftBooks: resList,
+        giftList: resList,
         pageNo: that.data.pageNo + 1
       });
     })
@@ -134,7 +140,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.loadData()
+
   },
 
   /**
@@ -148,7 +154,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.loadData(0)
   },
 
   /**
@@ -180,22 +186,7 @@ Page({
    */
   onReachBottom: function () {
     if (!this.data.pageEnd) {
-      wx.cloud.callFunction({
-        name: 'lijiFunctions',
-        data: {
-          type: 'lookupBookGift',
-          page: this.data.pageNo,
-          limit: 10
-        }
-      }).then(res => {
-        if (res.result.list.length > 0) {
-          const resList = that.computeTotal(this.data.giftBooks.concat(res.result.list))
-          this.setData({
-            giftList: resList,
-            pageNo: that.data.pageNo + 1
-          });
-        }
-      })
+      this.loadData(this.data.pageNo)
     }
   },
 

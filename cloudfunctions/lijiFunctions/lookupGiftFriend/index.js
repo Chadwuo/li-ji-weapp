@@ -7,10 +7,11 @@ const db = cloud.database()
 var $ = db.command.aggregate
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
+  let whereVal = event.where || {
+    _openid: wxContext.OPENID,
+  }
   return await db.collection('gift').aggregate()
-    .match({
-      _openid: wxContext.OPENID,
-    })
+    .match(whereVal)
     .skip(event.page * event.limit)
     .limit(event.limit)
     .lookup({
