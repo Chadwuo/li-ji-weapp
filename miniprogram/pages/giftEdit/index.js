@@ -73,6 +73,7 @@ Page({
       }
     })
   },
+  // 亲友名称修改
   onFriendBlur(e) {
     let that = this
     db.collection('friend').where({
@@ -86,6 +87,11 @@ Page({
           that.setData({
             friendId: res.data[0]._id,
             tip: `已有同名联系人【${res.data[0].name}】，记录会添加在与该亲友的来往记录中`
+          });
+        } else {
+          // 名字改了，friendId 置空
+          that.setData({
+            friendId: '',
           });
         }
       })
