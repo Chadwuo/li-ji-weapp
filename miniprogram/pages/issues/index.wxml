@@ -22,7 +22,7 @@
                         </view>
                         <view slot="label">
                             <view>{{item.content}}</view>
-                            <view wx:if="{{isAdmin==='true'}}">
+                            <view wx:if="{{isAdmin}}">
                                 <van-button color="#F76664" size="mini" style="margin-right: 24rpx;" bind:click="onShowPopup" data-info='{{item}}'>回复</van-button>
                                 <van-button color="#F76664" plain size="mini" bind:click="onDelIssues" data-issuesid='{{item._id}}'>删除</van-button>
                             </view>
