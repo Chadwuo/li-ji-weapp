@@ -131,28 +131,21 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (app.globalData.user._id) {
+    setTimeout(() => {
+      wx.hideLoading()
       this.loadData(0)
       this.computedGiftTotl();
-    } else {
-      // 用延时器 简单解决一下app.onLaunch的异步执行问题，后面一定好好解决
-      wx.showLoading({
-        title: '加载中',
-        mask: true
-      })
-      setTimeout(() => {
-        wx.hideLoading()
-        this.loadData(0)
-        this.computedGiftTotl();
-      }, 1500)
-    }
+    }, 1500)
   },
 
   /**
