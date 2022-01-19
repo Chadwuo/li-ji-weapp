@@ -124,13 +124,14 @@ Page({
         limit: 10
       }
     }).then(res => {
+      console.log(res)
       if (res.result.list.length === 0) {
         that.data.pageEnd = true
         return
       }
       const resList = that.computeTotal(this.data.giftBooks.concat(res.result.list))
       that.setData({
-        giftList: resList,
+        giftBooks: resList,
         pageNo: that.data.pageNo + 1
       });
     })
