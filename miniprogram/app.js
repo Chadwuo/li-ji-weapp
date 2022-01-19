@@ -9,6 +9,13 @@ App({
         _id: 'id'
       },
       serviceStopped: false,
+      // 是否需要刷新
+      refreshRequired: {
+        home: false,
+        book: false,
+        friend: false,
+        profile: false
+      }
     };
 
     if (!wx.cloud) {
