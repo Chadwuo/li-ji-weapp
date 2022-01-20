@@ -5,7 +5,6 @@ const db = wx.cloud.database()
 Page({
   data: {
     pageNo: 0,
-    pageEnd: false,
     giftList: [],
     year: '2021',
     // 年度选择
@@ -104,7 +103,6 @@ Page({
       }
     }).then(res => {
       if (res.result.list.length === 0) {
-        that.data.pageEnd = true
         return
       }
       let datas = this.data.giftList.concat(res.result.list)
@@ -124,28 +122,38 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
+    if (!app.globalData.user._id) {
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      })
+      setTimeout(() => {
+        if (app.globalData.user._id) {
+          this.loadData(0)
+          this.computedGiftTotl();
+          wx.hideLoading()
+        }
+      }, 1500)
+    }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    setTimeout(() => {
-      wx.hideLoading()
+    // 是否需要刷新
+    if (app.globalData.refreshRequired.home) {
       this.loadData(0)
       this.computedGiftTotl();
-    }, 1500)
+      app.globalData.refreshRequired.home = false
+    }
   },
 
   /**
@@ -169,16 +177,14 @@ Page({
     this.loadData(0)
     setTimeout(() => {
       wx.stopPullDownRefresh()
-    }, 2000);
+    }, 1500);
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    if (!this.data.pageEnd) {
-      this.loadData(this.data.pageNo)
-    }
+    this.loadData(this.data.pageNo)
   },
 
   /**

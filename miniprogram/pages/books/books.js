@@ -9,7 +9,6 @@ Page({
     isHideTips: false,
     keyword: '',
     pageNo: 0,
-    pageEnd: false,
     giftBooks: [],
     actionId: '',
     showBookAction: false,
@@ -124,9 +123,7 @@ Page({
         limit: 10
       }
     }).then(res => {
-      console.log(res)
       if (res.result.list.length === 0) {
-        that.data.pageEnd = true
         return
       }
       const resList = that.computeTotal(this.data.giftBooks.concat(res.result.list))
@@ -141,7 +138,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+   
   },
 
   /**
@@ -155,7 +152,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.loadData(0)
+    if (app.globalData.refreshRequired.book) {
+      this.loadData(0)
+      app.globalData.refreshRequired.book = false
+    }
   },
 
   /**
@@ -186,9 +186,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    if (!this.data.pageEnd) {
-      this.loadData(this.data.pageNo)
-    }
+    this.loadData(this.data.pageNo)
   },
 
   /**

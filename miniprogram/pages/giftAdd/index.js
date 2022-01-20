@@ -7,8 +7,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        minDate: new Date().setMonth((new Date().getMonth() - 6)),
-        luckDay: '',
+        luckDay: new Date().getTime(),
         luckDayFormat: dayjs().format('YYYY-MM-DD'),
         name: '',
         bookId: '',
@@ -21,6 +20,18 @@ Page({
         showCalendar: false,
         tip: '',
         price: 0,
+        formatter(type, value) {
+            if (type === 'year') {
+                return `${value}年`;
+            }
+            if (type === 'month') {
+                return `${value}月`;
+            }
+            if (type === 'day') {
+                return `${value}日`;
+            }
+            return value;
+        },
     },
     formatDate(date) {
         return dayjs(date).format('YYYY-MM-DD');
@@ -41,11 +52,10 @@ Page({
                 });
             })
         }
-
         db.collection('gift').add({
             data: {
                 userId: app.globalData.user._id,
-                luckDay: this.data.luckDay,
+                luckDay: new Date(this.data.luckDay),
                 name: this.data.name,
                 bookId: this.data.bookId,
                 money: Number(this.data.money),
@@ -69,6 +79,11 @@ Page({
                 tip: '',
                 price: 0
             })
+            // 四个tabbar页面都需要刷新
+            app.globalData.refreshRequired.home = true
+            app.globalData.refreshRequired.book = true
+            app.globalData.refreshRequired.friend = true
+            app.globalData.refreshRequired.profile = true
         })
     },
     onFriendBlur(e) {
@@ -158,9 +173,7 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
-
-    },
+    onLoad: function (options) {},
 
     /**
      * 生命周期函数--监听页面初次渲染完成
@@ -173,8 +186,6 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        // 这什么问题  在data里赋值不起作用？？？
-        this.data.luckDay = new Date()
     },
 
     /**

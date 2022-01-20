@@ -6,7 +6,6 @@ Page({
         giftList: [],
         bookId: '',
         pageNo: 0,
-        pageEnd: false,
     },
     formatDate(date) {
         return dayjs(date).format('YYYY-MM-DD');
@@ -37,7 +36,6 @@ Page({
             }
         }).then(res => {
             if (res.result.list.length === 0) {
-                that.data.pageEnd = true
                 return
             }
             let datas = this.data.giftList.concat(res.result.list)
@@ -98,9 +96,7 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
-        if (!this.data.pageEnd) {
-            this.loadData(this.data.pageNo)
-        }
+        this.loadData(this.data.pageNo)
     },
 
     /**
