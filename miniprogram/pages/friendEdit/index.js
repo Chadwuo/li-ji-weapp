@@ -13,6 +13,7 @@ Page({
     kinship: '',
   },
   saveFriend() {
+    app.globalData.refreshRequired.friend = true
     if (this.data.id) {
       db.collection('friend').doc(this.data.id).update({
         data: {
@@ -47,6 +48,7 @@ Page({
     }
   },
   delFriend() {
+    app.globalData.refreshRequired.friend = true
     let that = this
     wx.showModal({
       title: '删除联系人？',

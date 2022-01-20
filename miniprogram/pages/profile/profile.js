@@ -122,6 +122,7 @@ Page({
           giveTotal: res.list[0].total.toFixed(2),
         });
       })
+      app.globalData.refreshRequired.profile = false
   },
 
   /**

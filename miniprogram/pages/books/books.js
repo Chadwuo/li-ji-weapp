@@ -96,7 +96,6 @@ Page({
     })
   },
   onCloseTips() {
-    console.log("dsaf")
     db.collection('user').doc(app.globalData.user._id).update({
       data: {
         tips_hide_book: true,
@@ -110,6 +109,7 @@ Page({
   loadData(page) {
     if (page == 0) {
       this.data.giftBooks = []
+      this.data.pageNo = 0
     }
     this.setData({
       isHideTips: app.globalData.user.tips_hide_book
