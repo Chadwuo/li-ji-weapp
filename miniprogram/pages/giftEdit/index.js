@@ -36,6 +36,11 @@ Page({
     return dayjs(date).format('YYYY-MM-DD');
   },
   async saveGift() {
+    // 几个tabbar页面都需要刷新
+    app.globalData.refreshRequired.home = true
+    app.globalData.refreshRequired.book = true
+    app.globalData.refreshRequired.friend = true
+    app.globalData.refreshRequired.profile = true
     let that = this
     if (!this.data.friendId) {
       // 先把联系人存起来
@@ -63,11 +68,6 @@ Page({
         friendId: this.data.friendId,
       },
       success: function (res) {
-        // 四个tabbar页面都需要刷新
-        app.globalData.refreshRequired.home = true
-        app.globalData.refreshRequired.book = true
-        app.globalData.refreshRequired.friend = true
-        app.globalData.refreshRequired.profile = true
         wx.showToast({
           title: '修改成功',
         })
@@ -75,6 +75,10 @@ Page({
     })
   },
   delGift() {
+    app.globalData.refreshRequired.home = true
+    app.globalData.refreshRequired.book = true
+    app.globalData.refreshRequired.friend = true
+    app.globalData.refreshRequired.profile = true
     var that = this
     wx.showModal({
       title: '删除记录？',
@@ -86,6 +90,7 @@ Page({
               wx.showToast({
                 title: '删除成功',
               })
+              wx.navigateBack()
             }
           })
         }

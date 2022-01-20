@@ -92,6 +92,7 @@ Page({
     }
     if (page == 0) {
       this.data.giftList = []
+      this.data.pageNo = 0
     }
     let that = this
     wx.cloud.callFunction({
