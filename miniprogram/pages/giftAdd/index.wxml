@@ -16,5 +16,7 @@
             </view>
         </van-submit-bar>
     </van-cell-group>
-    <van-calendar min-date="{{ minDate }}" show="{{ showCalendar }}" show-confirm="{{ false }}" bind:close="onClose" bind:confirm="onConfirm" />
+    <van-popup show="{{ showCalendar }}" round position="bottom" bind:close="onClose" >
+        <van-datetime-picker type="date" value="{{ luckDay }}" bind:confirm="onConfirm" bind:cancel="onClose" formatter="{{ formatter }}" />
+    </van-popup>
 </view>

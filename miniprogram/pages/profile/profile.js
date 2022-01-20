@@ -84,6 +84,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // 是否需要刷新
+    if (!app.globalData.refreshRequired.profile) {
+      return
+    }
     const $ = db.command.aggregate
     db.collection('gift')
       .aggregate()

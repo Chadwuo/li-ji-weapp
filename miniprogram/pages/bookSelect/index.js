@@ -1,4 +1,5 @@
 const app = getApp()
+const dayjs = require('dayjs');
 Page({
 
   /**
@@ -6,6 +7,9 @@ Page({
    */
   data: {
     bookList: []
+  },
+  formatDate(date) {
+    return dayjs(date).format('YYYY-MM-DD');
   },
   onSelectBook(e) {
     console.log(e.currentTarget.dataset.book)
@@ -28,7 +32,12 @@ Page({
       }
     }).then(res => {
       this.setData({
-        bookList: res.result.data,
+        bookList: res.result.data.map(i => {
+          if (i.luckDay) {
+            i.luckDay = this.formatDate(i.luckDay)
+          }
+          return i
+        }),
       });
     })
   },

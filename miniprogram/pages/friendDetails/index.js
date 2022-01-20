@@ -4,7 +4,6 @@ const db = wx.cloud.database()
 Page({
   data: {
     pageNo: 0,
-    pageEnd: false,
     giftList: [],
     id: '',
     name: '',
@@ -75,20 +74,17 @@ Page({
     // 获取亲友来往记录
     this.getPage(this.data.pageNo, 10).then(res => {
       if (res.data.length === 0) {
-        this.setData({
-          pageEnd: true,
-        });
-      } else {
-        that.setData({
-          giftList: res.data.map(i => {
-            if (i.luckDay) {
-              i.luckDay = that.formatDate(i.luckDay)
-            }
-            return i
-          }),
-          pageNo: that.data.pageNo + 1
-        });
+        return
       }
+      that.setData({
+        giftList: res.data.map(i => {
+          if (i.luckDay) {
+            i.luckDay = that.formatDate(i.luckDay)
+          }
+          return i
+        }),
+        pageNo: that.data.pageNo + 1
+      });
     })
   },
   // 编辑按钮
@@ -148,22 +144,20 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    if (!this.data.pageEnd) {
-      this.getPage(this.data.pageNo, 10).then(res => {
-        if (res.data.length > 0) {
-          let datas = this.data.giftList.concat(res.data)
-          this.data.pageNo + 1
-          this.setData({
-            giftList: datas.map(i => {
-              if (i.luckDay) {
-                i.luckDay = that.formatDate(i.luckDay)
-              }
-              return i
-            }),
-          });
-        }
-      })
-    }
+    this.getPage(this.data.pageNo, 10).then(res => {
+      if (res.data.length > 0) {
+        let datas = this.data.giftList.concat(res.data)
+        this.data.pageNo + 1
+        this.setData({
+          giftList: datas.map(i => {
+            if (i.luckDay) {
+              i.luckDay = that.formatDate(i.luckDay)
+            }
+            return i
+          }),
+        });
+      }
+    })
   },
 
   /**

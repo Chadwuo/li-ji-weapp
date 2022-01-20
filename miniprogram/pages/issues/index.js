@@ -15,7 +15,6 @@ Page({
         loading: false,
         issuesList: [],
         pageNo: 0,
-        pageEnd: false,
         isAdmin: false,
         showAddPopup: false,
     },
@@ -25,9 +24,7 @@ Page({
             this.data.pageNo = 0
             this.getIssuesPage(this.data.pageNo, 10).then(res => {
                 if (res.data.length === 0) {
-                    this.setData({
-                        pageEnd: true,
-                    });
+                    return
                 }
                 let list = res.data.map((i) => {
                     i.createTime = dayjs(i.createTime).format('YYYY-MM-DD')
@@ -161,24 +158,22 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
-        if (!this.data.pageEnd) {
-            this.setData({
-                loading: true,
-            });
-            this.getIssuesPage(this.data.pageNo, 10).then(res => {
-                if (res.data.length > 0) {
-                    let issuesData = this.data.issuesList.concat(res.data)
-                    this.setData({
-                        issuesList: issuesData,
-                        pageNo: this.data.pageNo + 1
-                    });
-                }
-            }).finally(
+        this.setData({
+            loading: true,
+        });
+        this.getIssuesPage(this.data.pageNo, 10).then(res => {
+            if (res.data.length > 0) {
+                let issuesData = this.data.issuesList.concat(res.data)
                 this.setData({
-                    loading: false,
-                })
-            );
-        }
+                    issuesList: issuesData,
+                    pageNo: this.data.pageNo + 1
+                });
+            }
+        }).finally(
+            this.setData({
+                loading: false,
+            })
+        );
     },
 
     /**

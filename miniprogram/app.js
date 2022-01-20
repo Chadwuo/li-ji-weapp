@@ -5,21 +5,27 @@ App({
       env: {
         app_user_key: 'app.user'
       },
-      user: {
-        _id: 'id'
-      },
+      user: {},
       serviceStopped: false,
       // 是否需要刷新
       refreshRequired: {
         home: false,
-        book: false,
-        friend: false,
-        profile: false
+        book: true,
+        friend: true,
+        profile: true
       }
     };
 
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力');
+      wx.showModal({
+        title: '微信版本过低',
+        content: '抱歉，请更新你的微信版本，礼记支持 6.6.7 或以上版本微信使用。',
+        showCancel: false,
+        confirmText: '理解万岁'
+      })
+      this.globalData.serviceStopped = true
+      return
     } else {
       wx.cloud.init({
         // env 参数说明：
