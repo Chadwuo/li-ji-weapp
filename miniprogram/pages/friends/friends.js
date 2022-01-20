@@ -1,5 +1,6 @@
 // pages/friends/friends.js
 const db = wx.cloud.database()
+const app = getApp()
 Page({
   /**
    * 页面的初始数据
@@ -46,6 +47,10 @@ Page({
         subItems: []
       })
     }
+    let noletter = {
+      alpha: '#',
+      subItems: []
+    }
     wx.cloud.callFunction({
       name: 'lijiFunctions',
       data: {
@@ -53,15 +58,22 @@ Page({
         table: 'friend',
       }
     }).then(res => {
+      console.log(res)
       for (const item of res.result.data) {
         const firstLetter = item.firstLetter
-        for (const f of listTemp) {
-          if (firstLetter === f.alpha) {
-            f.subItems.push(item)
-            break
+        if (!isNaN(firstLetter)) {
+          noletter.subItems.push(item)
+        } else {
+          for (const f of listTemp) {
+            if (firstLetter.toUpperCase() === f.alpha) {
+              f.subItems.push(item)
+              break
+            }
           }
         }
       }
+      listTemp.push(noletter)
+      console.log(listTemp)
       let list = listTemp.filter((i) => {
         return i.subItems.length != 0
       })

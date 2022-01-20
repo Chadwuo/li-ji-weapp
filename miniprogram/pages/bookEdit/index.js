@@ -29,6 +29,7 @@ Page({
     return dayjs(date).format('YYYY-MM-DD');
   },
   saveBook() {
+    app.globalData.refreshRequired.book = true
     if (this.data.id) {
       db.collection('book').doc(this.data.id).update({
         data: {
@@ -62,6 +63,7 @@ Page({
     }
   },
   delBook() {
+    app.globalData.refreshRequired.book = true
     var that = this
     wx.showModal({
       title: '删除礼簿？',
