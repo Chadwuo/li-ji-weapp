@@ -53,6 +53,7 @@ Page({
     var that = this
     switch (event.detail.name) {
       case '删除':
+        app.globalData.refreshRequired.home = true
         wx.showModal({
           title: '删除礼簿？',
           content: '该礼簿所有来往记录都将被删除，确定删除？',
@@ -122,8 +123,10 @@ Page({
 
   loadData(page) {
     if (page == 0) {
-      this.data.giftBooks = []
-      this.data.pageNo = 0
+      this.setData({
+        pageNo: 0,
+        giftBooks: []
+      })
     }
     this.setData({
       isHideTips: app.globalData.user.tips_hide_book
