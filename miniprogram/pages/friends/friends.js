@@ -97,7 +97,6 @@ Page({
         }
       }
       listTemp.push(noletter)
-      console.log(listTemp)
       let list = listTemp.filter((i) => {
         return i.subItems.length != 0
       })

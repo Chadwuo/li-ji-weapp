@@ -63,6 +63,7 @@ Page({
     }
   },
   delBook() {
+    app.globalData.refreshRequired.home = true
     app.globalData.refreshRequired.book = true
     var that = this
     wx.showModal({
