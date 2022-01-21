@@ -67,44 +67,31 @@ Page({
     var that = this
     wx.showModal({
       title: '删除礼簿？',
-      // content: '该礼簿所有来往记录都将被删除，确定删除？',
-      content: '该礼簿所有来往记录不受影响，确定删除？',
+      content: '该礼簿所有来往记录都将被删除，确定删除？',
       success(res) {
         if (res.confirm) {
-          // 删除礼簿
-          db.collection('book').doc(that.data.id).remove({
-            success: function (res) {
-              wx.navigateBack()
-              wx.showToast({
-                title: '删除成功',
-              })
+          // 删除礼簿下所有记录
+          wx.cloud.callFunction({
+            name: 'lijiFunctions',
+            data: {
+              type: 'deleteAllData',
+              table: 'gift',
+              where: {
+                userId: app.globalData.user._id,
+                bookId: that.data.id,
+              }
             }
+          }).then(res => {
+            // 删除礼簿
+            db.collection('book').doc(that.data.id).remove({
+              success: function (res) {
+                wx.navigateBack()
+                wx.showToast({
+                  title: '删除成功',
+                })
+              }
+            })
           })
-          // // 删除礼簿下所有记录
-          // wx.cloud.callFunction({
-          //   name: 'lijiFunctions',
-          //   data: {
-          //     type: 'deleteAllData',
-          //     table: 'gift',
-          //     where: {
-          //       userId: app.globalData.user._id,
-          //       bookId: that.data.id,
-          //     }
-          //   }
-          // }).then(res => {
-          //   // todo删除记录成功 条件判断
-          //   console.log(res)
-
-          //   // 删除礼簿
-          //   db.collection('book').doc(that.data.id).remove({
-          //     success: function (res) {
-          //       wx.navigateBack()
-          //       wx.showToast({
-          //         title: '删除成功',
-          //       })
-          //     }
-          //   })
-          // })
         }
       }
     })

@@ -48,22 +48,38 @@ Page({
     }
   },
   delFriend() {
+    app.globalData.refreshRequired.home = true
+    app.globalData.refreshRequired.book = true
     app.globalData.refreshRequired.friend = true
+    app.globalData.refreshRequired.profile = true
     let that = this
     wx.showModal({
       title: '删除联系人？',
       content: '该联系人所有来往记录都将被删除，确定删除？',
       success(res) {
         if (res.confirm) {
-          db.collection('friend').doc(that.data.id).remove({
-            success: function (res) {
-              wx.navigateBack({
-                delta: 2
-              })
-              wx.showToast({
-                title: '删除成功',
-              })
+          // 删除亲友下所有记录
+          wx.cloud.callFunction({
+            name: 'lijiFunctions',
+            data: {
+              type: 'deleteAllData',
+              table: 'gift',
+              where: {
+                userId: app.globalData.user._id,
+                friendId: that.data.id,
+              }
             }
+          }).then(res => {
+            db.collection('friend').doc(that.data.id).remove({
+              success: function (res) {
+                wx.navigateBack({
+                  delta: 2
+                })
+                wx.showToast({
+                  title: '删除成功',
+                })
+              }
+            })
           })
         }
       }
