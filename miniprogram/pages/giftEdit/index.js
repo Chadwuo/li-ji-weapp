@@ -195,6 +195,7 @@ Page({
         type: res.data.type,
         wishes: res.data.wishes,
         friendId: res.data.friendId,
+        price: res.data.money * 100
         // friendName: that.getFriendName(res.data.friendId),
         // bookName: that.getBookName(res.data.bookId)
       });
