@@ -83,6 +83,7 @@ Page({
         table: 'friend',
       }
     }).then(res => {
+      console.log(res)
       for (const item of res.result.data) {
         const firstLetter = item.firstLetter
         if (!isNaN(firstLetter)) {

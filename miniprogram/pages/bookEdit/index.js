@@ -38,10 +38,12 @@ Page({
           type: '',
         },
         success: function (res) {
-          console.log(res)
           wx.showToast({
             title: '修改成功',
           })
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 500);
         }
       })
     } else {
@@ -59,6 +61,9 @@ Page({
         wx.showToast({
           title: '保存成功',
         })
+        setTimeout(() => {
+          wx.navigateBack()
+        }, 500);
       })
     }
   },

@@ -4,11 +4,11 @@
             <van-tab title="收礼" name="收"></van-tab>
             <van-tab title="送礼" name="送"></van-tab>
         </van-tabs>
-        <van-cell title="{{ luckDayFormat }}" is-link icon="calendar-o" bind:click="onDisplay" />
+        <van-field readonly label="时间" left-icon="calendar-o" model:value="{{ luckDayFormat }}"  bind:click-input="onDisplay" />
         <van-field label="姓名" left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="亲友" bind:click-icon="onSelectFriends" bind:blur="onFriendBlur" />
         <van-field label="事由" left-icon="point-gift-o" model:value="{{ name }}" placeholder="事由" />
         <van-field label="礼金" left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="{{type}}礼金额" bind:blur="onMoneyBlur" />
-        <van-cell wx:if="{{type=='收'}}" title=" {{ bookName||'选择礼簿' }}" is-link icon="balance-list-o" bind:click="onSelectBooks" />
+        <van-field wx:if="{{type=='收'}}" readonly label="礼簿" left-icon="balance-list-o" model:value="{{ bookName }}"  placeholder="选择礼簿"  bind:click-input="onSelectBooks" />
         <van-divider hairline />
         <van-submit-bar label="{{type}}礼：" price="{{ price }}" button-text="保 存" bind:submit="saveGift" disabled="{{!name||!friendName||!money}}">
             <view slot="tip" wx:if="{{tip}}">
