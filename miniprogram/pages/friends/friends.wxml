@@ -13,7 +13,7 @@
                 <van-cell-group inset>
                     <van-swipe-cell right-width="{{ 65 }}" wx:for="{{item.subItems}}" wx:for-item="data" wx:key="dataindex">
                         <van-cell title="{{data.name}}" size="large" bind:click="onFriendClick" data-friend='{{data}}'/>
-                        <van-button slot="right" type="danger" bind:click="onDelete">删除</van-button>
+                        <van-button slot="right" type="danger" bind:click="onDelete" data-friendid="{{data._id}}">删除</van-button>
                     </van-swipe-cell>
                 </van-cell-group>
             </view>

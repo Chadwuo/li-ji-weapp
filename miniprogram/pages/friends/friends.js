@@ -25,16 +25,41 @@ Page({
       url: `/pages/friendEdit/index`,
     });
   },
-  onDelete() {
+  onDelete(e) {
+    app.globalData.refreshRequired.home = true
+    app.globalData.refreshRequired.book = true
+    app.globalData.refreshRequired.friend = true
+    app.globalData.refreshRequired.profile = true
+
+    let that = this
+    const friendId = e.currentTarget.dataset.friendid
     wx.showModal({
       title: '提示',
       content: '该联系人得所有人情往来记录都将被删除，确定删除？',
       confirmColor: '#F76664',
       success(res) {
         if (res.confirm) {
-          console.log('用户点击确定')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
+          // 删除亲友下所有记录
+          wx.cloud.callFunction({
+            name: 'lijiFunctions',
+            data: {
+              type: 'deleteAllData',
+              table: 'gift',
+              where: {
+                userId: app.globalData.user._id,
+                friendId: friendId,
+              }
+            }
+          }).then(res => {
+            db.collection('friend').doc(friendId).remove({
+              success: function (res) {
+                that.loadData()
+                wx.showToast({
+                  title: '删除成功',
+                })
+              }
+            })
+          })
         }
       }
     })
@@ -58,7 +83,6 @@ Page({
         table: 'friend',
       }
     }).then(res => {
-      console.log(res)
       for (const item of res.result.data) {
         const firstLetter = item.firstLetter
         if (!isNaN(firstLetter)) {
