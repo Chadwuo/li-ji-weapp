@@ -101,8 +101,12 @@ Page({
       })
       .end()
       .then(res => {
+        let resTotal = 0
+        if (res.list.length != 0) {
+          resTotal = res.list[0].total
+        }
         this.setData({
-          receiveTotal: res.list[0].total.toFixed(2),
+          receiveTotal: resTotal.toFixed(2),
         });
       })
 
@@ -118,11 +122,15 @@ Page({
       })
       .end()
       .then(res => {
+        let resTotal = 0
+        if (res.list.length != 0) {
+          resTotal = res.list[0].total
+        }
         this.setData({
-          giveTotal: res.list[0].total.toFixed(2),
+          giveTotal: resTotal.toFixed(2),
         });
       })
-      app.globalData.refreshRequired.profile = false
+    app.globalData.refreshRequired.profile = false
   },
 
   /**

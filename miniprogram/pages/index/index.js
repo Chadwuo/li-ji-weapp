@@ -33,8 +33,12 @@ Page({
       })
       .end()
       .then(res => {
+        let resTotal = 0
+        if (res.list.length != 0) {
+          resTotal = res.list[0].total
+        }
         that.setData({
-          receiveTotal: res.list[0].total.toFixed(2),
+          receiveTotal: resTotal.toFixed(2),
         });
       })
 
@@ -50,8 +54,12 @@ Page({
       })
       .end()
       .then(res => {
+        let resTotal = 0
+        if (res.list.length != 0) {
+          resTotal = res.list[0].total
+        }
         that.setData({
-          giveTotal: res.list[0].total.toFixed(2),
+          giveTotal: resTotal.toFixed(2),
         });
       })
   },
@@ -91,8 +99,10 @@ Page({
       return
     }
     if (page == 0) {
-      this.data.giftList = []
-      this.data.pageNo = 0
+      this.setData({
+        giftList: [],
+        pageNo: 0
+      })
     }
     let that = this
     wx.cloud.callFunction({
@@ -151,7 +161,7 @@ Page({
   onShow: function () {
     // 是否需要刷新
     if (app.globalData.refreshRequired.home) {
-      this.loadData(0)
+      this.loadData(0);
       this.computedGiftTotl();
       app.globalData.refreshRequired.home = false
     }
@@ -175,7 +185,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.loadData(0)
+    this.loadData(0);
+    this.computedGiftTotl();
     setTimeout(() => {
       wx.stopPullDownRefresh()
     }, 1500);
