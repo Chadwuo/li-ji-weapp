@@ -24,7 +24,7 @@
 
 ### 效果图
 
-<img src="doc/demo1.jpg">
+<img src="doc/demo.jpg">
 
 ### 文件目录说明
 
