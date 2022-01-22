@@ -7,20 +7,22 @@ Page({
     data: {
 
     },
-    micahh(){
+    micahh() {
         const arr = ['你拍了拍作者头顶\r\n却没摸到秀发', '要不要来一把LOL', '花生，你发现了彩蛋']
         const index = Math.floor(Math.random() * arr.length)
         wx.showToast({
             title: arr[index],
-            icon:'none',
+            icon: 'none',
             duration: 2500
-          })
+        })
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        wx.showShareMenu({
+            menus: ['shareAppMessage', 'shareTimeline']
+        })
     },
 
     /**
@@ -69,6 +71,8 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function () {
-        
+        return {
+            title: '每一份人情都值得礼记',
+        }
     },
 })
