@@ -57,7 +57,7 @@ Page({
     }
     if (e.currentTarget.dataset.page === 'share') {
       wx.previewImage({
-        urls: ['cloud://liji-1gzjub9o9bdf6d00.6c69-liji-1gzjub9o9bdf6d00-1308229258/code.png'] // 需要预览的图片http链接列表
+        urls: ['cloud://liji-1gzjub9o9bdf6d00.6c69-liji-1gzjub9o9bdf6d00-1308229258/guide.png'] // 需要预览的图片http链接列表
       })
       return
     }
@@ -165,6 +165,8 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '每一份人情都值得礼记',
+    }
   }
 })
