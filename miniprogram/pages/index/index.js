@@ -133,19 +133,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (!app.globalData.user._id) {
-      wx.showLoading({
-        title: '加载中',
-        mask: true
-      })
-      setTimeout(() => {
-        if (app.globalData.user._id) {
-          this.loadData(0)
-          this.computedGiftTotl();
-          wx.hideLoading()
-        }
-      }, 1500)
-    }
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    var intervalID = setInterval(() => {
+      if (app.globalData.user._id) {
+        this.loadData(0)
+        this.computedGiftTotl();
+        wx.hideLoading()
+        clearInterval(intervalID);
+      }
+    }, 1500);
   },
 
   /**
