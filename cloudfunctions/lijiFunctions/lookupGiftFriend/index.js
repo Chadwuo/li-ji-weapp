@@ -13,7 +13,8 @@ exports.main = async (event, context) => {
   return await db.collection('gift').aggregate()
     .match(whereVal)
     .sort({
-      luckDay: -1
+      luckDay: -1,
+      _id: -1
     })
     .skip(event.page * event.limit)
     .limit(event.limit)
