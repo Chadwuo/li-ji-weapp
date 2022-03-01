@@ -21,8 +21,8 @@ Page({
             urls: ['cloud://liji-1gzjub9o9bdf6d00.6c69-liji-1gzjub9o9bdf6d00-1308229258/appreciate_code.jpg'] // 需要预览的图片http链接列表
         })
     },
-      // 添加
-      onAdd() {
+    // 添加
+    onAdd() {
         db.collection('appreciate').add({
             data: {
                 name: this.data.name,
@@ -35,8 +35,8 @@ Page({
             })
         })
     },
-     // 打开弹窗
-     onShowPopup(e) {
+    // 打开弹窗
+    onShowPopup(e) {
         this.setData({
             showAddPopup: true,
         });
@@ -54,9 +54,12 @@ Page({
         wx.cloud.callFunction({
             name: 'lijiFunctions',
             data: {
-              type: 'getAllAppreciate'
+                type: 'getAllData',
+                table: 'appreciate',
+                where: {}
             }
-          }).then(res => {
+        }).then(res => {
+            console.log(res)
             this.setData({
                 barrageList: res.result.data,
             });

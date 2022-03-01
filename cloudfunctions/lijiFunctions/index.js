@@ -1,5 +1,4 @@
 const getUserInfo = require('./getUserInfo/index');
-const getAllAppreciate = require('./getAllAppreciate/index');
 const getAllData = require('./getAllData/index');
 const deleteAllData = require('./deleteAllData/index');
 const lookupGiftFriend = require('./lookupGiftFriend/index');
@@ -9,8 +8,6 @@ exports.main = async (event, context) => {
   switch (event.type) {
     case 'getUserInfo':
       return await getUserInfo.main(event, context);
-    case 'getAllAppreciate':
-      return await getAllAppreciate.main(event, context);
     case 'getAllData':
       return await getAllData.main(event, context);
     case 'deleteAllData':
