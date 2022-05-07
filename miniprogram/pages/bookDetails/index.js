@@ -4,11 +4,23 @@ const db = wx.cloud.database()
 Page({
     data: {
         giftList: [],
+        keyword: '',
         bookId: '',
         pageNo: 0,
     },
     formatDate(date) {
         return dayjs(date).format('YYYY-MM-DD');
+    },
+    onSearch() {
+        wx.showToast({
+            title: '搜索...马上写完，真的',
+            icon: 'none',
+        })
+    },
+    onAdd() {
+        wx.navigateTo({
+            url: `/pages/bookEdit/index`,
+        });
     },
     loadData(page) {
         // 如果服务已经停止
