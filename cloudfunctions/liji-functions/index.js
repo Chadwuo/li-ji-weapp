@@ -3,9 +3,16 @@ const getAllData = require('./getAllData/index');
 const deleteAllData = require('./deleteAllData/index');
 const lookupGiftFriend = require('./lookupGiftFriend/index');
 const lookupBookGift = require('./lookupBookGift/index');
+
+const userHandler = require('./services/user');
+
 // 云函数入口函数
 exports.main = async (event, context) => {
   switch (event.type) {
+		case 'userOpenid':
+			return await userHandler.userOpenid(event, context);
+			
+			
     case 'getUserInfo':
       return await getUserInfo.main(event, context);
     case 'getAllData':
