@@ -14,7 +14,8 @@
     "pages/books/books",
     "pages/bookEdit/index",
     "pages/bookDetails/index",
-    "pages/bookSelect/index"
+    "pages/bookSelect/index",
+    "pages/login/index"
   ],
   "window": {
     "backgroundColor": "#F76664",
@@ -28,7 +29,8 @@
     "selectedColor": "#F76664",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/books/books",
         "text": "礼簿",
         "iconPath": "./images/book_gray.png",

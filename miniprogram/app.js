@@ -48,7 +48,7 @@ App({
 			}
 		} catch (e) { // 网络问题出现
 			let flag = e.toString()
-			flag = flag.indexOf('FunctionName') == -1 ? flag : '请在cloudfunctions文件夹中wishes-520上右键，创建部署云端安装依赖，然后再次体验'
+			flag = flag.indexOf('FunctionName') == -1 ? flag : '请在cloudfunctions文件夹中liji-functions上右键，创建部署云端安装依赖，然后再次体验'
 			console.error('【云函数调用失败】', flag)
 			wx.hideLoading()
 			wx.showModal({
