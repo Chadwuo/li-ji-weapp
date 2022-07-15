@@ -6,7 +6,7 @@ cloud.init({
 
 const db = cloud.database();
 
-exports.getPage = async (event, context) => {
+exports.page = async (event, context) => {
   // 获取基础信息
   const wxContext = cloud.getWXContext();
   const res = await db.collection('book').aggregate()

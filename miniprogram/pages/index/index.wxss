@@ -1,73 +1,45 @@
-
-/* 头部 */
-.home-header {
-  height: 240rpx;
-  background-color: #F76664 !important;
-  display: flex;
-  align-items: center;
+/* pages/index/index.wxss */
+.book-wrapper {
+    padding: 24rpx;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-/* 头部背景 */
-.home-header .bg {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  z-index: -1;
+.book-wrapper .book-item {
+    position: relative;
+    flex: 0 0 50%;
+    height: 460rpx;
+    margin: 24rpx 0;
 }
 
-.home-header .content {
-  width: 100%;
-  text-align: center;
-  padding: 32rpx 0;
+.book-wrapper .book-item .bg {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
 }
 
-.home-header .content .item .calendar{
-  color: #fff;
-  font-size: 36rpx;
-  padding-top: 28rpx;
-}
-.home-header .content .item .num{
-  color: #fff;
-  font-size: 48rpx;
-  font-weight: 500;
-}
-.home-header .content .item .title{
-  color: #fff;
-  font-size: 24rpx;
+.book-wrapper .book-item .content {
+    padding-left: 52rpx;
+    padding-top: 36rpx;
 }
 
-/* 内容 */
-.wrapper {
-  padding: 0 32rpx;
+.book-wrapper .book-item .content .name {
+    font-size: large;
+    color: #333;
+    padding-bottom: 32rpx;
 }
 
-/* 卡片 */
-.wrapper .nav {
-  background-color: #fff;
-  border-radius: 20rpx;
-  margin-top: 20rpx;
+.book-wrapper .book-item .content .count {
+    font-size: small;
+    color: #666;
+    padding-bottom: 32rpx;
 }
 
-.wrapper .nav .content {
-  flex: 1;
-  text-align: left;
-  padding-left: 48rpx;
-}
-
-.wrapper .nav .content .title {
-  color: #000000;
-  font-size: 44rpx;
-  font-weight: 500;
-  margin: 25rpx 0 15rpx 0;
-}
-
-.wrapper .nav .content .info {
-  color: #888888;
-  font-size: 24rpx;
-  font-family: PingFang SC;
-  margin-bottom: 15rpx;
-}
-
-.wrapper .nav .label {
-  padding-right: 48rpx;
+.book-wrapper .book-item .content .total {
+    position: absolute;
+    font-size: large;
+    color: #333;
+    font-weight: bold;
+    bottom: 120rpx;
 }
