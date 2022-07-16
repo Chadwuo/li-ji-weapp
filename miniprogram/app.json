@@ -1,21 +1,26 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/profile/profile",
-    "pages/giftAdd/index",
-    "pages/giftEdit/index",
-    "pages/friends/friends",
+    "pages/gift/index",
+    "pages/friends/index",
+    "pages/profile/index",
+    "pages/login/index",
+    "pages/about/index",
+    "pages/issues/index",
+    "pages/sponsors/index",
+
+    "pages/giftGiving/index",
+    "pages/giftReceive/index",
     "pages/friendEdit/index",
     "pages/friendDetails/index",
     "pages/friendSelect/index",
-    "pages/about/index",
-    "pages/issues/index",
-    "pages/appreciate/index",
     "pages/books/books",
     "pages/bookEdit/index",
     "pages/bookDetails/index",
     "pages/bookSelect/index",
-    "pages/login/index"
+
+    "pages/giftAdd/index",
+    "pages/giftEdit/index"
   ],
   "window": {
     "backgroundColor": "#F76664",
@@ -29,27 +34,26 @@
     "selectedColor": "#F76664",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
-    "list": [
-      {
-        "pagePath": "pages/books/books",
-        "text": "礼簿",
+    "list": [{
+        "pagePath": "pages/index/index",
+        "text": "礼记",
         "iconPath": "./images/book_gray.png",
         "selectedIconPath": "./images/book_red.png"
       },
       {
         "text": "送礼",
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/gift/index",
         "iconPath": "./images/icon_post.png",
         "selectedIconPath": "./images/icon_post_red.png"
       },
       {
-        "pagePath": "pages/friends/friends",
+        "pagePath": "pages/friends/index",
         "text": "亲友",
         "iconPath": "./images/contact_gray.png",
         "selectedIconPath": "./images/contact_red.png"
       },
       {
-        "pagePath": "pages/profile/profile",
+        "pagePath": "pages/profile/index",
         "text": "我的",
         "iconPath": "./images/mine_gray.png",
         "selectedIconPath": "./images/mine_red.png"
