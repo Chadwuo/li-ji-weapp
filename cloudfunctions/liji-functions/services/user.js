@@ -22,6 +22,7 @@ exports.userOpenid = async (event,context) => {
   }
 }
 
+// 获取用户信息
 exports.getUserInfo = async (event, context) => {
   // 获取基础信息
   const wxContext = cloud.getWXContext();
@@ -30,6 +31,7 @@ exports.getUserInfo = async (event, context) => {
   }).get()
 };
 
+// 注册用户
 exports.register = async (event, context) => {
   // 获取基础信息
   const wxContext = cloud.getWXContext();
