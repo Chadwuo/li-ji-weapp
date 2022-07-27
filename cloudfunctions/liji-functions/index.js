@@ -14,6 +14,8 @@ exports.main = async (event, context) => {
             return await userHandler.userOpenid(event, context);
         case 'getBookPage':
             return await bookHandler.page(event, context);
+        case 'deleteBook':
+            return await bookHandler.delete(event, context);
 
         case 'getUserInfo':
             return await getUserInfo.main(event, context);

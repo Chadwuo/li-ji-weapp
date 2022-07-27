@@ -17,10 +17,7 @@
     "pages/books/books",
     "pages/bookEdit/index",
     "pages/bookDetails/index",
-    "pages/bookSelect/index",
-
-    "pages/giftAdd/index",
-    "pages/giftEdit/index"
+    "pages/bookSelect/index"
   ],
   "window": {
     "backgroundColor": "#F76664",
