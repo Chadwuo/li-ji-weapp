@@ -51,36 +51,26 @@ Page({
         var that = this
         switch (event.detail.name) {
             case '删除':
-                app.globalData.refreshRequired.home = true
                 wx.showModal({
                     title: '删除礼簿？',
                     content: '该礼簿所有来往记录都将被删除，确定删除？',
                     success(res) {
                         if (res.confirm) {
-                            // 删除礼簿下所有记录
-                            wx.cloud.callFunction({
-                                name: 'lijiFunctions',
-                                data: {
-                                    type: 'deleteAllData',
-                                    table: 'gift',
-                                    where: {
-                                        userId: app.globalData.user._id,
-                                        bookId: that.data.actionId,
-                                    }
-                                }
-                            }).then(res => {
-                                // 删除礼簿
-                                db.collection('book').doc(that.data.actionId).remove({
-                                    success: function (res) {
-                                        that.setData({
-                                            giftBooks: that.data.giftBooks.filter(item => item._id != that.data.actionId)
-                                        })
-                                        wx.showToast({
-                                            title: '删除成功',
-                                        })
-                                    }
-                                })
+                            const result = await app.call({
+                                type: 'deleteBook',
+                                _id: that.data.actionId
                             })
+
+                            if (result.success) {
+                                wx.showToast({
+                                    title: '删除成功',
+                                })
+                            } else {
+                                wx.showToast({
+                                    title: '删除失败，请重试',
+                                    icon: 'error',
+                                })
+                            }
                         }
                     }
                 })
@@ -117,12 +107,9 @@ Page({
         }
         const that = this
         const res = await app.call({
-            // 传给云函数的参数
-            data: {
-                type: 'getBookPage',
-                page: page,
-                limit: 10
-            }
+            type: 'getBookPage',
+            page: page,
+            limit: 10
         })
 
         if (res.result.list.length === 0) {

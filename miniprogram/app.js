@@ -33,8 +33,8 @@ App({
 		try {
 			const cloud = await this.cloud()
 			const res = await cloud.callFunction({ // 调用云函数
-				name: obj.name || 'liji-functions', // 云函数名称 应用唯一的服务函数
-				data: obj.data
+				name: 'liji-functions', // 云函数名称 应用唯一的服务函数
+				data: obj
 			})
 			console.log('【云函数调用成功】', res)
 			if (res.result !== false) { // 如果返回值不为false，则证明正常访问

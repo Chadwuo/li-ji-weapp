@@ -6,13 +6,14 @@ cloud.init({
 
 const db = cloud.database();
 
+
 // 添加
 exports.add = async (event, context) => {
 	const {
 	  data
 	} = event
 	try {
-	  await db.collection('friend').add(data)
+	  await db.collection('gift').add(data)
 	  return {
 		success: true,
 		data: ''
@@ -28,7 +29,7 @@ exports.add = async (event, context) => {
   // 更新
   exports.update = async (event, context) => {
 	try {
-	  await db.collection('friend').doc(event._id).update()
+	  await db.collection('gift').doc(event._id).update()
 	  return {
 		success: true,
 		data: ''
@@ -44,7 +45,7 @@ exports.add = async (event, context) => {
   // 删除
   exports.delete = async (event, context) => {
 	try {
-	  await db.collection('friend').doc(event._id).remove()
+	  await db.collection('gift').doc(event._id).remove()
 	  return {
 		success: true,
 		data: ''

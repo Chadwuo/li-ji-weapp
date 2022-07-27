@@ -6,7 +6,6 @@
     </van-search>
 
     <van-empty wx:if="{{giftBooks.length===0}}" description="还没有记录哦~"></van-empty>
-    <van-notice-bar wx:elif="{{!isHideTips}}" left-icon="volume-o" text="长按礼簿可以操作礼簿" mode="closeable" bind:close="onCloseTips" />
     <view class="book-wrapper">
         <view class="book-item" wx:for="{{giftBooks}}" wx:key="index" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-bookid='{{item._id}}'>
             <image class="bg" src="/images/bg_book.png" mode="scaleToFill"></image>
