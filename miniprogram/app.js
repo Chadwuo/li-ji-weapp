@@ -1,7 +1,7 @@
 // app.js
 App({
 	flag: false,
-	async onLaunch: function () {
+	async onLaunch() {
 		const that = this
 		await this.initcloud()
 		// 查询缓存中用户信息
