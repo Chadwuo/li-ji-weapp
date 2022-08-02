@@ -20,16 +20,16 @@ exports.page = async (event, context) => {
       .skip(event.page * event.limit)
       .limit(event.limit)
       .lookup({
-        from: "gift",
+        from: "giftReceive",
         localField: "_id",
         foreignField: "bookId",
         as: "giftList"
       })
       .end()
-    return {
+     return {
       success: true,
-      data: res.data,
-    }
+      data: res.result.list
+    };
   } catch (e) {
     return {
       success: false,
