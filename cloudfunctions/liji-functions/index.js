@@ -1,13 +1,10 @@
-const getUserInfo = require('./getUserInfo/index');
-const getAllData = require('./getAllData/index');
-const deleteAllData = require('./deleteAllData/index');
-const lookupGiftFriend = require('./lookupGiftFriend/index');
-const lookupBookGift = require('./lookupBookGift/index');
-
 const userHandler = require('./services/user');
 const bookHandler = require('./services/book');
 const giftReceiveHandler = require('./services/giftReceive');
 const giftOutHandler = require('./services/giftOut');
+const friendHandler = require('./services/friend');
+const sponsorHandler = require('./services/sponsor');
+const issueHandler = require('./services/issue');
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -32,16 +29,25 @@ exports.main = async (event, context) => {
             return await giftOutHandler.add(event, context);
         case 'updateGiftOut': // 更新送礼
             return await giftOutHandler.upd
-
-        case 'getUserInfo':
-            return await getUserInfo.main(event, context);
-        case 'getAllData':
-            return await getAllData.main(event, context);
-        case 'deleteAllData':
-            return await deleteAllData.main(event, context);
-        case 'lookupGiftFriend':
-            return await lookupGiftFriend.main(event, context);
-        case 'lookupBookGift':
-            return await lookupBookGift.main(event, context);
+        case 'addFriend': // 添加亲友
+            return await friendHandler.add(event, context);
+        case 'updateFriend': // 更新亲友
+            return await friendHandler.update(event, context);
+        case 'deleteFriend': // 删除亲友
+            return await friendHandler.delete(event, context);
+        case 'getSponsors': // 获取全部赞助名单
+            return await sponsorHandler.getList(event, context);
+        case 'addSponsor': // 添加赞助名单
+            return await sponsorHandler.add(event, context);
+        case 'updateSponsor': // 更新赞助名单
+            return await sponsorHandler.update(event, context);
+        case 'deleteSponsor': // 删除赞助名单
+            return await sponsorHandler.delete(event, context);
+        case 'getIssuePage': // 分页获取讨论
+            return await issueHandler.page(event, context);
+        case 'updateIssue': // 更新讨论
+            return await issueHandler.update(event, context);
+        case 'deleteIssue': // 删除讨论
+            return await issueHandler.delete(event, context);
     }
 };
