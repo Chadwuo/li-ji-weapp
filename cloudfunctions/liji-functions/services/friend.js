@@ -12,10 +12,10 @@ exports.add = async (event, context) => {
 	  data
 	} = event
 	try {
-	  await db.collection('friend').add(data)
+	 const res = await db.collection('friend').add(data)
 	  return {
 		success: true,
-		data: ''
+		data: res
 	  };
 	} catch (e) {
 	  return {
