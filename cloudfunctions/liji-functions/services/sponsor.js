@@ -12,7 +12,7 @@ exports.getList = async (event, context) => {
 	const MAX_LIMIT = 100
 	exports.main = async (event, context) => {
 		// 先取出集合记录总数
-		const countResult = await db.collection('sponsors').count()
+		const countResult = await db.collection('sponsor').count()
 		const total = countResult.total
 		// 计算需分几次取
 		const batchTimes = Math.ceil(total / 100)
@@ -38,7 +38,7 @@ exports.add = async (event, context) => {
 		data
 	} = event
 	try {
-		const res = await db.collection('sponsors').add(data)
+		const res = await db.collection('sponsor').add(data)
 		return {
 			success: true,
 			data: res
@@ -70,7 +70,7 @@ exports.update = async (event, context) => {
 // 删除
 exports.delete = async (event, context) => {
 	try {
-		await db.collection('sponsors').doc(event._id).remove()
+		await db.collection('sponsor').doc(event._id).remove()
 		return {
 			success: true,
 			data: ''
