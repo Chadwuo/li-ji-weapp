@@ -12,20 +12,20 @@ exports.getList = async (event, context) => {
 	const MAX_LIMIT = 100
 	exports.main = async (event, context) => {
 		// 先取出集合记录总数
-		const countResult = await db.collection('friend').count()
+		const countResult = await db.collection('sponsor').count()
 		const total = countResult.total
 		// 计算需分几次取
 		const batchTimes = Math.ceil(total / 100)
 		// 承载所有读操作的 promise 的数组
 		const tasks = []
 		for (let i = 0; i < batchTimes; i++) {
-			const promise = db.collection('friend').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get()
+			const promise = db.collection('sponsor').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get()
 			tasks.push(promise)
 		}
 		// 等待所有
 		return (await Promise.all(tasks)).reduce((acc, cur) => {
 			return {
-				data: acc.data.concat(cur.data),
+				data: acc.data.result.list.concat(cur.data.result.list),
 				errMsg: acc.errMsg,
 			}
 		})
@@ -35,50 +35,50 @@ exports.getList = async (event, context) => {
 // 添加
 exports.add = async (event, context) => {
 	const {
-	  data
+		data
 	} = event
 	try {
-	 const res = await db.collection('friend').add(data)
-	  return {
-		success: true,
-		data: res
-	  };
+		const res = await db.collection('sponsor').add(data)
+		return {
+			success: true,
+			data: res
+		};
 	} catch (e) {
-	  return {
-		success: false,
-		errMsg: e
-	  };
+		return {
+			success: false,
+			errMsg: e
+		};
 	}
-  };
-  
-  // 更新
-  exports.update = async (event, context) => {
+};
+
+// 更新
+exports.update = async (event, context) => {
 	try {
-	  await db.collection('friend').doc(event._id).update()
-	  return {
-		success: true,
-		data: ''
-	  };
+		await db.collection('sponsors').doc(event._id).update()
+		return {
+			success: true,
+			data: ''
+		};
 	} catch (e) {
-	  return {
-		success: false,
-		errMsg: e
-	  };
+		return {
+			success: false,
+			errMsg: e
+		};
 	}
-  };
-  
-  // 删除
-  exports.delete = async (event, context) => {
+};
+
+// 删除
+exports.delete = async (event, context) => {
 	try {
-	  await db.collection('friend').doc(event._id).remove()
-	  return {
-		success: true,
-		data: ''
-	  };
+		await db.collection('sponsor').doc(event._id).remove()
+		return {
+			success: true,
+			data: ''
+		};
 	} catch (e) {
-	  return {
-		success: false,
-		errMsg: e
-	  };
+		return {
+			success: false,
+			errMsg: e
+		};
 	}
-  };
+};
