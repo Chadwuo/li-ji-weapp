@@ -1,3 +1,4 @@
+/* pages/profile/index.wxss */
 .user .header {
   padding: 0 30rpx;
   height: 190rpx;

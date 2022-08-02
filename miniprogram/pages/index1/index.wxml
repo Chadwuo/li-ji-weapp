@@ -1,0 +1,52 @@
+<!--index.wxml-->
+<view class="container">
+  <van-notice-bar wx:if="{{service_stopped}}" left-icon="volume-o" text="抱歉,礼记的服务器资源已超限，系统将限制服务继续使用，服务会在明日恢复。" />
+  <van-sticky offset-top="{{ -30 }}">
+    <view class="home-header">
+      <image class="bg" src="/images/bg_summary.png" mode="center"></image>
+      <view class="content">
+        <van-row>
+          <van-col span="8" wx:if="{{false}}">
+            <view class='item' hover-class='none'>
+              <view class='calendar' bindtap="yearPickerShow">{{year}}年
+                <van-icon name="arrow-down" />
+              </view>
+            </view>
+          </van-col>
+          <van-col span="12">
+            <view class='item' hover-class='none'>
+              <view class='num'>{{receiveTotal}}</view>
+              <view class='title'>收礼</view>
+            </view>
+          </van-col>
+          <van-col span="12">
+            <view class='item' hover-class='none'>
+              <view class='num'>{{giveTotal}}</view>
+              <view class='title'>送礼</view>
+            </view>
+          </van-col>
+        </van-row>
+      </view>
+    </view>
+  </van-sticky>
+  <view class="wrapper">
+    <van-empty wx:if="{{service_stopped}}" image="network" description="与服务器断开连接" />
+    <van-empty wx:elif="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
+    <view class='nav acea-row row-middle' wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-giftid='{{item._id}}'>
+      <view class='content'>
+        <view class='title'>{{item.friendInfo.name}}</view>
+        <view class='info'>{{item.name}}</view>
+        <view class='info'>{{item.luckDay}}</view>
+      </view>
+      <view class='label'>
+        <van-tag round type="success" wx:if="{{item.type==='送'}}">送</van-tag>
+        <van-tag round color="#F76664" wx:else>收</van-tag>
+        {{item.money}}
+      </view>
+    </view>
+  </view>
+  <van-popup show="{{showYearPicker}}" round closeable position="bottom" bind:close="yearPickerClose" custom-style="height: 36%">
+    <van-picker columns="{{ yearData }}" default-index="{{ 2 }}" bind:change="yearPickerChange" />
+  </van-popup>
+</view>
+<footer></footer>

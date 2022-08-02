@@ -1,27 +1,2 @@
 <!--pages/appreciate/index.wxml-->
-<view class="container">
-    <image src="cloud://liji-1gzjub9o9bdf6d00.6c69-liji-1gzjub9o9bdf6d00-1308229258/appreciate_code.jpg" mode="aspectFit" show-menu-by-longpress bindtap="previewImage"></image>
-    <barrage bind:done="barrageDone" top="750rpx" shakeSpeed="1000" rowSpacing="60rpx" list="{{barrageList}}"></barrage>
-    <text class="top_tip">
-        如果你也喜欢这个项目，可以通过上方的二维码来赞助 礼记 的开发 —— 就好像偶尔给我买杯咖啡 :)
-
-        以下是项目的赞助名单(如有遗漏疏忽，请务必告知)
-    </text>
-    <view wx:if="{{isAdmin}}" style="position: absolute;bottom: 150rpx;">
-        <van-button color="#F76664" size="small" bind:click="onShowPopup">添加</van-button>
-    </view>
-</view>
-<van-popup show="{{ showAddPopup }}" position="top" round closeable custom-style="height: 32%;" bind:close="onClosePopup">
-    <view class="form-box">
-        <van-cell-group inset>
-            <van-field model:value="{{ name }}" placeholder="姓名" />
-            <van-field model:value="{{ money }}" placeholder="金额" />
-            <van-field model:value="{{ words }}" placeholder="留言" type="textarea" autosize="{{ { minHeight: 60} }}" />
-        </van-cell-group>
-        <view class="fotter-btn">
-            <van-button color="#F76664" round icon="guide-o" bind:click="onAdd" size="mini">添加</van-button>
-            <van-button color="#F76664" round icon="revoke" bind:click="onClosePopup" plain size="mini">关闭</van-button>
-        </view>
-    </view>
-</van-popup>
-<footer inner-text="倘若你觉得很赞 欢迎小额赞赏"></footer>
+<text>pages/appreciate/index.wxml</text>

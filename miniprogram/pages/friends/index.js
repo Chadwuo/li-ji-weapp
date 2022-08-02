@@ -1,4 +1,4 @@
-// pages/friends/friends.js
+// pages/friends/index.js
 const db = wx.cloud.database()
 const app = getApp()
 Page({
