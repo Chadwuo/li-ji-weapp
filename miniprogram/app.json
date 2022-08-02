@@ -1,98 +1,95 @@
 {
-    "pages": [
-        "pages/index/index",
-        "pages/profile/profile",
-        "pages/giftAdd/index",
-        "pages/giftEdit/index",
-        "pages/friends/friends",
-        "pages/friendEdit/index",
-        "pages/friendDetails/index",
-        "pages/friendSelect/index",
-        "pages/about/index",
-        "pages/issues/index",
-        "pages/appreciate/index",
-        "pages/books/books",
-        "pages/bookEdit/index",
-        "pages/bookDetails/index",
-        "pages/bookSelect/index"
-    ],
-    "window": {
-        "backgroundColor": "#F76664",
-        "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#F76664",
-        "navigationBarTitleText": "礼记",
-        "navigationBarTextStyle": "white"
-    },
-    "tabBar": {
-        "color": "#7A7E83",
-        "selectedColor": "#F76664",
-        "borderStyle": "black",
-        "backgroundColor": "#ffffff",
-        "list": [{
-                "pagePath": "pages/index/index",
-                "text": "首页",
-                "iconPath": "./images/home_gray.png",
-                "selectedIconPath": "./images/home_red.png"
-            },
-            {
-                "pagePath": "pages/books/books",
-                "text": "礼簿",
-                "iconPath": "./images/book_gray.png",
-                "selectedIconPath": "./images/book_red.png"
-            },
-            {
-                "text": "记一笔",
-                "pagePath": "pages/giftAdd/index",
-                "iconPath": "./images/add_gray.png",
-                "selectedIconPath": "./images/add_red.png"
-            },
-            {
-                "pagePath": "pages/friends/friends",
-                "text": "亲友",
-                "iconPath": "./images/contact_gray.png",
-                "selectedIconPath": "./images/contact_red.png"
-            },
-            {
-                "pagePath": "pages/profile/profile",
-                "text": "我的",
-                "iconPath": "./images/mine_gray.png",
-                "selectedIconPath": "./images/mine_red.png"
-            }
-        ]
-    },
-    "sitemapLocation": "sitemap.json",
-    "usingComponents": {
-        "van-row": "@vant/weapp/row/index",
-        "van-col": "@vant/weapp/col/index",
-        "van-cell": "@vant/weapp/cell/index",
-        "van-cell-group": "@vant/weapp/cell-group/index",
-        "van-button": "@vant/weapp/button/index",
-        "van-tag": "@vant/weapp/tag/index",
-        "van-icon": "@vant/weapp/icon/index",
-        "van-divider": "@vant/weapp/divider/index",
-        "van-empty": "@vant/weapp/empty/index",
-        "van-notify": "@vant/weapp/notify/index",
-        "van-tab": "@vant/weapp/tab/index",
-        "van-tabs": "@vant/weapp/tabs/index",
-        "van-field": "@vant/weapp/field/index",
-        "footer": "/components/footer/index",
-        "van-popup": "@vant/weapp/popup/index",
-        "van-picker": "@vant/weapp/picker/index",
-        "van-sticky": "@vant/weapp/sticky/index",
-        "van-search": "@vant/weapp/search/index",
-        "van-swipe-cell": "@vant/weapp/swipe-cell/index",
-        "van-index-bar": "@vant/weapp/index-bar/index",
-        "van-index-anchor": "@vant/weapp/index-anchor/index",
-        "van-dialog": "@vant/weapp/dialog/index",
-        "van-calendar": "@vant/weapp/calendar/index",
-        "van-radio": "@vant/weapp/radio/index",
-        "van-radio-group": "@vant/weapp/radio-group/index",
-        "van-action-sheet": "@vant/weapp/action-sheet/index",
-        "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
-        "van-dropdown-item": "@vant/weapp/dropdown-item/index",
-        "barrage": "/components/barrage",
-        "van-submit-bar": "@vant/weapp/submit-bar/index",
-        "van-notice-bar": "@vant/weapp/notice-bar/index",
-        "van-datetime-picker": "@vant/weapp/datetime-picker/index"
-    }
+  "pages": [
+    "pages/index/index",
+    "pages/gift/index",
+    "pages/friends/index",
+    "pages/profile/index",
+    "pages/login/index",
+    "pages/about/index",
+    "pages/issues/index",
+    "pages/sponsors/index",
+
+    "pages/giftGiving/index",
+    "pages/giftReceive/index",
+    "pages/friendEdit/index",
+    "pages/friendDetails/index",
+    "pages/friendSelect/index",
+    "pages/books/books",
+    "pages/bookEdit/index",
+    "pages/bookDetails/index",
+    "pages/bookSelect/index"
+  ],
+  "window": {
+    "backgroundColor": "#F76664",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F76664",
+    "navigationBarTitleText": "礼记",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#F76664",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [{
+        "pagePath": "pages/index/index",
+        "text": "礼记",
+        "iconPath": "./images/book_gray.png",
+        "selectedIconPath": "./images/book_red.png"
+      },
+      {
+        "text": "送礼",
+        "pagePath": "pages/gift/index",
+        "iconPath": "./images/icon_post.png",
+        "selectedIconPath": "./images/icon_post_red.png"
+      },
+      {
+        "pagePath": "pages/friends/index",
+        "text": "亲友",
+        "iconPath": "./images/contact_gray.png",
+        "selectedIconPath": "./images/contact_red.png"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的",
+        "iconPath": "./images/mine_gray.png",
+        "selectedIconPath": "./images/mine_red.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-row": "@vant/weapp/row/index",
+    "van-col": "@vant/weapp/col/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-empty": "@vant/weapp/empty/index",
+    "van-notify": "@vant/weapp/notify/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-field": "@vant/weapp/field/index",
+    "footer": "/components/footer/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-picker": "@vant/weapp/picker/index",
+    "van-sticky": "@vant/weapp/sticky/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-swipe-cell": "@vant/weapp/swipe-cell/index",
+    "van-index-bar": "@vant/weapp/index-bar/index",
+    "van-index-anchor": "@vant/weapp/index-anchor/index",
+    "van-dialog": "@vant/weapp/dialog/index",
+    "van-calendar": "@vant/weapp/calendar/index",
+    "van-radio": "@vant/weapp/radio/index",
+    "van-radio-group": "@vant/weapp/radio-group/index",
+    "van-action-sheet": "@vant/weapp/action-sheet/index",
+    "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
+    "van-dropdown-item": "@vant/weapp/dropdown-item/index",
+    "barrage": "/components/barrage",
+    "van-submit-bar": "@vant/weapp/submit-bar/index",
+    "van-notice-bar": "@vant/weapp/notice-bar/index",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index"
+  }
 }
