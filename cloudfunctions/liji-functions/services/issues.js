@@ -8,22 +8,20 @@ const db = cloud.database();
 
 // 获取分页
 exports.page = async (event, context) => {
-	// 获取基础信息
-	const wxContext = cloud.getWXContext();
+	let {
+    OPENID,
+  } = cloud.getWXContext() // 这里获取到的 openId 和 appId 是可信的
+	
 	try {
-		const res = await db.collection('book').aggregate()
-			.match({
-				_openid: wxContext.OPENID,
-			})
+		const res = await db.collection('issues').aggregate()
+			.orderBy('createTime', 'desc')
 			.skip(event.page * event.limit)
 			.limit(event.limit)
-			.lookup({
-				from: "gift",
-				localField: "_id",
-				foreignField: "bookId",
-				as: "giftList"
-			})
 			.end()
+		return {
+			success: true,
+			data: res.result.list
+		};
 	} catch (e) {
 		return {
 			success: false,
@@ -38,10 +36,10 @@ exports.add = async (event, context) => {
 		data
 	} = event
 	try {
-		await db.collection('issues').add(data)
+		const res = await db.collection('issues').add(data)
 		return {
 			success: true,
-			data: ''
+			data: res
 		};
 	} catch (e) {
 		return {
