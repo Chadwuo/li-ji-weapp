@@ -1,0 +1,43 @@
+<!--pages/profile/index.wxml-->
+<view class='user'>
+  <view class='header bg-color acea-row row-between-wrapper'>
+    <view class='picTxt acea-row row-between-wrapper'>
+      <view class='pictrue'>
+        <view class="avatar">
+          <open-data type="userAvatarUrl"></open-data>
+        </view>
+      </view>
+      <view class='text'>
+        <view class='acea-row row-middle'>
+          <view class='name line1'>
+            <open-data type="userNickName"></open-data>
+          </view>
+        </view>
+        <view class='desc'>未开通家庭共享</view>
+      </view>
+    </view>
+    <!-- <van-icon name="setting-o" /> -->
+  </view>
+  <view class='wrapper'>
+    <view class='nav acea-row row-middle'>
+      <view class='item' hover-class='none'>
+        <view class='num'>{{receiveTotal}}</view>
+        <view class='title'>收礼</view>
+      </view>
+      <view class='item' hover-class='none'>
+        <view class='num'>{{giveTotal}}</view>
+        <view class='title'>送礼</view>
+      </view>
+    </view>
+    <view class='myService'>
+      <view class='serviceList acea-row row-middle'>
+        <view class='item' wx:for="{{MyMenus}}" wx:key="index" bindtap='jumpPage' data-page='{{item.page}}' wx:if="{{item.page!='#'}}">
+          <view class='pictrue'>
+            <van-icon size="64rpx" name="{{item.icon}}" />
+          </view>
+          <view class='title'>{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

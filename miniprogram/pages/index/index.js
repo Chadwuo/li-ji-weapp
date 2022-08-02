@@ -1,207 +1,183 @@
-// index.js
-const app = getApp()
-const dayjs = require('dayjs');
-const db = wx.cloud.database()
+// pages/index/index.js
 Page({
-  data: {
-    pageNo: 0,
-    giftList: [],
-    year: '2021',
-    // 年度选择
-    showYearPicker: false,
-    // 年度选择集合
-    yearData: ['2021', ],
-    receiveTotal: '0.00',
-    giveTotal: '0.00',
-    service_stopped: false
-  },
-  formatDate(date) {
-    return dayjs(date).format('YYYY-MM-DD');
-  },
-  computedGiftTotl() {
-    const $ = db.command.aggregate
-    let that = this
-    db.collection('gift')
-      .aggregate()
-      .match({
-        userId: app.globalData.user._id,
-        type: '收'
-      })
-      .group({
-        _id: null,
-        total: $.sum('$money')
-      })
-      .end()
-      .then(res => {
-        let resTotal = 0
-        if (res.list.length != 0) {
-          resTotal = res.list[0].total
-        }
-        that.setData({
-          receiveTotal: resTotal.toFixed(2),
+
+    /**
+     * 页面的初始数据
+     */
+    data: {
+        keyword: '',
+        pageNo: 0,
+        giftBooks: [],
+        actionId: '',
+        showBookAction: false,
+        bookActions: [{
+                name: '编辑',
+            },
+            {
+                name: '删除',
+                subname: '该礼簿所有来往记录都将被删除',
+            },
+        ],
+    },
+    onSearch() {
+        wx.showToast({
+            title: '搜索...马上写完，真的',
+            icon: 'none',
+        })
+    },
+    onAdd() {
+        wx.navigateTo({
+            url: `/pages/bookEdit/index`,
         });
-      })
-
-    db.collection('gift')
-      .aggregate()
-      .match({
-        userId: app.globalData.user._id,
-        type: '送'
-      })
-      .group({
-        _id: null,
-        total: $.sum('$money')
-      })
-      .end()
-      .then(res => {
-        let resTotal = 0
-        if (res.list.length != 0) {
-          resTotal = res.list[0].total
-        }
-        that.setData({
-          giveTotal: resTotal.toFixed(2),
+    },
+    onBookClick(e) {
+        wx.navigateTo({
+            url: `/pages/bookDetails/index?bookId=${e.currentTarget.dataset.bookid}`,
         });
-      })
-  },
-  // 显示年度选择框
-  yearPickerShow() {
-    this.setData({
-      showYearPicker: true
-    })
-  },
-  // 年度选择框 改变
-  yearPickerChange(event) {
-    this.setData({
-      year: event.detail.value
-    });
-  },
-  // 关闭年度选择框
-  yearPickerClose() {
-    this.setData({
-      showYearPicker: false
-    });
-    // todo 加载对应年度的账单
-    // ...
-  },
-  onGiftClick(e) {
-    wx.navigateTo({
-      url: `/pages/giftEdit/index?giftId=${e.currentTarget.dataset.giftid}`,
-    });
-  },
+    },
+    onBookLongPress(e) {
+        this.setData({
+            showBookAction: true,
+            actionId: e.currentTarget.dataset.bookid
+        });
+    },
+    onCloseBookAction() {
+        this.setData({
+            showBookAction: false
+        });
+    },
+    // 长按选择礼簿
+    onSelectBookAction(event) {
+        var that = this
+        switch (event.detail.name) {
+            case '删除':
+                wx.showModal({
+                    title: '删除礼簿？',
+                    content: '该礼簿所有来往记录都将被删除，确定删除？',
+                    success(res) {
+                        if (res.confirm) {
+                            const result = await app.call({
+                                type: 'deleteBook',
+                                _id: that.data.actionId
+                            })
 
-  loadData(page) {
-    // 如果服务已经停止
-    if (app.globalData.serviceStopped) {
-      this.setData({
-        service_stopped: true,
-        giftList: []
-      })
-      return
-    }
-    if (page == 0) {
-      this.setData({
-        giftList: [],
-        pageNo: 0
-      })
-    }
-    let that = this
-    wx.cloud.callFunction({
-      name: 'lijiFunctions',
-      data: {
-        type: 'lookupGiftFriend',
-        page: page,
-        limit: 10
-      }
-    }).then(res => {
-      if (res.result.list.length === 0) {
-        return
-      }
-      let datas = this.data.giftList.concat(res.result.list)
-      datas.map(i => {
-        if (i.luckDay) {
-          i.luckDay = that.formatDate(i.luckDay)
+                            if (result.success) {
+                                wx.showToast({
+                                    title: '删除成功',
+                                })
+                            } else {
+                                wx.showToast({
+                                    title: '删除失败，请重试',
+                                    icon: 'error',
+                                })
+                            }
+                        }
+                    }
+                })
+                break;
+            case '编辑':
+                wx.navigateTo({
+                    url: `/pages/bookEdit/index?bookId=${this.data.actionId}`,
+                });
+                break;
+            default:
+                break;
         }
-      })
-      that.setData({
-        giftList: datas,
-        pageNo: that.data.pageNo + 1
-      });
-    })
-  },
+    },
+    computeTotal(datas) {
+        return datas.map(i => {
+            i.giftCount = i.giftList.length
+            i.giftTotal = 0
+            for (let item of i.giftList) {
+                if (item.type == '收') {
+                    i.giftTotal += Number(item.money)
+                } else {
+                    i.giftTotal -= Number(item.money)
+                }
+            }
+            return i
+        })
+    },
+    async loadData(page) {
+        if (page == 0) {
+            this.setData({
+                pageNo: 0,
+                giftBooks: []
+            })
+        }
+        const that = this
+        const res = await app.call({
+            type: 'getBookPage',
+            page: page,
+            limit: 10
+        })
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
-    var intervalID = setInterval(() => {
-      if (app.globalData.user._id) {
+        if (res.result.list.length === 0) {
+            return
+        }
+
+        const resList = that.computeTotal(this.data.giftBooks.concat(res.result.list))
+        that.setData({
+            giftBooks: resList,
+            pageNo: that.data.pageNo + 1
+        });
+    },
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad(options) {
+
+    },
+
+    /**
+     * 生命周期函数--监听页面初次渲染完成
+     */
+    onReady() {
+
+    },
+
+    /**
+     * 生命周期函数--监听页面显示
+     */
+    onShow() {
         this.loadData(0)
-        this.computedGiftTotl();
-        wx.hideLoading()
-        clearInterval(intervalID);
-      }
-    }, 1500);
-  },
+    },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+    /**
+     * 生命周期函数--监听页面隐藏
+     */
+    onHide() {
 
-  },
+    },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    // 是否需要刷新
-    if (app.globalData.refreshRequired.home) {
-      this.loadData(0);
-      this.computedGiftTotl();
-      app.globalData.refreshRequired.home = false
+    /**
+     * 生命周期函数--监听页面卸载
+     */
+    onUnload() {
+
+    },
+
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh() {
+        // this.loadData()
+        setTimeout(() => {
+            wx.stopPullDownRefresh()
+        }, 2000);
+    },
+
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom() {
+        this.loadData(this.data.pageNo)
+    },
+
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage() {
+
     }
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-    this.loadData(0);
-    this.computedGiftTotl();
-    setTimeout(() => {
-      wx.stopPullDownRefresh()
-    }, 1500);
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    this.loadData(this.data.pageNo)
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

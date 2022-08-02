@@ -1,0 +1,8 @@
+<!--pages/login/index.wxml-->
+<view class="login">
+    <view class="login_title">
+        <image src="../../image/01.png"></image>
+        <view></view>
+    </view>
+    <view class="login_button" bindtap="login">开启</view>
+</view>

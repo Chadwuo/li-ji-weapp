@@ -1,4 +1,4 @@
-// pages/profile/profile.js
+// pages/giftReceive/index.js
 Page({
 
   /**

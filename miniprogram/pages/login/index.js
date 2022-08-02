@@ -1,4 +1,4 @@
-// pages/profile/profile.js
+// pages/login/index.js
 Page({
 
   /**
@@ -7,7 +7,29 @@ Page({
   data: {
 
   },
-
+  login(){
+    wx.getUserProfile({
+      desc: '使用户得到更好的体验',
+      success: (res) => {
+        let user = res.userInfo
+        wx.setStorageSync('user', user)
+        wx.showToast({
+            icon:"success",
+            title: '登录成功',
+          })
+        setTimeout(()=>{
+          wx.navigateBack({
+            delta: 1
+          });
+        },2000)
+      },
+      fail: res => {
+          wx.showToast({
+            title: '登录失败',
+          })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
