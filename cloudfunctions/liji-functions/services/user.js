@@ -7,14 +7,16 @@ cloud.init({
 const db = cloud.database();
 
 // 获取当前OPENID
-exports.userOpenid = async (event,context) => {
+exports.userOpenid = async (event, context) => {
   try {
-    let { OPENID } = cloud.getWXContext()
+    let {
+      OPENID
+    } = cloud.getWXContext()
     return {
-      success:true,
-      data:OPENID
+      success: true,
+      data: OPENID
     }
-  }catch{
+  } catch {
     return {
       success: false,
       message: e
@@ -24,10 +26,32 @@ exports.userOpenid = async (event,context) => {
 
 // 获取用户信息
 exports.getUserInfo = async (event, context) => {
+  try {
+    let {
+      OPENID
+    } = cloud.getWXContext()
+    const res = await db.collection('user').where({
+      _openid: OPENID,
+    }).get()
+
+    return {
+      success: true,
+      data: res.data
+    }
+  } catch {
+    return {
+      success: false,
+      message: e
+    };
+  }
+};
+
+// 获取用户家庭信息
+exports.getUserFamily = async (event, context) => {
   // 获取基础信息
   const wxContext = cloud.getWXContext();
-  return await db.collection('user').where({
-    _openid: wxContext.OPENID,
+  return await db.collection('family').where({
+    _id: wxContext.OPENID,
   }).get()
 };
 
