@@ -13,7 +13,7 @@ exports.page = async (event, context) => {
   } = cloud.getWXContext() // 这里获取到的 openId 和 appId 是可信的
 	
 	try {
-		const res = await db.collection('issues').aggregate()
+		const res = await db.collection('issue').aggregate()
 			.orderBy('createTime', 'desc')
 			.skip(event.page * event.limit)
 			.limit(event.limit)
@@ -36,7 +36,7 @@ exports.add = async (event, context) => {
 		data
 	} = event
 	try {
-		const res = await db.collection('issues').add(data)
+		const res = await db.collection('issue').add(data)
 		return {
 			success: true,
 			data: res
@@ -52,7 +52,7 @@ exports.add = async (event, context) => {
 // 更新
 exports.update = async (event, context) => {
 	try {
-		await db.collection('issues').doc(event._id).update()
+		await db.collection('issue').doc(event._id).update()
 		return {
 			success: true,
 			data: ''
@@ -68,7 +68,7 @@ exports.update = async (event, context) => {
 // 删除
 exports.delete = async (event, context) => {
 	try {
-		await db.collection('issues').doc(event._id).remove()
+		await db.collection('issue').doc(event._id).remove()
 		return {
 			success: true,
 			data: ''
