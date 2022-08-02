@@ -19,12 +19,16 @@ exports.main = async (event, context) => {
             return await bookHandler.update(event, context);
         case 'deleteBook': // 删除礼簿
             return await bookHandler.delete(event, context);
+        case 'computedTotalGiftReceive': // 计算收礼总计
+            return await giftReceiveHandler.total(event, context);
         case 'addGiftReceive': // 添加收礼
             return await giftReceiveHandler.add(event, context);
         case 'updateGiftReceive': // 更新收礼
             return await giftReceiveHandler.update(event, context);
         case 'deleteGiftReceive': // 删除收礼
             return await giftReceiveHandler.delete(event, context);
+        case 'computedTotalGiftOut': // 计算送礼总计
+            return await giftOutHandler.total(event, context);
         case 'addGiftReceive': // 添加送礼
             return await giftOutHandler.add(event, context);
         case 'updateGiftOut': // 更新送礼
