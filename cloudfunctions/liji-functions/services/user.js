@@ -34,25 +34,44 @@ exports.getUserInfo = async (event, context) => {
       _openid: OPENID,
     }).get()
 
+    
+
+
     return {
       success: true,
       data: res.data
     }
-  } catch {
+  } catch (error) {
     return {
       success: false,
-      message: e
+      message: error
     };
   }
 };
 
 // 获取用户家庭信息
 exports.getUserFamily = async (event, context) => {
-  // 获取基础信息
-  const wxContext = cloud.getWXContext();
-  return await db.collection('family').where({
-    _id: wxContext.OPENID,
-  }).get()
+  try {
+    const familyRes = await db.collection('family').doc(event._id).get()
+
+    const familyInfoRes = await db.collection('familyInfo').where({
+      familyId: event._id,
+    }).get()
+
+    return {
+      success: true,
+      data: {
+        ...familyRes.result.data,
+        familyInfo: familyInfoRes.result.data
+      }
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: error
+    };
+  }
+
 };
 
 // 注册用户
