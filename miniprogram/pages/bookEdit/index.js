@@ -28,76 +28,58 @@ Page({
   formatDate(date) {
     return dayjs(date).format('YYYY-MM-DD');
   },
-  saveBook() {
+  async saveBook() {
     app.globalData.refreshRequired.book = true
     if (this.data.id) {
-      db.collection('book').doc(this.data.id).update({
+      const res = await app.call({
+        type: 'updateBook',
         data: {
-          luckDay: new Date(this.data.luckDay),
-          name: this.data.name,
-          type: '',
-        },
-        success: function (res) {
-          wx.showToast({
-            title: '修改成功',
-          })
-          setTimeout(() => {
-            wx.navigateBack()
-          }, 500);
+          date: new Date(this.data.luckDay),
+          title: this.data.name,
         }
       })
+      if (res.success) {
+        wx.showToast({
+          title: '修改成功',
+        })
+        setTimeout(() => {
+          wx.navigateBack()
+        }, 500);
+      }
     } else {
-      db.collection('book').add({
+      const res = await app.call({
+        type: 'addBook',
         data: {
-          luckDay: new Date(this.data.luckDay),
-          name: this.data.name,
-          userId: app.globalData.user._id,
-          type: '',
+          date: new Date(this.data.luckDay),
+          title: this.data.name,
         }
-      }).then(res => {
-        this.setData({
-          id: res._id
-        });
+      })
+      if (res.success) {
         wx.showToast({
           title: '保存成功',
         })
         setTimeout(() => {
           wx.navigateBack()
         }, 500);
-      })
+      }
     }
   },
   delBook() {
-    app.globalData.refreshRequired.home = true
-    app.globalData.refreshRequired.book = true
     var that = this
     wx.showModal({
       title: '删除礼簿？',
       content: '该礼簿所有来往记录都将被删除，确定删除？',
-      success(res) {
+      async success(res) {
         if (res.confirm) {
-          // 删除礼簿下所有记录
-          wx.cloud.callFunction({
-            name: 'lijiFunctions',
-            data: {
-              type: 'deleteAllData',
-              table: 'gift',
-              where: {
-                userId: app.globalData.user._id,
-                bookId: that.data.id,
-              }
-            }
-          }).then(res => {
-            // 删除礼簿
-            db.collection('book').doc(that.data.id).remove({
-              success: function (res) {
-                wx.navigateBack()
-                wx.showToast({
-                  title: '删除成功',
-                })
-              }
-            })
+          const result = await app.call({
+            type: 'deleteBook',
+            _id: that.data.id
           })
+          if (result.success) {
+            wx.showToast({
+              title: '删除成功',
+            })
+          }
         }
       }
     })
@@ -126,20 +108,21 @@ Page({
   onLoad: function (options) {
     var that = this
     if (options.bookId) {
-      
-      db.collection('book').doc(options.bookId).get({
-        success: function (res) {
-          that.setData({
-            id: res.data._id,
-            luckDay: new Date(res.data.luckDay).getTime(),
-            luckDayFormat: that.formatDate(res.data.luckDay),
-            name: res.data.name,
-          });
-          wx.setNavigationBarTitle({
-            title: res.data.name
-          })
-        }
+      const res = await app.call({
+        type: 'getBook',
+        _id: options.bookId
       })
+      if (res.success) {
+        that.setData({
+          id: res.data._id,
+          luckDay: new Date(res.data.date).getTime(),
+          luckDayFormat: that.formatDate(res.data.date),
+          name: res.data.tile,
+        });
+        wx.setNavigationBarTitle({
+          title: res.data.title
+        })
+      }
     }
   },
   /**

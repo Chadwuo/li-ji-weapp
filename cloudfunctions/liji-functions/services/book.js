@@ -28,7 +28,23 @@ exports.page = async (event, context) => {
       .end()
     return {
       success: true,
-      data: res.result.list
+      data: res.list
+    };
+  } catch (e) {
+    return {
+      success: false,
+      errMsg: e
+    };
+  }
+};
+
+// 添加
+exports.get = async (event, context) => {
+  try {
+    const res = await db.collection('book').doc(event._id).get()
+    return {
+      success: true,
+      data: res.data
     };
   } catch (e) {
     return {
@@ -41,9 +57,10 @@ exports.page = async (event, context) => {
 // 添加
 exports.add = async (event, context) => {
   const {
-    data
+    data, userInfo
   } = event
   try {
+    data.userId = userInfo._id
     await db.collection('book').add(data)
     return {
       success: true,
