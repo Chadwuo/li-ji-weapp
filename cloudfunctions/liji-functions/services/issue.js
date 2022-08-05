@@ -9,9 +9,9 @@ const db = cloud.database();
 // 获取分页
 exports.page = async (event, context) => {
 	let {
-    OPENID,
-  } = cloud.getWXContext() // 这里获取到的 openId 和 appId 是可信的
-	
+		OPENID,
+	} = cloud.getWXContext() // 这里获取到的 openId 和 appId 是可信的
+
 	try {
 		const res = await db.collection('issue').aggregate()
 			.orderBy('createTime', 'desc')

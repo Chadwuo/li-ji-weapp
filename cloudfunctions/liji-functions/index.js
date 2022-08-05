@@ -5,12 +5,17 @@ const giftOutHandler = require('./services/giftOut');
 const friendHandler = require('./services/friend');
 const sponsorHandler = require('./services/sponsor');
 const issueHandler = require('./services/issue');
+const familyHandler = require('./services/family');
 
 // 云函数入口函数
 exports.main = async (event, context) => {
     switch (event.type) {
-       case 'userOpenid': // 获取用户openid
-            return await userHandler.userOpenid(event, context);
+        case 'getUserOpenid': // 获取用户openid
+            return await userHandler.getOpenid(event, context);
+        case 'getUserInfo': // 获取用户信息
+            return await userHandler.getInfo(event, context);
+        case 'register': // 注册用户
+            return await userHandler.add(event, context);
         case 'getBookPage': // 分页获取礼簿
             return await bookHandler.page(event, context);
         case 'addBook': //添加礼簿
@@ -57,5 +62,19 @@ exports.main = async (event, context) => {
             return await issueHandler.update(event, context);
         case 'deleteIssue': // 删除讨论
             return await issueHandler.delete(event, context);
+        case 'getFamilyInfo': // 获取家庭信息
+            return await familyHandler.getInfo(event, context);
+        case 'addFamily': // 添加家庭
+            return await familyHandler.add(event, context);
+        case 'updateFamily': // 更新家庭
+            return await familyHandler.update(event, context);
+        case 'deleteFamily': // 删除家庭
+            return await familyHandler.delete(event, context);
+        case 'applyJoinFamily': // 申请加入家庭
+            return await familyHandler.addMember(event, context);
+        case 'deleteFamilyMember': // 删除家庭成员
+            return await familyHandler.delMember(event, context);
+        case 'checkFamilyMember': // 审核家庭成员
+            return await familyHandler.checkMember(event, context);
     }
 };
