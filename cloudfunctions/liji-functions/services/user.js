@@ -7,7 +7,7 @@ cloud.init({
 const db = cloud.database();
 
 // 获取当前OPENID
-exports.userOpenid = async (event, context) => {
+exports.getOpenid = async (event, context) => {
   try {
     let {
       OPENID
@@ -25,7 +25,7 @@ exports.userOpenid = async (event, context) => {
 }
 
 // 获取用户信息
-exports.getUserInfo = async (event, context) => {
+exports.getInfo = async (event, context) => {
   try {
     let {
       OPENID
@@ -34,12 +34,16 @@ exports.getUserInfo = async (event, context) => {
       _openid: OPENID,
     }).get()
 
-
-
-
-    return {
-      success: true,
-      data: res.data
+    if (res.result.data.length == 1) {
+      return {
+        success: true,
+        data: res.result.data[0]
+      }
+    } else {
+      return {
+        success: false,
+        message: 'user not found by openid'
+      };
     }
   } catch (error) {
     return {
@@ -49,13 +53,52 @@ exports.getUserInfo = async (event, context) => {
   }
 };
 
-
-
 // 注册用户
-exports.register = async (event, context) => {
-  // 获取基础信息
-  const wxContext = cloud.getWXContext();
-  return await db.collection('user').add({
-    _openid: wxContext.OPENID,
-  })
+exports.add = async (event, context) => {
+  try {
+    const res = await db.collection('user').add({
+      data: {
+        familyId: '',
+        isVip: false
+      }
+    })
+    return {
+      success: true,
+      data: res.result.data
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: error
+    }
+  }
+};
+
+/**
+* 获取用户数据范围
+* @return data {Array.<string>} 用户id集合。
+* @author chadwuo
+*/
+exports.getUserDataScope = async (event, context) => {
+  try {
+    const {
+      userInfo
+    } = event
+
+    // 没有加入家庭，就返回自己的id
+    if (!userInfo.familyId) {
+      return [userInfo._Id]
+    }
+
+    // 获取家庭信息
+    const res = await db.collection('familyInfo').where({
+      familyId: userInfo.familyId,
+      status: 1
+    }).get()
+
+    return res.result.data
+
+  } catch {
+    return []
+  }
 };
