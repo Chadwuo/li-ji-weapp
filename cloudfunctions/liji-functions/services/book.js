@@ -26,7 +26,7 @@ exports.page = async (event, context) => {
         as: "giftList"
       })
       .end()
-     return {
+    return {
       success: true,
       data: res.result.list
     };

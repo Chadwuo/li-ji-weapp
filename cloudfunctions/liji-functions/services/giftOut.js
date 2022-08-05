@@ -8,32 +8,32 @@ const db = cloud.database();
 
 // 计算送礼金额总计
 exports.total = async (event, context) => {
-    const $ = db.command.aggregate
-    try {
-        const res = db.collection('giftOut')
-            .aggregate()
-            .match({
-                userId: 'TODO',
-            })
-            .group({
-                _id: null,
-                total: $.sum('$money')
-            })
-            .end()
-        let total = 0
-        if (res.list.length != 0) {
-            total = res.list[0].total
-        }
-        return {
-            success: true,
-            data: total.toFixed(2)
-        };
-    } catch (e) {
-        return {
-            success: false,
-            errMsg: e
-        };
-    }
+	const $ = db.command.aggregate
+	try {
+		const res = db.collection('giftOut')
+			.aggregate()
+			.match({
+				userId: 'TODO',
+			})
+			.group({
+				_id: null,
+				total: $.sum('$money')
+			})
+			.end()
+		let total = 0
+		if (res.list.length != 0) {
+			total = res.list[0].total
+		}
+		return {
+			success: true,
+			data: total.toFixed(2)
+		};
+	} catch (e) {
+		return {
+			success: false,
+			errMsg: e
+		};
+	}
 };
 
 // 添加
