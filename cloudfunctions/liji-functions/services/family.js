@@ -7,7 +7,7 @@ cloud.init({
 const db = cloud.database();
 
 // 获取用户家庭信息
-exports.getFamilyInfo = async (event, context) => {
+exports.getInfo = async (event, context) => {
     try {
         const {
             userInfo
@@ -128,7 +128,7 @@ exports.delete = async (event, context) => {
 };
 
 
-// 添加家庭成员
+// 添加家庭成员(申请加入家庭)
 exports.addMember = async (event, context) => {
     try {
         const {
@@ -175,15 +175,25 @@ exports.delMember = async (event, context) => {
     }
 };
 
-// 更新家庭成员
-exports.updateMember = async (event, context) => {
+// 审核家庭成员加入申请
+exports.checkMember = async (event, context) => {
     try {
         const {
             data
         } = event
 
-        await db.collection('familyInfo').doc(data._id).update(data)
-
+        // 修改状态
+        await db.collection('familyInfo').doc(data._id).update({
+            data: {
+                status: 1
+            }
+        })
+        // 更新成员的用户表中家庭id
+        await db.collection('user').doc(data.userId).update({
+            data: {
+                familyId: data.familyId
+            }
+        })
         return {
             success: true,
             data: ''
