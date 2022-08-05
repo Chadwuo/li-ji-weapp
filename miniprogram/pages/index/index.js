@@ -11,12 +11,12 @@ Page({
     actionId: '',
     showBookAction: false,
     bookActions: [{
-        name: '编辑',
-      },
-      {
-        name: '删除',
-        subname: '该礼簿所有来往记录都将被删除',
-      },
+      name: '编辑',
+    },
+    {
+      name: '删除',
+      subname: '该礼簿所有来往记录都将被删除',
+    },
     ],
   },
   onSearch() {
@@ -89,11 +89,7 @@ Page({
       i.giftCount = i.giftList.length
       i.giftTotal = 0
       for (let item of i.giftList) {
-        if (item.type == '收') {
-          i.giftTotal += Number(item.money)
-        } else {
-          i.giftTotal -= Number(item.money)
-        }
+        i.giftTotal += Number(item.money)
       }
       return i
     })
@@ -112,15 +108,18 @@ Page({
       limit: 10
     })
 
-    if (res.result.list.length === 0) {
-      return
+    if (res.success) {
+      const resList = that.computeTotal(res.data)
+      that.setData({
+        giftBooks: this.data.giftBooks.concat(resList),
+        pageNo: that.data.pageNo + 1
+      });
+    } else {
+      wx.showToast({
+        title: res.message,
+        icon: 'error',
+      })
     }
-
-    const resList = that.computeTotal(this.data.giftBooks.concat(res.result.list))
-    that.setData({
-      giftBooks: resList,
-      pageNo: that.data.pageNo + 1
-    });
   },
   /**
    * 生命周期函数--监听页面加载
