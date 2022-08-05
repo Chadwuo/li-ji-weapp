@@ -34,7 +34,7 @@ exports.getUserInfo = async (event, context) => {
       _openid: OPENID,
     }).get()
 
-    
+
 
 
     return {
@@ -49,30 +49,7 @@ exports.getUserInfo = async (event, context) => {
   }
 };
 
-// 获取用户家庭信息
-exports.getUserFamily = async (event, context) => {
-  try {
-    const familyRes = await db.collection('family').doc(event._id).get()
 
-    const familyInfoRes = await db.collection('familyInfo').where({
-      familyId: event._id,
-    }).get()
-
-    return {
-      success: true,
-      data: {
-        ...familyRes.result.data,
-        familyInfo: familyInfoRes.result.data
-      }
-    }
-  } catch (error) {
-    return {
-      success: false,
-      message: error
-    };
-  }
-
-};
 
 // 注册用户
 exports.register = async (event, context) => {
