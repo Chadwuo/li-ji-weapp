@@ -1,7 +1,7 @@
 // app.js
 App({
 	flag: false,
-	async onLaunch: function () {
+	async onLaunch() {
 		const that = this
 		await this.initcloud()
 		// 查询缓存中用户信息
@@ -13,7 +13,7 @@ App({
 				}
 			})
 			console.log(res)
-			if (res.success == true) {
+			if (res.success) {
 				wx.setStorageSync('userOpenid', res.data)
 				that.openidData();
 			}
@@ -34,7 +34,11 @@ App({
 			const cloud = await this.cloud()
 			const res = await cloud.callFunction({ // 调用云函数
 				name: 'liji-functions', // 云函数名称 应用唯一的服务函数
-				data: obj
+				data: obj,
+				userInfo: {
+					_id: '',
+					familyId: ''
+				}// TODO
 			})
 			console.log('【云函数调用成功】', res)
 			if (res.result !== false) { // 如果返回值不为false，则证明正常访问
