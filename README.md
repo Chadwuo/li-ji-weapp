@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/micahh28/li-ji-weapp">
+  <a href="https://github.com/chadwuo/li-ji-weapp">
     <img src="doc/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -7,9 +7,9 @@
   <p align="center">
     每一份人情都值得礼记
     <br />
-    <a href="https://github.com/micahh28/li-ji-weapp/issues">报告Bug</a>
+    <a href="https://github.com/chadwuo/li-ji-weapp/issues">报告Bug</a>
     ·
-    <a href="https://github.com/micahh28/li-ji-weapp/issues">提出新特性</a>
+    <a href="https://github.com/chadwuo/li-ji-weapp/issues">提出新特性</a>
   </p>
 </p>
 
@@ -61,7 +61,7 @@ li-ji-weapp
 
 ### 作者
 
-- [micahh28](https://github.com/micahh28)
+- [Chadwuo](https://github.com/chadwuo)
 
 
 ### 更新日志
