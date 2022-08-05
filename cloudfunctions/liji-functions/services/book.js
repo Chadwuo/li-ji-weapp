@@ -11,11 +11,11 @@ exports.page = async (event, context) => {
   let {
     OPENID,
   } = cloud.getWXContext() // 这里获取到的 openId 和 appId 是可信的
-
+  const _ = db.command
   try {
     const res = await db.collection('book').aggregate()
       .match({
-        _openid: OPENID,
+        _openid: _.in([...event.data, OPENID])
       })
       .skip(event.page * event.limit)
       .limit(event.limit)
@@ -26,7 +26,7 @@ exports.page = async (event, context) => {
         as: "giftList"
       })
       .end()
-     return {
+    return {
       success: true,
       data: res.result.list
     };
