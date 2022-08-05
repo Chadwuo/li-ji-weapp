@@ -65,11 +65,6 @@ Page({
                 wx.showToast({
                   title: '删除成功',
                 })
-              } else {
-                wx.showToast({
-                  title: '删除失败，请重试',
-                  icon: 'error',
-                })
               }
             }
           }
