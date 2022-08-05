@@ -126,6 +126,7 @@ Page({
   onLoad: function (options) {
     var that = this
     if (options.bookId) {
+      
       db.collection('book').doc(options.bookId).get({
         success: function (res) {
           that.setData({
