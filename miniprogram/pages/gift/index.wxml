@@ -1,0 +1,24 @@
+<view style="margin-top: 28rpx;">
+    <van-cell-group inset>
+        <van-tabs bind:change="onGiftTypeChange" animated>
+            <van-tab title="收礼" name="收"></van-tab>
+            <van-tab title="送礼" name="送"></van-tab>
+        </van-tabs>
+        <van-field readonly label="时间" left-icon="calendar-o" model:value="{{ luckDayFormat }}"  bind:click-input="onDisplay" />
+        <van-field label="姓名" left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="亲友" bind:click-icon="onSelectFriends" bind:blur="onFriendBlur" />
+        <van-field label="事由" left-icon="point-gift-o" model:value="{{ name }}" placeholder="事由" />
+        <van-field label="礼金" left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="{{type}}礼金额" bind:blur="onMoneyBlur" />
+        <van-field wx:if="{{type=='收'}}" readonly label="礼簿" left-icon="balance-list-o" model:value="{{ bookName }}"  placeholder="选择礼簿"  bind:click-input="onSelectBooks" />
+        <van-submit-bar label="{{type}}礼：" price="{{ price }}" button-text="保 存" bind:submit="saveGift" disabled="{{!name||!friendName||!money}}">
+            <view style="margin-left: 20rpx;" bindtap="delGift">
+                <van-icon size="52rpx" name="delete-o" />
+            </view>
+            <view slot="tip" wx:if="{{tip}}">
+                <van-icon name="info-o" />{{tip}}
+            </view>
+        </van-submit-bar>
+    </van-cell-group>
+    <van-popup show="{{ showCalendar }}" round position="bottom" bind:close="onClose" >
+        <van-datetime-picker type="date" value="{{ luckDay }}" bind:confirm="onConfirm" bind:cancel="onClose" formatter="{{ formatter }}" />
+    </van-popup>
+</view>
