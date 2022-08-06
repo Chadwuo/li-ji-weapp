@@ -10,7 +10,6 @@ App({
 				// 传给云函数的参数
 				type: 'getUserInfo'
 			})
-			console.log(res)
 			if (res.success) {
 				wx.setStorageSync('user', res.data)
 				that.openidData();
