@@ -105,7 +105,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  async onLoad(options) {
     var that = this
     if (options.bookId) {
       const res = await app.call({
