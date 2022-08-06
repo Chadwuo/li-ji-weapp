@@ -1,18 +1,24 @@
 <view>
-    <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch">
-        <view slot="action" bind:tap="onAdd">
-            <van-icon name="plus" size="48rpx" color="#F76664" />
+    <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
+        <view slot="action" bind:tap="onAdd" class="acea-row">
+            <van-icon name="add" color="#F76664" size="52rpx" />
         </view>
     </van-search>
 
     <van-empty wx:if="{{giftBooks.length===0}}" description="还没有记录哦~"></van-empty>
     <view class="book-wrapper">
         <view class="book-item" wx:for="{{giftBooks}}" wx:key="index" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-bookid='{{item._id}}'>
-            <image class="bg" src="/images/bg_book.png" mode="scaleToFill"></image>
-            <view class="content">
-                <view class="name">{{ item.name }}</view>
-                <view class="count">共 {{ item.giftCount||0 }} 笔</view>
-                <view class="total">￥ {{ item.giftTotal||'0.00' }}</view>
+            <view wx:if="{{!item._id}}">
+                <image class="bg" src="/images/bg_right.png" mode="scaleToFill"></image>
+                <van-image  width="50" height="50" src="/images/add_gray.png"/>
+            </view>
+            <view wx:else>
+                <image class="bg" src="/images/bg_book.png" mode="scaleToFill"></image>
+                <view class="content">
+                    <view class="name">{{ item.name }}</view>
+                    <view class="count">共 {{ item.giftCount||0 }} 笔</view>
+                    <view class="total">￥ {{ item.giftTotal||'0.00' }}</view>
+                </view>
             </view>
         </view>
     </view>
