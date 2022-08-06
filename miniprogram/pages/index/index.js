@@ -1,4 +1,5 @@
 // pages/index/index.js
+const app = getApp()
 Page({
 
   /**
@@ -7,16 +8,16 @@ Page({
   data: {
     keyword: '',
     pageNo: 0,
-    giftBooks: [],
+    giftBooks: [{}],
     actionId: '',
     showBookAction: false,
     bookActions: [{
-      name: '编辑',
-    },
-    {
-      name: '删除',
-      subname: '该礼簿所有来往记录都将被删除',
-    },
+        name: '编辑',
+      },
+      {
+        name: '删除',
+        subname: '该礼簿所有来往记录都将被删除',
+      },
     ],
   },
   onSearch() {
@@ -93,7 +94,7 @@ Page({
     if (page == 0) {
       this.setData({
         pageNo: 0,
-        giftBooks: []
+        giftBooks: [{}]
       })
     }
     const that = this
@@ -102,7 +103,6 @@ Page({
       page: page,
       limit: 10
     })
-
     if (res.success) {
       const resList = that.computeTotal(res.data)
       that.setData({
