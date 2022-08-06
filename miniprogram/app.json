@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/gift/index",
+    "pages/giftGiving/index",
     "pages/friends/index",
     "pages/profile/index",
     "pages/login/index",
@@ -9,12 +9,10 @@
     "pages/issues/index",
     "pages/sponsors/index",
 
-    "pages/giftGiving/index",
     "pages/giftReceive/index",
     "pages/friendEdit/index",
     "pages/friendDetails/index",
     "pages/friendSelect/index",
-    "pages/books/books",
     "pages/bookEdit/index",
     "pages/bookDetails/index",
     "pages/bookSelect/index"
@@ -39,7 +37,7 @@
       },
       {
         "text": "送礼",
-        "pagePath": "pages/gift/index",
+        "pagePath": "pages/giftGiving/index",
         "iconPath": "./images/icon_post.png",
         "selectedIconPath": "./images/icon_post_red.png"
       },
@@ -90,6 +88,7 @@
     "barrage": "/components/barrage",
     "van-submit-bar": "@vant/weapp/submit-bar/index",
     "van-notice-bar": "@vant/weapp/notice-bar/index",
-    "van-datetime-picker": "@vant/weapp/datetime-picker/index"
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+    "van-image": "@vant/weapp/image/index"
   }
 }
