@@ -17,7 +17,7 @@ exports.page = async (event, context) => {
     const dataScope = await getUserDataScope(event, context)
     const res = await db.collection('book').aggregate()
       .match({
-        _openid: _.in(dataScope)
+        userId: _.in(dataScope)
       })
       .skip(event.page * event.limit)
       .limit(event.limit)
