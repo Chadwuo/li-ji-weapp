@@ -18,26 +18,26 @@
     </view>
     <!-- <van-icon name="setting-o" /> -->
   </view>
-  <view class='wrapper'>
-    <view class='nav acea-row row-middle'>
-      <view class='item' hover-class='none'>
-        <view class='num'>{{receiveTotal}}</view>
-        <view class='title'>收礼</view>
-      </view>
-      <view class='item' hover-class='none'>
-        <view class='num'>{{giveTotal}}</view>
-        <view class='title'>送礼</view>
-      </view>
-    </view>
-    <view class='myService'>
-      <view class='serviceList acea-row row-middle'>
-        <view class='item' wx:for="{{MyMenus}}" wx:key="index" bindtap='jumpPage' data-page='{{item.page}}' wx:if="{{item.page!='#'}}">
-          <view class='pictrue'>
-            <van-icon size="64rpx" name="{{item.icon}}" />
-          </view>
-          <view class='title'>{{item.name}}</view>
+  <view>
+    <van-cell-group inset>
+      <van-grid column-num="2">
+        <van-grid-item text="收礼">
+          <view slot="icon">{{receiveTotal}}</view>
+        </van-grid-item>
+        <van-grid-item text="送礼">
+          <view slot="icon">{{giveTotal}}</view>
+        </van-grid-item>
+      </van-grid>
+    </van-cell-group>
+
+    <view style="margin-top: 32rpx;">
+      <van-cell-group inset>
+        <view style="background-color: #fff;">
+          <van-grid border="{{fales}}" column-num="4">
+            <van-grid-item icon="{{item.icon}}" text="{{item.name}}" wx:for="{{MyMenus}}" wx:key="index" bindtap='jumpPage' data-page='{{item.page}}' wx:if="{{item.page!='#'}}" />
+          </van-grid>
         </view>
-      </view>
+      </van-cell-group>
     </view>
   </view>
 </view>
