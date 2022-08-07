@@ -57,6 +57,8 @@
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
+    "footer": "/components/footer/index",
+    "barrage": "/components/barrage",
     "van-row": "@vant/weapp/row/index",
     "van-col": "@vant/weapp/col/index",
     "van-cell": "@vant/weapp/cell/index",
@@ -70,7 +72,6 @@
     "van-tab": "@vant/weapp/tab/index",
     "van-tabs": "@vant/weapp/tabs/index",
     "van-field": "@vant/weapp/field/index",
-    "footer": "/components/footer/index",
     "van-popup": "@vant/weapp/popup/index",
     "van-picker": "@vant/weapp/picker/index",
     "van-sticky": "@vant/weapp/sticky/index",
@@ -85,10 +86,11 @@
     "van-action-sheet": "@vant/weapp/action-sheet/index",
     "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
     "van-dropdown-item": "@vant/weapp/dropdown-item/index",
-    "barrage": "/components/barrage",
     "van-submit-bar": "@vant/weapp/submit-bar/index",
     "van-notice-bar": "@vant/weapp/notice-bar/index",
     "van-datetime-picker": "@vant/weapp/datetime-picker/index",
-    "van-image": "@vant/weapp/image/index"
+    "van-image": "@vant/weapp/image/index",
+    "van-grid": "@vant/weapp/grid/index",
+    "van-grid-item": "@vant/weapp/grid-item/index"
   }
 }
