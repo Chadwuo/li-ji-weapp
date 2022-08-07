@@ -8,7 +8,9 @@ Page({
   data: {
     keyword: '',
     pageNo: 0,
-    giftBooks: [{}],
+    giftBooks: [{}, {
+      _id: 123
+    }],
     actionId: '',
     showBookAction: false,
     bookActions: [{
@@ -91,12 +93,6 @@ Page({
     })
   },
   async loadData(page) {
-    if (page == 0) {
-      this.setData({
-        pageNo: 0,
-        giftBooks: [{}]
-      })
-    }
     const that = this
     const res = await app.call({
       type: 'getBookPage',
@@ -107,7 +103,7 @@ Page({
       const resList = that.computeTotal(res.data)
       that.setData({
         giftBooks: this.data.giftBooks.concat(resList),
-        pageNo: that.data.pageNo + 1
+        pageNo: page
       });
     } else {
       wx.showToast({
@@ -134,7 +130,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.loadData(0)
+    this.loadData(1)
   },
 
   /**
@@ -165,7 +161,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-    this.loadData(this.data.pageNo)
+    this.loadData(this.data.pageNo + 1)
   },
 
   /**
