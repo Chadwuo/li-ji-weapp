@@ -60,6 +60,8 @@ exports.main = async (event, context) => {
             return await sponsorHandler.delete(event, context);
         case 'getIssuePage': // 分页获取讨论
             return await issueHandler.page(event, context);
+        case 'addIssue': // 更新讨论
+            return await issueHandler.add(event, context);
         case 'updateIssue': // 更新讨论
             return await issueHandler.update(event, context);
         case 'deleteIssue': // 删除讨论
