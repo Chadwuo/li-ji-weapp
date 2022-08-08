@@ -1,4 +1,7 @@
 const cloud = require('wx-server-sdk');
+const {
+  getUserDataScope
+} = require('./user');
 
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
@@ -8,14 +11,13 @@ const db = cloud.database();
 
 // 获取分页
 exports.page = async (event, context) => {
-  let {
-    OPENID,
-  } = cloud.getWXContext() // 这里获取到的 openId 和 appId 是可信的
-  const _ = db.command
   try {
+    const _ = db.command
+    // 数据权限范围
+    const dataScope = await getUserDataScope(event, context)
     const res = await db.collection('book').aggregate()
       .match({
-        _openid: _.in([...event.data, OPENID])
+        userId: _.in(dataScope)
       })
       .skip(event.page * event.limit)
       .limit(event.limit)
@@ -28,7 +30,23 @@ exports.page = async (event, context) => {
       .end()
     return {
       success: true,
-      data: res.result.list
+      data: res.list
+    };
+  } catch (e) {
+    return {
+      success: false,
+      errMsg: e
+    };
+  }
+};
+
+// 添加
+exports.get = async (event, context) => {
+  try {
+    const res = await db.collection('book').doc(event._id).get()
+    return {
+      success: true,
+      data: res.data
     };
   } catch (e) {
     return {
@@ -41,9 +59,11 @@ exports.page = async (event, context) => {
 // 添加
 exports.add = async (event, context) => {
   const {
-    data
+    data,
+    userInfo
   } = event
   try {
+    data.userId = userInfo._id
     await db.collection('book').add(data)
     return {
       success: true,

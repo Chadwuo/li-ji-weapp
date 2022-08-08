@@ -1,45 +1,40 @@
 /* pages/index/index.wxss */
 .book-wrapper {
-    padding: 24rpx;
-    display: flex;
-    flex-wrap: wrap;
+    padding-top: 24rpx;
 }
 
-.book-wrapper .book-item {
-    position: relative;
-    flex: 0 0 50%;
+.book-wrapper .book {
     height: 460rpx;
-    margin: 24rpx 0;
 }
 
-.book-wrapper .book-item .bg {
+/* .book-wrapper .book .bg {
     position: absolute;
     z-index: -1;
     width: 100%;
     height: 100%;
 }
 
-.book-wrapper .book-item .content {
+.book-wrapper .book .content {
     padding-left: 52rpx;
     padding-top: 36rpx;
 }
 
-.book-wrapper .book-item .content .name {
+.book-wrapper .book .content .name {
     font-size: large;
     color: #333;
     padding-bottom: 32rpx;
 }
 
-.book-wrapper .book-item .content .count {
+.book-wrapper .book .content .count {
     font-size: small;
     color: #666;
     padding-bottom: 32rpx;
 }
 
-.book-wrapper .book-item .content .total {
+.book-wrapper .book .content .total {
     position: absolute;
     font-size: large;
     color: #333;
     font-weight: bold;
     bottom: 120rpx;
-}
+} */

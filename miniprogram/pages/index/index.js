@@ -1,4 +1,5 @@
 // pages/index/index.js
+const app = getApp()
 Page({
 
   /**
@@ -7,7 +8,9 @@ Page({
   data: {
     keyword: '',
     pageNo: 0,
-    giftBooks: [],
+    giftBooks: [{}, {
+      _id: 123
+    }],
     actionId: '',
     showBookAction: false,
     bookActions: [{
@@ -65,11 +68,6 @@ Page({
                 wx.showToast({
                   title: '删除成功',
                 })
-              } else {
-                wx.showToast({
-                  title: '删除失败，请重试',
-                  icon: 'error',
-                })
               }
             }
           }
@@ -89,38 +87,25 @@ Page({
       i.giftCount = i.giftList.length
       i.giftTotal = 0
       for (let item of i.giftList) {
-        if (item.type == '收') {
-          i.giftTotal += Number(item.money)
-        } else {
-          i.giftTotal -= Number(item.money)
-        }
+        i.giftTotal += Number(item.money)
       }
       return i
     })
   },
   async loadData(page) {
-    if (page == 0) {
-      this.setData({
-        pageNo: 0,
-        giftBooks: []
-      })
-    }
     const that = this
     const res = await app.call({
       type: 'getBookPage',
       page: page,
       limit: 10
     })
-
-    if (res.result.list.length === 0) {
-      return
+    if (res.success) {
+      const resList = that.computeTotal(res.data)
+      that.setData({
+        giftBooks: this.data.giftBooks.concat(resList),
+        pageNo: page
+      });
     }
-
-    const resList = that.computeTotal(this.data.giftBooks.concat(res.result.list))
-    that.setData({
-      giftBooks: resList,
-      pageNo: that.data.pageNo + 1
-    });
   },
   /**
    * 生命周期函数--监听页面加载
@@ -140,7 +125,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.loadData(0)
+    this.loadData(1)
   },
 
   /**
@@ -171,7 +156,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-    this.loadData(this.data.pageNo)
+    this.loadData(this.data.pageNo + 1)
   },
 
   /**
