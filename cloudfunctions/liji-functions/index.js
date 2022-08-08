@@ -18,6 +18,8 @@ exports.main = async (event, context) => {
             return await userHandler.add(event, context);
         case 'getBookPage': // 分页获取礼簿
             return await bookHandler.page(event, context);
+        case 'getBooks': // 获取全部礼簿
+            return await bookHandler.getList(event, context);
         case 'getBook': // 获取礼簿
             return await bookHandler.get(event, context);
         case 'addBook': //添加礼簿
