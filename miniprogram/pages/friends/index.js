@@ -26,45 +26,30 @@ Page({
     });
   },
   onDelete(e) {
-    app.globalData.refreshRequired.home = true
-    app.globalData.refreshRequired.book = true
-    app.globalData.refreshRequired.friend = true
-    app.globalData.refreshRequired.profile = true
-
     let that = this
     const friendId = e.currentTarget.dataset.friendid
     wx.showModal({
       title: '提示',
       content: '该联系人得所有人情往来记录都将被删除，确定删除？',
       confirmColor: '#F76664',
-      success(res) {
-        if (res.confirm) {
+      async success(result) {
+        if (result.confirm) {
           // 删除亲友下所有记录
-          wx.cloud.callFunction({
-            name: 'lijiFunctions',
-            data: {
-              type: 'deleteAllData',
-              table: 'gift',
-              where: {
-                userId: app.globalData.user._id,
-                friendId: friendId,
-              }
-            }
-          }).then(res => {
-            db.collection('friend').doc(friendId).remove({
-              success: function (res) {
-                that.loadData()
-                wx.showToast({
-                  title: '删除成功',
-                })
-              }
-            })
+          const res = app.call({
+            type: 'deleteFriend',
+            _id: friendId
           })
+          if (res.success) {
+            that.loadData()
+            wx.showToast({
+              title: '删除成功',
+            })
+          }
         }
       }
     })
   },
-  loadData() {
+  async loadData() {
     let listTemp = []
     for (let index = 0; index < 26; index++) {
       listTemp.push({
@@ -76,15 +61,12 @@ Page({
       alpha: '#',
       subItems: []
     }
-    wx.cloud.callFunction({
-      name: 'lijiFunctions',
-      data: {
-        type: 'getAllData',
-        table: 'friend',
-      }
-    }).then(res => {
-      console.log(res)
-      for (const item of res.result.data) {
+    const res = app.call({
+      type: 'getFriends',
+    })
+
+    if (res.success) {
+      for (const item of res.data) {
         const firstLetter = item.firstLetter
         if (!isNaN(firstLetter)) {
           noletter.subItems.push(item)
@@ -104,7 +86,7 @@ Page({
       this.setData({
         friendsList: list,
       });
-    })
+    }
   },
 
   /**
@@ -125,10 +107,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (app.globalData.refreshRequired.friend) {
-      this.loadData()
-      app.globalData.refreshRequired.friend = false
-    }
+    this.loadData()
   },
 
   /**
