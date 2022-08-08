@@ -14,12 +14,12 @@ Page({
     actionId: '',
     showBookAction: false,
     bookActions: [{
-        name: '编辑',
-      },
-      {
-        name: '删除',
-        subname: '该礼簿所有来往记录都将被删除',
-      },
+      name: '编辑',
+    },
+    {
+      name: '删除',
+      subname: '该礼簿所有来往记录都将被删除',
+    },
     ],
   },
   onSearch() {
@@ -57,14 +57,14 @@ Page({
         wx.showModal({
           title: '删除礼簿？',
           content: '该礼簿所有来往记录都将被删除，确定删除？',
-          async success(res) {
-            if (res.confirm) {
-              const result = await app.call({
+          async success(result) {
+            if (result.confirm) {
+              const res = await app.call({
                 type: 'deleteBook',
                 _id: that.data.actionId
               })
 
-              if (result.success) {
+              if (res.success) {
                 wx.showToast({
                   title: '删除成功',
                 })
