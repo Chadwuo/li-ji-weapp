@@ -23,17 +23,19 @@ Page({
     },
     // 添加
     onAdd() {
-        db.collection('appreciate').add({
+        await app.call({
+            type: 'addSponsor',
             data: {
                 name: this.data.name,
                 money: this.data.money,
                 words: this.data.words,
             }
-        }).then(res => {
+        })
+        if (res.success) {
             wx.showToast({
                 title: '添加成功',
             })
-        })
+        }
     },
     // 打开弹窗
     onShowPopup(e) {
@@ -50,20 +52,13 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
-        wx.cloud.callFunction({
-            name: 'lijiFunctions',
-            data: {
-                type: 'getAllData',
-                table: 'appreciate',
-                where: {}
-            }
-        }).then(res => {
-            console.log(res)
-            this.setData({
-                barrageList: res.result.data,
-            });
+    async onLoad(options) {
+        const res = app.call({
+            type: 'getSponsors'
         })
+        if (res.success) {
+            // TODO
+        }
     },
 
     /**
