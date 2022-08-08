@@ -15,72 +15,58 @@ Page({
   saveFriend() {
     app.globalData.refreshRequired.friend = true
     if (this.data.id) {
-      db.collection('friend').doc(this.data.id).update({
+      const res = await app.call({
+        type: 'updateFriend',
+        _id: this.data.id,
         data: {
           name: this.data.name,
           kinship: this.data.kinship,
           remarks: this.data.remarks,
           firstLetter: pinyin.getFirstLetter(this.data.name.substr(0, 1))
-        },
-        success: function (res) {
-          wx.showToast({
-            title: '修改成功',
-          })
+        }
+      })
+      if (res.success) {
+        wx.showToast({
+          title: '修改成功',
+        })
+      }
+    } else {
+      const res = await app.call({
+        type: 'addFriend',
+        data: {
+          name: this.data.name,
+          kinship: this.data.kinship,
+          remarks: this.data.remarks,
+          firstLetter: pinyin.getFirstLetter(this.data.name.substr(0, 1))
         }
       })
-    } else {
-      db.collection('friend').add({
-        data: {
-          name: this.data.name,
-          userId: app.globalData.user._id,
-          kinship: this.data.kinship,
-          remarks: this.data.remarks,
-          firstLetter: pinyin.getFirstLetter(this.data.name.substr(0, 1))
-        }
-      }).then(res => {
-        this.setData({
-          id: res._id
-        });
+      if (res.success) {
         wx.showToast({
           title: '保存成功',
         })
-      })
+      }
     }
   },
   delFriend() {
-    app.globalData.refreshRequired.home = true
-    app.globalData.refreshRequired.book = true
-    app.globalData.refreshRequired.friend = true
-    app.globalData.refreshRequired.profile = true
     let that = this
     wx.showModal({
       title: '删除联系人？',
       content: '该联系人所有来往记录都将被删除，确定删除？',
-      success(res) {
-        if (res.confirm) {
+      success(result) {
+        if (result.confirm) {
           // 删除亲友下所有记录
-          wx.cloud.callFunction({
-            name: 'lijiFunctions',
-            data: {
-              type: 'deleteAllData',
-              table: 'gift',
-              where: {
-                userId: app.globalData.user._id,
-                friendId: that.data.id,
-              }
-            }
-          }).then(res => {
-            db.collection('friend').doc(that.data.id).remove({
-              success: function (res) {
-                wx.navigateBack({
-                  delta: 2
-                })
-                wx.showToast({
-                  title: '删除成功',
-                })
-              }
-            })
+          const res = app.call({
+            type: 'deleteFriend',
+            _id: that.data.id
           })
+          if (res.success) {
+            wx.navigateBack({
+              delta: 2
+            })
+            wx.showToast({
+              title: '删除成功',
+            })
+          }
         }
       }
     })
@@ -91,19 +77,21 @@ Page({
   onLoad: function (options) {
     var that = this
     if (options.friendId) {
-      db.collection('friend').doc(options.friendId).get({
-        success: function (res) {
-          that.setData({
-            id: res.data._id,
-            remarks: res.data.remarks,
-            name: res.data.name,
-            kinship: res.data.kinship,
-          });
-          wx.setNavigationBarTitle({
-            title: '编辑联系人'
-          })
-        }
+      const res = app.call({
+        type: 'getFriend',
+        _id: options.friendId
       })
+      if (res.success) {
+        that.setData({
+          id: res.data._id,
+          remarks: res.data.remarks,
+          name: res.data.name,
+          kinship: res.data.kinship,
+        });
+        wx.setNavigationBarTitle({
+          title: '编辑联系人'
+        })
+      }
     }
   },
 

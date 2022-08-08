@@ -18,6 +18,8 @@ exports.main = async (event, context) => {
             return await userHandler.add(event, context);
         case 'getBookPage': // 分页获取礼簿
             return await bookHandler.page(event, context);
+        case 'getBooks': // 获取全部礼簿
+            return await bookHandler.getList(event, context);
         case 'getBook': // 获取礼簿
             return await bookHandler.get(event, context);
         case 'addBook': //添加礼簿
@@ -44,6 +46,8 @@ exports.main = async (event, context) => {
             return await giftOutHandler.delete(event, context);
         case 'getFriends': // 获取全部亲友
             return await friendHandler.getList(event, context);
+        case 'getFriend': // 获取亲友信息
+            return await friendHandler.get(event, context);
         case 'addFriend': // 添加亲友
             return await friendHandler.add(event, context);
         case 'updateFriend': // 更新亲友

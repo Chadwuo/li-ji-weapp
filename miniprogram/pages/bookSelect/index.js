@@ -1,7 +1,6 @@
 const app = getApp()
 const dayjs = require('dayjs');
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -12,7 +11,6 @@ Page({
     return dayjs(date).format('YYYY-MM-DD');
   },
   onSelectBook(e) {
-    console.log(e.currentTarget.dataset.book)
     const eventChannel = this.getOpenerEventChannel()
     eventChannel.emit('acceptDataFromBookPage', e.currentTarget.dataset.book);
     wx.navigateBack()
@@ -20,26 +18,20 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    wx.cloud.callFunction({
-      name: 'lijiFunctions',
-      data: {
-        type: 'getAllData',
-        table: 'book',
-        where: {
-          userId: app.globalData.user._id,
-        }
-      }
-    }).then(res => {
+  async onLoad(options) {
+    const res = app.call({
+      type: 'getBooks'
+    })
+    if (res.success) {
       this.setData({
-        bookList: res.result.data.map(i => {
+        bookList: res.data.map(i => {
           if (i.luckDay) {
             i.luckDay = this.formatDate(i.luckDay)
           }
           return i
         }),
       });
-    })
+    }
   },
 
   /**
