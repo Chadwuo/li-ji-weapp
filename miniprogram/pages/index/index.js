@@ -105,11 +105,6 @@ Page({
         giftBooks: this.data.giftBooks.concat(resList),
         pageNo: page
       });
-    } else {
-      wx.showToast({
-        title: res.message,
-        icon: 'error',
-      })
     }
   },
   /**
