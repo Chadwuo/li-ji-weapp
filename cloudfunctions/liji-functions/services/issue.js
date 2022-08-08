@@ -15,7 +15,7 @@ exports.page = async (event, context) => {
 	try {
 		const res = await db.collection('issue').aggregate()
 			.orderBy('createTime', 'desc')
-			.skip(event.page * event.limit)
+			.skip(event.page - 1 * event.limit)
 			.limit(event.limit)
 			.end()
 		return {
@@ -51,8 +51,11 @@ exports.add = async (event, context) => {
 
 // 更新
 exports.update = async (event, context) => {
+	const {
+		data
+	} = event
 	try {
-		await db.collection('issue').doc(event._id).update()
+		await db.collection('issue').doc(event._id).update(data)
 		return {
 			success: true,
 			data: ''
