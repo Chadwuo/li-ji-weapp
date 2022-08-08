@@ -19,7 +19,7 @@ Page({
         name: "数据导出"
       },
       {
-        page: "appreciate",
+        page: "sponsors",
         icon: "good-job-o",
         name: "赞赏"
       },
