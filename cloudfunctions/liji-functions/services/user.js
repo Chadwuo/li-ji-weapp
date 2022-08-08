@@ -94,9 +94,16 @@ exports.getUserDataScope = async (event, context) => {
     const res = await db.collection('familyInfo').where({
       familyId: userInfo.familyId,
       status: 1
+    }).field({
+      _id: true,
     }).get()
 
-    return res.result.data
+    let dataScope = []
+    res.result.data.map(i => {
+      dataScope.push(i._id)
+    })
+
+    return dataScope
 
   } catch {
     return []

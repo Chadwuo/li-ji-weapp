@@ -1,2 +1,4 @@
 <!--pages/giftGiving/index.wxml-->
-<text>pages/giftGiving/index.wxml</text>
+<van-grid gutter="{{ 24 }}" column-num="2">
+  <van-grid-item icon="photo-o" text="文字" wx:for="{{ 8 }}" />
+</van-grid>

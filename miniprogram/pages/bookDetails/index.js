@@ -23,14 +23,6 @@ Page({
         });
     },
     loadData(page) {
-        // 如果服务已经停止
-        if (app.globalData.serviceStopped) {
-            this.setData({
-                service_stopped: true,
-                giftList: []
-            })
-            return
-        }
         if (page == 0) {
             this.data.giftList = []
             this.data.pageNo = 0
