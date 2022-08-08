@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/giftGiving/index",
+    "pages/gift/index",
     "pages/friends/index",
     "pages/profile/index",
     "pages/login/index",
@@ -9,7 +9,6 @@
     "pages/issues/index",
     "pages/sponsors/index",
 
-    "pages/giftReceive/index",
     "pages/friendEdit/index",
     "pages/friendDetails/index",
     "pages/friendSelect/index",
@@ -37,7 +36,7 @@
       },
       {
         "text": "送礼",
-        "pagePath": "pages/giftGiving/index",
+        "pagePath": "pages/gift/index",
         "iconPath": "./images/icon_post.png",
         "selectedIconPath": "./images/icon_post_red.png"
       },
