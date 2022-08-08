@@ -18,7 +18,9 @@ exports.getList = async (event, context) => {
 		const MAX_LIMIT = 100
 		exports.main = async (event, context) => {
 			// 先取出集合记录总数
-			const countResult = await db.collection('friend').count()
+			const countResult = await db.collection('friend').where({
+				userId: _.in(dataScope)
+			}).count()
 			const total = countResult.total
 			// 计算需分几次取
 			const batchTimes = Math.ceil(total / 100)
