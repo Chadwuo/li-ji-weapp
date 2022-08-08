@@ -5,16 +5,13 @@ App({
 		const that = this
 		await this.initcloud()
 		// 查询缓存中用户信息
-		if (!wx.getStorageSync('userOpenid') && !wx.getStorageSync('user')) {
+		if (!wx.getStorageSync('user')) {
 			const res = await that.call({
 				// 传给云函数的参数
-				data: {
-					type: 'userOpenid',
-				}
+				type: 'getUserInfo'
 			})
-			console.log(res)
 			if (res.success) {
-				wx.setStorageSync('userOpenid', res.data)
+				wx.setStorageSync('user', res.data)
 				that.openidData();
 			}
 			wx.navigateTo({
@@ -32,13 +29,10 @@ App({
 	async call(obj) {
 		try {
 			const cloud = await this.cloud()
+			obj.userInfo = wx.getStorageSync('user')
 			const res = await cloud.callFunction({ // 调用云函数
 				name: 'liji-functions', // 云函数名称 应用唯一的服务函数
-				data: obj,
-				userInfo: {
-					_id: '',
-					familyId: ''
-				}// TODO
+				data: obj
 			})
 			console.log('【云函数调用成功】', res)
 			if (res.result !== false) { // 如果返回值不为false，则证明正常访问
@@ -100,24 +94,24 @@ App({
 	},
 	async openidData() {
 		const that = this;
-		const openid = wx.getStorageSync('userOpenid')
-		const res = await that.call({
-			// 传给云函数的参数
-			data: {
-				type: 'getMyInvite',
-			}
-		})
-		console.log(res);
-		// that.setData({
-		//     datalist:res.result.data,
-		//     day:that.timesize(that.data.newtime,res.result.data.memorialDayTime)||0
+		// const openid = wx.getStorageSync('userOpenid')
+		// const res = await that.call({
+		// 	// 传给云函数的参数
+		// 	data: {
+		// 		type: 'getMyInvite',
+		// 	}
 		// })
-		if (res.success === true) {
-			try {
-				wx.setStorageSync('recipientId', res.data.inviter == openid ? res.data.recipient : res.data.inviter)
-			} catch (error) {
-				wx.removeStorageSync('recipientId');
-			}
-		}
+		// console.log(res);
+		// // that.setData({
+		// //     datalist:res.result.data,
+		// //     day:that.timesize(that.data.newtime,res.result.data.memorialDayTime)||0
+		// // })
+		// if (res.success === true) {
+		// 	try {
+		// 		wx.setStorageSync('recipientId', res.data.inviter == openid ? res.data.recipient : res.data.inviter)
+		// 	} catch (error) {
+		// 		wx.removeStorageSync('recipientId');
+		// 	}
+		// }
 	}
 });

@@ -83,54 +83,19 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    // 是否需要刷新
-    if (!app.globalData.refreshRequired.profile) {
-      return
-    }
-    const $ = db.command.aggregate
-    db.collection('gift')
-      .aggregate()
-      .match({
-        userId: app.globalData.user._id,
-        type: '收'
-      })
-      .group({
-        _id: null,
-        total: $.sum('$money')
-      })
-      .end()
-      .then(res => {
-        let resTotal = 0
-        if (res.list.length != 0) {
-          resTotal = res.list[0].total
-        }
-        this.setData({
-          receiveTotal: resTotal.toFixed(2),
-        });
-      })
-
-    db.collection('gift')
-      .aggregate()
-      .match({
-        userId: app.globalData.user._id,
-        type: '送'
-      })
-      .group({
-        _id: null,
-        total: $.sum('$money')
-      })
-      .end()
-      .then(res => {
-        let resTotal = 0
-        if (res.list.length != 0) {
-          resTotal = res.list[0].total
-        }
-        this.setData({
-          giveTotal: resTotal.toFixed(2),
-        });
-      })
-    app.globalData.refreshRequired.profile = false
+  async onShow() {
+    const res = await app.call({
+      type: 'computedTotalGiftReceive'
+    })
+    this.setData({
+      receiveTotal: res.data,
+    });
+    const res1 = await app.call({
+      type: 'computedTotalGiftOut'
+    })
+    this.setData({
+      giveTotal: res1.data,
+    });
   },
 
   /**

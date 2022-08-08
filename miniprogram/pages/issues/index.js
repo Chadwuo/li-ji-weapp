@@ -14,47 +14,44 @@ Page({
         replyContent: '',
         loading: false,
         issuesList: [],
-        pageNo: 0,
+        pageNo: 1,
         isAdmin: false,
         showAddPopup: false,
     },
-    onTabsClick(event) {
-        // 进入意见片墙
-        if (event.detail.name === 'issues') {
-            this.data.pageNo = 0
-            this.getIssuesPage(this.data.pageNo, 10).then(res => {
-                if (res.data.length === 0) {
-                    return
-                }
-                let list = res.data.map((i) => {
-                    i.createTime = dayjs(i.createTime).format('YYYY-MM-DD')
-                    i.replyTime = dayjs(i.replyTime).format('YYYY-MM-DD')
-                    return i
-                })
-                this.setData({
-                    issuesList: list,
-                    pageNo: this.data.pageNo + 1
-                });
-            })
-        }
-    },
     // 获取分页数据
-    getIssuesPage(page, limit) {
-        return db.collection('issues')
-            .orderBy('createTime', 'desc')
-            .skip(page * limit)
-            .limit(limit)
-            .get()
+    async loadData(page) {
+        this.setData({
+            loading: false,
+        })
+        const res = await app.call({
+            type: 'getIssuePage',
+            page: page,
+            limit: 10
+        })
+        if (res.success) {
+            let list = res.data.map((i) => {
+                i.createTime = dayjs(i.createTime).format('YYYY-MM-DD')
+                i.replyTime = dayjs(i.replyTime).format('YYYY-MM-DD')
+                return i
+            })
+            this.setData({
+                loading: true,
+                issuesList: list,
+                pageNo: page
+            });
+        }
     },
     // 添加
     onAddIssues() {
-        db.collection('issues').add({
+        const res = await app.call({
+            type: 'addIssue',
             data: {
                 title: this.data.issuesTitle,
                 content: this.data.issuesContent,
                 createTime: db.serverDate(),
             }
-        }).then(res => {
+        })
+        if (res.success) {
             this.setData({
                 issuesTitle: '',
                 issuesContent: ''
@@ -62,28 +59,35 @@ Page({
             wx.showToast({
                 title: '提交成功，意见已记录，感谢你',
             })
-        })
+        }
     },
     // 提交回复
     onReplyIssues() {
-        db.collection('issues').doc(this.data.issuesId).update({
+        const res = await app.call({
+            type: 'updateIssue',
+            _id: this.data.issuesId,
             data: {
                 reply: this.data.replyContent,
                 replyTime: db.serverDate()
             }
-        }).then(res => {
+        })
+        if (res.success) {
             wx.showToast({
                 title: '回复成功',
             })
-        })
+        }
     },
     onDelIssues(e) {
         const issuesId = e.currentTarget.dataset.issuesid
-        db.collection('issues').doc(issuesId).remove().then(res => {
+        const res = await app.call({
+            type: 'deleteIssue',
+            _id: issuesId
+        })
+        if (res.success) {
             wx.showToast({
                 title: '删除成功',
             })
-        })
+        }
     },
     // 打开回复弹窗
     onShowPopup(e) {
@@ -122,6 +126,7 @@ Page({
         this.setData({
             isAdmin: app.globalData.user.isAdmin,
         });
+        this.loadData(this.data.pageNo)
     },
 
     /**
@@ -156,22 +161,7 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
-        this.setData({
-            loading: true,
-        });
-        this.getIssuesPage(this.data.pageNo, 10).then(res => {
-            if (res.data.length > 0) {
-                let issuesData = this.data.issuesList.concat(res.data)
-                this.setData({
-                    issuesList: issuesData,
-                    pageNo: this.data.pageNo + 1
-                });
-            }
-        }).finally(
-            this.setData({
-                loading: false,
-            })
-        );
+        this.loadData(this.data.pageNo + 1)
     },
 
     /**

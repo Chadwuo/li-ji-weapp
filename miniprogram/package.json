@@ -9,7 +9,7 @@
   "author": "micahh",
   "license": "ISC",
   "dependencies": {
-    "@vant/weapp": "^1.9.2",
+    "@vant/weapp": "^1.10.2",
     "dayjs": "^1.10.7",
     "wl-pinyin": "^1.0.1"
   }
