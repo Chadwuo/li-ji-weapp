@@ -46,6 +46,22 @@ exports.getList = async (event, context) => {
 	}
 };
 
+// 获取
+exports.get = async (event, context) => {
+	try {
+		const res = await db.collection('friend').doc(event._id).get()
+		return {
+			success: true,
+			data: res.data
+		};
+	} catch (e) {
+		return {
+			success: false,
+			message: e
+		};
+	}
+};
+
 // 添加
 exports.add = async (event, context) => {
 	const {
