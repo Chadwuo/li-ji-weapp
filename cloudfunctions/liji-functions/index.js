@@ -44,6 +44,8 @@ exports.main = async (event, context) => {
             return await giftOutHandler.delete(event, context);
         case 'getFriends': // 获取全部亲友
             return await friendHandler.getList(event, context);
+        case 'getFriend': // 获取亲友信息
+            return await friendHandler.get(event, context);
         case 'addFriend': // 添加亲友
             return await friendHandler.add(event, context);
         case 'updateFriend': // 更新亲友
