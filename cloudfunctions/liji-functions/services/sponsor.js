@@ -46,15 +46,18 @@ exports.add = async (event, context) => {
 	} catch (e) {
 		return {
 			success: false,
-			errMsg: e
+			message: e
 		};
 	}
 };
 
 // 更新
 exports.update = async (event, context) => {
+	const {
+		data
+	} = event
 	try {
-		await db.collection('sponsors').doc(event._id).update()
+		await db.collection('sponsors').doc(event._id).update(data)
 		return {
 			success: true,
 			data: ''
@@ -62,7 +65,7 @@ exports.update = async (event, context) => {
 	} catch (e) {
 		return {
 			success: false,
-			errMsg: e
+			message: e
 		};
 	}
 };
@@ -78,7 +81,7 @@ exports.delete = async (event, context) => {
 	} catch (e) {
 		return {
 			success: false,
-			errMsg: e
+			message: e
 		};
 	}
 };
