@@ -105,12 +105,8 @@ exports.update = async (event, context) => {
 // 删除家庭
 exports.delete = async (event, context) => {
     try {
-        const {
-            data
-        } = event
-
         // 删除家庭
-        await db.collection('family').doc(data._id).remove()
+        await db.collection('family').doc(event._id).remove()
         // 删除家庭成员
         await db.collection('familyInfo').where({
             familyId: data._id
@@ -157,11 +153,7 @@ exports.addMember = async (event, context) => {
 // 删除家庭成员
 exports.delMember = async (event, context) => {
     try {
-        const {
-            data
-        } = event
-
-        await db.collection('familyInfo').doc(data._id).remove()
+        await db.collection('familyInfo').doc(event._id).remove()
 
         return {
             success: true,
@@ -178,12 +170,8 @@ exports.delMember = async (event, context) => {
 // 审核家庭成员加入申请
 exports.checkMember = async (event, context) => {
     try {
-        const {
-            data
-        } = event
-
         // 修改状态
-        await db.collection('familyInfo').doc(data._id).update({
+        await db.collection('familyInfo').doc(event._id).update({
             data: {
                 status: 1
             }

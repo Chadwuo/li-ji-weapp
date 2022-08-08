@@ -40,7 +40,7 @@ exports.page = async (event, context) => {
   }
 };
 
-// 添加
+// 获取
 exports.get = async (event, context) => {
   try {
     const res = await db.collection('book').doc(event._id).get()

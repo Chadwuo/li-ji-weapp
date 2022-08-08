@@ -8,10 +8,6 @@ const db = cloud.database();
 
 // 获取分页
 exports.page = async (event, context) => {
-	let {
-		OPENID,
-	} = cloud.getWXContext() // 这里获取到的 openId 和 appId 是可信的
-
 	try {
 		const res = await db.collection('issue').aggregate()
 			.orderBy('createTime', 'desc')
@@ -25,7 +21,7 @@ exports.page = async (event, context) => {
 	} catch (e) {
 		return {
 			success: false,
-			errMsg: e
+			message: e
 		};
 	}
 };
@@ -44,7 +40,7 @@ exports.add = async (event, context) => {
 	} catch (e) {
 		return {
 			success: false,
-			errMsg: e
+			message: e
 		};
 	}
 };
@@ -63,7 +59,7 @@ exports.update = async (event, context) => {
 	} catch (e) {
 		return {
 			success: false,
-			errMsg: e
+			message: e
 		};
 	}
 };
@@ -79,7 +75,7 @@ exports.delete = async (event, context) => {
 	} catch (e) {
 		return {
 			success: false,
-			errMsg: e
+			message: e
 		};
 	}
 };
