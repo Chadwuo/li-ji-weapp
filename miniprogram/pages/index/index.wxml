@@ -4,34 +4,32 @@
             <van-icon name="add" color="#F76664" size="52rpx" />
         </view>
     </van-search>
-
     <van-empty wx:if="{{giftBooks.length===0}}" description="还没有记录哦~"></van-empty>
-
     <view class="book-wrapper">
-        <van-grid gutter="{{ 24 }}" column-num="2">
-            <van-grid-item use-slot wx:for="{{giftBooks}}" wx:key="index" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-bookid='{{item._id}}'>
-                <view wx:if="{{!item._id}}">
-                    <image style="width: 100%; height: 460rpx;" src="/images/bg_book_add.png"></image>
-                    <view style="display: flex;flex-direction: column;justify-content: center; height: 460rpx;">
+        <van-row gutter="20">
+            <van-col span="12" wx:for="{{giftBooks}}" wx:key="index" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-bookid='{{item._id}}'>
+                <view wx:if="{{!item._id}}" class="book">
+                    <image class="bg" src="/images/bg_book_add.png"></image>
+                    <view class="content" style="justify-content: center;">
                         <van-icon name="plus" size="132rpx" color="#CCCCCC" />
-                        <view style="text-align: center;padding-top: 56rpx; color: #666;font-size: small;">添加礼簿</view>
+                        <view style="text-align: center;padding-top: 56rpx; color: #969799;font-size: small;">添加礼簿</view>
                     </view>
-
                 </view>
-                <view wx:else>
-                    <image style="width: 100%; height: 460rpx; position: absolute;z-index: -1;" src="/images/bg_book.png"></image>
+                <view wx:else class="book">
+                    <image class="bg" src="/images/bg_book.png"></image>
                     <view class="content">
-                        <view class="name">{{ item.name }}</view>
-                        <view class="count">共 {{ item.giftCount||0 }} 笔</view>
-                        <view class="total">￥ {{ item.giftTotal||'0.00' }}</view>
+                        <view>
+                            <view class="name">{{ item.name||'' }}</view>
+                            <view class="count">共 {{ item.giftCount||0 }} 笔</view>
+                        </view>
+                        <view>
+                            <view class="total">￥ {{ item.giftTotal||'0.00' }}</view>
+                            <view class="date"> {{ item.date||'' }}</view>
+                        </view>
                     </view>
                 </view>
-            </van-grid-item>
-        </van-grid>
-        <!-- 
-        <view class="book-item" wx:for="{{giftBooks}}" wx:key="index" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-bookid='{{item._id}}'>
-
-        </view> -->
+            </van-col>
+        </van-row>
     </view>
 </view>
 <van-action-sheet show="{{ showBookAction }}" actions="{{ bookActions }}" bind:close="onCloseBookAction" bind:cancel="onCloseBookAction" bind:select="onSelectBookAction" cancel-text="取消" close-on-click-overlay />
