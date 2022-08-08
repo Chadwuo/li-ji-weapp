@@ -8,9 +8,7 @@ Page({
   data: {
     keyword: '',
     pageNo: 0,
-    giftBooks: [{}, {
-      _id: 123
-    }],
+    giftBooks: [{}],
     actionId: '',
     showBookAction: false,
     bookActions: [{
