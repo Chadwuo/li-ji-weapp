@@ -15,21 +15,15 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    wx.cloud.callFunction({
-      name: 'lijiFunctions',
-      data: {
-        type: 'getAllData',
-        table: 'friend',
-        where: {
-          userId: app.globalData.user._id,
-        }
-      }
-    }).then(res => {
-      this.setData({
-        friendList: res.result.data,
-      });
+  async onLoad(options) {
+    const res = app.call({
+      type: 'getFriends',
     })
+    if(res.success){
+      this.setData({
+        friendList: res.data,
+      });
+    }
   },
 
   /**

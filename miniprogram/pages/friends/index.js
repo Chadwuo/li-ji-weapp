@@ -66,7 +66,7 @@ Page({
     })
 
     if (res.success) {
-      for (const item of res.result.data) {
+      for (const item of res.data) {
         const firstLetter = item.firstLetter
         if (!isNaN(firstLetter)) {
           noletter.subItems.push(item)
