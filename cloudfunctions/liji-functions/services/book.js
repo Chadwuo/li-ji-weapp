@@ -35,7 +35,7 @@ exports.page = async (event, context) => {
   } catch (e) {
     return {
       success: false,
-      errMsg: e
+      message: e
     };
   }
 };
@@ -51,7 +51,7 @@ exports.get = async (event, context) => {
   } catch (e) {
     return {
       success: false,
-      errMsg: e
+      message: e
     };
   }
 };
@@ -72,7 +72,7 @@ exports.add = async (event, context) => {
   } catch (e) {
     return {
       success: false,
-      errMsg: e
+      message: e
     };
   }
 };
@@ -88,7 +88,7 @@ exports.update = async (event, context) => {
   } catch (e) {
     return {
       success: false,
-      errMsg: e
+      message: e
     };
   }
 };
@@ -104,7 +104,7 @@ exports.delete = async (event, context) => {
   } catch (e) {
     return {
       success: false,
-      errMsg: e
+      message: e
     };
   }
 };
