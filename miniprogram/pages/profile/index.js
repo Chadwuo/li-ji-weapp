@@ -90,11 +90,11 @@ Page({
     this.setData({
       receiveTotal: res.data,
     });
-    const res = await app.call({
+    const res1 = await app.call({
       type: 'computedTotalGiftOut'
     })
     this.setData({
-      giveTotal: res.data,
+      giveTotal: res1.data,
     });
   },
 
