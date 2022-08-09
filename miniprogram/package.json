@@ -9,6 +9,7 @@
   "author": "micahh",
   "license": "ISC",
   "dependencies": {
+    "@alicloud/mpserverless-sdk": "^3.1.1",
     "@vant/weapp": "^1.10.2",
     "dayjs": "^1.10.7",
     "wl-pinyin": "^1.0.1"
