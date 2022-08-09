@@ -26,10 +26,25 @@ Page({
       icon: 'none',
     })
   },
-  onAdd() {
-    wx.navigateTo({
-      url: `/pages/bookEdit/index`,
+  // 打开人情编辑弹出层
+  onShowGiftPopup(e) {
+    this.setData({
+      showGiftPopup: true,
     });
+  },
+  // 打开礼簿编辑弹出层
+  onShowBookPopup(e) {
+    this.setData({
+      showBookPopup: true,
+    });
+  },
+  onAddGift() {
+    const giftEdit = this.selectComponent('#gift-edit')
+    giftEdit.show()
+  },
+  onAddBook(){
+    const bookEdit = this.selectComponent('#book-edit')
+    bookEdit.show()
   },
   onBookClick(e) {
     wx.navigateTo({

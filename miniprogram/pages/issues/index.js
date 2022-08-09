@@ -44,18 +44,21 @@ Page({
   },
   // 添加
   async onAddIssues() {
+    let data = {
+      title: this.data.issuesTitle,
+      content: this.data.issuesContent,
+      createTime: db.serverDate(),
+    }
     const res = await app.call({
       type: 'addIssue',
-      data: {
-        title: this.data.issuesTitle,
-        content: this.data.issuesContent,
-        createTime: db.serverDate(),
-      }
+      data
     })
     if (res.success) {
+      data._id = res.data
       this.setData({
         issuesTitle: '',
-        issuesContent: ''
+        issuesContent: '',
+        issuesList: this.issuesList.unshift(data)
       });
       wx.showToast({
         title: '提交成功，意见已记录，感谢你',
@@ -110,7 +113,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {},
+  onLoad: function (options) { },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -144,11 +147,6 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.onTabsClick({
-      detail: {
-        name: 'issues'
-      }
-    })
     setTimeout(() => {
       wx.stopPullDownRefresh()
     }, 2000);
