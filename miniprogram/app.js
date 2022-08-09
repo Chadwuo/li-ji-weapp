@@ -16,29 +16,32 @@ App({
   async onLaunch() {
     const that = this
 
-    await this.initcloud() // 微信云开发环境初始化（因为费用贵了，所以转战阿里云了）
+    //await this.initcloud() // 微信云开发环境初始化（因为费用负担不起，所以转战阿里云了）
     alicloud.init(); // 阿里云服务初始化
 
-    const { result } = await alicloud.user.getInfo();
+    const {
+      result
+    } = await alicloud.user.getInfo();
 
-    console.log('alicloud user',result)
+    console.log('alicloud user', result)
 
     // 查询缓存中用户信息
-    // if (!wx.getStorageSync('user')) {
-    //   const res = await that.call({
-    //     // 传给云函数的参数
-    //     type: 'getUserInfo'
-    //   })
-    //   if (res.success) {
-    //     wx.setStorageSync('user', res.data)
-    //   }
-    //   wx.navigateTo({
-    //     url: '/pages/login/index',
-    //   })
-    // }
+    if (!wx.getStorageSync('user')) {
+      const res = await that.call({
+        // 传给云函数的参数
+        type: 'getUserInfo'
+      })
+      if (res.success) {
+        wx.setStorageSync('user', res.data)
+      }
+      wx.navigateTo({
+        url: '/pages/login/index',
+      })
+    }
 
     // 初始化一些数据
   },
+
   /**
    * 封装的云函数调用方法
    * @param {*} obj 传入对象
@@ -109,5 +112,4 @@ App({
       }
     }
   },
-
 });
