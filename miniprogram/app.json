@@ -58,6 +58,8 @@
   "usingComponents": {
     "footer": "/components/footer/index",
     "barrage": "/components/barrage",
+    "gift-edit": "/components/gift-edit-popup/index",
+    "book-edit": "/components/book-edit-popup/index",
     "van-row": "@vant/weapp/row/index",
     "van-col": "@vant/weapp/col/index",
     "van-cell": "@vant/weapp/cell/index",
