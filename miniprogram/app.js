@@ -1,30 +1,35 @@
 // app.js
-import alicloud from './alicloud'
-import { getUserInfo } from './alicloud/services/user.js'
+const {
+	mpserverless
+} = require("./alicloud/index.js")
+
+const {
+	getUserInfo
+} = require("./alicloud/services/user.js")
 
 App({
-	alicloud: alicloud,
+	mpserverless: mpserverless,
 	flag: false,
 	async onLaunch() {
 		//await this.initcloud() // 微信云开发环境初始化（因为费用负担不起，所以转战阿里云了）
-		alicloud.init(); // 阿里云服务初始化
+		mpserverless.init(); // 阿里云服务初始化
 
 		const {
 			result
-		} = await alicloud.user.getInfo();
+		} = await mpserverless.user.getInfo();
 
 		console.log('alicloud user', result)
 
 		// 查询缓存中用户信息
-		if (!wx.getStorageSync('user')) {
-			const res = await getUserInfo()
-			if (res.success) {
-				wx.setStorageSync('user', res.data)
-			}
-			wx.navigateTo({
-				url: '/pages/login/index',
-			})
-		}
+		// if (!wx.getStorageSync('user')) {
+		// 	const res = await getUserInfo()
+		// 	if (res.success) {
+		// 		wx.setStorageSync('user', res.data)
+		// 	}
+		// 	wx.navigateTo({
+		// 		url: '/pages/login/index',
+		// 	})
+		// }
 
 		// 初始化一些数据
 	},
