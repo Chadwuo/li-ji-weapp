@@ -8,7 +8,7 @@ const {
  *
  * @author micahh
  */
-export async function getUserInfo() {
+exports.getUserInfo = async () => {
     try {
         const res = await alicloud.user.getInfo()
         if (res.success) {
