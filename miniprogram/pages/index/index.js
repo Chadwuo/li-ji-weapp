@@ -1,5 +1,6 @@
 // pages/index/index.js
 const app = getApp()
+
 Page({
 
   /**
@@ -12,12 +13,12 @@ Page({
     actionId: '',
     showBookAction: false,
     bookActions: [{
-      name: '编辑',
-    },
-    {
-      name: '删除',
-      subname: '该礼簿所有来往记录都将被删除',
-    },
+        name: '编辑',
+      },
+      {
+        name: '删除',
+        subname: '该礼簿所有来往记录都将被删除',
+      },
     ],
   },
   onSearch() {
@@ -42,7 +43,7 @@ Page({
     const giftEdit = this.selectComponent('#gift-edit')
     giftEdit.show()
   },
-  onAddBook(){
+  onAddBook() {
     const bookEdit = this.selectComponent('#book-edit')
     bookEdit.show()
   },
@@ -137,7 +138,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
+  async onShow() {
     this.loadData(1)
   },
 
