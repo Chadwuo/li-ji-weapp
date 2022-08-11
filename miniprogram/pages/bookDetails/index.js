@@ -1,6 +1,6 @@
-const app = getApp()
 const dayjs = require('dayjs');
-const db = wx.cloud.database()
+const bookService = require('../../alicloud/services/book')
+
 Page({
     data: {
         giftList: [],

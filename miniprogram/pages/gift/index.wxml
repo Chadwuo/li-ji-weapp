@@ -22,3 +22,16 @@
         <van-datetime-picker type="date" value="{{ luckDay }}" bind:confirm="onConfirm" bind:cancel="onClose" formatter="{{ formatter }}" />
     </van-popup>
 </view>
+
+<view class="wrapper">
+  <view class='gift-card' wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-giftid='{{item._id}}'>
+    <view class='content'>
+      <view class='title'>{{item.friendInfo.name}}</view>
+      <view class='info'>{{item.name}}</view>
+      <view class='info'>{{item.date}}</view>
+    </view>
+    <view class='label'>
+      {{item.money}}元
+    </view>
+  </view>
+</view>

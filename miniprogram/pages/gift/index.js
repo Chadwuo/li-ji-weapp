@@ -8,6 +8,7 @@ Page({
    */
   data: {
     id: '',
+    giftList: [],
     luckDay: new Date().getTime(),
     luckDayFormat: dayjs().format('YYYY-MM-DD'),
     name: '',
@@ -36,11 +37,6 @@ Page({
     return dayjs(date).format('YYYY-MM-DD');
   },
   async saveGift() {
-    // 几个tabbar页面都需要刷新
-    app.globalData.refreshRequired.home = true
-    app.globalData.refreshRequired.book = true
-    app.globalData.refreshRequired.friend = true
-    app.globalData.refreshRequired.profile = true
     let that = this
     if (!this.data.friendId) {
       // 先把联系人存起来
@@ -71,29 +67,6 @@ Page({
         wx.showToast({
           title: '修改成功',
         })
-      }
-    })
-  },
-  delGift() {
-    app.globalData.refreshRequired.home = true
-    app.globalData.refreshRequired.book = true
-    app.globalData.refreshRequired.friend = true
-    app.globalData.refreshRequired.profile = true
-    var that = this
-    wx.showModal({
-      title: '删除记录？',
-      content: '该人情记录删除后无法恢复，确定删除？',
-      success(res) {
-        if (res.confirm) {
-          db.collection('gift').doc(that.data.id).remove({
-            success: function (res) {
-              wx.showToast({
-                title: '删除成功',
-              })
-              wx.navigateBack()
-            }
-          })
-        }
       }
     })
   },

@@ -12,7 +12,7 @@ Page({
     remarks: '',
     kinship: '',
   },
-  saveFriend() {
+  async saveFriend() {
     app.globalData.refreshRequired.friend = true
     if (this.data.id) {
       const res = await app.call({

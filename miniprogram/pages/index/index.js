@@ -1,5 +1,6 @@
 // pages/index/index.js
-const app = getApp()
+const bookService = require('../../alicloud/services/book')
+
 Page({
 
   /**
@@ -12,12 +13,12 @@ Page({
     actionId: '',
     showBookAction: false,
     bookActions: [{
-      name: '编辑',
-    },
-    {
-      name: '删除',
-      subname: '该礼簿所有来往记录都将被删除',
-    },
+        name: '编辑',
+      },
+      {
+        name: '删除',
+        subname: '该礼簿所有来往记录都将被删除',
+      },
     ],
   },
   onSearch() {
@@ -26,10 +27,25 @@ Page({
       icon: 'none',
     })
   },
-  onAdd() {
-    wx.navigateTo({
-      url: `/pages/bookEdit/index`,
+  // 打开人情编辑弹出层
+  onShowGiftPopup(e) {
+    this.setData({
+      showGiftPopup: true,
     });
+  },
+  // 打开礼簿编辑弹出层
+  onShowBookPopup(e) {
+    this.setData({
+      showBookPopup: true,
+    });
+  },
+  onAddGift() {
+    const giftEdit = this.selectComponent('#gift-edit')
+    giftEdit.show()
+  },
+  onAddBook() {
+    const bookEdit = this.selectComponent('#book-edit')
+    bookEdit.show()
   },
   onBookClick(e) {
     wx.navigateTo({
@@ -57,8 +73,7 @@ Page({
           content: '该礼簿所有来往记录都将被删除，确定删除？',
           async success(result) {
             if (result.confirm) {
-              const res = await app.call({
-                type: 'deleteBook',
+              const res = await bookService.deleteBook({
                 _id: that.data.actionId
               })
 
@@ -92,8 +107,7 @@ Page({
   },
   async loadData(page) {
     const that = this
-    const res = await app.call({
-      type: 'getBookPage',
+    const res = await bookService.getBookPage({
       page: page,
       limit: 10
     })
@@ -122,7 +136,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
+  async onShow() {
     this.loadData(1)
   },
 
