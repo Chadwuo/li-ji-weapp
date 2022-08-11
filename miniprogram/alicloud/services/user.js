@@ -1,52 +1,28 @@
-const {
-  mpserverless
-} = getApp();
+const app = getApp();
 
-
+const db = app.mpserverless.db
+const userInfo = app.userInfo
 /**
- * 获取用户信息
- * 如果没有会自动创建用户
+ * 获取用户数据范围
  *
+ * @return data {Array.<string>} 用户id集合。
  * @author chadwuo
  */
-exports.getUserInfo = async () => {
-  try {
-    const res = await mpserverless.user.getInfo()
-    if (res.success) {
-      const userId = res.result.user.userId // Serverless平台生成的用户ID
-      let {
-        result: user
-      } = await mpserverless.db.collection('user').findOne({
-        _id: userId
-      })
-
-      console.log('3333')
-      if (!user) {
-        // 创建用户
-        user = {
-          _id: userId,
-          familyId: '',
-          isVip: false
-        }
-        mpserverless.db.collection('user').insertOne(user).then(res => {
-          console.log(res)
-        }).catch(console.error);
-      }
-
-      console.log('222222')
-      return {
-        success: true,
-        data: user
-      }
-    }
-    return {
-      success: false,
-      message: '操作失败'
-    }
-  } catch (e) {
-    return {
-      success: false,
-      message: e
-    };
+exports.getUserDataScope = async () => {
+  // 没有加入家庭，就返回自己的id
+  if (!userInfo.familyId) {
+    return [userInfo._Id]
   }
+
+  // 获取家庭信息
+  const { result: familyInfos } = await db.collection('familyInfo').find({
+    familyId: userInfo.familyId,
+    status: 1
+  })
+
+  let dataScope = familyInfos.map(i => {
+    return i._id
+  })
+
+  return dataScope
 }
