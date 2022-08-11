@@ -1,6 +1,6 @@
 // pages/friends/index.js
-const db = wx.cloud.database()
-const app = getApp()
+const friendService = require('../../alicloud/services/friend')
+
 Page({
   /**
    * 页面的初始数据
@@ -35,8 +35,7 @@ Page({
       async success(result) {
         if (result.confirm) {
           // 删除亲友下所有记录
-          const res = app.call({
-            type: 'deleteFriend',
+          const res = friendService.deleteFriend({
             _id: friendId
           })
           if (res.success) {
@@ -61,9 +60,7 @@ Page({
       alpha: '#',
       subItems: []
     }
-    const res = app.call({
-      type: 'getFriends',
-    })
+    const res = friendService.getFriendList()
 
     if (res.success) {
       for (const item of res.data) {
