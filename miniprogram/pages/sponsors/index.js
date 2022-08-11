@@ -1,6 +1,6 @@
 // pages/appreciate/index.js
-const app = getApp()
-const db = wx.cloud.database()
+const sponsorService = require('../../alicloud/services/sponsor')
+
 Page({
     /**
      * 页面的初始数据
@@ -22,7 +22,7 @@ Page({
         })
     },
     // 添加
-    onAdd() {
+    async onAdd() {
         await app.call({
             type: 'addSponsor',
             data: {
@@ -52,13 +52,8 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    async onLoad(options) {
-        const res = app.call({
-            type: 'getSponsors'
-        })
-        if (res.success) {
-            // TODO
-        }
+    onLoad(options) {
+
     },
 
     /**
@@ -71,10 +66,11 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function () {
-        this.setData({
-            isAdmin: app.globalData.user.isAdmin,
-        });
+    async onShow() {
+        const res = sponsorService.getSponsors()
+        if (res.success) {
+            // TODO
+        }
     },
 
     /**

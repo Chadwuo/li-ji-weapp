@@ -1,29 +1,66 @@
 // app.js
+const { mpserverless } = require('./alicloud/index.js')
+
 App({
-	flag: false,
+	mpserverless,
+	userInfo: null,
 	async onLaunch() {
-		const that = this
-		await this.initcloud()
+		//await this.initcloud() // 微信云开发环境初始化（因为费用负担不起，所以转战阿里云了）
+		mpserverless.init(); // 阿里云服务初始化
+
 		// 查询缓存中用户信息
-		if (!wx.getStorageSync('user')) {
-			const res = await that.call({
-				// 传给云函数的参数
-				type: 'getUserInfo'
-			})
+		this.userInfo = wx.getStorageSync('user')
+		if (!userInfo) {
+			const res = await this.getUserInfo()
 			if (res.success) {
+				this.userInfo = res.data
 				wx.setStorageSync('user', res.data)
-				that.openidData();
 			}
 			wx.navigateTo({
 				url: '/pages/login/index',
 			})
 		}
-
-		// 初始化一些数据
-		that.openidData();
 	},
 	/**
+	 * 获取用户信息
+	 * 如果没有会自动创建用户
+	 *
+	 * @author chadwuo
+	 */
+	async getUserInfo() {
+		const res = await this.mpserverless.user.getInfo()
+		if (res.success) {
+			const userId = res.result.user.userId // Serverless平台生成的用户ID
+			let {
+				result: user
+			} = await this.mpserverless.db.collection('user').findOne({
+				_id: userId
+			})
+
+			if (!user) {
+				// 创建用户
+				user = {
+					_id: userId,
+					familyId: '',
+					isVip: false
+				}
+				await this.mpserverless.db.collection('user').insertOne(user)
+			}
+
+			return {
+				success: true,
+				data: user
+			}
+		}
+		return {
+			success: false,
+			message: '操作失败'
+		}
+	},
+
+	/**
 	 * 封装的云函数调用方法
+	 * （已弃用）
 	 * @param {*} obj 传入对象
 	 */
 	async call(obj) {
@@ -58,6 +95,7 @@ App({
 	},
 	/**
 	 * 初始化云开发环境（支持环境共享和正常两种模式）
+	 * （已弃用）
 	 */
 	async initcloud() {
 		const shareinfo = wx.getExtConfigSync() // 检查 ext 配置文件
@@ -92,26 +130,4 @@ App({
 			}
 		}
 	},
-	async openidData() {
-		const that = this;
-		// const openid = wx.getStorageSync('userOpenid')
-		// const res = await that.call({
-		// 	// 传给云函数的参数
-		// 	data: {
-		// 		type: 'getMyInvite',
-		// 	}
-		// })
-		// console.log(res);
-		// // that.setData({
-		// //     datalist:res.result.data,
-		// //     day:that.timesize(that.data.newtime,res.result.data.memorialDayTime)||0
-		// // })
-		// if (res.success === true) {
-		// 	try {
-		// 		wx.setStorageSync('recipientId', res.data.inviter == openid ? res.data.recipient : res.data.inviter)
-		// 	} catch (error) {
-		// 		wx.removeStorageSync('recipientId');
-		// 	}
-		// }
-	}
 });

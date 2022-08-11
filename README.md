@@ -75,7 +75,8 @@ li-ji-weapp
 ### 鸣谢
 
 - [Vant weapp](https://github.com/youzan/vant-weapp)：轻量、可靠的小程序 UI 组件库
-- [wxmpbarrage](https://github.com/woswk/wxmpbarrage)：小程序弹幕组件
+- <s>腾讯云（涨价了，负担不起，已迁移至阿里云）</s>
+- [阿里云 Serverless](https://serverless.aliyun.com/)：阿里云 Serverless
 
 <!-- links -->
 [license-url]: https://github.com/micahh28/li-ji-weapp/blob/master/LICENSE.txt
