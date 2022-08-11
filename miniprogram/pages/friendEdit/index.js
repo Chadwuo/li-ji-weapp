@@ -1,6 +1,5 @@
 import pinyin from "wl-pinyin";
-const app = getApp()
-const db = wx.cloud.database()
+const friendService = require('../../alicloud/services/friend')
 
 Page({
   /**
@@ -15,15 +14,12 @@ Page({
   async saveFriend() {
     app.globalData.refreshRequired.friend = true
     if (this.data.id) {
-      const res = await app.call({
-        type: 'updateFriend',
+      const res = await friendService.updateFriend({
         _id: this.data.id,
-        data: {
-          name: this.data.name,
-          kinship: this.data.kinship,
-          remarks: this.data.remarks,
-          firstLetter: pinyin.getFirstLetter(this.data.name.substr(0, 1))
-        }
+        name: this.data.name,
+        kinship: this.data.kinship,
+        remarks: this.data.remarks,
+        firstLetter: pinyin.getFirstLetter(this.data.name.substr(0, 1))
       })
       if (res.success) {
         wx.showToast({
@@ -55,8 +51,7 @@ Page({
       success(result) {
         if (result.confirm) {
           // 删除亲友下所有记录
-          const res = app.call({
-            type: 'deleteFriend',
+          const res = friendService.deleteFriend({
             _id: that.data.id
           })
           if (res.success) {
@@ -77,8 +72,7 @@ Page({
   onLoad: function (options) {
     var that = this
     if (options.friendId) {
-      const res = app.call({
-        type: 'getFriend',
+      const res = friendService.getFriend({
         _id: options.friendId
       })
       if (res.success) {

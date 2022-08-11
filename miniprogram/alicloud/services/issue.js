@@ -8,10 +8,16 @@ const db = app.mpserverless.db;
  */
 exports.getIssuePage = async (parameter) => {
     try {
-        const { result } = await db.collection('issue').find()
-            .sort({ createTime: -1 })
-            .skip((parameter.page - 1) * parameter.limit)
-            .limit(parameter.limit)
+        const {
+            result
+        } = await db.collection('issue').find({}, {
+            sort: {
+                createTime: -1
+            },
+            skip: (parameter.page - 1) * parameter.limit,
+            limit: parameter.limit,
+        })
+        
         return {
             success: true,
             data: result
@@ -25,13 +31,15 @@ exports.getIssuePage = async (parameter) => {
 };
 
 /**
-* 添加
-*
-* @author chadwuo
-*/
+ * 添加
+ *
+ * @author chadwuo
+ */
 exports.addIssue = async (parameter) => {
     try {
-        const { result } = await db.collection('issue').insertOne(parameter)
+        const {
+            result
+        } = await db.collection('issue').insertOne(parameter)
         return {
             success: true,
             data: result
@@ -45,17 +53,16 @@ exports.addIssue = async (parameter) => {
 };
 
 /**
-* 更新
-*
-* @author chadwuo
-*/
+ * 更新
+ *
+ * @author chadwuo
+ */
 exports.updateIssue = async (parameter) => {
     try {
         await db.collection('issue').updateOne({
             _id: parameter._id
         }, {
-            $set:
-            {
+            $set: {
                 reply: parameter.reply,
                 replyTime: parameter.replyTime,
             }
@@ -73,10 +80,10 @@ exports.updateIssue = async (parameter) => {
 };
 
 /**
-* 删除
-*
-* @author chadwuo
-*/
+ * 删除
+ *
+ * @author chadwuo
+ */
 exports.deleteIssue = async (parameter) => {
     try {
         await db.collection('issue').deleteOne({
