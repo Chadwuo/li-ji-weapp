@@ -1,5 +1,5 @@
 // pages/index/index.js
-const app = getApp()
+const bookService = require('../../alicloud/services/book')
 
 Page({
 
@@ -73,8 +73,7 @@ Page({
           content: '该礼簿所有来往记录都将被删除，确定删除？',
           async success(result) {
             if (result.confirm) {
-              const res = await app.call({
-                type: 'deleteBook',
+              const res = await bookService.deleteBook({
                 _id: that.data.actionId
               })
 
@@ -108,8 +107,7 @@ Page({
   },
   async loadData(page) {
     const that = this
-    const res = await app.call({
-      type: 'getBookPage',
+    const res = await bookService.getBookPage({
       page: page,
       limit: 10
     })

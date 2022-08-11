@@ -1,4 +1,5 @@
-const app = getApp()
+const friendService = require('../../alicloud/services/friend')
+
 Page({
 
   /**
@@ -16,9 +17,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    const res = app.call({
-      type: 'getFriends',
-    })
+    const res = friendService.getFriendList()
     if(res.success){
       this.setData({
         friendList: res.data,
