@@ -1,6 +1,6 @@
 const dayjs = require('dayjs');
-const db = wx.cloud.database()
-const app = getApp()
+const bookService = require('../../alicloud/services/book')
+
 Page({
   /**
    * 页面的初始数据
@@ -31,8 +31,7 @@ Page({
   async saveBook() {
     app.globalData.refreshRequired.book = true
     if (this.data.id) {
-      const res = await app.call({
-        type: 'updateBook',
+      const res = await bookService.updateBook({
         data: {
           date: new Date(this.data.luckDay),
           title: this.data.name,
@@ -47,8 +46,7 @@ Page({
         }, 500);
       }
     } else {
-      const res = await app.call({
-        type: 'addBook',
+      const res = await bookService.addBook({
         data: {
           date: new Date(this.data.luckDay),
           title: this.data.name,
@@ -71,8 +69,7 @@ Page({
       content: '该礼簿所有来往记录都将被删除，确定删除？',
       async success(res) {
         if (res.confirm) {
-          const result = await app.call({
-            type: 'deleteBook',
+          const result = await bookService.deleteBook({
             _id: that.data.id
           })
           if (result.success) {
@@ -108,8 +105,7 @@ Page({
   async onLoad(options) {
     var that = this
     if (options.bookId) {
-      const res = await app.call({
-        type: 'getBook',
+      const res = await bookService.getBook({
         _id: options.bookId
       })
       if (res.success) {

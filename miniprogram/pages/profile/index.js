@@ -1,6 +1,7 @@
 // pages/profile/index.js
-const app = getApp()
-const db = wx.cloud.database()
+const giftOutService = require('../../alicloud/services/giftOut')
+const giftReceiveService = require('../../alicloud/services/giftReceive')
+
 Page({
   /**
    * 页面的初始数据
@@ -19,7 +20,7 @@ Page({
         name: "数据导出"
       },
       {
-        page: "appreciate",
+        page: "sponsors",
         icon: "good-job-o",
         name: "赞赏"
       },
@@ -84,15 +85,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow() {
-    const res = await app.call({
-      type: 'computedTotalGiftReceive'
-    })
+    const res = await giftReceiveService.computedTotalGiftReceive()
     this.setData({
       receiveTotal: res.data,
     });
-    const res1 = await app.call({
-      type: 'computedTotalGiftOut'
-    })
+    const res1 = await giftOutService.computedTotalGiftOut()
     this.setData({
       giveTotal: res1.data,
     });

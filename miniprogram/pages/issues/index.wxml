@@ -1,6 +1,6 @@
 <!--pages/issues/index.wxml-->
 <view class="container">
-    <van-tabs sticky animated swipeable bind:click="onTabsClick">
+    <van-tabs sticky animated swipeable>
         <van-tab title="问题反馈">
             <view class="tab-item" style="display: flex;flex-direction: column;">
                 <van-cell-group inset>

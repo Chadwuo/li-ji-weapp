@@ -1,5 +1,6 @@
-const app = getApp()
 const dayjs = require('dayjs');
+const bookService = require('../../alicloud/services/book')
+
 Page({
   /**
    * 页面的初始数据
@@ -19,9 +20,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    const res = app.call({
-      type: 'getBooks'
-    })
+    const res = bookService.getBookList()
     if (res.success) {
       this.setData({
         bookList: res.data.map(i => {
