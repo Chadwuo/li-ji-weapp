@@ -1,8 +1,8 @@
 // pages/issues/index.js
 // 引入 dayjs
 const dayjs = require('dayjs');
-const app = getApp()
-const db = wx.cloud.database()
+const issueService = require('../../alicloud/services/issue')
+
 Page({
   /**
    * 页面的初始数据
@@ -24,8 +24,7 @@ Page({
     this.setData({
       loading: true,
     })
-    const res = await app.call({
-      type: 'getIssuePage',
+    const res = await issueService.getIssuePage({
       page: page,
       limit: 10
     })
@@ -49,8 +48,7 @@ Page({
       content: this.data.issuesContent,
       createTime: db.serverDate(),
     }
-    const res = await app.call({
-      type: 'addIssue',
+    const res = await issueService.addIssue({
       data
     })
     if (res.success) {
@@ -67,8 +65,7 @@ Page({
   },
   // 提交回复
   async onReplyIssues() {
-    const res = await app.call({
-      type: 'updateIssue',
+    const res = await issueService.updateIssue({
       _id: this.data.issuesId,
       data: {
         reply: this.data.replyContent,
@@ -83,8 +80,7 @@ Page({
   },
   async onDelIssues(e) {
     const issuesId = e.currentTarget.dataset.issuesid
-    const res = await app.call({
-      type: 'deleteIssue',
+    const res = await issueService.deleteIssue({
       _id: issuesId
     })
     if (res.success) {
