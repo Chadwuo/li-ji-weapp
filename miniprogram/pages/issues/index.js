@@ -20,10 +20,6 @@ Page({
   },
   // 获取分页数据
   async loadData(page) {
-    console.log(page)
-    this.setData({
-      loading: true,
-    })
     const res = await issueService.getIssuePage({
       page: page,
       limit: 10
@@ -109,7 +105,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) { },
+  onLoad: function (options) {},
 
   /**
    * 生命周期函数--监听页面初次渲染完成
