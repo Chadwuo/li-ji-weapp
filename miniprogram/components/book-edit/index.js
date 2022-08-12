@@ -1,4 +1,3 @@
-// components/book-edit-popup/index.js
 const bookService = require('../../alicloud/services/book')
 const dayjs = require('dayjs');
 
@@ -15,11 +14,11 @@ Component({
      */
     data: {
         visible: false,
-        id: '',
+        _id: '',
         date: new Date().getTime(),
-        dateFormat: dayjs().format('YYYY-MM-DD'),
-        name: '',
+        title: '',
         remarks: '',
+        dateFormat: dayjs().format('YYYY-MM-DD'),
         showCalendar: false,
         formatter(type, value) {
             if (type === 'year') {
@@ -42,24 +41,22 @@ Component({
         formatDate(date) {
             return dayjs(date).format('YYYY-MM-DD');
         },
-        async show(bookId) {
+        async show(data) {
             this.setData({
-                visible: true
+                visible: true,
+                ...data
             })
 
-            if (bookId) {
-                const res = await bookService.getBook({
-                    _id: data._id
-                })
-                if (res.success) {
-                    this.setData({
-                        id: res.data._id,
-                        luckDay: new Date(res.data.date).getTime(),
-                        luckDayFormat: this.formatDate(res.data.date),
-                        name: res.data.tile,
-                    });
-                }
-            }
+            // if (data) {
+            //     // const res = await bookService.getBook({
+            //     //     _id: id
+            //     // })
+            //     // if (res.success) {
+            //     //     this.setData({
+            //     //         ...res.data
+            //     //     });
+            //     // }
+            // }
         },
         onCancel() {
             this.setData({
@@ -67,13 +64,8 @@ Component({
             })
         },
         async onSave() {
-            if (this.data.id) {
-                const res = await bookService.updateBook({
-                    data: {
-                        date: new Date(this.data.luckDay),
-                        title: this.data.name,
-                    }
-                })
+            if (this.data._id) {
+                const res = await bookService.updateBook(this.data)
                 if (res.success) {
                     wx.showToast({
                         title: '修改成功',
@@ -85,10 +77,7 @@ Component({
                     }, 500);
                 }
             } else {
-                const res = await bookService.addBook({
-                    date: new Date(this.data.date),
-                    title: this.data.name,
-                })
+                const res = await bookService.addBook(this.data)
                 if (res.success) {
                     wx.showToast({
                         title: '保存成功',
@@ -102,15 +91,12 @@ Component({
             }
         },
         async delBook() {
-            var that = this
             wx.showModal({
                 title: '删除礼簿？',
                 content: '该礼簿所有来往记录都将被删除，确定删除？',
                 async success(res) {
                     if (res.confirm) {
-                        const result = await bookService.deleteBook({
-                            _id: that.data.id
-                        })
+                        const result = await bookService.deleteBook(this.data)
                         if (result.success) {
                             wx.showToast({
                                 title: '删除成功',
