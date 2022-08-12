@@ -1,24 +1,24 @@
 <!--index.wxml-->
 <view class="container">
-    <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch">
-        <view slot="action" bind:tap="onAdd">
-            <van-icon name="plus" size="48rpx" color="#F76664" />
-        </view>
-    </van-search>
-    <view class="wrapper">
-        <van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
-        <view class='nav acea-row row-middle' wx:for="{{giftList}}" wx:key="index">
-            <view class='content'>
-                <view class='title'>{{item.friendInfo.name}}</view>
-                <view class='info'>{{item.name}}</view>
-                <view class='info'>{{item.luckDay}}</view>
-            </view>
-            <view class='label'>
-                <van-tag round type="success" wx:if="{{item.type==='送'}}">送</van-tag>
-                <van-tag round color="#F76664" wx:else>收</van-tag>
-                {{item.money}}
-            </view>
-        </view>
+  <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch">
+    <view slot="action" bind:tap="onAdd">
+      <van-icon name="plus" size="48rpx" color="#F76664" />
     </view>
+  </van-search>
+  <view class="wrapper">
+    <van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
+    <view class='nav acea-row row-middle' wx:for="{{giftList}}" wx:key="index">
+      <view class='content'>
+        <view class='title'>{{item.friendInfo.name}}</view>
+        <view class='info'>{{item.name}}</view>
+        <view class='info'>{{item.luckDay}}</view>
+      </view>
+      <view class='label'>
+        <van-tag round type="success" wx:if="{{item.type==='送'}}">送</van-tag>
+        <van-tag round color="#F76664" wx:else>收</van-tag>
+        {{item.money}}
+      </view>
+    </view>
+  </view>
 </view>
 <footer></footer>
