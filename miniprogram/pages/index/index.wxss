@@ -5,14 +5,14 @@
 
 .book-wrapper .book {
     width: 100%;
-    height: 420rpx;
+    height: 360rpx;
     position: relative
 }
 
 .book-wrapper .book .bg {
     position: absolute;
     width: 100%;
-    height: 420rpx;
+    height: 360rpx;
 }
 
 .book-wrapper .book .content {
@@ -30,13 +30,13 @@
     color: #F76664;
     font-weight: bold;
     padding-bottom: 32rpx;
-    margin: 0 32rpx;
+    margin: 0 24rpx;
 }
 
 .book-wrapper .book .content .count {
     font-size: small;
     color: #969799;
-    margin: 0 32rpx;
+    margin: 0 24rpx;
 }
 
 .book-wrapper .book .content .total {
@@ -44,11 +44,11 @@
     color: #333;
     font-weight: bold;
     padding-bottom: 32rpx;
-    margin: 0 32rpx;
+    margin: 0 24rpx;
 } 
 
 .book-wrapper .book .content .date {
     font-size: small;
     color: #969799;
-    margin: 0 32rpx;
+    margin: 0 24rpx;
 }
