@@ -7,7 +7,7 @@
     <van-empty wx:if="{{giftBooks.length===0}}" description="还没有记录哦~"></van-empty>
     <view class="book-wrapper">
         <van-row gutter="20">
-            <van-col span="12" wx:for="{{giftBooks}}" wx:key="index" bind:longpress="onBookLongPress" data-bookid='{{item._id}}'>
+            <van-col span="12" wx:for="{{giftBooks}}" wx:key="index">
                 <view wx:if="{{!item._id}}" class="book" bind:tap="onAddBook">
                     <image class="bg" src="/images/bg_book_add.png"></image>
                     <view class="content" style="justify-content: center;">
@@ -17,11 +17,11 @@
                         </view>
                     </view>
                 </view>
-                <view wx:else class="book" bind:tap="onBookClick">
+                <view wx:else class="book" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-bookid='{{item._id}}'>
                     <image class="bg" src="/images/bg_book.png"></image>
                     <view class="content">
                         <view>
-                            <view class="name">{{ item.name||'' }}</view>
+                            <view class="name">{{ item.title||'' }}</view>
                             <view class="count">共 {{ item.giftCount||0 }} 笔</view>
                         </view>
                         <view>

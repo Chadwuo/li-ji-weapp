@@ -8,7 +8,7 @@ Page({
    */
   data: {
     keyword: '',
-    pageNo: 0,
+    pageNo: 1,
     giftBooks: [{}],
     actionId: '',
     showBookAction: false,
@@ -158,7 +158,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-    // this.loadData()
+    this.loadData(1)
     setTimeout(() => {
       wx.stopPullDownRefresh()
     }, 2000);
