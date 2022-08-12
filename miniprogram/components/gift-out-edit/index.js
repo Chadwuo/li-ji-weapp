@@ -35,7 +35,7 @@ Component({
                 visible: false
             })
         },
-        onSave() {
+      async  onSave() {
             if (this.data._id) {
                 const res = await giftOutService.updataGiftOut(this.data)
                 if (res.success) {

@@ -1,22 +1,22 @@
 <!--pages/friends/index.wxml-->
 <view>
-    <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
-        <view slot="action" bind:tap="onAdd" class="acea-row">
-            <van-icon name="add" size="52rpx" color="#F76664" />
-        </view>
-    </van-search>
-    <view>
-        <van-empty wx:if="{{friendsList.length===0}}" description="还没有记录哦~" />
-        <van-index-bar highlight-color="#F76664">
-            <view wx:for="{{friendsList}}" wx:key="index">
-                <van-index-anchor index="{{item.alpha}}" />
-                <van-cell-group inset>
-                    <van-swipe-cell right-width="{{ 65 }}" wx:for="{{item.subItems}}" wx:for-item="data" wx:key="dataindex">
-                        <van-cell title="{{data.name}}" size="large" bind:click="onFriendClick" data-friend='{{data}}' />
-                        <van-button slot="right" type="danger" bind:click="onDelete" data-friendid="{{data._id}}">删除</van-button>
-                    </van-swipe-cell>
-                </van-cell-group>
-            </view>
-        </van-index-bar>
+  <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
+    <view slot="action" bind:tap="onAdd" class="acea-row">
+      <van-icon name="add" size="52rpx" color="#F76664" />
     </view>
+  </van-search>
+  <view>
+    <van-empty wx:if="{{friendsList.length===0}}" description="还没有记录哦~" />
+    <van-index-bar highlight-color="#F76664">
+      <view wx:for="{{friendsList}}" wx:key="index">
+        <van-index-anchor index="{{item.alpha}}" />
+        <van-cell-group inset>
+          <van-swipe-cell right-width="{{ 65 }}" wx:for="{{item.subItems}}" wx:for-item="data" wx:key="dataindex">
+            <van-cell title="{{data.name}}" size="large" bind:click="onFriendClick" data-friend='{{data}}' />
+            <van-button slot="right" type="danger" bind:click="onDelete" data-friendid="{{data._id}}">删除</van-button>
+          </van-swipe-cell>
+        </van-cell-group>
+      </view>
+    </van-index-bar>
+  </view>
 </view>
