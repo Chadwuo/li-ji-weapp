@@ -1,42 +1,42 @@
 /* pages/about/index.wxss */
 .container {
-    align-items: center;
-    padding: 24rpx 50rpx;
+  align-items: center;
+  padding: 24rpx 50rpx;
 }
 
 .container .logo {
-    margin-top: 50rpx;
-    text-align: center;
+  margin-top: 50rpx;
+  text-align: center;
 }
 
 .container .logo image {
-    width: 128rpx;
-    height: 128rpx;
+  width: 128rpx;
+  height: 128rpx;
 }
 
 .container .title {
-    font-weight: 500;
-    color: #000000;
-    font-size: 38rpx;
-    margin: 36rpx 0;
+  font-weight: 500;
+  color: #000000;
+  font-size: 38rpx;
+  margin: 36rpx 0;
 }
 
 .container .title_info {
-    font-family: PingFang SC;
-    font-weight: 300;
-    color: #000000;
-    font-size: 30rpx;
-    margin-bottom: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 300;
+  color: #000000;
+  font-size: 30rpx;
+  margin-bottom: 24rpx;
 }
 
 .container .describe {
-    font-size: 28rpx;
-    font-family: PingFang SC;
-    color: #888888;
-    margin-bottom: 24rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  color: #888888;
+  margin-bottom: 24rpx;
 }
 
 .container .foot-table {
-    width: 100%;
-    margin-top: 58rpx;
+  width: 100%;
+  margin-top: 58rpx;
 }

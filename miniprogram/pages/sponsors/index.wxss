@@ -1,25 +1,25 @@
 /* pages/appreciate/index.wxss */
 .container {
-    height: 100%;
-    align-items: center;
-    padding: 24rpx 50rpx;
+  height: 100%;
+  align-items: center;
+  padding: 24rpx 50rpx;
 }
 
 .container .top_tip {
-    font-size: 24rpx;
-    color: #888888;
-    padding: 0 30rpx;
+  font-size: 24rpx;
+  color: #888888;
+  padding: 0 30rpx;
 }
 
 .form-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .form-box .fotter-btn {
-    display: flex;
-    justify-content: space-around;
-    margin: 24rpx 0;
+  display: flex;
+  justify-content: space-around;
+  margin: 24rpx 0;
 }
