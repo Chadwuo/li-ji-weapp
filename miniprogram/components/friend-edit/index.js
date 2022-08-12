@@ -17,8 +17,8 @@ Component({
         _id: '',
         name: '',
         firstLetter: '',
+        relation: '',
         remarks: '',
-        kinship: '',
     },
 
     /**
