@@ -153,7 +153,7 @@ exports.addBook = async (parameter) => {
 exports.updateBook = async (parameter) => {
     try {
         await db.collection('book').doc(parameter._id).updateOne({
-            _id: userInfo._id
+            _id: parameter._id
         }, {
             $set: {
                 title: parameter.title,
