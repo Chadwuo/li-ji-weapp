@@ -40,7 +40,7 @@ Page({
     });
   },
   onAddGift() {
-    const giftEdit = this.selectComponent('#gift-edit')
+    const giftEdit = this.selectComponent('#gift-receive-edit')
     giftEdit.show()
   },
   onAddBook() {
