@@ -15,7 +15,7 @@ exports.computedTotalGiftReceive = async () => {
     try {
         // 数据权限范围
         const dataScope = await getUserDataScope()
-        const { result } = db.collection('giftReceive')
+        const { result } = db.collection('gift_receive')
             .aggregate([
                 {
                     $match: { userId: { $in: dataScope } }
@@ -61,7 +61,7 @@ exports.addGiftReceive = async (parameter) => {
             giftReceive.friendId = result._id
         }
 
-        const { result } = await db.collection('giftReceive').insertOne({
+        const { result } = await db.collection('gift_receive').insertOne({
             userId: userInfo._id,
             friendId: giftReceive.friendId,
             bookId: giftReceive.bookId,
@@ -88,7 +88,7 @@ exports.addGiftReceive = async (parameter) => {
 */
 exports.updateGiftReceive = async (parameter) => {
     try {
-        await db.collection('giftReceive').updateOne({
+        await db.collection('gift_receive').updateOne({
             _id: parameter._id
         }, {
             $set:
@@ -119,7 +119,7 @@ exports.updateGiftReceive = async (parameter) => {
 */
 exports.deleteGiftReceive = async (parameter) => {
     try {
-        await db.collection('giftReceive').deleteOne({
+        await db.collection('gift_receive').deleteOne({
             _id: parameter._id
         })
         return {

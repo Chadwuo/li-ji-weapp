@@ -15,12 +15,17 @@ exports.getBookPage = async (parameter) => {
     try {
         // 数据权限范围
         const dataScope = await getUserDataScope()
-        const { result: books } = await db.collection('book').aggregate([
-            {
-                $match: { userId: { $in: dataScope } }
+        const {
+            result
+        } = await db.collection('book').aggregate([{
+                $match: {
+                    userId: {
+                        $in: dataScope
+                    }
+                }
             },
             {
-                $skip: parameter.page * parameter.limit
+                $skip: ((parameter.page - 1) * parameter.limit)
             },
             {
                 $limit: parameter.limit
@@ -35,9 +40,10 @@ exports.getBookPage = async (parameter) => {
                 }
             }
         ])
+        
         return {
             success: true,
-            data: books
+            data: result
         };
     } catch (e) {
         return {
@@ -58,8 +64,12 @@ exports.getBookList = async () => {
         const dataScope = await getUserDataScope()
         const MAX_LIMIT = 100
         // 先取出集合记录总数
-        const { result: total } = await db.collection('book').count({
-            userId: { $in: dataScope }
+        const {
+            result: total
+        } = await db.collection('book').count({
+            userId: {
+                $in: dataScope
+            }
         })
 
         // 计算需分几次取
@@ -95,7 +105,9 @@ exports.getBookList = async () => {
  */
 exports.getBook = async (parameter) => {
     try {
-        const { result } = await db.collection('book').findOne({
+        const {
+            result
+        } = await db.collection('book').findOne({
             _id: parameter._id,
         })
         return {
@@ -117,11 +129,13 @@ exports.getBook = async (parameter) => {
  */
 exports.addBook = async (parameter) => {
     try {
-        data.userId = userInfo._id
-        const { result } = await db.collection('book').insertOne(parameter)
+        parameter.userId = userInfo._id
+        const {
+            result
+        } = await db.collection('book').insertOne(parameter)
         return {
             success: true,
-            data: result
+            data: result.insertedId
         };
     } catch (e) {
         return {
@@ -141,8 +155,7 @@ exports.updateBook = async (parameter) => {
         await db.collection('book').doc(parameter._id).updateOne({
             _id: userInfo._id
         }, {
-            $set:
-            {
+            $set: {
                 title: parameter.title,
                 date: parameter.date
             }

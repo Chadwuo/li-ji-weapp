@@ -1,7 +1,6 @@
-const app = getApp();
 const dayjs = require('dayjs');
-const db = wx.cloud.database();
 import pinyin from "wl-pinyin";
+
 Page({
   /**
    * 页面的初始数据
