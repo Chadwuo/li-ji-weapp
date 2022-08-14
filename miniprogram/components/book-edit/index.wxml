@@ -1,0 +1,18 @@
+<van-popup show="{{ visible }}" position="bottom" round custom-style="height: 98%;background-color: #f6f6f6;">
+    <view style="display: flex;justify-content: space-between;margin: 24rpx;">
+        <view style="color:#F76664;" bind:tap="onCancel">取消</view>
+        <view style="color:#F76664;" bind:tap="onSave">保存</view>
+    </view>
+    <van-divider />
+    <!-- 主体类容 -->
+    <view class="container">
+        <van-cell-group inset>
+            <van-field readonly label="时间" left-icon="calendar-o" model:value="{{ dateFormat }}" bind:click-input="onDisplay" />
+            <van-field label="礼簿名称" left-icon="balance-list-o" model:value="{{ title }}" placeholder="请输入" />
+            <van-field label="备注" left-icon="bookmark-o" model:value="{{ remarks }}" type="textarea" placeholder="选填" autosize="{{ { minHeight: 120} }}" />
+        </van-cell-group>
+        <van-popup show="{{ showCalendar }}" round position="bottom" bind:close="onClose">
+            <van-datetime-picker type="date" value="{{ luckDay }}" bind:confirm="onConfirm" bind:cancel="onClose" formatter="{{ formatter }}" />
+        </van-popup>
+    </view>
+</van-popup>

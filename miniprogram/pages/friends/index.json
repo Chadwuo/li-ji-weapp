@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "亲友",
-  "usingComponents": {}
+  "usingComponents": {
+    "friend-edit": "/components/friend-edit/index"
+  }
 }
