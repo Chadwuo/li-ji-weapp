@@ -1,6 +1,4 @@
-const app = getApp()
 const dayjs = require('dayjs');
-const db = wx.cloud.database()
 Page({
   data: {
     pageNo: 0,
