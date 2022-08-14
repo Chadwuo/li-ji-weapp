@@ -16,11 +16,6 @@ Page({
   barrageDone() {
     console.log('回调完成')
   },
-  previewImage() {
-    wx.previewImage({
-      urls: ['cloud://liji-1gzjub9o9bdf6d00.6c69-liji-1gzjub9o9bdf6d00-1308229258/appreciate_code.jpg'] // 需要预览的图片http链接列表
-    })
-  },
   // 添加
   async onAdd() {
     await app.call({

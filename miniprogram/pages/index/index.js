@@ -8,8 +8,8 @@ Page({
    */
   data: {
     keyword: '',
-    pageNo: 1,
-    giftBooks: [{}],
+    pageNo: 0,
+    giftBooks: [],
     actionId: '',
     showBookAction: false,
     bookActions: [{
@@ -137,6 +137,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow() {
+    this.setData({
+      giftBooks: []
+    })
     this.loadData(1)
   },
 
@@ -158,6 +161,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
+    this.setData({
+      giftBooks: []
+    })
     this.loadData(1)
     setTimeout(() => {
       wx.stopPullDownRefresh()
