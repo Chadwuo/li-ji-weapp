@@ -4,8 +4,8 @@
     <van-tab title="问题反馈">
       <view class="tab-item" style="display: flex;flex-direction: column;">
         <van-cell-group inset>
-          <van-field model:value="{{ issuesTitle }}" placeholder="标题" />
-          <van-field model:value="{{ issuesContent }}" type="textarea" placeholder="请输入留言" autosize="{{ { minHeight: 260} }}" border="{{ false }}" />
+          <van-field model:value="{{ title }}" placeholder="标题" />
+          <van-field model:value="{{ content }}" type="textarea" placeholder="请输入留言" autosize="{{ { minHeight: 260} }}" border="{{ false }}" />
         </van-cell-group>
         <view style="padding: 0 20px;margin-top: 24rpx;">
           <van-button block color="#F76664" round icon="guide-o" bind:click="onAddIssues">发送</van-button>
@@ -44,16 +44,15 @@
       </view>
     </van-tab>
   </van-tabs>
-  <van-popup show="{{ showAddPopup }}" position="top" round closeable custom-style="height: 30%;" bind:close="onClosePopup">
-    <view style="display: flex;flex-direction: column;justify-content: space-between;height: 100%;">
-      <van-cell-group inset>
-        <van-field model:value="{{ replyContent }}" placeholder="回复内容" type="textarea" autosize="{{ { minHeight: 120} }}" />
-      </van-cell-group>
-      <view style="display: flex;justify-content: space-around;margin: 24rpx 0;">
-        <van-button color="#F76664" round icon="guide-o" bind:click="onReplyIssues" size="mini">回复</van-button>
-        <van-button color="#F76664" round icon="revoke" bind:click="onClosePopup" plain size="mini">取消</van-button>
-      </view>
+  <van-popup show="{{ showAddPopup }}" position="bottom" round custom-style="background-color: #f6f6f6;" bind:close="onClosePopup">
+    <view style="display: flex;justify-content: space-between;margin: 24rpx;">
+      <view style="color:#F76664;" bind:tap="onClosePopup">取消</view>
+      <view style="color:#F76664;" bind:tap="onReplyIssues">回复</view>
     </view>
+    <van-divider />
+    <van-cell-group inset>
+      <van-field model:value="{{ replyContent }}" placeholder="回复内容" type="textarea" autosize="{{ { minHeight: 120} }}" />
+    </van-cell-group>
   </van-popup>
 </view>
 <footer loading="{{loading}}"></footer>
