@@ -21,9 +21,8 @@ Page({
     });
   },
   onAdd() {
-    wx.navigateTo({
-      url: `/pages/friendEdit/index`,
-    });
+    const friendEdit = this.selectComponent('#friend-edit')
+    friendEdit.show()
   },
   onDelete(e) {
     let that = this
