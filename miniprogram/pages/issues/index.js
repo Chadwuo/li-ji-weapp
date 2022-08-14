@@ -2,28 +2,27 @@
 // 引入 dayjs
 const dayjs = require('dayjs');
 const issueService = require('../../alicloud/services/issue')
+const app = getApp()
 
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    issuesTitle: '',
-    issuesContent: '',
-    issuesId: '',
-    replyContent: '',
-    loading: false,
+    _id: '',
+    title: '',
+    content: '',
+    reply: '',
+    replyTime: '',
     issuesList: [],
+    loading: false,
     pageNo: 1,
-    isAdmin: false,
+    isAdmin: app.userInfo.isAdmin,
     showAddPopup: false,
   },
   // 获取分页数据
   async loadData(page) {
-    console.log(page)
-    this.setData({
-      loading: true,
-    })
+    console.log(app.userInfo.isAdmin)
     const res = await issueService.getIssuePage({
       page: page,
       limit: 10
@@ -34,30 +33,21 @@ Page({
         i.replyTime = dayjs(i.replyTime).format('YYYY-MM-DD')
         return i
       })
+      console.log(res)
       this.setData({
         loading: false,
-        issuesList: list,
+        issuesList: this.data.issuesList.concat(list),
         pageNo: page
       });
     }
   },
   // 添加
   async onAddIssues() {
-    let data = {
-      title: this.data.issuesTitle,
-      content: this.data.issuesContent,
-      createTime: db.serverDate(),
-    }
-    const res = await issueService.addIssue({
-      data
-    })
+    const res = await issueService.addIssue(this.data)
     if (res.success) {
-      data._id = res.data
-      this.setData({
-        issuesTitle: '',
-        issuesContent: '',
-        issuesList: this.issuesList.unshift(data)
-      });
+      // this.setData({
+      //   issuesList: this.issuesList.unshift(res.data)
+      // });
       wx.showToast({
         title: '提交成功，意见已记录，感谢你',
       })
@@ -65,13 +55,7 @@ Page({
   },
   // 提交回复
   async onReplyIssues() {
-    const res = await issueService.updateIssue({
-      _id: this.data.issuesId,
-      data: {
-        reply: this.data.replyContent,
-        replyTime: db.serverDate()
-      }
-    })
+    const res = await issueService.updateIssue(this.data)
     if (res.success) {
       wx.showToast({
         title: '回复成功',
@@ -79,9 +63,9 @@ Page({
     }
   },
   async onDelIssues(e) {
-    const issuesId = e.currentTarget.dataset.issuesid
+    const _id = e.currentTarget.dataset.issuesid
     const res = await issueService.deleteIssue({
-      _id: issuesId
+      _id
     })
     if (res.success) {
       wx.showToast({
@@ -109,7 +93,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) { },
+  onLoad: function (options) {},
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -122,7 +106,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.loadData(this.data.pageNo)
+    this.loadData(1)
   },
 
   /**
@@ -143,6 +127,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    this.setData({
+      issuesList: []
+    })
+    this.loadData(1)
     setTimeout(() => {
       wx.stopPullDownRefresh()
     }, 2000);

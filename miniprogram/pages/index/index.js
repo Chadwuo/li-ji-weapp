@@ -9,7 +9,7 @@ Page({
   data: {
     keyword: '',
     pageNo: 0,
-    giftBooks: [{}],
+    giftBooks: [],
     actionId: '',
     showBookAction: false,
     bookActions: [{
@@ -40,7 +40,7 @@ Page({
     });
   },
   onAddGift() {
-    const giftEdit = this.selectComponent('#gift-edit')
+    const giftEdit = this.selectComponent('#gift-receive-edit')
     giftEdit.show()
   },
   onAddBook() {
@@ -137,6 +137,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow() {
+    this.setData({
+      giftBooks: []
+    })
     this.loadData(1)
   },
 
@@ -158,7 +161,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-    // this.loadData()
+    this.setData({
+      giftBooks: []
+    })
+    this.loadData(1)
     setTimeout(() => {
       wx.stopPullDownRefresh()
     }, 2000);

@@ -1,8 +1,4 @@
 const app = getApp();
-const {
-    getUserDataScope
-} = require('./user');
-
 const db = app.mpserverless.db;
 const userInfo = app.userInfo;
 
@@ -17,7 +13,7 @@ exports.getFamilyInfo = async () => {
         const { result: family } = await db.collection('family').find({ _id: userInfo.familyId })
 
         // 获取家庭成员信息
-        const { result: familyMembers } = await db.collection('familyMember').aggregate([
+        const { result: familyMembers } = await db.collection('family_member').aggregate([
             {
                 $match: { familyId: userInfo.familyId }
             },
@@ -59,7 +55,7 @@ exports.addFamily = async (parameter) => {
         const _Id = result._id
 
         // 把自己添加为家庭管理员
-        await db.collection('familyMember').insertOne({
+        await db.collection('family_member').insertOne({
             userId: userInfo._id,
             familyId: _Id,
             relation: '管理员',
@@ -129,7 +125,7 @@ exports.deleteFamily = async (parameter) => {
             _id: parameter._id
         })
         // 删除家庭成员
-        await db.collection('familyMember').deleteMany({
+        await db.collection('family_member').deleteMany({
             familyId: parameter._id
         })
         return {
@@ -151,7 +147,7 @@ exports.deleteFamily = async (parameter) => {
  */
 exports.addFamilyMember = async (parameter) => {
     try {
-        await db.collection('familyMember').insertOne({
+        await db.collection('family_member').insertOne({
             userId: userInfo._id,
             familyId: parameter.familyId,
             relation: parameter.relation,
@@ -177,7 +173,7 @@ exports.addFamilyMember = async (parameter) => {
  */
 exports.delFamilyMember = async (parameter) => {
     try {
-        await db.collection('familyMember').deleteOne({
+        await db.collection('family_member').deleteOne({
             _id: parameter._id
         })
 
@@ -201,7 +197,7 @@ exports.delFamilyMember = async (parameter) => {
 exports.checkFamilyMember = async (parameter) => {
     try {
         // 修改状态
-        await db.collection('familyMember').updateOne(
+        await db.collection('family_member').updateOne(
             {
                 _id: parameter._id
             }, {
