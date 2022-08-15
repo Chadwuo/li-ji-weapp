@@ -1,10 +1,13 @@
 const dayjs = require('dayjs');
+const friendService = require('../../alicloud/services/friend')
+
 Page({
   data: {
-    pageNo: 0,
-    giftList: [],
-    id: '',
+    _id: '',
     name: '',
+    fristLetter: '',
+    relation: '',
+    giftList: [],
     happyCount: '0',
     happyTotal: '0.00',
     sadCount: '0',
@@ -13,95 +16,44 @@ Page({
   formatDate(date) {
     return dayjs(date).format('YYYY-MM-DD');
   },
-  // 计算统计往来记录
-  computedGiftTotal() {
-    const $ = db.command.aggregate
-    db.collection('gift')
-      .aggregate()
-      .match({
-        userId: app.globalData.user._id,
-        friendId: this.data.id,
-        type: '收'
-      })
-      .group({
-        _id: null,
-        total: $.sum('$money'),
-        count: $.sum(1),
-      })
-      .end()
-      .then(res => {
-        this.setData({
-          happyTotal: res.list[0].total.toFixed(2),
-          happyCount: res.list[0].count
-        });
-      })
-
-    db.collection('gift')
-      .aggregate()
-      .match({
-        userId: app.globalData.user._id,
-        friendId: this.data.id,
-        type: '送'
-      })
-      .group({
-        _id: null,
-        total: $.sum('$money'),
-        count: $.sum(1),
-      })
-      .end()
-      .then(res => {
-        this.setData({
-          sadTotal: res.list[0].total.toFixed(2),
-          sadCount: res.list[0].count
-        });
-      })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    // 亲友基本信息
-    this.setData({
-      id: options.friendId,
-      name: options.friendName,
-      pageNo: 0
-    });
-
-    this.computedGiftTotal();
-    let that = this
-    // 获取亲友来往记录
-    this.getPage(this.data.pageNo, 10).then(res => {
-      if (res.data.length === 0) {
-        return
-      }
-      that.setData({
-        giftList: res.data.map(i => {
-          if (i.luckDay) {
-            i.luckDay = that.formatDate(i.luckDay)
-          }
-          return i
-        }),
-        pageNo: that.data.pageNo + 1
-      });
+  async onLoad(options) {
+    const res = await friendService.getFriendGifts({
+      _id: options.friendId
     })
+
+    const {
+      name,
+      fristLetter,
+      relation,
+      giftOutList,
+      giftReceiveList
+    } = res.data
+
+    if (res.success) {
+      this.setData({
+        name,
+        fristLetter,
+        relation,
+        giftList: '',
+        sadCount: giftOutList.length, // 送礼次数
+        sadTotal: giftOutList.map(i => { // 送礼金额总计
+          return this.data.sadTotal += i.money
+        }),
+        happyCount: giftReceiveList.length, // 收礼次数
+        happyTotal: giftReceiveList.map(i => { // 收礼金额总计
+          return this.data.happyTotal += i.money
+        }),
+        giftList: giftOutList.concat(giftReceiveList),
+      });
+    }
   },
   // 编辑按钮
   onEditClick() {
-    wx.navigateTo({
-      url: `/pages/friendEdit/index?friendId=${this.data.id}`,
-    });
-  },
-  // 分页获取数据
-  getPage(page, limit) {
-    return db.collection('gift')
-      .where({
-        userId: app.globalData.user._id,
-        friendId: this.data.id
-      })
-      .orderBy('luckyDay', 'desc')
-      .skip(page * limit)
-      .limit(limit)
-      .get()
+    const friendEdit = this.selectComponent('#friend-edit')
+    friendEdit.show(this.data._id)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -134,28 +86,13 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-    this.computedGiftTotal();
-  },
+  onPullDownRefresh: function () {},
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    this.getPage(this.data.pageNo, 10).then(res => {
-      if (res.data.length > 0) {
-        let datas = this.data.giftList.concat(res.data)
-        this.data.pageNo + 1
-        this.setData({
-          giftList: datas.map(i => {
-            if (i.luckDay) {
-              i.luckDay = that.formatDate(i.luckDay)
-            }
-            return i
-          }),
-        });
-      }
-    })
+
   },
 
   /**
