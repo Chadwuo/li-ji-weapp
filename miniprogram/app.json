@@ -8,13 +8,11 @@
     "pages/about/index",
     "pages/issues/index",
     "pages/sponsors/index",
-
-    "pages/friendEdit/index",
     "pages/friendDetails/index",
     "pages/friendSelect/index",
-    "pages/bookEdit/index",
     "pages/bookDetails/index",
-    "pages/bookSelect/index"
+    "pages/bookSelect/index",
+    "pages/family/index"
   ],
   "window": {
     "backgroundColor": "#F76664",
@@ -28,7 +26,8 @@
     "selectedColor": "#F76664",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/index/index",
         "text": "礼记",
         "iconPath": "./images/book_gray.png",
