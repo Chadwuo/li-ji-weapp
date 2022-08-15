@@ -5,7 +5,7 @@
     </view>
   </van-search>
   <view class="wrapper">
-    <van-empty wx:elif="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
+    <van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
     <view class='gift-card' wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-giftid='{{item._id}}'>
       <view class='content'>
         <view class='title'>{{item.friendInfo.name}}</view>
