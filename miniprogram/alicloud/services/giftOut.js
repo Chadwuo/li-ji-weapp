@@ -15,19 +15,75 @@ exports.computedTotalGiftOut = async () => {
     try {
         // 数据权限范围
         const dataScope = await getUserDataScope()
-        const { result } = db.collection('gift_out')
-            .aggregate([
-                {
-                    $match: { userId: { $in: dataScope } }
+        const {
+            result
+        } = db.collection('gift_out')
+            .aggregate([{
+                    $match: {
+                        userId: {
+                            $in: dataScope
+                        }
+                    }
                 },
                 {
-                    $group: { _id: null, total: { $sum: "$money" } }
+                    $group: {
+                        _id: null,
+                        total: {
+                            $sum: "$money"
+                        }
+                    }
                 }
             ])
         let total = result
         return {
             success: true,
             data: total.toFixed(2)
+        };
+    } catch (e) {
+        return {
+            success: false,
+            message: e
+        };
+    }
+};
+
+
+/**
+ * 分页获取送礼
+ *
+ * @author chadwuo
+ */
+exports.getGiftOutPage = async (parameter) => {
+    try {
+        // 数据权限范围
+        const dataScope = await getUserDataScope()
+        const {
+            result
+        } = await db.collection('gift_out').aggregate([{
+                $match: {
+                    userId: {
+                        $in: dataScope
+                    }
+                }
+            },
+            {
+                $skip: ((parameter.page - 1) * parameter.limit)
+            },
+            {
+                $limit: parameter.limit
+            },
+            {
+                $lookup: {
+                    from: "friend",
+                    localField: "friendId",
+                    foreignField: "_id",
+                    as: "friendInfo"
+                }
+            }
+        ])
+        return {
+            success: true,
+            data: result
         };
     } catch (e) {
         return {
@@ -50,7 +106,9 @@ exports.addGiftOut = async (parameter) => {
     try {
         // 参数中没有亲友id，添加先
         if (!giftOut.friendId) {
-            const { result } = await db.collection('friend').insertOne({
+            const {
+                result
+            } = await db.collection('friend').insertOne({
                 data: {
                     name: friend.name,
                     userId: userInfo._id,
@@ -61,7 +119,9 @@ exports.addGiftOut = async (parameter) => {
             giftOut.friendId = result._id
         }
 
-        const { result } = await db.collection('gift_out').insertOne({
+        const {
+            result
+        } = await db.collection('gift_out').insertOne({
             userId: userInfo._id,
             friendId: giftOut.friendId,
             title: giftOut.title,
@@ -90,8 +150,7 @@ exports.updateGiftOut = async (parameter) => {
         await db.collection('gift_out').updateOne({
             _id: parameter._id
         }, {
-            $set:
-            {
+            $set: {
                 friendId: parameter.friendId,
                 title: parameter.title,
                 date: parameter.date,
