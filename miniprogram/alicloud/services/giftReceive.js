@@ -15,19 +15,74 @@ exports.computedTotalGiftReceive = async () => {
     try {
         // 数据权限范围
         const dataScope = await getUserDataScope()
-        const { result } = db.collection('gift_receive')
-            .aggregate([
-                {
-                    $match: { userId: { $in: dataScope } }
+        const {
+            result
+        } = db.collection('gift_receive')
+            .aggregate([{
+                    $match: {
+                        userId: {
+                            $in: dataScope
+                        }
+                    }
                 },
                 {
-                    $group: { _id: null, total: { $sum: "$money" } }
+                    $group: {
+                        _id: null,
+                        total: {
+                            $sum: "$money"
+                        }
+                    }
                 }
             ])
         let total = result
         return {
             success: true,
             data: total.toFixed(2)
+        };
+    } catch (e) {
+        return {
+            success: false,
+            message: e
+        };
+    }
+}
+/**
+ * 分页获取收礼
+ *
+ * @author chadwuo
+ */
+exports.getGiftReceivePage = async (parameter) => {
+    try {
+        // 数据权限范围
+        const dataScope = await getUserDataScope()
+        const {
+            result
+        } = await db.collection('gift_receive').aggregate([{
+                $match: {
+                    userId: {
+                        $in: dataScope
+                    },
+                    bookId: parameter.bookId
+                }
+            },
+            {
+                $skip: ((parameter.page - 1) * parameter.limit)
+            },
+            {
+                $limit: parameter.limit
+            },
+            {
+                $lookup: {
+                    from: "friend",
+                    localField: "friendId",
+                    foreignField: "_id",
+                    as: "friendInfo"
+                }
+            }
+        ])
+        return {
+            success: true,
+            data: result
         };
     } catch (e) {
         return {
@@ -50,7 +105,9 @@ exports.addGiftReceive = async (parameter) => {
     try {
         // 参数中没有亲友id，添加先
         if (!giftReceive.friendId) {
-            const { result } = await db.collection('friend').insertOne({
+            const {
+                result
+            } = await db.collection('friend').insertOne({
                 data: {
                     name: friend.name,
                     userId: userInfo._id,
@@ -61,7 +118,9 @@ exports.addGiftReceive = async (parameter) => {
             giftReceive.friendId = result._id
         }
 
-        const { result } = await db.collection('gift_receive').insertOne({
+        const {
+            result
+        } = await db.collection('gift_receive').insertOne({
             userId: userInfo._id,
             friendId: giftReceive.friendId,
             bookId: giftReceive.bookId,
@@ -82,17 +141,16 @@ exports.addGiftReceive = async (parameter) => {
 };
 
 /**
-* 更新收礼
-*
-* @author chadwuo
-*/
+ * 更新收礼
+ *
+ * @author chadwuo
+ */
 exports.updateGiftReceive = async (parameter) => {
     try {
         await db.collection('gift_receive').updateOne({
             _id: parameter._id
         }, {
-            $set:
-            {
+            $set: {
                 friendId: parameter.friendId,
                 bookId: parameter.bookId,
                 title: parameter.title,
@@ -113,10 +171,10 @@ exports.updateGiftReceive = async (parameter) => {
 };
 
 /**
-* 删除收礼
-*
-* @author chadwuo
-*/
+ * 删除收礼
+ *
+ * @author chadwuo
+ */
 exports.deleteGiftReceive = async (parameter) => {
     try {
         await db.collection('gift_receive').deleteOne({
