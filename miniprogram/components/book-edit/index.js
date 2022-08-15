@@ -41,22 +41,20 @@ Component({
         formatDate(date) {
             return dayjs(date).format('YYYY-MM-DD');
         },
-        async show(data) {
+        async show(id) {
             this.setData({
-                visible: true,
-                ...data
+                visible: true
             })
-
-            // if (data) {
-            //     // const res = await bookService.getBook({
-            //     //     _id: id
-            //     // })
-            //     // if (res.success) {
-            //     //     this.setData({
-            //     //         ...res.data
-            //     //     });
-            //     // }
-            // }
+            if (id) {
+                const res = await bookService.getBook({
+                    _id: id
+                })
+                if (res.success) {
+                    this.setData({
+                        ...res.data
+                    })
+                }
+            }
         },
         onCancel() {
             this.setData({

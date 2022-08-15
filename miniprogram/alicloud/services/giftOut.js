@@ -67,17 +67,28 @@ exports.getGiftOutPage = async (parameter) => {
                 }
             },
             {
+                $sort: {
+                    date: -1
+                }
+            },
+            {
                 $skip: ((parameter.page - 1) * parameter.limit)
             },
             {
                 $limit: parameter.limit
             },
             {
-                $lookup: {
-                    from: "friend",
-                    localField: "friendId",
-                    foreignField: "_id",
+                $lookup: { // 左连接
+                    from: "friend", // 关联到de表
+                    localField: "friendId", // 左表关联的字段
+                    foreignField: "_id", // 右表关联的字段
                     as: "friendInfo"
+                }
+            },
+            {
+                $unwind: { // 拆分子数组
+                    path: "$friendInfo",
+                    preserveNullAndEmptyArrays: true // 空的数组也拆分
                 }
             }
         ])
@@ -112,7 +123,8 @@ exports.addGiftOut = async (parameter) => {
                 data: {
                     name: friend.name,
                     userId: userInfo._id,
-                    firstLetter: friend.firstLetter
+                    firstLetter: friend.firstLetter,
+                    remarks: friend.remarks
                 }
             })
             // 新添加的亲友id
@@ -126,7 +138,8 @@ exports.addGiftOut = async (parameter) => {
             friendId: giftOut.friendId,
             title: giftOut.title,
             date: giftOut.date,
-            money: giftOut.money
+            money: giftOut.money,
+            remarks: giftOut.remarks
         })
         return {
             success: true,
@@ -154,7 +167,8 @@ exports.updateGiftOut = async (parameter) => {
                 friendId: parameter.friendId,
                 title: parameter.title,
                 date: parameter.date,
-                money: parameter.money
+                money: parameter.money,
+                remarks: giftOut.remarks
             }
         })
         return {
