@@ -25,17 +25,28 @@ exports.getBookPage = async (parameter) => {
         }
       },
       {
+        $sort: {
+          date: -1
+        }
+      },
+      {
         $skip: ((parameter.page - 1) * parameter.limit)
       },
       {
         $limit: parameter.limit
       },
       {
-        $lookup: {
-          from: "giftReceive",
-          localField: "_id",
-          foreignField: "bookId",
-          as: "giftList"
+        $lookup: { // 左连接
+          from: "giftReceive", // 关联到de表
+          localField: "_id", // 左表关联的字段
+          foreignField: "bookId", // 右表关联的字段
+          as: "giftInfo"
+        }
+      },
+      {
+        $unwind: { // 拆分子数组
+          path: "$giftInfo",
+          preserveNullAndEmptyArrays: true // 空的数组也拆分
         }
       }
     ])
