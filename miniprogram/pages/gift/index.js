@@ -1,15 +1,36 @@
+const giftOutService = require('../../alicloud/services/giftOut')
 
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    pageNo: 0,
+    giftList: [],
+    total: '0.00',
+  },
+  onAddGift() {
+    const giftEdit = this.selectComponent('#gift-out-edit')
+    giftEdit.show()
+  },
+  async loadData(page) {
+    const that = this
+    const res = await giftOutService.getGiftOutPage({
+      page: page,
+      limit: 10
+    })
+    if (res.success) {
+      that.setData({
+        giftBooks: this.data.giftList.concat(res.data),
+        pageNo: page
+      });
+    }
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -22,7 +43,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      giftList: []
+    })
+    this.loadData(1)
   },
 
   /**
@@ -43,14 +67,20 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.setData({
+      giftList: []
+    })
+    this.loadData(1)
+    setTimeout(() => {
+      wx.stopPullDownRefresh()
+    }, 2000);
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.loadData(this.data.pageNo + 1)
   },
 
   /**

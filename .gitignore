@@ -36,3 +36,4 @@ pnpm-debug.log*
 
 
 /project.private.config.json
+miniprogram/alicloud/index.js

@@ -42,13 +42,6 @@ Page({
     ]
   },
   jumpPage(e) {
-    if (e.currentTarget.dataset.page === 'family') {
-      wx.showToast({
-        title: '家庭共享记账，即将上线...',
-        icon: 'none',
-      })
-      return
-    }
     if (e.currentTarget.dataset.page === 'export') {
       wx.showToast({
         title: '数据导出，收支明细汇总打印，即将上线...',
