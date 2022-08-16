@@ -25,10 +25,20 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    show(data) {
+    async show(id) {
       this.setData({
-        visible: true
+        visible: true,
       })
+      if (id) {
+        const res = await friendService.getFriend({
+          _id: id
+        })
+        if (res.success) {
+          this.setData({
+            ...res.data
+          })
+        }
+      }
     },
     onCancel() {
       this.setData({
