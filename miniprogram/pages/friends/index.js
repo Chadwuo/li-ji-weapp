@@ -17,7 +17,7 @@ Page({
   },
   onFriendClick(e) {
     wx.navigateTo({
-      url: `/pages/friendDetails/index?friendId=${e.currentTarget.dataset.friend._id}&friendName=${e.currentTarget.dataset.friend.name}`,
+      url: `/pages/friendDetails/index?friendId=${e.currentTarget.dataset.friend._id}`,
     });
   },
   onAdd() {

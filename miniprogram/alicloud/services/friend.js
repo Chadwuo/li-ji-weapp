@@ -19,8 +19,12 @@ exports.getFriendList = async () => {
         const _ = db.command
         const MAX_LIMIT = 100
         // 先取出集合记录总数
-        const { result: total } = await db.collection('friend').count({
-            userId: { $in: dataScope }
+        const {
+            result: total
+        } = await db.collection('friend').count({
+            userId: {
+                $in: dataScope
+            }
         })
         // 计算需分几次取
         const batchTimes = Math.ceil(total / 100)
@@ -55,12 +59,54 @@ exports.getFriendList = async () => {
  */
 exports.getFriend = async (parameter) => {
     try {
-        const { result } = await db.collection('friend').findOne({
+        const {
+            result
+        } = await db.collection('friend').findOne({
             _id: parameter._id,
         })
         return {
             success: true,
             data: result
+        };
+    } catch (e) {
+        return {
+            success: false,
+            message: e
+        };
+    }
+};
+
+/**
+ * 获取亲友来往数据
+ *
+ * @author chadwuo
+ */
+exports.getFriendGifts = async (parameter) => {
+    try {
+        const {
+            result
+        } = await db.collection('friend').findOne({
+            _id: parameter._id,
+        })
+        // 送礼集合
+        const {
+            result: giftOutList
+        } = await db.collection('gift_out').find({
+            friendId: parameter._id,
+        })
+        // 收礼集合
+        const {
+            result: giftReceiveList
+        } = await db.collection('gift_receive').find({
+            friendId: parameter._id,
+        })
+        return {
+            success: true,
+            data: {
+                ...result,
+                giftOutList,
+                giftReceiveList
+            }
         };
     } catch (e) {
         return {
@@ -77,10 +123,13 @@ exports.getFriend = async (parameter) => {
  */
 exports.addFriend = async (parameter) => {
     try {
-        const { result } = await db.collection('friend').insertOne({
+        const {
+            result
+        } = await db.collection('friend').insertOne({
             userId: userInfo._id,
             name: parameter.name,
-            fristLetter: parameter.fristLetter
+            fristLetter: parameter.fristLetter,
+            remarks: parameter.remarks
         })
         return {
             success: true,
@@ -104,10 +153,10 @@ exports.updateFriend = async (parameter) => {
         await db.collection('friend').updateOne({
             _id: parameter._id
         }, {
-            $set:
-            {
+            $set: {
                 name: parameter.name,
-                fristLetter: parameter.fristLetter
+                fristLetter: parameter.fristLetter,
+                remarks: parameter.remarks
             }
         })
         return {

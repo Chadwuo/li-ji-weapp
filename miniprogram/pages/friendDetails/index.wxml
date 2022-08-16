@@ -48,4 +48,5 @@
     </view>
   </view>
 </view>
+<friend-edit id="friend-edit"></friend-edit>
 <footer></footer>

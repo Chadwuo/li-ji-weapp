@@ -1,8 +1,8 @@
 <!--pages/login/index.wxml-->
-<view class="login">
+<view class="login" style="display: flex;flex-direction: column;justify-content: space-between;height: 100vh;">
   <view class="login_title">
-    <image src="../../image/01.png"></image>
-    <view></view>
+    <view>dasf</view>
   </view>
-  <view class="login_button" bindtap="login">开启</view>
+
+  <van-button round size="large" style="bottom: 50rpx;">记录每一段故事</van-button>
 </view>
