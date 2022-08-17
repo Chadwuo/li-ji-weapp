@@ -1,4 +1,6 @@
 const giftReceiveService = require('../../alicloud/services/giftReceive')
+const bookService = require('../../alicloud/services/book')
+const friendService = require('../../alicloud/services/friend')
 
 Component({
   /**
@@ -15,10 +17,16 @@ Component({
     visible: false,
     _id: '',
     friendId: '',
+    friendName: '',
+    friendFirstLetter: '',
     bookId: '',
     title: '',
     date: '',
-    money: ''
+    money: '',
+    remarks: '',
+    friendSelectSource: [],
+    bookSelectSource: [],
+    active: 0
   },
 
   /**
@@ -64,35 +72,45 @@ Component({
       }
     },
     // 选择联系人
-    onSelectFriends() {
-      let that = this
-      wx.navigateTo({
-        url: '/pages/friendSelect/index',
-        events: {
-          // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-          acceptDataFromFriendPage: function (data) {
-            that.setData({
-              friendName: data.name,
-              friendId: data._id,
-            })
-          }
-        }
+    showFriendSelect() {
+      this.setData({
+        active: 1
       })
+      const res = friendService.getFriendList()
+      if (res.success) {
+        this.setData({
+          friendSelectSource: res.data,
+        });
+      }
     },
     // 选择礼簿
-    onSelectBooks() {
-      let that = this
-      wx.navigateTo({
-        url: '/pages/bookSelect/index',
-        events: {
-          // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-          acceptDataFromBookPage: function (data) {
-            that.setData({
-              bookName: data.name,
-              bookId: data._id,
-            })
-          }
-        }
+    showBookSelect() {
+      this.setData({
+        active: 2
+      })
+      const res = bookService.getBookList()
+      if (res.success) {
+        this.setData({
+          bookSelectSource: res.data,
+        });
+      }
+    },
+    // 返回
+    onNavBack() {
+      this.setData({
+        active: 0
+      })
+    },
+    // 选中联系人
+    onSelectedFriend(e) {
+      this.setData({
+        friendId: e.currentTarget.dataset.friend._id
+      })
+    },
+    // 选中联系人
+    onSelectedBook(e) {
+      this.setData({
+        bookId: e.currentTarget.dataset.book._id
       })
     },
   }

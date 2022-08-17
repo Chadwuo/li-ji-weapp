@@ -7,19 +7,50 @@ const userInfo = app.userInfo;
  *
  * @author chadwuo
  */
+exports.getFamily = async () => {
+    try {
+        // 获取家庭信息
+        const {
+            result
+        } = await db.collection('family').find({
+            _id: userInfo.familyId
+        })
+        return {
+            success: true,
+            data: result
+        }
+    } catch (error) {
+        return {
+            success: false,
+            message: error
+        };
+    }
+};
+
+/**
+ * 获取家庭及成员信息
+ *
+ * @author chadwuo
+ */
 exports.getFamilyInfo = async () => {
     try {
         // 获取家庭信息
-        const { result: family } = await db.collection('family').find({ _id: userInfo.familyId })
+        const {
+            result: family
+        } = await db.collection('family').find({
+            _id: userInfo.familyId
+        })
 
         // 获取家庭成员信息
-        const { result: familyMembers } = await db.collection('family_member').aggregate([
-            {
-                $match: { familyId: userInfo.familyId }
+        const {
+            result: familyMembers
+        } = await db.collection('family_member').aggregate([{
+                $match: {
+                    familyId: userInfo.familyId
+                }
             },
             {
-                $lookup:
-                {
+                $lookup: {
                     from: "user",
                     localField: "userId",
                     foreignField: "_Id",
@@ -50,7 +81,9 @@ exports.getFamilyInfo = async () => {
 exports.addFamily = async (parameter) => {
     try {
         // 添加家庭
-        const { result } = await db.collection('family').insertOne(parameter)
+        const {
+            result
+        } = await db.collection('family').insertOne(parameter)
         //  新增的记录 _id
         const _Id = result._id
 
@@ -66,8 +99,7 @@ exports.addFamily = async (parameter) => {
         await db.collection('user').doc(userInfo._id).updateOne({
             _id: userInfo._id
         }, {
-            $set:
-            {
+            $set: {
                 familyId: _Id
             }
         })
@@ -95,8 +127,7 @@ exports.updateFamily = async (parameter) => {
         await db.collection('family').updateOne({
             _id: parameter._id
         }, {
-            $set:
-            {
+            $set: {
                 name: parameter.name
             }
         })
@@ -197,23 +228,19 @@ exports.delFamilyMember = async (parameter) => {
 exports.checkFamilyMember = async (parameter) => {
     try {
         // 修改状态
-        await db.collection('family_member').updateOne(
-            {
-                _id: parameter._id
-            }, {
-            $set:
-            {
+        await db.collection('family_member').updateOne({
+            _id: parameter._id
+        }, {
+            $set: {
                 status: 1
             }
         })
 
         // 更新成员的用户表中家庭id
-        await db.collection('user').updateOne(
-            {
-                _id: parameter.userId
-            }, {
-            $set:
-            {
+        await db.collection('user').updateOne({
+            _id: parameter.userId
+        }, {
+            $set: {
                 familyId: parameter.familyId
             }
         })
