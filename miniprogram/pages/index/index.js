@@ -27,18 +27,6 @@ Page({
       icon: 'none',
     })
   },
-  // 打开人情编辑弹出层
-  onShowGiftPopup(e) {
-    this.setData({
-      showGiftPopup: true,
-    });
-  },
-  // 打开礼簿编辑弹出层
-  onShowBookPopup(e) {
-    this.setData({
-      showBookPopup: true,
-    });
-  },
   onAddGift() {
     const giftEdit = this.selectComponent('#gift-receive-edit')
     giftEdit.show()
@@ -87,9 +75,8 @@ Page({
         })
         break;
       case '编辑':
-        wx.navigateTo({
-          url: `/pages/bookEdit/index?bookId=${this.data.actionId}`,
-        });
+        const bookEdit = this.selectComponent('#book-edit')
+        bookEdit.show(this.data.actionId)
         break;
       default:
         break;
@@ -97,7 +84,7 @@ Page({
   },
   computeTotal(datas) {
     return datas.map(i => {
-      i.giftCount = i.giftList.length
+      i.giftCount = i.giftList.length || 0
       i.giftTotal = 0
       for (let item of i.giftList) {
         i.giftTotal += Number(item.money)
@@ -112,7 +99,10 @@ Page({
       limit: 10
     })
     if (res.success) {
+      console.log(res.data)
       const resList = that.computeTotal(res.data)
+
+      console.log(resList)
       that.setData({
         giftBooks: this.data.giftBooks.concat(resList),
         pageNo: page
