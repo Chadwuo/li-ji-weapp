@@ -19,11 +19,11 @@ App({
         this.userInfo = res.data
         wx.setStorageSync('user', res.data)
       }
+      
+      wx.navigateTo({
+        url: '/pages/login/index',
+      })
     }
-
-    wx.navigateTo({
-      url: '/pages/login/index',
-    })
   },
 
   /**
