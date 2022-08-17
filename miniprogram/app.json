@@ -9,9 +9,7 @@
     "pages/issues/index",
     "pages/sponsors/index",
     "pages/friendDetails/index",
-    "pages/friendSelect/index",
     "pages/bookDetails/index",
-    "pages/bookSelect/index",
     "pages/family/index"
   ],
   "window": {

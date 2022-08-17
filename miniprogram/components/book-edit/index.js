@@ -20,6 +20,7 @@ Component({
         remarks: '',
         dateFormat: dayjs().format('YYYY-MM-DD'),
         showCalendar: false,
+        navBarTitle: '添加礼簿',
         formatter(type, value) {
             if (type === 'year') {
                 return `${value}年`;
@@ -51,6 +52,7 @@ Component({
                 })
                 if (res.success) {
                     this.setData({
+                        navBarTitle: '编辑礼簿',
                         ...res.data
                     })
                 }
@@ -58,7 +60,13 @@ Component({
         },
         onCancel() {
             this.setData({
-                visible: false
+                visible: false,
+                _id: '',
+                date: new Date().getTime(),
+                title: '',
+                remarks: '',
+                showCalendar: false,
+                navBarTitle: '添加礼簿',
             })
         },
         async onSave() {

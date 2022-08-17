@@ -37,20 +37,13 @@ exports.getBookPage = async (parameter) => {
       },
       {
         $lookup: { // 左连接
-          from: "giftReceive", // 关联到de表
+          from: "gift_receive", // 关联到de表
           localField: "_id", // 左表关联的字段
           foreignField: "bookId", // 右表关联的字段
-          as: "giftInfo"
-        }
-      },
-      {
-        $unwind: { // 拆分子数组
-          path: "$giftInfo",
-          preserveNullAndEmptyArrays: true // 空的数组也拆分
+          as: "giftList"
         }
       }
     ])
-
     return {
       success: true,
       data: result
@@ -166,7 +159,7 @@ exports.addBook = async (parameter) => {
  */
 exports.updateBook = async (parameter) => {
   try {
-    await db.collection('book').doc(parameter._id).updateOne({
+    await db.collection('book').updateOne({
       _id: parameter._id
     }, {
       $set: {
