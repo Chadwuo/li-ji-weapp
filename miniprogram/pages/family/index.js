@@ -1,11 +1,15 @@
 // pages/family/index.js
+const familyService = require('../../alicloud/services/family')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    _id: '',
+    name: '',
+    familyMembers: [],
   },
 
   /**
@@ -25,8 +29,13 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
-
+  async onShow() {
+    const res = await familyService.getFamilyInfo()
+    if (res.success) {
+      this.setData({
+        ...res.data
+      })
+    }
   },
 
   /**
