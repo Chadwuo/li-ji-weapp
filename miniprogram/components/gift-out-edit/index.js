@@ -1,4 +1,5 @@
 const giftOutService = require('../../alicloud/services/giftOut')
+const friendService = require('../../alicloud/services/friend')
 
 Component({
     /**
@@ -15,9 +16,14 @@ Component({
         visible: false,
         _id: '',
         friendId: '',
+        friendName: '',
+        friendFirstLetter: '',
         title: '',
         date: '',
-        money: ''
+        money: '',
+        remarks: '',
+        friendSelectSource: [],
+        active: 0
     },
 
     /**
@@ -35,7 +41,7 @@ Component({
                 visible: false
             })
         },
-      async  onSave() {
+        async onSave() {
             if (this.data._id) {
                 const res = await giftOutService.updataGiftOut(this.data)
                 if (res.success) {
@@ -63,19 +69,27 @@ Component({
             }
         },
         // 选择联系人
-        onSelectFriends() {
-            let that = this
-            wx.navigateTo({
-                url: '/pages/friendSelect/index',
-                events: {
-                    // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-                    acceptDataFromFriendPage: function (data) {
-                        that.setData({
-                            friendName: data.name,
-                            friendId: data._id,
-                        })
-                    }
-                }
+        showFriendSelect() {
+            this.setData({
+                active: 1
+            })
+            const res = friendService.getFriendList()
+            if (res.success) {
+                this.setData({
+                    friendSelectSource: res.data,
+                });
+            }
+        },
+        // 返回
+        onNavBack() {
+            this.setData({
+                active: 0
+            })
+        },
+        // 选中联系人
+        onSelectedFriend(e) {
+            this.setData({
+                friendId: e.currentTarget.dataset.friend._id
             })
         },
     }

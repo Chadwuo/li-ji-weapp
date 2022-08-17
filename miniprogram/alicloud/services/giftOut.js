@@ -110,22 +110,15 @@ exports.getGiftOutPage = async (parameter) => {
  * @author chadwuo
  */
 exports.addGiftOut = async (parameter) => {
-    const {
-        giftOut, // 人情数据
-        friend, // 亲友数据
-    } = parameter
     try {
         // 参数中没有亲友id，添加先
-        if (!giftOut.friendId) {
+        if (!parameter.friendId) {
             const {
                 result
             } = await db.collection('friend').insertOne({
-                data: {
-                    name: friend.name,
-                    userId: userInfo._id,
-                    firstLetter: friend.firstLetter,
-                    remarks: friend.remarks
-                }
+                userId: userInfo._id,
+                name: parameter.friendName,
+                firstLetter: parameter.friendFirstLetter
             })
             // 新添加的亲友id
             giftOut.friendId = result._id
@@ -135,11 +128,11 @@ exports.addGiftOut = async (parameter) => {
             result
         } = await db.collection('gift_out').insertOne({
             userId: userInfo._id,
-            friendId: giftOut.friendId,
-            title: giftOut.title,
-            date: giftOut.date,
-            money: giftOut.money,
-            remarks: giftOut.remarks
+            friendId: parameter.friendId,
+            title: parameter.title,
+            date: parameter.date,
+            money: parameter.money,
+            remarks: parameter.remarks
         })
         return {
             success: true,
