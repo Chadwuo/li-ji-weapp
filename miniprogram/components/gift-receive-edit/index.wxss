@@ -1,3 +1,9 @@
+page {
+    --nav-bar-icon-color: #F76664;
+    --nav-bar-text-color: #F76664;
+    --nav-bar-title-text-color: #F76664;
+}
+
 .van-sticky {
     display: none;
 }
