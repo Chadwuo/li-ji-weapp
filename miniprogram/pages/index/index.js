@@ -99,10 +99,7 @@ Page({
       limit: 10
     })
     if (res.success) {
-      console.log(res.data)
       const resList = that.computeTotal(res.data)
-
-      console.log(resList)
       that.setData({
         giftBooks: this.data.giftBooks.concat(resList),
         pageNo: page
@@ -112,8 +109,16 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-
+  async onLoad(options) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    await this.loadData(1)
+    // 人为延迟一点，避免loading动画闪烁
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 666)
   },
 
   /**
@@ -126,11 +131,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  async onShow() {
-    this.setData({
-      giftBooks: []
-    })
-    this.loadData(1)
+  onShow() {
+
   },
 
   /**
@@ -151,13 +153,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-    this.setData({
-      giftBooks: []
-    })
-    this.loadData(1)
-    setTimeout(() => {
+    // 感觉延迟一下，会舒服点
+    setTimeout(async () => {
+      this.setData({
+        giftBooks: []
+      })
+      await this.loadData(1)
       wx.stopPullDownRefresh()
-    }, 2000);
+    }, 666);
   },
 
   /**

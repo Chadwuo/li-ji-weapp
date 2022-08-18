@@ -88,8 +88,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad(options) {
+    this.loadData()
   },
 
   /**
@@ -102,9 +102,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    this.loadData()
-  },
+  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏
