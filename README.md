@@ -32,32 +32,15 @@
 li-ji-weapp 
 ├── LICENSE.txt
 ├── README.md
-├── /cloudfunctions/--云函数
 ├── /miniprogram/--小程序
 │  ├── /components/--自定义组件
 │  ├── /images/--图片
 │  ├── /pages/--页面
-│  │  ├── /index/--首页/礼簿
-│  │  │  ├── /bookEdit/--编辑礼簿
-│  │  │  ├── /bookDetails/--礼簿详情
-│  │  ├── /giftReceive/--收礼
-│  │  │  ├── /giftReceiveEdit/--编辑收礼
-│  │  │  ├── /giftReceiveDetails/--收礼详情
-│  │  ├── /giftOut/--送礼
-│  │  │  ├── /giftOutEdit/--编辑送礼
-│  │  │  ├── /giftOutDetails/--送礼详情
-│  │  ├── /profile/--个人中心
-│  │  ├── /friends/--联系人
-│  │  │  ├── /friendEdit/--编辑联系人
-│  │  │  ├── /friendDetails/--联系人详情
 │  ├── app.js
 │  ├── app.json
 │  ├── app.wxss
 
 ```
-
-### ER图
-<img src="doc/ER图.jpg">
 
 ### 作者
 
@@ -66,18 +49,20 @@ li-ji-weapp
 
 ### 更新日志
 
-[ChangeLog](https://github.com/micahh28/li-ji-weapp/releases)
+[ChangeLog](https://github.com/chadwuo/li-ji-weapp/releases)
 
 ### 版权说明
 
-该项目签署了MIT 授权许可，详情请参阅 [LICENSE.txt](https://github.com/micahh28/li-ji-weapp/blob/master/LICENSE)
+该项目签署了MIT 授权许可，详情请参阅 [LICENSE.txt](https://github.com/chadwuo/li-ji-weapp/blob/master/LICENSE)
 
 ### 鸣谢
 
 - [Vant weapp](https://github.com/youzan/vant-weapp)：轻量、可靠的小程序 UI 组件库
+- [wl-pinyin](https://www.npmjs.com/package/wl-pinyin)：汉字转拼音库
+- [dayjs](https://github.com/iamkun/dayjs)：Moment.js 的 2kB 轻量化方案，拥有同样强大的 API
 - <s>腾讯云（涨价了，负担不起，已迁移至阿里云）</s>
 - [阿里云 Serverless](https://serverless.aliyun.com/)：阿里云 Serverless
 
 <!-- links -->
-[license-url]: https://github.com/micahh28/li-ji-weapp/blob/master/LICENSE.txt
+[license-url]: https://github.com/chadwuo/li-ji-weapp/blob/master/LICENSE.txt
 
