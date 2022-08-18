@@ -2,8 +2,13 @@ page {
     --nav-bar-icon-color: #F76664;
     --nav-bar-text-color: #F76664;
     --nav-bar-title-text-color: #F76664;
+    --nav-bar-background-color: transparent
 }
 
-.van-sticky {
+van-sticky {
     display: none;
+}
+
+.container {
+    margin-top: 24rpx;
 }

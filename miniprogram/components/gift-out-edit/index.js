@@ -23,7 +23,8 @@ Component({
         money: '',
         remarks: '',
         friendSelectSource: [],
-        active: 0
+        active: 0,
+        navBarTitle: '添加送礼',
     },
 
     /**
@@ -31,14 +32,30 @@ Component({
      */
     methods: {
         show(data) {
-            console.log(data)
             this.setData({
                 visible: true
             })
+            if (data) {
+                this.setData({
+                    navBarTitle: '编辑送礼',
+                    ...data
+                })
+            }
         },
         onCancel() {
             this.setData({
-                visible: false
+                visible: false,
+                _id: '',
+                friendId: '',
+                friendName: '',
+                friendFirstLetter: '',
+                title: '',
+                date: '',
+                money: '',
+                remarks: '',
+                friendSelectSource: [],
+                active: 0,
+                navBarTitle: '添加送礼',
             })
         },
         async onSave() {
@@ -92,5 +109,20 @@ Component({
                 friendId: e.currentTarget.dataset.friend._id
             })
         },
+    },
+    pageLifetimes: {
+        show: function () {
+            // 页面被展示
+        },
+        hide: function () {
+            // 页面被隐藏
+            this.setData({
+                active: 0,
+                visible: false
+            })
+        },
+        resize: function (size) {
+            // 页面尺寸变化
+        }
     }
 })

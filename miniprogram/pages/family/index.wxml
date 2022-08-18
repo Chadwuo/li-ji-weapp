@@ -1,2 +1,8 @@
-<!--pages/family/index.wxml-->
-<text>pages/family/index.wxml</text>
+<!-- pages/family/index.wxml -->
+<view>
+    <van-empty wx:if="{{!_id}}" description="还没有开通家庭共享哦~">
+        <van-button round type="danger" class="bottom-button">创建家庭</van-button>
+        <van-button round type="danger" class="bottom-button">加入家庭</van-button>
+    </van-empty>
+    
+</view>
