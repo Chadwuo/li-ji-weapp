@@ -1,7 +1,7 @@
 <van-popup show="{{ visible }}" position="bottom" round custom-style="height: 98%;background-color: #f6f6f6;">
   <van-tabs active="{{ active }}" animated>
     <van-tab title="人情填写">
-      <van-nav-bar safe-area-inset-top="{{false}}" title="送礼" left-text="取消" right-text="保存" left-arrow bind:click-left="onCancel" bind:click-right="onSave" />
+      <van-nav-bar safe-area-inset-top="{{false}}" title="{{navBarTitle}}" left-text="取消" right-text="保存" bind:click-left="onCancel" bind:click-right="onSave" />
       <!-- 主体类容 -->
       <view class="container">
         <van-cell-group inset>
@@ -16,7 +16,7 @@
       </view>
     </van-tab>
     <van-tab title="亲友选择">
-      <van-nav-bar safe-area-inset-top="{{false}}" title="亲友选择" left-text="返回" left-arrow bind:click-left="onNavBack" />
+      <van-nav-bar safe-area-inset-top="{{false}}" title="选择亲友" left-text="返回" left-arrow bind:click-left="onNavBack" />
       <!-- 主体类容 -->
       <view class="container">
         <van-empty wx:if="{{friendSelectSource.length===0}}" description="暂无数据" />
