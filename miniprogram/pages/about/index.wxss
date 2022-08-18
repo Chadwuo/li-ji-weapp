@@ -1,11 +1,11 @@
 /* pages/about/index.wxss */
 .container {
   align-items: center;
-  padding: 24rpx 50rpx;
+  padding: 0 50rpx;
 }
 
 .container .logo {
-  margin-top: 50rpx;
+  margin-top: 80rpx;
   text-align: center;
 }
 
@@ -33,10 +33,4 @@
   font-size: 28rpx;
   font-family: PingFang SC;
   color: #888888;
-  margin-bottom: 24rpx;
-}
-
-.container .foot-table {
-  width: 100%;
-  margin-top: 58rpx;
 }

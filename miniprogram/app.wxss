@@ -6,6 +6,11 @@ page {
   min-height: 100%;
   background-color: #f6f6f6;
   justify-content: space-between;
+  
+  --nav-bar-icon-color: #F76664;
+  --nav-bar-text-color: #F76664;
+  --nav-bar-title-text-color: #F76664;
+  --nav-bar-background-color: transparent
 }
 
 /* 页面内容区 */

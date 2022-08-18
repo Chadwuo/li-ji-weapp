@@ -1,9 +1,5 @@
 <van-popup show="{{ visible }}" position="bottom" round custom-style="height: 98%;background-color: #f6f6f6;">
-  <view style="display: flex;justify-content: space-between;margin: 24rpx;">
-    <view style="color:#F76664;" bind:tap="onCancel">取消</view>
-    <view style="color:#F76664;" bind:tap="onSave">保存</view>
-  </view>
-  <van-divider />
+  <van-nav-bar safe-area-inset-top="{{false}}" title="{{navBarTitle}}" left-text="取消" right-text="保存" bind:click-left="onCancel" bind:click-right="onSave" />
   <!-- 主体类容 -->
   <view class="container">
     <van-cell-group inset>
