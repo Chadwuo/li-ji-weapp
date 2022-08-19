@@ -53,7 +53,6 @@ Page({
   },
   // 长按选择礼簿
   onSelectBookAction(event) {
-    var that = this
     switch (event.detail.name) {
       case '删除':
         wx.showModal({
@@ -62,10 +61,14 @@ Page({
           async success(result) {
             if (result.confirm) {
               const res = await bookService.deleteBook({
-                _id: that.data.actionId
+                _id: this.data.actionId
               })
-
               if (res.success) {
+                this.setData({
+                  giftBooks: this.data.giftBooks.filter(i => {
+                    i._id != this.data.actionId
+                  })
+                })
                 wx.showToast({
                   title: '删除成功',
                 })
