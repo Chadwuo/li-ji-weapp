@@ -42,6 +42,9 @@ Component({
         formatDate(date) {
             return dayjs(date).format('YYYY-MM-DD');
         },
+        dialogResult(data){
+            this.triggerEvent('myevent', myEventDetail, myEventOption)
+        },
         async show(id) {
             this.setData({
                 visible: true

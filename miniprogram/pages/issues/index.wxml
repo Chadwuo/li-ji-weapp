@@ -1,4 +1,4 @@
-<!--pages/issues/index.wxml-->
+<!-- pages/issues/index.wxml -->
 <view class="container">
   <van-tabs sticky animated swipeable>
     <van-tab title="问题反馈">
@@ -8,7 +8,9 @@
           <van-field model:value="{{ content }}" type="textarea" placeholder="请输入留言" autosize="{{ { minHeight: 260} }}" border="{{ false }}" />
         </van-cell-group>
         <view style="padding: 0 20px;margin-top: 24rpx;">
-          <van-button block color="#F76664" round icon="guide-o" bind:click="onAddIssues">发送</van-button>
+          <van-button block color="#F76664" round icon="guide-o" bind:click="onAddIssues">
+            发送
+          </van-button>
         </view>
       </view>
     </van-tab>
@@ -23,8 +25,12 @@
             <view slot="label">
               <view>{{item.content}}</view>
               <view wx:if="{{isAdmin}}">
-                <van-button color="#F76664" size="mini" style="margin-right: 24rpx;" bind:click="onShowPopup" data-info='{{item}}'>回复</van-button>
-                <van-button color="#F76664" plain size="mini" bind:click="onDelIssues" data-issuesid='{{item._id}}'>删除</van-button>
+                <van-button color="#F76664" size="mini" style="margin-right: 24rpx;" bind:click="onShowPopup" data-info='{{item}}'>
+                  回复
+                </van-button>
+                <van-button color="#F76664" plain size="mini" bind:click="onDelIssues" data-issuesid='{{item._id}}'>
+                  删除
+                </van-button>
               </view>
             </view>
           </van-cell>
@@ -45,12 +51,8 @@
     </van-tab>
   </van-tabs>
   <van-popup show="{{ showAddPopup }}" position="bottom" round custom-style="background-color: #f6f6f6;" bind:close="onClosePopup">
-    <view style="display: flex;justify-content: space-between;margin: 24rpx;">
-      <view style="color:#F76664;" bind:tap="onClosePopup">取消</view>
-      <view style="color:#F76664;" bind:tap="onReplyIssues">回复</view>
-    </view>
-    <van-divider />
-    <van-cell-group inset>
+    <van-nav-bar safe-area-inset-top="{{false}}" title="{{navBarTitle}}" left-text="取消" right-text="回复" bind:click-left="onClosePopup" bind:click-right="onReplyIssues" />
+    <van-cell-group inset style="margin-top:24rpx">
       <van-field model:value="{{ replyContent }}" placeholder="回复内容" type="textarea" autosize="{{ { minHeight: 120} }}" />
     </van-cell-group>
   </van-popup>
