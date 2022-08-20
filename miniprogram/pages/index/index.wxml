@@ -7,19 +7,21 @@
   <view class="book-wrapper">
     <van-row gutter="20">
       <van-col span="12" wx:for="{{giftBooks}}" wx:key="index">
-        <view class="book" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-bookid='{{item._id}}'>
-          <image class="bg" src="/images/bg_book.png"></image>
-          <view class="content">
-            <view>
-              <view class="name">{{ item.title||'' }}</view>
-              <view class="count">共 {{ item.giftCount||0 }} 笔</view>
-            </view>
-            <view>
-              <view class="total">￥ {{ item.giftTotal||'0.00' }}</view>
-              <view class="date">{{ item.date||'' }}</view>
+        <van-transition>
+          <view class="book" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-bookid='{{item._id}}'>
+            <image class="bg" src="/images/bg_book.png"></image>
+            <view class="content">
+              <view>
+                <view class="name">{{ item.title||'' }}</view>
+                <view class="count">共 {{ item.giftCount||0 }} 笔</view>
+              </view>
+              <view>
+                <view class="total">￥ {{ item.giftTotal||'0.00' }}</view>
+                <view class="date">{{ item.date||'' }}</view>
+              </view>
             </view>
           </view>
-        </view>
+        </van-transition>
       </van-col>
       <van-col span="12">
         <view class="book" bind:tap="onAddBook">
@@ -40,6 +42,6 @@
 <!-- 人情编辑组件 -->
 <gift-receive-edit id="gift-receive-edit"></gift-receive-edit>
 <!-- 礼簿编辑组件 -->
-<book-edit id="book-edit"></book-edit>
+<book-edit id="book-edit" bind:dialogResult="bookEditDialog"></book-edit>
 <!-- 页脚 -->
 <footer></footer>
