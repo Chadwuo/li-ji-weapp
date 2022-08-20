@@ -132,17 +132,23 @@ exports.getBook = async (parameter) => {
  */
 exports.addBook = async (parameter) => {
   try {
-    const {
-      result
-    } = await db.collection('book').insertOne({
+
+    let data = {
       userId: userInfo._id,
       date: parameter.date,
       title: parameter.title,
       remarks: parameter.remarks,
-    })
+    }
+
+    const {
+      result
+    } = await db.collection('book').insertOne(data)
+
+    data._id = result.insertedId
+
     return {
       success: true,
-      data: result.insertedId
+      data
     };
   } catch (e) {
     return {

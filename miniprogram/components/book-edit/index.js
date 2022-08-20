@@ -42,9 +42,6 @@ Component({
         formatDate(date) {
             return dayjs(date).format('YYYY-MM-DD');
         },
-        dialogResult(data){
-            this.triggerEvent('myevent', myEventDetail, myEventOption)
-        },
         async show(id) {
             this.setData({
                 visible: true
@@ -80,10 +77,12 @@ Component({
                         title: '修改成功',
                     })
                     setTimeout(() => {
-                        this.setData({
-                            visible: false
+                        this.onCancel()
+                        this.triggerEvent('dialogResult', {
+                            type: 'update',
+                            data: res.data
                         })
-                    }, 500);
+                    }, 1000);
                 }
             } else {
                 const res = await bookService.addBook(this.data)
@@ -92,10 +91,12 @@ Component({
                         title: '保存成功',
                     })
                     setTimeout(() => {
-                        this.setData({
-                            visible: false
+                        this.onCancel()
+                        this.triggerEvent('dialogResult', {
+                            type: 'insert',
+                            data: res.data
                         })
-                    }, 500);
+                    }, 1000);
                 }
             }
         },

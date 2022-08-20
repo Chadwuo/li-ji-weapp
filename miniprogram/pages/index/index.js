@@ -27,6 +27,22 @@ Page({
       icon: 'none',
     })
   },
+  bookEditDialog({
+    detail
+  }) {
+    switch (detail.type) {
+      case 'insert':
+        this.data.giftBooks.unshift(detail.data)
+        this.setData({
+          giftBooks: this.data.giftBooks
+        })
+        break;
+
+      default:
+        break;
+    }
+    console.log(this.data.giftBooks)
+  },
   onAddGift() {
     const giftEdit = this.selectComponent('#gift-receive-edit')
     giftEdit.show()
@@ -53,6 +69,7 @@ Page({
   },
   // 长按选择礼簿
   onSelectBookAction(event) {
+    const that = this
     switch (event.detail.name) {
       case '删除':
         wx.showModal({
@@ -61,16 +78,16 @@ Page({
           async success(result) {
             if (result.confirm) {
               const res = await bookService.deleteBook({
-                _id: this.data.actionId
+                _id: that.data.actionId
               })
               if (res.success) {
-                this.setData({
-                  giftBooks: this.data.giftBooks.filter(i => {
-                    i._id != this.data.actionId
-                  })
-                })
                 wx.showToast({
                   title: '删除成功',
+                })
+                that.setData({
+                  giftBooks: that.data.giftBooks.filter(i => {
+                    return i._id != that.data.actionId
+                  })
                 })
               }
             }

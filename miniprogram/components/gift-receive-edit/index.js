@@ -71,10 +71,11 @@ Component({
             title: '修改成功',
           })
           setTimeout(() => {
+            this.onCancel()
             this.setData({
               visible: false
             })
-          }, 500);
+          }, 1000);
         }
       } else {
         const res = await giftReceiveService.addGiftReceive(this.data)
@@ -83,10 +84,11 @@ Component({
             title: '添加成功',
           })
           setTimeout(() => {
+            this.onCancel()
             this.setData({
               visible: false
             })
-          }, 500);
+          }, 1000);
         }
       }
     },
