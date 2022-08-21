@@ -37,7 +37,15 @@ Page({
           giftBooks: this.data.giftBooks
         })
         break;
-
+      case 'update':
+        break;
+      case 'delete':
+        this.setData({
+          giftBooks: this.data.giftBooks.filter(i => {
+            return i._id != detail.data._id
+          })
+        })
+        break;
       default:
         break;
     }
