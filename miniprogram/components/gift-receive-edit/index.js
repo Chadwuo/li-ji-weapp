@@ -95,7 +95,7 @@ Component({
       }
     },
     // 选择联系人
-    showFriendSelect() {
+    async showFriendSelect() {
       this.setData({
         active: 1
       })

@@ -83,9 +83,12 @@ exports.addFamily = async (parameter) => {
         // 添加家庭
         const {
             result
-        } = await db.collection('family').insertOne(parameter)
+        } = await db.collection('family').insertOne({
+            userId: userInfo._id,
+            name: parameter.name
+        })
         //  新增的记录 _id
-        const _Id = result._id
+        const _Id = result.insertedId
 
         // 把自己添加为家庭管理员
         await db.collection('family_member').insertOne({

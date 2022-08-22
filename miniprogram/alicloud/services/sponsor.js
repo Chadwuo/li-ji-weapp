@@ -10,7 +10,9 @@ exports.getSponsorList = async () => {
     const db = cloud.database()
     const MAX_LIMIT = 100
     // 先取出集合记录总数
-    const { result: total } = await db.collection('sponsor').count()
+    const {
+        result: total
+    } = await db.collection('sponsor').count()
     // 计算需分几次取
     const batchTimes = Math.ceil(total / 100)
     // 承载所有读操作的 promise 的数组
@@ -35,10 +37,16 @@ exports.getSponsorList = async () => {
  */
 exports.addSponsor = async (parameter) => {
     try {
-        const res = await db.collection('sponsor').insertOne(parameter)
+        const {
+            result
+        } = await db.collection('sponsor').insertOne({
+            name: parameter.name,
+            money: parameter.money,
+            words: parameter.words
+        })
         return {
             success: true,
-            data: res
+            data: result.insertedId
         };
     } catch (e) {
         return {
@@ -58,8 +66,7 @@ exports.updateSponsor = async (parameter) => {
         await db.collection('sponsors').updateOne({
             _id: parameter._id
         }, {
-            $set:
-            {
+            $set: {
                 name: parameter.name,
                 money: parameter.money,
                 words: parameter.words
