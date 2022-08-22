@@ -1,3 +1,4 @@
+import pinyin from "wl-pinyin";
 const app = getApp();
 const {
     getUserDataScope
@@ -128,12 +129,12 @@ exports.addFriend = async (parameter) => {
         } = await db.collection('friend').insertOne({
             userId: userInfo._id,
             name: parameter.name,
-            fristLetter: parameter.fristLetter,
+            fristLetter: pinyin.getFirstLetter(parameter.name.substr(0, 1)),
             remarks: parameter.remarks
         })
         return {
             success: true,
-            data: result
+            data: result.insertedId
         };
     } catch (e) {
         return {
@@ -155,7 +156,7 @@ exports.updateFriend = async (parameter) => {
         }, {
             $set: {
                 name: parameter.name,
-                fristLetter: parameter.fristLetter,
+                fristLetter: pinyin.getFirstLetter(parameter.name.substr(0, 1)),
                 remarks: parameter.remarks
             }
         })

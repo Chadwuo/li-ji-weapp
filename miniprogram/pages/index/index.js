@@ -32,24 +32,29 @@ Page({
   }) {
     switch (detail.type) {
       case 'insert':
-        this.data.giftBooks.unshift(detail.data)
         this.setData({
-          giftBooks: this.data.giftBooks
+          giftBooks: [detail.data, ...this.data.giftBooks]
         })
         break;
       case 'update':
+        let updateIndex = this.data.giftBooks.findIndex(i => {
+          return i._id == detail.data._id
+        })
+        this.setData({
+          giftBooks: this.data.giftBooks.splice(updateIndex, 1, detail.data)
+        })
         break;
       case 'delete':
+        let delIndex = this.data.giftBooks.findIndex(i => {
+          return i._id == detail.data._id
+        })
         this.setData({
-          giftBooks: this.data.giftBooks.filter(i => {
-            return i._id != detail.data._id
-          })
+          giftBooks: this.data.giftBooks.splice(delIndex, 1)
         })
         break;
       default:
         break;
     }
-    console.log(this.data.giftBooks)
   },
   onAddGift() {
     const giftEdit = this.selectComponent('#gift-receive-edit')

@@ -1,3 +1,4 @@
+import pinyin from "wl-pinyin";
 const app = getApp();
 const {
     getUserDataScope
@@ -117,7 +118,7 @@ exports.addGiftReceive = async (parameter) => {
             } = await db.collection('friend').insertOne({
                 userId: userInfo._id,
                 name: parameter.friendName,
-                firstLetter: parameter.friendFirstLetter
+                firstLetter: pinyin.getFirstLetter(parameter.name.substr(0, 1)),
             })
             // 新添加的亲友id
             giftReceive.friendId = result._id
@@ -136,7 +137,7 @@ exports.addGiftReceive = async (parameter) => {
         })
         return {
             success: true,
-            data: result
+            data: result.insertedId
         };
     } catch (e) {
         return {
