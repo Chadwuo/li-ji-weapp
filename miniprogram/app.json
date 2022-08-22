@@ -7,6 +7,7 @@
     "pages/login/index",
     "pages/about/index",
     "pages/issues/index",
+    "pages/question/index",
     "pages/sponsors/index",
     "pages/friendDetails/index",
     "pages/bookDetails/index",
