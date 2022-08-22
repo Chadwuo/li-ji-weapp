@@ -80,7 +80,7 @@ Component({
                         this.onCancel()
                         this.triggerEvent('dialogResult', {
                             type: 'update',
-                            data: res.data
+                            data: this.data
                         })
                     }, 1000);
                 }
@@ -92,9 +92,10 @@ Component({
                     })
                     setTimeout(() => {
                         this.onCancel()
+                        this.data._id = res.data
                         this.triggerEvent('dialogResult', {
                             type: 'insert',
-                            data: res.data
+                            data: this.data
                         })
                     }, 1000);
                 }

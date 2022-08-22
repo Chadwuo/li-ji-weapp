@@ -17,6 +17,6 @@
   </view>
 </view>
 <!-- 人情编辑组件 -->
-<gift-out-edit id="gift-out-edit"></gift-out-edit>
+<gift-out-edit id="gift-out-edit" bind:dialogResult="giftEditDialog"></gift-out-edit>
 <!-- 页脚 -->
 <footer></footer>

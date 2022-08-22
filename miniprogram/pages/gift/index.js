@@ -9,6 +9,41 @@ Page({
     giftList: [],
     total: '0.00',
   },
+  onSearch() {
+    wx.showToast({
+      title: '搜索...马上写完，真的',
+      icon: 'none',
+    })
+  },
+  giftEditDialog({
+    detail
+  }) {
+    switch (detail.type) {
+      case 'insert':
+        this.setData({
+          giftList: [detail.data, ...this.data.giftList]
+        })
+        break;
+      case 'update':
+        let updateIndex = this.data.giftList.findIndex(i => {
+          return i._id == detail.data._id
+        })
+        this.setData({
+          giftList: this.data.giftList.splice(updateIndex, 1, detail.data)
+        })
+        break;
+      case 'delete':
+        let delIndex = this.data.giftList.findIndex(i => {
+          return i._id == detail.data._id
+        })
+        this.setData({
+          giftList: this.data.giftList.splice(delIndex, 1)
+        })
+        break;
+      default:
+        break;
+    }
+  },
   onAddGift() {
     const giftEdit = this.selectComponent('#gift-out-edit')
     giftEdit.show()
