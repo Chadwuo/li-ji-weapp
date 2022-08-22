@@ -13,10 +13,10 @@
             <open-data type="userNickName"></open-data>
           </view>
         </view>
-        <view class='desc'>未开通家庭共享</view>
+        <view class='desc'>{{welcome}}</view>
       </view>
     </view>
-    <van-icon name="setting-o" color="#fff"/>
+    <van-icon name="setting-o" color="#fff" />
   </view>
   <view>
     <van-cell-group inset>
