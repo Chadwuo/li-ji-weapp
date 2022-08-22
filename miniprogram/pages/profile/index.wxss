@@ -1,11 +1,16 @@
 /* pages/profile/index.wxss */
-.user .header {
+.container .header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
   padding: 0 30rpx;
   height: 190rpx;
   position: relative;
+  background-color: #F76664 !important;
 }
 
-.user .header:after {
+.container .header:after {
   position: absolute;
   left: 0;
   right: 0;
@@ -18,14 +23,21 @@
   background-color: #F76664;
 }
 
-.user .header .picTxt .pictrue {
+.container .header .picTxt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container .header .picTxt .pictrue {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.user .header .picTxt .pictrue .avatar {
+.container .header .picTxt .pictrue .avatar {
   overflow: hidden;
   display: block;
   width: 120rpx;
@@ -34,28 +46,30 @@
   border: 2px solid #f5f5f5;
 }
 
-.user .header .picTxt .text {
+.container .header .picTxt .text {
   width: 434rpx;
   color: rgba(255, 255, 255, 1);
   margin-left: 35rpx;
 }
 
-.user .header .picTxt .text .name {
+.container .header .picTxt .text .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: #fff;
   font-size: 36rpx;
   max-width: 470rpx;
 }
 
-.user .header .picTxt .text .desc {
+.container .header .picTxt .text .desc {
   color: rgba(255, 255, 255, 0.6);
   font-size: 26rpx;
   margin-top: 15rpx;
 }
 
-.user .header .icon-shezhi {
+.container .header .icon-shezhi {
   font-size: 38rpx;
   color: #fff;
   margin-top: 15rpx;
   margin-right: 30rpx;
 }
-
