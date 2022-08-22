@@ -5,6 +5,7 @@ const {
 
 App({
   mpserverless,
+  welcome: '',
   userInfo: null,
   async onLaunch() {
     //await this.initcloud() // 微信云开发环境初始化（因为费用负担不起，所以转战阿里云了）
@@ -19,7 +20,7 @@ App({
         this.userInfo = res.data
         wx.setStorageSync('user', res.data)
       }
-      
+
       wx.navigateTo({
         url: '/pages/login/index',
       })

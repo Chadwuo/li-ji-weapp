@@ -1,12 +1,14 @@
 // pages/profile/index.js
 const giftOutService = require('../../alicloud/services/giftOut')
 const giftReceiveService = require('../../alicloud/services/giftReceive')
+const jinrishici = require('../../utils/jinrishici.js')
 
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    welcome: '',
     giveTotal: 0.00,
     receiveTotal: 0.00,
     MyMenus: [{
@@ -81,7 +83,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    jinrishici.load(result => {
+      this.setData({
+        welcome: result.data.content
+      })
+    })
   },
 
   /**
