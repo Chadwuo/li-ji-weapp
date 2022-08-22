@@ -20,9 +20,19 @@ Page({
         name: "数据导出"
       },
       {
+        page: "chart",
+        icon: "chart-trending-o",
+        name: "统计汇总"
+      },
+      {
         page: "sponsors",
         icon: "good-job-o",
         name: "赞赏"
+      },
+      {
+        page: "question",
+        icon: "question-o",
+        name: "常见问题"
       },
       {
         page: "issues",
@@ -42,6 +52,13 @@ Page({
     ]
   },
   jumpPage(e) {
+    if (e.currentTarget.dataset.page === 'chart') {
+      wx.showToast({
+        title: '统计汇总，即将上线...',
+        icon: 'none',
+      })
+      return
+    }
     if (e.currentTarget.dataset.page === 'export') {
       wx.showToast({
         title: '数据导出，收支明细汇总打印，即将上线...',
