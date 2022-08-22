@@ -1,4 +1,3 @@
-import pinyin from "wl-pinyin";
 const friendService = require('../../alicloud/services/friend')
 
 Component({
@@ -42,7 +41,12 @@ Component({
     },
     onCancel() {
       this.setData({
-        visible: false
+        visible: false,
+        _id: '',
+        name: '',
+        firstLetter: '',
+        relation: '',
+        remarks: '',
       })
     },
     async onSave() {
@@ -53,10 +57,12 @@ Component({
             title: '修改成功',
           })
           setTimeout(() => {
-            this.setData({
-              visible: false
+            this.onCancel()
+            this.triggerEvent('dialogResult', {
+              type: 'update',
+              data: this.data
             })
-          }, 500);
+          }, 1000);
         }
       } else {
         const res = await friendService.addFriend(this.data)
@@ -65,10 +71,13 @@ Component({
             title: '添加成功',
           })
           setTimeout(() => {
-            this.setData({
-              visible: false
+            this.onCancel()
+            this.data._id = res.data
+            this.triggerEvent('dialogResult', {
+              type: 'insert',
+              data: this.data
             })
-          }, 500);
+          }, 1000);
         }
       }
     },
