@@ -3,6 +3,9 @@
     <!-- 主体类容 -->
     <view class="container">
         <van-cell-group inset>
+            <van-cell wx:if="{{ showCalendar }}">
+                <calendar />
+            </van-cell>
             <van-field readonly label="时间" left-icon="calendar-o" model:value="{{ dateFormat }}" bind:click-input="onDisplay" />
             <van-field label="礼簿名称" left-icon="balance-list-o" model:value="{{ title }}" placeholder="请输入" />
             <van-field label="备注" left-icon="bookmark-o" model:value="{{ remarks }}" type="textarea" placeholder="选填" autosize="{{ { minHeight: 120} }}" />
