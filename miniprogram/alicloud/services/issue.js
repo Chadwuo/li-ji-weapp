@@ -46,7 +46,7 @@ exports.addIssue = async (parameter) => {
     })
     return {
       success: true,
-      data: result
+      data: result.insertedId
     };
   } catch (e) {
     return {
