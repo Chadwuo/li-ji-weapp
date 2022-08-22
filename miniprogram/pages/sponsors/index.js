@@ -18,19 +18,7 @@ Page({
   },
   // 添加
   async onAdd() {
-    await app.call({
-      type: 'addSponsor',
-      data: {
-        name: this.data.name,
-        money: this.data.money,
-        words: this.data.words,
-      }
-    })
-    if (res.success) {
-      wx.showToast({
-        title: '添加成功',
-      })
-    }
+
   },
   // 打开弹窗
   onShowPopup(e) {
@@ -61,11 +49,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  async onShow() {
-    const res = sponsorService.getSponsors()
-    if (res.success) {
-      // TODO
-    }
+  onShow() {
+
   },
 
   /**

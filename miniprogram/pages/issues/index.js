@@ -22,7 +22,6 @@ Page({
   },
   // 获取分页数据
   async loadData(page) {
-    console.log(app.userInfo.isAdmin)
     const res = await issueService.getIssuePage({
       page: page,
       limit: 10
@@ -33,7 +32,6 @@ Page({
         i.replyTime = dayjs(i.replyTime).format('YYYY-MM-DD')
         return i
       })
-      console.log(res)
       this.setData({
         loading: false,
         issuesList: this.data.issuesList.concat(list),
