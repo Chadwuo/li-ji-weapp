@@ -15,7 +15,7 @@
             <van-nav-bar safe-area-inset-top="{{false}}" title="选择日期" left-text="返回" left-arrow bind:click-left="onNavBack" />
             <!-- 主体类容 -->
             <view class="container">
-                <calendar />
+                <calendar _vibrate="{{false}}"></calendar>
             </view>
         </van-tab>
     </van-tabs>
