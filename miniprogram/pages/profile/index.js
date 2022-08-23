@@ -24,7 +24,7 @@ Page({
       {
         page: "chart",
         icon: "chart-trending-o",
-        name: "统计汇总"
+        name: "统计分析"
       },
       {
         page: "sponsors",
@@ -44,7 +44,8 @@ Page({
       {
         page: "share",
         icon: "share-o",
-        name: "推荐给好友"
+        open_type: 'share',
+        name: "分享"
       },
       {
         page: "about",
@@ -56,21 +57,15 @@ Page({
   jumpPage(e) {
     if (e.currentTarget.dataset.page === 'chart') {
       wx.showToast({
-        title: '统计汇总，即将上线...',
+        title: '统计分析，即将上线...',
         icon: 'none',
       })
       return
     }
     if (e.currentTarget.dataset.page === 'export') {
       wx.showToast({
-        title: '数据导出，收支明细汇总打印，即将上线...',
+        title: '数据导出，即将上线...',
         icon: 'none',
-      })
-      return
-    }
-    if (e.currentTarget.dataset.page === 'share') {
-      wx.previewImage({
-        urls: ['cloud://liji-1gzjub9o9bdf6d00.6c69-liji-1gzjub9o9bdf6d00-1308229258/guide.png'] // 需要预览的图片http链接列表
       })
       return
     }

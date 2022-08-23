@@ -1,4 +1,4 @@
-<!--pages/profile/index.wxml-->
+<!-- pages/profile/index.wxml -->
 <view class='container'>
   <view class='header'>
     <view class='picTxt'>
@@ -29,12 +29,16 @@
         </van-grid-item>
       </van-grid>
     </van-cell-group>
-
     <view style="margin-top: 32rpx;">
       <van-cell-group inset>
         <view style="background-color: #fff;">
           <van-grid border="{{fales}}" column-num="4">
-            <van-grid-item icon="{{item.icon}}" text="{{item.name}}" wx:for="{{MyMenus}}" wx:key="index" bindtap='jumpPage' data-page='{{item.page}}' wx:if="{{item.page!='#'}}" />
+            <block wx:for="{{MyMenus}}" wx:key="index">
+              <van-grid-item icon="{{item.icon}}" text="{{item.name}}" bindtap='jumpPage' data-page='{{item.page}}' wx:if="{{item.page&&!item.open_type}}" />
+              <button wx:if="{{item.open_type}}" open-type="{{item.open_type}}">
+                <van-grid-item icon="{{item.icon}}" text="{{item.name}}"></van-grid-item>
+              </button>
+            </block>
           </van-grid>
         </view>
       </van-cell-group>

@@ -1,4 +1,14 @@
 /* pages/profile/index.wxss */
+button {
+  background-color: inherit;
+  line-height: 1;
+  display: inline;
+}
+
+button::after {
+  border: none;
+}
+
 .container .header {
   display: flex;
   flex-wrap: wrap;
