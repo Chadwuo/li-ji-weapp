@@ -2,7 +2,7 @@
 <view>
   <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
     <view slot="action" bind:tap="onAdd" style="display: flex;">
-      <van-icon name="add" size="52rpx" color="#F76664" />
+      <van-icon name="add" color="#F76664" size="62rpx" />
     </view>
   </van-search>
   <view>

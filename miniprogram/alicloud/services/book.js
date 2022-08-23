@@ -140,6 +140,7 @@ exports.addBook = async (parameter) => {
       title: parameter.title,
       remarks: parameter.remarks,
     })
+
     return {
       success: true,
       data: result.insertedId

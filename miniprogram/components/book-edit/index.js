@@ -21,18 +21,7 @@ Component({
         dateFormat: dayjs().format('YYYY-MM-DD'),
         showCalendar: false,
         navBarTitle: '添加礼簿',
-        formatter(type, value) {
-            if (type === 'year') {
-                return `${value}年`;
-            }
-            if (type === 'month') {
-                return `${value}月`;
-            }
-            if (type === 'day') {
-                return `${value}日`;
-            }
-            return value;
-        },
+        active: 0,
     },
 
     /**
@@ -67,6 +56,7 @@ Component({
                 remarks: '',
                 showCalendar: false,
                 navBarTitle: '添加礼簿',
+                active: 0,
             })
         },
         async onSave() {
@@ -77,10 +67,12 @@ Component({
                         title: '修改成功',
                     })
                     setTimeout(() => {
-                        this.setData({
-                            visible: false
+                        this.onCancel()
+                        this.triggerEvent('dialogResult', {
+                            type: 'update',
+                            data: this.data
                         })
-                    }, 500);
+                    }, 1000);
                 }
             } else {
                 const res = await bookService.addBook(this.data)
@@ -89,10 +81,13 @@ Component({
                         title: '保存成功',
                     })
                     setTimeout(() => {
-                        this.setData({
-                            visible: false
+                        this.onCancel()
+                        this.data._id = res.data
+                        this.triggerEvent('dialogResult', {
+                            type: 'insert',
+                            data: this.data
                         })
-                    }, 500);
+                    }, 1000);
                 }
             }
         },
@@ -112,22 +107,21 @@ Component({
                 }
             })
         },
-        onDisplay() {
+        showCalendar() {
             this.setData({
-                showCalendar: true
+                active: 1
             });
         },
-        onClose() {
+        // 返回
+        onNavBack() {
             this.setData({
-                showCalendar: false
-            });
+                active: 0
+            })
         },
-        onConfirm(event) {
+        confirmCalendar(event) {
             console.log(event)
             this.setData({
-                showCalendar: false,
-                luckDay: event.detail,
-                luckDayFormat: this.formatDate(event.detail),
+                
             });
         },
     }

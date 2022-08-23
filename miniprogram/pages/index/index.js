@@ -27,6 +27,35 @@ Page({
       icon: 'none',
     })
   },
+  bookEditDialog({
+    detail
+  }) {
+    switch (detail.type) {
+      case 'insert':
+        this.setData({
+          giftBooks: [detail.data, ...this.data.giftBooks]
+        })
+        break;
+      case 'update':
+        let updateIndex = this.data.giftBooks.findIndex(i => {
+          return i._id == detail.data._id
+        })
+        this.setData({
+          giftBooks: this.data.giftBooks.splice(updateIndex, 1, detail.data)
+        })
+        break;
+      case 'delete':
+        let delIndex = this.data.giftBooks.findIndex(i => {
+          return i._id == detail.data._id
+        })
+        this.setData({
+          giftBooks: this.data.giftBooks.splice(delIndex, 1)
+        })
+        break;
+      default:
+        break;
+    }
+  },
   onAddGift() {
     const giftEdit = this.selectComponent('#gift-receive-edit')
     giftEdit.show()
@@ -53,7 +82,7 @@ Page({
   },
   // 长按选择礼簿
   onSelectBookAction(event) {
-    var that = this
+    const that = this
     switch (event.detail.name) {
       case '删除':
         wx.showModal({
@@ -64,10 +93,14 @@ Page({
               const res = await bookService.deleteBook({
                 _id: that.data.actionId
               })
-
               if (res.success) {
                 wx.showToast({
                   title: '删除成功',
+                })
+                that.setData({
+                  giftBooks: that.data.giftBooks.filter(i => {
+                    return i._id != that.data.actionId
+                  })
                 })
               }
             }
@@ -99,10 +132,7 @@ Page({
       limit: 10
     })
     if (res.success) {
-      console.log(res.data)
       const resList = that.computeTotal(res.data)
-
-      console.log(resList)
       that.setData({
         giftBooks: this.data.giftBooks.concat(resList),
         pageNo: page
@@ -112,8 +142,16 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-
+  async onLoad(options) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    await this.loadData(1)
+    // 人为延迟一点，避免loading动画闪烁
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 666)
   },
 
   /**
@@ -126,11 +164,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  async onShow() {
-    this.setData({
-      giftBooks: []
-    })
-    this.loadData(1)
+  onShow() {
+
   },
 
   /**
@@ -151,13 +186,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-    this.setData({
-      giftBooks: []
-    })
-    this.loadData(1)
-    setTimeout(() => {
+    // 感觉延迟一下，会舒服点
+    setTimeout(async () => {
+      this.setData({
+        giftBooks: []
+      })
+      await this.loadData(1)
       wx.stopPullDownRefresh()
-    }, 2000);
+    }, 666);
   },
 
   /**
