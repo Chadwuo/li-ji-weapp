@@ -1,17 +1,22 @@
 <van-popup show="{{ visible }}" position="bottom" round custom-style="height: 98%;background-color: #f6f6f6;">
-    <van-nav-bar safe-area-inset-top="{{false}}" title="{{navBarTitle}}" left-text="取消" right-text="保存" bind:click-left="onCancel" bind:click-right="onSave" />
-    <!-- 主体类容 -->
-    <view class="container">
-        <van-cell-group inset>
-            <van-cell wx:if="{{ showCalendar }}">
+    <van-tabs active="{{ active }}" animated>
+        <van-tab title="礼簿填写">
+            <van-nav-bar safe-area-inset-top="{{false}}" title="{{navBarTitle}}" left-text="取消" right-text="保存" bind:click-left="onCancel" bind:click-right="onSave" />
+            <!-- 主体类容 -->
+            <view class="container">
+                <van-cell-group inset>
+                    <van-field readonly label="时间" left-icon="calendar-o" model:value="{{ dateFormat }}" bind:click-input="showCalendar" />
+                    <van-field label="礼簿名称" left-icon="balance-list-o" model:value="{{ title }}" placeholder="请输入" />
+                    <van-field label="备注" left-icon="bookmark-o" model:value="{{ remarks }}" type="textarea" placeholder="选填" autosize="{{ { minHeight: 120} }}" />
+                </van-cell-group>
+            </view>
+        </van-tab>
+        <van-tab title="时间选择">
+            <van-nav-bar safe-area-inset-top="{{false}}" title="选择日期" left-text="返回" left-arrow bind:click-left="onNavBack" />
+            <!-- 主体类容 -->
+            <view class="container">
                 <calendar />
-            </van-cell>
-            <van-field readonly label="时间" left-icon="calendar-o" model:value="{{ dateFormat }}" bind:click-input="onDisplay" />
-            <van-field label="礼簿名称" left-icon="balance-list-o" model:value="{{ title }}" placeholder="请输入" />
-            <van-field label="备注" left-icon="bookmark-o" model:value="{{ remarks }}" type="textarea" placeholder="选填" autosize="{{ { minHeight: 120} }}" />
-        </van-cell-group>
-        <van-popup show="{{ showCalendar }}" round position="bottom" bind:close="onClose">
-            <van-datetime-picker type="date" value="{{ luckDay }}" bind:confirm="onConfirm" bind:cancel="onClose" formatter="{{ formatter }}" />
-        </van-popup>
-    </view>
+            </view>
+        </van-tab>
+    </van-tabs>
 </van-popup>
