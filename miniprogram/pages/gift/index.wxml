@@ -1,7 +1,7 @@
 <view>
   <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
     <view slot="action" bind:tap="onAddGift" style="display: flex;">
-      <van-icon name="add" color="#F76664" size="52rpx" />
+      <van-icon name="add" color="#F76664" size="62rpx" />
     </view>
   </van-search>
   <view class="wrapper">
@@ -17,6 +17,6 @@
   </view>
 </view>
 <!-- 人情编辑组件 -->
-<gift-out-edit id="gift-out-edit"></gift-out-edit>
+<gift-out-edit id="gift-out-edit" bind:dialogResult="giftEditDialog"></gift-out-edit>
 <!-- 页脚 -->
 <footer></footer>

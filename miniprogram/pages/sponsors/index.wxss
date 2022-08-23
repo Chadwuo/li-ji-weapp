@@ -1,14 +1,15 @@
 /* pages/appreciate/index.wxss */
 .container {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
   align-items: center;
-  padding: 24rpx 50rpx;
+  padding: 32rpx 50rpx;
 }
 
 .container .top_tip {
   font-size: 24rpx;
   color: #888888;
-  padding: 0 30rpx;
 }
 
 .form-box {

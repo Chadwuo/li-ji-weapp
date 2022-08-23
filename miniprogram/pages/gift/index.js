@@ -9,6 +9,41 @@ Page({
     giftList: [],
     total: '0.00',
   },
+  onSearch() {
+    wx.showToast({
+      title: '搜索...马上写完，真的',
+      icon: 'none',
+    })
+  },
+  giftEditDialog({
+    detail
+  }) {
+    switch (detail.type) {
+      case 'insert':
+        this.setData({
+          giftList: [detail.data, ...this.data.giftList]
+        })
+        break;
+      case 'update':
+        let updateIndex = this.data.giftList.findIndex(i => {
+          return i._id == detail.data._id
+        })
+        this.setData({
+          giftList: this.data.giftList.splice(updateIndex, 1, detail.data)
+        })
+        break;
+      case 'delete':
+        let delIndex = this.data.giftList.findIndex(i => {
+          return i._id == detail.data._id
+        })
+        this.setData({
+          giftList: this.data.giftList.splice(delIndex, 1)
+        })
+        break;
+      default:
+        break;
+    }
+  },
   onAddGift() {
     const giftEdit = this.selectComponent('#gift-out-edit')
     giftEdit.show()
@@ -29,8 +64,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad(options) {
+    this.loadData(1)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -43,10 +78,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setData({
-      giftList: []
-    })
-    this.loadData(1)
+
   },
 
   /**
@@ -67,13 +99,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.setData({
-      giftList: []
-    })
-    this.loadData(1)
-    setTimeout(() => {
+    // 感觉延迟一下，会舒服点
+    setTimeout(async () => {
+      this.setData({
+        giftBooks: []
+      })
+      await this.loadData(1)
       wx.stopPullDownRefresh()
-    }, 2000);
+    }, 666);
   },
 
   /**

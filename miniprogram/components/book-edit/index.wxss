@@ -1,0 +1,7 @@
+van-sticky {
+    display: none;
+}
+
+.container {
+    margin-top: 24rpx;
+}

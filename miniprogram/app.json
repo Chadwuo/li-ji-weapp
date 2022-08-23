@@ -7,6 +7,7 @@
     "pages/login/index",
     "pages/about/index",
     "pages/issues/index",
+    "pages/question/index",
     "pages/sponsors/index",
     "pages/friendDetails/index",
     "pages/bookDetails/index",
@@ -87,6 +88,7 @@
     "van-submit-bar": "@vant/weapp/submit-bar/index",
     "van-tab": "@vant/weapp/tab/index",
     "van-tabs": "@vant/weapp/tabs/index",
-    "van-tag": "@vant/weapp/tag/index"
+    "van-tag": "@vant/weapp/tag/index",
+    "van-transition": "@vant/weapp/transition/index"
   }
 }
