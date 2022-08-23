@@ -1,6 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "calendar": "../calendar/index"
+    "calendar": "../wx-calendar/index"
   }
 }
