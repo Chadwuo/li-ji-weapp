@@ -21,7 +21,7 @@ Page({
         const giftEdit = this.selectComponent('#gift-receive-edit')
         giftEdit.show()
     },
-    loadData(page) {
+    async loadData(page) {
         const that = this
         const res = await giftReceiveService.getGiftReceivePage({
             page: page,
