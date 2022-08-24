@@ -1,5 +1,5 @@
 const dayjs = require('dayjs');
-const bookService = require('../../alicloud/services/book')
+const giftReceiveService = require('../../alicloud/services/giftReceive')
 
 Page({
     data: {
@@ -17,50 +17,38 @@ Page({
             icon: 'none',
         })
     },
-    onAdd() {
-        wx.navigateTo({
-            url: `/pages/bookEdit/index`,
-        });
+    onAddGift() {
+        const giftEdit = this.selectComponent('#gift-receive-edit')
+        giftEdit.show()
     },
     loadData(page) {
-        if (page == 0) {
-            this.data.giftList = []
-            this.data.pageNo = 0
-        }
-        let that = this
-        wx.cloud.callFunction({
-            name: 'lijiFunctions',
-            data: {
-                type: 'lookupGiftFriend',
-                page: page,
-                limit: 10,
-                where: {
-                    userId: app.globalData.user._id,
-                    bookId: this.data.bookId
-                }
-            }
-        }).then(res => {
-            if (res.result.list.length === 0) {
-                return
-            }
-            let datas = this.data.giftList.concat(res.result.list)
-            datas.map(i => {
-                if (i.luckDay) {
-                    i.luckDay = that.formatDate(i.luckDay)
-                }
-            })
-            that.setData({
-                giftList: datas,
-                pageNo: that.data.pageNo + 1
-            });
+        const that = this
+        const res = await giftReceiveService.getGiftReceivePage({
+            page: page,
+            limit: 10,
+            bookId: this.data.bookId
         })
+        if (res.success) {
+            that.setData({
+                giftList: this.data.giftList.concat(res.data),
+                pageNo: page
+            });
+        }
     },
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
+    async onLoad(options) {
         this.data.bookId = options.bookId
-        this.loadData(0)
+        wx.showLoading({
+            title: '加载中',
+            mask: true
+        })
+        await this.loadData(1)
+        // 人为延迟一点，避免loading动画闪烁
+        setTimeout(function () {
+            wx.hideLoading()
+        }, 666)
     },
     /**
      * 生命周期函数--监听页面初次渲染完成
@@ -93,8 +81,15 @@ Page({
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh: function () {
-
+    async onPullDownRefresh() {
+        // 感觉延迟一下，会舒服点
+        setTimeout(async () => {
+            this.setData({
+                giftList: []
+            })
+            await this.loadData(1)
+            wx.stopPullDownRefresh()
+        }, 666);
     },
 
     /**
