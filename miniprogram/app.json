@@ -1,17 +1,21 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/bookDetails/index",
+    "pages/bookEdit/index",
     "pages/gift/index",
+    "pages/giftEdit/index",
     "pages/friends/index",
+    "pages/friendDetails/index",
+    "pages/friendEdit/index",
     "pages/profile/index",
     "pages/login/index",
     "pages/about/index",
     "pages/issues/index",
     "pages/question/index",
     "pages/sponsors/index",
-    "pages/friendDetails/index",
-    "pages/bookDetails/index",
-    "pages/family/index"
+    "pages/family/index",
+    "pages/calendar/index"
   ],
   "window": {
     "backgroundColor": "#F76664",
