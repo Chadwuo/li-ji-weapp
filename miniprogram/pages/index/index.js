@@ -57,12 +57,14 @@ Page({
     }
   },
   onAddGift() {
-    const giftEdit = this.selectComponent('#gift-receive-edit')
-    giftEdit.show()
+    wx.navigateTo({
+      url: '/pages/bookEdit/index',
+    });
   },
   onAddBook() {
-    const bookEdit = this.selectComponent('#book-edit')
-    bookEdit.show()
+    wx.navigateTo({
+      url: '/pages/bookEdit/index',
+    });
   },
   onBookClick(e) {
     wx.navigateTo({

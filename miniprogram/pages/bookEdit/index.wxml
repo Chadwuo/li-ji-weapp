@@ -1,0 +1,18 @@
+<!--pages/bookEdit/index.wxml-->
+<!-- 主体类容 -->
+<view class="container">
+	<van-cell-group inset border="{{false}}">
+		<van-field readonly label="时间" left-icon="calendar-o" model:value="{{ dateFormat }}" bind:click-input="showCalendar" />
+		<van-field label="礼簿名称" left-icon="balance-list-o" model:value="{{ title }}" placeholder="请输入" />
+		<van-field label="备注" left-icon="bookmark-o" model:value="{{ remarks }}" type="textarea" placeholder="选填" autosize="{{ { minHeight: 120} }}" border="{{false}}" />
+	</van-cell-group>
+</view>
+
+<van-submit-bar
+  disabled
+  price="{{ 3050 }}"
+  button-text="提交订单"
+  tip="您的收货地址不支持同城送, 我们已为您推荐快递"
+  tip-icon="info-o"
+  bind:submit="onSubmit"
+/>
