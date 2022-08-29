@@ -8,11 +8,13 @@
 	</van-cell-group>
 </view>
 
-<van-submit-bar
-  disabled
-  price="{{ 3050 }}"
-  button-text="提交订单"
-  tip="您的收货地址不支持同城送, 我们已为您推荐快递"
-  tip-icon="info-o"
-  bind:submit="onSubmit"
-/>
+<view class="submit-bar">
+  <van-row gutter="24">
+    <van-col span="8" wx:if="{{_id}}">
+      <van-button color="#F76664" block round plain>删除</van-button>
+    </van-col>
+    <van-col span="{{_id?16:24}}">
+      <van-button color="#F76664" block round>保 存</van-button>
+    </van-col>
+  </van-row>
+</view>

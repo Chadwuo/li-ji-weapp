@@ -12,15 +12,6 @@ Page({
     date: new Date().getTime(),
     title: '',
     remarks: '',
-    dateFormat: dayjs().format('YYYY-MM-DD'),
-    showCalendar: false,
-    navBarTitle: '添加礼簿',
-    active: 0,
-    // 此处为日历自定义配置字段
-    calendarConfig: {
-      showLunar: true, // 是否显示农历，此配置会导致 setTodoLabels 中 showLabelAlways 配置失效
-      markToday: '今', // 当天日期展示不使用默认数字，用特殊文字标记
-    }
   },
 
   /**
