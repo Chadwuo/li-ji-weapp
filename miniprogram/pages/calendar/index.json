@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "选择时间",
+  "usingComponents": {
+    "calendar": "/components/wx-calendar/index"
+  }
 }

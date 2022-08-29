@@ -17,6 +17,7 @@ page {
 	left: 0;
 	right: 0;
 	bottom: 32rpx;
+	margin: 0 32rpx;
 	padding-bottom: constant(safe-area-inset-bottom);
 	/*兼容 IOS<11.2*/
 	padding-bottom: env(safe-area-inset-bottom);
