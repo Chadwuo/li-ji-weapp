@@ -140,6 +140,8 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '每一份人情都值得礼记',
+      path: "pages/index/index",
+      imageUrl: '../../images/poster.png'
     }
   }
 })
