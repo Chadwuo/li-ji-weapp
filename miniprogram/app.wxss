@@ -1,14 +1,12 @@
 /* 整个页面的布局 */
-
 page {
   display: flex;
   flex-direction: column;
   min-height: 100%;
   background-color: #f6f6f6;
-  justify-content: space-between;
-  
-  --nav-bar-icon-color: #fff;
-  --nav-bar-text-color: #fff;
-  --nav-bar-title-text-color: #fff;
-  --nav-bar-background-color: #F76664
+}
+
+/* footer置底 */
+footer {
+  margin-top: auto;
 }

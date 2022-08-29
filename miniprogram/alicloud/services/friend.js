@@ -41,8 +41,8 @@ exports.getFriendList = async () => {
         // 等待所有
         return (await Promise.all(tasks)).reduce((acc, cur) => {
             return {
-                data: acc.data.concat(cur.data),
-                message: acc.errMsg,
+                data: acc.result.concat(cur.result),
+                message: acc.message,
             }
         })
     } catch (error) {
