@@ -1,0 +1,17 @@
+<!-- pages/bookEdit/index.wxml -->
+<!-- 主体类容 -->
+<view class="container">
+  <van-empty wx:if="{{bookSelectSource.length===0}}" description="暂无数据" />
+  <view wx:for="{{bookSelectSource}}" wx:key="index">
+    <van-cell-group inset>
+      <van-cell use-label-slot is-link bind:click="onSelectedBook" data-book="{{item}}">
+        <view slot="title">
+          <view class="line1">{{item.name}}</view>
+        </view>
+        <view slot="label">
+          <view>{{item.date}}</view>
+        </view>
+      </van-cell>
+    </van-cell-group>
+  </view>
+</view>

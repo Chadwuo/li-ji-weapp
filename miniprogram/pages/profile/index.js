@@ -139,7 +139,7 @@ Page({
    */
   onShareAppMessage: function () {
     return {
-      title: '每一份人情都值得礼记',
+      title: '可能是东半球最好用的人情记账工具',
       path: "pages/index/index",
       imageUrl: '../../images/poster.png'
     }

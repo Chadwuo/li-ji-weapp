@@ -1,4 +1,4 @@
-<!--pages/bookEdit/index.wxml-->
+<!-- pages/bookEdit/index.wxml -->
 <!-- 主体类容 -->
 <view class="container">
   <van-cell-group inset border="{{false}}">
@@ -6,17 +6,19 @@
       <van-icon name="arrow" slot="button" />
     </van-field>
     <van-field label="礼簿名称" left-icon="balance-list-o" model:value="{{ title }}" placeholder="请输入" />
-    <van-field label="备注" left-icon="bookmark-o" model:value="{{ remarks }}" type="textarea" placeholder="选填" autosize="{{ { minHeight: 120} }}" border="{{false}}" />
+    <van-field label="备注" left-icon="bookmark-o" model:value="{{ remarks }}" type="textarea" placeholder="选填" autosize="{{ { minHeight: 120} }}" />
+    <text style="font-size: 10px;color: #969799;">Tips:一场宴席活动中，用来登记所有来客贺礼的名册，称为礼簿。</text>
   </van-cell-group>
 </view>
-
 <view class="submit-bar">
   <van-row gutter="24">
     <van-col span="8" wx:if="{{_id}}">
       <van-button color="#F76664" block round plain bindtap="onDelete">删除</van-button>
     </van-col>
     <van-col span="{{_id?16:24}}">
-      <van-button color="#F76664" block round disabled="{{!title}}" bindtap="onSave">保 存</van-button>
+      <van-button color="#F76664" block round disabled="{{!title}}" bindtap="onSave">
+        保 存
+      </van-button>
     </van-col>
   </van-row>
 </view>

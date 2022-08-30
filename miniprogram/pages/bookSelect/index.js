@@ -1,18 +1,29 @@
-// pages/giftEdit/index.js
+// pages/bookEdit/index.js
+const bookService = require('../../alicloud/services/book')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    bookSelectSource: [],
   },
-
+  // 选中礼簿
+  onSelectedBook(e) {
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.emit('dialogResult', e.currentTarget.dataset.book);
+    wx.navigateBack()
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-
+  async onLoad(options) {
+    const res = bookService.getBookList()
+    if (res.success) {
+      this.setData({
+        bookSelectSource: res.data,
+      });
+    }
   },
 
   /**

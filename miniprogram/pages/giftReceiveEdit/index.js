@@ -1,5 +1,7 @@
-// pages/bookEdit/index.js
+// pages/giftEdit/index.js
+const giftReceiveService = require('../../alicloud/services/giftReceive')
 const bookService = require('../../alicloud/services/book')
+const friendService = require('../../alicloud/services/friend')
 Page({
 
   /**
@@ -7,14 +9,17 @@ Page({
    */
   data: {
     _id: '',
-    date: new Date(),
+    friendId: '',
+    friendName: '',
+    bookId: '',
     title: '',
+    date: '',
+    money: '',
     remarks: '',
   },
   async onSave() {
-    const eventChannel = this.getOpenerEventChannel()
     if (this.data._id) {
-      const res = await bookService.updateBook(this.data)
+      const res = await giftReceiveService.updataGiftReceive(this.data)
       if (res.success) {
         wx.showToast({
           title: '修改成功',
@@ -28,10 +33,10 @@ Page({
         }, 1000);
       }
     } else {
-      const res = await bookService.addBook(this.data)
+      const res = await giftReceiveService.addGiftReceive(this.data)
       if (res.success) {
         wx.showToast({
-          title: '保存成功',
+          title: '添加成功',
         })
         setTimeout(() => {
           this.data._id = res.data
@@ -48,11 +53,11 @@ Page({
     let delData = this.data
     const eventChannel = this.getOpenerEventChannel()
     wx.showModal({
-      title: '删除礼簿？',
-      content: '该礼簿所有来往记录都将被删除，确定删除？',
+      title: '删除来往记录？',
+      content: '此操作无法恢复，确定删除？',
       async success(res) {
         if (res.confirm) {
-          const result = await bookService.deleteBook(delData)
+          const result = await giftReceiveService.deleteGiftReceive(delData)
           if (result.success) {
             wx.showToast({
               title: '删除成功',
@@ -69,7 +74,20 @@ Page({
       }
     })
   },
-  showCalendar() {
+  // 选择联系人
+  showFriendSelect() {
+    wx.navigateTo({
+      url: '/pages/calendar/index',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        dialogResult: function (data) {
+          that.bookEditDialog(data)
+        },
+      }
+    });
+  },
+  // 选择礼簿
+  showBookSelect() {
     wx.navigateTo({
       url: '/pages/calendar/index',
       events: {
@@ -83,20 +101,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  async onLoad(options) {
-    var id = options.bookId
-    if (id) {
-      const res = await bookService.getBook({
-        _id: id
+  onLoad(options) {
+    const data = options.data
+    if (data) {
+      this.setData({
+        navBarTitle: '编辑收礼',
+        ...data
       })
-      if (res.success) {
-        wx.setNavigationBarTitle({
-          title: '编辑礼簿'
-        })
-        this.setData({
-          ...res.data
-        })
-      }
     }
   },
 
