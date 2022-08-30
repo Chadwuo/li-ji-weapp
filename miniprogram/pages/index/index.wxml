@@ -17,7 +17,7 @@
               </view>
               <view>
                 <view class="total">￥ {{ item.giftTotal||'0.00' }}</view>
-                <view class="date">{{ item.date||'' }}</view>
+                <view class="date">{{ item.date.value||'' }}</view>
               </view>
             </view>
           </view>

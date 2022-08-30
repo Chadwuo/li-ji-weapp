@@ -1,1 +1,4 @@
 /* pages/family/index.wxss */
+.container {
+  padding: 0 30rpx;
+}

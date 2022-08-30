@@ -7,7 +7,7 @@ Page({
    */
   data: {
     _id: '',
-    date: new Date(),
+    date: {},
     title: '',
     remarks: '',
   },
@@ -70,12 +70,15 @@ Page({
     })
   },
   showCalendar() {
+    let that = this
     wx.navigateTo({
-      url: '/pages/calendar/index',
+      url: `/pages/calendar/index?date=${this.data.date.value}`,
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-        dialogResult: function (data) {
-          that.bookEditDialog(data)
+        handleCalendarDateChange: function (data) {
+          that.setData({
+            date: data
+          })
         },
       }
     });
