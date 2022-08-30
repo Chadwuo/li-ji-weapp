@@ -1,1 +1,4 @@
 /* pages/giftReceive/edit/index.wxss */
+.container{
+	margin-top: 32rpx;
+}
