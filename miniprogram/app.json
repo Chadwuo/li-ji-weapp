@@ -1,19 +1,22 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/bookDetails/index",
-    "pages/bookEdit/index",
-    "pages/gift/index",
-    "pages/giftEdit/index",
-    "pages/friends/index",
-    "pages/friendDetails/index",
-    "pages/friendEdit/index",
+    "pages/book/details/index",
+    "pages/book/edit/index",
+    "pages/book/select/index",
+    "pages/giftOut/index",
+    "pages/giftOut/edit/index",
+    "pages/giftReceive/edit/index",
+    "pages/friend/index",
+    "pages/friend/details/index",
+    "pages/friend/edit/index",
+    "pages/friend/select/index",
     "pages/profile/index",
     "pages/login/index",
     "pages/about/index",
-    "pages/issues/index",
+    "pages/issue/index",
     "pages/question/index",
-    "pages/sponsors/index",
+    "pages/sponsor/index",
     "pages/family/index",
     "pages/calendar/index"
   ],
@@ -37,12 +40,12 @@
       },
       {
         "text": "送礼",
-        "pagePath": "pages/gift/index",
+        "pagePath": "pages/giftOut/index",
         "iconPath": "./images/icon_post.png",
         "selectedIconPath": "./images/icon_post_red.png"
       },
       {
-        "pagePath": "pages/friends/index",
+        "pagePath": "pages/friend/index",
         "text": "亲友",
         "iconPath": "./images/contact_gray.png",
         "selectedIconPath": "./images/contact_red.png"

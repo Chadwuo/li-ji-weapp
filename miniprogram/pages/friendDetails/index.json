@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "friend-edit": "/components/friend-edit/index"
-  }
-}
