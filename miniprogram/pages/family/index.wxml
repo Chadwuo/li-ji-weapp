@@ -1,8 +1,28 @@
 <!-- pages/family/index.wxml -->
-<view>
-    <van-empty wx:if="{{!_id}}" description="还没有开通家庭共享哦~">
-        <van-button round type="danger" class="bottom-button">创建家庭</van-button>
-        <van-button round type="danger" class="bottom-button">加入家庭</van-button>
-    </van-empty>
-    
+<view class="container">
+    <view wx:if="{{!_id}}">
+        <van-empty description="还没有开通家庭共享哦~" />
+        <van-button round block type="danger" icon="plus" custom-style="margin-bottom: 24rpx;">创建家庭</van-button>
+        <van-button round block type="danger" icon="scan">加入家庭</van-button>
+    </view>
 </view>
+
+<van-cell-group inset title="家庭管理">
+    <van-field value="{{ username3 }}" label="家庭名称" placeholder="请输入家庭名称" input-align="right" size="large" />
+</van-cell-group>
+
+<van-cell-group inset title="家庭成员">
+    <van-cell value="管理员" size="large">
+        <view slot="title">
+            <view class="van-cell-text">Chadwuo</view>
+        </view>
+    </van-cell>
+    <van-cell value="管理员" size="large">
+        <view slot="title">
+            <view class="van-cell-text">Chadwuo</view>
+        </view>
+    </van-cell>
+    <van-cell size="large">
+        <van-button round block plain type="danger" icon="plus">邀请家庭成员</van-button>
+    </van-cell>
+</van-cell-group>
