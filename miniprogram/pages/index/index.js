@@ -30,14 +30,14 @@ Page({
   // 添加收礼
   onAddGift() {
     wx.navigateTo({
-      url: '/pages/giftEdit/index',
+      url: '/pages/giftReceive/edit/index',
     });
   },
   // 添加礼簿
   onAddBook() {
     let that = this
     wx.navigateTo({
-      url: '/pages/bookEdit/index',
+      url: '/pages/book/edit/index',
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
         dialogResult: function (data) {
@@ -50,7 +50,7 @@ Page({
   onBookClick(e) {
     let that = this
     wx.navigateTo({
-      url: `/pages/bookDetails/index?bookId=${e.currentTarget.dataset.bookid}`,
+      url: `/pages/book/details/index?bookId=${e.currentTarget.dataset.bookid}`,
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
         dialogResult: function (data) {
@@ -101,7 +101,7 @@ Page({
         break;
       case '编辑':
         wx.navigateTo({
-          url: `/pages/bookEdit/index?bookId=${this.data.actionId}`,
+          url: `/pages/book/edit/index?bookId=${this.data.actionId}`,
           events: {
             // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
             dialogResult: function (data) {
