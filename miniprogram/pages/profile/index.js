@@ -27,7 +27,7 @@ Page({
         name: "统计分析"
       },
       {
-        page: "sponsors",
+        page: "sponsor",
         icon: "good-job-o",
         name: "赞赏"
       },
@@ -37,7 +37,7 @@ Page({
         name: "常见问题"
       },
       {
-        page: "issues",
+        page: "issue",
         icon: "smile-comment-o",
         name: "意见反馈"
       },
