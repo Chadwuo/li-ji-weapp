@@ -57,14 +57,14 @@ Page({
   jumpPage(e) {
     if (e.currentTarget.dataset.page === 'chart') {
       wx.showToast({
-        title: '统计分析，即将上线...',
+        title: '统计分析，马上写完，真的...',
         icon: 'none',
       })
       return
     }
     if (e.currentTarget.dataset.page === 'export') {
       wx.showToast({
-        title: '数据导出，即将上线...',
+        title: '数据导出，马上写完，真的...',
         icon: 'none',
       })
       return
