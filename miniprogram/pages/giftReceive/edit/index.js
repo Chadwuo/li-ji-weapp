@@ -122,13 +122,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    const data = options.data
-    if (data) {
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.on('acceptDataFromOpenerPage', function(data) {
       this.setData({
-        navBarTitle: '编辑收礼',
         ...data
       })
-    }
+      wx.setNavigationBarTitle({
+        title: '编辑记录'
+      })
+    })
   },
 
   /**
