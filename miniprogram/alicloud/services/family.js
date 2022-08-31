@@ -12,7 +12,7 @@ exports.getFamily = async () => {
         // 获取家庭信息
         const {
             result
-        } = await db.collection('family').find({
+        } = await db.collection('family').findOne({
             _id: userInfo.familyId
         })
         return {
@@ -37,7 +37,7 @@ exports.getFamilyInfo = async () => {
         // 获取家庭信息
         const {
             result: family
-        } = await db.collection('family').find({
+        } = await db.collection('family').findOne({
             _id: userInfo.familyId
         })
 
@@ -53,8 +53,14 @@ exports.getFamilyInfo = async () => {
                 $lookup: {
                     from: "user",
                     localField: "userId",
-                    foreignField: "_Id",
+                    foreignField: "_id",
                     as: "user"
+                }
+            }, 
+            {
+                $unwind: { // 拆分子数组
+                    path: "$user",
+                    preserveNullAndEmptyArrays: true // 空的数组也拆分
                 }
             }
         ])
@@ -99,7 +105,7 @@ exports.addFamily = async (parameter) => {
         })
 
         // 更新自己的家庭id
-        await db.collection('user').doc(userInfo._id).updateOne({
+        await db.collection('user').updateOne({
             _id: userInfo._id
         }, {
             $set: {

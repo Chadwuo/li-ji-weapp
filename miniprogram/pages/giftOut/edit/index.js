@@ -15,6 +15,7 @@ Page({
     remarks: '',
   },
   async onSave() {
+    const eventChannel = this.getOpenerEventChannel()
     if (this.data._id) {
       const res = await giftOutService.updataGiftOut(this.data)
       if (res.success) {

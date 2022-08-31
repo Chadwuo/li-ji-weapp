@@ -30,7 +30,7 @@
   font-size: large;
   color: #F76664;
   font-weight: bold;
-  padding-bottom: 32rpx;
+  padding-bottom: 24rpx;
   margin: 0 24rpx;
 }
 
@@ -44,8 +44,8 @@
   font-size: large;
   color: #333;
   font-weight: bold;
-  padding-bottom: 32rpx;
-  margin: 0 32rpx;
+  padding-bottom: 24rpx;
+  margin: 0 24rpx;
 }
 
 .book-wrapper .book .content .date {

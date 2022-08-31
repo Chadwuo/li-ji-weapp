@@ -24,7 +24,7 @@ exports.getUserDataScope = async () => {
   })
 
   let dataScope = familyInfos.map(i => {
-    return i._id
+    return i.userId
   })
 
   return dataScope
