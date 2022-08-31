@@ -60,6 +60,7 @@ li-ji-weapp
 - [Vant weapp](https://github.com/youzan/vant-weapp)：轻量、可靠的小程序 UI 组件库
 - [wl-pinyin](https://www.npmjs.com/package/wl-pinyin)：汉字转拼音库
 - [dayjs](https://github.com/iamkun/dayjs)：Moment.js 的 2kB 轻量化方案，拥有同样强大的 API
+- [wx-calendar](https://github.com/lspriv/wx-calendar)：借鉴了MIUI 12日历的部分设计，制作适合微信小程序的日历
 - <s>腾讯云（涨价了，负担不起，已迁移至阿里云）</s>
 - [阿里云 Serverless](https://serverless.aliyun.com/)：阿里云 Serverless
 
