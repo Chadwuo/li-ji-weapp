@@ -19,13 +19,18 @@
     color: #c7c7c7;
 }
 
+.elegant_choosed.elegant_date-disable {
+    color: #999;
+    background-color: #ebebeb;
+}
+
 .elegant_prev-month-date,
 .elegant_next-month-date {
     color: #e2e2e2;
 }
 
 .elegant_normal-date {
-    color: #333;
+    color: #777;
 }
 
 .elegant_todo-circle {
@@ -46,4 +51,8 @@
 
 .elegant_date-desc-disable {
     color: #e2e2e2;
+}
+
+.elegant_festival {
+    color: #c2c2c2;
 }

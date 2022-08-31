@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "gift-receive-edit": "/components/gift-receive-edit"
+  }
+}
