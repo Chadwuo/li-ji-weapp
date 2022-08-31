@@ -1,0 +1,14 @@
+/* pages/sponsor/index.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 32rpx 50rpx;
+}
+
+.container .top_tip {
+	margin-top: 52rpx;
+  font-size: 24rpx;
+  color: #888888;
+}

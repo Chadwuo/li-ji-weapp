@@ -1,0 +1,4 @@
+<!--pages/calendar/index.wxml-->
+<view class="container">
+	<calendar  id="calendar" _vibrate="{{false}}" bindload="handleCalendarLoad" binddatechange="handleCalendarDateChange"></calendar>
+</view>

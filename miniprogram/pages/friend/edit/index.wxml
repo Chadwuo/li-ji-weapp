@@ -1,0 +1,20 @@
+<!--pages/friend/edit/index.wxml-->
+<view class="container">
+    <van-cell-group inset>
+        <van-field label="姓名" left-icon="label-o" model:value="{{ name }}" placeholder="请输入姓名" />
+        <van-field label="重名备注" left-icon="bookmark-o" model:value="{{ remarks }}" placeholder="若重名请备注" />
+        <van-field label="关系" left-icon="guide-o" model:value="{{ kinship }}" placeholder="选填" />
+    </van-cell-group>
+</view>
+<view class="submit-bar">
+  <van-row gutter="24">
+    <van-col span="8" wx:if="{{_id}}">
+      <van-button color="#F76664" block round plain bindtap="onDelete">删除</van-button>
+    </van-col>
+    <van-col span="{{_id?16:24}}">
+      <van-button color="#F76664" block round disabled="{{!name}}" bindtap="onSave">
+        保 存
+      </van-button>
+    </van-col>
+  </van-row>
+</view>
