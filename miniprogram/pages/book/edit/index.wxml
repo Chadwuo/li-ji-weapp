@@ -1,7 +1,7 @@
 <!--pages/book/edit/index.wxml-->
 <view class="container">
 	<van-cell-group inset border="{{false}}">
-		<van-field readonly label="时间" left-icon="calendar-o" model:value="{{ date.value }}" bind:click-input="showCalendar" use-button-slot placeholder="请选择日期">
+		<van-field readonly label="时间" left-icon="calendar-o" value="{{ date.value }}" bind:click-input="showCalendar" use-button-slot placeholder="请选择日期">
 			<van-icon name="arrow" slot="button" />
 		</van-field>
 		<van-field label="礼簿名称" left-icon="balance-list-o" model:value="{{ title }}" placeholder="请输入名称" />
