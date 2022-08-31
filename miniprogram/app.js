@@ -47,6 +47,8 @@ App({
         // 创建用户
         user = {
           _id: userId,
+          nickName: '微信用户',
+          avatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
           familyId: '',
           isVip: false
         }
