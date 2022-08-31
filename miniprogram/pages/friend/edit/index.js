@@ -79,6 +79,9 @@ Page({
         _id: id
       })
       if (res.success) {
+        wx.setNavigationBarTitle({
+          title: '编辑亲友'
+        })
         this.setData({
           ...res.data
         })

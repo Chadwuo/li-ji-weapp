@@ -21,24 +21,27 @@ Page({
   }) {
     switch (detail.type) {
       case 'insert':
+        this.data.giftList.unshift(detail.data)
         this.setData({
-          giftList: [detail.data, ...this.data.giftList]
+          giftList: this.data.giftList
         })
         break;
       case 'update':
         let updateIndex = this.data.giftList.findIndex(i => {
           return i._id == detail.data._id
         })
+        this.data.giftList[updateIndex].title = detail.data.title
         this.setData({
-          giftList: this.data.giftList.splice(updateIndex, 1, detail.data)
+          giftList: this.data.giftList
         })
         break;
       case 'delete':
         let delIndex = this.data.giftList.findIndex(i => {
           return i._id == detail.data._id
         })
+        this.data.giftList.splice(delIndex, 1)
         this.setData({
-          giftList: this.data.giftList.splice(delIndex, 1)
+          giftList: this.data.giftList
         })
         break;
       default:
@@ -46,8 +49,15 @@ Page({
     }
   },
   onAddGift() {
-    const giftEdit = this.selectComponent('#gift-out-edit')
-    giftEdit.show()
+    wx.navigateTo({
+      url: '/pages/giftReceive/edit/index',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        dialogResult: function (data) {
+          that.giftEditDialog(data)
+        },
+      }
+    });
   },
   async loadData(page) {
     const that = this
