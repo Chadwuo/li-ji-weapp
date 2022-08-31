@@ -40,9 +40,5 @@
 </view>
 <!-- 长按动作 -->
 <van-action-sheet show="{{ showBookAction }}" actions="{{ bookActions }}" bind:close="onCloseBookAction" bind:cancel="onCloseBookAction" bind:select="onSelectBookAction" cancel-text="取消" close-on-click-overlay />
-<!-- 人情编辑组件 -->
-<gift-receive-edit id="gift-receive-edit"></gift-receive-edit>
-<!-- 礼簿编辑组件 -->
-<book-edit id="book-edit" bind:dialogResult="bookEditDialog"></book-edit>
 <!-- 页脚 -->
 <footer></footer>

@@ -1,8 +1,5 @@
 {
     "navigationBarTitleText": "礼记",
     "enablePullDownRefresh": true,
-    "usingComponents": {
-      "gift-receive-edit": "/components/gift-receive-edit",
-      "book-edit": "/components/book-edit/index"
-    }
+    "usingComponents": {}
   } 
