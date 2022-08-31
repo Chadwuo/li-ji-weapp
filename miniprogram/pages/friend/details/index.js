@@ -14,9 +14,6 @@ Page({
     sadCount: '0',
     sadTotal: '0.00',
   },
-  formatDate(date) {
-    return dayjs(date).format('YYYY-MM-DD');
-  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -53,8 +50,18 @@ Page({
   },
   // 编辑按钮
   onEditClick() {
-    const friendEdit = this.selectComponent('#friend-edit')
-    friendEdit.show(this.data._id)
+    let that = this
+    wx.navigateTo({
+      url: `/pages/friend/edit/index?friendId=${this.data._id}`,
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        dialogResult: function (data) {
+          that.setData({
+            ...data
+          })
+        },
+      }
+    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

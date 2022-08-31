@@ -1,7 +1,7 @@
 // pages/friend/index.js
 const friendService = require('../../alicloud/services/friend')
 Page({
-   /**
+  /**
    * 页面的初始数据
    */
   data: {
@@ -10,18 +10,26 @@ Page({
   },
   onSearch() {
     wx.showToast({
-      title: '搜索:' + this.data.keyword + '...马上写完，真的',
+      title: '搜索...马上写完，真的',
       icon: 'none',
     })
   },
   onFriendClick(e) {
     wx.navigateTo({
-      url: `/pages/friendDetails/index?friendId=${e.currentTarget.dataset.friend._id}`,
+      url: `/pages/friend/details/index?friendId=${e.currentTarget.dataset.friend._id}`,
     });
   },
   onAdd() {
-    const friendEdit = this.selectComponent('#friend-edit')
-    friendEdit.show()
+    let that = this
+    wx.navigateTo({
+      url: '/pages/friend/edit/index',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        dialogResult: function (data) {
+          that.friendEditDialog(data)
+        },
+      }
+    });
   },
   onDelete(e) {
     let that = this
@@ -45,6 +53,10 @@ Page({
         }
       }
     })
+  },
+  // 编辑回调
+  friendEditDialog(detail) {
+    console.log(detail)
   },
   async loadData() {
     let listTemp = []

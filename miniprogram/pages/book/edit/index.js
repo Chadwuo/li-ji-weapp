@@ -1,7 +1,6 @@
 // pages/book/edit/index.js
 const bookService = require('../../../alicloud/services/book')
 Page({
-
   /**
    * 页面的初始数据
    */
