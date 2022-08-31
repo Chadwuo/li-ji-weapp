@@ -27,7 +27,7 @@ Page({
         name: "统计分析"
       },
       {
-        page: "sponsors",
+        page: "sponsor",
         icon: "good-job-o",
         name: "赞赏"
       },
@@ -37,7 +37,7 @@ Page({
         name: "常见问题"
       },
       {
-        page: "issues",
+        page: "issue",
         icon: "smile-comment-o",
         name: "意见反馈"
       },
@@ -139,7 +139,9 @@ Page({
    */
   onShareAppMessage: function () {
     return {
-      title: '每一份人情都值得礼记',
+      title: '可能是东半球最好用的人情记账工具',
+      path: "pages/index/index",
+      imageUrl: '../../images/poster.png'
     }
   }
 })

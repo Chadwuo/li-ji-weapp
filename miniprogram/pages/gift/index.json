@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "人情",
-  "usingComponents": {
-    "gift-out-edit": "/components/gift-out-edit"
-  }
-}

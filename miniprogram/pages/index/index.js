@@ -27,60 +27,52 @@ Page({
       icon: 'none',
     })
   },
-  bookEditDialog({
-    detail
-  }) {
-    switch (detail.type) {
-      case 'insert':
-        this.setData({
-          giftBooks: [detail.data, ...this.data.giftBooks]
-        })
-        break;
-      case 'update':
-        let updateIndex = this.data.giftBooks.findIndex(i => {
-          return i._id == detail.data._id
-        })
-        this.setData({
-          giftBooks: this.data.giftBooks.splice(updateIndex, 1, detail.data)
-        })
-        break;
-      case 'delete':
-        let delIndex = this.data.giftBooks.findIndex(i => {
-          return i._id == detail.data._id
-        })
-        this.setData({
-          giftBooks: this.data.giftBooks.splice(delIndex, 1)
-        })
-        break;
-      default:
-        break;
-    }
-  },
+  // 添加收礼
   onAddGift() {
-    const giftEdit = this.selectComponent('#gift-receive-edit')
-    giftEdit.show()
-  },
-  onAddBook() {
-    const bookEdit = this.selectComponent('#book-edit')
-    bookEdit.show()
-  },
-  onBookClick(e) {
     wx.navigateTo({
-      url: `/pages/bookDetails/index?bookId=${e.currentTarget.dataset.bookid}`,
+      url: '/pages/giftReceive/edit/index',
     });
   },
+  // 添加礼簿
+  onAddBook() {
+    let that = this
+    wx.navigateTo({
+      url: '/pages/book/edit/index',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        dialogResult: function (data) {
+          that.bookEditDialog(data)
+        },
+      }
+    });
+  },
+  // 点击礼簿
+  onBookClick(e) {
+    let that = this
+    wx.navigateTo({
+      url: `/pages/book/details/index?bookId=${e.currentTarget.dataset.bookid}`,
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        dialogResult: function (data) {
+          that.bookEditDialog(data)
+        },
+      }
+    });
+  },
+  // 长按礼簿
   onBookLongPress(e) {
     this.setData({
       showBookAction: true,
       actionId: e.currentTarget.dataset.bookid
     });
   },
+  // 长按礼簿-关闭
   onCloseBookAction() {
     this.setData({
       showBookAction: false
     });
   },
-  // 长按选择礼簿
+  // 长按礼簿-动作
   onSelectBookAction(event) {
     const that = this
     switch (event.detail.name) {
@@ -108,13 +100,53 @@ Page({
         })
         break;
       case '编辑':
-        const bookEdit = this.selectComponent('#book-edit')
-        bookEdit.show(this.data.actionId)
+        wx.navigateTo({
+          url: `/pages/book/edit/index?bookId=${this.data.actionId}`,
+          events: {
+            // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+            dialogResult: function (data) {
+              that.bookEditDialog(data)
+            },
+          }
+        });
         break;
       default:
         break;
     }
   },
+  // 礼簿编辑回调
+  bookEditDialog(detail) {
+    console.log(detail)
+    switch (detail.type) {
+      case 'insert':
+        this.data.giftBooks.unshift(detail.data)
+        this.setData({
+          giftBooks: this.data.giftBooks
+        })
+        break;
+      case 'update':
+        let updateIndex = this.data.giftBooks.findIndex(i => {
+          return i._id == detail.data._id
+        })
+        this.data.giftBooks[updateIndex].title = detail.data.title
+        this.setData({
+          giftBooks: this.data.giftBooks
+        })
+        break;
+      case 'delete':
+        let delIndex = this.data.giftBooks.findIndex(i => {
+          return i._id == detail.data._id
+        })
+        this.data.giftBooks.splice(delIndex, 1)
+        this.setData({
+          giftBooks: this.data.giftBooks
+        })
+        break;
+      default:
+        break;
+    }
+  },
+  // 计算礼簿收礼金额
   computeTotal(datas) {
     return datas.map(i => {
       i.giftCount = i.giftList.length || 0
@@ -125,6 +157,7 @@ Page({
       return i
     })
   },
+  // 加载数据
   async loadData(page) {
     const that = this
     const res = await bookService.getBookPage({
