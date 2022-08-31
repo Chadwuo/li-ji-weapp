@@ -11,7 +11,7 @@
       <view class='content'>
         <view class='title'>{{item.friendInfo.name}}</view>
         <view class='info'>{{item.title}}</view>
-        <view class='info'>{{item.date}}</view>
+        <view class='info'>{{item.date.value}}</view>
       </view>
       <view class='label'>
         <van-tag round color="#F76664">收礼</van-tag>
@@ -20,6 +20,4 @@
     </view>
   </view>
 </view>
-<!-- 人情编辑组件 -->
-<gift-receive-edit id="gift-receive-edit"></gift-receive-edit>
 <footer></footer>
