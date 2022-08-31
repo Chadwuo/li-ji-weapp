@@ -9,18 +9,24 @@ Page({
     bookId: '',
     pageNo: 0,
   },
-  formatDate(date) {
-    return dayjs(date).format('YYYY-MM-DD');
-  },
   onSearch() {
     wx.showToast({
       title: '搜索...马上写完，真的',
       icon: 'none',
     })
   },
+  // 添加收礼
   onAddGift() {
-    const giftEdit = this.selectComponent('#gift-receive-edit')
-    giftEdit.show()
+    let that = this
+    wx.navigateTo({
+      url: '/pages/giftReceive/edit/index',
+      success: function (res) {
+        // 通过 eventChannel 向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          bookId: that.data.bookId
+        })
+      }
+    });
   },
   async loadData(page) {
     const that = this

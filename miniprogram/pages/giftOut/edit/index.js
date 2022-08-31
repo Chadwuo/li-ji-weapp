@@ -10,7 +10,7 @@ Page({
     friendId: '',
     friendName: '',
     title: '',
-    date: '',
+    date: {},
     money: '',
     remarks: '',
   },
@@ -71,23 +71,30 @@ Page({
     })
   },
   showCalendar() {
+    let that = this
     wx.navigateTo({
-      url: '/pages/calendar/index',
+      url: `/pages/calendar/index?date=${this.data.date.value}`,
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-        dialogResult: function (data) {
-          that.bookEditDialog(data)
+        handleCalendarDateChange: function (data) {
+          that.setData({
+            date: data
+          })
         },
       }
     });
   },
   showFriendSelect() {
+    let that = this
     wx.navigateTo({
-      url: '/pages/calendar/index',
+      url: '/pages/friend/select/index',
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
         dialogResult: function (data) {
-          that.bookEditDialog(data)
+          that.setData({
+            friendId: data._id,
+            friendName: data.name,
+          })
         },
       }
     });
@@ -96,13 +103,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    const data = options.data
-    if (data) {
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.on('acceptDataFromOpenerPage', function(data) {
       this.setData({
-        navBarTitle: '编辑送礼',
         ...data
       })
-    }
+      wx.setNavigationBarTitle({
+        title: '编辑记录'
+      })
+    })
   },
 
   /**

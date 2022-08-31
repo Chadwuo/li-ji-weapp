@@ -1,5 +1,4 @@
 {
-  "usingComponents": {
-    "gift-receive-edit": "/components/gift-receive-edit"
-  }
+  "navigationBarTitleText": "礼簿详情",
+  "usingComponents": {}
 }

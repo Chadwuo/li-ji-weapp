@@ -1,12 +1,21 @@
 <!--pages/giftReceive/edit/index.wxml-->
 <view class="container">
     <van-cell-group inset>
-        <van-field readonly label="时间" left-icon="calendar-o" model:value="{{ luckDayFormat }}" bind:click-input="onDisplay" />
-        <van-field label="姓名" left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="亲友" bind:click-icon="showFriendSelect" />
-        <van-field label="礼金" left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="收礼金额" />
-        <van-field wx:if="{{!bookId}}" readonly label="礼簿" left-icon="balance-list-o" model:value="{{ bookName }}" placeholder="选择礼簿" bind:click-input="showBookSelect" />
+        <van-field readonly size="large" label="时间" left-icon="calendar-o" value="{{ date.value }}" bind:click-input="showCalendar" />
+        <van-field label="姓名" size="large" left-icon="contact" right-icon="friends-o" value="{{ friendName }}" placeholder="亲友" bind:click-icon="showFriendSelect" />
+        <van-field label="礼金" size="large" left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="收礼金额" />
+        <van-field wx:if="{{!bookId}}" readonly label="礼簿" left-icon="balance-list-o" value="{{ bookName }}" placeholder="选择礼簿" bind:click-input="showBookSelect" />
     </van-cell-group>
-    <van-popup show="{{ showCalendar }}" round position="bottom" bind:close="onClose">
-        <van-datetime-picker type="date" value="{{ luckDay }}" bind:confirm="onConfirm" bind:cancel="onClose" formatter="{{ formatter }}" />
-    </van-popup>
+</view>
+<view class="submit-bar">
+	<van-row gutter="24">
+		<van-col span="8" wx:if="{{_id}}">
+			<van-button color="#F76664" block round plain bindtap="onDelete">删除</van-button>
+		</van-col>
+		<van-col span="{{_id?16:24}}">
+			<van-button color="#F76664" block round disabled="{{!friendName|!date.value|!bookName|!money}}" bindtap="onSave">
+				保 存
+			</van-button>
+		</van-col>
+	</van-row>
 </view>
