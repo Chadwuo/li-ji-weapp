@@ -38,7 +38,7 @@
     <view class='nav' wx:for="{{giftList}}" wx:key="index">
       <view class='content'>
         <view class='title'>{{item.name}}</view>
-        <view class='info'>{{item.luckDay}}</view>
+        <view class='info'>{{item.date.value}}</view>
       </view>
       <view class='label'>
         <van-tag round type="success" wx:if="{{item.type==='送'}}">送</van-tag>
