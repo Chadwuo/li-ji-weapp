@@ -118,10 +118,10 @@ exports.addGiftReceive = async (parameter) => {
             } = await db.collection('friend').insertOne({
                 userId: userInfo._id,
                 name: parameter.friendName,
-                firstLetter: pinyin.getFirstLetter(parameter.name.substr(0, 1)),
+                firstLetter: pinyin.getFirstLetter(parameter.friendName.substr(0, 1)),
             })
             // 新添加的亲友id
-            giftReceive.friendId = result._id
+            parameter.friendId = result.insertedId
         }
 
         const {
