@@ -70,8 +70,7 @@ Page({
       alpha: '#',
       subItems: []
     }
-    const res = friendService.getFriendList()
-
+    const res = await friendService.getFriendList()
     if (res.success) {
       for (const item of res.data) {
         const firstLetter = item.firstLetter
