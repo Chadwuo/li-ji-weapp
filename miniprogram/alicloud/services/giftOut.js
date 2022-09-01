@@ -35,7 +35,9 @@ exports.computedTotalGiftOut = async () => {
                     }
                 }
             ])
-        let total = result
+        let {
+            total
+        } = result[0]
         return {
             success: true,
             data: total.toFixed(2)
@@ -119,10 +121,10 @@ exports.addGiftOut = async (parameter) => {
             } = await db.collection('friend').insertOne({
                 userId: userInfo._id,
                 name: parameter.friendName,
-                firstLetter: pinyin.getFirstLetter(parameter.name.substr(0, 1)),
+                firstLetter: pinyin.getFirstLetter(parameter.friendName.substr(0, 1)),
             })
             // 新添加的亲友id
-            giftOut.friendId = result._id
+            parameter.friendId = result._id
         }
 
         const {
@@ -132,7 +134,7 @@ exports.addGiftOut = async (parameter) => {
             friendId: parameter.friendId,
             title: parameter.title,
             date: parameter.date,
-            money: parameter.money,
+            money: Number(parameter.money),
             remarks: parameter.remarks
         })
         return {
@@ -161,7 +163,7 @@ exports.updateGiftOut = async (parameter) => {
                 friendId: parameter.friendId,
                 title: parameter.title,
                 date: parameter.date,
-                money: parameter.money,
+                money: Number(parameter.money),
                 remarks: giftOut.remarks
             }
         })
