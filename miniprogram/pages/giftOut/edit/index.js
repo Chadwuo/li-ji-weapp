@@ -36,6 +36,7 @@ Page({
         wx.showToast({
           title: '添加成功',
         })
+      
         setTimeout(() => {
           eventChannel.emit('dialogResult', {
             type: 'insert',

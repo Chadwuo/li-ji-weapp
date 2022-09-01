@@ -60,13 +60,12 @@ Page({
     });
   },
   async loadData(page) {
-    const that = this
     const res = await giftOutService.getGiftOutPage({
       page: page,
       limit: 10
     })
     if (res.success) {
-      that.setData({
+      this.setData({
         giftBooks: this.data.giftList.concat(res.data),
         pageNo: page
       });

@@ -18,7 +18,7 @@ exports.computedTotalGiftReceive = async () => {
         const dataScope = await getUserDataScope()
         const {
             result
-        } = db.collection('gift_receive')
+        } = await db.collection('gift_receive')
             .aggregate([{
                     $match: {
                         userId: {
@@ -35,7 +35,9 @@ exports.computedTotalGiftReceive = async () => {
                     }
                 }
             ])
-        let total = result
+        let {
+            total
+        } = result[0]
         return {
             success: true,
             data: total.toFixed(2)
@@ -132,7 +134,7 @@ exports.addGiftReceive = async (parameter) => {
             bookId: parameter.bookId,
             title: parameter.title,
             date: parameter.date,
-            money: parameter.money,
+            money: Number(parameter.money),
             remarks: parameter.remarks
         })
         return {
@@ -162,7 +164,7 @@ exports.updateGiftReceive = async (parameter) => {
                 bookId: parameter.bookId,
                 title: parameter.title,
                 date: parameter.date,
-                money: parameter.money,
+                money: Number(parameter.money),
                 remarks: giftReceive.remarks
             }
         })
