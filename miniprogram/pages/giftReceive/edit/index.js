@@ -126,9 +126,9 @@ Page({
   onLoad(options) {
     const eventChannel = this.getOpenerEventChannel()
     eventChannel.on('acceptDataFromOpenerPage', function (data) {
+      
       this.setData({
         ...data,
-        showBookSelectField: false
       })
       wx.setNavigationBarTitle({
         title: '编辑记录'

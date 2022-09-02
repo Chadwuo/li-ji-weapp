@@ -134,7 +134,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    // 感觉延迟一下，会舒服点
+    setTimeout(async () => {
+      this.setData({
+        friendsList: []
+      })
+      await this.loadData(1)
+      wx.stopPullDownRefresh()
+    }, 666);
   },
 
   /**

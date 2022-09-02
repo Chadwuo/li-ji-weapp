@@ -16,12 +16,15 @@ Page({
       icon: 'none',
     })
   },
-  giftEditDialog({
-    detail
-  }) {
+  giftEditDialog(detail) {
     switch (detail.type) {
       case 'insert':
-        this.data.giftList.unshift(detail.data)
+        this.data.giftList.unshift({
+          ...detail.data,
+          friendInfo: {
+            name: detail.data.friendName
+          }
+        })
         this.setData({
           giftList: this.data.giftList
         })
@@ -49,6 +52,7 @@ Page({
     }
   },
   onAddGift() {
+    let that = this
     wx.navigateTo({
       url: '/pages/giftOut/edit/index',
       events: {
@@ -66,7 +70,7 @@ Page({
     })
     if (res.success) {
       this.setData({
-        giftBooks: this.data.giftList.concat(res.data),
+        giftList: this.data.giftList.concat(res.data),
         pageNo: page
       });
     }
@@ -112,7 +116,7 @@ Page({
     // 感觉延迟一下，会舒服点
     setTimeout(async () => {
       this.setData({
-        giftBooks: []
+        giftList: []
       })
       await this.loadData(1)
       wx.stopPullDownRefresh()

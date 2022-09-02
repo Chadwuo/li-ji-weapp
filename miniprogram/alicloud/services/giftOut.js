@@ -18,7 +18,7 @@ exports.computedTotalGiftOut = async () => {
         const dataScope = await getUserDataScope()
         const {
             result
-        } = db.collection('gift_out')
+        } = await db.collection('gift_out')
             .aggregate([{
                     $match: {
                         userId: {
@@ -124,7 +124,7 @@ exports.addGiftOut = async (parameter) => {
                 firstLetter: pinyin.getFirstLetter(parameter.friendName.substr(0, 1)),
             })
             // 新添加的亲友id
-            parameter.friendId = result._id
+            parameter.friendId = result.insertedId
         }
 
         const {
