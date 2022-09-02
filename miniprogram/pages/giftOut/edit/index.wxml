@@ -1,13 +1,13 @@
 <!--pages/giftOut/edit/index.wxml-->
 <view class="container">
-    <van-cell-group inset>
-        <van-field readonly size="large" label="时间" left-icon="calendar-o" value="{{ date.value }}" bind:click-input="showCalendar" use-button-slot>
-            <van-icon name="arrow" slot="button" />
-        </van-field>
-        <van-field label="姓名" size="large" left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="亲友" bind:click-icon="showFriendSelect" />
-        <van-field label="事由" size="large" left-icon="point-gift-o" model:value="{{ title }}" placeholder="事由" />
-        <van-field label="礼金" size="large" left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="送礼金额" />
-    </van-cell-group>
+	<van-cell-group inset>
+		<van-field readonly size="large" label="时间" left-icon="calendar-o" value="{{ date.value }}" bind:click-input="showCalendar" placeholder="请选择日期" use-button-slot>
+			<van-icon name="arrow" slot="button" />
+		</van-field>
+		<van-field label="姓名" size="large" left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="亲友" bind:click-icon="showFriendSelect" />
+		<van-field label="事由" size="large" left-icon="point-gift-o" model:value="{{ title }}" placeholder="事由" />
+		<van-field label="礼金" size="large" left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="送礼金额" />
+	</van-cell-group>
 </view>
 <view class="submit-bar">
 	<van-row gutter="24">
