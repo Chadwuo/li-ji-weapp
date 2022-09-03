@@ -16,7 +16,13 @@ Page({
   },
   onFriendClick(e) {
     wx.navigateTo({
-      url: `/pages/friend/details/index?friendId=${e.currentTarget.dataset.friend._id}`,
+      url: '/pages/friend/details/index',
+      success: function (res) {
+        // 通过 eventChannel 向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          friend: e.currentTarget.dataset.friend
+        })
+      }
     });
   },
   onAdd() {
