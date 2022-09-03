@@ -6,7 +6,7 @@ Page({
   data: {
     giftList: [],
     keyword: '',
-    bookId: '',
+    book: {},
     pageNo: 0,
   },
   onSearch() {
@@ -23,7 +23,7 @@ Page({
       success: function (res) {
         // 通过 eventChannel 向被打开页面传送数据
         res.eventChannel.emit('acceptDataFromOpenerPage', {
-          bookId: that.data.bookId
+          bookId: that.data.book._id
         })
       }
     });
@@ -33,7 +33,7 @@ Page({
     const res = await giftReceiveService.getGiftReceivePage({
       page: page,
       limit: 10,
-      bookId: this.data.bookId
+      bookId: this.data.book._id
     })
     if (res.success) {
       that.setData({
@@ -46,16 +46,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    this.data.bookId = options.bookId
     wx.showLoading({
-      title: '加载中',
-      mask: true
+      title: '加载中'
     })
-    await this.loadData(1)
-    // 人为延迟一点，避免loading动画闪烁
-    setTimeout(function () {
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.on('acceptDataFromOpenerPage', async (data) => {
+      this.setData({
+        ...data,
+      })
+      wx.setNavigationBarTitle({
+        title: data.book.title
+      })
+      await this.loadData(1)
       wx.hideLoading()
-    }, 666)
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

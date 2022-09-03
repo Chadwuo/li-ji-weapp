@@ -49,7 +49,13 @@ Page({
   // 点击礼簿
   onBookClick(e) {
     wx.navigateTo({
-      url: `/pages/book/details/index?bookId=${e.currentTarget.dataset.bookid}`,
+      url: '/pages/book/details/index',
+      success: function (res) {
+        // 通过 eventChannel 向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          book: e.currentTarget.dataset.book
+        })
+      }
     });
   },
   // 长按礼簿
