@@ -11,7 +11,7 @@ Page({
   // 选中联系人
   onSelectedFriend(e) {
     const eventChannel = this.getOpenerEventChannel()
-    eventChannel.emit('dialogResult', e.currentTarget.dataset.book);
+    eventChannel.emit('dialogResult', e.currentTarget.dataset.friend);
     wx.navigateBack()
   },
   /**
@@ -24,6 +24,7 @@ Page({
         friendSelectSource: res.data,
       });
     }
+    console.log(res)
   },
 
   /**
