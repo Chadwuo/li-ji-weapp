@@ -42,7 +42,7 @@
   <van-popup show="{{ showAddPopup }}" position="bottom" round custom-style="background-color: #f6f6f6;" bind:close="onClosePopup">
     <van-nav-bar safe-area-inset-top="{{false}}" title="{{navBarTitle}}" left-text="取消" right-text="回复" bind:click-left="onClosePopup" bind:click-right="onReplyIssues" />
     <van-cell-group inset style="margin-top:24rpx">
-      <van-field model:value="{{ replyContent }}" placeholder="回复内容" type="textarea" autosize="{{ { minHeight: 120} }}" />
+      <van-field model:value="{{ reply }}" placeholder="回复内容" type="textarea" autosize="{{ { minHeight: 120} }}" />
     </van-cell-group>
   </van-popup>
 </view>

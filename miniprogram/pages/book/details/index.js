@@ -15,8 +15,7 @@ Page({
       icon: 'none',
     })
   },
-  // 添加收礼
-  onAddGift() {
+  onGiftClick(e) {
     let that = this
     wx.navigateTo({
       url: '/pages/giftReceive/edit/index',
