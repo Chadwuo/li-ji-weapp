@@ -10,7 +10,6 @@ App({
   async onLaunch() {
     //await this.initcloud() // 微信云开发环境初始化（因为费用负担不起，所以转战阿里云了）
     mpserverless.init(); // 阿里云服务初始化
-
     // 查询缓存中用户信息
     this.userInfo = wx.getStorageSync('user')
     // 如果缓存中没有，去数据库中 查询
@@ -42,7 +41,6 @@ App({
       } = await this.mpserverless.db.collection('user').findOne({
         _id: userId
       })
-
       if (!user) {
         // 创建用户
         user = {

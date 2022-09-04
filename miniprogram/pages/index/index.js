@@ -85,13 +85,15 @@ Page({
                 _id: that.data.actionId
               })
               if (res.success) {
+                let delIndex = that.data.giftBooks.findIndex(i => {
+                  return i._id == that.data.actionId
+                })
+                that.data.giftBooks.splice(delIndex, 1)
+                that.setData({
+                  giftBooks: that.data.giftBooks
+                })
                 wx.showToast({
                   title: '删除成功',
-                })
-                that.setData({
-                  giftBooks: that.data.giftBooks.filter(i => {
-                    return i._id != that.data.actionId
-                  })
                 })
               }
             }

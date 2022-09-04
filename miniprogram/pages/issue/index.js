@@ -76,8 +76,8 @@ Page({
     let info = e.currentTarget.dataset.info
     this.setData({
       showAddPopup: true,
-      replyContent: info.reply,
-      issuesId: info._id,
+      reply: info.reply,
+      _id: info._id,
     });
   },
   // 关闭回复弹窗
