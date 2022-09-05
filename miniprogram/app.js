@@ -16,6 +16,7 @@ App({
     if (!this.userInfo) {
       const res = await this.getUserInfo()
       if (res.success) {
+        //TODO 这里有问题 
         this.userInfo = res.data
         wx.setStorageSync('user', res.data)
       }
