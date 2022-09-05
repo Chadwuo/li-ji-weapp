@@ -1,5 +1,4 @@
 // pages/friend/details/index.js
-const dayjs = require('dayjs');
 const friendService = require('../../../alicloud/services/friend')
 
 Page({
