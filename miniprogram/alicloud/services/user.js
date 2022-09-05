@@ -1,7 +1,7 @@
 const app = getApp();
 
 const db = app.mpserverless.db
-const userInfo = app.userInfo
+const userInfo = app.userInfo;
 
 /**
  * 获取用户数据范围
