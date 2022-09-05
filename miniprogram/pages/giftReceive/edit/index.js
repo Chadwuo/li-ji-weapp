@@ -12,10 +12,9 @@ Page({
     bookId: '',
     bookName: '',
     title: '',
-    date: {},
     money: '',
     remarks: '',
-    showBookSelectField: true
+    inBook: false, // 存在礼簿信息
   },
   async onSave() {
     const eventChannel = this.getOpenerEventChannel()

@@ -1,5 +1,4 @@
 // pages/book/details/index.js
-const dayjs = require('dayjs');
 const giftReceiveService = require('../../../alicloud/services/giftReceive')
 
 Page({
@@ -15,14 +14,48 @@ Page({
       icon: 'none',
     })
   },
-  onGiftClick(e) {
+  onAddGift() {
     let that = this
     wx.navigateTo({
       url: '/pages/giftReceive/edit/index',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        dialogResult: function (data) {
+          that.giftEditDialog(data)
+        },
+      },
       success: function (res) {
         // 通过 eventChannel 向被打开页面传送数据
         res.eventChannel.emit('acceptDataFromOpenerPage', {
-          bookId: that.data.book._id
+          bookId: that.data.book._id,
+          inBook: true
+        })
+      }
+    });
+  },
+  onGiftClick(e) {
+    // TODO 需要处理e
+    let that = this
+    wx.navigateTo({
+      url: '/pages/giftReceive/edit/index',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        dialogResult: function (data) {
+          that.giftEditDialog(data)
+        },
+      },
+      success: function (res) {
+        // 通过 eventChannel 向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          _id: '',
+          friendId: '',
+          friendName: '',
+          bookId: that.data.book._id,
+          title: '',
+          date: {},
+          money: '',
+          remarks: '',
+          inBook: true
         })
       }
     });
