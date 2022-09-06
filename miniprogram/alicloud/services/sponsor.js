@@ -1,5 +1,6 @@
-const app = getApp();
-const db = app.mpserverless.db;
+const {
+    db
+  } = require('../index');
 
 /**
  * 获取获取全部数据集合

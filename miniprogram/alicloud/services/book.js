@@ -1,10 +1,10 @@
-const app = getApp();
 const {
   getUserDataScope
 } = require('./user');
+const {
+  db
+} = require('../index');
 
-const db = app.mpserverless.db;
-const userInfo = app.userInfo;
 /**
  * 获取分页
  *
@@ -34,7 +34,7 @@ exports.getBookPage = async (parameter) => {
       {
         $limit: parameter.limit
       },
-      {// TODO 需要修改
+      { // TODO 需要修改
         $lookup: { // 左连接
           from: "gift_receive", // 关联到de表
           localField: "_id", // 左表关联的字段
@@ -115,6 +115,9 @@ exports.getBook = async (parameter) => {
  */
 exports.addBook = async (parameter) => {
   try {
+    const {
+      userInfo
+    } = getApp();
     const {
       result
     } = await db.collection('book').insertOne({
