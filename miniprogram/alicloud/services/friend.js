@@ -1,11 +1,10 @@
 import pinyin from "wl-pinyin";
-const app = getApp();
 const {
     getUserDataScope
 } = require('./user');
-
-const db = app.mpserverless.db;
-const userInfo = app.userInfo;
+const {
+    db
+} = require('../index');
 
 /**
  * 获取全部亲友数据集合
@@ -107,6 +106,9 @@ exports.getFriendGifts = async (parameter) => {
  */
 exports.addFriend = async (parameter) => {
     try {
+        const {
+            userInfo
+        } = getApp();
         const {
             result
         } = await db.collection('friend').insertOne({
