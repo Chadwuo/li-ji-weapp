@@ -14,7 +14,7 @@
 			<van-button color="#F76664" block round plain bindtap="onDelete">删除</van-button>
 		</van-col>
 		<van-col span="{{_id?16:24}}">
-			<van-button color="#F76664" block round disabled="{{!friendName|!date.value|!bookName|!money}}" bindtap="onSave">
+			<van-button color="#F76664" block round disabled="{{!friendName|!bookName|!money}}" bindtap="onSave">
 				保 存
 			</van-button>
 		</van-col>
