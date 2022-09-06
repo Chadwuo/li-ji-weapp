@@ -3,6 +3,11 @@ const app = getApp();
 const db = app.mpserverless.db
 const userInfo = app.userInfo;
 
+// TODO 待验证 这样是不是好点？
+const {
+  db
+} = require('../index');
+
 /**
  * 获取用户数据范围
  *
