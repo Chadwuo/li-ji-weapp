@@ -11,6 +11,4 @@ const mpserverless = new MPServerless(wx, {
 // 较为通用的做法是在onLaunch生命周期中进行初始化操作，并将实例对象mpserverless挂载到小程序的全局对象App，以便后续在其他文件中调用。
 mpserverless.init();
 
-module.exports = {
-  mpserverless
-}
+module.exports = mpserverless
