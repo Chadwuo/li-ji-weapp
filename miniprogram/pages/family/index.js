@@ -91,7 +91,7 @@ Page({
   onShareAppMessage() {
     return {
       title: '和我一起记录家里的人情往来',
-      path: "pages/index/index",
+      path: "pages/family/index",
       imageUrl: '../../images/share.jpg'
     }
   }
