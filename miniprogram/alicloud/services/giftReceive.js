@@ -1,11 +1,11 @@
 import pinyin from "wl-pinyin";
-const app = getApp();
 const {
     getUserDataScope
 } = require('./user');
 
-const db = app.mpserverless.db;
-const userInfo = app.userInfo;
+const {
+    db
+} = require('../index');
 
 /**
  * 计算收礼金额总计
@@ -113,6 +113,9 @@ exports.getGiftReceivePage = async (parameter) => {
  */
 exports.addGiftReceive = async (parameter) => {
     try {
+        const {
+            userInfo
+        } = getApp();
         // 参数中没有亲友id，添加先
         if (!parameter.friendId) {
             const {
