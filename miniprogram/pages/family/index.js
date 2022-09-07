@@ -1,6 +1,7 @@
 // pages/family/index.js
 const familyService = require('../../alicloud/services/family')
-
+const app = getApp();
+import Notify from '@vant/weapp/notify/notify';
 Page({
 
   /**
@@ -11,12 +12,35 @@ Page({
     name: '',
     familyMembers: [],
   },
-
+  async onUpdateName() {
+    const res = await familyService.updateFamily({
+      name: this.data.name
+    })
+    if (res.success) {
+      Notify({ type: 'success', message: '家庭名称已保存' });
+    }
+  },
+  async onCreate() {
+    const res = await familyService.addFamily({
+      name: `${app.userInfo.nickName}的家庭`
+    })
+    if (res.success) {
+      app.userInfo.familyId = res.data
+      wx.setStorageSync('user', app.userInfo)
+      this.onLoad()
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-
+  async onLoad(options) {
+    const res = await familyService.getFamilyInfo()
+    if (res.success) {
+      this.setData({
+        ...res.data
+      })
+    }
+    console.log(res)
   },
 
   /**
@@ -29,13 +53,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  async onShow() {
-    const res = await familyService.getFamilyInfo()
-    if (res.success) {
-      this.setData({
-        ...res.data
-      })
-    }
+  onShow() {
+
   },
 
   /**
@@ -70,6 +89,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage() {
-
+    return {
+      title: '和我一起记录家里的人情往来',
+      path: "pages/family/index",
+      imageUrl: '../../images/share.jpg'
+    }
   }
 })

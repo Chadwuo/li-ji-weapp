@@ -12,11 +12,12 @@ Page({
     bookId: '',
     bookName: '',
     title: '',
-    date: {},
     money: '',
     remarks: '',
+    inBook: false, // 存在礼簿信息
   },
   async onSave() {
+    const eventChannel = this.getOpenerEventChannel()
     if (this.data._id) {
       const res = await giftReceiveService.updataGiftReceive(this.data)
       if (res.success) {
@@ -98,7 +99,7 @@ Page({
         dialogResult: function (data) {
           that.setData({
             bookId: data._id,
-            bookName: data.name,
+            bookName: data.title,
           })
         },
       }
@@ -123,9 +124,9 @@ Page({
    */
   onLoad(options) {
     const eventChannel = this.getOpenerEventChannel()
-    eventChannel.on('acceptDataFromOpenerPage', function(data) {
+    eventChannel.on('acceptDataFromOpenerPage', (data) => {
       this.setData({
-        ...data
+        ...data,
       })
       wx.setNavigationBarTitle({
         title: '编辑记录'

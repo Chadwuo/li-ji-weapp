@@ -1,13 +1,9 @@
 // pages/friend/details/index.js
-const dayjs = require('dayjs');
 const friendService = require('../../../alicloud/services/friend')
 
 Page({
   data: {
-    _id: '',
-    name: '',
-    fristLetter: '',
-    relation: '',
+    friend: {},
     giftList: [],
     happyCount: '0',
     happyTotal: '0.00',
@@ -18,41 +14,42 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    const res = await friendService.getFriendGifts({
-      _id: options.friendId
+    wx.showLoading({
+      title: '加载中'
     })
-
-    const {
-      name,
-      fristLetter,
-      relation,
-      giftOutList,
-      giftReceiveList
-    } = res.data
-
-    if (res.success) {
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.on('acceptDataFromOpenerPage', async (data) => {
       this.setData({
-        name,
-        fristLetter,
-        relation,
-        giftList: '',
-        sadCount: giftOutList.length, // 送礼次数
-        sadTotal: giftOutList.map(i => { // 送礼金额总计
-          return this.data.sadTotal += i.money
-        }),
-        happyCount: giftReceiveList.length, // 收礼次数
-        happyTotal: giftReceiveList.map(i => { // 收礼金额总计
-          return this.data.happyTotal += i.money
-        }),
-        giftList: giftOutList.concat(giftReceiveList),
-      });
-    }
+        ...data,
+      })
+      const res = await friendService.getFriendGifts({
+        _id: this.data.friend._id
+      })
+      if (res.success) {
+        const {
+          giftOutList,
+          giftReceiveList
+        } = res.data
+        this.setData({
+          sadCount: giftOutList.length, // 送礼次数
+          sadTotal: giftOutList.map(i => { // 送礼金额总计
+            return this.data.sadTotal += i.money
+          }),
+          happyCount: giftReceiveList.length, // 收礼次数
+          happyTotal: giftReceiveList.map(i => { // 收礼金额总计
+            return this.data.happyTotal += i.money
+          }),
+          giftList: giftOutList.concat(giftReceiveList),
+        });
+      }
+      wx.hideLoading()
+    })
   },
   // 编辑按钮
   onEditClick() {
     let that = this
     wx.navigateTo({
-      url: `/pages/friend/edit/index?friendId=${this.data._id}`,
+      url: `/pages/friend/edit/index?friendId=${this.data.friend._id}`,
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
         dialogResult: function (data) {

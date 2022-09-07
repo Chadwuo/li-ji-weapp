@@ -7,11 +7,11 @@
   </van-search>
   <view class="wrapper">
     <van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
-    <view class='gift-card' wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-giftid='{{item._id}}'>
+    <view class='gift-card' wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
       <view class='content'>
         <view class='title'>{{item.friendInfo.name}}</view>
-        <view class='info'>{{item.name}}</view>
-        <view class='info'>{{item.date}}</view>
+        <view class='info'>{{item.title}}</view>
+        <view class='info'>{{item.date.value}}</view>
       </view>
       <view class='label'>{{item.money}}元</view>
     </view>

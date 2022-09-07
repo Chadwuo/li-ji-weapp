@@ -1,11 +1,10 @@
 import pinyin from "wl-pinyin";
-const app = getApp();
 const {
     getUserDataScope
 } = require('./user');
-
-const db = app.mpserverless.db;
-const userInfo = app.userInfo;
+const {
+    db
+} = require('../index');
 
 /**
  * 获取全部亲友数据集合
@@ -16,35 +15,18 @@ exports.getFriendList = async () => {
     try {
         // 数据权限范围
         const dataScope = await getUserDataScope()
-        // 查询操作符
-        const _ = db.command
-        const MAX_LIMIT = 100
-        // 先取出集合记录总数
         const {
-            result: total
-        } = await db.collection('friend').count({
+            result
+        } = await db.collection('friend').find({
             userId: {
                 $in: dataScope
             }
         })
-        // 计算需分几次取
-        const batchTimes = Math.ceil(total / 100)
-        // 承载所有读操作的 promise 的数组
-        const tasks = []
-        for (let i = 0; i < batchTimes; i++) {
-            const promise = db.collection('friend').find({
-                userId: _.in(dataScope)
-            }).skip(i * MAX_LIMIT).limit(MAX_LIMIT)
 
-            tasks.push(promise)
-        }
-        // 等待所有
-        return (await Promise.all(tasks)).reduce((acc, cur) => {
-            return {
-                data: acc.result.concat(cur.result),
-                message: acc.message,
-            }
-        })
+        return {
+            success: true,
+            data: result
+        };
     } catch (error) {
         return {
             success: false,
@@ -124,6 +106,9 @@ exports.getFriendGifts = async (parameter) => {
  */
 exports.addFriend = async (parameter) => {
     try {
+        const {
+            userInfo
+        } = getApp();
         const {
             result
         } = await db.collection('friend').insertOne({

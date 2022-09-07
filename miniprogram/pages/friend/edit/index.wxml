@@ -1,6 +1,6 @@
 <!--pages/friend/edit/index.wxml-->
 <view class="container">
-    <van-cell-group inset>
+    <van-cell-group inset border="{{false}}">
         <van-field label="姓名" size="large" left-icon="label-o" model:value="{{ name }}" placeholder="请输入姓名" />
         <van-field label="重名备注" size="large" left-icon="bookmark-o" model:value="{{ remarks }}" placeholder="若重名请备注" />
         <van-field label="关系" size="large" left-icon="guide-o" model:value="{{ kinship }}" placeholder="选填" />
