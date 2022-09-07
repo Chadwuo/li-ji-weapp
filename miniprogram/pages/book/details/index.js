@@ -34,7 +34,6 @@ Page({
     });
   },
   onGiftClick(e) {
-    // TODO 需要处理e
     let that = this
     wx.navigateTo({
       url: '/pages/giftReceive/edit/index',
@@ -47,14 +46,10 @@ Page({
       success: function (res) {
         // 通过 eventChannel 向被打开页面传送数据
         res.eventChannel.emit('acceptDataFromOpenerPage', {
-          _id: '',
-          friendId: '',
-          friendName: '',
-          bookId: that.data.book._id,
-          title: '',
-          date: {},
-          money: '',
+          ...e.currentTarget.dataset.gift,
+          friendName: e.currentTarget.dataset.gift.friendInfo.name,
           remarks: '',
+          bookName: that.data.book.title,
           inBook: true
         })
       }
