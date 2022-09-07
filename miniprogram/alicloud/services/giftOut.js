@@ -1,11 +1,10 @@
 import pinyin from "wl-pinyin";
-const app = getApp();
 const {
     getUserDataScope
 } = require('./user');
-
-const db = app.mpserverless.db;
-const userInfo = app.userInfo;
+const {
+    db
+} = require('../index');
 
 /**
  * 计算送礼金额总计
@@ -18,7 +17,7 @@ exports.computedTotalGiftOut = async () => {
         const dataScope = await getUserDataScope()
         const {
             result
-        } = db.collection('gift_out')
+        } = await db.collection('gift_out')
             .aggregate([{
                     $match: {
                         userId: {
@@ -35,7 +34,9 @@ exports.computedTotalGiftOut = async () => {
                     }
                 }
             ])
-        let total = result
+        let {
+            total
+        } = result[0]
         return {
             success: true,
             data: total.toFixed(2)
@@ -112,6 +113,9 @@ exports.getGiftOutPage = async (parameter) => {
  */
 exports.addGiftOut = async (parameter) => {
     try {
+        const {
+            userInfo
+          } = getApp();
         // 参数中没有亲友id，添加先
         if (!parameter.friendId) {
             const {
@@ -119,10 +123,10 @@ exports.addGiftOut = async (parameter) => {
             } = await db.collection('friend').insertOne({
                 userId: userInfo._id,
                 name: parameter.friendName,
-                firstLetter: pinyin.getFirstLetter(parameter.name.substr(0, 1)),
+                firstLetter: pinyin.getFirstLetter(parameter.friendName.substr(0, 1)),
             })
             // 新添加的亲友id
-            giftOut.friendId = result._id
+            parameter.friendId = result.insertedId
         }
 
         const {
@@ -132,7 +136,7 @@ exports.addGiftOut = async (parameter) => {
             friendId: parameter.friendId,
             title: parameter.title,
             date: parameter.date,
-            money: parameter.money,
+            money: Number(parameter.money),
             remarks: parameter.remarks
         })
         return {
@@ -161,7 +165,7 @@ exports.updateGiftOut = async (parameter) => {
                 friendId: parameter.friendId,
                 title: parameter.title,
                 date: parameter.date,
-                money: parameter.money,
+                money: Number(parameter.money),
                 remarks: giftOut.remarks
             }
         })

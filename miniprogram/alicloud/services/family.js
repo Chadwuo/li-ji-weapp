@@ -1,6 +1,6 @@
-const app = getApp();
-const db = app.mpserverless.db;
-const userInfo = app.userInfo;
+const {
+    db
+} = require('../index');
 
 /**
  * 获取家庭信息
@@ -9,10 +9,13 @@ const userInfo = app.userInfo;
  */
 exports.getFamily = async () => {
     try {
+        const {
+            userInfo
+        } = getApp();
         // 获取家庭信息
         const {
             result
-        } = await db.collection('family').find({
+        } = await db.collection('family').findOne({
             _id: userInfo.familyId
         })
         return {
@@ -34,10 +37,13 @@ exports.getFamily = async () => {
  */
 exports.getFamilyInfo = async () => {
     try {
+        const {
+            userInfo
+        } = getApp();
         // 获取家庭信息
         const {
             result: family
-        } = await db.collection('family').find({
+        } = await db.collection('family').findOne({
             _id: userInfo.familyId
         })
 
@@ -53,8 +59,14 @@ exports.getFamilyInfo = async () => {
                 $lookup: {
                     from: "user",
                     localField: "userId",
-                    foreignField: "_Id",
+                    foreignField: "_id",
                     as: "user"
+                }
+            },
+            {
+                $unwind: { // 拆分子数组
+                    path: "$user",
+                    preserveNullAndEmptyArrays: true // 空的数组也拆分
                 }
             }
         ])
@@ -80,6 +92,9 @@ exports.getFamilyInfo = async () => {
  */
 exports.addFamily = async (parameter) => {
     try {
+        const {
+            userInfo
+        } = getApp();
         // 添加家庭
         const {
             result
@@ -99,7 +114,7 @@ exports.addFamily = async (parameter) => {
         })
 
         // 更新自己的家庭id
-        await db.collection('user').doc(userInfo._id).updateOne({
+        await db.collection('user').updateOne({
             _id: userInfo._id
         }, {
             $set: {
@@ -181,6 +196,9 @@ exports.deleteFamily = async (parameter) => {
  */
 exports.addFamilyMember = async (parameter) => {
     try {
+        const {
+            userInfo
+        } = getApp();
         await db.collection('family_member').insertOne({
             userId: userInfo._id,
             familyId: parameter.familyId,

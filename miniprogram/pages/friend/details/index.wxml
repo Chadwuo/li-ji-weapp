@@ -8,7 +8,7 @@
         <view class='item friend'>
           <view>
             <van-icon size="64rpx" color="#fff" name="contact" style="margin-right: 10rpx;" />
-            <span class="num">{{name}}</span>
+            <span class="num">{{friend.name}}</span>
           </view>
           <van-icon name="edit" size="52rpx" color="#fff" bind:tap="onEditClick" />
         </view>
@@ -35,9 +35,9 @@
   </van-sticky>
   <view class="wrapper">
     <van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
-    <view class='nav' wx:for="{{giftList}}" wx:key="index">
+    <view class='gift-card' wx:for="{{giftList}}" wx:key="index">
       <view class='content'>
-        <view class='title'>{{item.name}}</view>
+        <view class='title'>{{item.title}}</view>
         <view class='info'>{{item.date.value}}</view>
       </view>
       <view class='label'>

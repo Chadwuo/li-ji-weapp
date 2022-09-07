@@ -16,12 +16,15 @@ Page({
       icon: 'none',
     })
   },
-  giftEditDialog({
-    detail
-  }) {
+  giftEditDialog(detail) {
     switch (detail.type) {
       case 'insert':
-        this.data.giftList.unshift(detail.data)
+        this.data.giftList.unshift({
+          ...detail.data,
+          friendInfo: {
+            name: detail.data.friendName
+          }
+        })
         this.setData({
           giftList: this.data.giftList
         })
@@ -48,9 +51,29 @@ Page({
         break;
     }
   },
-  onAddGift() {
+  onGiftClick(e) {
+    // TODO 需要处理
+    let that = this
     wx.navigateTo({
-      url: '/pages/giftReceive/edit/index',
+      url: '/pages/giftOut/edit/index',
+      success: function (res) {
+        // 通过 eventChannel 向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          _id: '',
+          friendId: '',
+          friendName: '',
+          title: '',
+          date: {},
+          money: '',
+          remarks: '',
+        })
+      }
+    });
+  },
+  onAddGift() {
+    let that = this
+    wx.navigateTo({
+      url: '/pages/giftOut/edit/index',
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
         dialogResult: function (data) {
@@ -60,14 +83,13 @@ Page({
     });
   },
   async loadData(page) {
-    const that = this
     const res = await giftOutService.getGiftOutPage({
       page: page,
       limit: 10
     })
     if (res.success) {
-      that.setData({
-        giftBooks: this.data.giftList.concat(res.data),
+      this.setData({
+        giftList: this.data.giftList.concat(res.data),
         pageNo: page
       });
     }
@@ -113,7 +135,7 @@ Page({
     // 感觉延迟一下，会舒服点
     setTimeout(async () => {
       this.setData({
-        giftBooks: []
+        giftList: []
       })
       await this.loadData(1)
       wx.stopPullDownRefresh()

@@ -35,7 +35,7 @@
 
 .gift-card .label {
   padding-right: 48rpx;
-  color: #F76664;
+  color: #08989A;
   font-size: large;
   font-weight: bold;
 }
