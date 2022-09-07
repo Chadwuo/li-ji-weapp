@@ -1,4 +1,8 @@
 /* pages/giftReceive/edit/index.wxss */
+page {
+	background-color: white;
+}
+
 .container {
 	margin: 32rpx 0;
 	margin-bottom: 120rpx;
