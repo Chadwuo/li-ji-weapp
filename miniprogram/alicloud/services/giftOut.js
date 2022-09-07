@@ -166,7 +166,7 @@ exports.updateGiftOut = async (parameter) => {
                 title: parameter.title,
                 date: parameter.date,
                 money: Number(parameter.money),
-                remarks: giftOut.remarks
+                remarks: parameter.remarks
             }
         })
         return {

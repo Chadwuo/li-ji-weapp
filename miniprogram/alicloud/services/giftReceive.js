@@ -168,7 +168,7 @@ exports.updateGiftReceive = async (parameter) => {
                 title: parameter.title,
                 date: parameter.date,
                 money: Number(parameter.money),
-                remarks: giftReceive.remarks
+                remarks: parameter.remarks
             }
         })
         return {

@@ -19,7 +19,8 @@ Page({
   async onSave() {
     const eventChannel = this.getOpenerEventChannel()
     if (this.data._id) {
-      const res = await giftReceiveService.updataGiftReceive(this.data)
+      const res = await giftReceiveService.updateGiftReceive(this.data)
+      console.log(res)
       if (res.success) {
         wx.showToast({
           title: '修改成功',
