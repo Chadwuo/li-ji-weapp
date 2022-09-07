@@ -181,11 +181,12 @@ Page({
       title: '加载中',
       mask: true
     })
-    await this.loadData(1)
     // 人为延迟一点，避免loading动画闪烁
-    setTimeout(function () {
+    setTimeout(async () => {
+      // TODO 定时器，用以临时解决 app.onLaunch与page.onLoad异步问题
+      await this.loadData(1)
       wx.hideLoading()
-    }, 666)
+    }, 888)
   },
 
   /**
