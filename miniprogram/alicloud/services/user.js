@@ -1,5 +1,4 @@
 
-// TODO 待验证 这样是不是好点？
 const mpserverless = require('../index');
 const db = mpserverless.db;
 
