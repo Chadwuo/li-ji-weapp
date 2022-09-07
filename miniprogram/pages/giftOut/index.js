@@ -52,20 +52,13 @@ Page({
     }
   },
   onGiftClick(e) {
-    // TODO 需要处理
-    let that = this
     wx.navigateTo({
       url: '/pages/giftOut/edit/index',
       success: function (res) {
         // 通过 eventChannel 向被打开页面传送数据
         res.eventChannel.emit('acceptDataFromOpenerPage', {
-          _id: '',
-          friendId: '',
-          friendName: '',
-          title: '',
-          date: {},
-          money: '',
-          remarks: '',
+          ...e.currentTarget.dataset.gift,
+          friendName: e.currentTarget.dataset.gift.friendInfo.name,
         })
       }
     });
