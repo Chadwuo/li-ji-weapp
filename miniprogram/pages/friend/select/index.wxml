@@ -1,14 +1,14 @@
 <!--pages/friend/select/index.wxml-->
 <view class="container">
-  <van-empty wx:if="{{bookSelectSource.length===0}}" description="暂无数据" />
-  <view wx:for="{{bookSelectSource}}" wx:key="index">
+  <van-empty wx:if="{{friendSelectSource.length===0}}" description="暂无数据" />
+  <view wx:for="{{friendSelectSource}}" wx:key="index">
     <van-cell-group inset>
-      <van-cell use-label-slot is-link bind:click="onSelectedBook" data-book="{{item}}">
+      <van-cell use-label-slot is-link bind:click="onSelectedFriend" data-friend="{{item}}">
         <view slot="title">
           <view class="line1">{{item.name}}</view>
         </view>
         <view slot="label">
-          <view>{{item.date}}</view>
+          <view>{{item.relation}}</view>
         </view>
       </van-cell>
     </van-cell-group>

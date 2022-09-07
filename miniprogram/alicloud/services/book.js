@@ -1,10 +1,9 @@
-const app = getApp();
 const {
   getUserDataScope
 } = require('./user');
-
-const db = app.mpserverless.db;
-const userInfo = app.userInfo;
+const {
+  db
+} = require('../index');
 
 /**
  * 获取分页
@@ -35,7 +34,7 @@ exports.getBookPage = async (parameter) => {
       {
         $limit: parameter.limit
       },
-      {
+      { // TODO 需要修改
         $lookup: { // 左连接
           from: "gift_receive", // 关联到de表
           localField: "_id", // 左表关联的字段
@@ -65,34 +64,18 @@ exports.getBookList = async () => {
   try {
     // 数据权限范围
     const dataScope = await getUserDataScope()
-    const MAX_LIMIT = 100
-    // 先取出集合记录总数
     const {
-      result: total
-    } = await db.collection('book').count({
+      result
+    } = await db.collection('book').find({
       userId: {
         $in: dataScope
       }
     })
 
-    // 计算需分几次取
-    const batchTimes = Math.ceil(total / 100)
-    // 承载所有读操作的 promise 的数组
-    const tasks = []
-    for (let i = 0; i < batchTimes; i++) {
-      const promise = db.collection('book').find({
-        userId: _.in(dataScope)
-      }).skip(i * MAX_LIMIT).limit(MAX_LIMIT)
-
-      tasks.push(promise)
-    }
-    // 等待所有
-    return (await Promise.all(tasks)).reduce((acc, cur) => {
-      return {
-        data: acc.result.concat(cur.result),
-        message: acc.message,
-      }
-    })
+    return {
+      success: true,
+      data: result
+    };
   } catch (error) {
     return {
       success: false,
@@ -132,6 +115,9 @@ exports.getBook = async (parameter) => {
  */
 exports.addBook = async (parameter) => {
   try {
+    const {
+      userInfo
+    } = getApp();
     const {
       result
     } = await db.collection('book').insertOne({

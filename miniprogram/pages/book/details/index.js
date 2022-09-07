@@ -1,12 +1,11 @@
 // pages/book/details/index.js
-const dayjs = require('dayjs');
 const giftReceiveService = require('../../../alicloud/services/giftReceive')
 
 Page({
   data: {
     giftList: [],
     keyword: '',
-    bookId: '',
+    book: {},
     pageNo: 0,
   },
   onSearch() {
@@ -15,15 +14,48 @@ Page({
       icon: 'none',
     })
   },
-  // 添加收礼
   onAddGift() {
     let that = this
     wx.navigateTo({
       url: '/pages/giftReceive/edit/index',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        dialogResult: function (data) {
+          that.giftEditDialog(data)
+        },
+      },
       success: function (res) {
         // 通过 eventChannel 向被打开页面传送数据
         res.eventChannel.emit('acceptDataFromOpenerPage', {
-          bookId: that.data.bookId
+          bookId: that.data.book._id,
+          inBook: true
+        })
+      }
+    });
+  },
+  onGiftClick(e) {
+    // TODO 需要处理e
+    let that = this
+    wx.navigateTo({
+      url: '/pages/giftReceive/edit/index',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        dialogResult: function (data) {
+          that.giftEditDialog(data)
+        },
+      },
+      success: function (res) {
+        // 通过 eventChannel 向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          _id: '',
+          friendId: '',
+          friendName: '',
+          bookId: that.data.book._id,
+          title: '',
+          date: {},
+          money: '',
+          remarks: '',
+          inBook: true
         })
       }
     });
@@ -33,7 +65,7 @@ Page({
     const res = await giftReceiveService.getGiftReceivePage({
       page: page,
       limit: 10,
-      bookId: this.data.bookId
+      bookId: this.data.book._id
     })
     if (res.success) {
       that.setData({
@@ -46,16 +78,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    this.data.bookId = options.bookId
     wx.showLoading({
-      title: '加载中',
-      mask: true
+      title: '加载中'
     })
-    await this.loadData(1)
-    // 人为延迟一点，避免loading动画闪烁
-    setTimeout(function () {
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.on('acceptDataFromOpenerPage', async (data) => {
+      this.setData({
+        ...data,
+      })
+      wx.setNavigationBarTitle({
+        title: data.book.title
+      })
+      await this.loadData(1)
       wx.hideLoading()
-    }, 666)
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

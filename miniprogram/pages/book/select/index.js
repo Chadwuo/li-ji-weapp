@@ -18,7 +18,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    const res = bookService.getBookList()
+    const res = await bookService.getBookList()
     if (res.success) {
       this.setData({
         bookSelectSource: res.data,

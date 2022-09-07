@@ -15,6 +15,7 @@ Page({
     remarks: '',
   },
   async onSave() {
+    const eventChannel = this.getOpenerEventChannel()
     if (this.data._id) {
       const res = await giftOutService.updataGiftOut(this.data)
       if (res.success) {
@@ -35,6 +36,7 @@ Page({
         wx.showToast({
           title: '添加成功',
         })
+      
         setTimeout(() => {
           eventChannel.emit('dialogResult', {
             type: 'insert',

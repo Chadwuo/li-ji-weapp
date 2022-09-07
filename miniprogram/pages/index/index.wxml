@@ -8,7 +8,7 @@
     <van-row gutter="20">
       <van-col span="12" wx:for="{{giftBooks}}" wx:key="index">
         <van-transition>
-          <view class="book" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-bookid='{{item._id}}'>
+          <view class="book" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-book='{{item}}'>
             <image class="bg" src="/images/bg_book.png"></image>
             <view class="content">
               <view>
@@ -18,7 +18,7 @@
               <view>
                 <view class="total">￥ {{ item.giftTotal||'0.00' }}</view>
                 <view class="date">{{ item.date.value }}</view>
-                <view class="date">{{ item.date.lunar_month }} {{ item.date.lunar_day }}</view>
+                <view class="date">{{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
               </view>
             </view>
           </view>
@@ -40,9 +40,5 @@
 </view>
 <!-- 长按动作 -->
 <van-action-sheet show="{{ showBookAction }}" actions="{{ bookActions }}" bind:close="onCloseBookAction" bind:cancel="onCloseBookAction" bind:select="onSelectBookAction" cancel-text="取消" close-on-click-overlay />
-<!-- 人情编辑组件 -->
-<gift-receive-edit id="gift-receive-edit"></gift-receive-edit>
-<!-- 礼簿编辑组件 -->
-<book-edit id="book-edit" bind:dialogResult="bookEditDialog"></book-edit>
 <!-- 页脚 -->
 <footer></footer>

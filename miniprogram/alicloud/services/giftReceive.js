@@ -1,11 +1,11 @@
 import pinyin from "wl-pinyin";
-const app = getApp();
 const {
     getUserDataScope
 } = require('./user');
 
-const db = app.mpserverless.db;
-const userInfo = app.userInfo;
+const {
+    db
+} = require('../index');
 
 /**
  * 计算收礼金额总计
@@ -18,7 +18,7 @@ exports.computedTotalGiftReceive = async () => {
         const dataScope = await getUserDataScope()
         const {
             result
-        } = db.collection('gift_receive')
+        } = await db.collection('gift_receive')
             .aggregate([{
                     $match: {
                         userId: {
@@ -35,7 +35,9 @@ exports.computedTotalGiftReceive = async () => {
                     }
                 }
             ])
-        let total = result
+        let {
+            total
+        } = result[0]
         return {
             success: true,
             data: total.toFixed(2)
@@ -111,6 +113,9 @@ exports.getGiftReceivePage = async (parameter) => {
  */
 exports.addGiftReceive = async (parameter) => {
     try {
+        const {
+            userInfo
+        } = getApp();
         // 参数中没有亲友id，添加先
         if (!parameter.friendId) {
             const {
@@ -118,10 +123,10 @@ exports.addGiftReceive = async (parameter) => {
             } = await db.collection('friend').insertOne({
                 userId: userInfo._id,
                 name: parameter.friendName,
-                firstLetter: pinyin.getFirstLetter(parameter.name.substr(0, 1)),
+                firstLetter: pinyin.getFirstLetter(parameter.friendName.substr(0, 1)),
             })
             // 新添加的亲友id
-            giftReceive.friendId = result._id
+            parameter.friendId = result.insertedId
         }
 
         const {
@@ -132,7 +137,7 @@ exports.addGiftReceive = async (parameter) => {
             bookId: parameter.bookId,
             title: parameter.title,
             date: parameter.date,
-            money: parameter.money,
+            money: Number(parameter.money),
             remarks: parameter.remarks
         })
         return {
@@ -162,7 +167,7 @@ exports.updateGiftReceive = async (parameter) => {
                 bookId: parameter.bookId,
                 title: parameter.title,
                 date: parameter.date,
-                money: parameter.money,
+                money: Number(parameter.money),
                 remarks: giftReceive.remarks
             }
         })

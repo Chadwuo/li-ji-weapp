@@ -16,7 +16,13 @@ Page({
   },
   onFriendClick(e) {
     wx.navigateTo({
-      url: `/pages/friend/details/index?friendId=${e.currentTarget.dataset.friend._id}`,
+      url: '/pages/friend/details/index',
+      success: function (res) {
+        // 通过 eventChannel 向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          friend: e.currentTarget.dataset.friend
+        })
+      }
     });
   },
   onAdd() {
@@ -70,8 +76,7 @@ Page({
       alpha: '#',
       subItems: []
     }
-    const res = friendService.getFriendList()
-
+    const res = await friendService.getFriendList()
     if (res.success) {
       for (const item of res.data) {
         const firstLetter = item.firstLetter
@@ -135,7 +140,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    // 感觉延迟一下，会舒服点
+    setTimeout(async () => {
+      this.setData({
+        friendsList: []
+      })
+      await this.loadData(1)
+      wx.stopPullDownRefresh()
+    }, 666);
   },
 
   /**

@@ -49,7 +49,13 @@ Page({
   // 点击礼簿
   onBookClick(e) {
     wx.navigateTo({
-      url: `/pages/book/details/index?bookId=${e.currentTarget.dataset.bookid}`,
+      url: '/pages/book/details/index',
+      success: function (res) {
+        // 通过 eventChannel 向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          book: e.currentTarget.dataset.book
+        })
+      }
     });
   },
   // 长按礼簿
@@ -79,13 +85,15 @@ Page({
                 _id: that.data.actionId
               })
               if (res.success) {
+                let delIndex = that.data.giftBooks.findIndex(i => {
+                  return i._id == that.data.actionId
+                })
+                that.data.giftBooks.splice(delIndex, 1)
+                that.setData({
+                  giftBooks: that.data.giftBooks
+                })
                 wx.showToast({
                   title: '删除成功',
-                })
-                that.setData({
-                  giftBooks: that.data.giftBooks.filter(i => {
-                    return i._id != that.data.actionId
-                  })
                 })
               }
             }
@@ -173,11 +181,12 @@ Page({
       title: '加载中',
       mask: true
     })
-    await this.loadData(1)
     // 人为延迟一点，避免loading动画闪烁
-    setTimeout(function () {
+    setTimeout(async () => {
+      // TODO 定时器，用以临时解决 app.onLaunch与page.onLoad异步问题
+      await this.loadData(1)
       wx.hideLoading()
-    }, 666)
+    }, 888)
   },
 
   /**
