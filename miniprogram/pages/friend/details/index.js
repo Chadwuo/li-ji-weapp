@@ -5,10 +5,10 @@ Page({
   data: {
     friend: {},
     giftList: [],
-    happyCount: '0',
-    happyTotal: '0.00',
-    sadCount: '0',
-    sadTotal: '0.00',
+    happyCount: 0,
+    happyTotal: 0,
+    sadCount: 0,
+    sadTotal: 0,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -39,6 +39,7 @@ Page({
           happyTotal: giftReceiveList.map(i => { // 收礼金额总计
             return this.data.happyTotal += i.money
           }),
+          // TODO 排序问题
           giftList: giftOutList.concat(giftReceiveList),
         });
       }

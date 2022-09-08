@@ -80,9 +80,31 @@ exports.getFriendGifts = async (parameter) => {
         // 收礼集合
         const {
             result: giftReceiveList
-        } = await db.collection('gift_receive').find({
-            friendId: parameter._id,
-        })
+        } = await db.collection('gift_receive').aggregate([{
+                $match: {
+                    friendId: parameter._id
+                }
+            },
+            {
+                $sort: {
+                    date: -1
+                }
+            },
+            {
+                $lookup: { // 左连接
+                    from: "book", // 关联到de表
+                    localField: "bookId", // 左表关联的字段
+                    foreignField: "_id", // 右表关联的字段
+                    as: "bookInfo"
+                }
+            },
+            {
+                $unwind: { // 拆分子数组
+                    path: "$bookInfo",
+                    preserveNullAndEmptyArrays: true // 空的数组也拆分
+                }
+            }
+        ])
         return {
             success: true,
             data: {
