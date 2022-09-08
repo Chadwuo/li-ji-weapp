@@ -33,7 +33,13 @@ Page({
         let updateIndex = this.data.giftList.findIndex(i => {
           return i._id == detail.data._id
         })
-        this.data.giftList[updateIndex].title = detail.data.title
+        this.data.giftList[updateIndex] = {
+          title: detail.data.title,
+          date: detail.data.date,
+          friendInfo: {
+            name: detail.data.friendName
+          }
+        }
         this.setData({
           giftList: this.data.giftList
         })
@@ -52,8 +58,15 @@ Page({
     }
   },
   onGiftClick(e) {
+    let that = this
     wx.navigateTo({
       url: '/pages/giftOut/edit/index',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        dialogResult: function (data) {
+          that.giftEditDialog(data)
+        },
+      },
       success: function (res) {
         // 通过 eventChannel 向被打开页面传送数据
         res.eventChannel.emit('acceptDataFromOpenerPage', {
