@@ -1,47 +1,7 @@
 <!-- pages/profile/index.wxml -->
-<view class='container'>
-  <view class='header'>
-    <view class='picTxt'>
-      <view class='pictrue'>
-        <view class="avatar">
-          <open-data type="userAvatarUrl"></open-data>
-        </view>
-      </view>
-      <view class='text'>
-        <view>
-          <view class='name'>
-            <open-data type="userNickName"></open-data>
-          </view>
-        </view>
-        <view class='desc'>{{welcome}}</view>
-      </view>
-    </view>
-    <van-icon name="setting-o" color="#fff" />
-  </view>
-  <view>
-    <van-cell-group inset>
-      <van-grid column-num="2">
-        <van-grid-item text="收礼">
-          <view slot="icon">{{receiveTotal}}</view>
-        </van-grid-item>
-        <van-grid-item text="送礼">
-          <view slot="icon">{{giveTotal}}</view>
-        </van-grid-item>
-      </van-grid>
-    </van-cell-group>
-    <view style="margin-top: 32rpx;">
-      <van-cell-group inset>
-        <view style="background-color: #fff;">
-          <van-grid border="{{fales}}" column-num="4">
-            <block wx:for="{{MyMenus}}" wx:key="index">
-              <van-grid-item icon="{{item.icon}}" text="{{item.name}}" bindtap='jumpPage' data-page='{{item.page}}' wx:if="{{item.page&&!item.open_type}}" />
-              <button wx:if="{{item.open_type}}" open-type="{{item.open_type}}">
-                <van-grid-item icon="{{item.icon}}" text="{{item.name}}"></van-grid-item>
-              </button>
-            </block>
-          </van-grid>
-        </view>
-      </van-cell-group>
-    </view>
-  </view>
+<view class="__input-wrapper">
+    <image class="avatar" src="{{avatarUrl}}"></image>
+    <button wx:if="{{supportAvatarInput}}" class="opacity-button" open-type="chooseAvatar"
+        bind:chooseavatar="onChooseAvatar"></button>
+    <button wx:else class="opacity-button" catchtap="handleChooseImage"></button>
 </view>
