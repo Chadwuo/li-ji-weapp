@@ -1,4 +1,4 @@
-<!--pages/friend/details/index.wxml-->
+<!-- pages/friend/details/index.wxml -->
 <wxs module="filters" src="./filter.wxs"></wxs>
 <view class="container">
   <van-sticky offset-top="{{ -30 }}">
@@ -36,15 +36,26 @@
   <view class="wrapper">
     <van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
     <view class='gift-card' wx:for="{{giftList}}" wx:key="index">
-      <view class='content'>
-        <view class='title'>{{item.title}}</view>
-        <view class='info'>{{item.date.value}}</view>
-      </view>
-      <view class='label'>
-        <van-tag round type="success" wx:if="{{item.type==='送'}}">送</van-tag>
-        <van-tag round color="#F76664" wx:else>收</van-tag>
-        {{item.money}}
-      </view>
+      <block wx:if="{{item.title}}">
+        <view class='content'>
+          <view class='title'>{{item.title}}</view>
+          <view class='info'>{{item.date.value}}</view>
+        </view>
+        <view class='label-out'>
+          <van-tag round type="success">送</van-tag>
+          {{item.money}}
+        </view>
+      </block>
+      <block wx:else>
+        <view class='content'>
+          <view class='title'>{{item.bookInfo.title}}</view>
+          <view class='info'>{{item.bookInfo.date.value}}</view>
+        </view>
+        <view class='label-in'>
+          <van-tag round color="#F76664">收</van-tag>
+          {{item.money}}
+        </view>
+      </block>
     </view>
   </view>
 </view>

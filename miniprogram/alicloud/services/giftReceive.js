@@ -68,11 +68,11 @@ exports.getGiftReceivePage = async (parameter) => {
                     bookId: parameter.bookId
                 }
             },
-            {
-                $sort: {
-                    date: -1
-                }
-            },
+            // {
+            //     $sort: {
+            //         date: -1
+            //     }
+            // },
             {
                 $skip: ((parameter.page - 1) * parameter.limit)
             },
@@ -135,8 +135,6 @@ exports.addGiftReceive = async (parameter) => {
             userId: userInfo._id,
             friendId: parameter.friendId,
             bookId: parameter.bookId,
-            title: parameter.title,
-            date: parameter.date,
             money: Number(parameter.money),
             remarks: parameter.remarks
         })
@@ -165,8 +163,6 @@ exports.updateGiftReceive = async (parameter) => {
             $set: {
                 friendId: parameter.friendId,
                 bookId: parameter.bookId,
-                title: parameter.title,
-                date: parameter.date,
                 money: Number(parameter.money),
                 remarks: parameter.remarks
             }
