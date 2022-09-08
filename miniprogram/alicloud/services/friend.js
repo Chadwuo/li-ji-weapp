@@ -187,13 +187,13 @@ exports.updateFriend = async (parameter) => {
 exports.deleteFriend = async (parameter) => {
     try {
         // 删除亲友下所有送礼记录
-        await db.collection('giftOut').deleteMany({
+        await db.collection('gift_out').deleteMany({
             friendId: parameter._id
-        }).remove()
+        })
         // 删除亲友下所有收礼记录
-        await db.collection('giftReceive').deleteMany({
+        await db.collection('gift_receive').deleteMany({
             friendId: parameter._id
-        }).remove()
+        })
         // 删除亲友
         await db.collection('friend').deleteOne({
             _id: parameter._id

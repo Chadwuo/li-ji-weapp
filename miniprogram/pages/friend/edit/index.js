@@ -46,6 +46,7 @@ Page({
   },
   async onDelete() {
     let delData = this.data
+    console.log(delData)
     const eventChannel = this.getOpenerEventChannel()
     wx.showModal({
       title: '删除亲友？',
