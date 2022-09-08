@@ -11,7 +11,6 @@ Page({
     friendName: '',
     bookId: '',
     bookName: '',
-    title: '',
     money: '',
     remarks: '',
     inBook: false, // 存在礼簿信息
@@ -20,7 +19,6 @@ Page({
     const eventChannel = this.getOpenerEventChannel()
     if (this.data._id) {
       const res = await giftReceiveService.updateGiftReceive(this.data)
-      console.log(res)
       if (res.success) {
         wx.showToast({
           title: '修改成功',
