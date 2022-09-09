@@ -82,6 +82,9 @@ Page({
         welcome: result.data.content
       })
     })
+    wx.showShareMenu({
+      menus: ['shareAppMessage', 'shareTimeline']
+    })
   },
 
   /**
