@@ -37,32 +37,11 @@ Page({
       }
     });
   },
-  onDelete(e) {
-    let that = this
-    const friendId = e.currentTarget.dataset.friendid
-    wx.showModal({
-      title: '提示',
-      content: '该联系人得所有人情往来记录都将被删除，确定删除？',
-      confirmColor: '#F76664',
-      async success(result) {
-        if (result.confirm) {
-          // 删除亲友下所有记录
-          const res = friendService.deleteFriend({
-            _id: friendId
-          })
-          if (res.success) {
-            that.loadData()
-            wx.showToast({
-              title: '删除成功',
-            })
-          }
-        }
-      }
-    })
-  },
   // 编辑回调
   friendEditDialog(detail) {
+    // TODO 待完善
     console.log(detail)
+    this.loadData()
   },
   async loadData() {
     let listTemp = []

@@ -53,9 +53,11 @@ Page({
       url: `/pages/friend/edit/index?friendId=${this.data.friend._id}`,
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-        dialogResult: function (data) {
+        dialogResult: function (detail) {
           that.setData({
-            ...data
+            friend: {
+              ...detail.data
+            }
           })
         },
       }
