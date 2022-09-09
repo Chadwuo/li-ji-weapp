@@ -124,6 +124,7 @@ Page({
   onLoad(options) {
     const eventChannel = this.getOpenerEventChannel()
     eventChannel.on('acceptDataFromOpenerPage', (data) => {
+      console.log(data)
       this.setData({
         ...data,
       })
