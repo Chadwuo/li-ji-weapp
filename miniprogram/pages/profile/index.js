@@ -1,16 +1,32 @@
 // pages/profile/index.js
+const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+
+
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    
+    avatarUrl: defaultAvatarUrl,
+    theme: wx.getSystemInfoSync().theme,
+  },
+  onChooseAvatar(e) {
+    const {
+      avatarUrl
+    } = e.detail
+    this.setData({
+      avatarUrl,
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.onThemeChange((result) => {
+      this.setData({
+        theme: result.theme
+      })
+    })
   },
 
   /**
