@@ -11,6 +11,7 @@
     "pages/friend/details/index",
     "pages/friend/edit/index",
     "pages/friend/select/index",
+    "pages/mine/index",
     "pages/profile/index",
     "pages/login/index",
     "pages/about/index",
@@ -51,7 +52,7 @@
         "selectedIconPath": "./images/contact_red.png"
       },
       {
-        "pagePath": "pages/profile/index",
+        "pagePath": "pages/mine/index",
         "text": "我的",
         "iconPath": "./images/mine_gray.png",
         "selectedIconPath": "./images/mine_red.png"
@@ -61,7 +62,6 @@
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
     "footer": "/components/footer/index",
-    "barrage": "/components/barrage",
     "van-action-sheet": "@vant/weapp/action-sheet/index",
     "van-button": "@vant/weapp/button/index",
     "van-row": "@vant/weapp/row/index",

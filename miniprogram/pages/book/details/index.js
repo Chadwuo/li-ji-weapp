@@ -21,46 +21,46 @@ Page({
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
         dialogResult: function (data) {
-          that.giftEditDialog(data)
+          that.loadData(1)
         },
       },
       success: function (res) {
         // 通过 eventChannel 向被打开页面传送数据
         res.eventChannel.emit('acceptDataFromOpenerPage', {
           bookId: that.data.book._id,
+          bookName: that.data.book.title,
           inBook: true
         })
       }
     });
   },
   onGiftClick(e) {
-    // TODO 需要处理e
     let that = this
     wx.navigateTo({
       url: '/pages/giftReceive/edit/index',
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
         dialogResult: function (data) {
-          that.giftEditDialog(data)
+          that.loadData(1)
         },
       },
       success: function (res) {
         // 通过 eventChannel 向被打开页面传送数据
         res.eventChannel.emit('acceptDataFromOpenerPage', {
-          _id: '',
-          friendId: '',
-          friendName: '',
-          bookId: that.data.book._id,
-          title: '',
-          date: {},
-          money: '',
-          remarks: '',
+          ...e.currentTarget.dataset.gift,
+          friendName: e.currentTarget.dataset.gift.friendInfo.name,
+          bookName: that.data.book.title,
           inBook: true
         })
       }
     });
   },
   async loadData(page) {
+    if (page == 1) {
+      this.setData({
+        giftList: []
+      })
+    }
     const that = this
     const res = await giftReceiveService.getGiftReceivePage({
       page: page,
@@ -127,9 +127,6 @@ Page({
   async onPullDownRefresh() {
     // 感觉延迟一下，会舒服点
     setTimeout(async () => {
-      this.setData({
-        giftList: []
-      })
       await this.loadData(1)
       wx.stopPullDownRefresh()
     }, 666);

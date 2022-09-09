@@ -15,11 +15,15 @@ Page({
       this.calendar = this.selectComponent('#calendar')
       this.calendar.toDate(this.data.date);
     }
+    this.calendarDateChange(detail)
   },
   handleCalendarDateChange({
     detail
   }) {
     console.log('calendar-date-change', detail)
+    this.calendarDateChange(detail)
+  },
+  calendarDateChange(detail) {
     let selectedDate = {
       year: detail.date.year,
       month: detail.date.month,
