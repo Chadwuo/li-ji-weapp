@@ -16,7 +16,7 @@
           <span class='num'>{{filters.toFix(happyTotal-sadTotal)}}</span>
           <span class='title'>(收支差)</span>
         </view>
-        <van-row>
+        <van-row style="margin-top: 12rpx;">
           <van-col span="12">
             <view class='item' hover-class='none'>
               <view class='num'>{{happyTotal}}</view>
