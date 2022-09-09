@@ -34,10 +34,7 @@ Page({
           return i._id == detail.data._id
         })
         this.data.giftList[updateIndex] = {
-          _id: detail.data._id,
-          title: detail.data.title,
-          date: detail.data.date,
-          money: detail.data.money,
+          ...detail.data,
           friendInfo: {
             name: detail.data.friendName
           }
