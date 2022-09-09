@@ -46,6 +46,7 @@ Page({
   },
   async onDelete() {
     let delData = this.data
+    console.log(delData)
     const eventChannel = this.getOpenerEventChannel()
     wx.showModal({
       title: '删除亲友？',
@@ -57,6 +58,7 @@ Page({
             wx.showToast({
               title: '删除成功',
             })
+            // TODO 需要修改
             setTimeout(() => {
               eventChannel.emit('dialogResult', {
                 type: 'delete',

@@ -5,10 +5,10 @@ Page({
   data: {
     friend: {},
     giftList: [],
-    happyCount: '0',
-    happyTotal: '0.00',
-    sadCount: '0',
-    sadTotal: '0.00',
+    happyCount: 0,
+    happyTotal: 0,
+    sadCount: 0,
+    sadTotal: 0,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -39,6 +39,7 @@ Page({
           happyTotal: giftReceiveList.map(i => { // 收礼金额总计
             return this.data.happyTotal += i.money
           }),
+          // TODO 排序问题
           giftList: giftOutList.concat(giftReceiveList),
         });
       }
@@ -52,9 +53,11 @@ Page({
       url: `/pages/friend/edit/index?friendId=${this.data.friend._id}`,
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-        dialogResult: function (data) {
+        dialogResult: function (detail) {
           that.setData({
-            ...data
+            friend: {
+              ...detail.data
+            }
           })
         },
       }

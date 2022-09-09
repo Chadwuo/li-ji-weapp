@@ -17,7 +17,7 @@ Page({
   async onSave() {
     const eventChannel = this.getOpenerEventChannel()
     if (this.data._id) {
-      const res = await giftOutService.updataGiftOut(this.data)
+      const res = await giftOutService.updateGiftOut(this.data)
       if (res.success) {
         wx.showToast({
           title: '修改成功',
@@ -36,7 +36,7 @@ Page({
         wx.showToast({
           title: '添加成功',
         })
-      
+
         setTimeout(() => {
           eventChannel.emit('dialogResult', {
             type: 'insert',
@@ -106,7 +106,7 @@ Page({
    */
   onLoad(options) {
     const eventChannel = this.getOpenerEventChannel()
-    eventChannel.on('acceptDataFromOpenerPage', function(data) {
+    eventChannel.on('acceptDataFromOpenerPage', (data) => {
       this.setData({
         ...data
       })
