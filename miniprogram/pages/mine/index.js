@@ -53,6 +53,11 @@ Page({
       }
     ]
   },
+  jumpProfile(){
+    wx.navigateTo({
+      url: '/pages/profile/index',
+    });
+  },
   jumpPage(e) {
     if (e.currentTarget.dataset.page === 'chart') {
       wx.showToast({
@@ -143,7 +148,7 @@ Page({
     return {
       title: '可能是东半球最好用的人情记账工具',
       path: "pages/index/index",
-      imageUrl: '../../images/poster.png'
+      imageUrl: '../../images/share.jpg'
     }
   }
 })
