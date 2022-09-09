@@ -28,6 +28,7 @@ Page({
         // 通过 eventChannel 向被打开页面传送数据
         res.eventChannel.emit('acceptDataFromOpenerPage', {
           bookId: that.data.book._id,
+          bookName: that.data.book.title,
           inBook: true
         })
       }
@@ -48,7 +49,6 @@ Page({
         res.eventChannel.emit('acceptDataFromOpenerPage', {
           ...e.currentTarget.dataset.gift,
           friendName: e.currentTarget.dataset.gift.friendInfo.name,
-          remarks: '',
           bookName: that.data.book.title,
           inBook: true
         })
