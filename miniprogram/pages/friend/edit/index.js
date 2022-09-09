@@ -58,6 +58,7 @@ Page({
             wx.showToast({
               title: '删除成功',
             })
+            // TODO 需要修改
             setTimeout(() => {
               eventChannel.emit('dialogResult', {
                 type: 'delete',
