@@ -1,4 +1,3 @@
-
 const mpserverless = require('../index');
 const db = mpserverless.db;
 
@@ -27,7 +26,8 @@ exports.getUserInfo = async () => {
         nickName: '微信用户',
         avatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
         familyId: '',
-        isVip: false
+        isVip: false,
+        createTime: new Date(),
       }
       await db.collection('user').insertOne(user)
     }
@@ -54,7 +54,7 @@ exports.getUserDataScope = async () => {
   const {
     userInfo
   } = getApp()
-  
+
   // 没有加入家庭，就返回自己的id
   if (!userInfo.familyId) {
     return [userInfo._id]
