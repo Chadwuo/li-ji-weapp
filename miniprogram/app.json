@@ -62,7 +62,6 @@
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
     "footer": "/components/footer/index",
-    "barrage": "/components/barrage",
     "van-action-sheet": "@vant/weapp/action-sheet/index",
     "van-button": "@vant/weapp/button/index",
     "van-row": "@vant/weapp/row/index",
