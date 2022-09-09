@@ -106,8 +106,6 @@ Page({
     this.setData({
       giveTotal: res1.data,
     });
-    console.log(res)
-    console.log(res1)
   },
 
   /**
