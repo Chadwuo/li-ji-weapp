@@ -68,11 +68,11 @@ exports.getGiftReceivePage = async (parameter) => {
                     bookId: parameter.bookId
                 }
             },
-            // {
-            //     $sort: {
-            //         date: -1
-            //     }
-            // },
+            {
+                $sort: {
+                    date: -1
+                }
+            },
             {
                 $skip: ((parameter.page - 1) * parameter.limit)
             },
