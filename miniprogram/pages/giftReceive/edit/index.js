@@ -1,5 +1,6 @@
 // pages/giftReceive/edit/index.js
 const giftReceiveService = require('../../../alicloud/services/giftReceive')
+
 Page({
 
   /**

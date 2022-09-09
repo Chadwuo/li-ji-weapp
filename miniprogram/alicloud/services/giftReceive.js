@@ -116,17 +116,30 @@ exports.addGiftReceive = async (parameter) => {
         const {
             userInfo
         } = getApp();
-        // 参数中没有亲友id，添加先
+        // 参数中没有亲友id
         if (!parameter.friendId) {
+            // 根据亲友名查询库中是否存在
             const {
-                result
-            } = await db.collection('friend').insertOne({
+                result: friend
+            } = await db.collection('friend').findOne({
                 userId: userInfo._id,
                 name: parameter.friendName,
-                firstLetter: pinyin.getFirstLetter(parameter.friendName.substr(0, 1)),
             })
-            // 新添加的亲友id
-            parameter.friendId = result.insertedId
+
+            if (friend && friend._id) { // 存在
+                parameter.friendId = friend._id
+            } else {
+                // 添加
+                const {
+                    result: newFriend
+                } = await db.collection('friend').insertOne({
+                    userId: userInfo._id,
+                    name: parameter.friendName,
+                    firstLetter: pinyin.getFirstLetter(parameter.friendName.substr(0, 1)),
+                })
+                // 新添加的亲友id
+                parameter.friendId = newFriend.insertedId
+            }
         }
 
         const {
