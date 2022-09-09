@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "礼簿详情",
+  "enablePullDownRefresh": true,
   "usingComponents": {}
 }

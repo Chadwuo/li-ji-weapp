@@ -73,9 +73,16 @@
   margin-bottom: 15rpx;
 }
 
-.gift-card .label {
+.gift-card .label-out {
   padding-right: 48rpx;
   color: #08989A;
+  font-size: large;
+  font-weight: bold;
+}
+
+.gift-card .label-in {
+  padding-right: 48rpx;
+  color: #F76664;
   font-size: large;
   font-weight: bold;
 }

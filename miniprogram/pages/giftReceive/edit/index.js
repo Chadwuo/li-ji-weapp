@@ -1,5 +1,6 @@
 // pages/giftReceive/edit/index.js
 const giftReceiveService = require('../../../alicloud/services/giftReceive')
+
 Page({
 
   /**
@@ -11,7 +12,6 @@ Page({
     friendName: '',
     bookId: '',
     bookName: '',
-    title: '',
     money: '',
     remarks: '',
     inBook: false, // 存在礼簿信息
@@ -19,7 +19,7 @@ Page({
   async onSave() {
     const eventChannel = this.getOpenerEventChannel()
     if (this.data._id) {
-      const res = await giftReceiveService.updataGiftReceive(this.data)
+      const res = await giftReceiveService.updateGiftReceive(this.data)
       if (res.success) {
         wx.showToast({
           title: '修改成功',
@@ -125,6 +125,7 @@ Page({
   onLoad(options) {
     const eventChannel = this.getOpenerEventChannel()
     eventChannel.on('acceptDataFromOpenerPage', (data) => {
+      console.log(data)
       this.setData({
         ...data,
       })
