@@ -1,7 +1,13 @@
 <!-- pages/profile/index.wxml -->
-<view class="__input-wrapper">
+<view data-weui-theme="{{theme}}">
+  <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
     <image class="avatar" src="{{avatarUrl}}"></image>
-    <button wx:if="{{supportAvatarInput}}" class="opacity-button" open-type="chooseAvatar"
-        bind:chooseavatar="onChooseAvatar"></button>
-    <button wx:else class="opacity-button" catchtap="handleChooseImage"></button>
+  </button> 
+  <mp-form>
+    <mp-cells>
+      <mp-cell title="昵称">
+        <input type="nickname" class="weui-input" placeholder="请输入昵称"/>
+      </mp-cell>
+    </mp-cells>
+  </mp-form>
 </view>

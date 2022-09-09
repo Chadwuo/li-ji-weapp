@@ -15,7 +15,7 @@
         <view class='desc'>{{welcome}}</view>
       </view>
     </view>
-    <van-icon name="setting-o" color="#fff" />
+    <van-icon name="setting-o" color="#fff" bindtap='jumpProfile'/>
   </view>
   <view>
     <van-cell-group inset>
