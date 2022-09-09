@@ -56,6 +56,11 @@ Page({
     });
   },
   async loadData(page) {
+    if (page == 1) {
+      this.setData({
+        giftList: []
+      })
+    }
     const that = this
     const res = await giftReceiveService.getGiftReceivePage({
       page: page,
@@ -122,9 +127,6 @@ Page({
   async onPullDownRefresh() {
     // 感觉延迟一下，会舒服点
     setTimeout(async () => {
-      this.setData({
-        giftList: []
-      })
       await this.loadData(1)
       wx.stopPullDownRefresh()
     }, 666);
