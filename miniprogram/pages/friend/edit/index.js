@@ -13,8 +13,9 @@ Page({
     remarks: '',
   },
   async onSave() {
+    const eventChannel = this.getOpenerEventChannel()
     if (this.data._id) {
-      const res = await friendService.updataFriend(this.data)
+      const res = await friendService.updateFriend(this.data)
       if (res.success) {
         wx.showToast({
           title: '修改成功',
@@ -64,7 +65,9 @@ Page({
                 type: 'delete',
                 data: delData
               });
-              wx.navigateBack()
+              wx.navigateBack({
+                delta: 2
+              })
             }, 1000);
           }
         }

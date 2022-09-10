@@ -24,11 +24,8 @@ Page({
         wx.showToast({
           title: '修改成功',
         })
+        eventChannel.emit('refresh')
         setTimeout(() => {
-          eventChannel.emit('dialogResult', {
-            type: 'update',
-            data: this.data
-          });
           wx.navigateBack()
         }, 1000);
       }
@@ -38,12 +35,8 @@ Page({
         wx.showToast({
           title: '添加成功',
         })
+        eventChannel.emit('refresh')
         setTimeout(() => {
-          this.data._id = res.data
-          eventChannel.emit('dialogResult', {
-            type: 'insert',
-            data: this.data
-          });
           wx.navigateBack()
         }, 1000);
       }
@@ -62,11 +55,8 @@ Page({
             wx.showToast({
               title: '删除成功',
             })
+            eventChannel.emit('refresh')
             setTimeout(() => {
-              eventChannel.emit('dialogResult', {
-                type: 'delete',
-                data: delData
-              });
               wx.navigateBack()
             }, 1000);
           }
@@ -125,7 +115,6 @@ Page({
   onLoad(options) {
     const eventChannel = this.getOpenerEventChannel()
     eventChannel.on('acceptDataFromOpenerPage', (data) => {
-      console.log(data)
       this.setData({
         ...data,
       })

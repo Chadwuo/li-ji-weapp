@@ -1,7 +1,7 @@
 <!--pages/giftReceive/edit/index.wxml-->
 <view class="container">
 	<van-cell-group inset border="{{false}}">
-		<van-field label="来宾姓名" size="large" left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="点击右侧图标选择亲友" bind:click-icon="showFriendSelect" />
+		<van-field label="来宾姓名" size="large" left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="点击右侧图标选择" bind:click-icon="showFriendSelect" />
 		<van-field label="礼金" size="large" left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="收礼金额" />
 		<van-field wx:if="{{!inBook}}" readonly size="large" readonly label="礼簿" left-icon="balance-list-o" value="{{ bookName }}" placeholder="选择礼簿" use-button-slot bind:click-input="showBookSelect">
 			<van-icon name="arrow" slot="button" />
@@ -12,10 +12,10 @@
 <view class="submit-bar">
 	<van-row gutter="24">
 		<van-col span="8" wx:if="{{_id}}">
-			<van-button color="#F76664" block round plain bindtap="onDelete">删除</van-button>
+			<van-button color="#F76664" block round plain bind:click="onDelete">删除</van-button>
 		</van-col>
 		<van-col span="{{_id?16:24}}">
-			<van-button color="#F76664" block round disabled="{{!friendName|!bookName|!money}}" bindtap="onSave">
+			<van-button color="#F76664" block round disabled="{{!friendName|!bookName|!money}}" bind:click="onSave">
 				保 存
 			</van-button>
 		</van-col>

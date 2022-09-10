@@ -18,11 +18,8 @@ Page({
         wx.showToast({
           title: '修改成功',
         })
+        eventChannel.emit('refresh')
         setTimeout(() => {
-          eventChannel.emit('dialogResult', {
-            type: 'update',
-            data: this.data
-          });
           wx.navigateBack()
         }, 1000);
       }
@@ -32,12 +29,8 @@ Page({
         wx.showToast({
           title: '保存成功',
         })
+        eventChannel.emit('refresh')
         setTimeout(() => {
-          this.data._id = res.data
-          eventChannel.emit('dialogResult', {
-            type: 'insert',
-            data: this.data
-          });
           wx.navigateBack()
         }, 1000);
       }
@@ -56,11 +49,8 @@ Page({
             wx.showToast({
               title: '删除成功',
             })
+            eventChannel.emit('refresh')
             setTimeout(() => {
-              eventChannel.emit('dialogResult', {
-                type: 'delete',
-                data: delData
-              });
               wx.navigateBack()
             }, 1000);
           }
@@ -86,20 +76,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    var id = options.bookId
-    if (id) {
-      const res = await bookService.getBook({
-        _id: id
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.on('acceptDataFromOpenerPage', (data) => {
+      this.setData({
+        ...data,
       })
-      if (res.success) {
-        wx.setNavigationBarTitle({
-          title: '编辑礼簿'
-        })
-        this.setData({
-          ...res.data
-        })
-      }
-    }
+      wx.setNavigationBarTitle({
+        title: '编辑礼簿'
+      })
+    })
   },
 
   /**
