@@ -118,6 +118,7 @@ exports.addGiftOut = async (parameter) => {
         } = getApp();
         // 参数中没有亲友id，添加先
         if (!parameter.friendId) {
+            parameter.friendName = parameter.friendName.trim()
             // 根据亲友名查询库中是否存在
             const {
                 result: friend
