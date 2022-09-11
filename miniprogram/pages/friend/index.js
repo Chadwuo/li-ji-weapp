@@ -44,6 +44,9 @@ Page({
     this.loadData()
   },
   async loadData() {
+    this.setData({
+      friendsList: []
+    })
     let listTemp = []
     for (let index = 0; index < 26; index++) {
       listTemp.push({
@@ -59,7 +62,7 @@ Page({
     if (res.success) {
       for (const item of res.data) {
         const firstLetter = item.firstLetter
-        if (!isNaN(firstLetter)) {
+        if (!firstLetter) {
           noletter.subItems.push(item)
         } else {
           for (const f of listTemp) {

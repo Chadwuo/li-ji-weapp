@@ -10,7 +10,6 @@ Page({
     keyword: '',
     pageNo: 0,
     giftBooks: [],
-    actionId: '',
     showBookAction: false,
     bookActions: [{
         name: '编辑',
@@ -20,6 +19,7 @@ Page({
         subname: '该礼簿所有来往记录都将被删除',
       },
     ],
+    bookActionDetail: {}
   },
   onSearch() {
     wx.showToast({
@@ -31,17 +31,21 @@ Page({
   onAddGift() {
     wx.navigateTo({
       url: '/pages/giftReceive/edit/index',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        refresh: () => {
+          this.loadData(1)
+        },
+      }
     });
   },
   // 添加礼簿
   onAddBook() {
-    let that = this
     wx.navigateTo({
       url: '/pages/book/edit/index',
       events: {
-        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-        dialogResult: function (data) {
-          that.bookEditDialog(data)
+        refresh: () => {
+          this.loadData(1)
         },
       }
     });
@@ -50,6 +54,11 @@ Page({
   onBookClick(e) {
     wx.navigateTo({
       url: '/pages/book/details/index',
+      events: {
+        refresh: () => {
+          this.loadData(1)
+        },
+      },
       success: function (res) {
         // 通过 eventChannel 向被打开页面传送数据
         res.eventChannel.emit('acceptDataFromOpenerPage', {
@@ -62,7 +71,7 @@ Page({
   onBookLongPress(e) {
     this.setData({
       showBookAction: true,
-      actionId: e.currentTarget.dataset.bookid
+      bookActionDetail: e.currentTarget.dataset.book
     });
   },
   // 长按礼簿-关闭
@@ -82,16 +91,10 @@ Page({
           async success(result) {
             if (result.confirm) {
               const res = await bookService.deleteBook({
-                _id: that.data.actionId
+                _id: that.data.bookActionDetail._id
               })
               if (res.success) {
-                let delIndex = that.data.giftBooks.findIndex(i => {
-                  return i._id == that.data.actionId
-                })
-                that.data.giftBooks.splice(delIndex, 1)
-                that.setData({
-                  giftBooks: that.data.giftBooks
-                })
+                that.loadData(1)
                 wx.showToast({
                   title: '删除成功',
                 })
@@ -101,47 +104,19 @@ Page({
         })
         break;
       case '编辑':
+        console.log(that.data.actionId)
         wx.navigateTo({
-          url: `/pages/book/edit/index?bookId=${this.data.actionId}`,
+          url: `/pages/book/edit/index`,
+          success: function (res) {
+            // 通过 eventChannel 向被打开页面传送数据
+            res.eventChannel.emit('acceptDataFromOpenerPage', that.data.bookActionDetail)
+          },
           events: {
-            // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-            dialogResult: function (data) {
-              that.bookEditDialog(data)
+            refresh: () => {
+              this.loadData(1)
             },
           }
         });
-        break;
-      default:
-        break;
-    }
-  },
-  // 礼簿编辑回调
-  bookEditDialog(detail) {
-    console.log(detail)
-    switch (detail.type) {
-      case 'insert':
-        this.data.giftBooks.unshift(detail.data)
-        this.setData({
-          giftBooks: this.data.giftBooks
-        })
-        break;
-      case 'update':
-        let updateIndex = this.data.giftBooks.findIndex(i => {
-          return i._id == detail.data._id
-        })
-        this.data.giftBooks[updateIndex].title = detail.data.title
-        this.setData({
-          giftBooks: this.data.giftBooks
-        })
-        break;
-      case 'delete':
-        let delIndex = this.data.giftBooks.findIndex(i => {
-          return i._id == detail.data._id
-        })
-        this.data.giftBooks.splice(delIndex, 1)
-        this.setData({
-          giftBooks: this.data.giftBooks
-        })
         break;
       default:
         break;
@@ -160,6 +135,11 @@ Page({
   },
   // 加载数据
   async loadData(page) {
+    if (page == 1) {
+      this.setData({
+        giftBooks: []
+      })
+    }
     const that = this
     const res = await bookService.getBookPage({
       page: page,
@@ -223,9 +203,6 @@ Page({
   onPullDownRefresh() {
     // 感觉延迟一下，会舒服点
     setTimeout(async () => {
-      this.setData({
-        giftBooks: []
-      })
       await this.loadData(1)
       wx.stopPullDownRefresh()
     }, 666);

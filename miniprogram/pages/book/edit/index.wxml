@@ -12,10 +12,10 @@
 <view class="submit-bar">
 	<van-row gutter="24">
 		<van-col span="8" wx:if="{{_id}}">
-			<van-button color="#F76664" block round plain bindtap="onDelete">删除</van-button>
+			<van-button color="#F76664" block round plain bind:click="onDelete">删除</van-button>
 		</van-col>
 		<van-col span="{{_id?16:24}}">
-			<van-button color="#F76664" block round disabled="{{!title|!date.value}}" bindtap="onSave">
+			<van-button color="#F76664" block round disabled="{{!title|!date.value}}" bind:click="onSave">
 				保 存
 			</van-button>
 		</van-col>

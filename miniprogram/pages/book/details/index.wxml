@@ -12,7 +12,7 @@
         <view class='title'>{{item.friendInfo.name}}</view>
       </view>
       <view class='label'>
-        {{item.money}}
+        {{item.money}}元
       </view>
     </view>
   </view>

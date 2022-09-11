@@ -8,7 +8,7 @@
           <van-field model:value="{{ content }}" type="textarea" placeholder="请输入留言" autosize="{{ { minHeight: 260} }}" border="{{ false }}" />
         </van-cell-group>
         <view style="padding: 0 20px;margin-top: 24rpx;">
-          <van-button block color="#F76664" round icon="guide-o" bind:click="onAddIssues">
+          <van-button block color="#F76664" round icon="guide-o" disabled="{{!title|!content}}" bind:click="onAddIssues">
             发送
           </van-button>
         </view>

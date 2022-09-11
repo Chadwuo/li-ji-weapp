@@ -48,6 +48,7 @@ Page({
       // });
       wx.showToast({
         title: '提交成功，意见已记录，感谢你',
+        icon: 'none',
       })
     }
   },
