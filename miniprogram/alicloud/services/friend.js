@@ -135,8 +135,9 @@ exports.addFriend = async (parameter) => {
             result
         } = await db.collection('friend').insertOne({
             userId: userInfo._id,
-            name: parameter.name,
-            fristLetter: pinyin.getFirstLetter(parameter.name.substr(0, 1)),
+            name: parameter.name.trim(),
+            firstLetter: pinyin.getFirstLetter(parameter.name.substr(0, 1)),
+            relation: parameter.relation,
             remarks: parameter.remarks
         })
         return {
@@ -162,8 +163,9 @@ exports.updateFriend = async (parameter) => {
             _id: parameter._id
         }, {
             $set: {
-                name: parameter.name,
-                fristLetter: pinyin.getFirstLetter(parameter.name.substr(0, 1)),
+                name: parameter.name.trim(),
+                firstLetter: pinyin.getFirstLetter(parameter.name.substr(0, 1)),
+                relation: parameter.relation,
                 remarks: parameter.remarks
             }
         })

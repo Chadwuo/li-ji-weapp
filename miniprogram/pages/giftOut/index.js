@@ -16,54 +16,12 @@ Page({
       icon: 'none',
     })
   },
-  giftEditDialog(detail) {
-    switch (detail.type) {
-      case 'insert':
-        this.data.giftList.unshift({
-          ...detail.data,
-          friendInfo: {
-            name: detail.data.friendName
-          }
-        })
-        this.setData({
-          giftList: this.data.giftList
-        })
-        break;
-      case 'update':
-        let updateIndex = this.data.giftList.findIndex(i => {
-          return i._id == detail.data._id
-        })
-        this.data.giftList[updateIndex] = {
-          ...detail.data,
-          friendInfo: {
-            name: detail.data.friendName
-          }
-        }
-        this.setData({
-          giftList: this.data.giftList
-        })
-        break;
-      case 'delete':
-        let delIndex = this.data.giftList.findIndex(i => {
-          return i._id == detail.data._id
-        })
-        this.data.giftList.splice(delIndex, 1)
-        this.setData({
-          giftList: this.data.giftList
-        })
-        break;
-      default:
-        break;
-    }
-  },
   onGiftClick(e) {
-    let that = this
     wx.navigateTo({
       url: '/pages/giftOut/edit/index',
       events: {
-        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-        dialogResult: function (data) {
-          that.giftEditDialog(data)
+        refresh: () => {
+          this.loadData(1)
         },
       },
       success: function (res) {
@@ -76,13 +34,11 @@ Page({
     });
   },
   onAddGift() {
-    let that = this
     wx.navigateTo({
       url: '/pages/giftOut/edit/index',
       events: {
-        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-        dialogResult: function (data) {
-          that.giftEditDialog(data)
+        refresh: () => {
+          this.loadData(1)
         },
       }
     });
