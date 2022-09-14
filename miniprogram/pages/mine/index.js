@@ -53,7 +53,7 @@ Page({
       }
     ]
   },
-  jumpProfile(){
+  jumpProfile() {
     wx.navigateTo({
       url: '/pages/profile/index',
     });
@@ -103,13 +103,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow() {
-    const res = await giftReceiveService.computedTotalGiftReceive()
+    const {
+      data: rTotal
+    } = await giftReceiveService.computedTotalGiftReceive()
     this.setData({
-      receiveTotal: res.data,
+      receiveTotal: rTotal || 0,
     });
-    const res1 = await giftOutService.computedTotalGiftOut()
+    const {
+      data: oTotal
+    } = await giftOutService.computedTotalGiftOut()
     this.setData({
-      giveTotal: res1.data,
+      giveTotal: oTotal || 0,
     });
   },
 
