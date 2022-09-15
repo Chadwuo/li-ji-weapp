@@ -2,13 +2,22 @@
 <van-notify id="van-notify" />
 <van-notice-bar left-icon="volume-o" text="家庭成员管理、邀请等功能，正在优化，请稍后再试，李姐万岁。" />
 <view class="container">
-    <view wx:if="{{!_id}}">
+    <block wx:if="{{!_id&&!inviteFamily}}">
         <van-empty description="还没有开通家庭共享哦~" />
         <van-button round block type="danger" icon="plus" custom-style="margin-bottom: 24rpx;" bindtap="onCreate">
             创建家庭
         </van-button>
         <!-- <van-button round block type="danger" icon="scan">加入家庭</van-button> -->
-    </view>
+    </block>
+    <block wx:elif="{{inviteFamily}}">
+        <van-empty description="邀请你加入家庭" />
+        <van-button round block type="danger" icon="plus" custom-style="margin-bottom: 24rpx;" bindtap="onJoinFamily">
+            同意
+        </van-button>
+        <van-button round block type="danger" icon="plus" custom-style="margin-bottom: 24rpx;" bindtap="goHome">
+            首页
+        </van-button>
+    </block>
 </view>
 <view wx:if="{{_id}}">
     <van-cell-group inset title="家庭管理">
@@ -28,4 +37,5 @@
             </van-button>
         </van-cell>
     </van-cell-group>
+    <text style="font-size: 12px;color: #969799;">Tips:点击邀请，选择分享给你的家人，点击此链接的用户，会加入你创建的家庭，共享记账数据。</text>
 </view>

@@ -11,11 +11,10 @@ Page({
         _id: '',
         name: '',
         familyMembers: [],
+        inviteFamily: false
     },
     async onUpdateName() {
-        const res = await familyService.updateFamily({
-            name: this.data.name
-        })
+        const res = await familyService.updateFamily(this.data)
         if (res.success) {
             Notify({
                 type: 'success',
@@ -33,14 +32,39 @@ Page({
             this.onShow()
         }
     },
+    async onDeleteMember(memberId) {
+        const res = await familyService.delFamilyMember({
+            _id: memberId
+        })
+        if (res.success) {
+            this.onShow()
+        }
+    },
+    async onJoinFamily() {
+        const res = await familyService.joinFamily({
+            familyId: this.data.inviteFamily._id,
+            relation: '成员'
+        })
+        if (res.success) {
+            app.userInfo.familyId = this.data.inviteFamily._id
+            this.onShow()
+        }
+    },
+    goHome() {
+        wx.navigateTo({
+            url: '/pages/index/index',
+        });
+    },
     /**
      * 生命周期函数--监听页面加载
      */
     async onLoad(options) {
+        if (app.userInfo.familyId) {
+            return
+        }
         if (options && options.familyId) {
-            const res = await familyService.addFamilyMember({
-                familyId: options.familyId,
-                relation: '成员'
+            this.setData({
+                inviteFamily: options
             })
         }
     },
@@ -98,7 +122,7 @@ Page({
     onShareAppMessage() {
         return {
             title: '和我一起记录家里的人情往来',
-            path: "pages/family/index?familyId=" + this.data._id,
+            path: "pages/family/index?familyId=" + this.data._id + "&word=",
             imageUrl: '../../images/share.jpg'
         }
     }
