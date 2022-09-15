@@ -190,11 +190,11 @@ exports.deleteFamily = async (parameter) => {
 };
 
 /**
- * 申请加入家庭
+ * 加入某个家庭
  *
  * @author chadwuo
  */
-exports.addFamilyMember = async (parameter) => {
+exports.joinFamily = async (parameter) => {
     try {
         const {
             userInfo
@@ -203,7 +203,16 @@ exports.addFamilyMember = async (parameter) => {
             userId: userInfo._id,
             familyId: parameter.familyId,
             relation: parameter.relation,
-            status: 0 // 等待管理通过
+            status: 1 // 默认通过
+        })
+
+        // 更新自己用户表中家庭id
+        await db.collection('user').updateOne({
+            _id: userInfo._id
+        }, {
+            $set: {
+                familyId: parameter.familyId
+            }
         })
 
         return {
@@ -229,42 +238,6 @@ exports.delFamilyMember = async (parameter) => {
             _id: parameter._id
         })
 
-        return {
-            success: true,
-            data: ''
-        }
-    } catch (error) {
-        return {
-            success: false,
-            message: error
-        };
-    }
-};
-
-/**
- * 审核家庭成员加入申请
- *
- * @author chadwuo
- */
-exports.checkFamilyMember = async (parameter) => {
-    try {
-        // 修改状态
-        await db.collection('family_member').updateOne({
-            _id: parameter._id
-        }, {
-            $set: {
-                status: 1
-            }
-        })
-
-        // 更新成员的用户表中家庭id
-        await db.collection('user').updateOne({
-            _id: parameter.userId
-        }, {
-            $set: {
-                familyId: parameter.familyId
-            }
-        })
         return {
             success: true,
             data: ''
