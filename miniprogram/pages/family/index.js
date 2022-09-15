@@ -59,6 +59,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     async onLoad(options) {
+        console.log(options)
         if (app.userInfo.familyId) {
             return
         }
@@ -122,7 +123,7 @@ Page({
     onShareAppMessage() {
         return {
             title: '和我一起记录家里的人情往来',
-            path: "pages/family/index?familyId=" + this.data._id + "&word=",
+            path: `pages/family/index?familyId=${this.data._id}&word=${app.userInfo.nickName}邀请你加入家庭共享记账`,
             imageUrl: '../../images/share.jpg'
         }
     }
