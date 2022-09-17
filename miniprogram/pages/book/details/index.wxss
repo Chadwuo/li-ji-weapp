@@ -23,7 +23,7 @@
   color: #000000;
   font-size: 44rpx;
   font-weight: 500;
-  margin: 25rpx 0 15rpx 0;
+  margin: 25rpx 0;
 }
 
 .gift-card .content .info {
