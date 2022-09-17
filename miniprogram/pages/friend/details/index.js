@@ -30,15 +30,18 @@ Page({
           giftOutList,
           giftReceiveList
         } = res.data
+
+        giftReceiveList.map(i => { // 收礼金额总计
+          this.data.happyTotal += i.money
+        })
+        giftOutList.map(i => { // 送礼金额总计
+          this.data.sadTotal += i.money
+        })
         this.setData({
           sadCount: giftOutList.length, // 送礼次数
-          sadTotal: giftOutList.map(i => { // 送礼金额总计
-            return this.data.sadTotal += i.money
-          }),
+          sadTotal: this.data.sadTotal,
           happyCount: giftReceiveList.length, // 收礼次数
-          happyTotal: giftReceiveList.map(i => { // 收礼金额总计
-            return this.data.happyTotal += i.money
-          }),
+          happyTotal: this.data.happyTotal,
           // TODO 排序问题
           giftList: giftOutList.concat(giftReceiveList),
         });

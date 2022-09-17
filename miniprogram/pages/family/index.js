@@ -32,21 +32,22 @@ Page({
             this.onShow()
         }
     },
-    async onDeleteMember(memberId) {
-        const res = await familyService.delFamilyMember({
-            _id: memberId
-        })
+    async onDeleteMember(e) {
+        const res = await familyService.delFamilyMember(e.currentTarget.dataset.member)
         if (res.success) {
             this.onShow()
         }
     },
     async onJoinFamily() {
         const res = await familyService.joinFamily({
-            familyId: this.data.inviteFamily._id,
+            familyId: this.data.inviteFamily.familyId,
             relation: '成员'
         })
         if (res.success) {
-            app.userInfo.familyId = this.data.inviteFamily._id
+            app.userInfo.familyId = this.data.inviteFamily.familyId
+            this.setData({
+                inviteFamily: null
+            })
             this.onShow()
         }
     },
@@ -59,7 +60,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     async onLoad(options) {
-        console.log(options)
         if (app.userInfo.familyId) {
             return
         }

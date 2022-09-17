@@ -72,5 +72,9 @@ exports.getUserDataScope = async () => {
     return i.userId
   })
 
+  if (!dataScope || dataScope.length == 0) {
+    return [userInfo._id]
+  }
+
   return dataScope
 }

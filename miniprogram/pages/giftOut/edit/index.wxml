@@ -4,8 +4,8 @@
 		<van-field readonly size="large" label="时间" left-icon="calendar-o" value="{{ date.value }}" bind:click-input="showCalendar" placeholder="请选择日期" use-button-slot>
 			<van-icon name="arrow" slot="button" />
 		</van-field>
-		<van-field label="亲友姓名" size="large" left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="点击右侧图标选择" bind:click-icon="showFriendSelect" maxlength="8"/>
-		<van-field label="送礼事由" size="large" left-icon="point-gift-o" model:value="{{ title }}" placeholder="事由" maxlength="16"/>
+		<van-field label="亲友姓名" size="large" left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="点击右侧图标选择" bind:click-icon="showFriendSelect" maxlength="16"/>
+		<van-field label="送礼事由" size="large" left-icon="point-gift-o" model:value="{{ title }}" placeholder="事由" maxlength="32"/>
 		<van-field label="礼金" size="large" left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="送礼金额" maxlength="8"/>
 	</van-cell-group>
 </view>
