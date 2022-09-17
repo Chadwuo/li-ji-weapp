@@ -238,6 +238,15 @@ exports.delFamilyMember = async (parameter) => {
             _id: parameter._id
         })
 
+        // 更新自己用户表中家庭id
+        await db.collection('user').updateOne({
+            _id: parameter.userId
+        }, {
+            $set: {
+                familyId: ''
+            }
+        })
+
         return {
             success: true,
             data: ''

@@ -1,6 +1,5 @@
 <!-- pages/family/index.wxml -->
 <van-notify id="van-notify" />
-<van-notice-bar left-icon="volume-o" text="家庭成员管理、邀请等功能，正在优化，请稍后再试，李姐万岁。" />
 <view class="container">
     <block wx:if="{{!_id&&!inviteFamily}}">
         <van-empty description="还没有开通家庭共享哦~" />
@@ -21,22 +20,41 @@
 </view>
 <view wx:if="{{_id}}">
     <van-cell-group inset title="家庭管理">
-        <van-field model:value="{{ name }}" label="家庭名称" placeholder="请输入家庭名称" input-align="right" size="large" bind:confirm="onUpdateName" />
+        <van-field center model:value="{{ name }}" label="家庭名称" placeholder="请输入家庭名称" input-align="right" size="large" bind:confirm="onUpdateName" />
     </van-cell-group>
     <van-cell-group inset title="家庭成员">
         <block wx:for="{{familyMembers}}" wx:key="index">
-            <van-cell value="{{item.relation}}" size="large" center>
+            <van-cell value="{{item.relation}}" size="large" center wx:if="{{item.relation=='管理员'}}">
                 <view slot="title">
                     <view class="van-cell-text">{{item.user.nickName}}</view>
                 </view>
             </van-cell>
+
+            <van-swipe-cell right-width="{{ 65 }}" wx:else>
+                <van-cell-group>
+                    <van-cell size="large" center value="{{item.relation}}">
+                        <view slot="title">
+                            <view class="van-cell-text">{{item.user.nickName}}</view>
+                        </view>
+                    </van-cell>
+                </van-cell-group>
+                <van-button slot="right" type="danger" bind:click="onDeleteMember" data-member="{{item}}">删除</van-button>
+            </van-swipe-cell>
         </block>
-        <van-cell size="large">
-            <van-button round block plain size="large" type="danger" icon="plus" open-type="share">
-                邀请家庭成员
-            </van-button>
-        </van-cell>
-        <text style="font-size: 12px;color: #969799;">Tips:点击邀请，选择分享给你的家人，点击此链接的用户，会加入你创建的家庭，共享记账数据。</text>
+
+        <block >
+            <van-cell size="large">
+                <van-button round block plain size="large" type="danger" icon="plus" open-type="share">
+                    邀请家庭成员
+                </van-button>
+            </van-cell>
+            <!-- <van-cell size="large" wx:if="{{familyMembers.length==1}}">
+                <van-button round block plain size="large" type="danger" open-type="share">
+                    移除家庭
+                </van-button>
+            </van-cell> -->
+        </block>
+        <text style="font-size: 12px;color: #969799;margin-top: 32rpx;">Tips：向左滑动来展示操作按钮。</text>
     </van-cell-group>
 </view>
 <!-- 页脚 -->
