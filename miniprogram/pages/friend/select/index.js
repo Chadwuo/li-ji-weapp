@@ -7,6 +7,13 @@ Page({
    */
   data: {
     friendSelectSource: [],
+    keyword: ''
+  },
+  onSearch() {
+    wx.showToast({
+      title: '搜索...马上写完，真的',
+      icon: 'none',
+    })
   },
   // 选中联系人
   onSelectedFriend(e) {
@@ -18,13 +25,40 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
+    let listTemp = []
+    for (let index = 0; index < 26; index++) {
+      listTemp.push({
+        alpha: String.fromCharCode((65 + index)),
+        subItems: []
+      })
+    }
+    let noletter = {
+      alpha: '#',
+      subItems: []
+    }
     const res = await friendService.getFriendList()
     if (res.success) {
+      for (const item of res.data) {
+        const firstLetter = item.firstLetter
+        if (!firstLetter) {
+          noletter.subItems.push(item)
+        } else {
+          for (const f of listTemp) {
+            if (firstLetter.toUpperCase() === f.alpha) {
+              f.subItems.push(item)
+              break
+            }
+          }
+        }
+      }
+      listTemp.push(noletter)
+      let list = listTemp.filter((i) => {
+        return i.subItems.length != 0
+      })
       this.setData({
-        friendSelectSource: res.data,
+        friendSelectSource: list,
       });
     }
-    console.log(res)
   },
 
   /**

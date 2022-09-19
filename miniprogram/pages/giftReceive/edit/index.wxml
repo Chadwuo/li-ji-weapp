@@ -1,12 +1,12 @@
 <!--pages/giftReceive/edit/index.wxml-->
 <view class="container">
 	<van-cell-group inset border="{{false}}">
-		<van-field label="来宾姓名" size="large" left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="点击右侧图标选择" bind:click-icon="showFriendSelect" />
-		<van-field label="礼金" size="large" left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="收礼金额" />
+		<van-field label="来宾姓名" size="large" left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="点击右侧图标选择" bind:click-icon="showFriendSelect" maxlength="16"/>
+		<van-field label="礼金" size="large" left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="收礼金额" maxlength="8"/>
 		<van-field wx:if="{{!inBook}}" readonly size="large" readonly label="礼簿" left-icon="balance-list-o" value="{{ bookName }}" placeholder="选择礼簿" use-button-slot bind:click-input="showBookSelect">
 			<van-icon name="arrow" slot="button" />
 		</van-field>
-		<van-field label="备注" size="large" left-icon="bookmark-o" model:value="{{ remarks }}" type="textarea" placeholder="选填" autosize="{{ { minHeight: 120} }}" />
+		<van-field label="备注" size="large" left-icon="bookmark-o" model:value="{{ remarks }}" type="textarea" placeholder="选填" autosize="{{ { minHeight: 120} }}" maxlength="32"/>
 	</van-cell-group>
 </view>
 <view class="submit-bar">

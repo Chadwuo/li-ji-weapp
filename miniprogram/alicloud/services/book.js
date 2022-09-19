@@ -177,6 +177,10 @@ exports.deleteBook = async (parameter) => {
     await db.collection('book').deleteOne({
       _id: parameter._id
     })
+    // 删除礼簿下所有收礼记录
+    await db.collection('gift_receive').deleteMany({
+      bookId: parameter._id
+    })
     return {
       success: true,
       data: ''
