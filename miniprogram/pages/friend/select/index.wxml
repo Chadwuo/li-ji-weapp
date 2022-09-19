@@ -1,16 +1,17 @@
 <!--pages/friend/select/index.wxml-->
-<view class="container">
-  <van-empty wx:if="{{friendSelectSource.length===0}}" description="暂无数据" />
-  <view wx:for="{{friendSelectSource}}" wx:key="index">
-    <van-cell-group inset>
-      <van-cell use-label-slot is-link bind:click="onSelectedFriend" data-friend="{{item}}">
-        <view slot="title">
-          <view class="line1">{{item.name}}</view>
-        </view>
-        <view slot="label">
-          <view>{{item.relation}}</view>
-        </view>
-      </van-cell>
-    </van-cell-group>
+<view>
+  <van-sticky>
+    <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round"></van-search>
+  </van-sticky>
+  <view>
+    <van-empty wx:if="{{friendSelectSource.length===0}}" description="还没有记录哦~" />
+    <van-index-bar highlight-color="#F76664">
+      <view wx:for="{{friendSelectSource}}" wx:key="index">
+        <van-index-anchor index="{{item.alpha}}" />
+        <van-cell-group inset>
+          <van-cell is-link title="{{data.name}}" size="large" bind:click="onSelectedFriend" wx:for="{{item.subItems}}" wx:for-item="data" wx:key="dataindex" data-friend='{{data}}' />
+        </van-cell-group>
+      </view>
+    </van-index-bar>
   </view>
 </view>

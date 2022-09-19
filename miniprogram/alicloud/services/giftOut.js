@@ -116,6 +116,9 @@ exports.addGiftOut = async (parameter) => {
         const {
             userInfo
         } = getApp();
+        // 数据权限范围
+        const dataScope = await getUserDataScope()
+
         // 参数中没有亲友id，添加先
         if (!parameter.friendId) {
             parameter.friendName = parameter.friendName.trim()
@@ -123,7 +126,9 @@ exports.addGiftOut = async (parameter) => {
             const {
                 result: friend
             } = await db.collection('friend').findOne({
-                userId: userInfo._id,
+                userId: {
+                    $in: dataScope
+                },
                 name: parameter.friendName,
             })
 
