@@ -4,8 +4,8 @@
 		<van-field readonly size="large" label="时间" left-icon="calendar-o" value="{{ date.value }}" bind:click-input="showCalendar" use-button-slot placeholder="请选择日期">
 			<van-icon name="arrow" slot="button" />
 		</van-field>
-		<van-field label="礼簿名称" size="large" left-icon="balance-list-o" model:value="{{ title }}" placeholder="请输入名称" />
-		<van-field label="备注" size="large" left-icon="bookmark-o" model:value="{{ remarks }}" type="textarea" placeholder="选填" autosize="{{ { minHeight: 120} }}" />
+		<van-field label="礼簿名称" size="large" left-icon="balance-list-o" model:value="{{ title }}" placeholder="请输入名称" maxlength="16"/>
+		<van-field label="备注" size="large" left-icon="bookmark-o" model:value="{{ remarks }}" type="textarea" placeholder="选填" autosize="{{ { minHeight: 120} }}" maxlength="32"/>
 		<text style="font-size: 12px;color: #969799;">Tips:一场宴席活动中，用来登记所有来客贺礼的名册，称为礼簿。</text>
 	</van-cell-group>
 </view>
