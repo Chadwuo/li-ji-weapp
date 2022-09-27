@@ -1,4 +1,8 @@
 /* pages/family/index.wxss */
 .container {
-  padding: 0 30rpx;
+  padding: 0 32rpx;
+}
+
+.van-field__label {
+  padding: 24rpx 0;
 }
