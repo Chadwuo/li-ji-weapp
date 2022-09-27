@@ -1,10 +1,12 @@
 <!--pages/book/details/index.wxml-->
 <view class="container">
-  <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch">
-    <view slot="action" bind:tap="onAddGift" style="display: flex;">
-      <van-icon name="add" color="#F76664" size="62rpx" />
-    </view>
-  </van-search>
+  <van-sticky>
+    <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch">
+      <view slot="action" bind:tap="onAddGift" style="display: flex;">
+        <van-icon name="add" color="#F76664" size="62rpx" />
+      </view>
+    </van-search>
+  </van-sticky>
   <view class="wrapper">
     <van-empty wx:if="{{giftList.length==0}}" description="还没有记录哦~"></van-empty>
     <view class='gift-card' wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
