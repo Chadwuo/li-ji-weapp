@@ -1,0 +1,20 @@
+//tools.wxs文件
+indexOf = function (arr, value) {
+    return arr.indexOf(value) >= 0;
+}
+
+//数字格式化
+numberFormat = function (Num) {
+    if (Num > 1000 && Num < 10000) {
+        return Math.floor(Num / 1000) + 'k';
+    } else if (Num > 10000) {
+        return Math.floor(Num / 10000) + 'W';
+    } else {
+        return Num;
+    }
+}
+
+module.exports = {
+    indexOf: indexOf,
+    numberFormat: numberFormat
+}
