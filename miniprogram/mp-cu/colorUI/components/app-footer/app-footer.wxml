@@ -1,0 +1,5 @@
+<view class="text-center py-4">
+    <!-- <image src="/static/img/pa1m9.png" mode="aspectFill" class="page-footer"/> -->
+    <view class="text-sm" style="color: #cecece;">{{text}}</view>
+    <view class="mp-cu-text">Copyright © Chadwuo Design. All Rights Reserved</view>
+</view>
