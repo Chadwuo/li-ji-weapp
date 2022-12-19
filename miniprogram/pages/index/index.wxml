@@ -1,44 +1,54 @@
-<view>
-  <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
-    <view slot="action" bind:tap="onAddGift" style="display: flex;">
-      <van-icon name="add" color="#F76664" size="62rpx" />
-    </view>
-  </van-search>
-  <view class="book-wrapper">
-    <van-row gutter="20">
-      <van-col span="12" wx:for="{{giftBooks}}" wx:key="index">
-        <van-transition>
-          <view class="book" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-book='{{item}}'>
-            <image class="bg" src="/images/bg_book.png"></image>
-            <view class="content">
-              <view>
-                <view class="name">{{ item.title||'' }}</view>
-                <view class="count">共 {{ item.giftCount||0 }} 笔</view>
-              </view>
-              <view>
-                <view class="total">￥ {{ item.giftTotal||'0.00' }}</view>
-                <view class="date">{{ item.date.value }}</view>
-                <view class="date">{{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
-              </view>
-            </view>
-          </view>
-        </van-transition>
-      </van-col>
-      <van-col span="12">
-        <view class="book" bind:tap="onAddBook">
-          <image class="bg" src="/images/bg_book_add.png"></image>
-          <view class="content" style="justify-content: center;">
-            <van-icon name="plus" size="132rpx" color="#CCCCCC" />
-            <view style="text-align: center;padding-top: 56rpx; color: #969799;font-size: small;">
-              添加礼簿
-            </view>
-          </view>
+<ui-sys tabbar>
+    <ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
+        <view class="flex-bar p-3" wx:if="{{scrollTop > sys_navBar}}">
+            <image src="/static/logo.png" mode="aspectFill" style="width: 200rpx;height: 56rpx;" />
+            <text class="text-lg text-bold">礼记</text>
         </view>
-      </van-col>
-    </van-row>
-  </view>
-</view>
+        <view class="p-3 flex-bar flex-sub" wx:if="{{scrollTop > sys_navBar}}">
+            <view url="/pages/search/search" class="flex-sub flex-bar">
+                <view class="p-2 bg-blur-1 w-100 round border flex-center" style="height: 35px;">
+                    <text class="cicon-search-line mx-2" />
+                    <view class="text-c text-sm">键入类名搜索释义</view>
+                </view>
+            </view>
+        </view>
+        <view class="flex-bar">
+            <view style="{{'width:'+ (sys_capsule.width + 10)+'px; height:' + sys_capsule.height+'px'}}" />
+        </view>
+    </ui-navbar>
+    <view class="book-wrapper">
+        <van-row gutter="20">
+            <van-col span="12" wx:for="{{giftBooks}}" wx:key="index">
+                <van-transition>
+                    <view class="book" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-book='{{item}}'>
+                        <image class="bg" src="/images/bg_book.png"></image>
+                        <view class="content">
+                            <view>
+                                <view class="name">{{ item.title||'' }}</view>
+                                <view class="count">共 {{ item.giftCount||0 }} 笔</view>
+                            </view>
+                            <view>
+                                <view class="total">￥{{ item.giftTotal||'0.00' }}</view>
+                                <view class="date">{{ item.date.value }}</view>
+                                <view class="date">{{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
+                            </view>
+                        </view>
+                    </view>
+                </van-transition>
+            </van-col>
+            <van-col span="12">
+                <view class="book" bind:tap="onAddBook">
+                    <image class="bg" src="/images/bg_book_add.png"></image>
+                    <view class="content" style="justify-content: center;">
+                        <van-icon name="plus" size="132rpx" color="#CCCCCC" />
+                        <view style="text-align: center;padding-top: 56rpx; color: #969799;font-size: small;">
+                            添加礼簿
+                        </view>
+                    </view>
+                </view>
+            </van-col>
+        </van-row>
+    </view>
+</ui-sys>
 <!-- 长按动作 -->
 <van-action-sheet show="{{ showBookAction }}" actions="{{ bookActions }}" bind:close="onCloseBookAction" bind:cancel="onCloseBookAction" bind:select="onSelectBookAction" cancel-text="取消" close-on-click-overlay />
-<!-- 页脚 -->
-<footer></footer>

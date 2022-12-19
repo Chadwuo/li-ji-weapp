@@ -5,7 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        version: ''
     },
     Chadwuo() {
         const arr = ['你拍了拍作者头顶\r\n却没摸到秀发', '要不要来一把LOL', '花生，你发现了彩蛋']
@@ -20,6 +20,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        this.setData({
+            version: getApp().colorUISdk.version
+        })
         wx.showShareMenu({
             menus: ['shareAppMessage', 'shareTimeline']
         })
