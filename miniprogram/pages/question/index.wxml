@@ -1,4 +1,4 @@
-<view class="container">
+<ui-sys title="常见问题">
   <van-cell-group inset>
     <van-cell title="Q：这个软件收费吗？" label="A：本项目是个人开源的学习项目，不会收取任何费用。" />
     <van-cell title="Q：作者是一个人完成所有开发工作吗？" label="A：目前是的，欢迎PR。" />
@@ -9,5 +9,4 @@
     <van-cell title="Q：我手机上界面显示不正确或者有bug？" label="A：肝能力有限，目前只在iphone xs上做了完整测试，建议遇到bug先更新微信版本，如果问题还存在可以再意见反馈中填写你遇到的问题，感谢。" />
     <van-cell title="Q：软件后续开发计划？是否会变的商业化广告乱飞，功能臃肿？" label="A：先说结论，不会。最多后期会增加一个开屏广告，关于以后功能演变，你可以在意见反馈中提出你的想法，或参与github中issues讨论。" />
   </van-cell-group>
-</view>
-<footer></footer>
+</ui-sys>
