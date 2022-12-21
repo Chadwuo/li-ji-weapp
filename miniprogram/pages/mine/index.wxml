@@ -82,8 +82,8 @@
                 <ui-menu-item arrow title="在线客服" icon="cicon-service ui-TC-Main" />
                 <button class="ui-btn open-btn" open-type="contact"></button>
             </view>
-            <ui-menu-item arrow title="常见问题" icon="cicon-clothes ui-TC-Main" data-url="/pages/theme/theme" bindtap="tapToUrl" />
-            <ui-menu-item arrow title="意见反馈" icon="cicon-evaluate ui-TC-Main" data-url="/pages/theme/theme" bindtap="tapToUrl" />
+            <ui-menu-item arrow title="常见问题" icon="cicon-clothes ui-TC-Main" data-url="/pages/question/index" bindtap="tapToUrl" />
+            <ui-menu-item arrow title="意见反馈" icon="cicon-evaluate ui-TC-Main" data-url="/pages/issue/index" bindtap="tapToUrl" />
             <ui-menu-item arrow title="设置" icon="cicon-set ui-TC-Main" data-url="/pages/set/index" bindtap="tapToUrl" />
             <view class="border-top" style="position: relative;">
                 <ui-menu-item arrow title="分享" icon="cicon-weixin ui-TC-Main" />
