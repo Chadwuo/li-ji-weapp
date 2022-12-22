@@ -12,25 +12,25 @@ Page({
         giveTotal: 0.00,
         receiveTotal: 0.00,
         menus: [{
-                icon: "cicon-home-community",
+                icon: "cicon-home-smile-o",
                 name: "我的家庭",
-                color: "#9DCA06",
+                color: "#A5ADF6",
                 path: "/pages/family/index"
             },
             {
-                icon: "cicon-backup",
+                icon: "cicon-event-list",
                 name: "数据导出",
-                color: "#FFB300",
+                color: "#4EB9FA",
                 path: "/pages/export/index"
             },
             {
                 icon: "cicon-demo",
                 name: "统计分析",
-                color: "#53bcf5",
+                color: "#FFC667",
                 path: "/pages/chart/index"
             },
             {
-                icon: "cicon-service-fill",
+                icon: "cicon-goods-o",
                 name: "亲友关系",
                 color: "#F37D7D",
                 path: "/pages/chart/index"
@@ -46,35 +46,10 @@ Page({
             scrollTop: e.scrollTop
         })
     },
-    jumpProfile() {
-        wx.navigateTo({
-            url: '/pages/profile/index',
-        });
-    },
     tapToUrl(e) {
         wx.navigateTo({
             url: e.currentTarget.dataset.url
         })
-    },
-    jumpPage(e) {
-        if (e.currentTarget.dataset.page === 'chart') {
-            wx.showToast({
-                title: '统计分析，马上写完，真的...',
-                icon: 'none',
-            })
-            return
-        }
-        if (e.currentTarget.dataset.page === 'export') {
-            wx.showToast({
-                title: '数据导出，马上写完，真的...',
-                icon: 'none',
-            })
-            return
-        }
-
-        wx.navigateTo({
-            url: `/pages/${e.currentTarget.dataset.page}/index`,
-        });
     },
     /**
      * 生命周期函数--监听页面加载
