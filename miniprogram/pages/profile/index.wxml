@@ -1,6 +1,6 @@
 <!-- pages/profile/index.wxml -->
 
-<view data-weui-theme="{{theme}}">
+<ui-sys title="个人资料" data-weui-theme="{{theme}}">
   <van-notice-bar left-icon="volume-o" text="头像昵称填写功能，正在优化，马上写完，信我。" />
   <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
     <image class="avatar" src="{{avatarUrl}}"></image>
@@ -12,4 +12,4 @@
       </mp-cell>
     </mp-cells>
   </mp-form>
-</view>
+</ui-sys>
