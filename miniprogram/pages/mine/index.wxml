@@ -3,52 +3,14 @@
         <view class="flex-center flex-sub" wx:if="{{scrollTop > sys_navBar}}">我的</view>
     </ui-navbar>
     <view class='ui-container'>
-        <!-- <view class='header'>
-            <view class='picTxt'>
-                <view class='pictrue'>
-                    <view class="avatar">
-                        <open-data type="userAvatarUrl"></open-data>
-                    </view>
-                </view>
-                <view class='text'>
-                    <view>
-                        <view class='name'>
-                            <open-data type="userNickName"></open-data>
-                        </view>
-                    </view>
-                    <view class='desc'>{{welcome}}</view>
-                </view>
-            </view>
-            <van-icon name="setting-o" color="#fff" bindtap='jumpProfile' />
-        </view> -->
-        <view class="flex-bar my-4" data-url="/pages/demo/login/login" bindtap="tapToUrl">
+        <view class="flex-bar my-4" data-url="/pages/profile/index" bindtap="tapToUrl">
             <ui-avatar ui="xxl ellipse" src="/static/logo.png" />
             <view class="flex-sub pl-3">
                 <!-- <view class="text-xl">登录,享受更多服务。</view> -->
-                <view class="text-xl">Hello，啄木鸟</view>
+                <view class="text-xl">Hello，礼记者</view>
                 <view class="text-gray text-sm pt-2">{{welcome}}</view>
             </view>
         </view>
-
-        <!-- <view>
-            <van-cell-group inset>
-               
-            </van-cell-group>
-            <view style="margin-top: 32rpx;">
-                <van-cell-group inset>
-                    <view style="background-color: #fff;">
-                        <van-grid border="{{fales}}" column-num="4">
-                            <block wx:for="{{menus}}" wx:key="index">
-                                <van-grid-item icon="{{item.icon}}" text="{{item.name}}" bindtap='jumpPage' data-page='{{item.page}}' wx:if="{{item.page&&!item.open_type}}" />
-                                <button wx:if="{{item.open_type}}" open-type="{{item.open_type}}">
-                                    <van-grid-item icon="{{item.icon}}" text="{{item.name}}"></van-grid-item>
-                                </button>
-                            </block>
-                        </van-grid>
-                    </view>
-                </van-cell-group>
-            </view>
-        </view> -->
 
         <!-- 我的服务 -->
         <view class="ui-BG radius">
@@ -77,18 +39,41 @@
         </view>
 
         <!-- 其他功能 -->
-        <ui-menu ui="mt-5 radius border">
-            <view style="position: relative;">
-                <ui-menu-item arrow title="在线客服" icon="cicon-service ui-TC-Main" />
+        <ui-menu ui="mt-3 radius border">
+            <view class="ui-menu-item arrow">
+                <view class="ui-menu-item-icon">
+                    <block>
+                        <view class="cicon-service ui-TC-Main" />
+                    </block>
+                </view>
+                <view class="ui-menu-item-content">
+                    <view class="ui-menu-item-title">在线客服</view>
+                </view>
+                <view class="ui-menu-item-arrow">
+                    <view class="_icon-forward" />
+                </view>
                 <button class="ui-btn open-btn" open-type="contact"></button>
             </view>
+
             <ui-menu-item arrow title="常见问题" icon="cicon-clothes ui-TC-Main" data-url="/pages/question/index" bindtap="tapToUrl" />
             <ui-menu-item arrow title="意见反馈" icon="cicon-evaluate ui-TC-Main" data-url="/pages/issue/index" bindtap="tapToUrl" />
             <ui-menu-item arrow title="设置" icon="cicon-set ui-TC-Main" data-url="/pages/set/index" bindtap="tapToUrl" />
-            <view class="border-top" style="position: relative;">
-                <ui-menu-item arrow title="分享" icon="cicon-weixin ui-TC-Main" />
+
+            <view class="ui-menu-item arrow">
+                <view class="ui-menu-item-icon">
+                    <block>
+                        <view class="cicon-weixin ui-TC-Main" />
+                    </block>
+                </view>
+                <view class="ui-menu-item-content">
+                    <view class="ui-menu-item-title">分享</view>
+                </view>
+                <view class="ui-menu-item-arrow">
+                    <view class="_icon-forward" />
+                </view>
                 <button class="ui-btn open-btn" open-type="share"></button>
             </view>
+
             <ui-menu-item arrow title="关于" icon="cicon-quill ui-TC-Main" data-url="/pages/about/index" bindtap="tapToUrl" />
         </ui-menu>
     </view>
