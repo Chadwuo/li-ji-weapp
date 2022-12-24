@@ -1,23 +1,23 @@
 <!--pages/giftOut/edit/index.wxml-->
-<view class="container">
+<ui-sys title="添加送礼" footer="{{false}}" class="container" >
 	<van-cell-group inset border="{{false}}">
 		<van-field readonly size="large" label="时间" left-icon="calendar-o" value="{{ date.value }}" bind:click-input="showCalendar" placeholder="请选择日期" use-button-slot>
 			<van-icon name="arrow" slot="button" />
 		</van-field>
-		<van-field label="亲友姓名" size="large" left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="点击右侧图标选择" bind:click-icon="showFriendSelect" maxlength="16"/>
-		<van-field label="送礼事由" size="large" left-icon="point-gift-o" model:value="{{ title }}" placeholder="事由" maxlength="32"/>
-		<van-field label="礼金" size="large" left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="送礼金额" maxlength="8"/>
+		<van-field label="亲友姓名" size="large" left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="点击右侧图标选择" bind:click-icon="showFriendSelect" maxlength="16" />
+		<van-field label="送礼事由" size="large" left-icon="point-gift-o" model:value="{{ title }}" placeholder="事由" maxlength="32" />
+		<van-field label="礼金" size="large" left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="送礼金额" maxlength="8" />
 	</van-cell-group>
-</view>
-<view class="submit-bar">
-	<van-row gutter="24">
-		<van-col span="8" wx:if="{{_id}}">
-			<van-button color="#F76664" block round plain bind:click="onDelete">删除</van-button>
-		</van-col>
-		<van-col span="{{_id?16:24}}">
-			<van-button color="#F76664" block round disabled="{{!friendName|!date.value|!title|!money}}" bind:click="onSave">
-				保 存
-			</van-button>
-		</van-col>
-	</van-row>
-</view>
+	<view class="submit-bar">
+		<van-row gutter="24">
+			<van-col span="8" wx:if="{{_id}}">
+				<van-button color="#F76664" block round plain bind:click="onDelete">删除</van-button>
+			</van-col>
+			<van-col span="{{_id?16:24}}">
+				<van-button color="#F76664" block round disabled="{{!friendName|!date.value|!title|!money}}" bind:click="onSave">
+					保 存
+				</van-button>
+			</van-col>
+		</van-row>
+	</view>
+</ui-sys>

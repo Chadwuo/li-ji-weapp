@@ -1,30 +1,15 @@
 <!--pages/giftOut/index.wxml-->
-<ui-sys tabbar>
+<ui-sys img="/static/img/4put2.png" footer="{{false}}" tabbar>
   <ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
-    <view class="flex-bar p-3" wx:if="{{scrollTop > sys_navBar}}">
-      <image src="/static/logo.png" mode="aspectFill" style="width: 200rpx;height: 56rpx;" />
-      <text class="text-lg text-bold">礼记</text>
-    </view>
-    <view class="p-3 flex-bar flex-sub" wx:if="{{scrollTop > sys_navBar}}">
-      <view url="/pages/search/search" class="flex-sub flex-bar">
-        <view class="p-2 bg-blur-1 w-100 round border flex-center" style="height: 35px;">
-          <text class="cicon-search-line mx-2" />
-          <view class="text-c text-sm">键入类名搜索释义</view>
-        </view>
-      </view>
-    </view>
-    <view class="flex-bar">
-      <view style="{{'width:'+ (sys_capsule.width + 10)+'px; height:' + sys_capsule.height+'px'}}" />
+    <view class="px-3 pb-2 flex-bar">
+      <view class="round _icon-add-round-o ui-TC-Main" style="font-size: 56rpx;" bindtap="onAdd" />
+      <van-search background="ui-BG-1" model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round" wx:if="{{scrollTop > sys_navBar}}" />
     </view>
   </ui-navbar>
-  <van-sticky>
-    <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
-      <view slot="action" bind:tap="onAddGift" style="display: flex;">
-        <van-icon name="add" color="#F76664" size="62rpx" />
-      </view>
-    </van-search>
-  </van-sticky>
-  <view class="wrapper">
+
+  <van-search background="ui-BG-1" model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round" />
+
+  <view class="ui-container">
     <van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
     <view class='gift-card' wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
       <view class='content'>
