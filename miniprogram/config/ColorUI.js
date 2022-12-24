@@ -11,29 +11,29 @@ export const colorUI = new ColorUI({
         homePath: '/pages/index/index',
         tabBar: [{
             title: '礼记',
-            icon: '/static/tab_icon/book.png',
-            curIcon: '/static/tab_icon/book_cur.png',
+            icon: 'cicon-home-o',
+            curIcon: 'cicon-home-o',
             url: '/pages/index/index',
             type: 'tab'
         },
         {
             title: '送礼',
-            icon: '/static/tab_icon/icon_post.png',
-            curIcon: '/static/tab_icon/icon_post_cur.png',
+            icon: 'cicon-redpacket-o',
+            curIcon: 'cicon-redpacket-o',
             url: '/pages/giftOut/index',
             type: 'tab'
         },
         {
             title: '亲友',
-            icon: '/static/tab_icon/contact.png',
-            curIcon: '/static/tab_icon/contact_cur.png',
+            icon: 'cicon-accounts-o',
+            curIcon: 'cicon-accounts-o',
             url: '/pages/friend/index',
             type: 'tab'
         },
         {
             title: '我的',
-            icon: '/static/tab_icon/mine.png',
-            curIcon: '/static/tab_icon/mine_cur.png',
+            icon: 'cicon-my-o',
+            curIcon: 'cicon-my-o',
             url: '/pages/mine/index',
             type: 'tab'
         }],

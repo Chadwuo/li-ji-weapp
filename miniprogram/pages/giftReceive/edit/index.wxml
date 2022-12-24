@@ -1,5 +1,5 @@
 <!--pages/giftReceive/edit/index.wxml-->
-<view class="container">
+<ui-sys title="添加收礼" footer="{{false}}" class="container">
 	<van-cell-group inset border="{{false}}">
 		<van-field label="来宾姓名" size="large" left-icon="contact" right-icon="friends-o" model:value="{{ friendName }}" placeholder="点击右侧图标选择" bind:click-icon="showFriendSelect" maxlength="16"/>
 		<van-field label="礼金" size="large" left-icon="balance-o" model:value="{{ money }}" type="digit" placeholder="收礼金额" maxlength="8"/>
@@ -8,7 +8,7 @@
 		</van-field>
 		<van-field label="备注" size="large" left-icon="bookmark-o" model:value="{{ remarks }}" type="textarea" placeholder="选填" autosize="{{ { minHeight: 120} }}" maxlength="32"/>
 	</van-cell-group>
-</view>
+</ui-sys>
 <view class="submit-bar">
 	<van-row gutter="24">
 		<van-col span="8" wx:if="{{_id}}">

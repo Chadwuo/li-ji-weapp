@@ -1,6 +1,6 @@
 <!-- pages/friend/details/index.wxml -->
 <wxs module="filters" src="./filter.wxs"></wxs>
-<view class="container">
+<ui-sys title="亲友详情" class="container">
   <van-sticky offset-top="{{ -30 }}">
     <view class="home-header">
       <image class="bg" src="/images/bg_summary.png" mode="center"></image>
@@ -58,6 +58,5 @@
       </block>
     </view>
   </view>
-</view>
+</ui-sys>
 <friend-edit id="friend-edit"></friend-edit>
-<footer></footer>
