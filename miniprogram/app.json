@@ -36,27 +36,19 @@
         "backgroundColor": "#fff",
         "list": [{
                 "pagePath": "pages/index/index",
-                "text": "礼记",
-                "iconPath": "/static/tab_icon/book.png",
-                "selectedIconPath": "/static/tab_icon/book_cur.png"
+                "text": "礼记"
             },
             {
                 "text": "送礼",
-                "pagePath": "pages/giftOut/index",
-                "iconPath": "/static/tab_icon/icon_post.png",
-                "selectedIconPath": "/static/tab_icon/icon_post_cur.png"
+                "pagePath": "pages/giftOut/index"
             },
             {
                 "pagePath": "pages/friend/index",
-                "text": "亲友",
-                "iconPath": "/static/tab_icon/contact.png",
-                "selectedIconPath": "./static/tab_icon/contact_cur.png"
+                "text": "亲友"
             },
             {
                 "pagePath": "pages/mine/index",
-                "text": "我的",
-                "iconPath": "/static/tab_icon/mine.png",
-                "selectedIconPath": "/static/tab_icon/mine_cur.png"
+                "text": "我的"
             }
         ]
     },

@@ -1,22 +1,19 @@
 /* pages/index/index.wxss */
-.book-wrapper {
-  padding: 24rpx 50rpx;
-}
 
-.book-wrapper .book {
+.book {
   width: 100%;
   height: 360rpx;
   position: relative;
   margin-bottom: 24rpx;
 }
 
-.book-wrapper .book .bg {
+.book .bg {
   position: absolute;
   width: 100%;
   height: 360rpx;
 }
 
-.book-wrapper .book .content {
+.book .content {
   position: absolute;
   z-index: 9;
   height: 100%;
@@ -26,7 +23,7 @@
   justify-content: space-around;
 }
 
-.book-wrapper .book .content .name {
+.book .content .name {
   font-size: large;
   color: #F76664;
   font-weight: bold;
@@ -34,13 +31,13 @@
   margin: 0 24rpx;
 }
 
-.book-wrapper .book .content .count {
+.book .content .count {
   font-size: small;
   color: #969799;
   margin: 0 24rpx;
 }
 
-.book-wrapper .book .content .total {
+.book .content .total {
   font-size: large;
   color: #333;
   font-weight: bold;
@@ -48,7 +45,7 @@
   margin: 0 24rpx;
 }
 
-.book-wrapper .book .content .date {
+.book .content .date {
   font-size: small;
   color: #969799;
   margin: 0 24rpx;

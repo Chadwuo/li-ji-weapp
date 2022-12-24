@@ -1,25 +1,13 @@
-<ui-sys tabbar>
+<ui-sys img="/static/img/4put2.png" tabbar>
     <ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
         <view class="flex-bar p-3" wx:if="{{scrollTop > sys_navBar}}">
-            <image src="/static/logo.png" mode="aspectFill" style="width: 200rpx;height: 56rpx;" />
             <text class="text-lg text-bold">礼记</text>
         </view>
-        <view class="p-3 flex-bar flex-sub" wx:if="{{scrollTop > sys_navBar}}">
-            <view url="/pages/search/search" class="flex-sub flex-bar">
-                <view class="p-2 bg-blur-1 w-100 round border flex-center" style="height: 35px;">
-                    <text class="cicon-search-line mx-2" />
-                    <view class="text-c text-sm">键入类名搜索释义</view>
-                </view>
-            </view>
-        </view>
-        <view class="flex-bar">
-            <view style="{{'width:'+ (sys_capsule.width + 10)+'px; height:' + sys_capsule.height+'px'}}" />
-        </view>
     </ui-navbar>
-    <view class="book-wrapper">
-        <van-row gutter="20">
-            <van-col span="12" wx:for="{{giftBooks}}" wx:key="index">
-                <van-transition>
+    <view class="ui-container">
+        <view class="ui-grid ui-cols-2">
+            <block wx:for="{{giftBooks}}" wx:key="index">
+                <view class="ui-item p-3">
                     <view class="book" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-book='{{item}}'>
                         <image class="bg" src="/images/bg_book.png"></image>
                         <view class="content">
@@ -34,20 +22,23 @@
                             </view>
                         </view>
                     </view>
-                </van-transition>
-            </van-col>
-            <van-col span="12">
-                <view class="book" bind:tap="onAddBook">
-                    <image class="bg" src="/images/bg_book_add.png"></image>
-                    <view class="content" style="justify-content: center;">
-                        <van-icon name="plus" size="132rpx" color="#CCCCCC" />
-                        <view style="text-align: center;padding-top: 56rpx; color: #969799;font-size: small;">
-                            添加礼簿
+                </view>
+            </block>
+
+            <block>
+                <view class="ui-item p-3">
+                    <view class="book" bind:tap="onAddBook">
+                        <image class="bg" src="/images/bg_book_add.png"></image>
+                        <view class="content" style="justify-content: center;">
+                            <van-icon name="plus" size="132rpx" color="#CCCCCC" />
+                            <view style="text-align: center;padding-top: 56rpx; color: #969799;font-size: small;">
+                                添加礼簿
+                            </view>
                         </view>
                     </view>
                 </view>
-            </van-col>
-        </van-row>
+            </block>
+        </view>
     </view>
 </ui-sys>
 <!-- 长按动作 -->

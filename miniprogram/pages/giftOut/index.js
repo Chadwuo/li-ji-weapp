@@ -43,7 +43,7 @@ Page({
       }
     });
   },
-  onAddGift() {
+  onAdd() {
     wx.navigateTo({
       url: '/pages/giftOut/edit/index',
       events: {
