@@ -1,6 +1,6 @@
 <!--pages/giftOut/edit/index.wxml-->
 <ui-sys title="添加送礼" footer="{{false}}" class="container" >
-	<van-cell-group inset border="{{false}}">
+	<van-cell-group inset custom-class="my-3">
 		<van-field readonly size="large" label="时间" left-icon="calendar-o" value="{{ date.value }}" bind:click-input="showCalendar" placeholder="请选择日期" use-button-slot>
 			<van-icon name="arrow" slot="button" />
 		</van-field>
