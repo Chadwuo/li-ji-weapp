@@ -24,8 +24,9 @@
             <ui-menu-item title="版本号" isAction>
                 <view slot="action" class="text-gray-a">v{{version}}</view>
             </ui-menu-item>
-            <ui-menu-item title="环境" isAction>
-                <view slot="action" class="text-gray-a">微信8.0.16及以上</view>
+            <ui-menu-item arrow title="开源地址" isAction
+                          data-value="https://github.com/Chadwuo/li-ji-weapp" bindtap="tapCopy">
+                <view slot="action" class="text-gray-a">https://github.com/Chadwuo/li-ji-weapp</view>
             </ui-menu-item>
             <ui-menu-item title="开源协议" isAction>
                 <view slot="action" class="text-gray-a">GPL-3.0 license</view>

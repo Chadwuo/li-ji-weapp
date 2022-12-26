@@ -16,6 +16,23 @@ Page({
             duration: 2500
         })
     },
+    tapCopy(e) {
+        wx.setClipboardData({
+            data: e.currentTarget.dataset.value,
+            success() {
+                wx.showToast({
+                    title: '复制成功！',
+                    icon: 'none'
+                })
+            },
+            fail() {
+                wx.showToast({
+                    title: '复制失败！',
+                    icon: 'none'
+                })
+            },
+        });
+    },
     /**
      * 生命周期函数--监听页面加载
      */
