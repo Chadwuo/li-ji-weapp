@@ -81,9 +81,6 @@ Page({
       this.setData({
         ...data,
       })
-      wx.setNavigationBarTitle({
-        title: '编辑礼簿'
-      })
     })
   },
 

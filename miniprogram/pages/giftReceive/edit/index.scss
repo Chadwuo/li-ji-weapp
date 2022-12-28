@@ -1,11 +1,6 @@
 /* pages/giftReceive/edit/index.wxss */
-.container {
-	margin: 32rpx 0;
-	margin-bottom: 120rpx;
-	padding-bottom: constant(safe-area-inset-bottom);
-	/*兼容 IOS<11.2*/
-	padding-bottom: env(safe-area-inset-bottom);
-	/*兼容 IOS>11.2*/
+.ui-form-title{
+	min-width: 30%;
 }
 
 .submit-bar {
