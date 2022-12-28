@@ -3,10 +3,10 @@
   <ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
     <view class="px-3 pb-2 flex-bar">
       <view class="round _icon-add-round-o ui-TC-Main" style="font-size: 56rpx;" bindtap="onAdd" />
-      <van-search background="ui-BG-1" model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round" wx:if="{{scrollTop > sys_navBar}}" />
+      <van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round" wx:if="{{scrollTop > sys_navBar}}" />
     </view>
   </ui-navbar>
-  <van-search background="ui-BG-1" model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round" />
+  <van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round" />
 
   <view>
     <van-empty wx:if="{{friendsList.length===0}}" description="还没有记录哦~" />

@@ -29,7 +29,7 @@
                 </view>
             </view>
         </view>
-        <view class="ui-menu-item">
+        <view class="ui-menu-item" wx:if="{{false}}">
             <view class="ui-menu-item-content">主题色</view>
             <view class="action" bindtap="tapColorPicker">
                 <ui-radio bg="{{'bg-' + $cuStore.sys_main}} {{'shadow-' + $cuStore.sys_main}} shadow-sm" value="1" label="1"/>

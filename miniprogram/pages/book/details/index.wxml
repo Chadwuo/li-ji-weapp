@@ -1,7 +1,7 @@
 <!--pages/book/details/index.wxml-->
 <ui-sys title="{{book.title}}">
-  <ui-fixed bg="bg-mask-20" sticky>
-    <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
+  <ui-fixed bg="bg-blur" sticky>
+    <van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
       <view slot="action" bind:tap="onAddGift" style="display: flex;">
         <van-icon class="px-3" name="add" color="#F76664" size="56rpx" />
       </view>
