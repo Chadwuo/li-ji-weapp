@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "micahh",
+  "author": "chadwuo",
   "license": "ISC",
   "dependencies": {
     "@alicloud/mpserverless-sdk": "^3.1.1",
