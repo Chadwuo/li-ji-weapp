@@ -21,5 +21,3 @@
     </view>
   </view>
 </ui-sys>
-<!-- 人情编辑组件 -->
-<gift-out-edit id="gift-out-edit" bind:dialogResult="giftEditDialog"></gift-out-edit>

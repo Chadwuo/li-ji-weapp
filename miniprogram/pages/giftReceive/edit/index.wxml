@@ -21,16 +21,15 @@
 		</ui-form>
 		<text class="text-xs text-grey">Tips:你可以点击联系人图标快速选取来宾。</text>
 	</view>
-	<view class="submit-bar">
-		<van-row gutter="24">
+	
+	<ui-fixed bottom val="{{24}}">
+		<van-row gutter="24" custom-class="mx-2">
 			<van-col span="8" wx:if="{{_id}}">
-				<van-button color="#F76664" block round plain bind:click="onDelete">删除</van-button>
+				<button class="ui-btn block round border border-red bg-red-light" bindtap="onDelete">删 除</button>
 			</van-col>
 			<van-col span="{{_id?16:24}}">
-				<van-button color="#F76664" block round disabled="{{!friendName|!money}}" bind:click="onSave">
-					保 存
-				</van-button>
+				<button class="ui-btn block round bg-red-gradient shadow shadow-blur" disabled="{{!friendName|!money}}" bindtap="onSave">保 存</button>
 			</van-col>
 		</van-row>
-	</view>
+	</ui-fixed>
 </ui-sys>
