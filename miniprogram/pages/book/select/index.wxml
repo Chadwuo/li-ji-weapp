@@ -1,16 +1,18 @@
 <!--pages/book/select/index.wxml-->
-<view class="container">
-  <van-empty wx:if="{{bookSelectSource.length===0}}" description="暂无数据" />
-  <view wx:for="{{bookSelectSource}}" wx:key="index">
-    <van-cell-group inset>
-      <van-cell use-label-slot center is-link bind:click="onSelectedBook" data-book="{{item}}">
-        <view slot="title">
-          <view class="line1">{{item.title}}</view>
-        </view>
-        <view slot="label">
-          <view>{{item.date.value}} {{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
-        </view>
-      </van-cell>
-    </van-cell-group>
-  </view>
-</view>
+<ui-sys title="选择礼簿" footer="{{false}}">
+	<view class="ui-container">
+		<van-empty wx:if="{{bookSelectSource.length===0}}" description="暂无数据" />
+		<view wx:for="{{bookSelectSource}}" wx:key="index">
+			<van-cell-group inset>
+				<van-cell use-label-slot center is-link bind:click="onSelectedBook" data-book="{{item}}">
+					<view slot="title">
+						<view class="line1">{{item.title}}</view>
+					</view>
+					<view slot="label">
+						<view>{{item.date.value}} {{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
+					</view>
+				</van-cell>
+			</van-cell-group>
+		</view>
+	</view>
+</ui-sys>
