@@ -1,37 +1,34 @@
 <!--pages/book/edit/index.wxml-->
 <ui-sys title="{{title?'编辑礼簿':'添加礼簿'}}" footer="{{false}}">
-    <view class="ui-container">
-        <ui-form ui="ui-BG my-3 shadow radius">
-            <ui-form-group title="日期" isAction icon="cicon-time">
-                <ui-input-box bindtap="showCalendar">
-                    <input class="ui-input-wrapper" placeholder="请选择日期" value="{{ date.value }}" />
-                    <block slot="action"><text class="cicon-angle icon-xl" /></block>
-                </ui-input-box>
-            </ui-form-group>
-            <ui-form-group title="礼簿名称" icon="cicon-book">
-                <ui-input-box>
-                    <input class="ui-input-wrapper" placeholder="请输入名称" model:value="{{ title }}" />
-                </ui-input-box>
-            </ui-form-group>
-            <ui-form-group title="备注" icon="cicon-bookmark">
-                <ui-input-box>
-                    <input class="ui-input-wrapper" placeholder="选填" model:value="{{ remarks }}" />
-                </ui-input-box>
-            </ui-form-group>
-        </ui-form>
-        <text class="text-xs text-grey">Tips:一场宴席活动中，用来登记所有来客贺礼的名册，称为礼簿。</text>
-    </view>
-
-    <view class="submit-bar">
-        <van-row gutter="24">
-            <van-col span="8" wx:if="{{_id}}">
-                <van-button color="#F76664" block round plain bind:click="onDelete">删除</van-button>
-            </van-col>
-            <van-col span="{{_id?16:24}}">
-                <van-button color="#F76664" block round disabled="{{!title|!date.value}}" bind:click="onSave">
-                    保 存
-                </van-button>
-            </van-col>
-        </van-row>
-    </view>
+	<view class="ui-container">
+		<ui-form ui="ui-BG my-3 shadow radius">
+			<ui-form-group title="日期" isAction icon="cicon-time">
+				<ui-input-box bindtap="showCalendar">
+					<input class="ui-input-wrapper" disabled placeholder="请选择日期" value="{{ date.value }}" />
+					<block slot="action"><text class="cicon-angle icon-xl" /></block>
+				</ui-input-box>
+			</ui-form-group>
+			<ui-form-group title="礼簿名称" icon="cicon-book">
+				<ui-input-box>
+					<input class="ui-input-wrapper" placeholder="请输入名称" model:value="{{ title }}" />
+				</ui-input-box>
+			</ui-form-group>
+			<ui-form-group title="备注" icon="cicon-bookmark">
+				<ui-input-box>
+					<input class="ui-input-wrapper" placeholder="选填" model:value="{{ remarks }}" />
+				</ui-input-box>
+			</ui-form-group>
+		</ui-form>
+		<text class="text-xs text-grey">Tips:一场宴席活动中，用来登记所有来客贺礼的名册，称为礼簿。</text>
+	</view>
+	<ui-fixed bottom val="{{24}}">
+		<van-row gutter="24" custom-class="mx-2">
+			<van-col span="8" wx:if="{{_id}}">
+				<button class="ui-btn block round border border-red bg-red-light" bindtap="onDelete">删 除</button>
+			</van-col>
+			<van-col span="{{_id?16:24}}">
+				<button class="ui-btn block round bg-red-gradient shadow shadow-blur" disabled="{{!title|!date.value}}" bindtap="onSave">保 存</button>
+			</van-col>
+		</van-row>
+	</ui-fixed>
 </ui-sys>

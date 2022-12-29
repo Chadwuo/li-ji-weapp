@@ -1,4 +1,0 @@
-/* pages/friend/select/index.wxss */
-.container {
-	margin: 32rpx 0;
-}
