@@ -68,7 +68,8 @@ li-ji-weapp
 - [dayjs](https://github.com/iamkun/dayjs)：Moment.js 的 2kB 轻量化方案，拥有同样强大的 API
 - [wx-calendar](https://github.com/lspriv/wx-calendar)：借鉴了MIUI 12日历的部分设计，制作适合微信小程序的日历
 - <s>腾讯云（涨价了，负担不起，已迁移至阿里云）</s>
-- [阿里云 Serverless](https://serverless.aliyun.com/)：阿里云 Serverless
+- [阿里云 Serverless](https://serverless.aliyun.com)：阿里云 Serverless
+- [今日诗词 API](https://www.jinrishici.com)：![今日诗词](https://v2.jinrishici.com/one.svg)
 
 <!-- links -->
 [license-url]: https://github.com/chadwuo/li-ji-weapp/blob/master/LICENSE.txt
