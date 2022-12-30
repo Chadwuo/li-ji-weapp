@@ -1,9 +1,0 @@
-<!--components/footer.wxml-->
-<van-divider contentPosition="center" customStyle="font-size: 12px;">
-  <view wx:if="{{loading}}">
-    <van-loading style="text-align: center;" size="24px">加载中...</van-loading>
-  </view>
-  <view wx:else>
-    {{innerText}}
-  </view>
-</van-divider>
