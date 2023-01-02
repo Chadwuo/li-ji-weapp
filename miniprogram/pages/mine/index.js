@@ -3,156 +3,129 @@ const giftReceiveService = require('../../alicloud/services/giftReceive')
 const jinrishici = require('../../utils/jinrishici.js')
 
 Page({
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    welcome: '',
-    giveTotal: 0.00,
-    receiveTotal: 0.00,
-    menus: [{
-        page: "family",
-        icon: "shop-o",
-        name: "我的家庭"
-      },
-      {
-        page: "export",
-        icon: "peer-pay",
-        name: "数据导出"
-      },
-      {
-        page: "chart",
-        icon: "chart-trending-o",
-        name: "统计分析"
-      },
-      // {
-      //   page: "sponsor",
-      //   icon: "good-job-o",
-      //   name: "赞赏"
-      // },
-      {
-        page: "question",
-        icon: "question-o",
-        name: "常见问题"
-      },
-      {
-        page: "issue",
-        icon: "smile-comment-o",
-        name: "意见反馈"
-      },
-      {
-        page: "share",
-        icon: "share-o",
-        open_type: 'share',
-        name: "分享"
-      },
-      {
-        page: "about",
-        icon: "info-o",
-        name: "关于"
-      }
-    ]
-  },
-  jumpProfile() {
-    wx.navigateTo({
-      url: '/pages/profile/index',
-    });
-  },
-  jumpPage(e) {
-    if (e.currentTarget.dataset.page === 'chart') {
-      wx.showToast({
-        title: '统计分析，马上写完，真的...',
-        icon: 'none',
-      })
-      return
+    /**
+     * 页面的初始数据
+     */
+    data: {
+        scrollTop: 0,
+        welcome: '',
+        giveTotal: 0.00,
+        receiveTotal: 0.00,
+        menus: [{
+                icon: "cicon-home-smile-o",
+                name: "我的家庭",
+                color: "#A5ADF6",
+                path: "/pages/family/index"
+            },
+            {
+                icon: "cicon-event-list",
+                name: "数据导出",
+                color: "#4EB9FA",
+                path: "/pages/export/index"
+            },
+            {
+                icon: "cicon-demo",
+                name: "统计分析",
+                color: "#FFC667",
+                path: "/pages/chart/index"
+            },
+            {
+                icon: "cicon-goods-o",
+                name: "亲友关系",
+                color: "#F37D7D",
+                path: "/pages/chart/index"
+            }
+        ],
+    },
+    // 监听用户滑动页面事件。
+    onPageScroll(e) {
+        // 注意：请只在需要的时候才在 page 中定义此方法，不要定义空方法。以减少不必要的事件派发对渲染层-逻辑层通信的影响。
+        // 注意：请避免在 onPageScroll 中过于频繁的执行 setData 等引起逻辑层-渲染层通信的操作。尤其是每次传输大量数据，会影响通信耗时。
+        // https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#onPageScroll-Object-object
+        this.setData({
+            scrollTop: e.scrollTop
+        })
+    },
+    tapToUrl(e) {
+        wx.navigateTo({
+            url: e.currentTarget.dataset.url
+        })
+    },
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
+        jinrishici.load(result => {
+            this.setData({
+                welcome: result.data.content
+            })
+        })
+        wx.showShareMenu({
+            menus: ['shareAppMessage', 'shareTimeline']
+        })
+    },
+
+    /**
+     * 生命周期函数--监听页面初次渲染完成
+     */
+    onReady: function () {
+
+    },
+
+    /**
+     * 生命周期函数--监听页面显示
+     */
+    async onShow() {
+        const {
+            data: rTotal
+        } = await giftReceiveService.computedTotalGiftReceive()
+        this.setData({
+            receiveTotal: rTotal || 0,
+        });
+        const {
+            data: oTotal
+        } = await giftOutService.computedTotalGiftOut()
+        this.setData({
+            giveTotal: oTotal || 0,
+        });
+    },
+
+    /**
+     * 生命周期函数--监听页面隐藏
+     */
+    onHide: function () {
+
+    },
+
+    /**
+     * 生命周期函数--监听页面卸载
+     */
+    onUnload: function () {
+
+    },
+
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh: function () {
+
+    },
+
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom: function () {
+
+    },
+
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage: function () {
+        return {
+            title: '可能是东半球最好用的人情记账工具',
+            path: "pages/index/index",
+            imageUrl: '/static/img/share.jpg'
+        }
     }
-    if (e.currentTarget.dataset.page === 'export') {
-      wx.showToast({
-        title: '数据导出，马上写完，真的...',
-        icon: 'none',
-      })
-      return
-    }
-
-    wx.navigateTo({
-      url: `/pages/${e.currentTarget.dataset.page}/index`,
-    });
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    jinrishici.load(result => {
-      this.setData({
-        welcome: result.data.content
-      })
-    })
-    wx.showShareMenu({
-      menus: ['shareAppMessage', 'shareTimeline']
-    })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  async onShow() {
-    const {
-      data: rTotal
-    } = await giftReceiveService.computedTotalGiftReceive()
-    this.setData({
-      receiveTotal: rTotal || 0,
-    });
-    const {
-      data: oTotal
-    } = await giftOutService.computedTotalGiftOut()
-    this.setData({
-      giveTotal: oTotal || 0,
-    });
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-    return {
-      title: '可能是东半球最好用的人情记账工具',
-      path: "pages/index/index",
-      imageUrl: '../../images/share.jpg'
-    }
-  }
 })

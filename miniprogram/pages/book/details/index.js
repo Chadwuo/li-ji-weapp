@@ -84,9 +84,6 @@ Page({
       this.setData({
         ...data,
       })
-      wx.setNavigationBarTitle({
-        title: data.book.title
-      })
       await this.loadData(1)
       wx.hideLoading()
     })

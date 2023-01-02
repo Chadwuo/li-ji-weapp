@@ -1,0 +1,38 @@
+/* pages/book/details/index.wxss */
+/* 内容 */
+
+/* 人情卡片 */
+.gift-card {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 20rpx;
+  margin-top: 20rpx;
+}
+
+.gift-card .content {
+  flex: 1;
+  text-align: left;
+  padding-left: 48rpx;
+}
+
+.gift-card .content .title {
+  color: #000000;
+  font-size: 44rpx;
+  font-weight: 500;
+  margin: 25rpx 0;
+}
+
+.gift-card .content .info {
+  color: #888888;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  margin-bottom: 15rpx;
+}
+
+.gift-card .label {
+  padding-right: 48rpx;
+  color: #F76664;
+  font-size: large;
+  font-weight: bold;
+}

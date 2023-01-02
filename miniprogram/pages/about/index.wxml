@@ -1,20 +1,32 @@
 <!--pages/about/index.wxml-->
-<view class="container">
-  <view class="logo">
-    <image src="/images/logo.png"></image>
-  </view>
-  <view class="title">礼记</view>
-  <view class="title_info">记得住恩情，守得住初心</view>
-  <text class="describe">
-    礼尚往来，是中华民族的传统美德，老一辈人一般会在举行宴席的时候用手写人情簿的方式来记录每一个亲友的送礼，然后在对方有宴席邀请的时候翻阅人情簿，计算出送礼金额。这种方式存在很多弊端，比如人情簿丢失、无法携带在身边、很难搜索到某个人的送礼记录、由于手写原因无法辨认清楚内容等等。
+<ui-sys title="关于礼记" footerText="可能是东半球最好用的人情记账工具">
+    <view class="ui-container">
+        <view class="text-center mt-6 mb-4">
+            <view class="my-4">
+                <ui-avatar ui="sl ellipse" src="/static/logo.png" />
+            </view>
+            <view class="text-xxl my-3">礼记</view>
+            <view class="text-lg my-3">记得住恩情，守得住初心</view>
+        </view>
 
-    「礼记」是一个基于微信小程序的在线人情簿，随身携带、快速查找、统计汇总、亲友往来、家庭共享，为记账带来了全新体验。
-  </text>
-</view>
-<van-cell-group inset>
-  <van-cell title="作者微信" value="Chadwuo" is-link bind:click='Chadwuo' />
-  <van-cell title="版本号" value="2.0.7" />
-  <van-cell title="环境" value="微信8.0.16及以上" />
-  <van-cell title="开源协议" value="GPL-3.0 license" />
-</van-cell-group>
-<footer inner-text="可能是东半球最好用的人情记账工具"></footer>
+        <view class="paragraph" style="text-indent: 2em;">
+            礼尚往来，是中华民族的传统美德，老一辈人一般会在举行宴席的时候用手写人情簿的方式来记录每一个亲友的送礼，然后在对方有宴席邀请的时候翻阅人情簿，计算出送礼金额。这种方式存在很多弊端，比如人情簿丢失、无法携带在身边、很难搜索到某个人的送礼记录、由于手写原因无法辨认清楚内容等等。
+        </view>
+
+        <view class="paragraph" style="text-indent: 2em;">
+            「礼记」是一个基于微信小程序的在线人情簿，随身携带、快速查找、统计汇总、亲友往来、家庭共享，为记账带来了全新体验。
+        </view>
+
+        <ui-menu ui="mt-5 border radius">
+            <ui-menu-item title="作者微信" arrow isAction bindtap="Chadwuo">
+                <view slot="action" class="text-gray-a">Chadwuo</view>
+            </ui-menu-item>
+            <ui-menu-item title="版本号" isAction>
+                <view slot="action" class="text-gray-a">v{{version}}</view>
+            </ui-menu-item>
+            <ui-menu-item title="开源协议" isAction>
+                <view slot="action" class="text-gray-a">GPL-3.0 license</view>
+            </ui-menu-item>
+        </ui-menu>
+    </view>
+</ui-sys>

@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "ui-title": "/mp-cu/colorUI/components/ui-title/ui-title"
+  }
+}

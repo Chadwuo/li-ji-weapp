@@ -1,17 +1,15 @@
 <!--pages/friend/select/index.wxml-->
-<view>
-  <van-sticky>
-    <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round"></van-search>
-  </van-sticky>
-  <view>
-    <van-empty wx:if="{{friendSelectSource.length===0}}" description="还没有记录哦~" />
-    <van-index-bar highlight-color="#F76664">
-      <view wx:for="{{friendSelectSource}}" wx:key="index">
-        <van-index-anchor index="{{item.alpha}}" />
-        <van-cell-group inset>
-          <van-cell is-link title="{{data.name}}" size="large" bind:click="onSelectedFriend" wx:for="{{item.subItems}}" wx:for-item="data" wx:key="dataindex" data-friend='{{data}}' />
-        </van-cell-group>
-      </view>
-    </van-index-bar>
-  </view>
-</view>
+<ui-sys title="选择亲友" footer="{{false}}">
+	<view class="ui-container">
+		<van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round" />
+		<van-empty wx:if="{{friendSelectSource.length===0}}" description="还没有记录哦~" />
+		<van-index-bar highlight-color="#F76664">
+			<view wx:for="{{friendSelectSource}}" wx:key="index">
+				<van-index-anchor index="{{item.alpha}}" />
+				<van-cell-group inset>
+					<van-cell is-link title="{{data.name}}" size="large" bind:click="onSelectedFriend" wx:for="{{item.subItems}}" wx:for-item="data" wx:key="dataindex" data-friend='{{data}}' />
+				</van-cell-group>
+			</view>
+		</van-index-bar>
+	</view>
+</ui-sys>

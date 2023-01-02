@@ -1,4 +1,4 @@
 <!--pages/calendar/index.wxml-->
-<view class="container">
-	<calendar  id="calendar" _vibrate="{{false}}" bindload="handleCalendarLoad" binddatechange="handleCalendarDateChange"></calendar>
-</view>
+<ui-sys title="选择时间">
+	<calendar id="calendar" _vibrate="{{false}}" bindload="handleCalendarLoad" binddatechange="handleCalendarDateChange"></calendar>
+</ui-sys>

@@ -1,44 +1,45 @@
-<view>
-  <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
-    <view slot="action" bind:tap="onAddGift" style="display: flex;">
-      <van-icon name="add" color="#F76664" size="62rpx" />
-    </view>
-  </van-search>
-  <view class="book-wrapper">
-    <van-row gutter="20">
-      <van-col span="12" wx:for="{{giftBooks}}" wx:key="index">
-        <van-transition>
-          <view class="book" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-book='{{item}}'>
-            <image class="bg" src="/images/bg_book.png"></image>
-            <view class="content">
-              <view>
-                <view class="name">{{ item.title||'' }}</view>
-                <view class="count">共 {{ item.giftCount||0 }} 笔</view>
-              </view>
-              <view>
-                <view class="total">￥ {{ item.giftTotal||'0.00' }}</view>
-                <view class="date">{{ item.date.value }}</view>
-                <view class="date">{{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
-              </view>
-            </view>
-          </view>
-        </van-transition>
-      </van-col>
-      <van-col span="12">
-        <view class="book" bind:tap="onAddBook">
-          <image class="bg" src="/images/bg_book_add.png"></image>
-          <view class="content" style="justify-content: center;">
-            <van-icon name="plus" size="132rpx" color="#CCCCCC" />
-            <view style="text-align: center;padding-top: 56rpx; color: #969799;font-size: small;">
-              添加礼簿
-            </view>
-          </view>
+<ui-sys img="/static/img/4put2.png" tabbar>
+    <ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
+        <view class="flex-bar p-3" wx:if="{{scrollTop > sys_navBar}}">
+            <text class="text-lg text-bold">礼记</text>
         </view>
-      </van-col>
-    </van-row>
-  </view>
-</view>
+    </ui-navbar>
+    <view class="ui-container">
+        <view class="ui-grid ui-cols-2">
+            <block wx:for="{{giftBooks}}" wx:key="index">
+                <view class="ui-item p-3">
+                    <view class="book" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-book='{{item}}'>
+                        <image class="bg" src="/static/img/bg_book.png"></image>
+                        <view class="content">
+                            <view>
+                                <view class="text-xl text-bold ui-TC-Main py-2">{{ item.title||'' }}</view>
+                                <view class="text-sm text-grey">共 {{ item.giftCount||0 }} 笔</view>
+                            </view>
+                            <view>
+                                <view class="text-price text-bold text-xl py-1">{{ item.giftTotal||'0' }}</view>
+                                <view class="text-sm text-grey py-1">{{ item.date.value }}</view>
+                                <view class="text-sm text-grey py-1">{{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+
+            <block>
+                <view class="ui-item p-3">
+                    <view class="book" bind:tap="onAddBook">
+                        <image class="bg" src="/static/img/bg_book_add.png"></image>
+                        <view class="flex-column flex-center" style="position: absolute;height: 100%;width: 100%;">
+                            <text class="_icon-add text-xsl text-grey" />
+                            <view class="text-sm text-grey mt-3">
+                                添加礼簿
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </view>
+</ui-sys>
 <!-- 长按动作 -->
 <van-action-sheet show="{{ showBookAction }}" actions="{{ bookActions }}" bind:close="onCloseBookAction" bind:cancel="onCloseBookAction" bind:select="onSelectBookAction" cancel-text="取消" close-on-click-overlay />
-<!-- 页脚 -->
-<footer></footer>

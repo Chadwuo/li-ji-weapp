@@ -1,21 +1,22 @@
 <!-- pages/friend/index.wxml -->
-<view>
-  <van-sticky>
-    <van-search model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
-      <view slot="action" bind:tap="onAdd" style="display: flex;">
-        <van-icon name="add" color="#F76664" size="62rpx" />
-      </view>
-    </van-search>
-  </van-sticky>
+<ui-sys img="/static/img/4put2.png" tabbar>
+  <ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
+    <view class="px-3 pb-2 flex-bar">
+      <view class="round _icon-add-round-o ui-TC-Main" style="font-size: 56rpx;" bindtap="onAdd" />
+      <van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round" wx:if="{{scrollTop > sys_navBar}}" />
+    </view>
+  </ui-navbar>
+  <van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round" />
+
   <view>
     <van-empty wx:if="{{friendsList.length===0}}" description="还没有记录哦~" />
     <van-index-bar highlight-color="#F76664">
       <view wx:for="{{friendsList}}" wx:key="index">
         <van-index-anchor index="{{item.alpha}}" />
         <van-cell-group inset>
-          <van-cell title="{{data.name}}" size="large" bind:click="onFriendClick" wx:for="{{item.subItems}}" wx:for-item="data" wx:key="dataindex" data-friend='{{data}}' />
+          <van-cell title="{{data.name}}" label="{{data.relation}}" size="large" bind:click="onFriendClick" wx:for="{{item.subItems}}" wx:for-item="data" wx:key="dataindex" data-friend='{{data}}' />
         </van-cell-group>
       </view>
     </van-index-bar>
   </view>
-</view>
+</ui-sys>
