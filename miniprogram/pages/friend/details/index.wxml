@@ -3,7 +3,7 @@
 <ui-sys title="亲友详情" class="container">
   <van-sticky offset-top="{{ -30 }}">
     <view class="home-header">
-      <image class="bg" src="/images/bg_summary.png" mode="center"></image>
+      <image class="bg" src="/static/img/bg_summary.png" mode="center"></image>
       <view class="content">
         <view class='item friend'>
           <view>

@@ -1,61 +1,51 @@
 <!-- pages/family/index.wxml -->
-<van-notify id="van-notify" />
-<view class="container">
-    <block wx:if="{{!_id&&!inviteFamily}}">
-        <van-empty description="还没有开通家庭共享哦~" />
-        <van-button round block type="danger" size="large" icon="plus" custom-style="margin-bottom: 24rpx;" bindtap="onCreate">
-            创建家庭
-        </van-button>
-        <!-- <van-button round block type="danger" icon="scan">加入家庭</van-button> -->
-    </block>
-    <block wx:elif="{{inviteFamily}}">
-        <van-empty description="{{inviteFamily.word}}" />
-        <van-button round block type="danger" size="large" custom-style="margin-bottom: 24rpx;" bindtap="onJoinFamily">
-            同意
-        </van-button>
-        <van-button round plain block type="danger" size="large" custom-style="margin-bottom: 24rpx;" bindtap="goHome">
-            首页
-        </van-button>
-    </block>
-</view>
-<view wx:if="{{_id}}">
-    <van-cell-group inset title="家庭管理">
-        <van-field center model:value="{{ name }}" label="家庭名称" placeholder="请输入家庭名称" input-align="right" size="large" bind:confirm="onUpdateName" />
-    </van-cell-group>
-    <van-cell-group inset title="家庭成员">
-        <block wx:for="{{familyMembers}}" wx:key="index">
-            <van-cell value="{{item.relation}}" size="large" center wx:if="{{item.relation=='管理员'}}">
-                <view slot="title">
-                    <view class="van-cell-text">{{item.user.nickName}}</view>
-                </view>
-            </van-cell>
-
-            <van-swipe-cell right-width="{{ 65 }}" wx:else>
-                <van-cell-group>
-                    <van-cell size="large" center value="{{item.relation}}">
-                        <view slot="title">
-                            <view class="van-cell-text">{{item.user.nickName}}</view>
-                        </view>
-                    </van-cell>
-                </van-cell-group>
-                <van-button slot="right" type="danger" bind:click="onDeleteMember" data-member="{{item}}">删除</van-button>
-            </van-swipe-cell>
+<ui-sys title="我的家庭" class="container">
+    <view class="ui-container">
+        <block wx:if="{{!_id&&!inviteFamily}}">
+            <van-empty description="还没有开通家庭共享哦~" />
+            <button class="ui-btn block round bg-red-gradient shadow shadow-blur" bindtap="onCreate">创建家庭</button>
         </block>
-
-        <block >
-            <van-cell size="large">
-                <van-button round block plain size="large" type="danger" icon="plus" open-type="share">
-                    邀请家庭成员
-                </van-button>
-            </van-cell>
-            <!-- <van-cell size="large" wx:if="{{familyMembers.length==1}}">
-                <van-button round block plain size="large" type="danger" open-type="share">
-                    移除家庭
-                </van-button>
-            </van-cell> -->
+        <block wx:elif="{{inviteFamily}}">
+            <van-empty description="{{inviteFamily.word}}" />
+            <button class="ui-btn block round bg-red-gradient shadow shadow-blur my-3" bindtap="onJoinFamily">同意</button>
+            <button class="ui-btn block round border border-red bg-red-light my-3" bindtap="goHome">首页</button>
         </block>
-        <text style="font-size: 12px;color: #969799;margin-top: 32rpx;">Tips：向左滑动来展示操作按钮。</text>
-    </van-cell-group>
-</view>
-<!-- 页脚 -->
-<footer></footer>
+        <view class="mb-3" wx:if="{{_id}}">
+            <ui-title title="家庭管理" depth="2" isIcon ui="mx-4" />
+            <ui-form ui="ui-BG my-3 radius">
+                <ui-form-group title="家庭名称">
+                    <ui-input-box ui="text-right">
+                        <input class="ui-input-wrapper" placeholder="请输入家庭名称" model:value="{{ name }}" bindconfirm="onUpdateName"/>
+                    </ui-input-box>
+                </ui-form-group>
+            </ui-form>
+
+            <ui-title title="家庭成员" depth="2" isIcon ui="mx-4" />
+
+            <block wx:for="{{familyMembers}}" wx:key="index">
+                <van-cell value="{{item.relation}}" size="large" center wx:if="{{item.relation=='管理员'}}">
+                    <view slot="title">
+                        <view class="van-cell-text">{{item.user.nickName}}</view>
+                    </view>
+                </van-cell>
+
+                <van-swipe-cell right-width="{{ 65 }}" wx:else>
+                    <van-cell-group>
+                        <van-cell size="large" center value="{{item.relation}}">
+                            <view slot="title">
+                                <view class="van-cell-text">{{item.user.nickName}}</view>
+                            </view>
+                        </van-cell>
+                    </van-cell-group>
+                    <button slot="right" class="ui-btn block bg-red-gradient" bindtap="onDeleteMember" data-member="{{item}}">删除</button>
+                </van-swipe-cell>
+            </block>
+            <block>
+                <van-cell size="large">
+                    <button class="ui-btn block round bg-red-gradient" bindtap="onCreate" open-type="share">邀请家庭成员</button>
+                </van-cell>
+            </block>
+        </view>
+        <text class="text-xs text-grey">Tips：向左滑动来展示操作按钮。</text>
+    </view>
+</ui-sys>

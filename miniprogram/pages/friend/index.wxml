@@ -14,7 +14,7 @@
       <view wx:for="{{friendsList}}" wx:key="index">
         <van-index-anchor index="{{item.alpha}}" />
         <van-cell-group inset>
-          <van-cell title="{{data.name}}" size="large" bind:click="onFriendClick" wx:for="{{item.subItems}}" wx:for-item="data" wx:key="dataindex" data-friend='{{data}}' />
+          <van-cell title="{{data.name}}" label="{{data.relation}}" size="large" bind:click="onFriendClick" wx:for="{{item.subItems}}" wx:for-item="data" wx:key="dataindex" data-friend='{{data}}' />
         </van-cell-group>
       </view>
     </van-index-bar>

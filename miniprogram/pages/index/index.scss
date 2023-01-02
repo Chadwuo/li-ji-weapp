@@ -17,36 +17,8 @@
   position: absolute;
   z-index: 9;
   height: 100%;
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-}
-
-.book .content .name {
-  font-size: large;
-  color: #F76664;
-  font-weight: bold;
-  padding-bottom: 24rpx;
-  margin: 0 24rpx;
-}
-
-.book .content .count {
-  font-size: small;
-  color: #969799;
-  margin: 0 24rpx;
-}
-
-.book .content .total {
-  font-size: large;
-  color: #333;
-  font-weight: bold;
-  padding-bottom: 24rpx;
-  margin: 0 24rpx;
-}
-
-.book .content .date {
-  font-size: small;
-  color: #969799;
-  margin: 0 24rpx;
+  margin: 0 32rpx;
 }
