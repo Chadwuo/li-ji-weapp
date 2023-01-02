@@ -2,8 +2,8 @@
 <ui-sys title="{{book.title}}">
   <ui-fixed bg="bg-blur" sticky>
     <van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
-      <view slot="action" bind:tap="onAddGift" style="display: flex;">
-        <van-icon class="px-3" name="add" color="#F76664" size="56rpx" />
+      <view slot="action" bind:tap="onAddGift" class="flex">
+        <view class="round _icon-add-round-o ui-TC-Main" style="font-size: 56rpx;" />
       </view>
     </van-search>
   </ui-fixed>
