@@ -14,9 +14,13 @@
 					<block slot="action"><text class="cicon-accounts icon-xl px-3" bindtap="showFriendSelect" /></block>
 				</ui-input-box>
 			</ui-form-group>
-			<ui-form-group title="事由" icon="cicon-present">
+			<ui-form-group title="事由" isAction icon="cicon-present">
 				<ui-input-box>
-					<input class="ui-input-wrapper" placeholder="随礼事由" model:value="{{ title }}" />
+					<input wx:if="{{pickerCustom}}" class="ui-input-wrapper" placeholder="随礼事由" model:value="{{ title }}" />
+					<picker wx:else bindchange="bindPickerChange" range="{{columns}}" class="w-100">
+						<input class="ui-input-wrapper" disabled placeholder="随礼事由" value="{{ title }}" />
+					</picker>
+					<block slot="action"><text class="cicon-angle icon-xl" bindtap="showTitlePicker" /></block>
 				</ui-input-box>
 			</ui-form-group>
 			<ui-form-group title="贺礼" icon="cicon-moneybag">

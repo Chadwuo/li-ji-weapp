@@ -56,7 +56,23 @@
             </view>
 
             <ui-menu-item arrow title="常见问题" icon="cicon-clothes ui-TC-Main" data-url="/pages/question/index" bindtap="tapToUrl" />
-            <ui-menu-item arrow title="意见反馈" icon="cicon-evaluate ui-TC-Main" data-url="/pages/issue/index" bindtap="tapToUrl" />
+            <!-- <ui-menu-item arrow title="意见反馈" icon="cicon-evaluate ui-TC-Main" data-url="/pages/issue/index" bindtap="tapToUrl" /> -->
+
+            <view class="ui-menu-item arrow">
+                <view class="ui-menu-item-icon">
+                    <block>
+                        <view class="cicon-evaluate ui-TC-Main" />
+                    </block>
+                </view>
+                <view class="ui-menu-item-content">
+                    <view class="ui-menu-item-title">意见反馈</view>
+                </view>
+                <view class="ui-menu-item-arrow">
+                    <view class="_icon-forward" />
+                </view>
+                <button class="ui-btn open-btn" open-type="feedback"></button>
+            </view>
+
             <ui-menu-item arrow title="设置" icon="cicon-set ui-TC-Main" data-url="/pages/set/index" bindtap="tapToUrl" />
 
             <view class="ui-menu-item arrow">
