@@ -1,5 +1,5 @@
 <!--pages/issue/index.wxml-->
-<view class="container">
+<ui-sys title="意见反馈" class="container">
   <van-tabs sticky animated swipeable>
     <van-tab title="问题反馈">
       <view class="tab-item" style="display: flex;flex-direction: column;">
@@ -45,5 +45,4 @@
       <van-field model:value="{{ reply }}" placeholder="回复内容" type="textarea" autosize="{{ { minHeight: 120} }}" />
     </van-cell-group>
   </van-popup>
-</view>
-<footer loading="{{loading}}"></footer>
+</ui-sys>

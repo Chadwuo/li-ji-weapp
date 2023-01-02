@@ -70,7 +70,7 @@ exports.getGiftReceivePage = async (parameter) => {
             },
             {
                 $sort: {
-                    date: -1
+                    money: -1
                 }
             },
             {

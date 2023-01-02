@@ -1,7 +1,6 @@
 // pages/family/index.js
 const familyService = require('../../alicloud/services/family')
 const app = getApp();
-import Notify from '@vant/weapp/notify/notify';
 Page({
 
     /**
@@ -16,10 +15,9 @@ Page({
     async onUpdateName() {
         const res = await familyService.updateFamily(this.data)
         if (res.success) {
-            Notify({
-                type: 'success',
-                message: '家庭名称已保存'
-            });
+            wx.showToast({
+                title: '家庭名称已保存',
+            })
         }
     },
     async onCreate() {
@@ -124,7 +122,7 @@ Page({
         return {
             title: '和我一起记录家里的人情往来',
             path: `pages/family/index?familyId=${this.data._id}&word=${app.userInfo.nickName}邀请你加入家庭共享记账`,
-            imageUrl: '../../images/share.jpg'
+            imageUrl: '/static/img/share2.jpg'
         }
     }
 })
