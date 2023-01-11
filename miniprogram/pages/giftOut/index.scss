@@ -1,36 +1,36 @@
 /* pages/giftOut/index.wxss */
-/* 人情卡片 */
-.gift-card {
-  display: flex;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 20rpx;
-  margin-top: 20rpx;
+page {
+  --bg: #F5F5F5;
+  --c1: orange;
+  --c2: #ff2e63;
+  --c3: #a33b55;
+  --c4: #ffe2e2;
+  --c5: #bbded6;
+  --c6: #ffde7d;
+  --c7: #eeeeee;
+  --c8: #a8edea;
+  --c9: #fed6e3;
 }
 
-.gift-card .content {
-  flex: 1;
-  text-align: left;
-  padding-left: 48rpx;
+/* 样式3 */
+.card-3 {
+  margin: 20px auto;
+  width: 700rpx;
+  height: 200rpx;
+  position: relative;
+  filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, .2));
 }
 
-.gift-card .content .title {
-  color: #000000;
-  font-size: 44rpx;
-  font-weight: 500;
-  margin: 25rpx 0 15rpx 0;
-}
-
-.gift-card .content .info {
-  color: #888888;
-  font-size: 24rpx;
-  font-family: PingFang SC;
-  margin-bottom: 15rpx;
-}
-
-.gift-card .label {
-  padding-right: 48rpx;
-  color: #08989A;
-  font-size: large;
-  font-weight: bold;
+.card-3::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  height: 100%;
+  -webkit-mask: radial-gradient(circle at 30rpx 30rpx, transparent 30rpx, red 0) -30rpx -30rpx;
+  mask: radial-gradient(circle at 30rpx 30rpx, transparent 30rpx, red 0) -30rpx -30rpx;
+  background-image: linear-gradient(to right, var(--c8) 0%, var(--c9) 100%);
 }

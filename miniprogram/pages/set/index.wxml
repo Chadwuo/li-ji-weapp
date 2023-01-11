@@ -3,9 +3,9 @@
     <view class="ui-container">
 
         <ui-title title="主题" depth="2" isIcon />
-        <ui-change-theme ui="radius border" />
+        <ui-change-theme ui="radius-lg" />
 
         <ui-title title="字号" depth="2" isIcon />
-        <ui-text-size ui="radius border" />
+        <ui-text-size ui="radius-lg" />
     </view>
 </ui-sys>

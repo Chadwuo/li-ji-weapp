@@ -62,7 +62,7 @@ Page({
     const that = this
     const res = await giftReceiveService.getGiftReceivePage({
       page: page,
-      limit: 10,
+      limit: 20,
       bookId: this.data.book._id
     })
     if (res.success) {

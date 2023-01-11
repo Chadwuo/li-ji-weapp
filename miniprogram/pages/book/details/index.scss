@@ -1,38 +1,25 @@
 /* pages/book/details/index.wxss */
 /* 内容 */
+page {
+	--bg: #F5F5F5;
+	--c1: orange;
+	--c2: #ff2e63;
+	--c3: #a33b55;
+	--c4: #ffe2e2;
+	--c5: #bbded6;
+	--c6: #ffde7d;
+	--c7: #eeeeee;
+	--c8: #a8edea;
+	--c9: #fed6e3;
+  }
 
-/* 人情卡片 */
-.gift-card {
-  display: flex;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 20rpx;
-  margin-top: 20rpx;
-}
-
-.gift-card .content {
-  flex: 1;
-  text-align: left;
-  padding-left: 48rpx;
-}
-
-.gift-card .content .title {
-  color: #000000;
-  font-size: 44rpx;
-  font-weight: 500;
-  margin: 25rpx 0;
-}
-
-.gift-card .content .info {
-  color: #888888;
-  font-size: 24rpx;
-  font-family: PingFang SC;
-  margin-bottom: 15rpx;
-}
-
-.gift-card .label {
-  padding-right: 48rpx;
-  color: #F76664;
-  font-size: large;
-  font-weight: bold;
-}
+/* 样式4 */
+.card-4 {
+	margin: 20px auto;
+	width: 700rpx;
+	height: 126rpx;
+	position: relative;
+	border-radius: 20rpx;
+	background: radial-gradient(circle at 30rpx 25rpx, transparent 10rpx, #f77062 0, #fe5196 100%) top left/700rpx 40rpx;
+	filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, .2));
+  }
