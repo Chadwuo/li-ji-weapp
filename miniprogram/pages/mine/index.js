@@ -12,27 +12,27 @@ Page({
         giveTotal: 0.00,
         receiveTotal: 0.00,
         menus: [{
-                icon: "cicon-home-smile-o",
+                icon: "cicon-home-community",
                 name: "我的家庭",
-                color: "#A5ADF6",
+                color: "text-mauve",
                 path: "/pages/family/index"
             },
             {
                 icon: "cicon-event-list",
                 name: "数据导出",
-                color: "#4EB9FA",
+                color: "text-orange",
                 path: "/pages/export/index"
             },
             {
                 icon: "cicon-demo",
                 name: "统计分析",
-                color: "#FFC667",
+                color: "text-red",
                 path: "/pages/chart/index"
             },
             {
                 icon: "cicon-goods-o",
                 name: "亲友关系",
-                color: "#F37D7D",
+                color: "text-green",
                 path: "/pages/chart/index"
             }
         ],

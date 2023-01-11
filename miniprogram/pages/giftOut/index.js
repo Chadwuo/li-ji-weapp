@@ -61,7 +61,7 @@ Page({
     }
     const res = await giftOutService.getGiftOutPage({
       page: page,
-      limit: 10
+      limit: 20
     })
     if (res.success) {
       this.setData({

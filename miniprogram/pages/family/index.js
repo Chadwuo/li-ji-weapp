@@ -31,10 +31,19 @@ Page({
         }
     },
     async onDeleteMember(e) {
-        const res = await familyService.delFamilyMember(e.currentTarget.dataset.member)
-        if (res.success) {
-            this.onShow()
-        }
+        wx.showModal({
+            title: '提示',
+            content: '是否删除此家庭成员',
+            async success(confirm) {
+                if (confirm.confirm) {
+                    const res = await familyService.delFamilyMember(e.currentTarget.dataset.member)
+                    if (res.success) {
+                        this.onShow()
+                    }
+                }
+            }
+        })
+       
     },
     async onJoinFamily() {
         const res = await familyService.joinFamily({
