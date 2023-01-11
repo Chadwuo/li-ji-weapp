@@ -13,7 +13,7 @@
         </view>
 
         <!-- 我的服务 -->
-        <view class="ui-BG radius">
+        <view class="ui-BG radius-lg">
             <view class="ui-grid ui-cols-2 py-4">
                 <view class="ui-item border-right">
                     <view class="ui-TC text-xxl text-bold">{{receiveTotal}}</view>
@@ -28,7 +28,7 @@
                 <block wx:key="index" wx:for="{{menus}}">
                     <navigator class="ui-item" url="{{item.path}}">
                         <view>
-                            <text class="{{item.icon}} m-2" style="font-size: 56rpx;color:{{item.color}}"></text>
+                            <text class="{{item.icon}} m-2 text-xxl {{item.color}}"></text>
                         </view>
                         <view>
                             <text class="ui-TC text-sm">{{item.name}}</text>
@@ -39,7 +39,7 @@
         </view>
 
         <!-- 其他功能 -->
-        <ui-menu ui="mt-3 radius border">
+        <ui-menu ui="mt-3 radius-lg">
             <view class="ui-menu-item arrow">
                 <view class="ui-menu-item-icon">
                     <block>

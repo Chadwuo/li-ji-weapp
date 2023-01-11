@@ -1,21 +1,20 @@
 <!--pages/book/details/index.wxml-->
 <ui-sys title="{{book.title}}">
-  <ui-fixed bg="bg-blur" sticky>
-    <van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
-      <view slot="action" bind:tap="onAddGift" class="flex">
-        <view class="round _icon-add-round-o ui-TC-Main" style="font-size: 56rpx;" />
-      </view>
-    </van-search>
-  </ui-fixed>
-  <view class="ui-container">
-    <van-empty wx:if="{{giftList.length==0}}" description="还没有记录哦~"></van-empty>
-    <view class='gift-card' wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
-      <view class='content'>
-        <view class='title'>{{item.friendInfo.name}}</view>
-      </view>
-      <view class='label'>
-        {{item.money}}元
-      </view>
-    </view>
-  </view>
+	<ui-fixed bg="bg-blur" sticky>
+		<van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
+			<view slot="action" bind:tap="onAddGift" class="flex">
+				<view class="round _icon-add-round-o ui-TC-Main" style="font-size: 56rpx;" />
+			</view>
+		</van-search>
+	</ui-fixed>
+	<view class="ui-container">
+		<van-empty wx:if="{{giftList.length==0}}" description="还没有记录哦~"></van-empty>
+
+		<view class="card-4 text-white flex justify-center align-center" wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
+			<text class="text-xl px-2"> {{item.friendInfo.name}}</text>
+			<text class="text-df padding-bottom-xs ">贺礼</text>
+			<text class="text-xxl px-2"> {{item.money}} </text>
+			<text class="text-df padding-bottom-xs">元</text>
+		</view>
+	</view>
 </ui-sys>
