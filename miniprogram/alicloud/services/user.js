@@ -55,17 +55,23 @@ exports.getUserDataScope = async () => {
     userInfo
   } = getApp()
 
-  // 没有加入家庭，就返回自己的id
-  if (!userInfo.familyId) {
-    return [userInfo._id]
-  }
-
   // 获取家庭信息
+  const {
+    result: familyMember
+  } = await db.collection('family_member').findOne({
+    userId: userInfo._id
+  })
+
+  // 没有加入家庭，就返回自己的id
+  if (!familyMember) {
+    return [userInfo._id]
+  } 
+  
+  // 获取家庭其他成员信息
   const {
     result: familyInfos
   } = await db.collection('family_member').find({
-    familyId: userInfo.familyId,
-    status: 1
+    familyId: familyMember.familyId
   })
 
   let dataScope = familyInfos.map(i => {
