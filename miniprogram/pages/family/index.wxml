@@ -26,7 +26,7 @@
 					<ui-menu-item title="{{item.user.nickName}}" isAction wx:if="{{item.relation=='管理员'}}">
 						<text slot="action">{{item.relation}}</text>
 					</ui-menu-item>
-					<ui-menu-item title="{{item.user.nickName}}" isAction bindtap="onDeleteMember" data-member="{{item}}" wx:else>
+					<ui-menu-item title="{{item.user.nickName}}" isAction bind:longpress="onMemberLongPress" data-member="{{item}}" wx:else>
 						<text slot="action">{{item.relation}}</text>
 					</ui-menu-item>
 				</block>
@@ -40,3 +40,5 @@
 		</view>
 	</view>
 </ui-sys>
+<!-- 长按动作 -->
+<van-action-sheet show="{{ memberAction.show }}" actions="{{ memberAction.actions }}" bind:close="onCloseMemberAction" bind:cancel="onCloseMemberAction" bind:select="onSelectMenberAction" cancel-text="取消" close-on-click-overlay />
