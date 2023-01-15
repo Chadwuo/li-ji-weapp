@@ -14,11 +14,11 @@ Page({
         inviteFamily: false,
         memberAction: {
             show: false,
-            actions: [{
-                name: '删除',
-                subname: '从你的家庭中移除此成员',
-            },],
         },
+        actions: [{
+            name: '删除',
+            subname: '从你的家庭中移除此成员',
+        },],
     },
     // 更新家庭名称
     async onUpdateName() {
@@ -52,10 +52,10 @@ Page({
                 inviteFamily: null
             })
             this.onShow()
-        }
+        }e
     },
     // 长按家庭成员-打开动作面板
-    onMemberLongPress() {
+    onMemberLongPress(e) {
         this.setData({
             memberAction: {
                 show: true,
