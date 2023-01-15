@@ -37,9 +37,9 @@
                 </block>
             </view>
         </view>
-
+       
         <!-- 其他功能 -->
-        <ui-menu ui="mt-3 radius-lg">
+        <ui-menu ui="mt-5 radius-lg">
             <view class="ui-menu-item arrow">
                 <view class="ui-menu-item-icon">
                     <block>

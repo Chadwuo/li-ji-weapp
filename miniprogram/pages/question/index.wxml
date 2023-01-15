@@ -1,17 +1,17 @@
 <ui-sys title="常见问题">
     <view class="ui-container">
         <view class="ui-menu radius-lg mt-3">
-            <view class="ui-menu-item">
+            <view class="ui-menu-item .cf">
                 <view class="block py-3">
                     <view class="text-df text-bold">Q：这个软件收费吗？</view>
-                    <view class="ui-TC-3 mt-2">A：本项目是个人开源的学习项目，不会收取任何费用。</view>
+                    <view class="ui-TC-3 mt-2">A：本项目是个人开源项目，不会收取任何费用。</view>
                 </view>
             </view>
 
             <view class="ui-menu-item">
                 <view class="block py-3">
                     <view class="text-df text-bold">Q：作者是一个人完成所有开发工作吗？</view>
-                    <view class="ui-TC-3 mt-2">A：目前是的，欢迎PR。</view>
+                    <view class="ui-TC-3 mt-2">A：目前是的，如果你熟悉JS、mongodb、微信小程序欢迎PR。同时也欢迎设计、产品参与项目。</view>
                 </view>
             </view>
 
