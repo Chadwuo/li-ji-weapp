@@ -41,4 +41,4 @@
 	</view>
 </ui-sys>
 <!-- 长按动作 -->
-<van-action-sheet show="{{ memberAction.show }}" actions="{{ memberAction.actions }}" bind:close="onCloseMemberAction" bind:cancel="onCloseMemberAction" bind:select="onSelectMenberAction" cancel-text="取消" close-on-click-overlay />
+<van-action-sheet show="{{ memberAction.show }}" actions="{{ actions }}" bind:close="onCloseMemberAction" bind:cancel="onCloseMemberAction" bind:select="onSelectMenberAction" cancel-text="取消" close-on-click-overlay />
