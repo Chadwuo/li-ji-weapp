@@ -1,40 +1,43 @@
 const giftOutService = require('../../alicloud/services/giftOut')
 const giftReceiveService = require('../../alicloud/services/giftReceive')
 const jinrishici = require('../../utils/jinrishici.js')
-
+const utils = require('../../utils/index.js')
+const app = getApp();
 Page({
     /**
      * 页面的初始数据
      */
     data: {
         scrollTop: 0,
-        welcome: '',
+        jinrishici: '',
+        userInfo: {},
+        welcome: 'Hello',
         giveTotal: 0.00,
         receiveTotal: 0.00,
         menus: [{
-                icon: "cicon-home-community",
-                name: "我的家庭",
-                color: "text-mauve",
-                path: "/pages/family/index"
-            },
-            {
-                icon: "cicon-event-list",
-                name: "数据导出",
-                color: "text-orange",
-                path: "/pages/export/index"
-            },
-            {
-                icon: "cicon-demo",
-                name: "统计分析",
-                color: "text-red",
-                path: "/pages/chart/index"
-            },
-            {
-                icon: "cicon-goods-o",
-                name: "亲友关系",
-                color: "text-green",
-                path: "/pages/chart/index"
-            }
+            icon: "cicon-home-community",
+            name: "我的家庭",
+            color: "text-mauve",
+            path: "/pages/family/index"
+        },
+        {
+            icon: "cicon-event-list",
+            name: "数据导出",
+            color: "text-orange",
+            path: "/pages/export/index"
+        },
+        {
+            icon: "cicon-demo",
+            name: "统计分析",
+            color: "text-red",
+            path: "/pages/chart/index"
+        },
+        {
+            icon: "cicon-goods-o",
+            name: "亲友关系",
+            color: "text-green",
+            path: "/pages/chart/index"
+        }
         ],
     },
     // 监听用户滑动页面事件。
@@ -57,8 +60,12 @@ Page({
     onLoad: function (options) {
         jinrishici.load(result => {
             this.setData({
-                welcome: result.data.content
+                jinrishici: result.data.content,
             })
+        })
+        this.setData({
+            welcome: utils.welcome(),
+            userInfo: app.userInfo
         })
         wx.showShareMenu({
             menus: ['shareAppMessage', 'shareTimeline']
