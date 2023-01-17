@@ -7,8 +7,8 @@
             <ui-avatar ui="xxl ellipse" src="/static/logo.png" />
             <view class="flex-sub pl-3">
                 <!-- <view class="text-xl">登录,享受更多服务。</view> -->
-                <view class="text-xl">Hello，礼记者</view>
-                <view class="text-gray text-sm pt-2">{{welcome}}</view>
+                <view class="text-xl">{{welcome}}，礼记者</view>
+                <view class="text-gray text-sm pt-2">{{jinrishici}}</view>
             </view>
         </view>
 
