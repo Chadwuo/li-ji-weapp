@@ -9,19 +9,19 @@
             <block wx:for="{{giftBooks}}" wx:key="index">
                 <view class="ui-item p-3">
                     <view class="book ui-BG" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-book='{{item}}'>
-                        <view class="flex flex-column justify-around" style="height: 100%;">
+                        <view class="flex flex-column justify-around" style="height: 100%;width: 100%;">
                             <view class="mx-4">
                                 <view class="text-xl text-bold ui-TC-Main py-2">{{ item.title||'' }}</view>
                                 <view class="text-sm text-grey">共 {{ item.giftCount||0 }} 笔</view>
-                            </view>
-                            <view class="bg-red radius-left flex self-end align-center" style="height: 40rpx;width: 50%;">
-                                <view class="bg-red-gradient round ml-3 " style="height: 15rpx;width: 15rpx;"></view>
                             </view>
                             <view class="mx-4">
                                 <view class="text-price text-bold text-xl py-1">{{ item.giftTotal||'0' }}</view>
                                 <view class="text-sm text-grey py-1">{{ item.date.value }}</view>
                                 <view class="text-sm text-grey py-1">{{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
                             </view>
+                        </view>
+                        <view class="bg-red flex align-center fr" style="height: 55rpx;width: 40%;position: relative;top: -60%; border-bottom-left-radius: 40rpx ;border-top-left-radius: 40rpx;">
+                            <view class="round ml-3" style="height: 20rpx;width: 20rpx;background-color: #F88F8D;"></view>
                         </view>
                     </view>
                 </view>

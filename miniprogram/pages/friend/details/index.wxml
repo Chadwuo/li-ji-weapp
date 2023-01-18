@@ -10,7 +10,7 @@
             <van-icon size="64rpx" color="#fff" name="contact" style="margin-right: 10rpx;" />
             <span class="num">{{friend.name}}</span>
           </view>
-		  <text class="_icon-edit text-white text-xxl" bind:tap="onEditClick"></text>
+          <text class="_icon-edit text-white text-xxl" bind:tap="onEditClick"></text>
         </view>
         <view class='item'>
           <span class='num'>{{filters.toFix(happyTotal-sadTotal)}}</span>

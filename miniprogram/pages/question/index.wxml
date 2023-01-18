@@ -1,7 +1,7 @@
 <ui-sys title="常见问题">
     <view class="ui-container">
         <view class="ui-menu radius-lg mt-3">
-            <view class="ui-menu-item .cf">
+            <view class="ui-menu-item">
                 <view class="block py-3">
                     <view class="text-df text-bold">Q：这个软件收费吗？</view>
                     <view class="ui-TC-3 mt-2">A：本项目是个人开源项目，不会收取任何费用。</view>

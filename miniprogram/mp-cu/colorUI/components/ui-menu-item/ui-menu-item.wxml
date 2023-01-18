@@ -16,4 +16,5 @@
     <view class="ui-menu-item-arrow" wx:if="{{arrow}}">
         <view class="_icon-forward"/>
     </view>
+    <button wx:if="{{openType}}" class="ui-btn open-btn" open-type="{{openType}}"></button>
 </view>
