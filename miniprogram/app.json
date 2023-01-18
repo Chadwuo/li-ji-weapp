@@ -98,6 +98,7 @@
         "van-search": "@vant/weapp/search/index",
         "van-tab": "@vant/weapp/tab/index",
         "van-swipe-cell": "@vant/weapp/swipe-cell/index",
-        "van-tabs": "@vant/weapp/tabs/index"
+        "van-tabs": "@vant/weapp/tabs/index",
+        "van-popup": "@vant/weapp/popup/index"
     }
 }
