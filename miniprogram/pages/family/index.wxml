@@ -31,6 +31,7 @@
 					</ui-menu-item>
 				</block>
 			</ui-menu>
+			<text class="text-xs text-grey">Tips:长按成员来打开操作按钮。</text>
 			<ui-menu ui="mt-5 radius-lg">
 				<view class="ui-menu-item justify-center">
 					<text class="ui-TC-Main _icon-add ">邀请家庭成员</text>
