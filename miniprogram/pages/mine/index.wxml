@@ -55,13 +55,13 @@
 </ui-sys>
 
 <van-popup show="{{ showProfile }}" round position="bottom" bind:close="onCloseProfile">
-	<view class="pb-6 pt-4 flex-column flex-center ui-container">
+	<view class="py-5 flex-column flex-center ui-container">
 		<text class="text-bold flex self-start">完善用户信息体验更多功能</text>
 		<ui-avatar ui="round sl mt-6" src="{{userInfo.avatarUrl}}">
 			<ui-tag badge="bl" bg="shadow ui-BG-Main" isSlot icon>
 				<text class="cicon-camera text-white" />
 			</ui-tag>
-			<button class="open-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+			<button class="open-btn" open-type="chooseAvatar" model:value="{{ userInfo.nickName }}" bind:chooseavatar="onChooseAvatar">
 			</button>
 		</ui-avatar>
 		
