@@ -1,5 +1,0 @@
-<!-- pages/login/index.wxml -->
-<view>
-  
-  <van-button round>记录每一段故事</van-button>
-</view>

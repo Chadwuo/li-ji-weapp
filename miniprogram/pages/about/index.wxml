@@ -17,7 +17,7 @@
             「礼记」是一个基于微信小程序的在线人情簿，随身携带、快速查找、统计汇总、亲友往来、家庭共享，为记账带来了全新体验。
         </view>
 
-        <ui-menu ui="mt-5 border radius">
+        <ui-menu ui="mt-5 radius-lg">
             <ui-menu-item title="作者微信" arrow isAction bindtap="Chadwuo">
                 <view slot="action" class="text-gray-a">Chadwuo</view>
             </ui-menu-item>

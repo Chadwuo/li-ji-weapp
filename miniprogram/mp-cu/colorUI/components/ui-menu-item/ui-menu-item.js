@@ -28,7 +28,11 @@ Component({
         isAction: {
             type: Boolean,
             value: false
-        }
+        },
+        openType: {
+            type: String,
+            value: ''
+        },
     },
     methods: {
 

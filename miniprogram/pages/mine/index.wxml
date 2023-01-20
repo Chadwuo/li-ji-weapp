@@ -1,96 +1,73 @@
-<ui-sys img="/static/img/4put2.png" tabbar>
-    <ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
-        <view class="flex-center flex-sub" wx:if="{{scrollTop > sys_navBar}}">我的</view>
-    </ui-navbar>
-    <view class='ui-container'>
-        <view class="flex-bar my-4" data-url="/pages/profile/index" bindtap="tapToUrl">
-            <ui-avatar ui="xxl ellipse" src="/static/logo.png" />
-            <view class="flex-sub pl-3">
-                <!-- <view class="text-xl">登录,享受更多服务。</view> -->
-                <view class="text-xl">Hello，礼记者</view>
-                <view class="text-gray text-sm pt-2">{{welcome}}</view>
-            </view>
-        </view>
+<ui-sys img="/static/img/bg.png" tabbar>
+	<ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
+		<view class="flex-center flex-sub" wx:if="{{scrollTop > sys_navBar}}">我的</view>
+	</ui-navbar>
+	<view class='ui-container'>
+		<view class="flex-bar my-4" bindtap="onShowProfile">
+			<ui-avatar ui="xxl ellipse" src="{{avatarUrl}}" />
+			<view class="flex-sub pl-3">
+				<!-- <view class="text-xl">登录,享受更多服务。</view> -->
+				<view class="text-xl">{{welcome}}，{{nickName}}</view>
+				<view class="text-gray text-sm pt-2">{{jinrishici}}</view>
+			</view>
+			<!-- <text class="cicon-set-o text-xxl"></text> -->
+		</view>
 
-        <!-- 我的服务 -->
-        <view class="ui-BG radius">
-            <view class="ui-grid ui-cols-2 py-4">
-                <view class="ui-item border-right">
-                    <view class="ui-TC text-xxl text-bold">{{receiveTotal}}</view>
-                    <view class="ui-TC-2 text-sm">收礼</view>
-                </view>
-                <view class="ui-item border-left">
-                    <view class="ui-TC text-xxl text-bold">{{giveTotal}}</view>
-                    <view class="ui-TC-2 text-sm">送礼</view>
-                </view>
-            </view>
-            <view class="ui-grid ui-cols-4 py-3">
-                <block wx:key="index" wx:for="{{menus}}">
-                    <navigator class="ui-item" url="{{item.path}}">
-                        <view>
-                            <text class="{{item.icon}} m-2" style="font-size: 56rpx;color:{{item.color}}"></text>
-                        </view>
-                        <view>
-                            <text class="ui-TC text-sm">{{item.name}}</text>
-                        </view>
-                    </navigator>
-                </block>
-            </view>
-        </view>
+		<!-- 我的服务 -->
+		<view class="ui-BG radius-lg">
+			<view class="ui-grid ui-cols-2 py-4">
+				<view class="ui-item border-right">
+					<view class="ui-TC text-xxl text-bold">{{receiveTotal}}</view>
+					<view class="ui-TC-2 text-sm">收礼</view>
+				</view>
+				<view class="ui-item border-left">
+					<view class="ui-TC text-xxl text-bold">{{giveTotal}}</view>
+					<view class="ui-TC-2 text-sm">送礼</view>
+				</view>
+			</view>
+			<view class="ui-grid ui-cols-4 py-3">
+				<block wx:key="index" wx:for="{{menus}}">
+					<navigator class="ui-item" url="{{item.path}}">
+						<view>
+							<text class="{{item.icon}} m-2 text-xxl {{item.color}}"></text>
+						</view>
+						<view>
+							<text class="ui-TC text-sm">{{item.name}}</text>
+						</view>
+					</navigator>
+				</block>
+			</view>
+		</view>
 
-        <!-- 其他功能 -->
-        <ui-menu ui="mt-3 radius border">
-            <view class="ui-menu-item arrow">
-                <view class="ui-menu-item-icon">
-                    <block>
-                        <view class="cicon-service ui-TC-Main" />
-                    </block>
-                </view>
-                <view class="ui-menu-item-content">
-                    <view class="ui-menu-item-title">在线客服</view>
-                </view>
-                <view class="ui-menu-item-arrow">
-                    <view class="_icon-forward" />
-                </view>
-                <button class="ui-btn open-btn" open-type="contact"></button>
-            </view>
+		<ui-menu ui="mt-4 radius-lg">
+			<ui-menu-item arrow title="在线客服" icon="cicon-service ui-TC-Main" open-type="contact" />
+			<ui-menu-item arrow title="意见反馈" icon="cicon-evaluate ui-TC-Main" open-type="feedback" />
+		</ui-menu>
 
-            <ui-menu-item arrow title="常见问题" icon="cicon-clothes ui-TC-Main" data-url="/pages/question/index" bindtap="tapToUrl" />
-            <!-- <ui-menu-item arrow title="意见反馈" icon="cicon-evaluate ui-TC-Main" data-url="/pages/issue/index" bindtap="tapToUrl" /> -->
-
-            <view class="ui-menu-item arrow">
-                <view class="ui-menu-item-icon">
-                    <block>
-                        <view class="cicon-evaluate ui-TC-Main" />
-                    </block>
-                </view>
-                <view class="ui-menu-item-content">
-                    <view class="ui-menu-item-title">意见反馈</view>
-                </view>
-                <view class="ui-menu-item-arrow">
-                    <view class="_icon-forward" />
-                </view>
-                <button class="ui-btn open-btn" open-type="feedback"></button>
-            </view>
-
-            <ui-menu-item arrow title="设置" icon="cicon-set ui-TC-Main" data-url="/pages/set/index" bindtap="tapToUrl" />
-
-            <view class="ui-menu-item arrow">
-                <view class="ui-menu-item-icon">
-                    <block>
-                        <view class="cicon-weixin ui-TC-Main" />
-                    </block>
-                </view>
-                <view class="ui-menu-item-content">
-                    <view class="ui-menu-item-title">分享</view>
-                </view>
-                <view class="ui-menu-item-arrow">
-                    <view class="_icon-forward" />
-                </view>
-                <button class="ui-btn open-btn" open-type="share"></button>
-            </view>
-
-            <ui-menu-item arrow title="关于" icon="cicon-quill ui-TC-Main" data-url="/pages/about/index" bindtap="tapToUrl" />
-        </ui-menu>
-    </view>
+		<!-- 其他功能 -->
+		<ui-menu ui="mt-4 radius-lg">
+			<ui-menu-item arrow title="设置" icon="cicon-set ui-TC-Main" data-url="/pages/set/index" bindtap="tapToUrl" />
+			<ui-menu-item arrow title="常见问题" icon="cicon-clothes ui-TC-Main" data-url="/pages/question/index" bindtap="tapToUrl" />
+			<ui-menu-item arrow title="分享" icon="cicon-weixin ui-TC-Main" open-type="share" />
+			<ui-menu-item arrow title="关于" icon="cicon-quill ui-TC-Main" data-url="/pages/about/index" bindtap="tapToUrl" />
+		</ui-menu>
+	</view>
 </ui-sys>
+
+<van-popup show="{{ showProfile }}" round position="bottom" bind:close="onCloseProfile">
+	<view class="py-5 flex-column flex-center ui-container">
+		<text class="text-bold flex self-start">完善用户信息体验更多功能</text>
+		<ui-avatar ui="round sl mt-6" src="{{avatarUrl}}">
+			<ui-tag badge="bl" bg="shadow ui-BG-Main" isSlot icon>
+				<text class="cicon-camera text-white" />
+			</ui-tag>
+			<button class="open-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+			</button>
+		</ui-avatar>
+		
+		<view class="w-100 px-4">
+			<input model:value="{{ nickName }}" class="text-center mt-5 py-3 round" style="background-color: #F6F6F6;" placeholder="点击获取昵称" type="nickname" />
+			<button class="ui-btn bg-red block round mt-5" bindtap="onSaveProfile">保存</button>
+		</view>
+	</view>
+</van-popup>
