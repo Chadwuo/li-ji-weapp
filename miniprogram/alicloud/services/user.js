@@ -1,5 +1,4 @@
-const mpserverless = require('../index');
-const db = mpserverless.db;
+const app = getApp();
 
 /**
  * 获取用户信息
@@ -8,6 +7,10 @@ const db = mpserverless.db;
  * @author chadwuo
  */
 exports.getUserInfo = async () => {
+  const {
+    mpserverless
+  } = app
+  const db = mpserverless.db;
   try {
     const res = await mpserverless.user.getInfo()
     if (!res.success) {
@@ -23,8 +26,8 @@ exports.getUserInfo = async () => {
       // 创建用户
       user = {
         _id: userId,
-        nickName: '礼记者',
-        avatarUrl: '/static/logo.png',
+        nickName: '微信用户',
+        avatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
         isVip: false,
         createTime: new Date(),
       }
@@ -44,16 +47,42 @@ exports.getUserInfo = async () => {
 }
 
 /**
+ * 更新用户数据
+ *
+ * @author chadwuo
+ */
+exports.updateUserInfo = async (parameter) => {
+  const db = app.mpserverless.db;
+  try {
+    await db.collection('user').updateOne({
+      _id: parameter._id
+    }, {
+      $set: {
+        nickName: parameter.nickName,
+        avatarUrl: parameter.avatarUrl
+      }
+    })
+    return {
+      success: true,
+      data: ''
+    };
+  } catch (e) {
+    return {
+      success: false,
+      message: e
+    };
+  }
+};
+
+/**
  * 获取用户数据范围
  *
  * @return data {Array.<string>} 用户id集合。
  * @author chadwuo
  */
 exports.getUserDataScope = async () => {
-  const {
-    userInfo
-  } = getApp()
-
+  const userInfo = app.userInfo
+  const db = app.mpserverless.db;
   // 获取家庭信息
   const {
     result: familyMember
@@ -64,8 +93,8 @@ exports.getUserDataScope = async () => {
   // 没有加入家庭，就返回自己的id
   if (!familyMember) {
     return [userInfo._id]
-  } 
-  
+  }
+
   // 获取家庭其他成员信息
   const {
     result: familyInfos

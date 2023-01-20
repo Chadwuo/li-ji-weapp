@@ -1,34 +1,4 @@
-const {
-    db
-} = require('../index');
-
-/**
- * 获取家庭信息
- *
- * @author chadwuo
- */
-exports.getFamily = async () => {
-    try {
-        const {
-            userInfo
-        } = getApp();
-        // 获取家庭信息
-        const {
-            result
-        } = await db.collection('family').findOne({
-            _id: userInfo.familyId
-        })
-        return {
-            success: true,
-            data: result
-        }
-    } catch (error) {
-        return {
-            success: false,
-            message: error
-        };
-    }
-};
+const app = getApp();
 
 /**
  * 获取家庭及成员信息
@@ -36,23 +6,30 @@ exports.getFamily = async () => {
  * @author chadwuo
  */
 exports.getFamilyInfo = async () => {
+    const userInfo = app.userInfo
+    const db = app.mpserverless.db;
     try {
+        // 获取当前用户的家庭成员信息
         const {
-            userInfo
-        } = getApp();
-        // 获取家庭信息
-        const {
-            result: family
-        } = await db.collection('family').findOne({
-            _id: userInfo.familyId
+            result: memberInfo
+        } = await db.collection('family_member').findOne({
+            userId: userInfo._id
         })
+
+        // 没有加入家庭
+        if (!memberInfo) {
+            return {
+                success: true,
+                data: ''
+            }
+        }
 
         // 获取家庭成员信息
         const {
             result: familyMembers
         } = await db.collection('family_member').aggregate([{
                 $match: {
-                    familyId: userInfo.familyId
+                    familyId: memberInfo.familyId
                 }
             },
             {
@@ -70,6 +47,14 @@ exports.getFamilyInfo = async () => {
                 }
             }
         ])
+
+        // 获取家庭信息
+        const {
+            result: family
+        } = await db.collection('family').findOne({
+            _id: memberInfo.familyId
+        })
+
         return {
             success: true,
             data: {
@@ -91,10 +76,9 @@ exports.getFamilyInfo = async () => {
  * @author chadwuo
  */
 exports.addFamily = async (parameter) => {
+    const userInfo = app.userInfo
+    const db = app.mpserverless.db;
     try {
-        const {
-            userInfo
-        } = getApp();
         // 添加家庭
         const {
             result
@@ -110,16 +94,6 @@ exports.addFamily = async (parameter) => {
             userId: userInfo._id,
             familyId: _Id,
             relation: '管理员',
-            status: 1
-        })
-
-        // 更新自己的家庭id
-        await db.collection('user').updateOne({
-            _id: userInfo._id
-        }, {
-            $set: {
-                familyId: _Id
-            }
         })
 
         return {
@@ -140,6 +114,7 @@ exports.addFamily = async (parameter) => {
  * @author chadwuo
  */
 exports.updateFamily = async (parameter) => {
+    const db = app.mpserverless.db;
     try {
         // 更新家庭
         await db.collection('family').updateOne({
@@ -168,6 +143,7 @@ exports.updateFamily = async (parameter) => {
  * @author chadwuo
  */
 exports.deleteFamily = async (parameter) => {
+    const db = app.mpserverless.db;
     try {
         // 删除家庭
         await db.collection('family').deleteOne({
@@ -195,29 +171,45 @@ exports.deleteFamily = async (parameter) => {
  * @author chadwuo
  */
 exports.joinFamily = async (parameter) => {
+    const userInfo = app.userInfo
+    const db = app.mpserverless.db
     try {
-        const {
-            userInfo
-        } = getApp();
         await db.collection('family_member').insertOne({
             userId: userInfo._id,
             familyId: parameter.familyId,
             relation: parameter.relation,
-            status: 1 // 默认通过
-        })
-
-        // 更新自己用户表中家庭id
-        await db.collection('user').updateOne({
-            _id: userInfo._id
-        }, {
-            $set: {
-                familyId: parameter.familyId
-            }
         })
 
         return {
             success: true,
             data: ''
+        }
+    } catch (error) {
+        return {
+            success: false,
+            message: error
+        };
+    }
+};
+
+
+/**
+ * 用户是否已经加入家庭
+ *
+ * @author chadwuo
+ */
+exports.isExistFamily = async () => {
+    const userInfo = app.userInfo
+    const db = app.mpserverless.db
+    try {
+        const {
+            affectedDocs
+        } = await db.collection('family_member').findOne({
+            userId: userInfo._id
+        })
+        return {
+            success: true,
+            data: affectedDocs == 1 ? true : false
         }
     } catch (error) {
         return {
@@ -233,6 +225,7 @@ exports.joinFamily = async (parameter) => {
  * @author chadwuo
  */
 exports.delFamilyMember = async (parameter) => {
+    const db = app.mpserverless.db;
     try {
         await db.collection('family_member').deleteOne({
             _id: parameter._id
