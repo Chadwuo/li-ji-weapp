@@ -1,5 +1,5 @@
 <!-- pages/friend/index.wxml -->
-<ui-sys img="/static/img/4put2.png" tabbar>
+<ui-sys img="/static/img/bg.png" tabbar>
   <ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
     <view class="px-3 pb-2 flex-bar">
       <view class="round _icon-add-round-o ui-TC-Main" style="font-size: 56rpx;" bindtap="onAdd" />
