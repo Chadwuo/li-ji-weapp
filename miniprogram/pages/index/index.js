@@ -167,16 +167,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     async onLoad(options) {
-        wx.showLoading({
-            title: '加载中',
-            mask: true
-        })
-        // 人为延迟一点，避免loading动画闪烁
-        setTimeout(async () => {
-            // TODO 定时器，用以临时解决 app.onLaunch与page.onLoad异步问题
-            await this.loadData(1)
-            wx.hideLoading()
-        }, 888)
+        await this.loadData(1)
     },
 
     /**
@@ -211,11 +202,7 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh() {
-        // 感觉延迟一下，会舒服点
-        setTimeout(async () => {
-            await this.loadData(1)
-            wx.stopPullDownRefresh()
-        }, 666);
+       
     },
 
     /**
