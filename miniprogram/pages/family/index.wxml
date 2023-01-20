@@ -1,13 +1,13 @@
 <!-- pages/family/index.wxml -->
-<ui-sys title="我的家庭" class="container">
+<ui-sys title="我的家庭" class="container" >
 	<view class="ui-container">
 		<block wx:if="{{!_id&&!inviteFamily}}">
 			<van-empty description="还没有开通家庭共享哦~" />
-			<button class="ui-btn block round bg-red-gradient shadow shadow-blur" bindtap="onCreate">创建家庭</button>
+			<button class="ui-btn block round bg-red-gradient" bindtap="onCreate">创建家庭</button>
 		</block>
 		<block wx:elif="{{inviteFamily}}">
 			<van-empty description="{{inviteFamily.word}}" />
-			<button class="ui-btn block round bg-red-gradient shadow shadow-blur my-3" bindtap="onJoinFamily">同意</button>
+			<button class="ui-btn block round bg-red-gradient my-3" bindtap="onJoinFamily">同意</button>
 			<button class="ui-btn block round border border-red bg-red-light my-3" bindtap="goHome">首页</button>
 		</block>
 		<view class="mb-3" wx:if="{{_id}}">
@@ -23,10 +23,7 @@
 			<ui-title title="家庭成员" depth="2" isIcon ui="mx-4" />
 			<ui-menu ui="my-3 radius-lg">
 				<block wx:for="{{familyMembers}}" wx:key="index">
-					<ui-menu-item title="{{item.user.nickName}}" isAction wx:if="{{item.relation=='管理员'}}">
-						<text slot="action">{{item.relation}}</text>
-					</ui-menu-item>
-					<ui-menu-item title="{{item.user.nickName}}" isAction bind:longpress="onMemberLongPress" data-member="{{item}}" wx:else>
+					<ui-menu-item title="{{item.user.nickName}}" isAction bind:longpress="onMemberLongPress" data-member="{{item}}">
 						<text slot="action">{{item.relation}}</text>
 					</ui-menu-item>
 				</block>
@@ -42,4 +39,4 @@
 	</view>
 </ui-sys>
 <!-- 长按动作 -->
-<van-action-sheet show="{{ memberAction.show }}" actions="{{ actions }}" bind:close="onCloseMemberAction" bind:cancel="onCloseMemberAction" bind:select="onSelectMenberAction" cancel-text="取消" close-on-click-overlay />
+<van-action-sheet show="{{ memberAction.show }}" actions="{{ memberAction.actions }}" bind:close="onCloseMemberAction" bind:cancel="onCloseMemberAction" bind:select="onSelectMenberAction" cancel-text="取消" close-on-click-overlay />
