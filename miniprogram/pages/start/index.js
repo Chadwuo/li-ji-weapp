@@ -1,6 +1,7 @@
 // pages/start/index.js
 const app = getApp()
 const userService = require('../../alicloud/services/user')
+
 Page({
   /**
    * 页面的初始数据
@@ -12,15 +13,12 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-  },
+  onLoad(options) {},
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady() {
-
-  },
+  onReady() {},
   /**
    * 初始化用户数据
    */

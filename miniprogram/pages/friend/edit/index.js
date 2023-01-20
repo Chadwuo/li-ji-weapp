@@ -20,11 +20,8 @@ Page({
         wx.showToast({
           title: '修改成功',
         })
+        eventChannel.emit('refresh')
         setTimeout(() => {
-          eventChannel.emit('dialogResult', {
-            type: 'update',
-            data: this.data
-          });
           wx.navigateBack()
         }, 1000);
       }
@@ -34,12 +31,9 @@ Page({
         wx.showToast({
           title: '添加成功',
         })
+        eventChannel.emit('refresh')
         setTimeout(() => {
           this.data._id = res.data
-          eventChannel.emit('dialogResult', {
-            type: 'insert',
-            data: this.data
-          });
           wx.navigateBack()
         }, 1000);
       }
@@ -58,12 +52,8 @@ Page({
             wx.showToast({
               title: '删除成功',
             })
-            // TODO 需要修改
+            eventChannel.emit('refresh')
             setTimeout(() => {
-              eventChannel.emit('dialogResult', {
-                type: 'delete',
-                data: delData
-              });
               wx.navigateBack({
                 delta: 2
               })
@@ -83,9 +73,6 @@ Page({
         _id: id
       })
       if (res.success) {
-        wx.setNavigationBarTitle({
-          title: '编辑亲友'
-        })
         this.setData({
           ...res.data
         })
