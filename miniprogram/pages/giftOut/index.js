@@ -10,6 +10,7 @@ Page({
     pageNo: 0,
     giftList: [],
     total: '0.00',
+    keyword: ''
   },
   // 监听用户滑动页面事件。
   onPageScroll(e) {
@@ -17,9 +18,9 @@ Page({
     // 注意：请避免在 onPageScroll 中过于频繁的执行 setData 等引起逻辑层-渲染层通信的操作。尤其是每次传输大量数据，会影响通信耗时。
     // https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#onPageScroll-Object-object
     this.setData({
-        scrollTop: e.scrollTop
+      scrollTop: e.scrollTop
     })
-},
+  },
   onSearch() {
     wx.showToast({
       title: '搜索...马上写完，真的',
@@ -61,7 +62,7 @@ Page({
     }
     const res = await giftOutService.getGiftOutPage({
       page: page,
-      limit: 10
+      limit: 20
     })
     if (res.success) {
       this.setData({

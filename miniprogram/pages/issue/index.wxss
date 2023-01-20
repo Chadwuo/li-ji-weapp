@@ -1,4 +1,0 @@
-/* pages/issue/index.wxss */
-.tab-item {
-  margin-top: 24rpx;
-}

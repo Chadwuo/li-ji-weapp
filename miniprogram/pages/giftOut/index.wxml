@@ -1,23 +1,27 @@
 <!--pages/giftOut/index.wxml-->
-<ui-sys img="/static/img/4put2.png" footer="{{false}}" tabbar>
-  <ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
-    <view class="px-3 pb-2 flex-bar">
-      <view class="round _icon-add-round-o ui-TC-Main" style="font-size: 56rpx;" bindtap="onAdd" />
-      <van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round" wx:if="{{scrollTop > sys_navBar}}" />
-    </view>
-  </ui-navbar>
+<ui-sys img="/static/img/bg.png" footer="{{false}}" tabbar>
+	<ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
+		<view class="px-3 pb-2 flex-bar">
+			<view class="round _icon-add-round-o ui-TC-Main" style="font-size: 56rpx;" bindtap="onAdd" />
+			<van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round" wx:if="{{scrollTop > sys_navBar}}" />
+		</view>
+	</ui-navbar>
 
-  <van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round" />
+	<van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round" />
 
-  <view class="ui-container">
-    <van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
-    <view class='gift-card' wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
-      <view class='content'>
-        <view class='title'>{{item.friendInfo.name}}</view>
-        <view class='info'>{{item.title}}</view>
-        <view class='info'>{{item.date.value}}</view>
-      </view>
-      <view class='label'>{{item.money}}元</view>
-    </view>
-  </view>
+	<view class="ui-container">
+		<view class="bg-orange-light radius-lg flex flex-column justify-center py-5 mb-3" wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
+			<view class="flex align-end pb-3">
+				<view class="text-grey text-xl text-bold ml-5">{{item.date.value}}</view>
+				<view class="text-sm text-grey ml-3 pb-1">{{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
+			</view>
+			<view class="flex justify-center align-end">
+				<text class="text-xl"> {{item.friendInfo.name}}</text>
+				<text class="text-xl text-bold px-2"> {{item.title}}</text>
+				<text class="text-df">送礼</text>
+				<text class="text-xxl px-2"> {{item.money}} </text>
+				<text class="text-df">元</text>
+			</view>
+		</view>
+	</view>
 </ui-sys>

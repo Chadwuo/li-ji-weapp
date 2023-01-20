@@ -3,22 +3,9 @@
 .book {
   width: 100%;
   height: 360rpx;
-  position: relative;
   margin-bottom: 24rpx;
-}
-
-.book .bg {
-  position: absolute;
-  width: 100%;
-  height: 360rpx;
-}
-
-.book .content {
-  position: absolute;
-  z-index: 9;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  margin: 0 32rpx;
+  border-top-right-radius: 90rpx !important;
+  border-bottom-right-radius: 90rpx !important;
+  border-bottom-left-radius: 40rpx !important;
+  border-top-left-radius: 40rpx !important;
 }

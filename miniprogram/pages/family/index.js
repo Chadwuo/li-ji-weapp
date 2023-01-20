@@ -1,8 +1,11 @@
 // pages/family/index.js
 const familyService = require('../../alicloud/services/family')
+const {
+    getUserInfo
+} = require('../../alicloud/services/user');
+
 const app = getApp();
 Page({
-
     /**
      * 页面的初始数据
      */
@@ -10,61 +13,152 @@ Page({
         _id: '',
         name: '',
         familyMembers: [],
-        inviteFamily: false
+        inviteFamily: false,
+        memberAction: {
+            show: false,
+        },
     },
+    // 更新家庭名称
     async onUpdateName() {
         const res = await familyService.updateFamily(this.data)
         if (res.success) {
             wx.showToast({
-                title: '家庭名称已保存',
+                title: '更新成功',
             })
         }
     },
+    // 创建家庭
     async onCreate() {
         const res = await familyService.addFamily({
             name: `${app.userInfo.nickName}的家庭`
         })
         if (res.success) {
-            app.userInfo.familyId = res.data
-            wx.setStorageSync('user', app.userInfo)
-            this.onShow()
+            this.getFamilyInfo()
         }
     },
-    async onDeleteMember(e) {
-        const res = await familyService.delFamilyMember(e.currentTarget.dataset.member)
-        if (res.success) {
-            this.onShow()
-        }
-    },
+    // 加入家庭
     async onJoinFamily() {
         const res = await familyService.joinFamily({
             familyId: this.data.inviteFamily.familyId,
             relation: '成员'
         })
         if (res.success) {
-            app.userInfo.familyId = this.data.inviteFamily.familyId
             this.setData({
                 inviteFamily: null
             })
-            this.onShow()
+            this.getFamilyInfo()
+        }
+    },
+    // 长按家庭成员-打开动作面板
+    onMemberLongPress(e) {
+        const member = e.currentTarget.dataset.member
+        const actions = []
+        if (member.relation == '管理员') {
+            actions.push({
+                name: '解散',
+                subname: '移除全部家庭成员并解散家庭',
+            })
+        } else {
+            actions.push({
+                name: '删除',
+                subname: '从你的家庭中移除此成员',
+            })
+        }
+
+        this.setData({
+            memberAction: {
+                show: true,
+                selected: e.currentTarget.dataset.member,
+                actions: actions,
+            }
+        });
+    },
+    // 关闭动作面板
+    onCloseMemberAction() {
+        this.setData({
+            memberAction: {
+                show: false
+            }
+        });
+    },
+    // 长按家庭成员-动作
+    onSelectMenberAction(event) {
+        const that = this
+        switch (event.detail.name) {
+            case '删除':
+                wx.showModal({
+                    title: '删除成员？',
+                    content: '确定删除改家庭成员吗？',
+                    async success(result) {
+                        if (result.confirm) {
+                            const res = await familyService.delFamilyMember(that.data.memberAction.selected)
+                            if (res.success) {
+                                that.getFamilyInfo()
+                            }
+                        }
+                    }
+                })
+                break;
+            case '解散':
+                wx.showModal({
+                    title: '解散家庭？',
+                    content: '所有成员会被删除，家庭数据无法继续共享！',
+                    async success(result) {
+                        if (result.confirm) {
+                            const res = await familyService.deleteFamily(that.data)
+                            console.log(res)
+                            if (res.success) {
+                                that.setData({
+                                    _id: '',
+                                })
+                            }
+                        }
+                    }
+                })
+                break;
+            default:
+                break;
         }
     },
     goHome() {
         wx.navigateTo({
-            url: '/pages/index/index',
+            url: '/pages/start/index',
         });
+    },
+    async getFamilyInfo() {
+        const res = await familyService.getFamilyInfo()
+        if (res.success) {
+            this.setData({
+                ...res.data
+            })
+        }
     },
     /**
      * 生命周期函数--监听页面加载
      */
     async onLoad(options) {
-        if (app.userInfo.familyId) {
-            return
-        }
+        // 有邀请信息
         if (options && options.familyId) {
-            this.setData({
-                inviteFamily: options
-            })
+            // 获取用户信息
+            const res = await getUserInfo()
+            if (res.success) {
+                app.userInfo = res.data
+
+                // 获取用户的家庭信息
+                const {
+                    data: isExist
+                } = await familyService.isExistFamily()
+                // 不存在家庭数据
+                if (!isExist) {
+                    this.setData({
+                        inviteFamily: options
+                    })
+                } else {
+                    this.getFamilyInfo()
+                }
+            }
+        } else {
+            this.getFamilyInfo()
         }
     },
 
@@ -79,12 +173,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     async onShow() {
-        const res = await familyService.getFamilyInfo()
-        if (res.success) {
-            this.setData({
-                ...res.data
-            })
-        }
+
     },
 
     /**

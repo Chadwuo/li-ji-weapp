@@ -1,4 +1,4 @@
-<ui-sys img="/static/img/4put2.png" tabbar>
+<ui-sys img="/static/img/bg.png" tabbar>
     <ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
         <view class="flex-bar p-3" wx:if="{{scrollTop > sys_navBar}}">
             <text class="text-lg text-bold">礼记</text>
@@ -7,29 +7,30 @@
     <view class="ui-container">
         <view class="ui-grid ui-cols-2">
             <block wx:for="{{giftBooks}}" wx:key="index">
-                <view class="ui-item p-3">
-                    <view class="book" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-book='{{item}}'>
-                        <image class="bg" src="/static/img/bg_book.png"></image>
-                        <view class="content">
-                            <view>
+                <view class="ui-item px-3">
+                    <view class="book ui-BG" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-book='{{item}}'>
+                        <view class="flex flex-column justify-around" style="height: 100%;width: 100%;">
+                            <view class="mx-4">
                                 <view class="text-xl text-bold ui-TC-Main py-2">{{ item.title||'' }}</view>
                                 <view class="text-sm text-grey">共 {{ item.giftCount||0 }} 笔</view>
                             </view>
-                            <view>
+                            <view class="mx-4">
                                 <view class="text-price text-bold text-xl py-1">{{ item.giftTotal||'0' }}</view>
                                 <view class="text-sm text-grey py-1">{{ item.date.value }}</view>
                                 <view class="text-sm text-grey py-1">{{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
                             </view>
+                        </view>
+                        <view class="bg-red flex align-center fr" style="height: 55rpx;width: 40%;position: relative;top: -60%; border-bottom-left-radius: 40rpx ;border-top-left-radius: 40rpx;">
+                            <view class="round ml-3" style="height: 20rpx;width: 20rpx;background-color: #F88F8D;"></view>
                         </view>
                     </view>
                 </view>
             </block>
 
             <block>
-                <view class="ui-item p-3">
-                    <view class="book" bind:tap="onAddBook">
-                        <image class="bg" src="/static/img/bg_book_add.png"></image>
-                        <view class="flex-column flex-center" style="position: absolute;height: 100%;width: 100%;">
+                <view class="ui-item px-3">
+                    <view class="book ui-BG" bind:tap="onAddBook">
+                        <view class="flex-column flex-center" style="height: 100%;width: 100%;">
                             <text class="_icon-add text-xsl text-grey" />
                             <view class="text-sm text-grey mt-3">
                                 添加礼簿

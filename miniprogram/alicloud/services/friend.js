@@ -1,10 +1,5 @@
 import pinyin from "wl-pinyin";
-const {
-    getUserDataScope
-} = require('./user');
-const {
-    db
-} = require('../index');
+const app = getApp();
 
 /**
  * 获取全部亲友数据集合
@@ -12,9 +7,9 @@ const {
  * @author chadwuo
  */
 exports.getFriendList = async () => {
+    const db = app.mpserverless.db;
+    const dataScope = app.userDataScope
     try {
-        // 数据权限范围
-        const dataScope = await getUserDataScope()
         const {
             result
         } = await db.collection('friend').find({
@@ -41,6 +36,7 @@ exports.getFriendList = async () => {
  * @author chadwuo
  */
 exports.getFriend = async (parameter) => {
+    const db = app.mpserverless.db;
     try {
         const {
             result
@@ -65,6 +61,7 @@ exports.getFriend = async (parameter) => {
  * @author chadwuo
  */
 exports.getFriendGifts = async (parameter) => {
+    const db = app.mpserverless.db;
     try {
         const {
             result
@@ -127,10 +124,9 @@ exports.getFriendGifts = async (parameter) => {
  * @author chadwuo
  */
 exports.addFriend = async (parameter) => {
+    const userInfo = app.userInfo
+    const db = app.mpserverless.db;
     try {
-        const {
-            userInfo
-        } = getApp();
         const {
             result
         } = await db.collection('friend').insertOne({
@@ -158,6 +154,7 @@ exports.addFriend = async (parameter) => {
  * @author chadwuo
  */
 exports.updateFriend = async (parameter) => {
+    const db = app.mpserverless.db;
     try {
         await db.collection('friend').updateOne({
             _id: parameter._id
@@ -187,6 +184,7 @@ exports.updateFriend = async (parameter) => {
  * @author chadwuo
  */
 exports.deleteFriend = async (parameter) => {
+    const db = app.mpserverless.db;
     try {
         // 删除亲友下所有送礼记录
         await db.collection('gift_out').deleteMany({
