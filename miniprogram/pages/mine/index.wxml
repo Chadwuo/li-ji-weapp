@@ -1,13 +1,13 @@
-<ui-sys img="/static/img/4put2.png" tabbar>
+<ui-sys img="/static/img/bg.png" tabbar>
 	<ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
 		<view class="flex-center flex-sub" wx:if="{{scrollTop > sys_navBar}}">我的</view>
 	</ui-navbar>
 	<view class='ui-container'>
 		<view class="flex-bar my-4" bindtap="onShowProfile">
-			<ui-avatar ui="xxl ellipse" src="{{userInfo.avatarUrl}}" />
+			<ui-avatar ui="xxl ellipse" src="{{avatarUrl}}" />
 			<view class="flex-sub pl-3">
 				<!-- <view class="text-xl">登录,享受更多服务。</view> -->
-				<view class="text-xl">{{welcome}}，{{userInfo.nickName}}</view>
+				<view class="text-xl">{{welcome}}，{{nickName}}</view>
 				<view class="text-gray text-sm pt-2">{{jinrishici}}</view>
 			</view>
 			<!-- <text class="cicon-set-o text-xxl"></text> -->
@@ -57,16 +57,16 @@
 <van-popup show="{{ showProfile }}" round position="bottom" bind:close="onCloseProfile">
 	<view class="py-5 flex-column flex-center ui-container">
 		<text class="text-bold flex self-start">完善用户信息体验更多功能</text>
-		<ui-avatar ui="round sl mt-6" src="{{userInfo.avatarUrl}}">
+		<ui-avatar ui="round sl mt-6" src="{{avatarUrl}}">
 			<ui-tag badge="bl" bg="shadow ui-BG-Main" isSlot icon>
 				<text class="cicon-camera text-white" />
 			</ui-tag>
-			<button class="open-btn" open-type="chooseAvatar" model:value="{{ userInfo.nickName }}" bind:chooseavatar="onChooseAvatar">
+			<button class="open-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
 			</button>
 		</ui-avatar>
 		
 		<view class="w-100 px-4">
-			<input class="text-center mt-5 py-3 round" style="background-color: #F6F6F6;" placeholder="点击获取昵称" type="nickname" />
+			<input model:value="{{ nickName }}" class="text-center mt-5 py-3 round" style="background-color: #F6F6F6;" placeholder="点击获取昵称" type="nickname" />
 			<button class="ui-btn bg-red block round mt-5" bindtap="onSaveProfile">保存</button>
 		</view>
 	</view>
