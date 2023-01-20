@@ -1,5 +1,4 @@
-const mpserverless = require('../index');
-const db = mpserverless.db;
+const app = getApp();
 
 /**
  * 获取用户信息
@@ -8,6 +7,10 @@ const db = mpserverless.db;
  * @author chadwuo
  */
 exports.getUserInfo = async () => {
+  const {
+    mpserverless
+  } = app
+  const db = mpserverless.db;
   try {
     const res = await mpserverless.user.getInfo()
     if (!res.success) {
@@ -25,7 +28,6 @@ exports.getUserInfo = async () => {
         _id: userId,
         nickName: '微信用户',
         avatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
-        familyId: '',
         isVip: false,
         createTime: new Date(),
       }
@@ -45,27 +47,59 @@ exports.getUserInfo = async () => {
 }
 
 /**
+ * 更新用户数据
+ *
+ * @author chadwuo
+ */
+exports.updateUserInfo = async (parameter) => {
+  const db = app.mpserverless.db;
+  try {
+    await db.collection('user').updateOne({
+      _id: parameter._id
+    }, {
+      $set: {
+        nickName: parameter.nickName,
+        avatarUrl: parameter.avatarUrl
+      }
+    })
+    return {
+      success: true,
+      data: ''
+    };
+  } catch (e) {
+    return {
+      success: false,
+      message: e
+    };
+  }
+};
+
+/**
  * 获取用户数据范围
  *
  * @return data {Array.<string>} 用户id集合。
  * @author chadwuo
  */
 exports.getUserDataScope = async () => {
+  const userInfo = app.userInfo
+  const db = app.mpserverless.db;
+  // 获取家庭信息
   const {
-    userInfo
-  } = getApp()
+    result: familyMember
+  } = await db.collection('family_member').findOne({
+    userId: userInfo._id
+  })
 
   // 没有加入家庭，就返回自己的id
-  if (!userInfo.familyId) {
+  if (!familyMember) {
     return [userInfo._id]
   }
 
-  // 获取家庭信息
+  // 获取家庭其他成员信息
   const {
     result: familyInfos
   } = await db.collection('family_member').find({
-    familyId: userInfo.familyId,
-    status: 1
+    familyId: familyMember.familyId
   })
 
   let dataScope = familyInfos.map(i => {
