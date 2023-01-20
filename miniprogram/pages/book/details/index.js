@@ -21,6 +21,8 @@ Page({
       events: {
         refresh: () => {
           this.loadData(1)
+          const eventChannel = this.getOpenerEventChannel()
+          eventChannel.emit('refresh')
         },
       },
       success: function (res) {
@@ -40,6 +42,8 @@ Page({
       events: {
         refresh: () => {
           this.loadData(1)
+          const eventChannel = this.getOpenerEventChannel()
+          eventChannel.emit('refresh')
         },
       },
       success: function (res) {
@@ -120,11 +124,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   async onPullDownRefresh() {
-    // 感觉延迟一下，会舒服点
-    setTimeout(async () => {
-      await this.loadData(1)
-      wx.stopPullDownRefresh()
-    }, 666);
+
   },
 
   /**

@@ -7,6 +7,7 @@ import {
 import {
     colorUISdk
 } from './config/mp-sdk'
+
 App({
     //挂载到app上
     mpserverless,
@@ -14,6 +15,7 @@ App({
     colorUISdk,
     userInfo: '',
     userDataScope: '',
+    refreshTotalGift: true,
     onLaunch() {
         mpserverless.init();
         console.log("软件版本", colorUISdk.version)
