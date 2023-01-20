@@ -1,39 +1,27 @@
 <!-- pages/friend/details/index.wxml -->
 <wxs module="filters" src="./filter.wxs"></wxs>
-<ui-sys title="亲友详情" class="container">
-  <van-sticky offset-top="{{ -30 }}">
-    <view class="home-header">
-      <image class="bg" src="/static/img/bg_summary.png" mode="center"></image>
-      <view class="content">
-        <view class='item friend'>
-          <view>
-            <van-icon size="64rpx" color="#fff" name="contact" style="margin-right: 10rpx;" />
-            <span class="num">{{friend.name}}</span>
-          </view>
-          <text class="_icon-edit text-white text-xxl" bind:tap="onEditClick"></text>
+<ui-sys title="亲友详情">
+  <view class="ui-container">
+    <view class="radius-lg bg-red-gradient my-4 p-4 flex-column justify-center">
+      <view class="flex justify-between">
+        <view class="text-white text-xxl text-bold">{{friend.name}}</view>
+        <text class="_icon-edit text-white text-xxl" bind:tap="onEditClick"></text>
+      </view>
+      <view class="flex justify-center align-end text-white my-4">
+        <text class="text-xxl pr-2 text-price">{{happyTotal-sadTotal}}</text>
+        <text class="text-lg">(收支差)</text>
+      </view>
+      <view class="flex justify-around align-center margin-top-xl text-white">
+        <view class="text-center">
+          <view class="text-lg">{{happyTotal}}</view>
+          <view>收礼({{happyCount}})</view>
         </view>
-        <view class='item'>
-          <span class='num'>{{filters.toFix(happyTotal-sadTotal)}}</span>
-          <span class='title'>(收支差)</span>
+        <view class="text-center">
+          <view class="text-lg">{{sadTotal}}</view>
+          <view>送礼({{sadCount}})</view>
         </view>
-        <van-row>
-          <van-col span="12">
-            <view class='item' hover-class='none'>
-              <view class='num'>{{happyTotal}}</view>
-              <view class='title'>收礼({{happyCount}})</view>
-            </view>
-          </van-col>
-          <van-col span="12">
-            <view class='item' hover-class='none'>
-              <view class='num'>{{sadTotal}}</view>
-              <view class='title'>送礼({{sadCount}})</view>
-            </view>
-          </van-col>
-        </van-row>
       </view>
     </view>
-  </van-sticky>
-  <view class="wrapper">
     <van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
     <view class='gift-card' wx:for="{{giftList}}" wx:key="index">
       <block wx:if="{{item.title}}">
@@ -59,4 +47,3 @@
     </view>
   </view>
 </ui-sys>
-<friend-edit id="friend-edit"></friend-edit>
