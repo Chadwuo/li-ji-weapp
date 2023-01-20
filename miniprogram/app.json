@@ -1,5 +1,6 @@
 {
     "pages": [
+        "pages/start/index",
         "pages/index/index",
         "pages/book/details/index",
         "pages/book/edit/index",
@@ -12,10 +13,7 @@
         "pages/friend/edit/index",
         "pages/friend/select/index",
         "pages/mine/index",
-        "pages/profile/index",
-        "pages/login/index",
         "pages/about/index",
-        "pages/issue/index",
         "pages/question/index",
         "pages/family/index",
         "pages/set/index",
@@ -35,19 +33,19 @@
         "backgroundColor": "#fff",
         "list": [{
                 "pagePath": "pages/index/index",
-                "text": "礼记"
+                "text": ""
             },
             {
-                "text": "送礼",
+                "text": "",
                 "pagePath": "pages/giftOut/index"
             },
             {
                 "pagePath": "pages/friend/index",
-                "text": "亲友"
+                "text": ""
             },
             {
                 "pagePath": "pages/mine/index",
-                "text": "我的"
+                "text": ""
             }
         ]
     },
