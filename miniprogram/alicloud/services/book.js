@@ -1,9 +1,4 @@
-const {
-  getUserDataScope
-} = require('./user');
-const {
-  db
-} = require('../index');
+const app = getApp()
 
 /**
  * 获取分页
@@ -11,9 +6,9 @@ const {
  * @author chadwuo
  */
 exports.getBookPage = async (parameter) => {
+  const db = app.mpserverless.db;
+  const dataScope = app.userDataScope
   try {
-    // 数据权限范围
-    const dataScope = await getUserDataScope()
     const {
       result
     } = await db.collection('book').aggregate([{
@@ -61,9 +56,9 @@ exports.getBookPage = async (parameter) => {
  * @author chadwuo
  */
 exports.getBookList = async () => {
+  const db = app.mpserverless.db;
+  const dataScope = app.userDataScope
   try {
-    // 数据权限范围
-    const dataScope = await getUserDataScope()
     const {
       result
     } = await db.collection('book').find({
@@ -90,6 +85,7 @@ exports.getBookList = async () => {
  * @author chadwuo
  */
 exports.getBook = async (parameter) => {
+  const db = app.mpserverless.db;
   try {
     const {
       result
@@ -114,10 +110,9 @@ exports.getBook = async (parameter) => {
  * @author chadwuo
  */
 exports.addBook = async (parameter) => {
+  const userInfo = app.userInfo
+  const db = app.mpserverless.db;
   try {
-    const {
-      userInfo
-    } = getApp();
     const {
       result
     } = await db.collection('book').insertOne({
@@ -145,6 +140,7 @@ exports.addBook = async (parameter) => {
  * @author chadwuo
  */
 exports.updateBook = async (parameter) => {
+  const db = app.mpserverless.db;
   try {
     await db.collection('book').updateOne({
       _id: parameter._id
@@ -173,6 +169,7 @@ exports.updateBook = async (parameter) => {
  * @author chadwuo
  */
 exports.deleteBook = async (parameter) => {
+  const db = app.mpserverless.db;
   try {
     await db.collection('book').deleteOne({
       _id: parameter._id

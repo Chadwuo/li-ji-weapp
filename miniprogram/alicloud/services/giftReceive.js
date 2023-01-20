@@ -1,11 +1,5 @@
 import pinyin from "wl-pinyin";
-const {
-    getUserDataScope
-} = require('./user');
-
-const {
-    db
-} = require('../index');
+const app = getApp();
 
 /**
  * 计算收礼金额总计
@@ -13,9 +7,9 @@ const {
  * @author chadwuo
  */
 exports.computedTotalGiftReceive = async () => {
+    const db = app.mpserverless.db;
+    const dataScope = app.userDataScope
     try {
-        // 数据权限范围
-        const dataScope = await getUserDataScope()
         const {
             result
         } = await db.collection('gift_receive')
@@ -55,9 +49,9 @@ exports.computedTotalGiftReceive = async () => {
  * @author chadwuo
  */
 exports.getGiftReceivePage = async (parameter) => {
+    const db = app.mpserverless.db;
+    const dataScope = app.userDataScope
     try {
-        // 数据权限范围
-        const dataScope = await getUserDataScope()
         const {
             result
         } = await db.collection('gift_receive').aggregate([{
@@ -112,12 +106,10 @@ exports.getGiftReceivePage = async (parameter) => {
  * @author chadwuo
  */
 exports.addGiftReceive = async (parameter) => {
+    const db = app.mpserverless.db;
+    const userInfo = app.userInfo
+    const dataScope = app.userDataScope
     try {
-        const {
-            userInfo
-        } = getApp();
-        // 数据权限范围
-        const dataScope = await getUserDataScope()
         // 参数中没有亲友id
         if (!parameter.friendId) {
             parameter.friendName = parameter.friendName.trim()
@@ -174,6 +166,7 @@ exports.addGiftReceive = async (parameter) => {
  * @author chadwuo
  */
 exports.updateGiftReceive = async (parameter) => {
+    const db = app.mpserverless.db;
     try {
         await db.collection('gift_receive').updateOne({
             _id: parameter._id
@@ -203,6 +196,7 @@ exports.updateGiftReceive = async (parameter) => {
  * @author chadwuo
  */
 exports.deleteGiftReceive = async (parameter) => {
+    const db = app.mpserverless.db;
     try {
         await db.collection('gift_receive').deleteOne({
             _id: parameter._id
