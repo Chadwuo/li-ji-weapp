@@ -1,7 +1,10 @@
+const userService = require('../../alicloud/services/user')
 const giftOutService = require('../../alicloud/services/giftOut')
 const giftReceiveService = require('../../alicloud/services/giftReceive')
 const jinrishici = require('../../utils/jinrishici.js')
-const utils = require('../../utils/index.js')
+import {
+	welcome
+} from '../../utils/index.js'
 const app = getApp();
 Page({
 	/**
@@ -10,12 +13,10 @@ Page({
 	data: {
 		scrollTop: 0,
 		jinrishici: '',
-		userInfo: {
-			avatarUrl: '/static/logo.png',
-			nickName: '礼记者'
-		},
+		avatarUrl: '',
+		nickName: '',
 		showProfile: false,
-		welcome: 'Hello',
+		welcome: welcome(),
 		giveTotal: 0.00,
 		receiveTotal: 0.00,
 		menus: [{
@@ -68,8 +69,8 @@ Page({
 			})
 		})
 		this.setData({
-			welcome: utils.welcome(),
-			userInfo: app.userInfo
+			avatarUrl: app.userInfo.avatarUrl,
+			nickName: app.userInfo.nickName,
 		})
 		wx.showShareMenu({
 			menus: ['shareAppMessage', 'shareTimeline']
@@ -80,12 +81,16 @@ Page({
 		const {
 			avatarUrl
 		} = e.detail
+		const options = {
+			filePath: avatarUrl,
+		};
 		console.log(avatarUrl)
-		this.setData({
-			userInfo: {
-				avatarUrl: avatarUrl,
-			}
-		})
+		app.mpserverless.file.uploadFile(options).then(res => {
+			console.log(res);
+			this.setData({
+				avatarUrl: res.fileUrl
+			})
+		});
 	},
 	onShowProfile() {
 		this.setData({
@@ -98,7 +103,19 @@ Page({
 		})
 	},
 	// 保存个人信息
-	onSaveProfile() {
+	async onSaveProfile() {
+		const res = await userService.updateUserInfo({
+			_id: app.userInfo._id,
+			nickName: this.data.nickName,
+			avatarUrl: this.data.avatarUrl,
+		})
+		if (res.success) {
+			wx.showToast({
+				title: '更新成功',
+			})
+			app.userInfo.nickName = this.data.nickName
+			app.userInfo.avatarUrl = this.data.avatarUrl
+		}
 		this.setData({
 			showProfile: false
 		})
@@ -162,7 +179,7 @@ Page({
 	onShareAppMessage: function () {
 		return {
 			title: '可能是东半球最好用的人情记账工具',
-			path: "pages/index/index",
+			path: "pages/start/index",
 			imageUrl: '/static/img/share.jpg'
 		}
 	}

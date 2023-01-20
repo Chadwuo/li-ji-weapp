@@ -8,7 +8,7 @@ export const colorUI = new ColorUI({
         footer: true,
         share: false,
         shareTitle: '可能是东半球最好用的人情记账工具',
-        homePath: '/pages/index/index',
+        homePath: '/pages/start/index',
         tabBar: [{
             title: '礼记',
             icon: 'cicon-home-o',
