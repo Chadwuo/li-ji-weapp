@@ -49,6 +49,7 @@
             }
         ]
     },
+    "lazyCodeLoading": "requiredComponents",
     "sitemapLocation": "sitemap.json",
     "usingComponents": {
         "ui-sys": "mp-cu/colorUI/components/ui-sys/ui-sys",
@@ -87,16 +88,12 @@
         "van-col": "@vant/weapp/col/index",
         "van-cell": "@vant/weapp/cell/index",
         "van-cell-group": "@vant/weapp/cell-group/index",
-        "van-dialog": "@vant/weapp/dialog/index",
         "van-empty": "@vant/weapp/empty/index",
         "van-index-bar": "@vant/weapp/index-bar/index",
         "van-index-anchor": "@vant/weapp/index-anchor/index",
         "van-notify": "@vant/weapp/notify/index",
         "van-notice-bar": "@vant/weapp/notice-bar/index",
         "van-search": "@vant/weapp/search/index",
-        "van-tab": "@vant/weapp/tab/index",
-        "van-swipe-cell": "@vant/weapp/swipe-cell/index",
-        "van-tabs": "@vant/weapp/tabs/index",
         "van-popup": "@vant/weapp/popup/index"
     }
 }
