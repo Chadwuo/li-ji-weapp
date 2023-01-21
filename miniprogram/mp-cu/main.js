@@ -1,4 +1,6 @@
-import { CUStoreInit } from '/store/index'
+import {
+    CUStoreInit
+} from '/store/index'
 /**
  * @author  bypanghu@163.com (https://github.com/bypanghu)
  * @author iZaiZaiA (https://github.com/iZaiZaiA)
@@ -6,11 +8,14 @@ import { CUStoreInit } from '/store/index'
 
 let version = '3.3.2';
 
-let store = {}, sys_info = wx.getSystemInfoSync();
+let store = {},
+    sys_info = wx.getSystemInfoSync();
 let baseMethod = {
     //设置主题
     setTheme(data) {
-        store.setState({'sys_theme': data})
+        store.setState({
+            'sys_theme': data
+        })
         wx.setStorageSync('sys_theme', data);
         //跟随系统
         if (data === 'auto') {
@@ -21,38 +26,49 @@ let baseMethod = {
     },
     //设置主颜色
     setMain(data) {
-        store.setState({sys_main: data});
+        store.setState({
+            sys_main: data
+        });
         wx.setStorageSync('sys_main', data);
     },
     //设置字号等级
     setText(data) {
-        store.setState({sys_text: data});
+        store.setState({
+            sys_text: data
+        });
         wx.setStorageSync('sys_text', data);
     },
-    $showDialog({title , content , showCancel , cancelText, confirmText , success}) {
-        store.$p.map(item =>{
-            if(item.is.indexOf('components/ui-modal/ui-modal') > -1 ){
+    $showDialog({
+        title,
+        content,
+        showCancel,
+        cancelText,
+        confirmText,
+        success
+    }) {
+        store.$p.map(item => {
+            if (item.is.indexOf('components/ui-modal/ui-modal') > -1) {
                 //强制更新所有页面的successBack 为设定的success
                 item['successBack'] = success
             }
         })
         store.setState({
             '$Modal.show': true,
-            '$dialog.title' : title,
-            '$dialog.content' : content,
-            '$dialog.showCancel' : showCancel,
-            '$dialog.cancelText' : cancelText,
-            '$dialog.confirmText' : confirmText
+            '$dialog.title': title,
+            '$dialog.content': content,
+            '$dialog.showCancel': showCancel,
+            '$dialog.cancelText': cancelText,
+            '$dialog.confirmText': confirmText
         });
     },
-    setToast( data) {
-        let key ={}
-         Object.assign(key,data);
-         console.log(key)
+    setToast(data) {
+        let key = {}
+        Object.assign(key, data);
+        console.log(key)
         // state.toast = Object.assign(state.toast,data);
     },
-    $tips(res, duration = 1500, mask = false, icon=  '') {
-        if(_object(res)) {
+    $tips(res, duration = 1500, mask = false, icon = '') {
+        if (_object(res)) {
             store.setState({
                 '$toast.title': res.title || '',
                 '$toast.duration': res.duration || duration,
@@ -68,43 +84,47 @@ let baseMethod = {
             })
         }
     },
-    $success(_,title='成功',duration=1500){
+    $success(_, title = '成功', duration = 1500) {
         store.setState({
             '$toast.title': title,
             '$toast.duration': duration,
             '$toast.icon': '_icon-check'
         })
     },
-    $error(_,title='错误',duration=1500){
+    $error(_, title = '错误', duration = 1500) {
         store.setState({
-            '$toast.title' : title,
-            '$toast.duration' : duration,
-            '$toast.icon' : '_icon-warn',
+            '$toast.title': title,
+            '$toast.duration': duration,
+            '$toast.icon': '_icon-warn',
 
         })
     },
-    $loading(title = '加载中' , duration = 1500){
+    $loading(title = '加载中', duration = 1500) {
         store.setState({
-            '$toast.title' : title ,
-            '$toast.duration' : duration,
-            '$toast.icon' : '_icon-loading',
-            '$toast.isLoading':true
+            '$toast.title': title,
+            '$toast.duration': duration,
+            '$toast.icon': '_icon-loading',
+            '$toast.isLoading': true
         })
     },
-    $hideLoading(){
+    $hideLoading() {
         store.setState({
-            '$toast.title' : '',
-            '$toast.icon' : '',
-            '$toast.isLoading':false
+            '$toast.title': '',
+            '$toast.icon': '',
+            '$toast.isLoading': false
         })
     },
-    closeModal(){
+    closeModal() {
         store.setState({
             '$Modal.show': false,
         });
     },
     _toHome() {
-        wx.switchTab({
+        // 这个项目中首页，不是tabar
+        // wx.switchTab({
+        //     url: this.data.$cuStore.sys_home_page
+        // });
+        wx.redirectTo({
             url: this.data.$cuStore.sys_home_page
         });
     },
@@ -179,14 +199,19 @@ const _object = function (value) {
  * @param   tabBar              配置系统tabBar
  */
 export default class ColorUI {
-    constructor({config, data, state, methods}) {
+    constructor({
+        config,
+        data,
+        state,
+        methods
+    }) {
         //默认配置，防止没自定义配置时，出问题。
-        config.theme = config.theme||'auto'
-        config.main = config.main||'blue'
-        config.text = config.text||1
-        config.homePath = config.homePath||'/pages/index/index'
-        config.tabBar = config.tabBar||[]
-        config.shareTitle = config.shareTitle||''
+        config.theme = config.theme || 'auto'
+        config.main = config.main || 'blue'
+        config.text = config.text || 1
+        config.homePath = config.homePath || '/pages/index/index'
+        config.tabBar = config.tabBar || []
+        config.shareTitle = config.shareTitle || ''
         //处理数据
         this.config = config
         this.data = data
@@ -200,7 +225,9 @@ export default class ColorUI {
         //创建时，添加组件
         const _create = function (r, o = {}) {
             r.$cuStore = {};
-            const { useProp } = o;
+            const {
+                useProp
+            } = o;
             if (o.hasOwnProperty("useProp")) {
                 if ((useProp && typeof useProp === "string") || Object.prototype.toString.call(useProp) === "[object Array]") {
                     r.$cuStore.useProp = [].concat(useProp);
@@ -229,7 +256,9 @@ export default class ColorUI {
         store = CUStoreInit(this.config)
         if (this.config.theme === 'auto') {
             wx.onThemeChange((res) => {
-                store.setState({sys_theme: 'auto'})
+                store.setState({
+                    sys_theme: 'auto'
+                })
                 wx.setStorageSync('sys_theme', 'auto');
                 setStatusStyle(wx.getSystemInfoSync().theme === 'light' ? 'dark' : 'light')
             })
@@ -318,7 +347,7 @@ export default class ColorUI {
         }
         try {
             Page = App.Page
-        } catch (e) { }
+        } catch (e) {}
 
         //重写组件
         App.Component = function (o = {}, ...args) {
@@ -330,8 +359,11 @@ export default class ColorUI {
                     o.methods[key] = baseMethod[key]
                 }
             })
-            const { lifetimes = {} } = o;
-            let originCreate = lifetimes.attached || o.attached, originonDestroy = lifetimes.detached || o.detached;
+            const {
+                lifetimes = {}
+            } = o;
+            let originCreate = lifetimes.attached || o.attached,
+                originonDestroy = lifetimes.detached || o.detached;
             const attached = function () {
                 _create(this, o);
                 originCreate && originCreate.apply(this, arguments);
@@ -351,7 +383,7 @@ export default class ColorUI {
         };
         try {
             Component = App.Component;
-        } catch (e) { }
+        } catch (e) {}
 
         console.log(
             `%c colorUI 启动成功 %c 当前版本V` + version + `%c`,
@@ -390,7 +422,14 @@ export const sys_capsule = () => {
     let capsule = wx.getMenuButtonBoundingClientRect();
     if (!capsule) {
         console.error('getMenuButtonBoundingClientRect error');
-        capsule = { bottom: 56, height: 32, left: 278, right: 365, top: 24, width: 87 };
+        capsule = {
+            bottom: 56,
+            height: 32,
+            left: 278,
+            right: 365,
+            top: 24,
+            width: 87
+        };
     }
     return capsule;
 }
