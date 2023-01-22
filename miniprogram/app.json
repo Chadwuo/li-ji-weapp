@@ -16,7 +16,10 @@
         "pages/about/index",
         "pages/question/index",
         "pages/family/index",
+        "pages/backup/index",
+        "pages/analysis/index",
         "pages/set/index",
+        "pages/relationship/index",
         "pages/calendar/index"
     ],
     "window": {

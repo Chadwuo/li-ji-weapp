@@ -32,19 +32,19 @@ Page({
 				icon: "cicon-event-list",
 				name: "数据导出",
 				color: "text-orange",
-				path: "/pages/export/index"
+				path: "/pages/backup/index"
 			},
 			{
 				icon: "cicon-demo",
 				name: "统计分析",
 				color: "text-red",
-				path: "/pages/chart/index"
+				path: "/pages/analysis/index"
 			},
 			{
-				icon: "cicon-goods-o",
+				icon: "cicon-person-pin-circle-o",
 				name: "亲友关系",
 				color: "text-green",
-				path: "/pages/chart/index"
+				path: "/pages/relationship/index"
 			}
 		],
 	},
