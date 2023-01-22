@@ -68,7 +68,7 @@ Page({
         this.setData({
             memberAction: {
                 show: true,
-                selected: e.currentTarget.dataset.member,
+                selected: member,
                 actions: actions,
             }
         });
@@ -84,6 +84,7 @@ Page({
     // 长按家庭成员-动作
     onSelectMenberAction(event) {
         const that = this
+        const selected = that.data.memberAction.selected
         switch (event.detail.name) {
             case '删除':
                 wx.showModal({
@@ -91,7 +92,7 @@ Page({
                     content: '确定删除改家庭成员吗？',
                     async success(result) {
                         if (result.confirm) {
-                            const res = await familyService.delFamilyMember(that.data.memberAction.selected)
+                            const res = await familyService.delFamilyMember(selected)
                             if (res.success) {
                                 that.getFamilyInfo()
                             }
@@ -105,8 +106,9 @@ Page({
                     content: '所有成员会被删除，家庭数据无法继续共享！',
                     async success(result) {
                         if (result.confirm) {
-                            const res = await familyService.deleteFamily(that.data)
-                            console.log(res)
+                            const res = await familyService.deleteFamily({
+                                _id: that.data._id
+                            })
                             if (res.success) {
                                 that.setData({
                                     _id: '',
@@ -121,7 +123,7 @@ Page({
         }
     },
     goHome() {
-        wx.navigateTo({
+        wx.redirectTo({
             url: '/pages/start/index',
         });
     },

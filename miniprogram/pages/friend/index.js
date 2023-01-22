@@ -27,6 +27,11 @@ Page({
   onFriendClick(e) {
     wx.navigateTo({
       url: '/pages/friend/details/index',
+      events: {
+        refresh: () => {
+          this.loadData()
+        },
+      },
       success: function (res) {
         // 通过 eventChannel 向被打开页面传送数据
         res.eventChannel.emit('acceptDataFromOpenerPage', {
@@ -36,22 +41,14 @@ Page({
     });
   },
   onAdd() {
-    let that = this
     wx.navigateTo({
       url: '/pages/friend/edit/index',
       events: {
-        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-        dialogResult: function (data) {
-          that.friendEditDialog(data)
+        refresh: () => {
+          this.loadData()
         },
-      }
+      },
     });
-  },
-  // 编辑回调
-  friendEditDialog(detail) {
-    // TODO 待完善
-    console.log(detail)
-    this.loadData()
   },
   async loadData() {
     this.setData({
@@ -103,56 +100,35 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady() {
-
-  },
+  onReady() {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
-
-  },
+  onShow() {},
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide() {
-
-  },
+  onHide() {},
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload() {
-
-  },
+  onUnload() {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() {
-    // 感觉延迟一下，会舒服点
-    setTimeout(async () => {
-      this.setData({
-        friendsList: []
-      })
-      await this.loadData(1)
-      wx.stopPullDownRefresh()
-    }, 666);
-  },
+  onPullDownRefresh() {},
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom() {
-
-  },
+  onReachBottom() {},
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage() {
-
-  }
+  onShareAppMessage() {}
 })
