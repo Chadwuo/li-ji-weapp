@@ -1,7 +1,7 @@
 // pages/giftOut/edit/index.js
 const giftOutService = require('../../../alicloud/services/giftOut')
+const app = getApp()
 Page({
-
 	/**
 	 * 页面的初始数据
 	 */
@@ -42,6 +42,7 @@ Page({
 					title: '修改成功',
 				})
 				eventChannel.emit('refresh');
+				app.refreshTotalGift = true
 				setTimeout(() => {
 					wx.navigateBack()
 				}, 1000);
@@ -53,6 +54,7 @@ Page({
 					title: '添加成功',
 				})
 				eventChannel.emit('refresh');
+				app.refreshTotalGift = true
 				setTimeout(() => {
 					wx.navigateBack()
 				}, 1000);
@@ -73,6 +75,7 @@ Page({
 							title: '删除成功',
 						})
 						eventChannel.emit('refresh');
+						app.refreshTotalGift = true
 						setTimeout(() => {
 							wx.navigateBack()
 						}, 1000);

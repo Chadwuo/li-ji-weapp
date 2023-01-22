@@ -1,6 +1,6 @@
 // pages/giftReceive/edit/index.js
 const giftReceiveService = require('../../../alicloud/services/giftReceive')
-
+const app = getApp()
 Page({
 
   /**
@@ -25,6 +25,7 @@ Page({
           title: '修改成功',
         })
         eventChannel.emit('refresh')
+        app.refreshTotalGift = true
         setTimeout(() => {
           wx.navigateBack()
         }, 1000);
@@ -36,6 +37,7 @@ Page({
           title: '添加成功',
         })
         eventChannel.emit('refresh')
+        app.refreshTotalGift = true
         setTimeout(() => {
           wx.navigateBack()
         }, 1000);
@@ -56,6 +58,7 @@ Page({
               title: '删除成功',
             })
             eventChannel.emit('refresh')
+            app.refreshTotalGift = true
             setTimeout(() => {
               wx.navigateBack()
             }, 1000);
