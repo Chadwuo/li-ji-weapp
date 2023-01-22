@@ -1,5 +1,6 @@
 // pages/book/edit/index.js
 const bookService = require('../../../alicloud/services/book')
+const app = getApp()
 Page({
   /**
    * 页面的初始数据
@@ -49,6 +50,7 @@ Page({
             wx.showToast({
               title: '删除成功',
             })
+            app.refreshTotalGift = true
             eventChannel.emit('refresh')
             setTimeout(() => {
               wx.navigateBack()

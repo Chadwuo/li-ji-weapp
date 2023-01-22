@@ -1,7 +1,8 @@
 const userService = require('../../alicloud/services/user')
+const jinrishici = require('../../utils/jinrishici.js')
 const giftOutService = require('../../alicloud/services/giftOut')
 const giftReceiveService = require('../../alicloud/services/giftReceive')
-const jinrishici = require('../../utils/jinrishici.js')
+
 import {
 	welcome
 } from '../../utils/index.js'
@@ -17,8 +18,10 @@ Page({
 		nickName: '',
 		showProfile: false,
 		welcome: welcome(),
-		giveTotal: 0.00,
-		receiveTotal: 0.00,
+		totalGift: {
+			receiveTotal: '',
+			outTotal: ''
+		},
 		menus: [{
 				icon: "cicon-home-community",
 				name: "我的家庭",
@@ -29,19 +32,19 @@ Page({
 				icon: "cicon-event-list",
 				name: "数据导出",
 				color: "text-orange",
-				path: "/pages/export/index"
+				path: "/pages/backup/index"
 			},
 			{
 				icon: "cicon-demo",
 				name: "统计分析",
 				color: "text-red",
-				path: "/pages/chart/index"
+				path: "/pages/analysis/index"
 			},
 			{
-				icon: "cicon-goods-o",
+				icon: "cicon-person-pin-circle-o",
 				name: "亲友关系",
 				color: "text-green",
-				path: "/pages/chart/index"
+				path: "/pages/relationship/index"
 			}
 		],
 	},
@@ -120,58 +123,55 @@ Page({
 			showProfile: false
 		})
 	},
+	async getGiftTotal() {
+		const {
+			data: rTotal
+		} = await giftReceiveService.computedTotalGiftReceive()
+		const {
+			data: oTotal
+		} = await giftOutService.computedTotalGiftOut()
+		this.setData({
+			totalGift: {
+				receiveTotal: rTotal || 0,
+				outTotal: oTotal || 0
+			}
+		})
+		console.log('getGiftTotal', this.data.totalGift)
+		app.refreshTotalGift = false
+	},
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
-	onReady: function () {
-
-	},
+	onReady: function () {},
 
 	/**
 	 * 生命周期函数--监听页面显示
 	 */
 	async onShow() {
-		const {
-			data: rTotal
-		} = await giftReceiveService.computedTotalGiftReceive()
-		this.setData({
-			receiveTotal: rTotal || 0,
-		});
-		const {
-			data: oTotal
-		} = await giftOutService.computedTotalGiftOut()
-		this.setData({
-			giveTotal: oTotal || 0,
-		});
+		if (app.refreshTotalGift) {
+			this.getGiftTotal()
+		}
 	},
 
 	/**
 	 * 生命周期函数--监听页面隐藏
 	 */
-	onHide: function () {
-
-	},
+	onHide: function () {},
 
 	/**
 	 * 生命周期函数--监听页面卸载
 	 */
-	onUnload: function () {
-
-	},
+	onUnload: function () {},
 
 	/**
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
-	onPullDownRefresh: function () {
-
-	},
+	onPullDownRefresh: function () {},
 
 	/**
 	 * 页面上拉触底事件的处理函数
 	 */
-	onReachBottom: function () {
-
-	},
+	onReachBottom: function () {},
 
 	/**
 	 * 用户点击右上角分享

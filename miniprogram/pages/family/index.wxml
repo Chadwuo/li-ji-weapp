@@ -1,15 +1,16 @@
 <!-- pages/family/index.wxml -->
-<ui-sys title="我的家庭" class="container" >
+<ui-sys title="我的家庭" class="container">
 	<view class="ui-container">
 		<block wx:if="{{!_id&&!inviteFamily}}">
 			<van-empty description="还没有开通家庭共享哦~" />
 			<button class="ui-btn block round bg-red-gradient" bindtap="onCreate">创建家庭</button>
 		</block>
-		<block wx:elif="{{inviteFamily}}">
-			<van-empty description="{{inviteFamily.word}}" />
+		<view wx:elif="{{inviteFamily}}" class="flex-column flex-center mt-5 px-4">
+			<image src="/static/img/share2.jpg" class="radius-lg" />
+			<view class="my-5 text-lg text-grey">{{inviteFamily.word}}</view>
 			<button class="ui-btn block round bg-red-gradient my-3" bindtap="onJoinFamily">同意</button>
 			<button class="ui-btn block round border border-red bg-red-light my-3" bindtap="goHome">首页</button>
-		</block>
+		</view>
 		<view class="mb-3" wx:if="{{_id}}">
 			<ui-title title="家庭管理" depth="2" isIcon ui="mx-4" />
 			<ui-form ui="ui-BG my-3 radius-lg">
