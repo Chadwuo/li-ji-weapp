@@ -19,9 +19,16 @@ Page({
     })
   },
   onSearch() {
-    wx.showToast({
-      title: '搜索...马上写完，真的',
-      icon: 'none',
+    if (!this.data.keyword) {
+      this.loadData(1)
+      return
+    }
+    for (let item of this.data.friendsList) {
+      item.subItems = item.subItems.filter(x => x.name.includes(this.data.keyword))
+    }
+
+    this.setData({
+      friendsList: this.data.friendsList
     })
   },
   onFriendClick(e) {

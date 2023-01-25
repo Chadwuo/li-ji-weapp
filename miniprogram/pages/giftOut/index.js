@@ -22,9 +22,12 @@ Page({
     })
   },
   onSearch() {
-    wx.showToast({
-      title: '搜索...马上写完，真的',
-      icon: 'none',
+    if (!this.data.keyword) {
+      this.loadData(1)
+      return
+    }
+    this.setData({
+      giftList: this.data.giftList.filter(i => i.friendInfo.name.includes(this.data.keyword))
     })
   },
   onGiftClick(e) {

@@ -24,7 +24,15 @@
 
 ### 效果图
 
-<img src="doc/demo.jpg">
+<table>
+  <tr>
+    <td><img src="doc/image1.jpeg"></td>
+    <td><img src="doc/image2.jpeg"></td>
+    <td><img src="doc/image3.jpeg"></td>
+    <td><img src="doc/image4.jpeg"></td>
+    <td><img src="doc/image5.jpeg"></td>
+  </tr>
+ </table>
 
 ### 文件目录说明
 
@@ -67,6 +75,7 @@ li-ji-weapp
 - [wl-pinyin](https://www.npmjs.com/package/wl-pinyin)：汉字转拼音库
 - [dayjs](https://github.com/iamkun/dayjs)：Moment.js 的 2kB 轻量化方案，拥有同样强大的 API
 - [wx-calendar](https://github.com/lspriv/wx-calendar)：借鉴了MIUI 12日历的部分设计，制作适合微信小程序的日历
+- [relationship](https://github.com/mumuy/relationship)：中国亲戚关系计算器
 - <s>腾讯云（涨价了，负担不起，已迁移至阿里云）</s>
 - [阿里云 Serverless](https://serverless.aliyun.com)：阿里云 Serverless
 - [今日诗词 API](https://www.jinrishici.com)：![今日诗词](https://v2.jinrishici.com/one.svg)
