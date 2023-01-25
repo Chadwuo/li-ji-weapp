@@ -23,11 +23,16 @@
  <img src="doc/code.png" alt="Logo" width="240" height="240">
 
 ### 效果图
-<img src="doc/image1.jpeg" width="240">
-<img src="doc/image2.jpeg" width="240">
-<img src="doc/image3.jpeg" width="240">
-<img src="doc/image4.jpeg" width="240">
-<img src="doc/image5.jpeg" width="240">
+
+<table>
+  <tr>
+    <td><img src="doc/image1.jpeg"></td>
+    <td><img src="doc/image2.jpeg"></td>
+    <td><img src="doc/image3.jpeg"></td>
+    <td><img src="doc/image4.jpeg"></td>
+    <td><img src="doc/image5.jpeg"></td>
+  </tr>
+ </table>
 
 ### 文件目录说明
 
