@@ -75,9 +75,6 @@ Page({
 			avatarUrl: app.userInfo.avatarUrl,
 			nickName: app.userInfo.nickName,
 		})
-		wx.showShareMenu({
-			menus: ['shareAppMessage', 'shareTimeline']
-		})
 	},
 	// 选择头像
 	onChooseAvatar(e) {
