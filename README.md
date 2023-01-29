@@ -7,9 +7,9 @@
   <p align="center">
     每一份人情都值得礼记
     <br />
-    <a href="https://github.com/chadwuo/li-ji-weapp/issues">报告Bug</a>
+    <a href="https://github.com/Chadwuo/li-ji-weapp/issues/new?template=bug_report.md">报告Bug</a>
     ·
-    <a href="https://github.com/chadwuo/li-ji-weapp/issues">提出新特性</a>
+    <a href="https://github.com/Chadwuo/li-ji-weapp/issues/new?template=feature_request.md">提出新特性</a>
   </p>
 </p>
 
