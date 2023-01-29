@@ -11,49 +11,49 @@ Page({
     result: "",
     inputData: ['我'],
     names: [{
-        key: '夫',
-        val: '丈夫'
-      },
-      {
-        key: '妻',
-        val: '妻子'
-      },
-      {
-        key: '父',
-        val: '爸爸'
-      },
-      {
-        key: '母',
-        val: '妈妈'
-      },
-      {
-        key: '兄',
-        val: '哥哥'
-      },
-      {
-        key: '弟',
-        val: '弟弟'
-      },
-      {
-        key: '姐',
-        val: '姐姐'
-      },
-      {
-        key: '妹',
-        val: '妹妹'
-      },
-      {
-        key: '子',
-        val: '儿子'
-      },
-      {
-        key: '女',
-        val: '女儿'
-      },
-      {
-        key: '←',
-        val: 'backspace'
-      },
+      key: '夫',
+      val: '丈夫'
+    },
+    {
+      key: '妻',
+      val: '妻子'
+    },
+    {
+      key: '父',
+      val: '爸爸'
+    },
+    {
+      key: '母',
+      val: '妈妈'
+    },
+    {
+      key: '兄',
+      val: '哥哥'
+    },
+    {
+      key: '弟',
+      val: '弟弟'
+    },
+    {
+      key: '姐',
+      val: '姐姐'
+    },
+    {
+      key: '妹',
+      val: '妹妹'
+    },
+    {
+      key: '子',
+      val: '儿子'
+    },
+    {
+      key: '女',
+      val: '女儿'
+    },
+    {
+      key: '←',
+      val: 'backspace'
+    },
     ],
   },
   input(event) {
@@ -93,70 +93,54 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-
-  },
+  onLoad(options) { },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady() {
-
-  },
+  onReady() { },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
-
-  },
+  onShow() { },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide() {
-
-  },
+  onHide() { },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload() {
-
-  },
+  onUnload() { },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() {
-
-  },
+  onPullDownRefresh() { },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom() {
-
-  },
+  onReachBottom() { },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage() {
-
-  },
+  onShareAppMessage() { },
   /**
-	 * 用户点击右上角分享
-	 */
-	onShareAppMessage: function () {
-		return {
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    return {
       title: '亲戚关系计算器',
       path: "pages/relationship/index",
-		}
-	},
-	onShareTimeline: function () {
-		return {
-			title: '亲戚关系计算器'
-		}
-	}
+    }
+  },
+  onShareTimeline: function () {
+    return {
+      title: '亲戚关系计算器'
+    }
+  }
 })
