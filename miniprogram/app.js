@@ -15,7 +15,7 @@ App({
     colorUISdk,
     userInfo: '',
     userDataScope: '',
-    refreshTotalGift: true,
+    needRefreshTotal: true,
     onLaunch() {
         mpserverless.init();
         console.log("软件版本", colorUISdk.version)
