@@ -6,7 +6,7 @@
                 <ui-avatar ui="sl ellipse" src="/static/logo.png" />
             </view>
             <view class="text-xxl my-3">礼记</view>
-            <view class="text-lg my-3">记得住恩情，守得住初心</view>
+            <view class="text-lg my-3">让生活没有"难"还的人情</view>
         </view>
 
         <view class="paragraph" style="text-indent: 2em;">
@@ -14,7 +14,7 @@
         </view>
 
         <view class="paragraph" style="text-indent: 2em;">
-            「礼记」是一个基于微信小程序的在线人情簿，随身携带、快速查找、统计汇总、亲友往来、家庭共享，为记账带来了全新体验。
+            「礼记」是一个基于微信小程序的在线人情帐簿，随身携带、快速查找人情、统计汇总礼金、亲友往来明细、家庭共享记账。
         </view>
 
         <ui-menu ui="mt-5 radius-lg">

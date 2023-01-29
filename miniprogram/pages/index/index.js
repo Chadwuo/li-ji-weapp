@@ -205,5 +205,11 @@ Page({
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage() {}
+    onShareAppMessage() {
+        return {
+            title: '可能是东半球最好用的人情记账工具',
+			path: "pages/start/index",
+			imageUrl: '/static/img/share.jpg'
+        }
+    }
 })
