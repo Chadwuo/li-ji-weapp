@@ -20,7 +20,7 @@ Page({
   },
   onSearch() {
     if (!this.data.keyword) {
-      this.loadData(1)
+      this.loadData()
       return
     }
     for (let item of this.data.friendsList) {
