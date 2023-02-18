@@ -44,6 +44,12 @@ Page({
    */
   async onShow() {
     app.needRefreshTotal = true
+
+    if (!app.userInfo) {
+      await this.initUserInfo()
+      await this.initUserDataScope()
+    }
+
     setTimeout(() => {
       if (!this.data.netError) {
         wx.switchTab({
@@ -51,12 +57,6 @@ Page({
         })
       }
     }, 1500)
-
-    if (!app.userInfo) {
-      await this.initUserInfo()
-      await this.initUserDataScope()
-    }
-
   },
 
   /**
