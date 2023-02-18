@@ -11,10 +11,8 @@ Page({
     friendId: '',
     friendName: '',
     bookId: '',
-    bookName: '',
     money: '',
     remarks: '',
-    inBook: false, // 存在礼簿信息
   },
   async onSave() {
     const eventChannel = this.getOpenerEventChannel()
@@ -77,22 +75,6 @@ Page({
           that.setData({
             friendId: data._id,
             friendName: data.name,
-          })
-        },
-      }
-    });
-  },
-  // 选择礼簿
-  showBookSelect() {
-    let that = this
-    wx.navigateTo({
-      url: '/pages/book/select/index',
-      events: {
-        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-        dialogResult: function (data) {
-          that.setData({
-            bookId: data._id,
-            bookName: data.title,
           })
         },
       }

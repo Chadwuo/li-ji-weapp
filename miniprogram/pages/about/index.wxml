@@ -6,7 +6,6 @@
                 <ui-avatar ui="sl ellipse" src="/static/logo.png" />
             </view>
             <view class="text-xxl my-3">礼记</view>
-            <view class="text-lg my-3">让生活没有"难"还的人情</view>
         </view>
 
         <view class="paragraph" style="text-indent: 2em;">
