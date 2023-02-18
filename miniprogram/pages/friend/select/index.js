@@ -10,9 +10,16 @@ Page({
     keyword: ''
   },
   onSearch() {
-    wx.showToast({
-      title: '搜索...马上写完，真的',
-      icon: 'none',
+    if (!this.data.keyword) {
+      this.loadData()
+      return
+    }
+    for (let item of this.data.friendSelectSource) {
+      item.subItems = item.subItems.filter(x => x.name.includes(this.data.keyword))
+    }
+
+    this.setData({
+      friendSelectSource: this.data.friendSelectSource
     })
   },
   // 选中联系人
@@ -64,30 +71,30 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady() { },
+  onReady() {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() { },
+  onShow() {},
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide() { },
+  onHide() {},
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload() { },
+  onUnload() {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() { },
+  onPullDownRefresh() {},
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom() { },
+  onReachBottom() {},
 })
