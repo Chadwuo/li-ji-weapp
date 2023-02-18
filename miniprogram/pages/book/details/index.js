@@ -32,8 +32,7 @@ Page({
         // 通过 eventChannel 向被打开页面传送数据
         res.eventChannel.emit('acceptDataFromOpenerPage', {
           bookId: that.data.book._id,
-          bookName: that.data.book.title,
-          inBook: true
+          bookName: that.data.book.title
         })
       }
     });
