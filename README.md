@@ -56,9 +56,18 @@ li-ji-weapp
 ```
 
 ### 作者
-
-- [Chadwuo](https://github.com/chadwuo)
-
+<table>
+    <tbody>
+        <tr>
+            <td align="center" valign="middle">
+                <a href="https://github.com/chadwuo" target="_blank">
+                    <img width="80px" src="https://avatars.githubusercontent.com/u/41413559?v=4" alt="@chadwuo">
+                    <div>@chadwuo</div>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 ### 更新日志
 
@@ -66,7 +75,7 @@ li-ji-weapp
 
 ### 版权说明
 
-该项目签署了GPL-3.0授权许可，详情请参阅 [LICENSE.txt](https://github.com/chadwuo/li-ji-weapp/blob/master/LICENSE)
+该项目签署了GPL-3.0授权许可，详情请参阅 [LICENSE.txt](https://github.com/chadwuo/li-ji-weapp/blob/master/LICENSE)，请自由地享受和参与开源。
 
 ### 鸣谢
 
