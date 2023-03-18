@@ -15,7 +15,7 @@
 
   礼尚往来，是中华民族的传统美德，老一辈人一般会在举行宴席的时候用手写人情簿的方式来记录每一个亲友的送礼，然后在对方有宴席邀请的时候翻阅人情簿，计算出送礼金额。这种方式存在很多弊端，比如人情簿丢失、无法携带在身边、很难搜索到某个人的送礼记录、由于手写原因无法辨认清楚内容等等。
   
-  「礼记」是一个基于微信小程序的在线人情帐簿，随身携带、快速查找人情、统计汇总礼金、亲友往来明细、家庭共享记账。让生活没有"难"还的人情。
+  「礼记」是一款微信小程序，方便随时随地查看和记录亲友的礼金情况。随身携带、快速查找人情、统计汇总礼金、亲友往来明细、家庭共享记账、安全可靠。
 
 ---
 
@@ -56,9 +56,18 @@ li-ji-weapp
 ```
 
 ### 作者
-
-- [Chadwuo](https://github.com/chadwuo)
-
+<table>
+    <tbody>
+        <tr>
+            <td align="center" valign="middle">
+                <a href="https://github.com/chadwuo" target="_blank">
+                    <img width="80px" src="https://avatars.githubusercontent.com/u/41413559?v=4" alt="@chadwuo">
+                    <div>@chadwuo</div>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 ### 更新日志
 
@@ -66,7 +75,7 @@ li-ji-weapp
 
 ### 版权说明
 
-该项目签署了GPL-3.0授权许可，详情请参阅 [LICENSE.txt](https://github.com/chadwuo/li-ji-weapp/blob/master/LICENSE)
+该项目签署了GPL-3.0授权许可，详情请参阅 [LICENSE.txt](https://github.com/chadwuo/li-ji-weapp/blob/master/LICENSE)，请自由地享受和参与开源。
 
 ### 鸣谢
 
