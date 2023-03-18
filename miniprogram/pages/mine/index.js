@@ -16,36 +16,39 @@ Page({
 		jinrishici: '',
 		avatarUrl: '',
 		nickName: '',
-		showProfile: false,
+		avatarUrl_edit: '',
+		nickName_edit: '',
+		popupVisible: false,
+		confirmLoading: false,
 		welcome: welcome(),
 		totalGift: {
 			receiveTotal: '',
 			outTotal: ''
 		},
 		menus: [{
-			icon: "cicon-home-community",
-			name: "我的家庭",
-			color: "text-mauve",
-			path: "/pages/family/index"
-		},
-		{
-			icon: "cicon-event-list",
-			name: "数据导出",
-			color: "text-orange",
-			path: "/pages/backup/index"
-		},
-		{
-			icon: "cicon-demo",
-			name: "统计分析",
-			color: "text-red",
-			path: "/pages/analysis/index"
-		},
-		{
-			icon: "cicon-person-pin-circle-o",
-			name: "亲友关系",
-			color: "text-green",
-			path: "/pages/relationship/index"
-		}
+				icon: "cicon-home-community",
+				name: "我的家庭",
+				color: "text-mauve",
+				path: "/pages/family/index"
+			},
+			{
+				icon: "cicon-event-list",
+				name: "数据导出",
+				color: "text-orange",
+				path: "/pages/backup/index"
+			},
+			{
+				icon: "cicon-demo",
+				name: "统计分析",
+				color: "text-red",
+				path: "/pages/analysis/index"
+			},
+			{
+				icon: "cicon-person-pin-circle-o",
+				name: "亲友关系",
+				color: "text-green",
+				path: "/pages/relationship/index"
+			}
 		],
 	},
 	// 监听用户滑动页面事件。
@@ -86,39 +89,62 @@ Page({
 		};
 		console.log(avatarUrl)
 		app.mpserverless.file.uploadFile(options).then(res => {
-			console.log(res);
 			this.setData({
-				avatarUrl: res.fileUrl
+				avataavatarUrl_editrUrl: res.fileUrl
 			})
 		});
 	},
-	onShowProfile() {
+	onShowPopup() {
 		this.setData({
-			showProfile: true
+			popupVisible: true,
+			avatarUrl_edit: app.userInfo.avatarUrl,
+			nickName_edit: app.userInfo.nickName,
 		})
 	},
-	onCloseProfile() {
+	onClosePopup() {
 		this.setData({
-			showProfile: false
+			popupVisible: false
 		})
 	},
 	// 保存个人信息
 	async onSaveProfile() {
+		this.setData({
+			confirmLoading: true
+		})
+
+		const avatarUrl = this.data.avatarUrl_edit
+		const nickName = this.data.nickName_edit
+
 		const res = await userService.updateUserInfo({
 			_id: app.userInfo._id,
-			nickName: this.data.nickName,
-			avatarUrl: this.data.avatarUrl,
+			nickName: nickName,
+			avatarUrl: avatarUrl,
 		})
-		if (res.success) {
-			wx.showToast({
-				title: '更新成功',
-			})
-			app.userInfo.nickName = this.data.nickName
-			app.userInfo.avatarUrl = this.data.avatarUrl
-		}
-		this.setData({
-			showProfile: false
-		})
+
+		setTimeout(() => {
+			if (res.success) {
+				wx.showToast({
+					title: '更新成功',
+				})
+
+				this.setData({
+					avatarUrl: avatarUrl,
+					nickName: nickName,
+					popupVisible: false,
+					confirmLoading: false
+				})
+				app.userInfo.nickName = nickName
+				app.userInfo.avatarUrl = avatarUrl
+			} else {
+				wx.showToast({
+					title: res.message,
+					icon: "none"
+				})
+				this.setData({
+					confirmLoading: false
+				})
+			}
+		}, 600);
 	},
 	async getGiftTotal() {
 		const {
@@ -137,7 +163,7 @@ Page({
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
-	onReady: function () { },
+	onReady: function () {},
 
 	/**
 	 * 生命周期函数--监听页面显示
@@ -153,22 +179,22 @@ Page({
 	/**
 	 * 生命周期函数--监听页面隐藏
 	 */
-	onHide: function () { },
+	onHide: function () {},
 
 	/**
 	 * 生命周期函数--监听页面卸载
 	 */
-	onUnload: function () { },
+	onUnload: function () {},
 
 	/**
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
-	onPullDownRefresh: function () { },
+	onPullDownRefresh: function () {},
 
 	/**
 	 * 页面上拉触底事件的处理函数
 	 */
-	onReachBottom: function () { },
+	onReachBottom: function () {},
 
 	/**
 	 * 用户点击右上角分享
