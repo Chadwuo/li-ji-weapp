@@ -26,7 +26,7 @@
 				<button class="ui-btn block round border border-red bg-red-light" bindtap="onDelete">删 除</button>
 			</van-col>
 			<van-col span="{{_id?16:24}}">
-				<button class="ui-btn block round bg-red-gradient" disabled="{{!name}}" bindtap="onSave">保 存</button>
+				<button class="ui-btn block round bg-red" disabled="{{!name}}" bindtap="onSave">保 存</button>
 			</van-col>
 		</van-row>
 	</ui-fixed>
