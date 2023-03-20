@@ -75,7 +75,7 @@ li-ji-weapp
 
 ### 版权说明
 
-该项目签署了GPL-3.0授权许可，详情请参阅 [LICENSE.txt](https://github.com/chadwuo/li-ji-weapp/blob/master/LICENSE)，请自由地享受和参与开源。
+礼记 使用 GPL-3.0 开源许可协议，在此之前请您务必了解该协议的许可说明以及遵守该协议的法律条件，详情请参阅 [LICENSE.txt](https://github.com/chadwuo/li-ji-weapp/blob/master/LICENSE)。
 
 ### 鸣谢
 
