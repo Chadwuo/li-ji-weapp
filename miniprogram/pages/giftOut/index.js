@@ -1,6 +1,5 @@
 // pages/giftOut/index.js
 const giftOutService = require('../../alicloud/services/giftOut')
-
 Page({
   /**
    * 页面的初始数据
@@ -10,7 +9,45 @@ Page({
     pageNo: 0,
     giftList: [],
     total: '0.00',
-    keyword: ''
+    keyword: '',
+    dict: {
+      '新婚快乐': {
+        fl: '囍',
+        cl: 'red'
+      },
+      '宝宝满月': {
+        fl: '满月',
+        cl: 'mauve'
+      },
+      '宝宝周岁': {
+        fl: '周岁',
+        cl: 'mauve'
+      },
+      '孩子升学': {
+        fl: '升学',
+        cl: 'red'
+      },
+      '金榜题名': {
+        fl: '题名',
+        cl: 'orange'
+      },
+      '乔迁新居': {
+        fl: '乔',
+        cl: 'blue'
+      },
+      '新店开业': {
+        fl: '开业',
+        cl: 'pink'
+      },
+      '探望病人': {
+        fl: '探望',
+        cl: 'brown'
+      },
+      '追悼故人': {
+        fl: '追悼',
+        cl: 'grey'
+      },
+    }
   },
   // 监听用户滑动页面事件。
   onPageScroll(e) {
@@ -83,27 +120,27 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () { },
+  onReady: function () {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () { },
+  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () { },
+  onHide: function () {},
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () { },
+  onUnload: function () {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () { },
+  onPullDownRefresh: function () {},
 
   /**
    * 页面上拉触底事件的处理函数
