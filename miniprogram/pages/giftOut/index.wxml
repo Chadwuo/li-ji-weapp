@@ -10,17 +10,19 @@
 	<van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" bind:search="onSearch" shape="round" />
 
 	<view class="ui-container">
-		<view class="bg-orange-light radius-lg flex flex-column justify-center py-5 mb-3" wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
-			<view class="flex align-end pb-3">
-				<view class="text-grey text-xl text-bold ml-5">{{item.date.value}}</view>
-				<view class="text-sm text-grey ml-3 pb-1">{{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
+		<view class="ui-BG radius-lg flex align-center py-4 mb-3" wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
+			<view class="mx-4">
+				<ui-avatar ui="round xxl" bg="bg-{{dict[item.title].cl}}">{{dict[item.title].fl}}</ui-avatar>
 			</view>
-			<view class="flex justify-center align-end">
-				<text class="text-xl"> {{item.friendInfo.name}}</text>
-				<text class="text-xl text-bold px-2"> {{item.title}}</text>
-				<text class="text-df">送礼</text>
-				<text class="text-xxl px-2"> {{item.money}} </text>
-				<text class="text-df">元</text>
+			<view class="flex justify-between align-center w-100">
+				<view class="flex flex-column">
+					<text class="text-xl text-bold">{{item.friendInfo.name}}</text>
+					<text class="text-lg text-grey py-2"> {{item.title}}</text>
+					<view class="text-df text-grey">{{item.date.value}} {{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
+				</view>
+				<view class="text-{{dict[item.title].cl}} mr-4">
+					<text class="text-xl text-price">{{item.money}}</text>
+				</view>
 			</view>
 		</view>
 	</view>

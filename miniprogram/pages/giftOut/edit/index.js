@@ -13,7 +13,7 @@ Page({
 		date: {},
 		money: '',
 		remarks: '',
-		columns: ['结婚', '满月', '乔迁', '开业', '生日', '生病', '白事', '自定义'],
+		columns: ['新婚快乐', '宝宝满月', '宝宝周岁', '孩子升学', '金榜题名', '乔迁新居', '新店开业', '探望病人', '追悼故人', '自定义'],
 		pickerCustom: false
 	},
 	showTitlePicker() {
