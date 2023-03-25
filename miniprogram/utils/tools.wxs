@@ -1,0 +1,14 @@
+module.exports = {
+	bookColor: function (str) {
+		if (!str) {
+			return 'red'
+		}
+
+		var words = ["悼", "哀", "丧", "殇", '奠', "祭", "死", '葬', "追悼", "白事", "节哀", "哀悼", "追思", "缅怀", "悼念", "吊唁", "逝世", "辞世", "归西", "仙逝", "别世", "过世", "去世", "寿终", "长眠"]
+		var hasMourningWords = words.some(function (word) {
+			return str.indexOf(word) !== -1
+		})
+
+		return hasMourningWords ? 'grey' : 'red'
+	},
+};
