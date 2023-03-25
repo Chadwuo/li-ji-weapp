@@ -1,3 +1,4 @@
+<wxs module="tools" src="../../utils/tools.wxs"></wxs>
 <ui-sys img="/static/img/bg.png" tabbar>
     <ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
         <view class="flex-bar p-3" wx:if="{{scrollTop > sys_navBar}}">
@@ -11,7 +12,7 @@
                     <view class="book ui-BG" bind:tap="onBookClick" bind:longpress="onBookLongPress" data-book='{{item}}'>
                         <view class="flex flex-column justify-around" style="height: 100%;width: 100%;">
                             <view class="mx-4">
-                                <view class="text-xl text-bold ui-TC-Main py-2">{{ item.title||'' }}</view>
+                                <view class="text-xl text-bold py-2 text-{{tools.bookColor(item.title)}}">{{ item.title||'' }}</view>
                                 <view class="text-sm text-grey">共 {{ item.giftCount||0 }} 笔</view>
                             </view>
                             <view class="mx-4">
@@ -20,8 +21,8 @@
                                 <view class="text-sm text-grey py-1">{{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
                             </view>
                         </view>
-                        <view class="bg-red flex align-center fr" style="height: 55rpx;width: 40%;position: relative;top: -60%; border-bottom-left-radius: 40rpx ;border-top-left-radius: 40rpx;">
-                            <view class="round ml-3" style="height: 20rpx;width: 20rpx;background-color: #F88F8D;"></view>
+                        <view class="bg-{{tools.bookColor(item.title)}} flex align-center fr" style="height: 55rpx;width: 40%;position: relative;top: -60%; border-bottom-left-radius: 40rpx ;border-top-left-radius: 40rpx;">
+                            <view class="round ml-3 bg-{{tools.bookColor(item.title)}}-gradient" style="height: 20rpx;width: 20rpx;"></view>
                         </view>
                     </view>
                 </view>
