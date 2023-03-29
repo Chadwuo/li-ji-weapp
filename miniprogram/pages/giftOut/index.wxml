@@ -12,7 +12,7 @@
 	<view class="ui-container">
 		<view class="ui-BG radius-lg flex align-center py-4 mb-3" wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
 			<view class="mx-4">
-				<ui-avatar ui="round xxl" bg="bg-{{dict[item.title].cl}}">{{dict[item.title].fl}}</ui-avatar>
+				<ui-avatar ui="round xxl" bg="{{item.icon!='iconfont icon-sangzang'?'bg-red-thin':'bg-grey'}}"><text class="text-xxl {{item.icon||'cicon-moneybag-o'}}"></text></ui-avatar>
 			</view>
 			<view class="flex justify-between align-center w-100">
 				<view class="flex flex-column">
@@ -20,7 +20,7 @@
 					<text class="text-lg text-grey py-2"> {{item.title}}</text>
 					<view class="text-df text-grey">{{item.date.value}} {{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
 				</view>
-				<view class="text-{{dict[item.title].cl}} mr-4">
+				<view class="mr-4 {{item.icon!='iconfont icon-sangzang'?'text-red':'text-grey'}}">
 					<text class="text-xl text-price">{{item.money}}</text>
 				</view>
 			</view>
