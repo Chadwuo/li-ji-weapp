@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    date: ''
+    date: '',
+    darkMode: wx.getSystemInfoSync().theme == 'dark'
   },
   handleCalendarLoad({
     detail
