@@ -10,44 +10,6 @@ Page({
     giftList: [],
     total: '0.00',
     keyword: '',
-    dict: {
-      '新婚快乐': {
-        fl: '囍',
-        cl: 'red'
-      },
-      '宝宝满月': {
-        fl: '满月',
-        cl: 'mauve'
-      },
-      '宝宝周岁': {
-        fl: '周岁',
-        cl: 'mauve'
-      },
-      '孩子升学': {
-        fl: '升学',
-        cl: 'red'
-      },
-      '金榜题名': {
-        fl: '题名',
-        cl: 'orange'
-      },
-      '乔迁新居': {
-        fl: '乔',
-        cl: 'blue'
-      },
-      '新店开业': {
-        fl: '开业',
-        cl: 'pink'
-      },
-      '探望病人': {
-        fl: '探望',
-        cl: 'brown'
-      },
-      '追悼故人': {
-        fl: '追悼',
-        cl: 'grey'
-      },
-    }
   },
   // 监听用户滑动页面事件。
   onPageScroll(e) {
