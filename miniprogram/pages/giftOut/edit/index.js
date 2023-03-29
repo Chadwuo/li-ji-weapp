@@ -10,28 +10,46 @@ Page({
 		friendId: '',
 		friendName: '',
 		title: '',
+		icon: '',
 		date: {},
 		money: '',
 		remarks: '',
-		columns: ['新婚快乐', '宝宝满月', '宝宝周岁', '孩子升学', '金榜题名', '乔迁新居', '新店开业', '探望病人', '追悼故人', '自定义'],
-		pickerCustom: false
+		columns: [{
+			name: '结婚',
+			icon: 'iconfont icon-jiehun'
+		}, {
+			name: '宝宝',
+			icon: 'iconfont icon-qinzi'
+		}, {
+			name: '乔迁',
+			icon: 'iconfont icon-qiaoqian'
+		}, {
+			name: '生日',
+			icon: 'iconfont icon-shengri'
+		}, {
+			name: '升学',
+			icon: 'iconfont icon-jiaoyu'
+		}, {
+			name: '大寿',
+			icon: 'iconfont icon-laoren'
+		}, {
+			name: '白事',
+			icon: 'iconfont icon-sangzang'
+		}, {
+			name: '其他',
+			icon: 'cicon-moneybag-o'
+		}, ],
 	},
-	showTitlePicker() {
+	iconChange(e) {
+		let {
+			selected
+		} = e.currentTarget.dataset
+
 		this.setData({
-			pickerCustom: false
+			title: selected.name,
+			icon: selected.icon
 		})
-	},
-	bindPickerChange: function (e) {
-		let sel_val = this.data.columns[e.detail.value]
-		if (sel_val == '自定义') {
-			this.setData({
-				pickerCustom: true
-			})
-		} else {
-			this.setData({
-				title: sel_val
-			})
-		}
+
 	},
 	async onSave() {
 		const eventChannel = this.getOpenerEventChannel()

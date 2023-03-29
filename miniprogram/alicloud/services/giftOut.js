@@ -146,6 +146,7 @@ exports.addGiftOut = async (parameter) => {
             userId: userInfo._id,
             friendId: parameter.friendId,
             title: parameter.title,
+            icon: parameter.icon,
             date: parameter.date,
             money: Number(parameter.money),
             remarks: parameter.remarks
@@ -176,6 +177,7 @@ exports.updateGiftOut = async (parameter) => {
             $set: {
                 friendId: parameter.friendId,
                 title: parameter.title,
+                icon: parameter.icon,
                 date: parameter.date,
                 money: Number(parameter.money),
                 remarks: parameter.remarks
