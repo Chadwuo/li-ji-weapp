@@ -46,7 +46,7 @@
             <view class="ui-menu-item">
                 <view class="block py-3">
                     <view class="text-df text-bold">Q：我手机上界面显示不正确或者有bug？</view>
-                    <view class="ui-TC-3 mt-2">A：肝能力有限，目前只在iphone xs上做了完整测试，建议遇到bug先更新微信版本，如果问题还存在可以再意见反馈中填写你遇到的问题，感谢。</view>
+                    <view class="ui-TC-3 mt-2">A：肝能力有限，目前只在iphone xs上做了完整测试，建议遇到bug先更新微信版本，如果问题还存在可以在意见反馈中填写你遇到的问题，感谢。</view>
                 </view>
             </view>
 
