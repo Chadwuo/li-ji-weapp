@@ -1,7 +1,7 @@
 <wxs module="tools" src="../../utils/tools.wxs"></wxs>
 <ui-sys img="/static/img/bg.png" tabbar>
     <ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
-        <view class="flex-bar p-3" wx:if="{{scrollTop > sys_navBar}}">
+        <view wx:if="{{scrollTop > sys_navBar}}">
             <text class="text-lg text-bold">礼记</text>
         </view>
     </ui-navbar>

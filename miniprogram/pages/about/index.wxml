@@ -9,19 +9,22 @@
         </view>
 
         <view class="paragraph" style="text-indent: 2em;">
-            礼尚往来，是中华民族的传统美德，老一辈人一般会在举行宴席的时候用手写人情簿的方式来记录每一个亲友的送礼，然后在对方有宴席邀请的时候翻阅人情簿，计算出送礼金额。这种方式存在很多弊端，比如人情簿丢失、无法携带在身边、很难搜索到某个人的送礼记录、由于手写原因无法辨认清楚内容等等。
+            礼尚往来，是中华民族的传统美德，老一辈人一般会在举行宴席的时候用手写人情簿的方式来记录每一个亲友的送礼。这种方式存在很多弊端，比如人情簿丢失、无法携带在身边、很难搜索到某个人的送礼记录、由于手写原因无法辨认清楚内容等等。
         </view>
 
         <view class="paragraph" style="text-indent: 2em;">
-            「礼记」是一款微信小程序，方便随时随地查看和记录亲友的礼金情况。随身携带、快速查找人情、统计汇总礼金、亲友往来明细、家庭共享记账、安全可靠。
+            「礼记」致力于记录和管理人情来往记录，给你方便快捷的人情记账体验！专业又懂你的人情记账软件，共享记账，全家人共享账本，多维度查询统计人情来往。每一份人情都值得礼记。
         </view>
 
         <ui-menu ui="mt-5 radius-lg">
-            <ui-menu-item title="作者微信" arrow isAction bindtap="Chadwuo">
+            <ui-menu-item title="开发者" arrow isAction bindtap="Chadwuo">
                 <view slot="action" class="text-gray-a">Chadwuo</view>
             </ui-menu-item>
             <ui-menu-item title="版本号" isAction>
                 <view slot="action" class="text-gray-a">v{{version}}</view>
+            </ui-menu-item>
+            <ui-menu-item title="开源地址" isAction bindtap="tapCopy" data-value="https://github.com/Chadwuo/li-ji-weapp">
+                <view slot="action" class="text-gray-a">li-ji-weapp Github</view>
             </ui-menu-item>
             <ui-menu-item title="开源协议" isAction>
                 <view slot="action" class="text-gray-a">GPL-3.0 license</view>

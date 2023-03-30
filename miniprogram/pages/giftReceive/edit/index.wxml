@@ -5,7 +5,7 @@
 			<ui-form-group title="来宾姓名" isAction icon="cicon-avatar">
 				<ui-input-box>
 					<input class="ui-input-wrapper" placeholder="点击右侧图标选择" model:value="{{ friendName }}" />
-					<block slot="action"><text class="cicon-accounts icon-xl px-3" bindtap="showFriendSelect" /></block>
+					<block slot="action"><text class="cicon-accounts icon-xl pl-5 pr-2 py-2" bindtap="showFriendSelect" /></block>
 				</ui-input-box>
 			</ui-form-group>
 			<ui-form-group title="礼金" icon="cicon-moneybag">
