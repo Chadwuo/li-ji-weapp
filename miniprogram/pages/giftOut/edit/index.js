@@ -21,6 +21,9 @@ Page({
 			name: '宝宝',
 			icon: 'iconfont icon-qinzi'
 		}, {
+			name: '周岁',
+			icon: 'iconfont icon-zhousui'
+		}, {
 			name: '乔迁',
 			icon: 'iconfont icon-qiaoqian'
 		}, {
@@ -32,6 +35,9 @@ Page({
 		}, {
 			name: '大寿',
 			icon: 'iconfont icon-laoren'
+		}, {
+			name: '探望',
+			icon: 'iconfont icon-yiyuan'
 		}, {
 			name: '白事',
 			icon: 'iconfont icon-sangzang'

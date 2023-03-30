@@ -1,21 +1,7 @@
 <!--pages/giftOut/edit/index.wxml-->
 <ui-sys title="{{title?'编辑送礼':'添加送礼'}}" footer="{{false}}">
 	<view class="ui-container">
-		<!-- <ui-radio-group value="{{icon}}" bind:change="iconChange">
-			<view class="ui-grid ui-cols-4 ui-BG my-3 radius-lg">
-				<view class="ui-item flex justify-center" wx:for="{{8}}" wx:key="index">
-					<ui-radio label="{{index}}" ui="card" none>
-						<view class="flex flex-column align-center justify-center">
-							<view class="text-xxl iconfont icon-jiehun round p-3"></view>
-							<view class="text-df mt-2">结婚</view>
-						</view>
-					</ui-radio>
-				</view>
-			</view>
-		</ui-radio-group> -->
-
-
-		<view class="ui-grid ui-cols-4 ui-BG my-3 radius-lg">
+		<view class="ui-grid ui-cols-5 ui-BG my-3 radius-lg">
 			<view class="ui-item flex justify-center" wx:for="{{columns}}" wx:key="index">
 				<view class="flex flex-column align-center justify-center py-3" bindtap="iconChange" data-selected='{{item}}'>
 					<view class="text-xxl round p-3 {{item.icon}} {{icon==item.icon?icon!='iconfont icon-sangzang'?'bg-red':'bg-grey':'bg-grey-thin'}}"></view>
@@ -34,7 +20,7 @@
 			<ui-form-group title="亲友姓名" isAction icon="cicon-avatar">
 				<ui-input-box>
 					<input class="ui-input-wrapper" placeholder="点击右侧图标选择" model:value="{{ friendName }}" />
-					<block slot="action"><text class="cicon-accounts icon-xl px-3" bindtap="showFriendSelect" /></block>
+					<block slot="action"><text class="cicon-accounts icon-xl pl-5 pr-2 py-2" bindtap="showFriendSelect" /></block>
 				</ui-input-box>
 			</ui-form-group>
 			<ui-form-group title="事由" isAction icon="cicon-present">
