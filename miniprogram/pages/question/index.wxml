@@ -4,14 +4,14 @@
             <view class="ui-menu-item">
                 <view class="block py-3">
                     <view class="text-df text-bold">Q：这个软件收费吗？</view>
-                    <view class="ui-TC-3 mt-2">A：本项目是个人开源项目，不会收取任何费用。</view>
+                    <view class="ui-TC-3 mt-2">A：永远不会收取任何费用。</view>
                 </view>
             </view>
 
             <view class="ui-menu-item">
                 <view class="block py-3">
                     <view class="text-df text-bold">Q：作者是一个人完成所有开发工作吗？</view>
-                    <view class="ui-TC-3 mt-2">A：目前是的，如果你熟悉JS、mongodb、微信小程序欢迎PR。同时也欢迎设计、产品参与项目。</view>
+                    <view class="ui-TC-3 mt-2">A：目前是的，如果你熟悉JS、mongodb、微信小程序欢迎参与项目开发。即使你不是开发者，也可以参与GitHub需求讨论，发表你的想法。</view>
                 </view>
             </view>
 
@@ -39,7 +39,7 @@
             <view class="ui-menu-item">
                 <view class="block py-3">
                     <view class="text-df text-bold">Q：有很多其他同类的产品，为什么选择我？</view>
-                    <view class="ui-TC-3 mt-2">A：作者尝试过很多记录人情往来的产品，都难以令自己满意，有的界面简陋，有的操作逻辑反人类，有的已经停止服务，因此决定自己动手。你的痛点，礼记已阅已历；礼记的惊喜，你且慢慢享受。</view>
+                    <view class="ui-TC-3 mt-2">A：礼记全部代码完全开源，开源项目的优势在于可以吸引更多开发者和用户的参与，从而不断地进行改进和优化。此外，开源软件也有较高的安全性，因为更多的人参与开发和审查代码，可以及早发现和解决潜在的漏洞和风险。这是其他任何同类产品不具备的。</view>
                 </view>
             </view>
 
@@ -53,7 +53,7 @@
             <view class="ui-menu-item">
                 <view class="block py-3">
                     <view class="text-df text-bold">Q：软件后续开发计划？是否会变的商业化广告乱飞，功能臃肿？</view>
-                    <view class="ui-TC-3 mt-2">A：先说结论，不会。最多后期会增加一个开屏广告，关于以后功能演变，你可以在意见反馈中提出你的想法，或参与github中issues讨论。</view>
+                    <view class="ui-TC-3 mt-2">A：先说结论，不会。最多后期会增加一个开屏广告，关于以后功能演变，你可以在意见反馈中提出你的想法，或参与GitHub中issues讨论。</view>
                 </view>
             </view>
         </view>
