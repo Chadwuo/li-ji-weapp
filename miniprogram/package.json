@@ -9,9 +9,10 @@
   "author": "chadwuo",
   "license": "ISC",
   "dependencies": {
-    "@alicloud/mpserverless-sdk": "^3.1.1",
-    "@vant/weapp": "^1.10.2",
+    "@alicloud/mpserverless-sdk": "^3.1.3",
+    "@vant/weapp": "^1.10.15",
     "dayjs": "^1.10.7",
+    "lin-ui": "^0.9.13",
     "wl-pinyin": "^1.0.1"
   }
 }
