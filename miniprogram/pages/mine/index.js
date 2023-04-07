@@ -87,10 +87,11 @@ Page({
 		const options = {
 			filePath: avatarUrl,
 		};
-		console.log(avatarUrl)
+
 		app.mpserverless.file.uploadFile(options).then(res => {
+			console.log(res)
 			this.setData({
-				avataavatarUrl_editrUrl: res.fileUrl
+				avatarUrl_edit: res.fileUrl
 			})
 		});
 	},
@@ -203,7 +204,7 @@ Page({
 		return {
 			title: '可能是东半球最好用的人情记账工具',
 			path: "pages/start/index",
-			imageUrl: '/static/img/share.jpg'
+			imageUrl: '/static/img/share2.jpg'
 		}
 	}
 })

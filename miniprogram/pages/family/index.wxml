@@ -8,7 +8,7 @@
 		<view wx:elif="{{inviteFamily}}" class="flex-column flex-center mt-5 px-4">
 			<image src="/static/img/share2.jpg" class="radius-lg" />
 			<view class="my-5 text-lg text-grey">{{inviteFamily.word}}</view>
-			<button class="ui-btn block round bg-red-gradient my-3" bindtap="onJoinFamily">同意</button>
+			<button class="ui-btn block round bg-red my-3" bindtap="onJoinFamily">同意</button>
 			<button class="ui-btn block round border border-red bg-red-light my-3" bindtap="goHome">首页</button>
 		</view>
 		<view class="mb-3" wx:if="{{_id}}">
@@ -30,12 +30,9 @@
 				</block>
 			</ui-menu>
 			<text class="text-xs text-grey">Tips:长按成员来打开操作按钮。</text>
-			<ui-menu ui="mt-5 radius-lg">
-				<view class="ui-menu-item justify-center">
-					<text class="ui-TC-Main _icon-add ">邀请家庭成员</text>
-					<button class="ui-btn open-btn" open-type="share"></button>
-				</view>
-			</ui-menu>
+			<view class="mt-5">
+				<button class="ui-btn block radius-lg ui-TC-Main _icon-add py-4" open-type="share">邀请家庭成员</button>
+			</view>
 		</view>
 	</view>
 </ui-sys>
