@@ -1,20 +1,28 @@
 <!--pages/book/details/index.wxml-->
+<wxs module="tools" src="../../../utils/tools.wxs"></wxs>
 <ui-sys title="{{book.title}}">
 	<ui-fixed bg="bg-blur" sticky>
 		<van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
 			<view slot="action" bind:tap="onAddGift" class="flex">
-				<view class="round _icon-add-round-o ui-TC-Main" style="font-size: 56rpx;" />
+				<view class="round _icon-add-round-o text-{{tools.bookColor(book.title)}}" style="font-size: 56rpx;" />
 			</view>
 		</van-search>
 	</ui-fixed>
 	<view class="ui-container">
 		<van-empty wx:if="{{giftList.length==0}}" description="还没有记录哦~"></van-empty>
 
-		<view class="bg-red-light radius-lg flex justify-center align-end py-4 my-3" wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
-			<text class="text-xl px-2"> {{item.friendInfo.name}}</text>
-			<text class="text-df">贺礼</text>
-			<text class="text-xxl px-2"> {{item.money}} </text>
-			<text class="text-df">元</text>
+		<view wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
+			<view class="ui-BG radius-lg flex justify-around align-center py-4 my-3 text-{{tools.bookColor(book.title)}}">
+				<view class="text-left">
+					<text class="text-xl">{{item.friendInfo.name}}</text>
+					<view class="text-sm mt-2">{{item.friendInfo.relation}}</view>
+				</view>
+
+				<view class="text-right">
+					<view class="text-xxl"> {{item.money}} </view>
+					<view class="text-sm mt-2">礼金</view>
+				</view>
+			</view>
 		</view>
 	</view>
 </ui-sys>

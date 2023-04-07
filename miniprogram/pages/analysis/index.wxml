@@ -1,4 +1,4 @@
 <!--pages/analysis/index.wxml-->
 <ui-sys title="统计分析">
-	<van-empty description="正在开发，如果你熟悉JS、mongodb、微信小程序欢迎PR。同时也欢迎设计、产品参与项目。" />
+	<van-empty description="正在开发，如果你熟悉JS、mongodb、微信小程序欢迎参与项目开发。同时也欢迎设计、产品参与项目。即使你不是开发者，也可以参与GitHub需求讨论，发表你的想法。" />
 </ui-sys>

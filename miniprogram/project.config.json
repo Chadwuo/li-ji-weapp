@@ -1,8 +1,6 @@
 {
   "appid": "wx200dacbd79781fa0",
   "compileType": "miniprogram",
-  "miniprogramRoot": "miniprogram/",
-  "srcMiniprogramRoot": "miniprogram/",
   "packOptions": {
     "ignore": [],
     "include": []
