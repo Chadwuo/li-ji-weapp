@@ -1,5 +1,4 @@
 <!-- pages/friend/details/index.wxml -->
-<wxs module="filters" src="./filter.wxs"></wxs>
 <ui-sys title="亲友详情">
   <view class="ui-container">
     <view class="radius-lg bg-red-gradient my-4 p-4 flex-column justify-center">
@@ -23,27 +22,45 @@
       </view>
     </view>
     <van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
-    <view class='gift-card' wx:for="{{giftList}}" wx:key="index">
-      <block wx:if="{{item.title}}">
-        <view class='content'>
-          <view class='title'>{{item.title}}</view>
-          <view class='info'>{{item.date.value}}</view>
+  </view>
+  <view class="cu-chat">
+    <view wx:for="{{giftList}}" wx:key="index">
+      <view class="cu-item self" wx:if="{{item.self}}">
+        <view class="main">
+          <view class="content bg-orange shadow">
+            <view class="flex align-center">
+              <view class="{{item.icon}} text-xxl mr-3 borders border-white round p-3" />
+              <view class="text-left">
+                <view class="text-xl">{{item.money}} 元</view>
+                <view class="text-xl mt-2">{{item.title}}</view>
+              </view>
+            </view>
+            <view class="mt-3 flex justify-between">
+              <view class="text-sm">{{item.date}}</view>
+              <view class="text-sm">礼往</view>
+            </view>
+          </view>
         </view>
-        <view class='label-out'>
-          <van-tag round type="success">送</van-tag>
-          {{item.money}}
+        <ui-avatar ui="lg ellipse" src="{{avatarUrl}}" />
+      </view>
+      <view class="cu-item" wx:else>
+        <ui-avatar ui="lg ellipse" bg="bg-grey-thin" icon="cicon-person" />
+        <view class="main">
+          <view class="content shadow bg-orange">
+            <view class="flex align-center">
+              <view class="cicon-moneybag-o text-xxl mr-3 borders border-white round p-3" />
+              <view class="text-left">
+                <view class="text-xl">{{item.money}} 元</view>
+                <view class="text-lg mt-2">{{item.title}}</view>
+              </view>
+            </view>
+            <view class="mt-3 flex justify-between">
+              <view class="text-sm">{{item.date}}</view>
+              <view class="text-sm">礼来</view>
+            </view>
+          </view>
         </view>
-      </block>
-      <block wx:else>
-        <view class='content'>
-          <view class='title'>{{item.bookInfo.title}}</view>
-          <view class='info'>{{item.bookInfo.date.value}}</view>
-        </view>
-        <view class='label-in'>
-          <van-tag round color="#F76664">收</van-tag>
-          {{item.money}}
-        </view>
-      </block>
+      </view>
     </view>
   </view>
 </ui-sys>

@@ -1,4 +1,5 @@
 const app = getApp();
+import dayjs from 'dayjs'
 
 /**
  * 获取用户信息
@@ -16,22 +17,36 @@ exports.getUserInfo = async () => {
     if (!res.success) {
       throw new Error("操作失败");
     }
-    const userId = res.result.user.userId // Serverless平台生成的用户ID
+
+    const loginUser = res.result.user
     let {
       result: user
     } = await db.collection('user').findOne({
-      _id: userId
+      _id: loginUser.userId
     })
+
     if (!user) {
       // 创建用户
       user = {
-        _id: userId,
+        _id: loginUser.userId,
         nickName: '微信用户',
-        avatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
+        avatarUrl: '',
         isVip: false,
-        createTime: new Date(),
+        oAuthUserId: loginUser.oAuthUserId,
+        createdAt: dayjs(loginUser.createdAt).format(),
+        lastSeenAt: dayjs(loginUser.lastSeenAt).format(),
       }
       await db.collection('user').insertOne(user)
+    } else {
+      await db.collection('user').updateOne({
+        _id: loginUser.userId
+      }, {
+        $set: {
+          createdAt: dayjs(loginUser.createdAt).format(),
+          lastSeenAt: dayjs(loginUser.lastSeenAt).format(),
+          oAuthUserId: loginUser.oAuthUserId
+        }
+      })
     }
 
     return {
