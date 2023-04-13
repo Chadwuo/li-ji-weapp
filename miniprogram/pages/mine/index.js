@@ -26,29 +26,29 @@ Page({
 			outTotal: ''
 		},
 		menus: [{
-				icon: "cicon-home-community",
-				name: "我的家庭",
-				color: "text-mauve",
-				path: "/pages/family/index"
-			},
-			{
-				icon: "cicon-event-list",
-				name: "数据导出",
-				color: "text-orange",
-				path: "/pages/backup/index"
-			},
-			{
-				icon: "cicon-demo",
-				name: "统计分析",
-				color: "text-red",
-				path: "/pages/analysis/index"
-			},
-			{
-				icon: "cicon-person-pin-circle-o",
-				name: "亲友关系",
-				color: "text-green",
-				path: "/pages/relationship/index"
-			}
+			icon: "cicon-home-community",
+			name: "我的家庭",
+			color: "text-mauve",
+			path: "/pages/family/index"
+		},
+		{
+			icon: "cicon-event-list",
+			name: "数据导出",
+			color: "text-orange",
+			path: "/pages/backup/index"
+		},
+		{
+			icon: "cicon-demo",
+			name: "统计分析",
+			color: "text-red",
+			path: "/pages/analysis/index"
+		},
+		{
+			icon: "cicon-person-pin-circle-o",
+			name: "亲友关系",
+			color: "text-green",
+			path: "/pages/relationship/index"
+		}
 		],
 	},
 	// 监听用户滑动页面事件。
@@ -75,7 +75,7 @@ Page({
 			})
 		})
 		this.setData({
-			avatarUrl: app.userInfo.avatarUrl,
+			avatarUrl: app.userInfo.avatarUrl || 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
 			nickName: app.userInfo.nickName,
 		})
 	},
@@ -98,8 +98,8 @@ Page({
 	onShowPopup() {
 		this.setData({
 			popupVisible: true,
-			avatarUrl_edit: app.userInfo.avatarUrl,
-			nickName_edit: app.userInfo.nickName,
+			avatarUrl_edit: this.data.avatarUrl,
+			nickName_edit: this.data.nickName,
 		})
 	},
 	onClosePopup() {
@@ -164,7 +164,7 @@ Page({
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
-	onReady: function () {},
+	onReady: function () { },
 
 	/**
 	 * 生命周期函数--监听页面显示
@@ -180,22 +180,22 @@ Page({
 	/**
 	 * 生命周期函数--监听页面隐藏
 	 */
-	onHide: function () {},
+	onHide: function () { },
 
 	/**
 	 * 生命周期函数--监听页面卸载
 	 */
-	onUnload: function () {},
+	onUnload: function () { },
 
 	/**
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
-	onPullDownRefresh: function () {},
+	onPullDownRefresh: function () { },
 
 	/**
 	 * 页面上拉触底事件的处理函数
 	 */
-	onReachBottom: function () {},
+	onReachBottom: function () { },
 
 	/**
 	 * 用户点击右上角分享

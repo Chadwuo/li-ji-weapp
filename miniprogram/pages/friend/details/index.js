@@ -1,10 +1,19 @@
 // pages/friend/details/index.js
 const friendService = require('../../../alicloud/services/friend')
+const app = getApp();
 
 Page({
   data: {
     friend: {},
     giftList: [],
+    avatarUrl: '',
+    //统计
+    count: {
+      in: 0,
+      inTotal: 0,
+      out: 0,
+      outTotal: 0,
+    },
     happyCount: 0,
     happyTotal: 0,
     sadCount: 0,
@@ -14,6 +23,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
+    this.setData({
+      avatarUrl: app.userInfo.avatarUrl || 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
+    })
+
     const eventChannel = this.getOpenerEventChannel()
     eventChannel.on('acceptDataFromOpenerPage', async (data) => {
       this.setData({
@@ -22,25 +35,50 @@ Page({
       const res = await friendService.getFriendGifts({
         _id: this.data.friend._id
       })
+
       if (res.success) {
         const {
           giftOutList,
           giftReceiveList
         } = res.data
 
-        giftReceiveList.map(i => { // 收礼金额总计
+        let inList = giftReceiveList.map(i => { // 收礼金额总计
           this.data.happyTotal += i.money
+          return {
+            id: i._id,
+            title: i.bookInfo.title,
+            money: i.money,
+            date: i.bookInfo.date.value,
+            self: false
+          }
         })
-        giftOutList.map(i => { // 送礼金额总计
+        let outList = giftOutList.map(i => { // 送礼金额总计
           this.data.sadTotal += i.money
+          return {
+            id: i._id,
+            title: i.title,
+            money: i.money,
+            date: i.date.value,
+            icon: i.icon,
+            self: true
+          }
         })
+
+        let gifts = inList.concat(outList)
+
+        gifts.sort((a, b) => {
+          const dateA = new Date(a.date.replace(/-/g, "/"))
+          const dateB = new Date(b.date.replace(/-/g, "/"))
+          return dateB.getTime() - dateA.getTime()
+        })
+
+        console.log(gifts)
         this.setData({
           sadCount: giftOutList.length, // 送礼次数
           sadTotal: this.data.sadTotal,
           happyCount: giftReceiveList.length, // 收礼次数
           happyTotal: this.data.happyTotal,
-          // TODO 排序问题
-          giftList: giftOutList.concat(giftReceiveList),
+          giftList: gifts
         });
       }
     })
