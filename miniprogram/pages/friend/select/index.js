@@ -1,67 +1,68 @@
 // pages/friend/select/index.js
-const friendService = require('../../../alicloud/services/friend')
+const friendService = require('../../../alicloud/services/friend');
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     friendSelectSource: [],
-    keyword: ''
+    keyword: '',
   },
   onSearch() {
     if (!this.data.keyword) {
-      this.loadData()
-      return
+      this.loadData();
+      return;
     }
     for (let item of this.data.friendSelectSource) {
-      item.subItems = item.subItems.filter(x => x.name.includes(this.data.keyword))
+      item.subItems = item.subItems.filter((x) =>
+        x.name.includes(this.data.keyword)
+      );
     }
 
     this.setData({
-      friendSelectSource: this.data.friendSelectSource
-    })
+      friendSelectSource: this.data.friendSelectSource,
+    });
   },
   // 选中联系人
   onSelectedFriend(e) {
-    const eventChannel = this.getOpenerEventChannel()
+    const eventChannel = this.getOpenerEventChannel();
     eventChannel.emit('dialogResult', e.currentTarget.dataset.friend);
-    wx.navigateBack()
+    wx.navigateBack();
   },
   /**
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    let listTemp = []
+    let listTemp = [];
     for (let index = 0; index < 26; index++) {
       listTemp.push({
-        alpha: String.fromCharCode((65 + index)),
-        subItems: []
-      })
+        alpha: String.fromCharCode(65 + index),
+        subItems: [],
+      });
     }
     let noletter = {
       alpha: '#',
-      subItems: []
-    }
-    const res = await friendService.getFriendList()
+      subItems: [],
+    };
+    const res = await friendService.getFriendList();
     if (res.success) {
       for (const item of res.data) {
-        const firstLetter = item.firstLetter
+        const firstLetter = item.firstLetter;
         if (!firstLetter) {
-          noletter.subItems.push(item)
+          noletter.subItems.push(item);
         } else {
           for (const f of listTemp) {
             if (firstLetter.toUpperCase() === f.alpha) {
-              f.subItems.push(item)
-              break
+              f.subItems.push(item);
+              break;
             }
           }
         }
       }
-      listTemp.push(noletter)
+      listTemp.push(noletter);
       let list = listTemp.filter((i) => {
-        return i.subItems.length != 0
-      })
+        return i.subItems.length != 0;
+      });
       this.setData({
         friendSelectSource: list,
       });
@@ -97,4 +98,4 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {},
-})
+});

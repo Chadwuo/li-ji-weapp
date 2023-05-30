@@ -1,5 +1,5 @@
 const app = getApp();
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 
 /**
  * 获取用户信息
@@ -8,22 +8,18 @@ import dayjs from 'dayjs'
  * @author chadwuo
  */
 exports.getUserInfo = async () => {
-  const {
-    mpserverless
-  } = app
+  const { mpserverless } = app;
   const db = mpserverless.db;
   try {
-    const res = await mpserverless.user.getInfo()
+    const res = await mpserverless.user.getInfo();
     if (!res.success) {
-      throw new Error("操作失败");
+      throw new Error('操作失败');
     }
 
-    const loginUser = res.result.user
-    let {
-      result: user
-    } = await db.collection('user').findOne({
-      _id: loginUser.userId
-    })
+    const loginUser = res.result.user;
+    let { result: user } = await db.collection('user').findOne({
+      _id: loginUser.userId,
+    });
 
     if (!user) {
       // 创建用户
@@ -35,31 +31,34 @@ exports.getUserInfo = async () => {
         oAuthUserId: loginUser.oAuthUserId,
         createdAt: dayjs(loginUser.createdAt).format(),
         lastSeenAt: dayjs(loginUser.lastSeenAt).format(),
-      }
-      await db.collection('user').insertOne(user)
+      };
+      await db.collection('user').insertOne(user);
     } else {
-      await db.collection('user').updateOne({
-        _id: loginUser.userId
-      }, {
-        $set: {
-          createdAt: dayjs(loginUser.createdAt).format(),
-          lastSeenAt: dayjs(loginUser.lastSeenAt).format(),
-          oAuthUserId: loginUser.oAuthUserId
+      await db.collection('user').updateOne(
+        {
+          _id: loginUser.userId,
+        },
+        {
+          $set: {
+            createdAt: dayjs(loginUser.createdAt).format(),
+            lastSeenAt: dayjs(loginUser.lastSeenAt).format(),
+            oAuthUserId: loginUser.oAuthUserId,
+          },
         }
-      })
+      );
     }
 
     return {
       success: true,
-      data: user
-    }
+      data: user,
+    };
   } catch (e) {
     return {
       success: false,
-      message: e
+      message: e,
     };
   }
-}
+};
 
 /**
  * 更新用户数据
@@ -69,22 +68,25 @@ exports.getUserInfo = async () => {
 exports.updateUserInfo = async (parameter) => {
   const db = app.mpserverless.db;
   try {
-    await db.collection('user').updateOne({
-      _id: parameter._id
-    }, {
-      $set: {
-        nickName: parameter.nickName,
-        avatarUrl: parameter.avatarUrl
+    await db.collection('user').updateOne(
+      {
+        _id: parameter._id,
+      },
+      {
+        $set: {
+          nickName: parameter.nickName,
+          avatarUrl: parameter.avatarUrl,
+        },
       }
-    })
+    );
     return {
       success: true,
-      data: ''
+      data: '',
     };
   } catch (e) {
     return {
       success: false,
-      message: e
+      message: e,
     };
   }
 };
@@ -96,34 +98,32 @@ exports.updateUserInfo = async (parameter) => {
  * @author chadwuo
  */
 exports.getUserDataScope = async () => {
-  const userInfo = app.userInfo
+  const userInfo = app.userInfo;
   const db = app.mpserverless.db;
   // 获取家庭信息
-  const {
-    result: familyMember
-  } = await db.collection('family_member').findOne({
-    userId: userInfo._id
-  })
+  const { result: familyMember } = await db
+    .collection('family_member')
+    .findOne({
+      userId: userInfo._id,
+    });
 
   // 没有加入家庭，就返回自己的id
   if (!familyMember) {
-    return [userInfo._id]
+    return [userInfo._id];
   }
 
   // 获取家庭其他成员信息
-  const {
-    result: familyInfos
-  } = await db.collection('family_member').find({
-    familyId: familyMember.familyId
-  })
+  const { result: familyInfos } = await db.collection('family_member').find({
+    familyId: familyMember.familyId,
+  });
 
-  let dataScope = familyInfos.map(i => {
-    return i.userId
-  })
+  let dataScope = familyInfos.map((i) => {
+    return i.userId;
+  });
 
   if (!dataScope || dataScope.length == 0) {
-    return [userInfo._id]
+    return [userInfo._id];
   }
 
-  return dataScope
-}
+  return dataScope;
+};

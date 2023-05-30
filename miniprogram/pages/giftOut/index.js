@@ -1,5 +1,5 @@
 // pages/giftOut/index.js
-const giftOutService = require('../../alicloud/services/giftOut')
+const giftOutService = require('../../alicloud/services/giftOut');
 Page({
   /**
    * 页面的初始数据
@@ -17,24 +17,26 @@ Page({
     // 注意：请避免在 onPageScroll 中过于频繁的执行 setData 等引起逻辑层-渲染层通信的操作。尤其是每次传输大量数据，会影响通信耗时。
     // https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#onPageScroll-Object-object
     this.setData({
-      scrollTop: e.scrollTop
-    })
+      scrollTop: e.scrollTop,
+    });
   },
   onSearch() {
     if (!this.data.keyword) {
-      this.loadData(1)
-      return
+      this.loadData(1);
+      return;
     }
     this.setData({
-      giftList: this.data.giftList.filter(i => i.friendInfo.name.includes(this.data.keyword))
-    })
+      giftList: this.data.giftList.filter((i) =>
+        i.friendInfo.name.includes(this.data.keyword)
+      ),
+    });
   },
   onGiftClick(e) {
     wx.navigateTo({
       url: '/pages/giftOut/edit/index',
       events: {
         refresh: () => {
-          this.loadData(1)
+          this.loadData(1);
         },
       },
       success: function (res) {
@@ -42,8 +44,8 @@ Page({
         res.eventChannel.emit('acceptDataFromOpenerPage', {
           ...e.currentTarget.dataset.gift,
           friendName: e.currentTarget.dataset.gift.friendInfo.name,
-        })
-      }
+        });
+      },
     });
   },
   onAdd() {
@@ -51,25 +53,19 @@ Page({
       url: '/pages/giftOut/edit/index',
       events: {
         refresh: () => {
-          this.loadData(1)
+          this.loadData(1);
         },
-      }
+      },
     });
   },
   async loadData(page) {
-    if (page == 1) {
-      this.setData({
-        giftList: []
-      })
-    }
     const res = await giftOutService.getGiftOutPage({
-      page: page,
-      limit: 20
-    })
+      page,
+    });
     if (res.success) {
       this.setData({
-        giftList: this.data.giftList.concat(res.data),
-        pageNo: page
+        giftList: page === 1 ? res.data : [...this.data.giftList, ...res.data],
+        pageNo: page,
       });
     }
   },
@@ -77,7 +73,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.loadData(1)
+    this.loadData(1);
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -108,7 +104,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    this.loadData(this.data.pageNo + 1)
+    this.loadData(this.data.pageNo + 1);
   },
 
   /**
@@ -117,8 +113,8 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '可能是东半球最好用的人情记账工具',
-      path: "pages/start/index",
-      imageUrl: '/static/img/share.jpg'
-    }
-  }
-})
+      path: 'pages/start/index',
+      imageUrl: '/static/img/share.jpg',
+    };
+  },
+});
