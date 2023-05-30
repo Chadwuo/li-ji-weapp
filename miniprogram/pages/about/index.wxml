@@ -1,4 +1,4 @@
-<!--pages/about/index.wxml-->
+<!-- pages/about/index.wxml -->
 <ui-sys title="关于礼记" footerText="可能是东半球最好用的人情记账工具">
     <view class="ui-container">
         <view class="text-center mt-6 mb-4">
@@ -7,15 +7,12 @@
             </view>
             <view class="text-xxl my-3">礼记</view>
         </view>
-
         <view class="paragraph" style="text-indent: 2em;">
             礼尚往来，是中华民族的传统美德，老一辈人一般会在举行宴席的时候用手写人情簿的方式来记录每一个亲友的送礼。这种方式存在很多弊端，比如人情簿丢失、无法携带在身边、很难搜索到某个人的送礼记录、由于手写原因无法辨认清楚内容等等。
         </view>
-
         <view class="paragraph" style="text-indent: 2em;">
             「礼记」致力于记录和管理人情来往记录，给你方便快捷的人情记账体验！专业又懂你的人情记账软件，共享记账，全家人共享账本，多维度查询统计人情来往。每一份人情都值得礼记。
         </view>
-
         <ui-menu ui="mt-5 radius-lg">
             <ui-menu-item title="开发者" arrow isAction bindtap="Chadwuo">
                 <view slot="action" class="text-gray-a">Chadwuo</view>
