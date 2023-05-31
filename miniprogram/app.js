@@ -1,23 +1,17 @@
-import {
-    mpserverless
-} from './alicloud/index'
-import {
-    colorUI
-} from './config/ColorUI'
-import {
-    colorUISdk
-} from './config/mp-sdk'
+import { mpserverless } from './alicloud/index';
+import { colorUI } from './config/ColorUI';
+import { colorUISdk } from './config/mp-sdk';
 
 App({
-    //挂载到app上
-    mpserverless,
-    colorUI,
-    colorUISdk,
-    userInfo: '',
-    userDataScope: '',
-    needRefreshTotal: true,
-    onLaunch() {
-        mpserverless.init();
-        console.log("软件版本", colorUISdk.version)
-    },
+  //挂载到app上
+  mpserverless,
+  colorUI,
+  colorUISdk,
+  userInfo: '',
+  userDataScope: '',
+  needRefreshTotal: true,
+  onLaunch() {
+    mpserverless.init();
+    console.log('软件版本', colorUISdk.version);
+  },
 });
