@@ -1,4 +1,4 @@
-const app = getApp()
+const app = getApp();
 
 /**
  * 获取分页
@@ -6,46 +6,49 @@ const app = getApp()
  * @author chadwuo
  */
 exports.getBookPage = async (parameter) => {
+  parameter.limit = parameter.limit || 20;
+  parameter.page = parameter.page || 1;
   const db = app.mpserverless.db;
-  const dataScope = app.userDataScope
+  const dataScope = app.userDataScope;
   try {
-    const {
-      result
-    } = await db.collection('book').aggregate([{
+    const { result } = await db.collection('book').aggregate([
+      {
         $match: {
           userId: {
-            $in: dataScope
-          }
-        }
+            $in: dataScope,
+          },
+        },
       },
       {
         $sort: {
-          date: -1
-        }
+          date: -1,
+        },
       },
       {
-        $skip: ((parameter.page - 1) * parameter.limit)
+        $skip: (parameter.page - 1) * parameter.limit,
       },
       {
-        $limit: parameter.limit
+        $limit: parameter.limit,
       },
-      { // TODO 需要修改
-        $lookup: { // 左连接
-          from: "gift_receive", // 关联到de表
-          localField: "_id", // 左表关联的字段
-          foreignField: "bookId", // 右表关联的字段
-          as: "giftList"
-        }
-      }
-    ])
+      {
+        // TODO 需要修改
+        $lookup: {
+          // 左连接
+          from: 'gift_receive', // 关联到de表
+          localField: '_id', // 左表关联的字段
+          foreignField: 'bookId', // 右表关联的字段
+          as: 'giftList',
+        },
+      },
+    ]);
     return {
       success: true,
-      data: result
+      data: result,
     };
   } catch (e) {
     return {
       success: false,
-      message: e
+      message: e,
     };
   }
 };
@@ -57,25 +60,23 @@ exports.getBookPage = async (parameter) => {
  */
 exports.getBookList = async () => {
   const db = app.mpserverless.db;
-  const dataScope = app.userDataScope
+  const dataScope = app.userDataScope;
   try {
-    const {
-      result
-    } = await db.collection('book').find({
+    const { result } = await db.collection('book').find({
       userId: {
-        $in: dataScope
-      }
-    })
+        $in: dataScope,
+      },
+    });
 
     return {
       success: true,
-      data: result
+      data: result,
     };
   } catch (error) {
     return {
       success: false,
       message: error,
-    }
+    };
   }
 };
 
@@ -87,19 +88,17 @@ exports.getBookList = async () => {
 exports.getBook = async (parameter) => {
   const db = app.mpserverless.db;
   try {
-    const {
-      result
-    } = await db.collection('book').findOne({
+    const { result } = await db.collection('book').findOne({
       _id: parameter._id,
-    })
+    });
     return {
       success: true,
-      data: result
+      data: result,
     };
   } catch (e) {
     return {
       success: false,
-      message: e
+      message: e,
     };
   }
 };
@@ -110,26 +109,24 @@ exports.getBook = async (parameter) => {
  * @author chadwuo
  */
 exports.addBook = async (parameter) => {
-  const userInfo = app.userInfo
+  const userInfo = app.userInfo;
   const db = app.mpserverless.db;
   try {
-    const {
-      result
-    } = await db.collection('book').insertOne({
+    const { result } = await db.collection('book').insertOne({
       userId: userInfo._id,
       date: parameter.date,
       title: parameter.title,
       remarks: parameter.remarks,
-    })
+    });
 
     return {
       success: true,
-      data: result.insertedId
+      data: result.insertedId,
     };
   } catch (e) {
     return {
       success: false,
-      message: e
+      message: e,
     };
   }
 };
@@ -142,23 +139,26 @@ exports.addBook = async (parameter) => {
 exports.updateBook = async (parameter) => {
   const db = app.mpserverless.db;
   try {
-    await db.collection('book').updateOne({
-      _id: parameter._id
-    }, {
-      $set: {
-        title: parameter.title,
-        date: parameter.date,
-        remarks: parameter.remarks
+    await db.collection('book').updateOne(
+      {
+        _id: parameter._id,
+      },
+      {
+        $set: {
+          title: parameter.title,
+          date: parameter.date,
+          remarks: parameter.remarks,
+        },
       }
-    })
+    );
     return {
       success: true,
-      data: ''
+      data: '',
     };
   } catch (e) {
     return {
       success: false,
-      message: e
+      message: e,
     };
   }
 };
@@ -172,20 +172,20 @@ exports.deleteBook = async (parameter) => {
   const db = app.mpserverless.db;
   try {
     await db.collection('book').deleteOne({
-      _id: parameter._id
-    })
+      _id: parameter._id,
+    });
     // 删除礼簿下所有收礼记录
     await db.collection('gift_receive').deleteMany({
-      bookId: parameter._id
-    })
+      bookId: parameter._id,
+    });
     return {
       success: true,
-      data: ''
+      data: '',
     };
   } catch (e) {
     return {
       success: false,
-      message: e
+      message: e,
     };
   }
 };
