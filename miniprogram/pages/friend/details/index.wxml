@@ -3,7 +3,10 @@
   <view class="ui-container">
     <view class="radius-lg bg-red-gradient my-4 p-4 flex-column justify-center">
       <view class="flex justify-between">
-        <view class="text-white text-xxl text-bold">{{friend.name}}</view>
+        <view>
+          <view class="text-white text-bold text-xxl">{{friend.name}}</view>
+          <view class="text-white">（{{friend.relation}}）</view>
+        </view>
         <text class="_icon-edit text-white text-xxl" bind:tap="onEditClick"></text>
       </view>
       <view class="flex justify-center align-end text-white my-4">
