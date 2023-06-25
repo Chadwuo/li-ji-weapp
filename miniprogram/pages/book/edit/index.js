@@ -50,7 +50,7 @@ Page({
             wx.showToast({
               title: '删除成功',
             });
-            app.needRefreshTotal = true;
+            app.refreshTotal();
             eventChannel.emit('refresh');
             setTimeout(() => {
               wx.navigateBack();
