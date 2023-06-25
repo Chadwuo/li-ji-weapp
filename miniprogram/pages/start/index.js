@@ -58,6 +58,12 @@ Page({
       }
     }, 1500);
   },
+  onRefresh() {
+    // 小程序重启
+    wx.reLaunch({
+      url: '/pages/start/index',
+    });
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
