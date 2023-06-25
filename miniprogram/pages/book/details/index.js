@@ -72,7 +72,6 @@ Page({
         pageNo: page,
       });
     }
-    console.log('object :>> ', this.data.giftList);
   },
   /**
    * 生命周期函数--监听页面加载
