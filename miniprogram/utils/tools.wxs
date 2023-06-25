@@ -1,14 +1,29 @@
+bookColor = function (value) {
+	if (!value) return 'red'
+	var words = ["悼", "哀", "丧", "殇", '奠', "祭", "死", '葬', "追悼", "白事", "节哀", "哀悼", "追思", "缅怀", "悼念", "吊唁", "逝世", "辞世", "归西", "仙逝", "别世", "过世", "去世", "寿终", "长眠"]
+	var hasMourningWords = words.some(function (word) {
+		return value.indexOf(word) !== -1
+	})
+	return hasMourningWords ? 'grey' : 'red'
+}
+
+indexOf = function (arr, value) {
+	return arr.indexOf(value) >= 0;
+}
+
+//金额格式化
+amountFormat = function (Num) {
+	if (Num > 1000 && Num < 10000) {
+		return (Num / 1000).toFixed(2) + 'k';
+	} else if (Num > 10000) {
+		return (Num / 10000).toFixed(2) + 'w';
+	} else {
+		return Num;
+	}
+}
+
 module.exports = {
-	bookColor: function (str) {
-		if (!str) {
-			return 'red'
-		}
-
-		var words = ["悼", "哀", "丧", "殇", '奠', "祭", "死", '葬', "追悼", "白事", "节哀", "哀悼", "追思", "缅怀", "悼念", "吊唁", "逝世", "辞世", "归西", "仙逝", "别世", "过世", "去世", "寿终", "长眠"]
-		var hasMourningWords = words.some(function (word) {
-			return str.indexOf(word) !== -1
-		})
-
-		return hasMourningWords ? 'grey' : 'red'
-	},
-};
+	indexOf: indexOf,
+	amountFormat: amountFormat,
+	bookColor: bookColor,
+}
