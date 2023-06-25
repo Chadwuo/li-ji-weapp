@@ -4,7 +4,7 @@
 		<ui-avatar ui="sl ellipse" src="/static/logo.png" />
 		<!-- 网络错误 -->
 		<van-empty class="mt-6" wx:if="{{netError}}" image="network" description="网络异常" >
-			<view class="ui-btn ui-btn-primary ui-btn-lg" bindtap="onRefresh">重试</view>
+			<view class="ui-btn bg-red round" bindtap="onRetry">重试</view>
 		</van-empty>
 	</view>
 </ui-sys>
