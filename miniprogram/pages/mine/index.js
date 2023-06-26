@@ -1,7 +1,5 @@
 const userService = require('../../alicloud/services/user');
 const jinrishici = require('../../utils/jinrishici.js');
-const giftOutService = require('../../alicloud/services/giftOut');
-const giftReceiveService = require('../../alicloud/services/giftReceive');
 
 import { welcome } from '../../utils/index.js';
 const app = getApp();
@@ -19,10 +17,7 @@ Page({
     popupVisible: false,
     confirmLoading: false,
     welcome: welcome(),
-    totalGift: {
-      receiveTotal: '',
-      outTotal: '',
-    },
+    giftTotal: {},
     menus: [
       {
         icon: 'cicon-home-community',
@@ -146,17 +141,6 @@ Page({
       }
     }, 600);
   },
-  async getGiftTotal() {
-    const { data: rTotal } =
-      await giftReceiveService.computedTotalGiftReceive();
-    const { data: oTotal } = await giftOutService.computedTotalGiftOut();
-    this.setData({
-      totalGift: {
-        receiveTotal: rTotal || 0,
-        outTotal: oTotal || 0,
-      },
-    });
-  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -166,11 +150,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow() {
-    // 是否需要刷新统计数据
-    if (app.needRefreshTotal) {
-      this.getGiftTotal();
-      app.needRefreshTotal = false;
-    }
+    this.setData({
+      giftTotal:app.giftTotal
+    })
   },
 
   /**
