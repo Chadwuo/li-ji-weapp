@@ -10,6 +10,7 @@ Page({
     date: {},
     title: '',
     remarks: '',
+    tips: ''
   },
   async onSave() {
     const eventChannel = this.getOpenerEventChannel();
@@ -94,7 +95,16 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {},
+  onShow() {
+    const arr = [
+      '一场宴席活动中，用来登记所有来客贺礼的名册，称为礼簿。',
+      '长按礼簿，进入编辑页',
+    ];
+    const index = Math.floor(Math.random() * arr.length);
+    this.setData({
+      tips: arr[index]
+    })
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
