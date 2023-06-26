@@ -92,3 +92,7 @@ li-ji-weapp
 <!-- links -->
 [license-url]: https://github.com/chadwuo/li-ji-weapp/blob/master/LICENSE.txt
 
+## Star History
+[![Star History Chart](https://api.star-history.com/svg?repos=Chadwuo/li-ji-weapp&type=Date)](https://star-history.com/#Chadwuo/li-ji-weapp&Date)
+
+

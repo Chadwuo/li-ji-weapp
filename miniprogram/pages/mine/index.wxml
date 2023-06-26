@@ -1,3 +1,4 @@
+<wxs module="tools" src="../../utils/tools.wxs"></wxs>
 <ui-sys img="/static/img/bg.png" tabbar>
 	<ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
 		<view class="flex-center flex-sub" wx:if="{{scrollTop > sys_navBar}}">我的</view>
@@ -17,11 +18,11 @@
 		<view class="ui-BG radius-lg">
 			<view class="ui-grid ui-cols-2 py-4">
 				<view class="ui-item border-right">
-					<view class="ui-TC text-xxl text-bold">{{totalGift.receiveTotal}}</view>
+					<view class="ui-TC text-xxl text-bold">{{tools.amountFormat(giftTotal.receive)}}</view>
 					<view class="ui-TC-2 text-sm">收礼</view>
 				</view>
 				<view class="ui-item border-left">
-					<view class="ui-TC text-xxl text-bold">{{totalGift.outTotal}}</view>
+					<view class="ui-TC text-xxl text-bold">{{tools.amountFormat(giftTotal.out )}}</view>
 					<view class="ui-TC-2 text-sm">送礼</view>
 				</view>
 			</view>
