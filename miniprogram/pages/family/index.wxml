@@ -20,6 +20,7 @@
 					</ui-input-box>
 				</ui-form-group>
 			</ui-form>
+			<text class="text-xs text-grey cicon-help">点击键盘右下角"完成"按钮，应用更改。</text>
 
 			<ui-title title="家庭成员" depth="2" isIcon ui="mx-4" />
 			<ui-menu ui="my-3 radius-lg">
@@ -29,7 +30,7 @@
 					</ui-menu-item>
 				</block>
 			</ui-menu>
-			<text class="text-xs text-grey">Tips:长按成员来打开操作按钮。</text>
+			<text class="text-xs text-grey cicon-help">长按成员来打开操作按钮。</text>
 			<view class="mt-5">
 				<button class="ui-btn block radius-lg ui-TC-Main _icon-add py-4" open-type="share">邀请家庭成员</button>
 			</view>

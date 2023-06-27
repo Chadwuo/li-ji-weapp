@@ -19,7 +19,7 @@
 				</ui-input-box>
 			</ui-form-group>
 		</ui-form>
-		<text class="text-xs text-grey">Tips:一场宴席活动中，用来登记所有来客贺礼的名册，称为礼簿。</text>
+		<text class="text-xs text-grey cicon-help">{{tips}}</text>
 	</view>
 	<ui-fixed bottom val="{{24}}">
 		<van-row gutter="24" custom-class="mx-2">
