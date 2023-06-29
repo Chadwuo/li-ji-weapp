@@ -21,8 +21,9 @@
 
 ### 在线体验
  <img src="doc/code.png" alt="Logo" width="240" height="240">
-
+ 
 ### 效果图
+> 画界面太难了，求个ui帮设计一下
 
 <table>
   <tr>
@@ -34,48 +35,13 @@
   </tr>
  </table>
 
-### 文件目录说明
+### 贡献者
 
-```
-li-ji-weapp 
-├── LICENSE.txt
-├── README.md
-├── /miniprogram/--小程序目录
-│  ├── /alicloud/--阿里云 Serverless服务
-│  ├── /config/--MP-CU配置文件
-│  ├── /mp-cu/--ColorUi主框架的文件夹，不建议修改这里面的文件，以免后续升级时，被覆盖。
-│  ├── /mp-sdk/--ColorUi框架的辅助文件夹，封装了一些常用的方法函数、扩展图标库等，按需使用，如不需要，可删除此文件夹。
-│  ├── /components/--自定义组件
-│  ├── /pages/--页面
-│  ├── /static/--资源文件
-│  ├── /utils/
-│  ├── app.js
-│  ├── app.json
-│  ├── app.wxss
+感谢所有已经为 礼记 做出贡献的人！
 
-```
-
-### 作者
-<table>
-    <tbody>
-        <tr>
-            <td align="center" valign="middle">
-                <a href="https://github.com/chadwuo" target="_blank">
-                    <img width="80px" src="https://avatars.githubusercontent.com/u/41413559?v=4" alt="@chadwuo">
-                    <div>@chadwuo</div>
-                </a>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-### 更新日志
-
-[ChangeLog](https://github.com/chadwuo/li-ji-weapp/releases)
-
-### 版权说明
-
-礼记 使用 GPL-3.0 开源许可协议，在此之前请您务必了解该协议的许可说明以及遵守该协议的法律条件，详情请参阅 [LICENSE.txt](https://github.com/chadwuo/li-ji-weapp/blob/master/LICENSE)。
+<a href="https://github.com/Chadwuo/li-ji-weapp/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Chadwuo/li-ji-weapp" />
+</a>
 
 ### 鸣谢
 
@@ -89,10 +55,12 @@ li-ji-weapp
 - [阿里云 Serverless](https://serverless.aliyun.com)：阿里云 Serverless
 - [今日诗词 API](https://www.jinrishici.com)：![今日诗词](https://v2.jinrishici.com/one.svg)
 
-<!-- links -->
-[license-url]: https://github.com/chadwuo/li-ji-weapp/blob/master/LICENSE.txt
-
 ## Star History
 [![Star History Chart](https://api.star-history.com/svg?repos=Chadwuo/li-ji-weapp&type=Date)](https://star-history.com/#Chadwuo/li-ji-weapp&Date)
 
 
+### 版权说明
+
+礼记 使用 GPL-3.0 开源许可协议，在此之前请您务必了解该协议的许可说明以及遵守该协议的法律条件，详情请参阅 [LICENSE](https://github.com/chadwuo/li-ji-weapp/blob/master/LICENSE)。
+
+Copyright © Chadwuo Design. All Rights Reserved
