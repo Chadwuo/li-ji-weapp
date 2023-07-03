@@ -37,7 +37,7 @@ Page({
     }
     console.log('selectedDate', selectedDate)
     const eventChannel = this.getOpenerEventChannel()
-    eventChannel.emit('handleCalendarDateChange', selectedDate);
+		eventChannel.emit('handleCalendarDateChange', selectedDate);
   },
   /**
    * 生命周期函数--监听页面加载
