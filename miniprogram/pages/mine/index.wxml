@@ -30,7 +30,7 @@
 				<block wx:key="index" wx:for="{{menus}}">
 					<navigator class="ui-item" url="{{item.path}}">
 						<view>
-							<text class="{{item.icon}} m-2 text-xxl {{item.color}}"></text>
+							<text class="{{item.icon}} m-2 text-xxl ui-TC-Main"></text>
 						</view>
 						<view>
 							<text class="ui-TC text-sm">{{item.name}}</text>
@@ -41,16 +41,16 @@
 		</view>
 
 		<ui-menu ui="mt-4 radius-lg">
-			<ui-menu-item arrow title="在线客服" icon="cicon-service ui-TC-Main" open-type="contact" />
-			<ui-menu-item arrow title="意见反馈" icon="cicon-evaluate ui-TC-Main" open-type="feedback" />
+			<ui-menu-item arrow title="在线客服" icon="cicon-service text-mauve" open-type="contact" />
+			<ui-menu-item arrow title="意见反馈" icon="cicon-evaluate text-orange" open-type="feedback" />
 		</ui-menu>
 
 		<!-- 其他功能 -->
 		<ui-menu ui="mt-4 radius-lg">
-			<ui-menu-item arrow title="设置" icon="cicon-set ui-TC-Main" data-url="/pages/set/index" bindtap="tapToUrl" />
-			<ui-menu-item arrow title="常见问题" icon="cicon-clothes ui-TC-Main" data-url="/pages/question/index" bindtap="tapToUrl" />
-			<ui-menu-item arrow title="分享" icon="cicon-weixin ui-TC-Main" open-type="share" />
-			<ui-menu-item arrow title="关于" icon="cicon-quill ui-TC-Main" data-url="/pages/about/index" bindtap="tapToUrl" />
+			<ui-menu-item arrow title="设置" icon="cicon-set text-grey" data-url="/pages/set/index" bindtap="tapToUrl" />
+			<ui-menu-item arrow title="常见问题" icon="cicon-clothes text-blue" data-url="/pages/question/index" bindtap="tapToUrl" />
+			<ui-menu-item arrow title="分享" icon="cicon-weixin text-green" open-type="share" />
+			<ui-menu-item arrow title="关于" icon="cicon-quill text-red" data-url="/pages/about/index" bindtap="tapToUrl" />
 		</ui-menu>
 	</view>
 </ui-sys>
