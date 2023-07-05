@@ -39,7 +39,7 @@
 				</ui-input-box>
 			</ui-form-group>
 		</ui-form>
-		<text class="text-xs text-grey">Tips:你可以点击联系人图标快速选取来宾。</text>
+		<text class="text-xs text-grey cicon-help">你可以点击联系人图标快速选取来宾。</text>
 	</view>
 	<ui-fixed bottom val="{{24}}">
 		<van-row gutter="24" custom-class="mx-2">
