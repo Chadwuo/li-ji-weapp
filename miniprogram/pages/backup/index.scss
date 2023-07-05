@@ -1,1 +1,30 @@
 /* pages/backup/index.wxss */
+.fui-content__box {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+.fui-img__box {
+  width: 100%;
+  padding: 0 87rpx;
+  box-sizing: border-box;
+}
+.fui-img {
+  width: 100%;
+  height: 318rpx;
+}
+.fui-title {
+  text-align: center;
+  font-weight: 500;
+  color: #333333;
+  padding: 48rpx 0;
+}
+.fui-sub__title {
+	text-align: center;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: #b2b2b2;
+  padding-top: 8rpx;
+}
