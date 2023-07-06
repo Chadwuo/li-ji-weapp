@@ -197,7 +197,7 @@ Page({
     return {
       title: '和我一起记录家里的人情往来',
       path: `pages/family/index?familyId=${this.data._id}&word=${app.userInfo.nickName}邀请你加入家庭共享记账`,
-      imageUrl: '/static/img/share2.jpg',
+      imageUrl: '/static/img/share2.png',
     };
   },
 });
