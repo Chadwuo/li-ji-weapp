@@ -1,12 +1,10 @@
 <!--pages/analysis/index.wxml-->
 <ui-sys title="统计分析" footer="{{false}}">
 	<view class="fui-content__box">
-		<view class="fui-img__box">
-			<image src="/static/img/developing.png" class="fui-img" mode="widthFix"></image>
-		</view>
-		<view class="fui-title">正在开发</view>
-		<view class="fui-sub__title">诚邀UI设计师帮设计一下界面！(画页面太难了)</view>
-		<view class="fui-sub__title">如果你是开发者，欢迎你参与项目开发</view>
-		<view class="fui-sub__title">开源地址:https://github.com/Chadwuo/li-ji-weapp</view>
+		<van-empty description="正在开发~" image="/static/img/developing.svg">
+			<view class="text-sm text-dark-9 py-1">诚邀UI设计师帮设计一下界面！(画页面太难了)</view>
+			<view class="text-sm text-dark-9 py-1">如果你是开发者，欢迎你参与项目开发</view>
+			<view class="text-sm text-dark-9 py-1">开源地址:https://github.com/Chadwuo/li-ji-weapp</view>
+		</van-empty>
 	</view>
 </ui-sys>
