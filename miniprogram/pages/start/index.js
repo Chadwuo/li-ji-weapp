@@ -70,6 +70,9 @@ Page({
     }, 1500);
   },
   onRetry() {
+    this.setData({
+        netError: true,
+      });
     // 小程序重启
     wx.reLaunch({
       url: "/pages/start/index",
