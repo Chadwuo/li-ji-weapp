@@ -1,5 +1,5 @@
 <!-- pages/family/index.wxml -->
-<ui-sys title="我的家庭" class="container">
+<ui-sys title="我的家庭" class="container" loading="{{loading}}">
 	<view class="ui-container">
 		<block wx:if="{{!_id&&!inviteFamily}}">
 			<van-empty description="还没有开通家庭共享哦~" image="/static/img/home.svg"/>
