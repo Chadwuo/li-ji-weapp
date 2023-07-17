@@ -1,6 +1,6 @@
 // pages/family/index.js
-const familyService = require('../../alicloud/services/family');
-const { getUserInfo } = require('../../alicloud/services/user');
+const familyService = require("../../alicloud/services/family");
+const { getUserInfo } = require("../../alicloud/services/user");
 
 const app = getApp();
 Page({
@@ -8,20 +8,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    _id: '',
-    name: '',
+    _id: "",
+    name: "",
     familyMembers: [],
     inviteFamily: false,
     memberAction: {
       show: false,
     },
+    loading: true,
   },
   // 更新家庭名称
   async onUpdateName() {
     const res = await familyService.updateFamily(this.data);
     if (res.success) {
       wx.showToast({
-        title: '更新成功',
+        title: "更新成功",
       });
     }
   },
@@ -38,7 +39,7 @@ Page({
   async onJoinFamily() {
     const res = await familyService.joinFamily({
       familyId: this.data.inviteFamily.familyId,
-      relation: '成员',
+      relation: "成员",
     });
     if (res.success) {
       this.setData({
@@ -51,15 +52,15 @@ Page({
   onMemberLongPress(e) {
     const member = e.currentTarget.dataset.member;
     const actions = [];
-    if (member.relation == '管理员') {
+    if (member.relation == "管理员") {
       actions.push({
-        name: '解散',
-        subname: '移除全部家庭成员并解散家庭',
+        name: "解散",
+        subname: "移除全部家庭成员并解散家庭",
       });
     } else {
       actions.push({
-        name: '删除',
-        subname: '从你的家庭中移除此成员',
+        name: "删除",
+        subname: "从你的家庭中移除此成员",
       });
     }
 
@@ -84,10 +85,10 @@ Page({
     const that = this;
     const selected = that.data.memberAction.selected;
     switch (event.detail.name) {
-      case '删除':
+      case "删除":
         wx.showModal({
-          title: '删除成员？',
-          content: '确定删除改家庭成员吗？',
+          title: "删除成员？",
+          content: "确定删除改家庭成员吗？",
           async success(result) {
             if (result.confirm) {
               const res = await familyService.delFamilyMember(selected);
@@ -98,10 +99,10 @@ Page({
           },
         });
         break;
-      case '解散':
+      case "解散":
         wx.showModal({
-          title: '解散家庭？',
-          content: '所有成员会被删除，家庭数据无法继续共享！',
+          title: "解散家庭？",
+          content: "所有成员会被删除，家庭数据无法继续共享！",
           async success(result) {
             if (result.confirm) {
               const res = await familyService.deleteFamily({
@@ -109,7 +110,7 @@ Page({
               });
               if (res.success) {
                 that.setData({
-                  _id: '',
+                  _id: "",
                 });
               }
             }
@@ -122,7 +123,7 @@ Page({
   },
   goHome() {
     wx.redirectTo({
-      url: '/pages/start/index',
+      url: "/pages/start/index",
     });
   },
   async getFamilyInfo() {
@@ -152,12 +153,15 @@ Page({
             inviteFamily: options,
           });
         } else {
-          this.getFamilyInfo();
+          await this.getFamilyInfo();
         }
       }
     } else {
-      this.getFamilyInfo();
+      await this.getFamilyInfo();
     }
+    this.setData({
+      loading: "auto",
+    });
   },
 
   /**
@@ -195,9 +199,9 @@ Page({
    */
   onShareAppMessage() {
     return {
-      title: '和我一起记录家里的人情往来',
+      title: "和我一起记录家里的人情往来",
       path: `pages/family/index?familyId=${this.data._id}&word=${app.userInfo.nickName}邀请你加入家庭共享记账`,
-      imageUrl: '/static/img/share2.png',
+      imageUrl: "/static/img/share2.png",
     };
   },
 });
