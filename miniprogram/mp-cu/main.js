@@ -6,10 +6,12 @@ import {
  * @author iZaiZaiA (https://github.com/iZaiZaiA)
  */
 
-let version = '3.3.2';
+let version = '1.0.0';
 
 let store = {},
-    sys_info = wx.getSystemInfoSync();
+    sys_info = wx.getSystemInfoSync(),
+    miniProgram_info = wx.getAccountInfoSync().miniProgram;
+
 let baseMethod = {
     //设置主题
     setTheme(data) {
@@ -276,10 +278,10 @@ export default class ColorUI {
                 sys_navBar: sys_info.statusBarHeight + 50,
                 sys_statusBar: sys_info.statusBarHeight,
                 sys_capsule: sys_capsule(),
-                version: version,
+                version: miniProgram_info.version,
                 $cuData: that.data,
                 $cuConfig: that.config,
-                $cuStore: store.state
+                $cuStore: store.state,
             }
         };
         App.Page = function (o = {}, ...args) {
@@ -386,7 +388,7 @@ export default class ColorUI {
         } catch (e) {}
 
         console.log(
-            `%c colorUI 启动成功 %c 当前版本V` + version + `%c`,
+            `%c colorUI 启动成功 %c 当前小程序版本V` + version + `%c 当前小程序appid` + miniProgram_info.appId + `%c 当前小程序版本` + miniProgram_info.version + `%c`,
             'background:#0081ff; padding: 1px; border-radius: 3px 0 0 3px; color: #fff',
             'background:#354855; padding: 1px 5px; border-radius: 0 3px 3px 0; color: #fff; font-weight: bold;',
             'background:transparent'
