@@ -85,7 +85,6 @@
         "ui-checkbox": "/mp-cu/colorUI/components/ui-checkbox/ui-checkbox",
         "ui-checkbox-group": "/mp-cu/colorUI/components/ui-checkbox-group/ui-checkbox-group",
         "ui-change-theme": "/mp-cu/colorUI/components/ui-change-theme/ui-change-theme",
-        "ui-parameter": "/mp-sdk/components/ui-parameter/ui-parameter",
         "van-action-sheet": "@vant/weapp/action-sheet/index",
         "van-row": "@vant/weapp/row/index",
         "van-col": "@vant/weapp/col/index",
