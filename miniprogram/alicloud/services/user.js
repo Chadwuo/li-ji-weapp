@@ -40,8 +40,10 @@ exports.getUserInfo = async () => {
         },
         {
           $set: {
-            createdAt: dayjs(loginUser.createdAt).format(),
             lastSeenAt: dayjs(loginUser.lastSeenAt).format(),
+
+            // 这里是历史遗留问题，后续会删除
+            createdAt: dayjs(loginUser.createdAt).format(),
             oAuthUserId: loginUser.oAuthUserId,
           },
         }
