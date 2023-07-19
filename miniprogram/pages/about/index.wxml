@@ -18,7 +18,7 @@
                 <view slot="action" class="text-gray-a">Chadwuo</view>
             </ui-menu-item>
             <ui-menu-item title="版本号" isAction>
-                <view slot="action" class="text-gray-a">v{{version}}</view>
+                <view slot="action" class="text-gray-a">v{{version||'1.0.0'}}</view>
             </ui-menu-item>
             <ui-menu-item title="开源地址" isAction bindtap="tapCopy" data-value="https://github.com/Chadwuo/li-ji-weapp">
                 <view slot="action" class="text-gray-a">li-ji-weapp Github</view>

@@ -2,17 +2,17 @@
 <ui-sys title="{{name?'编辑亲友':'添加亲友'}}" footer="{{false}}">
 	<view class="ui-container">
 		<ui-form ui="ui-BG my-3 radius-lg">
-			<ui-form-group title="姓名" icon="cicon-avatar">
+			<ui-form-group title="姓名" icon="cicon-avatar text-pink">
 				<ui-input-box>
 					<input class="ui-input-wrapper" placeholder="请输入姓名" model:value="{{ name }}" />
 				</ui-input-box>
 			</ui-form-group>
-			<ui-form-group title="重名备注" icon="cicon-bookmark">
+			<ui-form-group title="重名备注" icon="cicon-bookmark text-mauve">
 				<ui-input-box>
 					<input class="ui-input-wrapper" placeholder="若重名请备注" model:value="{{ remarks }}" />
 				</ui-input-box>
 			</ui-form-group>
-			<ui-form-group title="关系" icon="cicon-present">
+			<ui-form-group title="关系" icon="cicon-present text-blue">
 				<ui-input-box>
 					<input class="ui-input-wrapper" placeholder="选填" model:value="{{ relation }}" />
 				</ui-input-box>

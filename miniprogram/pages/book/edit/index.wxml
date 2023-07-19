@@ -2,18 +2,18 @@
 <ui-sys title="{{title?'编辑礼簿':'添加礼簿'}}" footer="{{false}}">
 	<view class="ui-container">
 		<ui-form ui="ui-BG my-3 radius-lg">
-			<ui-form-group title="日期" isAction icon="cicon-time">
+			<ui-form-group title="日期" isAction icon="cicon-time text-pink">
 				<ui-input-box bindtap="showCalendar">
 					<input class="ui-input-wrapper" disabled placeholder="请选择日期" value="{{ date.value }}" />
 					<block slot="action"><text class="cicon-angle icon-xl" /></block>
 				</ui-input-box>
 			</ui-form-group>
-			<ui-form-group title="礼簿名称" icon="cicon-book">
+			<ui-form-group title="礼簿名称" icon="cicon-book text-orange">
 				<ui-input-box>
 					<input class="ui-input-wrapper" placeholder="请输入名称" model:value="{{ title }}" />
 				</ui-input-box>
 			</ui-form-group>
-			<ui-form-group title="备注" icon="cicon-bookmark">
+			<ui-form-group title="备注" icon="cicon-bookmark text-blue">
 				<ui-input-box>
 					<input class="ui-input-wrapper" placeholder="选填" model:value="{{ remarks }}" />
 				</ui-input-box>

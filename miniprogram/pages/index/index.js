@@ -207,7 +207,7 @@ Page({
     return {
       title: '可能是东半球最好用的人情记账工具',
       path: 'pages/start/index',
-      imageUrl: '/static/img/share.jpg',
+      imageUrl: '/static/img/share.png',
     };
   },
 });

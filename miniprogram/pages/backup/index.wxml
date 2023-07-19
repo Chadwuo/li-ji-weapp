@@ -1,4 +1,10 @@
 <!--pages/backup/index.wxml-->
-<ui-sys title="数据导出">
-	<van-empty description="正在开发，如果你熟悉JS、mongodb、微信小程序欢迎参与项目开发。同时也欢迎设计、产品参与项目。即使你不是开发者，也可以参与GitHub需求讨论，发表你的想法。" />
+<ui-sys title="数据导出" footer="{{false}}">
+	<view class="fui-content__box">
+		<van-empty description="正在开发~" image="/static/img/developing.svg">
+			<view class="text-sm text-dark-9 py-1">诚邀UI设计师帮设计一下界面！(画页面太难了)</view>
+			<view class="text-sm text-dark-9 py-1">如果你是开发者，欢迎你参与项目开发</view>
+			<view class="text-sm text-dark-9 py-1">开源地址:https://github.com/Chadwuo/li-ji-weapp</view>
+		</van-empty>
+	</view>
 </ui-sys>

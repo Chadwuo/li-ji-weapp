@@ -3,9 +3,7 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
-    version: '',
-  },
+  data: { },
   Chadwuo() {
     const arr = [
       '你拍了拍作者头顶\r\n却没摸到秀发',
@@ -39,11 +37,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    this.setData({
-      version: getApp().colorUISdk.version,
-    });
-  },
+  onLoad: function (options) { },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -82,7 +76,7 @@ Page({
     return {
       title: '可能是东半球最好用的人情记账工具',
       path: 'pages/start/index',
-      imageUrl: '/static/img/share.jpg',
+      imageUrl: '/static/img/share.png',
     };
   },
   onShareTimeline: function () {

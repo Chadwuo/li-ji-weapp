@@ -9,7 +9,7 @@
 		</van-search>
 	</ui-fixed>
 	<view class="ui-container">
-		<van-empty wx:if="{{giftList.length==0}}" description="还没有记录哦~"></van-empty>
+		<van-empty wx:if="{{giftList.length==0}}" description="还没有记录哦~" ></van-empty>
 
 		<view wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
 			<view class="ui-BG radius-lg flex justify-around align-center py-4 my-3 text-{{tools.bookColor(book.title)}}">

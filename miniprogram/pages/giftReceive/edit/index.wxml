@@ -2,24 +2,24 @@
 <ui-sys title="{{_id?'编辑收礼':'添加收礼'}}" footer="{{false}}" class="container">
 	<view class="ui-container">
 		<ui-form ui="ui-BG my-3 radius-lg">
-			<ui-form-group title="来宾姓名" isAction icon="cicon-avatar">
+			<ui-form-group title="来宾姓名" isAction icon="cicon-avatar text-mauve">
 				<ui-input-box>
 					<input class="ui-input-wrapper" placeholder="点击右侧图标选择" model:value="{{ friendName }}" />
-					<block slot="action"><text class="cicon-accounts icon-xl pl-5 pr-2 py-2" bindtap="showFriendSelect" /></block>
+					<block slot="action"><text class="cicon-accounts text-mauve icon-xl pl-5 pr-2 py-2" bindtap="showFriendSelect" /></block>
 				</ui-input-box>
 			</ui-form-group>
-			<ui-form-group title="礼金" icon="cicon-moneybag">
+			<ui-form-group title="礼金" icon="cicon-moneybag text-red">
 				<ui-input-box>
 					<input class="ui-input-wrapper" placeholder="收礼金额" type="digit" model:value="{{ money }}" />
 				</ui-input-box>
 			</ui-form-group>
-			<ui-form-group title="备注" icon="cicon-bookmark">
+			<ui-form-group title="备注" icon="cicon-bookmark text-blue">
 				<ui-input-box>
 					<input class="ui-input-wrapper" placeholder="选填" model:value="{{ remarks }}" />
 				</ui-input-box>
 			</ui-form-group>
 		</ui-form>
-		<text class="text-xs text-grey">Tips:你可以点击联系人图标快速选取来宾。</text>
+		<text class="text-xs text-grey cicon-help">你可以点击联系人图标快速选取来宾。</text>
 	</view>
 	
 	<ui-fixed bottom val="{{24}}">
