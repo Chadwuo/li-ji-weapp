@@ -1,6 +1,7 @@
 <!-- pages/friend/details/index.wxml -->
 <ui-sys title="亲友详情">
-	<view class="ui-container bg-blur">
+	<ui-fixed sticky>
+		<view class="ui-container bg-blur">
 			<view class="flex-column justify-center py-3">
 				<view class="flex justify-between align-center">
 					<view>
@@ -24,43 +25,23 @@
 					</view>
 				</view>
 			</view>
-			<van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
 		</view>
-	<view class="cu-chat">
-		<view wx:for="{{giftList}}" wx:key="index">
-			<view class="cu-item self" wx:if="{{item.self}}">
-				<view class="main">
-					<view class="content bg-orange shadow">
-						<view class="flex align-center">
-							<view class="{{item.icon}} text-xxl mr-3 borders border-white round p-3" />
-							<view class="text-left">
-								<view class="text-xl">{{item.money}} 元</view>
-								<view class="text-xl mt-2">{{item.title}}</view>
-							</view>
-						</view>
-						<view class="mt-3 flex justify-between">
-							<view class="text-sm">{{item.date}}</view>
-							<view class="text-sm">礼往</view>
-						</view>
+	</ui-fixed>
+
+	<van-empty wx:if="{{giftList.length===0}}" description="还没有记录哦~"></van-empty>
+	<view class="cu-timeline" wx:for="{{giftList}}" wx:key="index">
+		<view class="cu-time">{{item.year}}</view>
+		<view class="cu-item " wx:for="{{item.list}}" wx:key="index">
+			<view class="content ui-BG radius-lg {{item.self?'text-green':'text-red'}}">
+				<view class="flex justify-between align-center w-100">
+					<view class="flex flex-column">
+						<text class="text-xl text-bold"> {{item.title}}</text>
+						<text class="text-lg text-grey py-2"> {{item.remarks}}</text>
+						<view class="text-df text-grey">{{item.date.value}} {{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
 					</view>
-				</view>
-				<ui-avatar ui="lg ellipse" src="{{avatarUrl}}" />
-			</view>
-			<view class="cu-item" wx:else>
-				<ui-avatar ui="lg ellipse" bg="bg-grey-thin" icon="cicon-person" />
-				<view class="main">
-					<view class="content shadow bg-orange">
-						<view class="flex align-center">
-							<view class="cicon-moneybag-o text-xxl mr-3 borders border-white round p-3" />
-							<view class="text-left">
-								<view class="text-xl">{{item.money}} 元</view>
-								<view class="text-lg mt-2">{{item.title}}</view>
-							</view>
-						</view>
-						<view class="mt-3 flex justify-between">
-							<view class="text-sm">{{item.date}}</view>
-							<view class="text-sm">礼来</view>
-						</view>
+					<view class="mr-4">
+						<ui-tag ui="round" bg="bg-{{item.self?'green-thin ':'red-thin '}}" info="{{item.self?'送':'收'}}" />
+						<text class="text-xl text-price">{{item.money}}</text>
 					</view>
 				</view>
 			</view>
