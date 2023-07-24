@@ -1,124 +1,85 @@
+/* ==================
+         时间轴
+ ==================== */
 
-.cu-chat {
-	display: flex;
-	flex-direction: column;
+.cu-timeline {
+  display: block;
+  background-color: var(--white);
 }
 
-.cu-chat .cu-item {
-	display: flex;
-	padding: 30rpx 30rpx 30rpx;
-	position: relative;
+.cu-timeline .cu-time {
+  width: 120rpx;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 26rpx;
+  color: #888;
+  display: block;
 }
 
-.cu-chat .cu-item>.cu-avatar {
-	width: 80rpx;
-	height: 80rpx;
+.cu-timeline > .cu-item {
+  padding: 30rpx 30rpx 30rpx 120rpx;
+  position: relative;
+  display: block;
+  z-index: 0;
 }
 
-.cu-chat .cu-item>.main {
-	width: calc(100% - 240rpx);
-	margin: 0 40rpx;
-	display: flex;
-	align-items: center;
+.cu-timeline > .cu-item:not([class*="text-"]) {
+  color: #ccc;
 }
 
-.cu-chat .cu-item>image {
-	height: 320rpx;
+.cu-timeline > .cu-item::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 1rpx;
+  background-color: #ddd;
+  left: 60rpx;
+  height: 100%;
+  top: 0;
+  z-index: 8;
 }
 
-.cu-chat .cu-item>.main .content {
-	padding: 20rpx 20rpx 0 20rpx;
-	border-radius: 6rpx;
-	//display: inline-flex;
-	width: 100%;
-	align-items: center;
-	font-size: 30rpx;
-	position: relative;
-	min-height: 80rpx;
-	line-height: 40rpx;
-	text-align: left;
+.cu-timeline > .cu-item::before {
+  font-family: "cuIcon";
+  display: block;
+  position: absolute;
+  top: 36rpx;
+  z-index: 9;
+  background-color: var(--white);
+  width: 50rpx;
+  height: 50rpx;
+  text-align: center;
+  border: none;
+  line-height: 50rpx;
+  left: 36rpx;
 }
 
-.cu-chat .cu-item>.main .content:not([class*="bg-"]) {
-	background-color: var(--white);
-	color: var(--black);
+.cu-timeline > .cu-item:not([class*="cicon-"])::before {
+  //content: "\e763";
 }
 
-.cu-chat .cu-item .date {
-	position: absolute;
-	font-size: 24rpx;
-	color: var(--grey);
-	width: calc(100% - 320rpx);
-	bottom: 20rpx;
-	left: 160rpx;
+.cu-timeline > .cu-item[class*="cicon-"]::before {
+  background-color: var(--white);
+  width: 50rpx;
+  height: 50rpx;
+  text-align: center;
+  border: none;
+  line-height: 50rpx;
+  left: 36rpx;
 }
 
-.cu-chat .cu-item .action {
-	padding: 0 30rpx;
-	display: flex;
-	align-items: center;
+.cu-timeline > .cu-item > .content {
+  padding: 30rpx;
+  border-radius: 6rpx;
+  display: block;
+  line-height: 1.6;
 }
 
-.cu-chat .cu-item>.main .content::after {
-	content: "";
-	top: 27rpx;
-	transform: rotate(45deg);
-	position: absolute;
-	z-index: 100;
-	display: inline-block;
-	overflow: hidden;
-	width: 24rpx;
-	height: 24rpx;
-	left: -12rpx;
-	right: initial;
-	background-color: inherit;
+.cu-timeline > .cu-item > .content:not([class*="bg-"]) {
+  background-color: var(--ghostWhite);
+  color: var(--black);
 }
 
-.cu-chat .cu-item.self>.main .content::after {
-	left: auto;
-	right: -12rpx;
-}
-
-.cu-chat .cu-item>.main .content::before {
-	content: "";
-	top: 30rpx;
-	transform: rotate(45deg);
-	position: absolute;
-	z-index: -1;
-	display: inline-block;
-	overflow: hidden;
-	width: 24rpx;
-	height: 24rpx;
-	left: -12rpx;
-	right: initial;
-	background-color: inherit;
-	filter: blur(5rpx);
-	opacity: 0.3;
-}
-
-.cu-chat .cu-item>.main .content:not([class*="bg-"])::before {
-	background-color: var(--black);
-	opacity: 0.1;
-}
-
-.cu-chat .cu-item.self>.main .content::before {
-	left: auto;
-	right: -12rpx;
-}
-
-.cu-chat .cu-item.self {
-	justify-content: flex-end;
-	text-align: right;
-}
-
-.cu-chat .cu-info {
-	display: inline-block;
-	margin: 20rpx auto;
-	font-size: 24rpx;
-	padding: 8rpx 12rpx;
-	background-color: rgba(0, 0, 0, 0.2);
-	border-radius: 6rpx;
-	color: var(--white);
-	max-width: 400rpx;
-	line-height: 1.4;
+.cu-timeline > .cu-item > .content + .content {
+  margin-top: 20rpx;
 }

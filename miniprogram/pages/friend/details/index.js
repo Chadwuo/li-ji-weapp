@@ -1,6 +1,6 @@
 // pages/friend/details/index.js
-const friendService = require('../../../alicloud/services/friend');
-import dayjs from 'dayjs';
+const friendService = require("../../../alicloud/services/friend");
+import dayjs from "dayjs";
 
 const app = getApp();
 
@@ -8,7 +8,7 @@ Page({
   data: {
     friend: {},
     giftList: [],
-    avatarUrl: '',
+    avatarUrl: "",
     //统计
     count: {
       in: 0,
@@ -28,11 +28,11 @@ Page({
     this.setData({
       avatarUrl:
         app.userInfo.avatarUrl ||
-        'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
+        "https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0",
     });
 
     const eventChannel = this.getOpenerEventChannel();
-    eventChannel.on('acceptDataFromOpenerPage', async (data) => {
+    eventChannel.on("acceptDataFromOpenerPage", async (data) => {
       this.setData({
         ...data,
       });
@@ -50,35 +50,52 @@ Page({
             id: i._id,
             title: i.bookInfo.title,
             money: i.money,
-            date: i.bookInfo.date.value,
+            date: i.bookInfo.date,
+            year: i.bookInfo.date.year,
             self: false,
           };
         });
         let outList = giftOutList.map((i) => {
           // 送礼金额总计
           this.data.sadTotal += i.money;
+          console.log(i);
           return {
             id: i._id,
             title: i.title,
             money: i.money,
-            date: i.date.value,
+            date: i.date,
+            year: i.date.year,
             icon: i.icon,
             self: true,
+            remarks: i.remarks,
           };
         });
 
-        let gifts = inList.concat(outList);
+        let allGifts = [...inList, ...outList];
+        const sortedGifts = allGifts.sort(
+          (a, b) => dayjs(b.date.value).unix() - dayjs(a.date.value).unix()
+        );
 
-        gifts.sort((a, b) => {
-          return dayjs(b.date).unix() - dayjs(a.date).unix();
-        });
+        const groupedGifts = sortedGifts.reduce((acc, curr) => {
+          acc[curr.year] = acc[curr.year] ? [...acc[curr.year], curr] : [curr];
+          return acc;
+        }, {});
+
+        const sortedGroupedGifts = Object.entries(groupedGifts)
+          .map(([year, list]) => ({
+            year,
+            list,
+          }))
+          .sort((a, b) => b.year - a.year);
+
+        console.log(sortedGroupedGifts);
 
         this.setData({
           sadCount: giftOutList.length, // 送礼次数
           sadTotal: this.data.sadTotal,
           happyCount: giftReceiveList.length, // 收礼次数
           happyTotal: this.data.happyTotal,
-          giftList: gifts,
+          giftList: sortedGroupedGifts,
         });
       }
     });
@@ -91,7 +108,7 @@ Page({
         refresh: () => {
           // TODO 当前页数据不会刷新
           const eventChannel = this.getOpenerEventChannel();
-          eventChannel.emit('refresh');
+          eventChannel.emit("refresh");
         },
       },
     });
