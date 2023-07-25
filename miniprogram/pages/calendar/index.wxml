@@ -1,5 +1,5 @@
 <!--pages/calendar/index.wxml-->
-<ui-sys title="选择日期">
+<ui-sys title="选择日期" footer="{{false}}">
 	<calendar id="calendar" _vibrate="{{false}}" bindload="handleCalendarLoad" binddatechange="handleCalendarDateChange" darkmode="{{darkMode}}"></calendar>
-	<text class="text-xs text-grey cicon-help">左右滑动日历切换月份、年份</text>
+	<view class="text-xs text-grey cicon-help m-4">左右滑动日历切换月份、年份</view>
 </ui-sys>
