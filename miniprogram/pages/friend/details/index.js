@@ -25,12 +25,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    this.setData({
-      avatarUrl:
-        app.userInfo.avatarUrl ||
-        "https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0",
-    });
-
     const eventChannel = this.getOpenerEventChannel();
     eventChannel.on("acceptDataFromOpenerPage", async (data) => {
       this.setData({
@@ -58,7 +52,6 @@ Page({
         let outList = giftOutList.map((i) => {
           // 送礼金额总计
           this.data.sadTotal += i.money;
-          console.log(i);
           return {
             id: i._id,
             title: i.title,
@@ -88,8 +81,6 @@ Page({
           }))
           .sort((a, b) => b.year - a.year);
 
-        console.log(sortedGroupedGifts);
-
         this.setData({
           sadCount: giftOutList.length, // 送礼次数
           sadTotal: this.data.sadTotal,
@@ -112,6 +103,9 @@ Page({
         },
       },
     });
+  },
+  onGiftClick(e){
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
