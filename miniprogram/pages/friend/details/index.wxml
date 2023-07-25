@@ -10,8 +10,8 @@
 					</view>
 					<ui-tag ui="sm round text-grey" info="编辑资料" bind:tap="onEditClick" />
 				</view>
-				<view class="flex justify-center align-end my-4">
-					<text class="text-xxl pr-2 text-price text-bold">{{happyTotal-sadTotal}}</text>
+				<view class="flex justify-center align-end my-3">
+					<text class="text-xxl pr-2 text-price text-bold {{happyTotal-sadTotal>=0?'text-red':'text-green'}}">{{happyTotal-sadTotal}}</text>
 					<text class="text-lg ui-TC-2">(收支差)</text>
 				</view>
 				<view class="ui-grid ui-cols-2 py-4">
@@ -32,7 +32,7 @@
 	<view class="cu-timeline" wx:for="{{giftList}}" wx:key="index">
 		<view class="cu-time">{{item.year}}</view>
 		<view class="cu-item " wx:for="{{item.list}}" wx:key="index">
-			<view class="content ui-BG radius-lg {{item.self?'text-green':'text-red'}}">
+			<view class="content ui-BG radius-lg {{item.self?'text-green':'text-red'}}" bindtap="onGiftClick" data-gift='{{item}}'>
 				<view class="flex justify-between align-center w-100">
 					<view class="flex flex-column">
 						<text class="text-xl text-bold"> {{item.title}}</text>
