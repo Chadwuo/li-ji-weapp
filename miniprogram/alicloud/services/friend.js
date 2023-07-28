@@ -1,4 +1,4 @@
-import pinyin from 'wl-pinyin';
+import pinyin from "wl-pinyin";
 const app = getApp();
 
 /**
@@ -6,14 +6,21 @@ const app = getApp();
  *
  * @author chadwuo
  */
-exports.getFriendList = async () => {
+exports.getFriendList = async (parameter) => {
   const db = app.mpserverless.db;
   const dataScope = app.userDataScope;
+
+  const { searchValue } = parameter || {};
   try {
-    const { result } = await db.collection('friend').find({
-      userId: {
-        $in: dataScope,
-      },
+    const { result } = await db.collection("friend").find({
+      $and: [
+        { name: { $regex: searchValue } },
+        {
+          userId: {
+            $in: dataScope,
+          },
+        },
+      ],
     });
 
     return {
@@ -36,7 +43,7 @@ exports.getFriendList = async () => {
 exports.getFriend = async (parameter) => {
   const db = app.mpserverless.db;
   try {
-    const { result } = await db.collection('friend').findOne({
+    const { result } = await db.collection("friend").findOne({
       _id: parameter._id,
     });
     return {
@@ -59,16 +66,16 @@ exports.getFriend = async (parameter) => {
 exports.getFriendGifts = async (parameter) => {
   const db = app.mpserverless.db;
   try {
-    const { result } = await db.collection('friend').findOne({
+    const { result } = await db.collection("friend").findOne({
       _id: parameter._id,
     });
     // 送礼集合
-    const { result: giftOutList } = await db.collection('gift_out').find({
+    const { result: giftOutList } = await db.collection("gift_out").find({
       friendId: parameter._id,
     });
     // 收礼集合
     const { result: giftReceiveList } = await db
-      .collection('gift_receive')
+      .collection("gift_receive")
       .aggregate([
         {
           $match: {
@@ -83,16 +90,16 @@ exports.getFriendGifts = async (parameter) => {
         {
           $lookup: {
             // 左连接
-            from: 'book', // 关联到de表
-            localField: 'bookId', // 左表关联的字段
-            foreignField: '_id', // 右表关联的字段
-            as: 'bookInfo',
+            from: "book", // 关联到de表
+            localField: "bookId", // 左表关联的字段
+            foreignField: "_id", // 右表关联的字段
+            as: "bookInfo",
           },
         },
         {
           $unwind: {
             // 拆分子数组
-            path: '$bookInfo',
+            path: "$bookInfo",
             preserveNullAndEmptyArrays: true, // 空的数组也拆分
           },
         },
@@ -122,7 +129,7 @@ exports.addFriend = async (parameter) => {
   const userInfo = app.userInfo;
   const db = app.mpserverless.db;
   try {
-    const { result } = await db.collection('friend').insertOne({
+    const { result } = await db.collection("friend").insertOne({
       userId: userInfo._id,
       name: parameter.name.trim(),
       firstLetter: pinyin.getFirstLetter(parameter.name.substr(0, 1)),
@@ -149,7 +156,7 @@ exports.addFriend = async (parameter) => {
 exports.updateFriend = async (parameter) => {
   const db = app.mpserverless.db;
   try {
-    await db.collection('friend').updateOne(
+    await db.collection("friend").updateOne(
       {
         _id: parameter._id,
       },
@@ -164,7 +171,7 @@ exports.updateFriend = async (parameter) => {
     );
     return {
       success: true,
-      data: '',
+      data: "",
     };
   } catch (e) {
     return {
@@ -183,20 +190,20 @@ exports.deleteFriend = async (parameter) => {
   const db = app.mpserverless.db;
   try {
     // 删除亲友下所有送礼记录
-    await db.collection('gift_out').deleteMany({
+    await db.collection("gift_out").deleteMany({
       friendId: parameter._id,
     });
     // 删除亲友下所有收礼记录
-    await db.collection('gift_receive').deleteMany({
+    await db.collection("gift_receive").deleteMany({
       friendId: parameter._id,
     });
     // 删除亲友
-    await db.collection('friend').deleteOne({
+    await db.collection("friend").deleteOne({
       _id: parameter._id,
     });
     return {
       success: true,
-      data: '',
+      data: "",
     };
   } catch (e) {
     return {
