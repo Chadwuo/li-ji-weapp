@@ -14,7 +14,11 @@ exports.getFriendList = async (parameter) => {
   try {
     const { result } = await db.collection("friend").find({
       $and: [
-        { name: { $regex: searchValue } },
+        {
+          name: {
+            $regex: searchValue || "",
+          },
+        },
         {
           userId: {
             $in: dataScope,
