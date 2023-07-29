@@ -1,5 +1,5 @@
 // pages/friend/index.js
-const friendService = require('../../alicloud/services/friend');
+const friendService = require("../../alicloud/services/friend");
 Page({
   /**
    * 页面的初始数据
@@ -7,7 +7,7 @@ Page({
   data: {
     scrollTop: 0,
     friendsList: [],
-    keyword: '',
+    keyword: "",
   },
   // 监听用户滑动页面事件。
   onPageScroll(e) {
@@ -19,23 +19,11 @@ Page({
     });
   },
   onSearch() {
-    if (!this.data.keyword) {
-      this.loadData();
-      return;
-    }
-    for (let item of this.data.friendsList) {
-      item.subItems = item.subItems.filter((x) =>
-        x.name.includes(this.data.keyword)
-      );
-    }
-
-    this.setData({
-      friendsList: this.data.friendsList,
-    });
+    this.loadData({ searchValue: this.data.keyword });
   },
   onFriendClick(e) {
     wx.navigateTo({
-      url: '/pages/friend/details/index',
+      url: "/pages/friend/details/index",
       events: {
         refresh: () => {
           this.loadData();
@@ -43,7 +31,7 @@ Page({
       },
       success: function (res) {
         // 通过 eventChannel 向被打开页面传送数据
-        res.eventChannel.emit('acceptDataFromOpenerPage', {
+        res.eventChannel.emit("acceptDataFromOpenerPage", {
           friend: e.currentTarget.dataset.friend,
         });
       },
@@ -51,7 +39,7 @@ Page({
   },
   onAdd() {
     wx.navigateTo({
-      url: '/pages/friend/edit/index',
+      url: "/pages/friend/edit/index",
       events: {
         refresh: () => {
           this.loadData();
@@ -59,7 +47,7 @@ Page({
       },
     });
   },
-  async loadData() {
+  async loadData(parameter) {
     this.setData({
       friendsList: [],
     });
@@ -71,10 +59,10 @@ Page({
       });
     }
     let noletter = {
-      alpha: '#',
+      alpha: "#",
       subItems: [],
     };
-    const res = await friendService.getFriendList();
+    const res = await friendService.getFriendList(parameter);
     if (res.success) {
       for (const item of res.data) {
         const firstLetter = item.firstLetter;
@@ -141,9 +129,9 @@ Page({
    */
   onShareAppMessage() {
     return {
-      title: '可能是东半球最好用的人情记账工具',
-      path: 'pages/start/index',
-      imageUrl: '/static/img/share.png',
+      title: "可能是东半球最好用的人情记账工具",
+      path: "pages/start/index",
+      imageUrl: "/static/img/share.png",
     };
   },
 });
