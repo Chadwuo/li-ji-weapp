@@ -1,38 +1,28 @@
 // pages/friend/select/index.js
-const friendService = require('../../../alicloud/services/friend');
+const friendService = require("../../../alicloud/services/friend");
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    friendSelectSource: [],
-    keyword: '',
+    friendsList: [],
+    keyword: "",
   },
   onSearch() {
-    if (!this.data.keyword) {
-      this.loadData();
-      return;
-    }
-    for (let item of this.data.friendSelectSource) {
-      item.subItems = item.subItems.filter((x) =>
-        x.name.includes(this.data.keyword)
-      );
-    }
-
-    this.setData({
-      friendSelectSource: this.data.friendSelectSource,
+    this.loadData({
+      searchValue: this.data.keyword,
     });
   },
   // 选中联系人
   onSelectedFriend(e) {
     const eventChannel = this.getOpenerEventChannel();
-    eventChannel.emit('dialogResult', e.currentTarget.dataset.friend);
+    eventChannel.emit("dialogResult", e.currentTarget.dataset.friend);
     wx.navigateBack();
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  async onLoad(options) {
+  async loadData(parameter) {
+    this.setData({
+      friendsList: [],
+    });
     let listTemp = [];
     for (let index = 0; index < 26; index++) {
       listTemp.push({
@@ -41,10 +31,10 @@ Page({
       });
     }
     let noletter = {
-      alpha: '#',
+      alpha: "#",
       subItems: [],
     };
-    const res = await friendService.getFriendList();
+    const res = await friendService.getFriendList(parameter);
     if (res.success) {
       for (const item of res.data) {
         const firstLetter = item.firstLetter;
@@ -64,9 +54,15 @@ Page({
         return i.subItems.length != 0;
       });
       this.setData({
-        friendSelectSource: list,
+        friendsList: list,
       });
     }
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  async onLoad(options) {
+    this.loadData();
   },
 
   /**
