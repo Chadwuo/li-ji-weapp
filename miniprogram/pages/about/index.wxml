@@ -2,10 +2,11 @@
 <ui-sys title="关于礼记" footerText="可能是东半球最好用的人情记账工具">
     <view class="ui-container">
         <view class="text-center mt-6 mb-4">
-            <view class="my-4">
-                <ui-avatar ui="sl ellipse" src="/static/logo.png" />
+            <ui-avatar ui="sl ellipse" src="/static/logo.png" />
+            <view class="my-3">
+                <view class="text-xxl text-bold">礼记</view>
+                <view class="mt-2 text-gray-a">v{{version||'1.0.0'}}</view>
             </view>
-            <view class="text-xxl my-3">礼记</view>
         </view>
         <view class="paragraph" style="text-indent: 2em;">
             礼尚往来，是中华民族的传统美德，老一辈人一般会在举行宴席的时候用手写人情簿的方式来记录每一个亲友的礼金。这种方式存在很多弊端，比如人情簿丢失、无法携带在身边、很难搜索到某个人的送礼记录、由于手写原因无法辨认清楚内容等等。
@@ -17,15 +18,13 @@
             <ui-menu-item title="开发者" arrow isAction bindtap="Chadwuo">
                 <view slot="action" class="text-gray-a">Chadwuo</view>
             </ui-menu-item>
-            <ui-menu-item title="版本号" isAction>
-                <view slot="action" class="text-gray-a">v{{version||'1.0.0'}}</view>
-            </ui-menu-item>
             <ui-menu-item title="开源地址" isAction bindtap="tapCopy" data-value="https://github.com/Chadwuo/li-ji-weapp">
                 <view slot="action" class="text-gray-a">li-ji-weapp Github</view>
             </ui-menu-item>
             <ui-menu-item title="开源协议" isAction>
                 <view slot="action" class="text-gray-a">GPL-3.0 license</view>
             </ui-menu-item>
+            <ui-menu-item title="去评分" bindtap="openComment" arrow></ui-menu-item>
         </ui-menu>
     </view>
 </ui-sys>
