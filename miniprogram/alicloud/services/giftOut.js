@@ -214,3 +214,26 @@ exports.deleteGiftOut = async (parameter) => {
     };
   }
 };
+
+/**
+ * 详情
+ *
+ * @author chadwuo
+ */
+exports.getGiftOut = async (parameter) => {
+  const db = app.mpserverless.db;
+  try {
+    const { result } = await db.collection("gift_out").findOne({
+      _id: parameter._id,
+    });
+    return {
+      success: true,
+      data: result,
+    };
+  } catch (e) {
+    return {
+      success: false,
+      message: e,
+    };
+  }
+};
