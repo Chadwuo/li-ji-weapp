@@ -41,7 +41,7 @@ Page({
           // 收礼金额总计
           this.data.happyTotal += i.money;
           return {
-            id: i._id,
+            _id: i._id,
             title: i.bookInfo.title,
             money: i.money,
             date: i.bookInfo.date,
@@ -53,7 +53,7 @@ Page({
           // 送礼金额总计
           this.data.sadTotal += i.money;
           return {
-            id: i._id,
+            _id: i._id,
             title: i.title,
             money: i.money,
             date: i.date,
@@ -104,8 +104,40 @@ Page({
       },
     });
   },
-  onGiftClick(e){
-    
+  onGiftClick(e) {
+    console.log(e);
+    const gift = e.currentTarget.dataset.gift;
+    if (gift.self) {
+      wx.navigateTo({
+        url: "/pages/giftOut/edit/index",
+        events: {
+          // refresh: () => {
+          //   this.loadData(1);
+          // },
+        },
+        success: function (res) {
+          // 通过 eventChannel 向被打开页面传送数据
+          res.eventChannel.emit("acceptDataFromOpenerPage", {
+            _id: gift._id,
+          });
+        },
+      });
+    } else {
+      wx.navigateTo({
+        url: "/pages/giftReceive/edit/index",
+        events: {
+          // refresh: () => {
+          //   this.loadData(1);
+          // },
+        },
+        success: function (res) {
+          // 通过 eventChannel 向被打开页面传送数据
+          res.eventChannel.emit("acceptDataFromOpenerPage", {
+            _id: gift._id,
+          });
+        },
+      });
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
