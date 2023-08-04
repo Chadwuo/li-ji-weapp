@@ -105,7 +105,8 @@ Page({
     });
   },
   onGiftClick(e) {
-    console.log(e);
+    return;
+    const that = this;
     const gift = e.currentTarget.dataset.gift;
     if (gift.self) {
       wx.navigateTo({
@@ -118,7 +119,8 @@ Page({
         success: function (res) {
           // 通过 eventChannel 向被打开页面传送数据
           res.eventChannel.emit("acceptDataFromOpenerPage", {
-            _id: gift._id,
+            ...gift,
+            friendName: that.data.friend.name,
           });
         },
       });
@@ -133,7 +135,8 @@ Page({
         success: function (res) {
           // 通过 eventChannel 向被打开页面传送数据
           res.eventChannel.emit("acceptDataFromOpenerPage", {
-            _id: gift._id,
+            ...gift,
+            friendName: that.data.friend.name,
           });
         },
       });
