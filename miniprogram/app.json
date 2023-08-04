@@ -19,6 +19,7 @@
     "pages/analysis/index",
     "pages/set/index",
     "pages/relationship/index",
+    "pages/contributors/index",
     "pages/calendar/index"
   ],
   "window": {

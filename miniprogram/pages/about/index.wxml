@@ -15,9 +15,7 @@
             「礼记」致力于记录和管理人情往来中的随礼、礼金、份子钱、送礼、收礼，专业又懂你的人情记账簿，全家人共享账本，多维度查询统计亲友间往来记录。每一份人情都值得礼记。
         </view>
         <ui-menu ui="mt-5 radius-lg">
-            <ui-menu-item title="开发者" arrow isAction bindtap="Chadwuo">
-                <view slot="action" class="text-gray-a">Chadwuo</view>
-            </ui-menu-item>
+            <ui-menu-item title="开发团队" arrow bindtap="tapContrib"></ui-menu-item>
             <ui-menu-item title="开源地址" isAction bindtap="tapCopy" data-value="https://github.com/Chadwuo/li-ji-weapp">
                 <view slot="action" class="text-gray-a">li-ji-weapp Github</view>
             </ui-menu-item>
