@@ -1,23 +1,36 @@
 <ui-sys title="开发团队">
     <view class="ui-container">
-        <ui-title title="开发团队" depth="2" isIcon />
-        <ui-title title="开发流程" depth="2" isIcon />
-        <view>我们所有的工作都会放在GitHub上。不管是核心团队的成员还是外部贡献者的 pull request 都需要经过同样流程的 review。</view>
+        <ui-title title="团队成员" depth="2" isIcon />
+        <view>
+            <view class="paragraph text-center">
+                感谢以下为
+                <text class="text-bold">礼记</text>
+                做出贡献的人！
+            </view>
+            <image style="width:100%;height:64px" src="https://contrib.rocks/image?repo=Chadwuo/li-ji-weapp" mode='left' />
+        </view>
+        <ui-title title="参与开发" depth="2" isIcon />
+        <view class="paragraph" style="text-indent: 2em;">
+            我们所有的工作都会放在GitHub上。不管是核心团队的成员还是外部贡献者的 pull request 都需要经过同样流程的 review。
+            <view>礼记 团队会尽快处理您所提交的 Pull Request ，review 并合并代码，也有可能要求你做一些修改或者告诉你我们为什么不能接受这样的修改。</view>
+        </view>
         <ui-title title="分支管理" depth="2" isIcon />
-        <view>目前维护的2.0版本，分支是 one-piece。如果你要修一个 bug，或提一个增加新功能，那么请发 pull request 到 one-piece。</view>
+        <view class="paragraph" style="text-indent: 2em;">
+            目前维护的2.0版本，分支是 one-piece。如果你要修一个 bug，或提一个增加新功能，那么请发 pull request 到 one-piece。
+        </view>
         <ui-title title="Bugs && Issue" depth="2" isIcon />
-        <view>
-            如果您想要发现的 Bug 快速解决和提出新的想法及新增 API 得以实现，提出 Github Issue 会是一种优雅的方式。我们也欢迎您来提出 Issue,不过在提 Issue 时请仔细按照Issue Template描述所遇到的 Bug 或者需求。
+        <view class="paragraph" style="text-indent: 2em;">
+            如果您使用过程中发现Bug，或你有很好的想法希望得以实现，提出 Github Issue 会是一种优雅的方式。我们也欢迎您来提出 Issue，不过在提 Issue 时请仔细按照Issue Template描述所遇到的 Bug 或者需求。
         </view>
-        <ui-title title="Pull Request" depth="2" isIcon />
-        <view>
-            礼记 团队会尽快处理您所提的 Pull Request ，review 并合并代码，也有可能要求你做一些修改或者告诉你我们为什么不能接受这样的修改。
-
-            在您发送 Pull Request 之前，请确保您是按照以下流程进行的：
-
-            clone最新的one-piece做修改。
-            填写规范的 commit 消息并提交 
-            Pull Request(当前分支=>one-piece)。
-        </view>
+        <!-- <ui-title title="Pull Request" depth="2" isIcon />
+        <view class="paragraph" style="text-indent: 2em;">
+            <view>礼记 团队会尽快处理您所提的 Pull Request ，review 并合并代码，也有可能要求你做一些修改或者告诉你我们为什么不能接受这样的修改。</view>
+            <view>在您发送 Pull Request 之前，请确保您是按照以下流程进行的：</view>
+            <view>●在您的本地新建一个分支，分支名为您要做的修改的功能，或者 bug 修复的内容。</view>
+            <view>●在您的本地完成修改并测试通过。</view>
+            <view>●填写规范的commit消息，提交到您的 GitHub 远程仓库。</view>
+            <view>●在 GitHub 上发起 Pull Request(one-piece)。</view>
+            <view>●等待我们的 review。</view>
+        </view> -->
     </view>
 </ui-sys>
