@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/chadwuo/li-ji-weapp">
-    <img src="doc/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">礼记</h3>
@@ -20,18 +20,18 @@
 ---
 
 ### 在线体验
- <img src="doc/code.png" alt="Logo" width="240" height="240">
+ <img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/code.png" alt="Logo" width="240" height="240">
  
 ### 效果图
 > 画界面太难了，求个ui帮设计一下
 
 <table>
   <tr>
-    <td><img src="doc/image1.jpeg"></td>
-    <td><img src="doc/image2.jpeg"></td>
-    <td><img src="doc/image3.jpeg"></td>
-    <td><img src="doc/image4.jpeg"></td>
-    <td><img src="doc/image5.jpeg"></td>
+    <td><img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/image1.jpeg"></td>
+    <td><img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/image2.jpeg"></td>
+    <td><img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/image3.jpeg"></td>
+    <td><img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/image4.jpeg"></td>
+    <td><img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/image5.jpeg"></td>
   </tr>
  </table>
 
