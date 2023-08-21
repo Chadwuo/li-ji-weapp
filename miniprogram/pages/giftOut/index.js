@@ -9,7 +9,6 @@ Page({
     pageNo: 0,
     giftList: [],
     total: '0.00',
-    keyword: '',
   },
   // 监听用户滑动页面事件。
   onPageScroll(e) {
@@ -20,14 +19,15 @@ Page({
       scrollTop: e.scrollTop,
     });
   },
-  onSearch() {
-    if (!this.data.keyword) {
+  onSearch(e) {
+    const searchVal = e.detail
+    if (!searchVal) {
       this.loadData(1);
       return;
     }
     this.setData({
       giftList: this.data.giftList.filter((i) =>
-        i.friendInfo.name.includes(this.data.keyword)
+        i.friendInfo.name.includes(searchVal)
       ),
     });
   },
