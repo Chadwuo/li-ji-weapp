@@ -6,11 +6,11 @@ Page({
    */
   data: {
     friendsList: [],
-    keyword: "",
   },
-  onSearch() {
+  onSearch(e) {
+    const searchVal = e.detail
     this.loadData({
-      searchValue: this.data.keyword,
+      searchValue: searchVal
     });
   },
   // 选中联系人

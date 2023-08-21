@@ -4,18 +4,18 @@ const giftReceiveService = require('../../../alicloud/services/giftReceive');
 Page({
   data: {
     giftList: [],
-    keyword: '',
     book: {},
     pageNo: 0,
   },
-  onSearch() {
-    if (!this.data.keyword) {
+  onSearch(e) {
+    const searchVal = e.detail
+    if (!searchVal) {
       this.loadData(1);
       return;
     }
     this.setData({
       giftList: this.data.giftList.filter((i) =>
-        i.friendInfo.name.includes(this.data.keyword)
+        i.friendInfo.name.includes(searchVal)
       ),
     });
   },

@@ -7,7 +7,6 @@ Page({
   data: {
     scrollTop: 0,
     friendsList: [],
-    keyword: "",
   },
   // 监听用户滑动页面事件。
   onPageScroll(e) {
@@ -18,8 +17,9 @@ Page({
       scrollTop: e.scrollTop,
     });
   },
-  onSearch() {
-    this.loadData({ searchValue: this.data.keyword });
+  onSearch(e) {
+    const searchVal = e.detail
+    this.loadData({ searchValue: searchVal });
   },
   onFriendClick(e) {
     wx.navigateTo({

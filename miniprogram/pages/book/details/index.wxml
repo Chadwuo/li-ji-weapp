@@ -2,14 +2,12 @@
 <wxs module="tools" src="../../../utils/tools.wxs"></wxs>
 <ui-sys title="{{book.title}}">
 	<ui-fixed bg="bg-blur" sticky>
-		<van-search background="transparent" model:value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" shape="round">
-			<view slot="action" bind:tap="onAddGift" class="flex">
-				<view class="round _icon-add-round-o text-{{tools.bookColor(book.title)}}" style="font-size: 56rpx;" />
-			</view>
-		</van-search>
+		<ui-search-bar isRight bg="ui-BG-2" barBg="ui-BG" placeholder="请输入搜索关键词" bind:confirm="onSearch">
+			<text bind:tap="onAddGift" class="round _icon-add-round-o text-{{tools.bookColor(book.title)}}" style="font-size: 56rpx;"></text>
+		</ui-search-bar>
 	</ui-fixed>
 	<view class="ui-container">
-		<van-empty wx:if="{{giftList.length==0}}" description="还没有记录哦~" ></van-empty>
+		<van-empty wx:if="{{giftList.length==0}}" description="还没有记录哦~"></van-empty>
 
 		<view wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
 			<view class="ui-BG radius-lg flex justify-around align-center py-4 my-3 text-{{tools.bookColor(book.title)}}">
