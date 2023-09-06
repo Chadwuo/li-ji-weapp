@@ -1,7 +1,7 @@
 <!-- pages/friend/details/index.wxml -->
 <ui-sys title="亲友详情">
-	<ui-fixed sticky>
-		<view class="ui-container bg-blur">
+	<ui-fixed sticky bg="bg-blur" ui="shadow-sm">
+		<view class="ui-container">
 			<view class="flex-column justify-center py-3">
 				<view class="flex justify-between align-center">
 					<view>
