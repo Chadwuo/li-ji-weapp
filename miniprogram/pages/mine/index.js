@@ -1,7 +1,9 @@
 const userService = require('../../alicloud/services/user');
 const jinrishici = require('../../utils/jinrishici.js');
 
-import { welcome } from '../../utils/index.js';
+import {
+  welcome
+} from '../../utils/index.js';
 const app = getApp();
 Page({
   /**
@@ -18,8 +20,9 @@ Page({
     confirmLoading: false,
     welcome: welcome(),
     giftTotal: {},
-    menus: [
-      {
+    needAuthorization: false,
+    privacyContractName: '',
+    menus: [{
         icon: 'cicon-home-community',
         name: '我的家庭',
         color: 'text-mauve',
@@ -69,15 +72,16 @@ Page({
       });
     });
     this.setData({
-      avatarUrl:
-        app.userInfo.avatarUrl ||
+      avatarUrl: app.userInfo.avatarUrl ||
         'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
       nickName: app.userInfo.nickName,
     });
   },
   // 选择头像
   onChooseAvatar(e) {
-    const { avatarUrl } = e.detail;
+    const {
+      avatarUrl
+    } = e.detail;
     const options = {
       filePath: avatarUrl,
     };
@@ -95,6 +99,19 @@ Page({
       avatarUrl_edit: this.data.avatarUrl,
       nickName_edit: this.data.nickName,
     });
+    wx.getPrivacySetting({
+      success: res => {
+        console.log("是否需要授权：", res.needAuthorization, "隐私协议的名称为：", res.privacyContractName)
+        this.setData({
+          needAuthorization: res.needAuthorization,
+          privacyContractName: res.privacyContractName
+        })
+      },
+      fail: (err) => {
+        onsole.log(err)
+      },
+      complete: () => {}
+    })
   },
   onClosePopup() {
     this.setData({
@@ -141,6 +158,21 @@ Page({
       }
     }, 600);
   },
+  openPrivacyContract() {
+    wx.openPrivacyContract({
+      success: res => {
+        console.log('openPrivacyContract success')
+      },
+      fail: res => {
+        console.error('openPrivacyContract fail', res)
+      }
+    })
+  },
+  handleAgree() {
+    this.setData({
+      needAuthorization: false,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -151,7 +183,7 @@ Page({
    */
   async onShow() {
     this.setData({
-      giftTotal:app.giftTotal
+      giftTotal: app.giftTotal
     })
   },
 
