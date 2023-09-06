@@ -56,6 +56,7 @@
   "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json",
   "darkmode": true,
+  "__usePrivacyCheck__": true,
   "plugins": {
     "wxacommentplugin": {
       "version": "latest",

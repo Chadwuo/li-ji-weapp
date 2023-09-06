@@ -53,25 +53,32 @@
 			<ui-menu-item arrow title="关于" icon="cicon-quill text-red" data-url="/pages/about/index" bindtap="tapToUrl" />
 		</ui-menu>
 	</view>
-</ui-sys>
 
-<van-popup show="{{ popupVisible }}" round position="bottom" bind:close="onClosePopup">
-	<view class="py-5 flex-column flex-center ui-container">
-		<text class="text-bold flex self-start">完善用户信息体验更多功能</text>
-		<ui-avatar ui="round sl mt-6" src="{{avatarUrl_edit}}">
-			<ui-tag badge="bl" bg="shadow ui-BG-Main" isSlot icon>
-				<text class="cicon-camera text-white" />
-			</ui-tag>
-			<button class="open-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-			</button>
-		</ui-avatar>
+	<van-popup show="{{ popupVisible }}" round position="bottom" bind:close="onClosePopup" custom-class="ui-BG">
+		<view class="pt-5 flex-column flex-center ui-container">
+			<text class="text-bold flex self-start">完善用户信息体验更多功能</text>
+			<ui-avatar ui="round sl mt-6" src="{{avatarUrl_edit}}">
+				<ui-tag badge="bl" bg="shadow ui-BG-Main" isSlot icon>
+					<text class="cicon-camera text-white" />
+				</ui-tag>
+				<button open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" style=" position: absolute;height: 4em;width: 100%;opacity: 0;z-index: 9;">
+				</button>
+			</ui-avatar>
 
-		<view class="w-100 px-4">
-			<input model:value="{{ nickName_edit }}" class="text-center mt-5 py-3 round" style="background-color: #F6F6F6;" placeholder="点击获取昵称" type="nickname" />
-			<button disabled="{{confirmLoading}}" class="ui-btn bg-red block round mt-5" bindtap="onSaveProfile">
-				保存
-				<ui-loading wx:if="{{confirmLoading}}" color />
-			</button>
+			<view class="w-100 px-4">
+				<input  model:value="{{ nickName_edit }}" class="text-center mt-5 py-3 round ui-TC ui-BG-2"  placeholder="点击获取昵称" type="nickname" />
+				<button disabled="{{confirmLoading}}" class="ui-btn bg-red block round mt-5" bindtap="onSaveProfile">
+					保存
+					<ui-loading wx:if="{{confirmLoading}}" color />
+				</button>
+
+				<view class="mt-5">
+					<button style="position: absolute;min-height: 1em;opacity: 0;z-index: 9;" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="handleAgree"></button>
+					<ui-checkbox value="{{!needAuthorization}}" class="text-sm mt-5">
+						我已阅读并同意<text class="text-red" bindtap="openPrivacyContract">{{privacyContractName}}</text>
+					</ui-checkbox>
+				</view>
+			</view>
 		</view>
-	</view>
-</van-popup>
+	</van-popup>
+</ui-sys>
