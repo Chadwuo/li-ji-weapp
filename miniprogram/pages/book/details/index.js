@@ -61,6 +61,27 @@ Page({
       },
     });
   },
+  onEditClick() {
+    wx.navigateTo({
+      url: `/pages/book/edit/index`,
+      success: (res) => {
+        // 通过 eventChannel 向被打开页面传送数据
+        res.eventChannel.emit(
+          'acceptDataFromOpenerPage',
+          this.data.book
+        );
+      },
+      events: {
+        refresh: () => {
+          const eventChannel = this.getOpenerEventChannel();
+          eventChannel.emit("refresh");
+          setTimeout(() => {
+            wx.navigateBack();
+          }, 1100);
+        },
+      },
+    });
+  },
   async loadData(page) {
     const res = await giftReceiveService.getGiftReceivePage({
       bookId: this.data.book._id,
