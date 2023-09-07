@@ -20,8 +20,8 @@ Page({
         wx.showToast({
           title: '修改成功',
         });
-        eventChannel.emit('refresh');
         setTimeout(() => {
+          eventChannel.emit('refresh');
           wx.navigateBack();
         }, 1000);
       }
@@ -31,8 +31,8 @@ Page({
         wx.showToast({
           title: '保存成功',
         });
-        eventChannel.emit('refresh');
         setTimeout(() => {
+          eventChannel.emit('refresh');
           wx.navigateBack();
         }, 1000);
       }
