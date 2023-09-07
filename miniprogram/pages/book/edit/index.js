@@ -20,9 +20,9 @@ Page({
         wx.showToast({
           title: '修改成功',
         });
+        eventChannel.emit('refresh');
         setTimeout(() => {
-          eventChannel.emit('refresh');
-          wx.navigateBack();
+          wx.navigateBack({delta:2});
         }, 1000);
       }
     } else {
@@ -31,9 +31,9 @@ Page({
         wx.showToast({
           title: '保存成功',
         });
+        eventChannel.emit('refresh');
         setTimeout(() => {
-          eventChannel.emit('refresh');
-          wx.navigateBack();
+          wx.navigateBack({delta:2});
         }, 1000);
       }
     }
