@@ -75,7 +75,6 @@ Page({
         refresh: () => {
           const eventChannel = this.getOpenerEventChannel();
           eventChannel.emit("refresh");
-          wx.navigateBack();
         },
       },
     });
