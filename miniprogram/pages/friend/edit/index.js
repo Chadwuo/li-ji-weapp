@@ -21,7 +21,7 @@ Page({
         });
         eventChannel.emit('refresh');
         setTimeout(() => {
-          wx.navigateBack();
+          wx.navigateBack({delta:2});
         }, 1000);
       }
     } else {
@@ -33,7 +33,7 @@ Page({
         eventChannel.emit('refresh');
         setTimeout(() => {
           this.data._id = res.data;
-          wx.navigateBack();
+          wx.navigateBack({delta:2});
         }, 1000);
       }
     }

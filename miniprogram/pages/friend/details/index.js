@@ -97,7 +97,6 @@ Page({
       url: `/pages/friend/edit/index?friendId=${this.data.friend._id}`,
       events: {
         refresh: () => {
-          // TODO 当前页数据不会刷新
           const eventChannel = this.getOpenerEventChannel();
           eventChannel.emit("refresh");
         },
