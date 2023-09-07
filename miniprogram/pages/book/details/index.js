@@ -75,9 +75,7 @@ Page({
         refresh: () => {
           const eventChannel = this.getOpenerEventChannel();
           eventChannel.emit("refresh");
-          setTimeout(() => {
-            wx.navigateBack();
-          }, 1100);
+          wx.navigateBack();
         },
       },
     });
