@@ -1,15 +1,15 @@
 // pages/friend/edit/index.js
-const friendService = require('../../../alicloud/services/friend');
+const friendService = require("../../../alicloud/services/friend");
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    _id: '',
-    name: '',
-    firstLetter: '',
-    relation: '',
-    remarks: '',
+    _id: "",
+    name: "",
+    firstLetter: "",
+    relation: "",
+    remarks: "",
   },
   async onSave() {
     const eventChannel = this.getOpenerEventChannel();
@@ -17,23 +17,23 @@ Page({
       const res = await friendService.updateFriend(this.data);
       if (res.success) {
         wx.showToast({
-          title: '修改成功',
+          title: "修改成功",
         });
-        eventChannel.emit('refresh');
+        eventChannel.emit("refresh");
         setTimeout(() => {
-          wx.navigateBack({delta:2});
+          wx.navigateBack({ delta: 2 });
         }, 1000);
       }
     } else {
       const res = await friendService.addFriend(this.data);
       if (res.success) {
         wx.showToast({
-          title: '添加成功',
+          title: "添加成功",
         });
-        eventChannel.emit('refresh');
+        eventChannel.emit("refresh");
         setTimeout(() => {
           this.data._id = res.data;
-          wx.navigateBack({delta:2});
+          wx.navigateBack({ delta: 2 });
         }, 1000);
       }
     }
@@ -42,16 +42,16 @@ Page({
     let delData = this.data;
     const eventChannel = this.getOpenerEventChannel();
     wx.showModal({
-      title: '删除亲友？',
-      content: '该亲友所有来往记录都将被删除，确定删除？',
+      title: "删除亲友？",
+      content: "该亲友所有来往记录都将被删除，确定删除？",
       async success(res) {
         if (res.confirm) {
           const result = await friendService.deleteFriend(delData);
           if (result.success) {
             wx.showToast({
-              title: '删除成功',
+              title: "删除成功",
             });
-            eventChannel.emit('refresh');
+            eventChannel.emit("refresh");
             setTimeout(() => {
               wx.navigateBack({
                 delta: 2,

@@ -1,34 +1,40 @@
 <!--pages/book/edit/index.wxml-->
 <ui-sys title="{{title?'编辑礼簿':'添加礼簿'}}" footer="{{false}}">
-	<view class="ui-container">
-		<ui-form ui="ui-BG my-3 radius-lg">
-			<ui-form-group title="日期" isAction icon="cicon-time text-pink">
-				<ui-input-box bindtap="showCalendar">
-					<input class="ui-input-wrapper" disabled placeholder="请选择日期" value="{{ date.value }}" />
-					<block slot="action"><text class="cicon-angle icon-xl" /></block>
-				</ui-input-box>
-			</ui-form-group>
-			<ui-form-group title="礼簿名称" icon="cicon-book text-orange">
-				<ui-input-box>
-					<input class="ui-input-wrapper" placeholder="请输入名称" model:value="{{ title }}" />
-				</ui-input-box>
-			</ui-form-group>
-			<ui-form-group title="备注" icon="cicon-bookmark text-blue">
-				<ui-input-box>
-					<input class="ui-input-wrapper" placeholder="选填" model:value="{{ remarks }}" />
-				</ui-input-box>
-			</ui-form-group>
-		</ui-form>
-		<text class="text-xs text-grey cicon-help">{{tips}}</text>
-	</view>
-	<ui-fixed bottom val="{{24}}">
-		<van-row gutter="24" custom-class="mx-2">
-			<van-col span="8" wx:if="{{_id}}">
-				<button class="ui-btn block round border border-red bg-red-light" bindtap="onDelete">删 除</button>
-			</van-col>
-			<van-col span="{{_id?16:24}}">
-				<button class="ui-btn block round bg-red" disabled="{{!title|!date.value}}" bindtap="onSave">保 存</button>
-			</van-col>
-		</van-row>
-	</ui-fixed>
+    <view class="ui-container">
+        <ui-form ui="ui-BG my-3 radius-lg">
+            <ui-form-group title="日期" isAction icon="cicon-time text-pink">
+                <ui-input-box bindtap="onOpenCalendar">
+                    <input class="ui-input-wrapper" disabled placeholder="请选择日期" value="{{ date.value }}" />
+                    <block slot="action"><text class="cicon-angle icon-xl" /></block>
+                </ui-input-box>
+            </ui-form-group>
+            <ui-form-group title="礼簿名称" icon="cicon-book text-orange">
+                <ui-input-box>
+                    <input class="ui-input-wrapper" placeholder="请输入名称" model:value="{{ title }}" />
+                </ui-input-box>
+            </ui-form-group>
+            <ui-form-group title="备注" icon="cicon-bookmark text-blue">
+                <ui-input-box>
+                    <input class="ui-input-wrapper" placeholder="选填" model:value="{{ remarks }}" />
+                </ui-input-box>
+            </ui-form-group>
+        </ui-form>
+        <text class="text-xs text-grey cicon-help">{{tips}}</text>
+    </view>
+    <ui-fixed bottom val="{{24}}">
+        <van-row gutter="24" custom-class="mx-2">
+            <van-col span="8" wx:if="{{_id}}">
+                <button class="ui-btn block round border border-red bg-red-light" bindtap="onDelete">删 除</button>
+            </van-col>
+            <van-col span="{{_id?16:24}}">
+                <button class="ui-btn block round bg-red" disabled="{{!title|!date.value}}" bindtap="onSave">保 存</button>
+            </van-col>
+        </van-row>
+    </ui-fixed>
+
+    <van-popup show="{{ showCalendar }}" round position="bottom" bind:close="onClosePopup" custom-class="ui-BG">
+        <view class="pt-4">
+            <calendar id="calendar" config="{{calendarConfig}}" bind:afterTapDate="afterTapDate"></calendar>
+        </view>
+    </van-popup>
 </ui-sys>

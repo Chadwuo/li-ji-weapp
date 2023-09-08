@@ -19,8 +19,7 @@
     "pages/analysis/index",
     "pages/set/index",
     "pages/relationship/index",
-    "pages/contributors/index",
-    "pages/calendar/index"
+    "pages/contributors/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -101,6 +100,7 @@
     "van-empty": "@vant/weapp/empty/index",
     "van-index-bar": "@vant/weapp/index-bar/index",
     "van-index-anchor": "@vant/weapp/index-anchor/index",
-    "van-popup": "@vant/weapp/popup/index"
+    "van-popup": "@vant/weapp/popup/index",
+    "calendar": "/components/calendar/index"
   }
 }
