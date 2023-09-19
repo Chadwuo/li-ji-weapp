@@ -12,6 +12,7 @@ Page({
     bookId: '',
     money: '',
     remarks: '',
+    keepNote: false
   },
   async onSave() {
     const eventChannel = this.getOpenerEventChannel();
@@ -34,6 +35,16 @@ Page({
           title: '添加成功',
         });
         eventChannel.emit('refresh');
+        if (this.data.keepNote) {
+          this.setData({
+            _id: '',
+            friendId: '',
+            friendName: '',
+            money: '',
+            remarks: '',
+          })
+          return
+        }
         app.refreshTotal();
         setTimeout(() => {
           wx.navigateBack();
@@ -92,6 +103,11 @@ Page({
         },
       },
     });
+  },
+  onKeepNoteChange(e) {
+    this.setData({
+      keepNote: e.detail
+    })
   },
   /**
    * 生命周期函数--监听页面加载
