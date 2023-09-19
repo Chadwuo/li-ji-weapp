@@ -21,8 +21,13 @@
 		</ui-form>
 		<text class="text-xs text-grey cicon-help">你可以点击联系人图标快速选取来宾。</text>
 	</view>
-	
+
 	<ui-fixed bottom val="{{24}}">
+		<view class="m-4" wx:if="{{!_id}}">
+			<!-- <checkbox model:value="{{keepNote}}" color="#F76664"/>连续录入 -->
+			<ui-checkbox value="{{keepNote}}" bind:change="onKeepNoteChange">连续录入</ui-checkbox>
+		</view>
+
 		<van-row gutter="24" custom-class="mx-2">
 			<van-col span="8" wx:if="{{_id}}">
 				<button class="ui-btn block round border border-red bg-red-light" bindtap="onDelete">删 除</button>
