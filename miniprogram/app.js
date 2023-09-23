@@ -1,4 +1,5 @@
-import { mpserverless } from "./alicloud/index";
+//import { mpserverless } from "./alicloud/index";
+import { mpserverless } from "./alicloud/releases";
 import { colorUI } from "./config/ColorUI";
 App({
   //挂载到app上

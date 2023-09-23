@@ -1,5 +1,5 @@
 <!--pages/relationship/index.wxml-->
-<ui-sys title="亲戚称呼">
+<ui-sys title="亲戚关系计算器">
 	<view class="ui-container flex flex-column justify-between my-5" style="height: 42vh;">
 		<view class="text-left text-xl text-grey text-linecut-10">{{screenData}}</view>
 		<view class="text-right text-xl text-bold">{{result}}</view>

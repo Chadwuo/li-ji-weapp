@@ -5,7 +5,7 @@
 	</ui-navbar>
 	<view class='ui-container'>
 		<view class="flex-bar my-4" bindtap="onShowPopup">
-			<ui-avatar ui="xxl ellipse" src="{{avatarUrl}}" />
+			<ui-avatar ui="xxl ellipse" src="{{avatarUrl||'/static/img/avatar0.png'}}" />
 			<view class="flex-sub pl-3">
 				<!-- <view class="text-xl">登录,享受更多服务。</view> -->
 				<view class="text-xl">{{welcome}}，{{nickName}}</view>
@@ -41,8 +41,7 @@
 		</view>
 
 		<ui-menu ui="mt-4 radius-lg">
-			<ui-menu-item arrow title="在线客服" icon="cicon-service text-mauve" open-type="contact" />
-			<ui-menu-item arrow title="意见反馈" icon="cicon-evaluate text-orange" open-type="feedback" />
+			<ui-menu-item arrow title="赞助" icon="cicon-evaluate text-orange" data-url="/pages/sponsor/index" bindtap="tapToUrl" />
 		</ui-menu>
 
 		<!-- 其他功能 -->
@@ -57,7 +56,7 @@
 	<van-popup show="{{ popupVisible }}" round position="bottom" bind:close="onClosePopup" custom-class="ui-BG">
 		<view class="pt-5 flex-column flex-center ui-container">
 			<text class="text-bold flex self-start">完善用户信息体验更多功能</text>
-			<ui-avatar ui="round sl mt-6" src="{{avatarUrl_edit}}">
+			<ui-avatar ui="round sl mt-6" src="{{avatarUrl_edit||'/static/img/avatar0.png'}}">
 				<ui-tag badge="bl" bg="shadow ui-BG-Main" isSlot icon>
 					<text class="cicon-camera text-white" />
 				</ui-tag>

@@ -1,18 +1,18 @@
 // pages/giftReceive/edit/index.js
-const giftReceiveService = require('../../../alicloud/services/giftReceive');
+const giftReceiveService = require("../../../alicloud/services/giftReceive");
 const app = getApp();
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    _id: '',
-    friendId: '',
-    friendName: '',
-    bookId: '',
-    money: '',
-    remarks: '',
-    keepNote: false
+    _id: "",
+    friendId: "",
+    friendName: "",
+    bookId: "",
+    money: "",
+    remarks: "",
+    keepNote: false,
   },
   async onSave() {
     const eventChannel = this.getOpenerEventChannel();
@@ -20,9 +20,9 @@ Page({
       const res = await giftReceiveService.updateGiftReceive(this.data);
       if (res.success) {
         wx.showToast({
-          title: '修改成功',
+          title: "修改成功",
         });
-        eventChannel.emit('refresh');
+        eventChannel.emit("refresh");
         app.refreshTotal();
         setTimeout(() => {
           wx.navigateBack();
@@ -32,18 +32,18 @@ Page({
       const res = await giftReceiveService.addGiftReceive(this.data);
       if (res.success) {
         wx.showToast({
-          title: '添加成功',
+          title: "添加成功",
         });
-        eventChannel.emit('refresh');
+        eventChannel.emit("refresh");
         if (this.data.keepNote) {
           this.setData({
-            _id: '',
-            friendId: '',
-            friendName: '',
-            money: '',
-            remarks: '',
-          })
-          return
+            _id: "",
+            friendId: "",
+            friendName: "",
+            money: "",
+            remarks: "",
+          });
+          return;
         }
         app.refreshTotal();
         setTimeout(() => {
@@ -56,16 +56,16 @@ Page({
     let delData = this.data;
     const eventChannel = this.getOpenerEventChannel();
     wx.showModal({
-      title: '删除来往记录？',
-      content: '此操作无法恢复，确定删除？',
+      title: "删除来往记录？",
+      content: "此操作无法恢复，确定删除？",
       async success(res) {
         if (res.confirm) {
           const result = await giftReceiveService.deleteGiftReceive(delData);
           if (result.success) {
             wx.showToast({
-              title: '删除成功',
+              title: "删除成功",
             });
-            eventChannel.emit('refresh');
+            eventChannel.emit("refresh");
             app.refreshTotal();
             setTimeout(() => {
               wx.navigateBack();
@@ -78,7 +78,7 @@ Page({
   showFriendSelect() {
     let that = this;
     wx.navigateTo({
-      url: '/pages/friend/select/index',
+      url: "/pages/friend/select/index",
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
         dialogResult: function (data) {
@@ -106,15 +106,15 @@ Page({
   },
   onKeepNoteChange(e) {
     this.setData({
-      keepNote: e.detail
-    })
+      keepNote: e.detail,
+    });
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
     const eventChannel = this.getOpenerEventChannel();
-    eventChannel.on('acceptDataFromOpenerPage', (data) => {
+    eventChannel.on("acceptDataFromOpenerPage", (data) => {
       this.setData({
         ...data,
       });
