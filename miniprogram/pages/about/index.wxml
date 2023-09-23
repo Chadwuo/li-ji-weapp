@@ -22,6 +22,10 @@
             <ui-menu-item title="开源协议" isAction>
                 <view slot="action" class="text-gray-a">GPL-3.0 license</view>
             </ui-menu-item>
+        </ui-menu>
+        <ui-menu ui="mt-3 radius-lg">
+            <ui-menu-item title="在线客服" open-type="contact" arrow />
+            <ui-menu-item title="意见反馈" open-type="feedback" arrow />
             <ui-menu-item title="去评分" bindtap="openComment" arrow></ui-menu-item>
         </ui-menu>
     </view>

@@ -42,7 +42,7 @@ Page({
       },
       {
         icon: 'cicon-person-pin-circle-o',
-        name: '亲友关系',
+        name: '亲戚计算器',
         color: 'text-green',
         path: '/pages/relationship/index',
       },
@@ -72,8 +72,7 @@ Page({
       });
     });
     this.setData({
-      avatarUrl: app.userInfo.avatarUrl ||
-        'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
+      avatarUrl: app.userInfo.avatarUrl,
       nickName: app.userInfo.nickName,
     });
   },
