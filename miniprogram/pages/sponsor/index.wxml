@@ -1,28 +1,31 @@
 <!--pages/sponsor/index.wxml-->
-<ui-sys title="赞助" footerText="每一份支持都会礼记">
+<ui-sys title="为礼记充电">
 	<view class="ui-container">
 		<view class="paragraph mt-5" style="text-indent: 2em;">
 			礼记 是一个开源项目，使用完全免费。维护这样一个项目的成本和持续开发新功能所需的努力，只有在你的支持下才得以持续。
+			<view>倘若 礼记 于你有益，欢迎你通过下方观看广告视频的形式助力 礼记 发展。用爱发电，你也可以！</view>
 		</view>
 		<view class="text-center my-5">
-			<button class="ui-btn round bg-red" bindtap="onSupport">支持一下</button>
-			<view class="my-3 text-grey">观看30s视频，支持礼记，为她充电</view>
+			<button class="ui-btn round bg-red cicon-flash-on" bindtap="onSupport"> 开始充电</button>
+			<view class="my-3 text-grey">观看广告视频，为礼记充电</view>
 		</view>
-		<ui-title title="支持榜" titleColor="text-blue" descUi="text-orange" desc="感谢你们" tpl="center-column" hasDot />
-		<view class="ui-grid ui-cols-3 text-lg text-bold text-center">
-			<view class="ui-item">排名</view>
-			<view class="ui-item">昵称</view>
-			<view class="ui-item">电量</view>
-		</view>
-		<view class="ui-grid ui-cols-3 my-3" wx:for="{{sponsors}}" wx:key="index">
-			<view class="ui-item flex-center">
-				<i wx:if="{{index<3}}" class="cicon-crown text-lg {{index==0?'text-yellow':index==1?'text-grey':'text-brown'}}"></i>
-				<text wx:else>{{index+1}}</text>
+		<view wx:if="{{sponsors.length!=0}}">
+			<ui-title title="发电榜" titleColor="text-blue" descUi="text-orange" desc="感谢你们" tpl="center-column" hasDot />
+			<view class="ui-grid ui-cols-3 text-lg text-bold text-center">
+				<view class="ui-item">排名</view>
+				<view class="ui-item">昵称</view>
+				<view class="ui-item cicon-flash-on">电量</view>
 			</view>
-			<view class="ui-item">
-				<ui-avatar ui="round" src="{{item.user.avatarUrl||'/static/img/avatar0.png'}}" class="mr-2" />{{item.user.nickName}}
+			<view class="ui-grid ui-cols-3 my-3" wx:for="{{sponsors}}" wx:key="index">
+				<view class="ui-item flex-center">
+					<i wx:if="{{index<3}}" class="cicon-crown text-lg {{index==0?'text-yellow':index==1?'text-grey':'text-brown'}}"></i>
+					<text wx:else>{{index+1}}</text>
+				</view>
+				<view class="ui-item">
+					<ui-avatar ui="round" src="{{item.user.avatarUrl||'/static/img/avatar0.png'}}" class="mr-2" />{{item.user.nickName}}
+				</view>
+				<view class="ui-item flex-center">{{item.count}}</view>
 			</view>
-			<view class="ui-item flex-center">{{item.count}}</view>
 		</view>
 	</view>
 </ui-sys>
