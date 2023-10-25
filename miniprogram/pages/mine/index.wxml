@@ -41,7 +41,7 @@
 		</view>
 
 		<ui-menu ui="mt-4 radius-lg">
-			<ui-menu-item arrow title="充电" icon="cicon-flash-on text-orange" data-url="/pages/sponsor/index" bindtap="tapToUrl" />
+			<ui-menu-item arrow title="爱发电" icon="cicon-flash-on text-orange" data-url="/pages/sponsor/index" bindtap="tapToUrl" />
 		</ui-menu>
 
 		<!-- 其他功能 -->
