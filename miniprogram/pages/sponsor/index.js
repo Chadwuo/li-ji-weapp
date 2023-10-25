@@ -8,9 +8,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    pageNo: 0,
-    sponsors: [],
-    mineSupport: ''
+    //pageNo: 0,
+    //sponsors: [],
+    //mineSupport: ''
   },
   onSupport() {
     rewardedVideoAd.show()
@@ -44,13 +44,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    this.loadData(1);
-    const res = await sponsorService.get()
-    if (res.success) {
-      this.setData({
-        mineSupport: res.data,
-      });
-    }
+    //this.loadData(1);
+    // const res = await sponsorService.get()
+    // if (res.success) {
+    //   this.setData({
+    //     mineSupport: res.data,
+    //   });
+    // }
 
     // 创建广告
     if (wx.createRewardedVideoAd) {
@@ -85,18 +85,18 @@ Page({
       icon: 'none',
       duration: 3000
     })
-    if (!this.data.mineSupport) {
-      this.data.mineSupport = {
-        count: 1
-      }
-      const res = await sponsorService.add(this.data.mineSupport);
-      if (res.success) {
-        this.data.mineSupport._id = res.data
-      }
-    } else {
-      this.data.mineSupport.count++
-      await sponsorService.update(this.data.mineSupport);
-    }
+    // if (!this.data.mineSupport) {
+    //   this.data.mineSupport = {
+    //     count: 1
+    //   }
+    //   const res = await sponsorService.add(this.data.mineSupport);
+    //   if (res.success) {
+    //     this.data.mineSupport._id = res.data
+    //   }
+    // } else {
+    //   this.data.mineSupport.count++
+    //   await sponsorService.update(this.data.mineSupport);
+    // }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -137,7 +137,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-    this.loadData(this.data.pageNo + 1);
+    //this.loadData(this.data.pageNo + 1);
   },
 
   /**
