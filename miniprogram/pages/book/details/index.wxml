@@ -28,12 +28,12 @@
 		</view>
 	</ui-fixed>
 
+	<van-empty wx:if="{{giftList.length==0}}" description="还没有记录哦~">
+		<text class="text-xs text-grey cicon-help mb-2">广告会在添加记录后关闭</text>
+		<ad unit-id="adunit-45fd166651f430ec" ad-type="video" ad-theme="white"></ad>
+	</van-empty>
+	
 	<view class="ui-container">
-		<van-empty wx:if="{{giftList.length==0}}" description="还没有记录哦~">
-			<text class="text-xs text-grey cicon-help mb-2">广告会在添加记录后关闭</text>
-			<ad unit-id="adunit-45fd166651f430ec" ad-type="video" ad-theme="white"></ad>
-		</van-empty>
-
 		<view wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
 			<view class="ui-BG radius-lg flex justify-around align-center py-4 my-3 text-{{tools.bookColor(book.title)}}">
 				<view class="text-left">

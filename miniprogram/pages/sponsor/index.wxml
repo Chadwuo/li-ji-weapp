@@ -1,15 +1,15 @@
 <!--pages/sponsor/index.wxml-->
-<ui-sys title="为礼记充电">
+<ui-sys title="爱发电">
 	<view class="ui-container">
 		<view class="paragraph mt-5" style="text-indent: 2em;">
 			礼记 是一个开源项目，使用完全免费。维护这样一个项目的成本和持续开发新功能所需的努力，只有在你的支持下才得以持续。
 			<view>倘若 礼记 于你有益，欢迎你通过下方观看广告视频的形式助力 礼记 发展。用爱发电，你也可以！</view>
 		</view>
 		<view class="text-center my-5">
-			<button class="ui-btn round bg-red cicon-flash-on" bindtap="onSupport"> 开始充电</button>
-			<view class="my-3 text-grey">观看广告视频，为礼记充电</view>
+			<button class="ui-btn round bg-red" bindtap="onSupport">观看广告视频</button>
+			<!-- <view class="my-3 text-grey">观看广告视频，为礼记充电</view> -->
 		</view>
-		<view wx:if="{{sponsors.length!=0}}">
+		<!-- <view wx:if="{{sponsors.length!=0}}">
 			<ui-title title="发电榜" titleColor="text-blue" descUi="text-orange" desc="感谢你们" tpl="center-column" hasDot />
 			<view class="ui-grid ui-cols-3 text-lg text-bold text-center">
 				<view class="ui-item">排名</view>
@@ -26,6 +26,10 @@
 				</view>
 				<view class="ui-item flex-center">{{item.count}}</view>
 			</view>
-		</view>
+		</view> -->
+	</view>
+	<view class="mt-6">
+		<ad unit-id="adunit-45fd166651f430ec" ad-type="video" ad-theme="white"></ad>
+		<ad unit-id="adunit-64aefbe92c2dc7bf"></ad>
 	</view>
 </ui-sys>
