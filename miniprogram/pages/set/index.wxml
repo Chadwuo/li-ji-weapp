@@ -11,7 +11,7 @@
         <ui-menu ui="radius-lg mt-4">
             <ui-menu-item title="关闭广告" isAction>
                 <view slot="action">
-                    <ui-switch bg="bg-red" />
+                    <ui-switch bg="bg-red" checked="{{skipAD}}" bind:change="tapSetAdChange"/>
                 </view>
             </ui-menu-item>
         </ui-menu>

@@ -1,14 +1,33 @@
+const app = getApp();
+const {
+  toggleADSet
+} = require('../../alicloud/services/user');
 // pages/set/index.js
 Page({
   /**
    * 页面的初始数据
    */
-  data: {},
-
+  data: {
+    skipAD: ''
+  },
+  async tapSetAdChange() {
+    const res = await toggleADSet()
+    if (res.success) {
+      wx.showToast({
+        title: app.userInfo.skipAD ? '没关系，下次一定' : '页面广告已开启，感谢支持，礼记因你更美好！',
+        icon: 'none',
+        duration: 3000
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {},
+  onLoad(options) {
+    this.setData({
+      skipAD: app.userInfo.skipAD
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

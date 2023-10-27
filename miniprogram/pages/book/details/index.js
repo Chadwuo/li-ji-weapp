@@ -1,8 +1,9 @@
 // pages/book/details/index.js
 const giftReceiveService = require('../../../alicloud/services/giftReceive');
-
+const app = getApp();
 Page({
   data: {
+    skipAD: app.userInfo.skipAD,
     giftList: [],
     book: {},
     pageNo: 0,
@@ -90,6 +91,9 @@ Page({
         pageNo: page,
       });
     }
+    this.setData({
+      skipAD: app.userInfo.skipAD
+    })
   },
   /**
    * 生命周期函数--监听页面加载

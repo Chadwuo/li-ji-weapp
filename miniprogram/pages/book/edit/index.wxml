@@ -21,7 +21,7 @@
         </ui-form>
         <text class="text-xs text-grey cicon-help">{{tips}}</text>
 
-        <view class="mt-6 ">
+        <view class="mt-6" wx:if="{{!skipAD}}">
             <ad unit-id="adunit-64aefbe92c2dc7bf"></ad>
             <text class="text-xs text-grey cicon-help mb-2">广告可以在设置中关闭</text>
         </view>
