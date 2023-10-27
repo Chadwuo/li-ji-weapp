@@ -1,10 +1,12 @@
 // pages/giftOut/index.js
 const giftOutService = require('../../alicloud/services/giftOut');
+const app = getApp();
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    skipAD: app.userInfo.skipAD,
     scrollTop: 0,
     pageNo: 0,
     giftList: [],
@@ -83,7 +85,11 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    this.setData({
+      skipAD: app.userInfo.skipAD
+    })
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

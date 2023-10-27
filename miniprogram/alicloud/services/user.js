@@ -8,7 +8,9 @@ import dayjs from 'dayjs';
  * @author chadwuo
  */
 exports.getUserInfo = async () => {
-  const { mpserverless } = app;
+  const {
+    mpserverless
+  } = app;
   const db = mpserverless.db;
   try {
     const res = await mpserverless.user.getInfo();
@@ -17,7 +19,9 @@ exports.getUserInfo = async () => {
     }
 
     const loginUser = res.result.user;
-    let { result: user } = await db.collection('user').findOne({
+    let {
+      result: user
+    } = await db.collection('user').findOne({
       _id: loginUser.userId,
     });
 
@@ -34,20 +38,17 @@ exports.getUserInfo = async () => {
       };
       await db.collection('user').insertOne(user);
     } else {
-      await db.collection('user').updateOne(
-        {
-          _id: loginUser.userId,
-        },
-        {
-          $set: {
-            lastSeenAt: dayjs(loginUser.lastSeenAt).format(),
+      await db.collection('user').updateOne({
+        _id: loginUser.userId,
+      }, {
+        $set: {
+          lastSeenAt: dayjs(loginUser.lastSeenAt).format(),
 
-            // 这里是历史遗留问题，后续会删除
-            createdAt: dayjs(loginUser.createdAt).format(),
-            oAuthUserId: loginUser.oAuthUserId,
-          },
-        }
-      );
+          // 这里是历史遗留问题，后续会删除
+          createdAt: dayjs(loginUser.createdAt).format(),
+          oAuthUserId: loginUser.oAuthUserId,
+        },
+      });
     }
 
     return {
@@ -70,17 +71,14 @@ exports.getUserInfo = async () => {
 exports.updateUserInfo = async (parameter) => {
   const db = app.mpserverless.db;
   try {
-    await db.collection('user').updateOne(
-      {
-        _id: parameter._id,
+    await db.collection('user').updateOne({
+      _id: parameter._id,
+    }, {
+      $set: {
+        nickName: parameter.nickName,
+        avatarUrl: parameter.avatarUrl,
       },
-      {
-        $set: {
-          nickName: parameter.nickName,
-          avatarUrl: parameter.avatarUrl,
-        },
-      }
-    );
+    });
     return {
       success: true,
       data: '',
@@ -103,7 +101,9 @@ exports.getUserDataScope = async () => {
   const userInfo = app.userInfo;
   const db = app.mpserverless.db;
   // 获取家庭信息
-  const { result: familyMember } = await db
+  const {
+    result: familyMember
+  } = await db
     .collection('family_member')
     .findOne({
       userId: userInfo._id,
@@ -115,7 +115,9 @@ exports.getUserDataScope = async () => {
   }
 
   // 获取家庭其他成员信息
-  const { result: familyInfos } = await db.collection('family_member').find({
+  const {
+    result: familyInfos
+  } = await db.collection('family_member').find({
     familyId: familyMember.familyId,
   });
 
@@ -128,4 +130,33 @@ exports.getUserDataScope = async () => {
   }
 
   return dataScope;
+};
+
+/**
+ * 开启/关闭广告
+ *
+ * @author chadwuo
+ */
+exports.toggleADSet = async () => {
+  const userInfo = app.userInfo;
+  const db = app.mpserverless.db;
+  try {
+    await db.collection('user').updateOne({
+      _id: userInfo._id,
+    }, {
+      $set: {
+        skipAD: !userInfo.skipAD,
+      },
+    });
+    userInfo.skipAD = !userInfo.skipAD
+    return {
+      success: true,
+      data: '',
+    };
+  } catch (e) {
+    return {
+      success: false,
+      message: e,
+    };
+  }
 };

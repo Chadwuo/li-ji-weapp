@@ -2,7 +2,8 @@
 <ui-sys title="爱发电">
 	<view class="ui-container">
 		<view class="paragraph mt-5" style="text-indent: 2em;">
-			礼记 是一个开源项目，使用完全免费。维护这样一个项目的成本和持续开发新功能所需的努力，只有在你的支持下才得以持续。
+			礼记 是一个开源项目，使用完全免费，维护这样一个项目需要很大的精力和服务器费用。
+			<view>为了维持礼记的健康运营，部分页面中增加了广告，敬请理解，当然，如果你对广告容忍度很低，可以在<text class="text-red"  bindtap="goSetPage"> 设置 </text>中关闭广告！</view>
 			<view>倘若 礼记 于你有益，欢迎你通过下方观看广告视频的形式助力 礼记 发展。用爱发电，你也可以！</view>
 		</view>
 		<view class="text-center my-5">
