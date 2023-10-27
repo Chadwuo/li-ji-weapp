@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    skipAD: app.userInfo.skipAD,
     _id: "",
     date: {},
     title: "",
@@ -99,7 +100,11 @@ Page({
       showCalendar: true,
     });
     const calendar = this.selectComponent("#calendar").calendar;
-    const { year, month, day } = this.data.date || {};
+    const {
+      year,
+      month,
+      day
+    } = this.data.date || {};
     if (year && month && day) {
       calendar.jump({
         year,
@@ -117,7 +122,12 @@ Page({
    * 选择日期后执行的事件
    */
   afterTapDate(e) {
-    let { year, month, date, lunar } = e.detail;
+    let {
+      year,
+      month,
+      date,
+      lunar
+    } = e.detail;
     let selectedDate = {
       year,
       month,
@@ -143,6 +153,9 @@ Page({
         ...data,
       });
     });
+    this.setData({
+      skipAD: app.userInfo.skipAD
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

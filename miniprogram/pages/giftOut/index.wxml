@@ -8,8 +8,10 @@
 	</ui-navbar>
 	<ui-search-bar barBg="transparent" bg="ui-BG" placeholder="请输入搜索关键词" bind:confirm="onSearch" />
 	<van-empty wx:if="{{giftList.length===0}}" description="没有记录哦~">
-		<text class="text-xs text-grey cicon-help mb-2">广告会在添加记录后关闭</text>
-		<ad unit-id="adunit-45fd166651f430ec" ad-type="video" ad-theme="white"></ad>
+		<view wx:if="{{!skipAD}}">
+			<text class="text-xs text-grey cicon-help mb-2">广告可以在设置中关闭</text>
+			<ad unit-id="adunit-45fd166651f430ec" ad-type="video" ad-theme="white"></ad>
+		</view>
 	</van-empty>
 	<view class="ui-container">
 		<view class="ui-BG radius-lg flex align-center py-4 mb-3" wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>

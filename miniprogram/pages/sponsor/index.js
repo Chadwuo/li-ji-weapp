@@ -12,6 +12,11 @@ Page({
     //sponsors: [],
     //mineSupport: ''
   },
+  goSetPage(){
+    wx.navigateTo({
+      url: "/pages/set/index",
+    });
+  },
   onSupport() {
     rewardedVideoAd.show()
       .catch(() => {

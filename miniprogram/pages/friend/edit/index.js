@@ -1,10 +1,12 @@
 // pages/friend/edit/index.js
 const friendService = require("../../../alicloud/services/friend");
+const app = getApp();
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    skipAD: app.userInfo.skipAD,
     _id: "",
     name: "",
     firstLetter: "",
@@ -77,6 +79,9 @@ Page({
         });
       }
     }
+    this.setData({
+      skipAD: app.userInfo.skipAD
+    })
   },
 
   /**
