@@ -1,6 +1,6 @@
 <!-- pages/family/index.wxml -->
 <ui-sys title="我的家庭" class="container" loading="{{loading}}">
-	<view class="ui-container">
+	<view class="ui-container" style="min-height: 70vh;">
 		<block wx:if="{{!_id&&!inviteFamily}}">
 			<van-empty description="还没有开通家庭共享哦~" image="/static/img/home.svg"/>
 			<button class="ui-btn block round bg-red" bindtap="onCreate">创建家庭</button>
