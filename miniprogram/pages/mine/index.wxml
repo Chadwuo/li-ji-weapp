@@ -3,7 +3,7 @@
 	<ui-navbar back="{{false}}" isSlot opacity scrollTop="{{scrollTop}}">
 		<view class="flex-center flex-sub" wx:if="{{scrollTop > sys_navBar}}">我的</view>
 	</ui-navbar>
-	<view class='ui-container'>
+	<view class='ui-container' style="min-height: 70vh;">
 		<view class="flex-bar my-4" bindtap="onShowPopup">
 			<ui-avatar ui="xxl ellipse" src="{{avatarUrl||'/static/img/avatar0.png'}}" />
 			<view class="flex-sub pl-3">
