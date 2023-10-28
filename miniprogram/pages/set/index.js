@@ -14,7 +14,7 @@ Page({
     const res = await toggleADSet()
     if (res.success) {
       wx.showToast({
-        title: app.userInfo.skipAD ? '没关系，下次一定' : '页面广告已开启，感谢支持，礼记因你更美好！',
+        title: app.userInfo.skipAD ? '没关系，下次一定' : '页面广告已开启，礼记因你更美好！',
         icon: 'none',
         duration: 3000
       })
