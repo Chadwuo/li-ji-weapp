@@ -1,5 +1,5 @@
 // pages/giftOut/edit/index.js
-const giftOutService = require("@/alicloud/services/giftOut");
+const giftOutService = require("@/services/giftOut");
 const app = getApp();
 
 import solarLunar from "@/components/calendar/plugins/solarLunar/index";

@@ -1,5 +1,5 @@
 // pages/friend/details/index.js
-const friendService = require("@/alicloud/services/friend");
+const friendService = require("@/services/friend");
 import dayjs from "dayjs";
 
 const app = getApp();

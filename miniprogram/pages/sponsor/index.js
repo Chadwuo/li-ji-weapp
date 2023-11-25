@@ -1,5 +1,5 @@
 // pages/sponsor/index.js
-const sponsorService = require('@/alicloud/services/sponsor');
+const sponsorService = require('@/services/sponsor');
 
 let rewardedVideoAd = null
 Page({

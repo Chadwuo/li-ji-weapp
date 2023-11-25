@@ -1,5 +1,5 @@
 // pages/book/edit/index.js
-const bookService = require("@/alicloud/services/book");
+const bookService = require("@/services/book");
 const app = getApp();
 
 import solarLunar from "@/components/calendar/plugins/solarLunar/index";

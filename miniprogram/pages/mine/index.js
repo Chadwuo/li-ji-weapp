@@ -1,7 +1,7 @@
-const userService = require('@/alicloud/services/user');
+const userService = require('@/services/user');
 const jinrishici = require('@/utils/jinrishici.js');
-import { computedTotalGiftOut } from "@/alicloud/services/giftOut";
-import { computedTotalGiftReceive } from "@/alicloud/services/giftReceive";
+import { computedTotalGiftOut } from "@/services/giftOut";
+import { computedTotalGiftReceive } from "@/services/giftReceive";
 import {
   welcome
 } from '@/utils/index.js';

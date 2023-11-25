@@ -1,6 +1,6 @@
 // pages/family/index.js
-const familyService = require("@/alicloud/services/family");
-const { getUserInfo } = require("@/alicloud/services/user");
+const familyService = require("@/services/family");
+const { getUserInfo } = require("@/services/user");
 
 const app = getApp();
 Page({
