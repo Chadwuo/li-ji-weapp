@@ -100,7 +100,6 @@ Page({
           title: "修改成功",
         });
         eventChannel.emit("refresh");
-        app.refreshTotal();
         setTimeout(() => {
           wx.navigateBack();
         }, 1000);
@@ -112,7 +111,6 @@ Page({
           title: "添加成功",
         });
         eventChannel.emit("refresh");
-        app.refreshTotal();
         setTimeout(() => {
           wx.navigateBack();
         }, 1000);
@@ -133,7 +131,6 @@ Page({
               title: "删除成功",
             });
             eventChannel.emit("refresh");
-            app.refreshTotal();
             setTimeout(() => {
               wx.navigateBack();
             }, 1000);

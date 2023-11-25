@@ -25,16 +25,21 @@ exports.addBook = async (parameter) => {
 };
 
 /**
+ * 获取礼簿详情
+ *
+ * @author chadwuo
+ */
+exports.getBook = async (id) => {
+  return wx.$api.get(`/books/${id}`)
+};
+
+/**
  * 更新礼簿
  *
  * @author chadwuo
  */
-exports.updateBook = async (parameter) => {
-  wx.$api.get(`/todo/updateBook`, parameter)
-  return {
-    success: true,
-    data: '',
-  };
+exports.updateBook = async (id, parameter) => {
+  return wx.$api.put(`/books/${id}`, parameter)
 };
 
 /**
@@ -42,8 +47,8 @@ exports.updateBook = async (parameter) => {
  *
  * @author chadwuo
  */
-exports.deleteBook = async (parameter) => {
-  wx.$api.get(`/todo/deleteBook`, parameter)
+exports.deleteBook = async (id) => {
+  wx.$api.delete(`/books/${id}`)
   return {
     success: true,
     data: '',

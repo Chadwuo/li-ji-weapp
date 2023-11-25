@@ -1,5 +1,6 @@
 // pages/book/details/index.js
 const giftReceiveService = require('../../../alicloud/services/giftReceive');
+const bookService = require("@/alicloud/services/book");
 const app = getApp();
 Page({
   data: {
@@ -8,89 +9,44 @@ Page({
     book: {},
     pageNo: 0,
   },
-  onSearch(e) {
+  async onSearch(e) {
     const searchVal = e.detail
     if (!searchVal) {
       this.loadData(1);
       return;
     }
+    const res = await giftReceiveService.getGiftReceivePage({
+      bookId: this.data.book.id,
+      friendName_like: searchVal,
+    });
     this.setData({
-      giftList: this.data.giftList.filter((i) =>
-        i.friendInfo.name.includes(searchVal)
-      ),
+      giftList: res.results,
     });
   },
   onAddGift() {
-    let that = this;
     wx.navigateTo({
-      url: '/pages/giftReceive/edit/index',
-      events: {
-        refresh: () => {
-          this.loadData(1);
-          const eventChannel = this.getOpenerEventChannel();
-          eventChannel.emit('refresh');
-        },
-      },
-      success: function (res) {
-        // 通过 eventChannel 向被打开页面传送数据
-        res.eventChannel.emit('acceptDataFromOpenerPage', {
-          bookId: that.data.book._id,
-          bookName: that.data.book.title,
-        });
-      },
+      url: `/pages/giftReceive/edit/index?bookId=${this.data.book.id}`,
     });
   },
   onGiftClick(e) {
-    let that = this;
     wx.navigateTo({
-      url: '/pages/giftReceive/edit/index',
-      events: {
-        refresh: () => {
-          this.loadData(1);
-          const eventChannel = this.getOpenerEventChannel();
-          eventChannel.emit('refresh');
-        },
-      },
-      success: function (res) {
-        // 通过 eventChannel 向被打开页面传送数据
-        res.eventChannel.emit('acceptDataFromOpenerPage', {
-          ...e.currentTarget.dataset.gift,
-          friendName: e.currentTarget.dataset.gift.friendInfo.name,
-          bookName: that.data.book.title,
-          inBook: true,
-        });
-      },
+      url: `/pages/giftReceive/edit/index?bookId=${this.data.book.id}&id=${e.currentTarget.dataset.gift.id}`,
     });
   },
   onEditClick() {
     wx.navigateTo({
-      url: `/pages/book/edit/index`,
-      success: (res) => {
-        // 通过 eventChannel 向被打开页面传送数据
-        res.eventChannel.emit(
-          'acceptDataFromOpenerPage',
-          this.data.book
-        );
-      },
-      events: {
-        refresh: () => {
-          const eventChannel = this.getOpenerEventChannel();
-          eventChannel.emit("refresh");
-        },
-      },
+      url: `/pages/book/edit/index?id=${this.data.book.id}`,
     });
   },
   async loadData(page) {
     const res = await giftReceiveService.getGiftReceivePage({
-      bookId: this.data.book._id,
+      bookId: this.data.book.id,
       page,
     });
-    if (res.success) {
-      this.setData({
-        giftList: page === 1 ? res.data : [...this.data.giftList, ...res.data],
-        pageNo: page,
-      });
-    }
+    this.setData({
+      giftList: page === 1 ? res.results : [...this.data.giftList, ...res.results],
+      pageNo: page,
+    });
     this.setData({
       skipAD: app.userInfo.skipAD
     })
@@ -99,13 +55,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    const eventChannel = this.getOpenerEventChannel();
-    eventChannel.on('acceptDataFromOpenerPage', async (data) => {
-      this.setData({
-        ...data,
-      });
-      await this.loadData(1);
-    });
+    this.setData({
+      'book.id': options.id,
+    })
+    this.loadData(1)
+    const res = await bookService.getBook(options.id)
+    this.setData({
+      book: res,
+      skipAD: app.userInfo.skipAD,
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

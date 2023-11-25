@@ -13,10 +13,12 @@ Page({
    */
   data: {
     skipAD: app.userInfo.skipAD,
-    _id: "",
-    date: {},
-    title: "",
-    remarks: "",
+    book: {
+      id: "",
+      date: {},
+      title: "",
+      remarks: "",
+    },
     tips: "",
     showCalendar: false,
     calendarConfig: {
@@ -41,26 +43,21 @@ Page({
     },
   },
   async onSave() {
-    const eventChannel = this.getOpenerEventChannel();
-    if (this.data._id) {
-      const res = await bookService.updateBook(this.data);
-      if (res.success) {
-        wx.showToast({
-          title: "修改成功",
+    if (this.data.book.id) {
+      const res = await bookService.updateBook(this.data.book.id, this.data.book);
+      wx.showToast({
+        title: "修改成功",
+      });
+      setTimeout(() => {
+        wx.navigateBack({
+          delta: 2,
         });
-        eventChannel.emit("refresh");
-        setTimeout(() => {
-          wx.navigateBack({
-            delta: 2,
-          });
-        }, 1000);
-      }
+      }, 1000);
     } else {
-      const res = await bookService.addBook(this.data);
+      const res = await bookService.addBook(this.data.book);
       wx.showToast({
         title: "保存成功",
       });
-      eventChannel.emit("refresh");
       setTimeout(() => {
         wx.navigateBack({
           delta: 2,
@@ -69,20 +66,16 @@ Page({
     }
   },
   async onDelete() {
-    let delData = this.data;
-    const eventChannel = this.getOpenerEventChannel();
     wx.showModal({
       title: "删除礼簿？",
       content: "该礼簿所有来往记录都将被删除，确定删除？",
-      async success(res) {
+      success: async (res) => {
         if (res.confirm) {
-          const result = await bookService.deleteBook(delData);
+          const result = await bookService.deleteBook(this.data.book.id);
           if (result.success) {
             wx.showToast({
               title: "删除成功",
             });
-            app.refreshTotal();
-            eventChannel.emit("refresh");
             setTimeout(() => {
               wx.navigateBack({
                 delta: 2,
@@ -93,6 +86,11 @@ Page({
       },
     });
   },
+  inputListener(e){
+    this.setData({
+      [e.currentTarget.id]: e.detail.value
+    })
+  },
   onOpenCalendar() {
     this.setData({
       showCalendar: true,
@@ -102,7 +100,7 @@ Page({
       year,
       month,
       day
-    } = this.data.date || {};
+    } = this.data.book.date || {};
     if (year && month && day) {
       calendar.jump({
         year,
@@ -136,23 +134,18 @@ Page({
       lunar_year: `${lunar.gzYear}${lunar.Animal}年`,
       lunar_term: lunar.Term,
     };
-    console.log("afterTapDate", selectedDate); // => { year: 2019, month: 12, date: 3, ...}
     this.setData({
-      date: selectedDate,
-    });
+      'book.date': selectedDate
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    const eventChannel = this.getOpenerEventChannel();
-    eventChannel.on("acceptDataFromOpenerPage", (data) => {
-      this.setData({
-        ...data,
-      });
-    });
+    const res = await bookService.getBook(options.id)
     this.setData({
-      skipAD: app.userInfo.skipAD
+      book: res,
+      skipAD: app.userInfo.skipAD,
     })
   },
   /**

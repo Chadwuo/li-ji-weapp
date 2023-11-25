@@ -41,40 +41,18 @@ Page({
   onAddGift() {
     wx.navigateTo({
       url: '/pages/giftReceive/edit/index',
-      events: {
-        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-        refresh: () => {
-          this.loadData(1);
-        },
-      },
     });
   },
   // 添加礼簿
   onAddBook() {
     wx.navigateTo({
       url: '/pages/book/edit/index',
-      events: {
-        refresh: () => {
-          this.loadData(1);
-        },
-      },
     });
   },
   // 点击礼簿
   onBookClick(e) {
     wx.navigateTo({
-      url: '/pages/book/details/index',
-      events: {
-        refresh: () => {
-          this.loadData(1);
-        },
-      },
-      success: function (res) {
-        // 通过 eventChannel 向被打开页面传送数据
-        res.eventChannel.emit('acceptDataFromOpenerPage', {
-          book: e.currentTarget.dataset.book,
-        });
-      },
+      url: `/pages/book/details/index?id=${e.currentTarget.dataset.book.id}`,
     });
   },
   // 长按礼簿
@@ -100,9 +78,7 @@ Page({
           content: '该礼簿所有来往记录都将被删除，确定删除？',
           async success(result) {
             if (result.confirm) {
-              const res = await bookService.deleteBook({
-                _id: that.data.bookActionDetail._id,
-              });
+              const res = await bookService.deleteBook(that.data.bookActionDetail.id);
               if (res.success) {
                 that.loadData(1);
                 wx.showToast({
@@ -116,19 +92,7 @@ Page({
       case '编辑':
         console.log(that.data.actionId);
         wx.navigateTo({
-          url: `/pages/book/edit/index`,
-          success: function (res) {
-            // 通过 eventChannel 向被打开页面传送数据
-            res.eventChannel.emit(
-              'acceptDataFromOpenerPage',
-              that.data.bookActionDetail
-            );
-          },
-          events: {
-            refresh: () => {
-              this.loadData(1);
-            },
-          },
+          url: `/pages/book/edit/index?id=${that.data.bookActionDetail.id}`,
         });
         break;
       default:

@@ -7,7 +7,7 @@ wx.$api = api
 wx.$app = {
   //挂载到app上
   colorUI: config.colorUI,
-  userInfo: "",
+  userInfo: wx.getStorageSync(`userInfo`) || ``,
   giftTotal: {
     receive: 0,
     out: 0,

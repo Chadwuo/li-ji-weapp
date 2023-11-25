@@ -1,21 +1,21 @@
 <!--pages/book/edit/index.wxml-->
-<ui-sys title="{{title?'编辑礼簿':'添加礼簿'}}" footer="{{false}}">
+<ui-sys title="{{book.title?'编辑礼簿':'添加礼簿'}}" footer="{{false}}">
     <view class="ui-container">
         <ui-form ui="ui-BG my-3 radius-lg">
             <ui-form-group title="日期" isAction icon="cicon-time text-pink">
                 <ui-input-box bindtap="onOpenCalendar">
-                    <input class="ui-input-wrapper" disabled placeholder="请选择日期" value="{{ date.value }}" />
+                    <input bindinput="inputListener" id="book.date.value" class="ui-input-wrapper" disabled placeholder="请选择日期" value="{{ book.date.value }}" />
                     <block slot="action"><text class="cicon-angle icon-xl" /></block>
                 </ui-input-box>
             </ui-form-group>
             <ui-form-group title="礼簿名称" icon="cicon-book text-orange">
                 <ui-input-box>
-                    <input class="ui-input-wrapper" placeholder="请输入名称" model:value="{{ title }}" />
+                    <input bindinput="inputListener" id="book.title" class="ui-input-wrapper" placeholder="请输入名称" model:value="{{ book.title }}" />
                 </ui-input-box>
             </ui-form-group>
             <ui-form-group title="备注" icon="cicon-bookmark text-blue">
                 <ui-input-box>
-                    <input class="ui-input-wrapper" placeholder="选填" model:value="{{ remarks }}" />
+                    <input bindinput="inputListener" id="book.remarks" class="ui-input-wrapper" placeholder="选填" model:value="{{ book.remarks }}" />
                 </ui-input-box>
             </ui-form-group>
         </ui-form>
@@ -28,11 +28,11 @@
     </view>
     <ui-fixed bottom val="{{24}}">
         <van-row gutter="24" custom-class="mx-2">
-            <van-col span="8" wx:if="{{_id}}">
+            <van-col span="8" wx:if="{{book.id}}">
                 <button class="ui-btn block round border border-red bg-red-light" bindtap="onDelete">删 除</button>
             </van-col>
-            <van-col span="{{_id?16:24}}">
-                <button class="ui-btn block round bg-red" disabled="{{!title|!date.value}}" bindtap="onSave">保 存</button>
+            <van-col span="{{book.id?16:24}}">
+                <button class="ui-btn block round bg-red" disabled="{{!book.title|!book.date.value}}" bindtap="onSave">保 存</button>
             </van-col>
         </van-row>
     </ui-fixed>

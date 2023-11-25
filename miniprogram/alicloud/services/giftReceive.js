@@ -15,13 +15,9 @@ exports.computedTotalGiftReceive = async (parameter) => {
  * @author chadwuo
  */
 exports.getGiftReceivePage = async (parameter) => {
-  wx.$api.get(`/todo/getGiftReceivePage`, parameter)
   parameter.limit = parameter.limit || 20;
   parameter.page = parameter.page || 1;
-  return {
-    success: true,
-    data: [],
-  };
+  return wx.$api.get(`/gift`, parameter)
 };
 
 /**
@@ -30,11 +26,7 @@ exports.getGiftReceivePage = async (parameter) => {
  * @author chadwuo
  */
 exports.addGiftReceive = async (parameter) => {
-  wx.$api.get(`/todo/addGiftReceive`, parameter)
-  return {
-    success: true,
-    data: '',
-  };
+  return wx.$api.post(`/gift`, parameter)
 };
 
 /**
@@ -42,12 +34,8 @@ exports.addGiftReceive = async (parameter) => {
  *
  * @author chadwuo
  */
-exports.updateGiftReceive = async (parameter) => {
-  wx.$api.get(`/todo/updateGiftReceive`, parameter)
-  return {
-    success: true,
-    data: '',
-  };
+exports.updateGiftReceive = async (id, parameter) => {
+  return wx.$api.put(`/gift/${id}`, parameter)
 };
 
 /**
@@ -55,12 +43,8 @@ exports.updateGiftReceive = async (parameter) => {
  *
  * @author chadwuo
  */
-exports.deleteGiftReceive = async (parameter) => {
-  wx.$api.get(`/todo/deleteGiftReceive`, parameter)
-  return {
-    success: true,
-    data: '',
-  };
+exports.deleteGiftReceive = async (id) => {
+  return wx.$api.delete(`/gift/${id}`)
 };
 
 /**
@@ -68,10 +52,6 @@ exports.deleteGiftReceive = async (parameter) => {
  *
  * @author chadwuo
  */
-exports.getGiftOut = async (parameter) => {
-  wx.$api.get(`/todo/getGiftOut`, parameter)
-  return {
-    success: true,
-    data: [],
-  };
+exports.getGiftOut = async (id) => {
+  return wx.$api.get(`/gift/${id}`)
 };

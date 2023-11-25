@@ -39,8 +39,8 @@
 		<view wx:for="{{giftList}}" wx:key="index" bindtap="onGiftClick" data-gift='{{item}}'>
 			<view class="ui-BG radius-lg flex justify-around align-center py-4 my-3 text-{{tools.bookColor(book.title)}}">
 				<view class="text-left">
-					<text class="text-xl">{{item.friendInfo.name}}</text>
-					<view class="text-sm mt-2">{{item.friendInfo.relation}}</view>
+					<text class="text-xl">{{item.friendName}}</text>
+					<view class="text-sm mt-2">{{item.remarks}}</view>
 				</view>
 
 				<view class="text-right">

@@ -1,6 +1,7 @@
 const userService = require('../../alicloud/services/user');
 const jinrishici = require('../../utils/jinrishici.js');
-
+import { computedTotalGiftOut } from "../../alicloud/services/giftOut";
+import { computedTotalGiftReceive } from "../../alicloud/services/giftReceive";
 import {
   welcome
 } from '../../utils/index.js';
@@ -178,6 +179,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow() {
+    const { data: r } = await computedTotalGiftReceive();
+    const { data: o } = await computedTotalGiftOut();
+    app.giftTotal = {
+      receive: r || 0,
+      out: o || 0,
+    };
     this.setData({
       giftTotal: app.giftTotal
     })
