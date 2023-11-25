@@ -12,6 +12,7 @@
     "@alicloud/mpserverless-sdk": "^3.1.3",
     "@vant/weapp": "^1.10.15",
     "dayjs": "^1.10.7",
+    "flyio": "^0.6.14",
     "wl-pinyin": "^1.0.1"
   }
 }

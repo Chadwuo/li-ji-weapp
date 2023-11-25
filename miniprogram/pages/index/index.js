@@ -151,15 +151,11 @@ Page({
     const res = await bookService.getBookPage({
       page,
     });
-    if (res.success) {
-      const newGiftBooks = this.computeTotal(res.data);
-      const giftBooks =
-        page === 1 ? newGiftBooks : [...this.data.giftBooks, ...newGiftBooks];
-      this.setData({
-        giftBooks,
-        pageNo: page,
-      });
-    }
+    const giftBooks = res.results
+    this.setData({
+      giftBooks,
+      pageNo: page,
+    });
   },
   /**
    * 生命周期函数--监听页面加载

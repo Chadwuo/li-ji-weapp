@@ -8,49 +8,7 @@ const app = getApp();
 exports.getBookPage = async (parameter) => {
   parameter.limit = parameter.limit || 20;
   parameter.page = parameter.page || 1;
-  const db = app.mpserverless.db;
-  const dataScope = app.userDataScope;
-  try {
-    const { result } = await db.collection('book').aggregate([
-      {
-        $match: {
-          userId: {
-            $in: dataScope,
-          },
-        },
-      },
-      {
-        $sort: {
-          date: -1,
-        },
-      },
-      {
-        $skip: (parameter.page - 1) * parameter.limit,
-      },
-      {
-        $limit: parameter.limit,
-      },
-      {
-        // TODO 需要修改
-        $lookup: {
-          // 左连接
-          from: 'gift_receive', // 关联到de表
-          localField: '_id', // 左表关联的字段
-          foreignField: 'bookId', // 右表关联的字段
-          as: 'giftList',
-        },
-      },
-    ]);
-    return {
-      success: true,
-      data: result,
-    };
-  } catch (e) {
-    return {
-      success: false,
-      message: e,
-    };
-  }
+  return wx.$api.get(`/books`, parameter)
 };
 
 /**
