@@ -6,7 +6,7 @@
  * @Last Modified time: 2020-10-11 13:42:37
  * */
 
-import { getCalendarData, logger, getCalendarConfig } from '../../utils/index'
+import { getCalendarData, logger, getCalendarConfig } from '@/utils/index'
 
 function wrapDateWithLunar(dates = [], convertFn) {
   const datesWithLunar = JSON.parse(JSON.stringify(dates)).map(date => ({

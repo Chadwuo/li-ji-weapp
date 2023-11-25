@@ -1,10 +1,10 @@
 // pages/giftOut/edit/index.js
-const giftOutService = require("../../../alicloud/services/giftOut");
+const giftOutService = require("@/alicloud/services/giftOut");
 const app = getApp();
 
-import solarLunar from "../../../components/calendar/plugins/solarLunar/index";
-import holidays from "../../../components/calendar/plugins/holidays/index";
-import plugin from "../../../components/calendar/plugins/index";
+import solarLunar from "@/components/calendar/plugins/solarLunar/index";
+import holidays from "@/components/calendar/plugins/holidays/index";
+import plugin from "@/components/calendar/plugins/index";
 plugin.use(solarLunar).use(holidays);
 
 Page({

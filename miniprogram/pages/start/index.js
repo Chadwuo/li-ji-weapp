@@ -1,6 +1,6 @@
 // pages/start/index.js
 const app = getApp();
-import { getUserInfo } from "../../alicloud/services/user";
+import { getUserInfo } from "@/alicloud/services/user";
 
 Page({
   /**

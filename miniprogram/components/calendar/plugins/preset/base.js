@@ -6,14 +6,14 @@
  * @Last Modified time: 2020-10-11 13:28:52
  * */
 
-import { calcJumpData } from '../../core'
-import { renderCalendar } from '../../render'
+import { calcJumpData } from '@/core'
+import { renderCalendar } from '@/render'
 import {
   dateUtil,
   getCalendarData,
   setCalendarData,
   getCalendarConfig
-} from '../../utils/index'
+} from '@/utils/index'
 
 export default () => {
   return {

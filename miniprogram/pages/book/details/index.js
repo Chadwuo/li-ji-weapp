@@ -1,5 +1,5 @@
 // pages/book/details/index.js
-const giftReceiveService = require('../../../alicloud/services/giftReceive');
+const giftReceiveService = require('@/alicloud/services/giftReceive');
 const bookService = require("@/alicloud/services/book");
 const app = getApp();
 Page({

@@ -1,4 +1,4 @@
-import { dateUtil } from '../../utils/index'
+import { dateUtil } from '@/utils/index'
 import convertSolarLunar from './convertSolarLunar'
 
 function getDateRow2Dict(dateInfo) {
