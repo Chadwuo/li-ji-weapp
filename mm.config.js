@@ -45,6 +45,14 @@ module.exports = util => {
         }
         next()
       },
+      async 'use /books/:id' (req, res, next) {
+        res.mm.resHandleJsonApi = (arg) => {
+          arg.data.giftCount = 10
+          arg.data.giftTotal = 1000
+          return arg.resHandleJsonApi(arg)
+        }
+        next()
+      },
       // 收入
       async 'get /computedTotalGiftReceive' (req, res, next) {
         const db = global.config._db 
@@ -58,26 +66,10 @@ module.exports = util => {
     },
     
     // 使用 mockjs 生成数据以及 Restful API
-    dbCover: true,
+    dbCover: false,
     db: util.libObj.mockjs.mock({
-      'books': [
-        // {
-        //   "_id": `1`,
-        //   "userId": "1",
-        //   "date": {
-        //     "year": 2023,
-        //     "month": 11,
-        //     "day": 16,
-        //     "value": "2023-11-16",
-        //     "lunar_day": "初四",
-        //     "lunar_month": "十月",
-        //     "lunar_year": "癸卯兔年",
-        //     "lunar_term": null
-        //   },
-        //   "title": "@ctitle",
-        //   "remarks": "@ctitle",
-        // },
-      ],
+      'gift': [],
+      'books': [],
       'family_members': [],
       'users': [
         {
