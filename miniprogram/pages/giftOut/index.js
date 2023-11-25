@@ -75,7 +75,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.loadData(1);
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -86,6 +85,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.loadData(1);
     this.setData({
       skipAD: app.userInfo.skipAD
     })

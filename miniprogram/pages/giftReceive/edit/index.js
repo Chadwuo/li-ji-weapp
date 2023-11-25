@@ -104,14 +104,9 @@ Page({
    */
   async onLoad(options) {
     this.setData({
+      'gift.id': options.id,
       'gift.bookId': options.bookId,
     });
-    if(options.id) {
-      const res = await giftReceiveService.getGiftOut(options.id)
-      this.setData({
-        gift: res,
-      });
-    }
   },
 
   /**
@@ -122,7 +117,14 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {},
+  async onShow() {
+    if(this.data.gift.id) {
+      const res = await giftReceiveService.getGiftOut(this.data.gift.id)
+      this.setData({
+        gift: res,
+      });
+    }
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

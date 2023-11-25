@@ -125,7 +125,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    await this.loadData(1);
   },
 
   /**
@@ -136,7 +135,9 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {},
+  onShow() {
+    this.loadData(1)
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

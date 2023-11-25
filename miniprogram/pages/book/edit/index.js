@@ -142,9 +142,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    const res = await bookService.getBook(options.id)
     this.setData({
-      book: res,
+      'book.id': options.id,
       skipAD: app.userInfo.skipAD,
     })
   },
@@ -156,7 +155,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
+  async onShow() {
     const arr = [
       "一场宴席活动中，用来登记所有来客贺礼的名册，称为礼簿。",
       "长按礼簿，进入编辑页",
@@ -165,6 +164,10 @@ Page({
     this.setData({
       tips: arr[index],
     });
+    const res = await bookService.getBook(this.data.book.id)
+    this.setData({
+      book: res,
+    })
   },
 
   /**

@@ -57,11 +57,6 @@ Page({
   async onLoad(options) {
     this.setData({
       'book.id': options.id,
-    })
-    this.loadData(1)
-    const res = await bookService.getBook(options.id)
-    this.setData({
-      book: res,
       skipAD: app.userInfo.skipAD,
     })
   },
@@ -73,7 +68,13 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  async onShow () {
+    const res = await bookService.getBook(this.data.book.id)
+    this.setData({
+      book: res,
+    })
+    this.loadData(1)
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
