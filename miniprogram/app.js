@@ -1,10 +1,14 @@
 //import { mpserverless } from "./alicloud/index";
 import { mpserverless } from "./alicloud/releases";
-import { colorUI } from "./config/ColorUI";
-App({
+import config from "@/config/index.js";
+import api from "@/utils/api.js";
+
+wx.$config = config
+wx.$api = api
+wx.$app = App({
   //挂载到app上
   mpserverless,
-  colorUI,
+  colorUI: config.colorUI,
   userInfo: "",
   userDataScope: "",
   giftTotal: {
