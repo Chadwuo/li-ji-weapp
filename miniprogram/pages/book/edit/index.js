@@ -57,17 +57,15 @@ Page({
       }
     } else {
       const res = await bookService.addBook(this.data);
-      if (res.success) {
-        wx.showToast({
-          title: "保存成功",
+      wx.showToast({
+        title: "保存成功",
+      });
+      eventChannel.emit("refresh");
+      setTimeout(() => {
+        wx.navigateBack({
+          delta: 2,
         });
-        eventChannel.emit("refresh");
-        setTimeout(() => {
-          wx.navigateBack({
-            delta: 2,
-          });
-        }, 1000);
-      }
+      }, 1000);
     }
   },
   async onDelete() {

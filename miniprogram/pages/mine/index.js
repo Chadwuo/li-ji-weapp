@@ -84,12 +84,9 @@ Page({
     const options = {
       filePath: avatarUrl,
     };
-
-    app.mpserverless.file.uploadFile(options).then((res) => {
-      console.log(res);
-      this.setData({
-        avatarUrl_edit: res.fileUrl,
-      });
+    wx.$api.get(`/todo/uploadFile`, options)
+    this.setData({
+      avatarUrl_edit: `res.fileUrl`,
     });
   },
   onShowPopup() {

@@ -142,19 +142,18 @@ Page({
     if (options && options.familyId) {
       // 获取用户信息
       const res = await getUserInfo();
-      if (res.success) {
-        app.userInfo = res.data;
+      app.userInfo = res;
+      wx.$app.userInfo = res;
 
-        // 获取用户的家庭信息
-        const { data: isExist } = await familyService.isExistFamily();
-        // 不存在家庭数据
-        if (!isExist) {
-          this.setData({
-            inviteFamily: options,
-          });
-        } else {
-          await this.getFamilyInfo();
-        }
+      // 获取用户的家庭信息
+      const { data: isExist } = await familyService.isExistFamily();
+      // 不存在家庭数据
+      if (!isExist) {
+        this.setData({
+          inviteFamily: options,
+        });
+      } else {
+        await this.getFamilyInfo();
       }
     } else {
       await this.getFamilyInfo();

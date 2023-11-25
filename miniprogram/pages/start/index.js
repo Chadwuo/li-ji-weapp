@@ -1,6 +1,6 @@
 // pages/start/index.js
 const app = getApp();
-import { getUserInfo, getUserDataScope } from "../../alicloud/services/user";
+import { getUserInfo } from "../../alicloud/services/user";
 import { computedTotalGiftOut } from "../../alicloud/services/giftOut";
 import { computedTotalGiftReceive } from "../../alicloud/services/giftReceive";
 
@@ -35,29 +35,20 @@ Page({
    * 初始化用户数据
    */
   async initUserInfo() {
-    const res = await getUserInfo();
-    if (res.success) {
-      app.userInfo = res.data;
-    } else {
-      console.log(res);
+    const res = await getUserInfo().catch(() => {
       this.setData({
         netError: true,
       });
-    }
-  },
-  /**
-   * 初始化用户数据范围
-   */
-  async initUserDataScope() {
-    app.userDataScope = await getUserDataScope();
+    })
+    app.userInfo = res;
+    wx.$app.userInfo = res;
   },
   /**
    * 生命周期函数--监听页面显示
    */
   async onShow() {
-    if (!app.userInfo || !app.userDataScope) {
+    if (!app.userInfo) {
       await this.initUserInfo();
-      await this.initUserDataScope();
     }
 
     setTimeout(() => {
