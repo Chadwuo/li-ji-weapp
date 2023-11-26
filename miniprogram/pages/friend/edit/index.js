@@ -7,59 +7,31 @@ Page({
    */
   data: {
     skipAD: app.userInfo.skipAD,
-    _id: "",
-    name: "",
-    firstLetter: "",
-    relation: "",
-    remarks: "",
+    friend: {
+      id: ``,
+      name: "",
+      firstLetter: "",
+      relation: "",
+      remarks: "",
+    },
   },
   async onSave() {
-    const eventChannel = this.getOpenerEventChannel();
-    if (this.data._id) {
-      const [err, res] = await friendService.updateFriend(this.data);
-      if (!err) {
-        wx.showToast({
-          title: "修改成功",
-        });
-        eventChannel.emit("refresh");
-        setTimeout(() => {
-          wx.navigateBack({ delta: 2 });
-        }, 1000);
-      }
+    if (this.data.friend.id) {
+      const [err, res] = await friendService.updateFriend(this.data.friend.id, this.data.friend);
+      wx.$okNavBack(`修改成功`)
     } else {
-      const [err, res] = await friendService.addFriend(this.data);
-      if (!err) {
-        wx.showToast({
-          title: "添加成功",
-        });
-        eventChannel.emit("refresh");
-        setTimeout(() => {
-          this.data._id = res.data;
-          wx.navigateBack({ delta: 2 });
-        }, 1000);
-      }
+      const [err, res] = await friendService.addFriend(this.data.friend);
+      wx.$okNavBack(`添加成功`)
     }
   },
   async onDelete() {
-    let delData = this.data;
-    const eventChannel = this.getOpenerEventChannel();
     wx.showModal({
       title: "删除亲友？",
       content: "该亲友所有来往记录都将被删除，确定删除？",
-      async success(res) {
+      success: async (res) => {
         if (res.confirm) {
-          const result = await friendService.deleteFriend(delData);
-          if (result.success) {
-            wx.showToast({
-              title: "删除成功",
-            });
-            eventChannel.emit("refresh");
-            setTimeout(() => {
-              wx.navigateBack({
-                delta: 2,
-              });
-            }, 1000);
-          }
+          const [err, res] = await friendService.deleteFriend(this.data.friend.id);
+          wx.$okNavBack(`删除成功`, 2)
         }
       },
     });
@@ -68,19 +40,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    var id = options.friendId;
-    if (id) {
-      const res = await friendService.getFriend({
-        _id: id,
-      });
-      if (res.success) {
-        this.setData({
-          ...res.data,
-        });
-      }
-    }
     this.setData({
-      skipAD: app.userInfo.skipAD
+      'friend.id': options.id,
+      skipAD: app.userInfo.skipAD,
     })
   },
 
@@ -92,8 +54,19 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {},
-
+  async onShow() {
+    if(this.data.friend.id) {
+      const [err, friend] = await friendService.getFriend(this.data.friend.id);
+      this.setData({
+        friend
+      });
+    }
+  },
+  inputListener(e){
+    this.setData({
+      [e.currentTarget.id]: e.detail.value
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

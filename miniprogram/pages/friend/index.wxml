@@ -14,7 +14,7 @@
 		</view>
   </van-empty>
   <view class="ui-container">
-    <van-index-bar highlight-color="#F76664">
+    <van-index-bar index-list="{{ indexList }}" highlight-color="#F76664">
       <view wx:for="{{friendsList}}" wx:key="index">
         <van-index-anchor index="{{item.alpha}}" />
         <view class="ui-menu radius-lg mb-3">

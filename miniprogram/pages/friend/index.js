@@ -8,6 +8,7 @@ Page({
   data: {
     skipAD: app.userInfo.skipAD,
     scrollTop: 0,
+    indexList: [],
     friendsList: [],
   },
   // 监听用户滑动页面事件。
@@ -25,66 +26,36 @@ Page({
   },
   onFriendClick(e) {
     wx.navigateTo({
-      url: "/pages/friend/details/index",
-      events: {
-        refresh: () => {
-          this.loadData();
-        },
-      },
-      success: function (res) {
-        // 通过 eventChannel 向被打开页面传送数据
-        res.eventChannel.emit("acceptDataFromOpenerPage", {
-          friend: e.currentTarget.dataset.friend,
-        });
-      },
+      url: `/pages/friend/details/index?id=${e.currentTarget.dataset.friend.id}`,
     });
   },
   onAdd() {
     wx.navigateTo({
       url: "/pages/friend/edit/index",
-      events: {
-        refresh: () => {
-          this.loadData();
-        },
-      },
     });
   },
-  async loadData(parameter) {
-    this.setData({
-      friendsList: [],
-    });
-    let listTemp = [];
-    for (let index = 0; index < 26; index++) {
-      listTemp.push({
-        alpha: String.fromCharCode(65 + index),
-        subItems: [],
-      });
-    }
-    let noletter = {
-      alpha: "#",
-      subItems: [],
-    };
+  async loadData(parameter = {}) {
+    parameter.name_like = parameter.searchValue || ``
+    delete parameter.searchValue
+    parameter.userId = wx.$userId
     const [err, res] = await friendService.getFriendList(parameter);
     if (!err) {
-      for (const item of res.data) {
-        const firstLetter = item.firstLetter;
-        if (!firstLetter) {
-          noletter.subItems.push(item);
-        } else {
-          for (const f of listTemp) {
-            if (firstLetter.toUpperCase() === f.alpha) {
-              f.subItems.push(item);
-              break;
-            }
-          }
-        }
-      }
-      listTemp.push(noletter);
-      let list = listTemp.filter((i) => {
-        return i.subItems.length != 0;
-      });
+      const list = Object.entries(res.reduce((acc, cur) => {
+        cur.firstLetter = cur.firstLetter || `#` // 把空字符串分组到 #
+        acc[cur.firstLetter] = acc[cur.firstLetter] || []
+        acc[cur.firstLetter].push(cur)
+        return acc
+      }, {})).reduce((acc, [key, val]) => {
+        acc.push({
+          alpha: key,
+          subItems: val,
+        })
+        return acc
+      }, [])
+      console.log(`list`, list)
       this.setData({
         friendsList: list,
+        indexList: list.map(item => item.alpha).sort(),
       });
     }
   },

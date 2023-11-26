@@ -7,11 +7,7 @@ const app = getApp();
  * @author chadwuo
  */
 exports.getFriendList = async (parameter) => {
-  wx.$api.get(`/todo/getFriendList`, parameter)
-  return [undefined, {
-    success: true,
-    data: [],
-  }];
+  return wx.$api.get(`/friend`, parameter)
 };
 
 /**
@@ -19,12 +15,8 @@ exports.getFriendList = async (parameter) => {
  *
  * @author chadwuo
  */
-exports.getFriend = async (parameter) => {
-  wx.$api.get(`/todo/getFriend`, parameter)
-  return [undefined, {
-    success: true,
-    data: {},
-  }];
+exports.getFriend = async (id) => {
+  return wx.$api.get(`/friend/${id}`)
 };
 
 /**
@@ -33,14 +25,7 @@ exports.getFriend = async (parameter) => {
  * @author chadwuo
  */
 exports.getFriendGifts = async (parameter) => {
-  wx.$api.get(`/todo/getFriendGifts`, parameter)
-  return [undefined, {
-    success: true,
-    data: {
-      giftOutList: [],
-      giftReceiveList: [],
-    },
-  }];
+  return wx.$api.get(`/getFriendGifts`, parameter)
 };
 
 /**
@@ -49,11 +34,7 @@ exports.getFriendGifts = async (parameter) => {
  * @author chadwuo
  */
 exports.addFriend = async (parameter) => {
-  wx.$api.get(`/todo/addFriend`, parameter)
-  return [undefined, {
-    success: true,
-    data: ``,
-  }];
+  return wx.$api.post(`/friend`, parameter)
 };
 
 /**
@@ -61,12 +42,8 @@ exports.addFriend = async (parameter) => {
  *
  * @author chadwuo
  */
-exports.updateFriend = async (parameter) => {
-  wx.$api.get(`/todo/updateFriend`, parameter)
-  return [undefined, {
-    success: true,
-    data: ``,
-  }];
+exports.updateFriend = async (id, parameter) => {
+  return wx.$api.put(`/friend/${id}`, parameter)
 };
 
 /**
@@ -74,10 +51,6 @@ exports.updateFriend = async (parameter) => {
  *
  * @author chadwuo
  */
-exports.deleteFriend = async (parameter) => {
-  wx.$api.get(`/todo/deleteFriend`, parameter)
-  return [undefined, {
-    success: true,
-    data: ``,
-  }];
+exports.deleteFriend = async (id) => {
+  return wx.$api.delete(`/friend/${id}`)
 };

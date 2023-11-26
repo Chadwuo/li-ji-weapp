@@ -69,9 +69,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow () {
-    const [, res] = await bookService.getBook(this.data.book.id)
-    this.setData({
-      book: res,
+    bookService.getBook(this.data.book.id).then(([, res]) => {
+      this.setData({
+        book: res,
+      })
     })
     this.loadData(1)
   },

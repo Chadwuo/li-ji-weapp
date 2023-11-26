@@ -1,20 +1,20 @@
 <!--pages/friend/edit/index.wxml-->
-<ui-sys title="{{name?'编辑亲友':'添加亲友'}}" footer="{{false}}">
+<ui-sys title="{{friend.name?'编辑亲友':'添加亲友'}}" footer="{{false}}">
 	<view class="ui-container">
 		<ui-form ui="ui-BG my-3 radius-lg">
 			<ui-form-group title="姓名" icon="cicon-avatar text-pink">
 				<ui-input-box>
-					<input class="ui-input-wrapper" placeholder="请输入姓名" model:value="{{ name }}" />
+					<input bindinput="inputListener" id="friend.name" class="ui-input-wrapper" placeholder="请输入姓名" model:value="{{ friend.name }}" />
 				</ui-input-box>
 			</ui-form-group>
 			<ui-form-group title="重名备注" icon="cicon-bookmark text-mauve">
 				<ui-input-box>
-					<input class="ui-input-wrapper" placeholder="若重名请备注" model:value="{{ remarks }}" />
+					<input bindinput="inputListener" id="friend.remarks" class="ui-input-wrapper" placeholder="若重名请备注" model:value="{{ friend.remarks }}" />
 				</ui-input-box>
 			</ui-form-group>
 			<ui-form-group title="关系" icon="cicon-present text-blue">
 				<ui-input-box>
-					<input class="ui-input-wrapper" placeholder="选填" model:value="{{ relation }}" />
+					<input bindinput="inputListener" id="friend.relation" class="ui-input-wrapper" placeholder="选填" model:value="{{ friend.relation }}" />
 				</ui-input-box>
 			</ui-form-group>
 		</ui-form>
@@ -26,11 +26,11 @@
 	</view>
 	<ui-fixed bottom val="{{24}}">
 		<van-row gutter="24" custom-class="mx-2">
-			<van-col span="8" wx:if="{{_id}}">
+			<van-col span="8" wx:if="{{friend.id}}">
 				<button class="ui-btn block round border border-red bg-red-light" bindtap="onDelete">删 除</button>
 			</van-col>
-			<van-col span="{{_id?16:24}}">
-				<button class="ui-btn block round bg-red" disabled="{{!name}}" bindtap="onSave">保 存</button>
+			<van-col span="{{friend.id?16:24}}">
+				<button class="ui-btn block round bg-red" disabled="{{!friend.name}}" bindtap="onSave">保 存</button>
 			</van-col>
 		</van-row>
 	</ui-fixed>
