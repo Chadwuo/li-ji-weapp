@@ -19,10 +19,10 @@ exports.getGiftOutPage = async (parameter) => {
   wx.$api.get(`/todo/getGiftOutPage`, parameter)
   parameter.limit = parameter.limit || 20;
   parameter.page = parameter.page || 1;
-  return {
+  return [undefined, {
     success: true,
     data: [],
-  };
+  }];
 };
 
 /**
@@ -32,10 +32,10 @@ exports.getGiftOutPage = async (parameter) => {
  */
 exports.addGiftOut = async (parameter) => {
   wx.$api.get(`/todo/addGiftOut`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: ``,
-  };
+  }];
 };
 
 /**
@@ -45,10 +45,10 @@ exports.addGiftOut = async (parameter) => {
  */
 exports.updateGiftOut = async (parameter) => {
   wx.$api.get(`/todo/updateGiftOut`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: '',
-  };
+  }];
 };
 
 /**
@@ -58,10 +58,10 @@ exports.updateGiftOut = async (parameter) => {
  */
 exports.deleteGiftOut = async (parameter) => {
   wx.$api.get(`/todo/deleteGiftOut`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: '',
-  };
+  }];
 };
 
 /**
@@ -71,8 +71,8 @@ exports.deleteGiftOut = async (parameter) => {
  */
 exports.getGiftOut = async (parameter) => {
   wx.$api.get(`/todo/getGiftOut`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: [],
-  };
+  }];
 };

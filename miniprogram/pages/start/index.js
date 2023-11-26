@@ -24,7 +24,7 @@ Page({
    * 初始化用户数据
    */
   async initUserInfo() {
-    const res = await getUserInfo().catch(() => {
+    const [err, res] = await getUserInfo().catch(() => {
       this.setData({
         netError: true,
       });

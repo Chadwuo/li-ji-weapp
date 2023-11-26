@@ -78,8 +78,8 @@ Page({
           content: '该礼簿所有来往记录都将被删除，确定删除？',
           async success(result) {
             if (result.confirm) {
-              const res = await bookService.deleteBook(that.data.bookActionDetail.id);
-              if (res.success) {
+              const [err, res] = await bookService.deleteBook(that.data.bookActionDetail.id);
+              if (!err) {
                 that.loadData(1);
                 wx.showToast({
                   title: '删除成功',
@@ -112,7 +112,7 @@ Page({
   },
   // 加载数据
   async loadData(page) {
-    const res = await bookService.getBookPage({
+    const [err, res] = await bookService.getBookPage({
       page,
     });
     const giftBooks = res.results

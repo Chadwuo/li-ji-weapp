@@ -94,8 +94,8 @@ Page({
   async onSave() {
     const eventChannel = this.getOpenerEventChannel();
     if (this.data._id) {
-      const res = await giftOutService.updateGiftOut(this.data);
-      if (res.success) {
+      const [err, res] = await giftOutService.updateGiftOut(this.data);
+      if (!err) {
         wx.showToast({
           title: "修改成功",
         });
@@ -105,8 +105,8 @@ Page({
         }, 1000);
       }
     } else {
-      const res = await giftOutService.addGiftOut(this.data);
-      if (res.success) {
+      const [err, res] = await giftOutService.addGiftOut(this.data);
+      if (!err) {
         wx.showToast({
           title: "添加成功",
         });
@@ -125,8 +125,8 @@ Page({
       content: "此操作无法恢复，确定删除？",
       async success(res) {
         if (res.confirm) {
-          const result = await giftOutService.deleteGiftOut(delData);
-          if (result.success) {
+          const [err, result] = await giftOutService.deleteGiftOut(delData);
+          if (!err) {
             wx.showToast({
               title: "删除成功",
             });

@@ -34,10 +34,10 @@ Page({
   },
   // 加载数据
   async loadData(page) {
-    const res = await sponsorService.page({
+    const [err, res] = await sponsorService.page({
       page,
     });
-    if (res.success) {
+    if (!err) {
       this.setData({
         sponsors: page === 1 ? res.data : [...this.data.sponsors, ...res.data],
         pageNo: page,

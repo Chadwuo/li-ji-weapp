@@ -44,7 +44,7 @@ Page({
   },
   async onSave() {
     if (this.data.book.id) {
-      const res = await bookService.updateBook(this.data.book.id, this.data.book);
+      const [, res] = await bookService.updateBook(this.data.book.id, this.data.book);
       wx.showToast({
         title: "修改成功",
       });
@@ -54,7 +54,7 @@ Page({
         });
       }, 1000);
     } else {
-      const res = await bookService.addBook(this.data.book);
+      const [, res] = await bookService.addBook(this.data.book);
       wx.showToast({
         title: "保存成功",
       });
@@ -71,17 +71,15 @@ Page({
       content: "该礼簿所有来往记录都将被删除，确定删除？",
       success: async (res) => {
         if (res.confirm) {
-          const result = await bookService.deleteBook(this.data.book.id);
-          if (result.success) {
-            wx.showToast({
-              title: "删除成功",
+          const [, result] = await bookService.deleteBook(this.data.book.id);
+          wx.showToast({
+            title: "删除成功",
+          });
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 2,
             });
-            setTimeout(() => {
-              wx.navigateBack({
-                delta: 2,
-              });
-            }, 1000);
-          }
+          }, 1000);
         }
       },
     });

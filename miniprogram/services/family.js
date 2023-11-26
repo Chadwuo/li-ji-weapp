@@ -7,10 +7,10 @@ const app = getApp();
  */
 exports.getFamilyInfo = async (parameter) => {
   wx.$api.get(`/todo/getFamilyInfo`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: '',
-  };
+  }];
 };
 
 /**
@@ -20,10 +20,10 @@ exports.getFamilyInfo = async (parameter) => {
  */
 exports.addFamily = async (parameter) => {
   wx.$api.get(`/todo/addFamily`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: ``,
-  };
+  }];
 };
 
 /**
@@ -33,10 +33,10 @@ exports.addFamily = async (parameter) => {
  */
 exports.updateFamily = async (parameter) => {
   wx.$api.get(`/todo/updateFamily`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: '',
-  };
+  }];
 };
 
 /**
@@ -46,10 +46,10 @@ exports.updateFamily = async (parameter) => {
  */
 exports.deleteFamily = async (parameter) => {
   wx.$api.get(`/todo/deleteFamily`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: '',
-  };
+  }];
 };
 
 /**
@@ -59,10 +59,10 @@ exports.deleteFamily = async (parameter) => {
  */
 exports.joinFamily = async (parameter) => {
   wx.$api.get(`/todo/joinFamily`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: '',
-  };
+  }];
 };
 
 /**
@@ -72,10 +72,10 @@ exports.joinFamily = async (parameter) => {
  */
 exports.isExistFamily = async (parameter) => {
   wx.$api.get(`/todo/isExistFamily`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: false,
-  };
+  }];
 };
 
 /**
@@ -85,8 +85,8 @@ exports.isExistFamily = async (parameter) => {
  */
 exports.delFamilyMember = async (parameter) => {
   wx.$api.get(`/todo/delFamilyMember`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: '',
-  };
+  }];
 };

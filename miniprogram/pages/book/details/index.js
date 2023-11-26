@@ -15,7 +15,7 @@ Page({
       this.loadData(1);
       return;
     }
-    const res = await giftReceiveService.getGiftReceivePage({
+    const [, res] = await giftReceiveService.getGiftReceivePage({
       bookId: this.data.book.id,
       friendName_like: searchVal,
     });
@@ -39,7 +39,7 @@ Page({
     });
   },
   async loadData(page) {
-    const res = await giftReceiveService.getGiftReceivePage({
+    const [, res] = await giftReceiveService.getGiftReceivePage({
       bookId: this.data.book.id,
       page,
     });
@@ -69,7 +69,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow () {
-    const res = await bookService.getBook(this.data.book.id)
+    const [, res] = await bookService.getBook(this.data.book.id)
     this.setData({
       book: res,
     })

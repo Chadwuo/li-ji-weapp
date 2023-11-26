@@ -17,10 +17,10 @@ exports.getUserInfo = async (parameter) => {
  */
 exports.updateUserInfo = async (parameter) => {
   wx.$api.get(`/todo/updateUserInfo`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: "",
-  };
+  }];
 };
 
 /**
@@ -30,8 +30,8 @@ exports.updateUserInfo = async (parameter) => {
  */
 exports.toggleADSet = async (parameter) => {
   wx.$api.get(`/todo/toggleADSet`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: "",
-  };
+  }];
 };

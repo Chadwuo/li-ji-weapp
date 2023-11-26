@@ -64,8 +64,8 @@ Page({
       alpha: "#",
       subItems: [],
     };
-    const res = await friendService.getFriendList(parameter);
-    if (res.success) {
+    const [err, res] = await friendService.getFriendList(parameter);
+    if (!err) {
       for (const item of res.data) {
         const firstLetter = item.firstLetter;
         if (!firstLetter) {
@@ -93,7 +93,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.loadData();
   },
 
   /**
@@ -105,6 +104,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    this.loadData();
     this.setData({
       skipAD: app.userInfo.skipAD
     })

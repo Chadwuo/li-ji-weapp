@@ -9,10 +9,10 @@ exports.page = async (parameter) => {
   wx.$api.get(`/todo/page`, parameter)
   parameter.limit = parameter.limit || 20;
   parameter.page = parameter.page || 1;
-  return {
+  return [undefined, {
     success: true,
     data: [],
-  };
+  }];
 };
 
 /**
@@ -22,10 +22,10 @@ exports.page = async (parameter) => {
  */
 exports.get = async (parameter) => {
   wx.$api.get(`/todo/get`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: [],
-  };
+  }];
 };
 
 /**
@@ -35,10 +35,10 @@ exports.get = async (parameter) => {
  */
 exports.add = async (parameter) => {
   wx.$api.get(`/todo/add`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: ``,
-  };
+  }];
 };
 
 /**
@@ -48,8 +48,8 @@ exports.add = async (parameter) => {
  */
 exports.update = async (parameter) => {
   wx.$api.get(`/todo/update`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: "",
-  };
+  }];
 };

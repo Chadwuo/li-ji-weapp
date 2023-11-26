@@ -19,7 +19,7 @@ Page({
   },
   // 更新家庭名称
   async onUpdateName() {
-    const res = await familyService.updateFamily(this.data);
+    const [, res] = await familyService.updateFamily(this.data);
     if (res.success) {
       wx.showToast({
         title: "更新成功",
@@ -28,7 +28,7 @@ Page({
   },
   // 创建家庭
   async onCreate() {
-    const res = await familyService.addFamily({
+    const [, res] = await familyService.addFamily({
       name: `${app.userInfo.nickName}的家庭`,
     });
     if (res.success) {
@@ -37,7 +37,7 @@ Page({
   },
   // 加入家庭
   async onJoinFamily() {
-    const res = await familyService.joinFamily({
+    const [, res] = await familyService.joinFamily({
       familyId: this.data.inviteFamily.familyId,
       relation: "成员",
     });
@@ -91,7 +91,7 @@ Page({
           content: "确定删除改家庭成员吗？",
           async success(result) {
             if (result.confirm) {
-              const res = await familyService.delFamilyMember(selected);
+              const [, res] = await familyService.delFamilyMember(selected);
               if (res.success) {
                 that.getFamilyInfo();
               }
@@ -105,7 +105,7 @@ Page({
           content: "所有成员会被删除，家庭数据无法继续共享！",
           async success(result) {
             if (result.confirm) {
-              const res = await familyService.deleteFamily({
+              const [, res] = await familyService.deleteFamily({
                 _id: that.data._id,
               });
               if (res.success) {
@@ -127,7 +127,7 @@ Page({
     });
   },
   async getFamilyInfo() {
-    const res = await familyService.getFamilyInfo();
+    const [, res] = await familyService.getFamilyInfo();
     if (res.success) {
       this.setData({
         ...res.data,
@@ -141,13 +141,12 @@ Page({
     // 有邀请信息
     if (options && options.familyId) {
       // 获取用户信息
-      const res = await getUserInfo();
+      const [, res] = await getUserInfo();
       app.userInfo = res;
       wx.$app.userInfo = res;
 
       // 获取用户的家庭信息
-      const { data: isExist } = await familyService.isExistFamily();
-      // 不存在家庭数据
+      const [, isExist] = await familyService.isExistFamily();      // 不存在家庭数据
       if (!isExist) {
         this.setData({
           inviteFamily: options,
@@ -171,7 +170,9 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  async onShow() {},
+  async onShow() {
+    
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

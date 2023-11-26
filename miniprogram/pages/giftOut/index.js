@@ -61,10 +61,10 @@ Page({
     });
   },
   async loadData(page) {
-    const res = await giftOutService.getGiftOutPage({
+    const [err, res] = await giftOutService.getGiftOutPage({
       page,
     });
-    if (res.success) {
+    if (!err) {
       this.setData({
         giftList: page === 1 ? res.data : [...this.data.giftList, ...res.data],
         pageNo: page,

@@ -30,11 +30,11 @@ Page({
       this.setData({
         ...data,
       });
-      const res = await friendService.getFriendGifts({
+      const [err, res] = await friendService.getFriendGifts({
         _id: this.data.friend._id,
       });
 
-      if (res.success) {
+      if (!err) {
         const { giftOutList, giftReceiveList } = res.data;
 
         let inList = giftReceiveList.map((i) => {

@@ -11,8 +11,8 @@ Page({
     skipAD: ''
   },
   async tapSetAdChange() {
-    const res = await toggleADSet()
-    if (res.success) {
+    const [err, res] = await toggleADSet()
+    if (!err) {
       wx.showToast({
         title: app.userInfo.skipAD ? '没关系，下次一定' : '页面广告已开启，礼记因你更美好！',
         icon: 'none',

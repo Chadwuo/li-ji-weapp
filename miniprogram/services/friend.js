@@ -8,10 +8,10 @@ const app = getApp();
  */
 exports.getFriendList = async (parameter) => {
   wx.$api.get(`/todo/getFriendList`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: [],
-  };
+  }];
 };
 
 /**
@@ -21,10 +21,10 @@ exports.getFriendList = async (parameter) => {
  */
 exports.getFriend = async (parameter) => {
   wx.$api.get(`/todo/getFriend`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: {},
-  };
+  }];
 };
 
 /**
@@ -34,13 +34,13 @@ exports.getFriend = async (parameter) => {
  */
 exports.getFriendGifts = async (parameter) => {
   wx.$api.get(`/todo/getFriendGifts`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: {
       giftOutList: [],
       giftReceiveList: [],
     },
-  };
+  }];
 };
 
 /**
@@ -50,10 +50,10 @@ exports.getFriendGifts = async (parameter) => {
  */
 exports.addFriend = async (parameter) => {
   wx.$api.get(`/todo/addFriend`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: ``,
-  };
+  }];
 };
 
 /**
@@ -63,10 +63,10 @@ exports.addFriend = async (parameter) => {
  */
 exports.updateFriend = async (parameter) => {
   wx.$api.get(`/todo/updateFriend`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: ``,
-  };
+  }];
 };
 
 /**
@@ -76,8 +76,8 @@ exports.updateFriend = async (parameter) => {
  */
 exports.deleteFriend = async (parameter) => {
   wx.$api.get(`/todo/deleteFriend`, parameter)
-  return {
+  return [undefined, {
     success: true,
     data: ``,
-  };
+  }];
 };

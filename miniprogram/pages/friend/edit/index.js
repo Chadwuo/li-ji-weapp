@@ -16,8 +16,8 @@ Page({
   async onSave() {
     const eventChannel = this.getOpenerEventChannel();
     if (this.data._id) {
-      const res = await friendService.updateFriend(this.data);
-      if (res.success) {
+      const [err, res] = await friendService.updateFriend(this.data);
+      if (!err) {
         wx.showToast({
           title: "修改成功",
         });
@@ -27,8 +27,8 @@ Page({
         }, 1000);
       }
     } else {
-      const res = await friendService.addFriend(this.data);
-      if (res.success) {
+      const [err, res] = await friendService.addFriend(this.data);
+      if (!err) {
         wx.showToast({
           title: "添加成功",
         });

@@ -124,14 +124,14 @@ Page({
     const avatarUrl = this.data.avatarUrl_edit;
     const nickName = this.data.nickName_edit;
 
-    const res = await userService.updateUserInfo({
-      _id: app.userInfo._id,
+    const [err, res] = await userService.updateUserInfo({
+      id: app.userInfo.id,
       nickName: nickName,
       avatarUrl: avatarUrl,
     });
 
     setTimeout(() => {
-      if (res.success) {
+      if (!err) {
         wx.showToast({
           title: '更新成功',
         });
@@ -179,8 +179,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow() {
-    const { data: r } = await computedTotalGiftReceive();
-    const { data: o } = await computedTotalGiftOut();
+    const [, r] = await computedTotalGiftReceive();
+    const [, o] = await computedTotalGiftOut();
     app.giftTotal = {
       receive: r || 0,
       out: o || 0,

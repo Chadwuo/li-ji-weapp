@@ -18,7 +18,7 @@ Page({
   },
   async onSave() {
     if (this.data.gift.id) {
-      const res = await giftReceiveService.updateGiftReceive(this.data.gift.id, this.data.gift);
+      const [err, res] = await giftReceiveService.updateGiftReceive(this.data.gift.id, this.data.gift);
       wx.showToast({
         title: "修改成功",
       });
@@ -26,7 +26,7 @@ Page({
         wx.navigateBack();
       }, 1000);
     } else {
-      const res = await giftReceiveService.addGiftReceive(this.data.gift);
+      const [err, res] = await giftReceiveService.addGiftReceive(this.data.gift);
       wx.showToast({
         title: "添加成功",
       });
@@ -49,7 +49,7 @@ Page({
       content: "此操作无法恢复，确定删除？",
       success: async (res) => {
         if (res.confirm) {
-          const result = await giftReceiveService.deleteGiftReceive(this.data.gift.id);
+          const [err, result] = await giftReceiveService.deleteGiftReceive(this.data.gift.id);
           wx.showToast({
             title: "删除成功",
           });
@@ -119,7 +119,7 @@ Page({
    */
   async onShow() {
     if(this.data.gift.id) {
-      const res = await giftReceiveService.getGiftOut(this.data.gift.id)
+      const [err, res] = await giftReceiveService.getGiftOut(this.data.gift.id)
       this.setData({
         gift: res,
       });
