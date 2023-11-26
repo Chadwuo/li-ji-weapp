@@ -1,3 +1,5 @@
+const { pinyin } = require('pinyin');
+
 /**
  * @see: https://www.hongqiye.com/doc/mockm/config/option.html
  * @type {import('mockm/@types/config').Config}
@@ -53,11 +55,28 @@ module.exports = util => {
         }
         next()
       },
+      async 'use /friend' (req, res, next) {
+        // 设置姓名的首字母
+        if(req.body.name) {
+          req.body.firstLetter = firstLetter(req.body.name)
+        }
+        next()
+      },
       // 收入
       async 'get /computedTotalGiftReceive' (req, res, next) {
         const db = global.config._db 
         res.json(global.config.apiWebWrap({
           data: 123,
+        }))
+      },
+      // 自己相对于某朋友的收支
+      async 'get /getFriendGifts' (req, res, next) {
+        const db = global.config._db 
+        res.json(global.config.apiWebWrap({
+          data: {
+            giftOutList: [],
+            giftReceiveList: [],
+          },
         }))
       },
       // 送出
@@ -72,6 +91,7 @@ module.exports = util => {
     // 使用 mockjs 生成数据以及 Restful API
     dbCover: false,
     db: util.libObj.mockjs.mock({
+      'friend': [],
       'gift': [],
       'books': [],
       'family_members': [],
@@ -98,4 +118,15 @@ module.exports = util => {
       },
     ],
   }
+}
+
+function firstLetter(name) {
+  let str = pinyin(name[0], {
+    heteronym: false, // 不返回多个读音
+    mode: `SURNAME`, // 姓氏模式
+    style: `FIRST_LETTER`, // 首字母
+  })[0][0]
+  // str = str.match(/^[A-Za-z]+$/) ? str : `#`
+  str = str.toUpperCase()
+  return str
 }
