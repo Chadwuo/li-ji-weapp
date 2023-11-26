@@ -56,12 +56,16 @@ module.exports = util => {
       // 收入
       async 'get /computedTotalGiftReceive' (req, res, next) {
         const db = global.config._db 
-        res.json(123)
+        res.json(global.config.apiWebWrap({
+          data: 123,
+        }))
       },
       // 送出
       async 'get /computedTotalGiftOut' (req, res, next) {
         const db = global.config._db 
-        res.json(1353)
+        res.json(global.config.apiWebWrap({
+          data: 12435,
+        }))
       },
     },
     
