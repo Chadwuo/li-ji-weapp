@@ -92,7 +92,10 @@ module.exports = util => {
     dbCover: false,
     db: util.libObj.mockjs.mock({
       'friend': [],
+      // 收礼
       'gift': [],
+      // 送礼
+      'giftout': [],
       'books': [],
       'family_members': [],
       'users': [
