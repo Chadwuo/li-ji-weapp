@@ -7,7 +7,7 @@
 */
 
 import { holidays, festival } from './holidays-map'
-import { dateUtil, getCalendarData, logger } from '@/utils/index'
+import { dateUtil, getCalendarData, logger } from '@/components/calendar/utils/index'
 
 /**
  * 当前是否在休假期内
