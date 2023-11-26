@@ -20,7 +20,7 @@
 			</view>
 			<view class="flex justify-between align-center w-100">
 				<view class="flex flex-column">
-					<text class="text-xl text-bold">{{item.friendInfo.name}}</text>
+					<text class="text-xl text-bold">{{item.friendName}}</text>
 					<text class="text-lg text-grey py-2"> {{item.title}}</text>
 					<view class="text-df text-grey">{{item.date.value}} {{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
 				</view>

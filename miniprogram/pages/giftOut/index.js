@@ -10,7 +10,6 @@ Page({
     scrollTop: 0,
     pageNo: 0,
     giftList: [],
-    total: '0.00',
   },
   // 监听用户滑动页面事件。
   onPageScroll(e) {
@@ -21,43 +20,27 @@ Page({
       scrollTop: e.scrollTop,
     });
   },
-  onSearch(e) {
+  async onSearch(e) {
     const searchVal = e.detail
     if (!searchVal) {
       this.loadData(1);
       return;
     }
+    const [err, res] = await giftOutService.getGiftOutPage({
+      friendName_like: searchVal
+    });
     this.setData({
-      giftList: this.data.giftList.filter((i) =>
-        i.friendInfo.name.includes(searchVal)
-      ),
+      giftList: res.results,
     });
   },
   onGiftClick(e) {
     wx.navigateTo({
-      url: '/pages/giftOut/edit/index',
-      events: {
-        refresh: () => {
-          this.loadData(1);
-        },
-      },
-      success: function (res) {
-        // 通过 eventChannel 向被打开页面传送数据
-        res.eventChannel.emit('acceptDataFromOpenerPage', {
-          ...e.currentTarget.dataset.gift,
-          friendName: e.currentTarget.dataset.gift.friendInfo.name,
-        });
-      },
+      url: `/pages/giftOut/edit/index?id=${e.currentTarget.dataset.gift.id}`,
     });
   },
   onAdd() {
     wx.navigateTo({
       url: '/pages/giftOut/edit/index',
-      events: {
-        refresh: () => {
-          this.loadData(1);
-        },
-      },
     });
   },
   async loadData(page) {
@@ -66,7 +49,7 @@ Page({
     });
     if (!err) {
       this.setData({
-        giftList: page === 1 ? res.data : [...this.data.giftList, ...res.data],
+        giftList: page === 1 ? res.results : [...this.data.giftList, ...res.results],
         pageNo: page,
       });
     }

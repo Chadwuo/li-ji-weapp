@@ -16,13 +16,9 @@ exports.computedTotalGiftOut = async (parameter) => {
  * @author chadwuo
  */
 exports.getGiftOutPage = async (parameter) => {
-  wx.$api.get(`/todo/getGiftOutPage`, parameter)
   parameter.limit = parameter.limit || 20;
   parameter.page = parameter.page || 1;
-  return [undefined, {
-    success: true,
-    data: [],
-  }];
+  return wx.$api.get(`/giftout`, parameter)
 };
 
 /**
@@ -31,11 +27,7 @@ exports.getGiftOutPage = async (parameter) => {
  * @author chadwuo
  */
 exports.addGiftOut = async (parameter) => {
-  wx.$api.get(`/todo/addGiftOut`, parameter)
-  return [undefined, {
-    success: true,
-    data: ``,
-  }];
+  return wx.$api.post(`/giftout`, parameter)
 };
 
 /**
@@ -43,12 +35,8 @@ exports.addGiftOut = async (parameter) => {
  *
  * @author chadwuo
  */
-exports.updateGiftOut = async (parameter) => {
-  wx.$api.get(`/todo/updateGiftOut`, parameter)
-  return [undefined, {
-    success: true,
-    data: '',
-  }];
+exports.updateGiftOut = async (id, parameter) => {
+  return wx.$api.put(`/giftout/${id}`, parameter)
 };
 
 /**
@@ -56,12 +44,8 @@ exports.updateGiftOut = async (parameter) => {
  *
  * @author chadwuo
  */
-exports.deleteGiftOut = async (parameter) => {
-  wx.$api.get(`/todo/deleteGiftOut`, parameter)
-  return [undefined, {
-    success: true,
-    data: '',
-  }];
+exports.deleteGiftOut = async (id) => {
+  return wx.$api.delete(`/giftout/${id}`)
 };
 
 /**
@@ -69,10 +53,6 @@ exports.deleteGiftOut = async (parameter) => {
  *
  * @author chadwuo
  */
-exports.getGiftOut = async (parameter) => {
-  wx.$api.get(`/todo/getGiftOut`, parameter)
-  return [undefined, {
-    success: true,
-    data: [],
-  }];
+exports.getGiftOut = async (id) => {
+  return wx.$api.get(`/giftout/${id}`)
 };

@@ -162,7 +162,7 @@ Page({
     this.setData({
       tips: arr[index],
     });
-    const res = await bookService.getBook(this.data.book.id)
+    const [, res] = await bookService.getBook(this.data.book.id)
     this.setData({
       book: res,
     })

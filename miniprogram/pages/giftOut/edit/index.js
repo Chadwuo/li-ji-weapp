@@ -12,14 +12,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-    _id: "",
-    friendId: "",
-    friendName: "",
-    title: "",
-    icon: "",
-    date: {},
-    money: "",
-    remarks: "",
+    gift: {
+      id: ``,
+      date: {
+        value: ``,
+      },
+      friendId: "",
+      friendName: ``,
+      title: ``,
+      icon: "",
+      money: ``,
+      remarks: ``,
+    },
     columns: [
       {
         name: "结婚",
@@ -87,54 +91,27 @@ Page({
     let { selected } = e.currentTarget.dataset;
 
     this.setData({
-      title: selected.name,
-      icon: selected.icon,
+      'gift.title': selected.name,
+      'gift.icon': selected.icon,
     });
   },
   async onSave() {
-    const eventChannel = this.getOpenerEventChannel();
-    if (this.data._id) {
-      const [err, res] = await giftOutService.updateGiftOut(this.data);
-      if (!err) {
-        wx.showToast({
-          title: "修改成功",
-        });
-        eventChannel.emit("refresh");
-        setTimeout(() => {
-          wx.navigateBack();
-        }, 1000);
-      }
+    if (this.data.gift.id) {
+      const [err, res] = await giftOutService.updateGiftOut(this.data.gift.id, this.data.gift);
+      wx.$okNavBack(`修改成功`)
     } else {
-      const [err, res] = await giftOutService.addGiftOut(this.data);
-      if (!err) {
-        wx.showToast({
-          title: "添加成功",
-        });
-        eventChannel.emit("refresh");
-        setTimeout(() => {
-          wx.navigateBack();
-        }, 1000);
-      }
+      const [err, res] = await giftOutService.addGiftOut(this.data.gift);
+      wx.$okNavBack(`添加成功`)
     }
   },
   async onDelete() {
-    let delData = this.data;
-    const eventChannel = this.getOpenerEventChannel();
     wx.showModal({
       title: "删除来往记录？",
       content: "此操作无法恢复，确定删除？",
-      async success(res) {
+      success: async (res) => {
         if (res.confirm) {
-          const [err, result] = await giftOutService.deleteGiftOut(delData);
-          if (!err) {
-            wx.showToast({
-              title: "删除成功",
-            });
-            eventChannel.emit("refresh");
-            setTimeout(() => {
-              wx.navigateBack();
-            }, 1000);
-          }
+          const [err, result] = await giftOutService.deleteGiftOut(this.data.gift.id);
+          wx.$okNavBack(`删除成功`)
         }
       },
     });
@@ -144,7 +121,7 @@ Page({
       showCalendar: true,
     });
     const calendar = this.selectComponent("#calendar").calendar;
-    const { year, month, day } = this.data.date || {};
+    const { year, month, day } = this.data.gift.date || {};
     if (year && month && day) {
       calendar.jump({
         year,
@@ -175,7 +152,7 @@ Page({
     };
     console.log("afterTapDate", selectedDate); // => { year: 2019, month: 12, date: 3, ...}
     this.setData({
-      date: selectedDate,
+      'gift.date': selectedDate,
     });
   },
   showFriendSelect() {
@@ -185,8 +162,8 @@ Page({
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
         dialogResult: (data) => {
           this.setData({
-            friendId: data._id,
-            friendName: data.name,
+            'gift.friendId': data.id,
+            'gift.friendName': data.name,
           });
         },
       },
@@ -196,14 +173,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    const eventChannel = this.getOpenerEventChannel();
-    eventChannel.on("acceptDataFromOpenerPage", (data) => {
-      this.setData({
-        ...data,
-      });
-      wx.setNavigationBarTitle({
-        title: "编辑记录",
-      });
+    this.setData({
+      'gift.id': options.id,
+    });
+    wx.setNavigationBarTitle({
+      title: "编辑记录",
     });
   },
 
@@ -215,8 +189,20 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {},
-
+  async onShow() {
+    if(this.data.gift.id) {
+      giftOutService.getGiftOut(this.data.gift.id).then(([, gift]) => {
+        this.setData({
+          gift
+        })
+      })
+    }
+  },
+  inputListener(e){
+    this.setData({
+      [e.currentTarget.id]: e.detail.value
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
