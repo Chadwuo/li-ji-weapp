@@ -7,9 +7,9 @@
 					<input bindinput="inputListener" id="friend.name" class="ui-input-wrapper" placeholder="请输入姓名" model:value="{{ friend.name }}" />
 				</ui-input-box>
 			</ui-form-group>
-			<ui-form-group title="重名备注" icon="cicon-bookmark text-mauve">
+			<ui-form-group title="备注" icon="cicon-bookmark text-mauve">
 				<ui-input-box>
-					<input bindinput="inputListener" id="friend.remarks" class="ui-input-wrapper" placeholder="若重名请备注" model:value="{{ friend.remarks }}" />
+					<input bindinput="inputListener" id="friend.remarks" class="ui-input-wrapper" placeholder="地址、小名" model:value="{{ friend.remarks }}" />
 				</ui-input-box>
 			</ui-form-group>
 			<ui-form-group title="关系" icon="cicon-present text-blue">
