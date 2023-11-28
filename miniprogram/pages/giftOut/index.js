@@ -1,5 +1,6 @@
 // pages/giftOut/index.js
-const giftOutService = require('../../alicloud/services/giftOut');
+const giftOutService = require('@/alicloud/services/giftOut');
+const app = getApp();
 const app = getApp();
 Page({
   /**

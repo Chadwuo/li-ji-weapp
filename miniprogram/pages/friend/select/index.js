@@ -1,5 +1,5 @@
 // pages/friend/select/index.js
-const friendService = require("../../../alicloud/services/friend");
+const friendService = require("@/alicloud/services/friend");
 Page({
   /**
    * 页面的初始数据

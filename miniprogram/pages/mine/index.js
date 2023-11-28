@@ -1,9 +1,9 @@
-const userService = require('../../alicloud/services/user');
-const jinrishici = require('../../utils/jinrishici.js');
+const userService = require('@/alicloud/services/user');
+const jinrishici = require('@/utils/jinrishici.js');
 
 import {
   welcome
-} from '../../utils/index.js';
+} from '@/utils/index.js';
 const app = getApp();
 Page({
   /**

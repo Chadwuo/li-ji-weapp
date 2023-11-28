@@ -1,5 +1,5 @@
 // pages/relationship/index.js
-var relationship = require('../../utils/relationship.js');
+var relationship = require('@/utils/relationship.js');
 
 Page({
   /**

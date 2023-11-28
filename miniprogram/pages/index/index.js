@@ -1,5 +1,5 @@
 // pages/index/index.js
-const bookService = require('../../alicloud/services/book');
+const bookService = require('@/alicloud/services/book');
 
 Page({
   /**
