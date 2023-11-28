@@ -18,10 +18,10 @@ Page({
   async onSave() {
     if (this.data.friend.id) {
       const [err, res] = await friendService.updateFriend(this.data.friend.id, this.data.friend);
-      wx.$okNavBack(`修改成功`)
+      wx.$utils.msgBack(`修改成功`)
     } else {
       const [err, res] = await friendService.addFriend(this.data.friend);
-      wx.$okNavBack(`添加成功`)
+      wx.$utils.msgBack(`添加成功`)
     }
   },
   async onDelete() {
@@ -31,7 +31,7 @@ Page({
       success: async (res) => {
         if (res.confirm) {
           const [err, res] = await friendService.deleteFriend(this.data.friend.id);
-          wx.$okNavBack(`删除成功`, 2)
+          wx.$utils.msgBack(`删除成功`, 2)
         }
       },
     });

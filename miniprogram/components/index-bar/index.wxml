@@ -1,0 +1,17 @@
+<van-empty wx:if="{{friendsList.length===0}}" description="没有记录哦~">
+</van-empty>
+<view class="ui-container">
+  <van-index-bar index-list="{{ indexList }}" highlight-color="#F76664">
+    <view wx:for="{{friendsList}}" wx:key="index">
+      <van-index-anchor index="{{item.alpha}}" />
+      <view class="ui-menu radius-lg mb-3">
+        <view class="ui-menu-item" bindtap="onFriendClick" wx:for="{{item.subItems}}" wx:for-item="data" wx:key="dataindex" data-friend='{{data}}'>
+          <view class="block py-3">
+            <view class="text-lg">{{data.name}}</view>
+            <view class="ui-TC-3 mt-2">{{data.relation}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </van-index-bar>
+</view>

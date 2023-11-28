@@ -12,6 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    // 是否是 api 加载 gift 数据，比如在其他页面选择部分数据时，不需要重新加载
+    giftReset: true,
     gift: {
       id: ``,
       date: {
@@ -98,10 +100,10 @@ Page({
   async onSave() {
     if (this.data.gift.id) {
       const [err, res] = await giftOutService.updateGiftOut(this.data.gift.id, this.data.gift);
-      wx.$okNavBack(`修改成功`)
+      wx.$utils.msgBack(`修改成功`)
     } else {
       const [err, res] = await giftOutService.addGiftOut(this.data.gift);
-      wx.$okNavBack(`添加成功`)
+      wx.$utils.msgBack(`添加成功`)
     }
   },
   async onDelete() {
@@ -111,7 +113,7 @@ Page({
       success: async (res) => {
         if (res.confirm) {
           const [err, result] = await giftOutService.deleteGiftOut(this.data.gift.id);
-          wx.$okNavBack(`删除成功`)
+          wx.$utils.msgBack(`删除成功`)
         }
       },
     });
@@ -162,6 +164,7 @@ Page({
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
         dialogResult: (data) => {
           this.setData({
+            'giftReset': false,
             'gift.friendId': data.id,
             'gift.friendName': data.name,
           });
@@ -190,13 +193,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow() {
-    if(this.data.gift.id) {
+    if(this.data.gift.id && this.data.giftReset) {
       giftOutService.getGiftOut(this.data.gift.id).then(([, gift]) => {
         this.setData({
           gift
         })
       })
     }
+    this.setData({
+      giftReset: true,
+    })
   },
   inputListener(e){
     this.setData({

@@ -1,19 +1,11 @@
 import config from "@/config/index.js";
 import api from "@/utils/api.js";
+import * as utils from "@/utils/index.js";
 
 wx.$config = config
 wx.$userId = `todoid`
 wx.$api = api
-wx.$okNavBack = function(title = ``, delta = 1) {
-  wx.showToast({
-    title,
-  });
-  setTimeout(() => {
-    wx.navigateBack({
-      delta,
-    });
-  }, 1000);
-}
+wx.$utils = utils
 wx.$app = {
   //挂载到app上
   colorUI: config.colorUI,

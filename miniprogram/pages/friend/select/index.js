@@ -1,11 +1,14 @@
 // pages/friend/select/index.js
-const friendService = require("@/services/friend");
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    friendsList: [],
+  },
+  onFriendClick(e) {
+    const eventChannel = this.getOpenerEventChannel();
+    eventChannel.emit("dialogResult", e.detail);
+    wx.navigateBack();
   },
   onSearch(e) {
     const searchVal = e.detail
@@ -13,50 +16,9 @@ Page({
       searchValue: searchVal
     });
   },
-  // 选中联系人
-  onSelectedFriend(e) {
-    const eventChannel = this.getOpenerEventChannel();
-    eventChannel.emit("dialogResult", e.currentTarget.dataset.friend);
-    wx.navigateBack();
-  },
   async loadData(parameter) {
-    this.setData({
-      friendsList: [],
-    });
-    let listTemp = [];
-    for (let index = 0; index < 26; index++) {
-      listTemp.push({
-        alpha: String.fromCharCode(65 + index),
-        subItems: [],
-      });
-    }
-    let noletter = {
-      alpha: "#",
-      subItems: [],
-    };
-    const [err, res] = await friendService.getFriendList(parameter);
-    if (!err) {
-      for (const item of res.data) {
-        const firstLetter = item.firstLetter;
-        if (!firstLetter) {
-          noletter.subItems.push(item);
-        } else {
-          for (const f of listTemp) {
-            if (firstLetter.toUpperCase() === f.alpha) {
-              f.subItems.push(item);
-              break;
-            }
-          }
-        }
-      }
-      listTemp.push(noletter);
-      let list = listTemp.filter((i) => {
-        return i.subItems.length != 0;
-      });
-      this.setData({
-        friendsList: list,
-      });
-    }
+    const child = this.selectComponent('#index-bar');
+    child.loadData(parameter)
   },
   /**
    * 生命周期函数--监听页面加载

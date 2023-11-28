@@ -1,5 +1,4 @@
 // pages/friend/index.js
-const friendService = require("@/services/friend");
 const app = getApp();
 Page({
   /**
@@ -8,8 +7,6 @@ Page({
   data: {
     skipAD: app.userInfo.skipAD,
     scrollTop: 0,
-    indexList: [],
-    friendsList: [],
   },
   // 监听用户滑动页面事件。
   onPageScroll(e) {
@@ -26,7 +23,7 @@ Page({
   },
   onFriendClick(e) {
     wx.navigateTo({
-      url: `/pages/friend/details/index?id=${e.currentTarget.dataset.friend.id}`,
+      url: `/pages/friend/details/index?id=${e.detail.id}`,
     });
   },
   onAdd() {
@@ -35,29 +32,8 @@ Page({
     });
   },
   async loadData(parameter = {}) {
-    parameter.name_like = parameter.searchValue || ``
-    delete parameter.searchValue
-    parameter.userId = wx.$userId
-    const [err, res] = await friendService.getFriendList(parameter);
-    if (!err) {
-      const list = Object.entries(res.reduce((acc, cur) => {
-        cur.firstLetter = cur.firstLetter || `#` // 把空字符串分组到 #
-        acc[cur.firstLetter] = acc[cur.firstLetter] || []
-        acc[cur.firstLetter].push(cur)
-        return acc
-      }, {})).reduce((acc, [key, val]) => {
-        acc.push({
-          alpha: key,
-          subItems: val,
-        })
-        return acc
-      }, [])
-      console.log(`list`, list)
-      this.setData({
-        friendsList: list,
-        indexList: list.map(item => item.alpha).sort(),
-      });
-    }
+    const child = this.selectComponent('#index-bar');
+    child.loadData(parameter)
   },
 
   /**

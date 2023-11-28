@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    giftReset: true,
     gift: {
       id: "",
       friendId: "",
@@ -61,15 +62,15 @@ Page({
     });
   },
   showFriendSelect() {
-    let that = this;
     wx.navigateTo({
       url: "/pages/friend/select/index",
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-        dialogResult: function (data) {
-          that.setData({
-            friendId: data.id,
-            friendName: data.name,
+        dialogResult: (data) => {
+          this.setData({
+            'giftReset': false,
+            'gift.friendId': data.id,
+            'gift.friendName': data.name,
           });
         },
       },
@@ -118,12 +119,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   async onShow() {
-    if(this.data.gift.id) {
-      const [err, res] = await giftReceiveService.getGiftOut(this.data.gift.id)
+    if(this.data.gift.id && this.data.giftReset) {
+      const [err, gift] = await giftReceiveService.getGiftOut(this.data.gift.id)
       this.setData({
-        gift: res,
+        gift,
       });
     }
+    this.setData({
+      giftReset: true,
+    })
   },
 
   /**

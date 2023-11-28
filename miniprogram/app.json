@@ -105,6 +105,7 @@
     "van-index-bar": "@vant/weapp/index-bar/index",
     "van-index-anchor": "@vant/weapp/index-anchor/index",
     "van-popup": "@vant/weapp/popup/index",
+    "index-bar": "/components/index-bar/index",
     "calendar": "/components/calendar/index"
   }
 }
