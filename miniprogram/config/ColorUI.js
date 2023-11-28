@@ -1,5 +1,5 @@
 //框架核心配置
-import ColorUI from "../mp-cu/main";
+import ColorUI from "@/mp-cu/main";
 export const colorUI = new ColorUI({
   config: {
     theme: "auto",
