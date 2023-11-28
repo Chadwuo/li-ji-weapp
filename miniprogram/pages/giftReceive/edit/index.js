@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    skipAD: app.userInfo.skipAD,
     _id: "",
     friendId: "",
     friendName: "",
@@ -119,6 +120,9 @@ Page({
         ...data,
       });
     });
+    this.setData({
+      skipAD: app.userInfo.skipAD
+    })
   },
 
   /**
