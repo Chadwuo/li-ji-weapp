@@ -119,6 +119,9 @@ Page({
         ...data,
       });
     });
+    this.setData({
+      skipAD: app.userInfo.skipAD
+    })
   },
 
   /**
