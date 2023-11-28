@@ -20,6 +20,10 @@
 			</ui-form-group>
 		</ui-form>
 		<text class="text-xs text-grey cicon-help">你可以点击联系人图标快速选取来宾。</text>
+		<view class="mt-6" wx:if="{{!skipAD}}">
+			<ad unit-id="adunit-64aefbe92c2dc7bf"></ad>
+			<text class="text-xs text-grey cicon-help mb-2">广告可以在设置中关闭</text>
+		</view>
 	</view>
 
 	<ui-fixed bottom val="{{24}}">
