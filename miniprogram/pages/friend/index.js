@@ -1,5 +1,6 @@
 // pages/friend/index.js
-const friendService = require("../../alicloud/services/friend");
+const friendService = require("@/alicloud/services/friend");
+const app = getApp();
 const app = getApp();
 Page({
   /**

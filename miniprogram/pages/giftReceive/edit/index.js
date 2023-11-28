@@ -1,12 +1,11 @@
 // pages/giftReceive/edit/index.js
-const giftReceiveService = require("../../../alicloud/services/giftReceive");
+const giftReceiveService = require("@/alicloud/services/giftReceive");
 const app = getApp();
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    skipAD: app.userInfo.skipAD,
     _id: "",
     friendId: "",
     friendName: "",

@@ -1,7 +1,7 @@
 const app = getApp();
 const {
   toggleADSet
-} = require('../../alicloud/services/user');
+} = require('@/alicloud/services/user');
 // pages/set/index.js
 Page({
   /**
