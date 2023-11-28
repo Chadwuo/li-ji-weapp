@@ -1,8 +1,8 @@
 // pages/start/index.js
 const app = getApp();
-import { getUserInfo, getUserDataScope } from "../../alicloud/services/user";
-import { computedTotalGiftOut } from "../../alicloud/services/giftOut";
-import { computedTotalGiftReceive } from "../../alicloud/services/giftReceive";
+import { getUserInfo, getUserDataScope } from "@/alicloud/services/user";
+import { computedTotalGiftOut } from "@/alicloud/services/giftOut";
+import { computedTotalGiftReceive } from "@/alicloud/services/giftReceive";
 
 Page({
   /**

@@ -1,4 +1,7 @@
 {
+  "resolveAlias": {
+    "@/*": "/*"
+  },
   "pages": [
     "pages/start/index",
     "pages/index/index",
