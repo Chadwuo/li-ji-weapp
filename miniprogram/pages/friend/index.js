@@ -1,7 +1,7 @@
 // pages/friend/index.js
 const friendService = require("@/alicloud/services/friend");
 const app = getApp();
-const app = getApp();
+
 Page({
   /**
    * 页面的初始数据

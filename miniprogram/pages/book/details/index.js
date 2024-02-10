@@ -10,15 +10,7 @@ Page({
   },
   onSearch(e) {
     const searchVal = e.detail
-    if (!searchVal) {
-      this.loadData(1);
-      return;
-    }
-    this.setData({
-      giftList: this.data.giftList.filter((i) =>
-        i.friendInfo.name.includes(searchVal)
-      ),
-    });
+    this.loadData(1, searchVal);
   },
   onAddGift() {
     let that = this;
@@ -80,10 +72,11 @@ Page({
       },
     });
   },
-  async loadData(page) {
+  async loadData(page, keyword) {
     const res = await giftReceiveService.getGiftReceivePage({
       bookId: this.data.book._id,
       page,
+      keyword
     });
     if (res.success) {
       this.setData({
@@ -110,27 +103,27 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {},
+  onReady: function () { },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () { },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {},
+  onHide: function () { },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {},
+  onUnload: function () { },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  async onPullDownRefresh() {},
+  async onPullDownRefresh() { },
 
   /**
    * 页面上拉触底事件的处理函数
