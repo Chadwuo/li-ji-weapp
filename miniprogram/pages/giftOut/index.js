@@ -1,7 +1,6 @@
 // pages/giftOut/index.js
 const giftOutService = require('@/alicloud/services/giftOut');
 const app = getApp();
-const app = getApp();
 Page({
   /**
    * 页面的初始数据
@@ -24,15 +23,18 @@ Page({
   },
   onSearch(e) {
     const searchVal = e.detail
-    if (!searchVal) {
-      this.loadData(1);
-      return;
-    }
-    this.setData({
-      giftList: this.data.giftList.filter((i) =>
-        i.friendInfo.name.includes(searchVal)
-      ),
-    });
+
+    this.loadData(1, searchVal);
+
+    // if (!searchVal) {
+    //   this.loadData(1);
+    //   return;
+    // }
+    // this.setData({
+    //   giftList: this.data.giftList.filter((i) =>
+    //     i.friendInfo.name.includes(searchVal)
+    //   ),
+    // });
   },
   onGiftClick(e) {
     wx.navigateTo({
@@ -61,9 +63,10 @@ Page({
       },
     });
   },
-  async loadData(page) {
+  async loadData(page, keyword) {
     const res = await giftOutService.getGiftOutPage({
       page,
+      keyword
     });
     if (res.success) {
       this.setData({
@@ -81,7 +84,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {},
+  onReady: function () { },
 
   /**
    * 生命周期函数--监听页面显示
@@ -95,17 +98,17 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {},
+  onHide: function () { },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {},
+  onUnload: function () { },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {},
+  onPullDownRefresh: function () { },
 
   /**
    * 页面上拉触底事件的处理函数
