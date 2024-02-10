@@ -21,7 +21,7 @@
 			<view class="flex justify-between align-center w-100">
 				<view class="flex flex-column">
 					<text class="text-xl text-bold">{{item.friendInfo.name}}</text>
-					<text class="text-lg text-grey py-2"> {{item.title}}</text>
+					<text class="text-lg text-grey py-2"> {{item.title}}<text wx:if="{{item.remarks}}">（{{item.remarks}}）</text></text>
 					<view class="text-df text-grey">{{item.date.value}} {{ item.date.lunar_month }}{{ item.date.lunar_day }}</view>
 				</view>
 				<view class="mr-4 {{item.icon!='iconfont icon-sangzang'?'text-red':'text-grey'}}">
