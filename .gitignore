@@ -1,38 +1,27 @@
-# Windows
-[Dd]esktop.ini
-Thumbs.db
-$RECYCLE.BIN/
-/dist
-/miniprogram/miniprogram_npm
-
-# macOS
-.DS_Store
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-
-# Node.js
-node_modules/
-
-# local env files
-.env.local
-.env.*.local
-
-# Log files
+# Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+.DS_Store
+dist
+*.local
 
 # Editor directories and files
 .idea
-.vscode
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
+# pages config
+pages.json
 
-/project.private.config.json
+
+/src/alicloud/releases.js
