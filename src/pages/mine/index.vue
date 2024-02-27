@@ -1,6 +1,6 @@
 <template>
     <div mt-24>
-        <div>{{ userInfo.nickName }}</div>
+        <div>欢迎{{ userInfo.nickName }}</div>
     </div>
 </template>
 
