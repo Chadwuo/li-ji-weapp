@@ -1,3 +1,0 @@
-<view class="ui-radio-group {{ui}}">
-    <slot></slot>
-</view>

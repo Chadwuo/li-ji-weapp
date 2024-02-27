@@ -1,3 +1,0 @@
-<view class="ui-checkbox-group {{ui}}">
-    <slot/>
-</view>
