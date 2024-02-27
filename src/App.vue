@@ -1,13 +1,17 @@
 <script setup>
 /* At least one <template> or <script> is required in a single file component. */
 import mpserverless from "~/alicloud/releases";
-import { storeToRefs } from 'pinia'
 import { useUserStore } from '~/stores/user'
-const { userInfo } = storeToRefs(useUserStore())
+const userStore = useUserStore()
 
-onLaunch(async (options) => {
+onLaunch(async () => {
     console.log('App Launch')
     await mpserverless.init();
+
+    // TODO: userStore中 初始化用户信息，初始化用户数据权限
+    console.log('object :>> ', userStore);
+
+
 })
 onShow(() => {
     console.log('App Show')

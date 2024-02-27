@@ -9,19 +9,19 @@
             </template>
         </uni-nav-bar>
 
-        <div grid grid-cols-2 gap-5 mx-6 pt-6>
-            <div v-for="i in 10" h-48 w-full rounded-l-xl rounded-r-3xl bg-white>
+        <div grid grid-cols-2 gap-5 mx-5 pt-6>
+            <div v-for="(i, key) in 10" h-48 w-full rounded-l-xl rounded-r-3xl bg-white>
                 <div flex flex-col justify-center h-full>
                     <div mx-4 my-auto>
                         <div text-lg text-red font-bold>你好</div>
-                        <div text-sm text-gray>共 笔</div>
+                        <div text-sm text-gray>共 <span font-bold>{{ i }}</span> 笔</div>
                     </div>
                     <div h-7 w-18 bg-red self-end rounded-l-3xl flex items-center>
                         <div rounded-full w-3 h-3 bg-red-300 ms-2></div>
                     </div>
                     <div mx-4 my-auto>
                         <div text-lg font-bold> ￥1000</div>
-                        <div text-sm text-gray>共 笔</div>
+                        <div text-sm text-gray>20240202</div>
                         <div text-xs text-gray>正月初二</div>
                     </div>
                     <!-- <div bg-red style="height: 55rpx;width: 40%;position: relative;top: -40%; border-bottom-left-radius: 40rpx ;border-top-left-radius: 40rpx;">
@@ -56,6 +56,7 @@ const books = ref([
         name: 'book2'
     }
 ])
+console.log('object :>> ', books);
 
 </script>
 

@@ -1,6 +1,5 @@
 <script setup>
 import { onLoad } from '@dcloudio/uni-app'
-import mpserverless from "~/alicloud/releases";
 import logo from '~/static/logo.png'
 
 import { storeToRefs } from 'pinia'
@@ -9,25 +8,14 @@ const { userInfo } = storeToRefs(useUserStore())
 
 
 onMounted(() => {
-  setTimeout(() => {
-    userInfo.value = {
-      nickName: 'chadwuo',
-      avatarUrl: 'https://img.yzcdn.cn/vant/cat.jpeg'
-    }
-    router.push({
-      path: '/pages/book/index',
-      tabBar: true
-    })
-  }, 2000)
+  console.log('object :>> ', userInfo.value);
+  // TODO: 监听用户信息变化，正确获取到用户信息后，跳转到首页
+  router.push({
+    path: '/pages/book/index',
+    tabBar: true
+  })
 })
 
-onLoad(async () => {
-  console.log('loaded')
-  const db = mpserverless.db;
-  console.log('object :>> ', db);
-  const res = await mpserverless.user.getInfo();
-  console.log('user info', res);
-})
 </script>
 
 <template>
