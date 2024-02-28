@@ -45,8 +45,7 @@
 
 ### 鸣谢
 
-- [MP-CU](https://github.com/Color-UI/MP-CU)：colorUI3.x 微信小程序原生版
-- [Vant weapp](https://github.com/youzan/vant-weapp)：轻量、可靠的小程序 UI 组件库
+- [uni-vitesse](https://github.com/Ares-Chang/uni-vitesse)：Uniapp + Vue 3 + TS + UnoCSS template
 - [wl-pinyin](https://www.npmjs.com/package/wl-pinyin)：汉字转拼音库
 - [dayjs](https://github.com/iamkun/dayjs)：Moment.js 的 2kB 轻量化方案，拥有同样强大的 API
 - [wx_calendar](https://github.com/treadpit/wx_calendar)：小历同学
