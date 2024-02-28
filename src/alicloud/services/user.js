@@ -2,7 +2,7 @@ import mpserverless from "~/alicloud/releases";
 import dayjs from 'dayjs';
 
 // 获取用户信息
-const getUserInfo = async () => {
+export const getUserInfo = async () => {
     let res = await mpserverless.user.getInfo();
 
     if (!res.success) {
@@ -49,7 +49,7 @@ const getUserInfo = async () => {
 }
 
 // 更新用户信息
-const updateUser = async (parameter) => {
+export const updateUser = async (parameter) => {
     const db = mpserverless.db;
     return await db.collection('user').updateOne({
         _id: parameter._id,
@@ -61,16 +61,9 @@ const updateUser = async (parameter) => {
     });
 }
 
-const getUserDataScope = async (parameter) => {
+export const getUserDataScope = async (parameter) => {
     const db = mpserverless.db;
     // TODO: 获取用户数据权限
     console.log('object :>> ', parameter);
-
-}
-
-export {
-    getUserInfo,
-    updateUser,
-    getUserDataScope,
 
 }

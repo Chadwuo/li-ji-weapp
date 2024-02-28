@@ -24,9 +24,6 @@
                         <div text-sm text-gray>20240202</div>
                         <div text-xs text-gray>正月初二</div>
                     </div>
-                    <!-- <div bg-red style="height: 55rpx;width: 40%;position: relative;top: -40%; border-bottom-left-radius: 40rpx ;border-top-left-radius: 40rpx;">
-                        <view round ml-3 style="height: 20rpx;width: 20rpx;"></view>
-                    </div> -->
                 </div>
 
             </div>
@@ -37,8 +34,10 @@
 <script setup>
 import { onLoad, onShow } from '@dcloudio/uni-app'
 import { ref } from 'vue'
-
 import logo from '~/static/logo.png'
+
+
+
 onLoad(async () => {
     console.log('book index page loaded')
 })

@@ -8,10 +8,15 @@ onLaunch(async () => {
     console.log('App Launch')
     await mpserverless.init();
 
-    // TODO: userStore中 初始化用户信息，初始化用户数据权限
-    console.log('object :>> ', userStore);
+    // 初始化用户信息
+    await userStore.setUserInfo()
+    // 初始化用户数据权限
+    await userStore.setUserDataScope()
 
-
+    router.push({
+        path: '/pages/book/index',
+        tabBar: true
+    })
 })
 onShow(() => {
     console.log('App Show')
