@@ -35,27 +35,35 @@
 import { onLoad, onShow } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 import logo from '~/static/logo.png'
+import { getBookPage } from '~/alicloud/services/book'
 
-
+const books = ref([])
 
 onLoad(async () => {
-    console.log('book index page loaded')
+    loadData()
 })
+
 onShow(() => {
     console.log('book index page show')
 })
 
-const books = ref([
-    {
-        id: 1,
-        name: 'book1'
-    },
-    {
-        id: 2,
-        name: 'book2'
-    }
-])
-console.log('object :>> ', books);
+const pagination = ref({
+    pageNo: 0,
+    pageSize: 20,
+    loading: false
+})
+
+const loadData = () => {
+    const { pageSize, pageNo } = pagination.value
+    getBookPage({
+        pageSize,
+        pageNo
+    }).then(res => {
+        if (res.success) {
+            books.value = res.result
+        }
+    })
+}
 
 </script>
 
