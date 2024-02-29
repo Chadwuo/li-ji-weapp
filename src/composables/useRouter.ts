@@ -110,10 +110,14 @@ export function useRouter(config: RouterConfig = {}): Router {
     else {
       const { query: _query, path: _path, url: _url, replace: _replace, tabBar: _tabBar, ..._arg } = to
       const queryParams = getQueryStringify(_query || {})
-      url = `${_path || _url}?${queryParams}`
       replace = _replace || false
       tabBar = _tabBar || false
       arg = _arg || {}
+      if (tabBar) {
+        url = `${_path || _url}`
+      }else{
+        url = `${_path || _url}?${queryParams}`
+      }
     }
 
     const isLink = url.startsWith('http')
