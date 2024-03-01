@@ -40,8 +40,7 @@ export const computedTotalGiftOut = async () => {
  * @author chadwuo
  */
 export const getGiftOutPage = async (parameter) => {
-    parameter.limit = parameter.limit || 20;
-    parameter.page = parameter.page || 1;
+    const { pageSize, pageNo } = parameter
     return await db.collection('gift_out').aggregate([
         {
             $match: {
@@ -57,10 +56,10 @@ export const getGiftOutPage = async (parameter) => {
             },
         },
         {
-            $skip: (parameter.page - 1) * parameter.limit,
+            $skip: (pageNo - 1) * pageSize,
         },
         {
-            $limit: parameter.limit,
+            $limit: pageSize,
         },
         {
             $lookup: {
