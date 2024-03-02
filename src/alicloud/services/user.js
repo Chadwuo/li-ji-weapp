@@ -1,7 +1,15 @@
 import mpserverless from "~/alicloud/releases";
 import dayjs from 'dayjs';
+import { useUserStore } from '~/stores/user'
 
-// 获取用户信息
+const db = mpserverless.db;
+
+/**
+ * 获取用户信息
+ * 如果没有会自动创建用户
+ *
+ * @author chadwuo
+ */
 export const getUserInfo = async () => {
     let res = await mpserverless.user.getInfo();
 
@@ -10,7 +18,6 @@ export const getUserInfo = async () => {
     }
 
     const loginUser = res.result;
-    const db = mpserverless.db;
 
     res = await db.collection('user').findOne({
         _id: loginUser.userId
@@ -45,12 +52,16 @@ export const getUserInfo = async () => {
         });
     }
 
+    res.data = user;
     return res;
 }
 
-// 更新用户信息
+/**
+ * 更新用户数据
+ *
+ * @author chadwuo
+ */
 export const updateUser = async (parameter) => {
-    const db = mpserverless.db;
     return await db.collection('user').updateOne({
         _id: parameter._id,
     }, {
@@ -61,9 +72,37 @@ export const updateUser = async (parameter) => {
     });
 }
 
-export const getUserDataScope = async (parameter) => {
-    const db = mpserverless.db;
-    // TODO: 获取用户数据权限
-    console.log('object :>> ', parameter);
+/**
+ * 获取用户数据范围
+ *
+ * @author chadwuo
+ */
+export const getUserDataScope = async () => {
+    const { userInfo } = useUserStore()
+    // 获取家庭信息
+    const {
+        result: familyMember
+    } = await db.collection('family_member').findOne({
+        userId: userInfo._id,
+    });
 
+    // 没有加入家庭，就返回自己的id
+    if (!familyMember) {
+        userInfo.dataScope = [userInfo._id];
+    }
+
+    // 获取家庭其他成员信息
+    const {
+        result: familyInfos
+    } = await db.collection('family_member').find({
+        familyId: familyMember.familyId,
+    });
+
+    let dataScope = familyInfos.map((i) => {
+        return i.userId;
+    });
+
+    if (dataScope && dataScope.length > 0) {
+        userInfo.dataScope = dataScope;
+    }
 }

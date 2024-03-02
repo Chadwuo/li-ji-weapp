@@ -10,7 +10,7 @@
         </uni-nav-bar>
 
         <div grid grid-cols-2 gap-5 mx-5 pt-6>
-            <div v-for="i in books" h-48 w-full rounded-l-xl rounded-r-3xl bg-white>
+            <div v-for="i in books" :key="i._id" h-48 w-full rounded-l-xl rounded-r-3xl bg-white>
                 <div flex flex-col justify-center h-full>
                     <div mx-4 my-auto>
                         <div text-lg text-red font-bold>{{ i.title }}</div>
@@ -48,7 +48,7 @@ onShow(() => {
 })
 
 const pagination = ref({
-    pageNo: 0,
+    pageNo: 1,
     pageSize: 20,
     loading: false
 })
@@ -60,7 +60,8 @@ const loadData = () => {
         pageNo
     }).then(res => {
         if (res.success) {
-            books.value = res.result
+            const newGiftBooks = statistics(res.result);
+            books.value = pageNo === 1 ? newGiftBooks : [...books.value, ...newGiftBooks];
         }
     })
 }
@@ -81,10 +82,8 @@ const statistics = (datas) => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
     "style": {
         "navigationStyle": "custom"
     }
-}
-</route>
+}</route>
