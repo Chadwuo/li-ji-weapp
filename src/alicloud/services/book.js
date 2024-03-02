@@ -11,7 +11,6 @@ const db = mpserverless.db;
  */
 export const getBookPage = async (parameter) => {
     const { pageSize, pageNo } = parameter
-
     return await db.collection('book').aggregate([
         {
             $match: {

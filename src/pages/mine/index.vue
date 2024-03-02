@@ -1,6 +1,6 @@
 <template>
     <div mt-24>
-        <div>欢迎{{ userInfo.nickName }}</div>
+        <div>欢迎{{ JSON.stringify(userInfo) }}</div>
     </div>
 </template>
 
@@ -13,10 +13,8 @@ const { userInfo } = storeToRefs(useUserStore())
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
     "style": {
         "navigationStyle": "custom"
     }
-}
-</route>
+}</route>

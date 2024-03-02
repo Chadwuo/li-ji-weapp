@@ -10,18 +10,15 @@ export const useUserStore = defineStore(
         async function setUserInfo() {
             var res = await getUserInfo()
             if (res.success) {
-                userInfo.value = res.result
+                userInfo.value = res.data
+                await getUserDataScope()
             }
-        }
-
-        async function setUserDataScope() {
-            userInfo.value.userDataScope = await getUserDataScope()
+            return res
         }
 
         return {
             userInfo,
-            setUserInfo,
-            setUserDataScope
+            setUserInfo
         }
     },
     {
