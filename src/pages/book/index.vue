@@ -3,8 +3,8 @@
         <uni-nav-bar :statusBar="true" :border="false" backgroundColor="#f1f1f1" fixed :leftWidth="100">
             <template v-slot:left>
                 <div flex items-center ms-4>
-                    <img h-8 w-8 :src="logo" />
-                    <div text-lg font-bold ms-2>礼记</div>
+                    <img h-6 w-6 :src="logo" />
+                    <div text-lg font-bold ms-2>礼簿</div>
                 </div>
             </template>
         </uni-nav-bar>
@@ -26,6 +26,11 @@
                     </div>
                 </div>
 
+            </div>
+            <div h-48 w-full rounded-l-xl rounded-r-3xl bg-white flex flex-col items-center justify-center
+                @click="router.push('/pages/book/edit')">
+                <div i-carbon-add-alt text-3xl text-red font-bold></div>
+                <div mt-3>添加礼簿</div>
             </div>
         </div>
     </div>
