@@ -1,10 +1,11 @@
 <script setup>
 /* At least one <template> or <script> is required in a single file component. */
-import mpserverless from "~/alicloud/releases";
+import mpserverless from "~/alicloud/index";
 import { useUserStore } from '~/stores/user'
-const userStore = useUserStore()
+
 onLaunch(async () => {
     console.log('App Launch')
+    const userStore = useUserStore()
     await mpserverless.init()
     // 初始化用户信息
     const res = await userStore.setUserInfo()

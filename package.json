@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "@alicloud/mpserverless-sdk": "^3.1.5",
+    "@climblee/uv-ui": "^1.1.20",
     "@dcloudio/uni-app": "3.0.0-3090920231225001",
     "@dcloudio/uni-app-plus": "3.0.0-3090920231225001",
     "@dcloudio/uni-components": "3.0.0-3090920231225001",

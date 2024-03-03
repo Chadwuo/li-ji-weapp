@@ -8,6 +8,9 @@ dependencies:
   '@alicloud/mpserverless-sdk':
     specifier: ^3.1.5
     version: 3.1.5
+  '@climblee/uv-ui':
+    specifier: ^1.1.20
+    version: 1.1.20
   '@dcloudio/uni-app':
     specifier: 3.0.0-3090920231225001
     version: 3.0.0-3090920231225001(@dcloudio/types@3.4.1)(postcss@8.4.32)(vue@3.4.3)
@@ -1718,6 +1721,10 @@ packages:
   /@bcoe/v8-coverage@0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
+
+  /@climblee/uv-ui@1.1.20:
+    resolution: {integrity: sha512-jkyesHJsPJkF4Nap9ZmG1/ibKlxXA5M8+ntqKXwwloIsYSYL5SOKb0gyPj17aBOU1PkJpmeiZ8PwnTolhK2/HA==}
+    dev: false
 
   /@dcloudio/types@3.4.1:
     resolution: {integrity: sha512-3po6f5obp3C/nYsd5r7dzF2vHFQCcdf+PKk+YzgcNFWo8lSivFA8KJZDA/GVmHCSl0zGTqbRQlQPWFaYTAzv7w==}

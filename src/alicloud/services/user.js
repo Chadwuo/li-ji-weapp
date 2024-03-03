@@ -1,4 +1,4 @@
-import mpserverless from "~/alicloud/releases";
+import mpserverless from "~/alicloud/index";
 import dayjs from 'dayjs';
 import { useUserStore } from '~/stores/user'
 
@@ -12,7 +12,6 @@ const db = mpserverless.db;
  */
 export const getUserInfo = async () => {
     let res = await mpserverless.user.getInfo();
-
     if (!res.success) {
         return res
     }
@@ -89,6 +88,7 @@ export const getUserDataScope = async () => {
     // 没有加入家庭，就返回自己的id
     if (!familyMember) {
         userInfo.dataScope = [userInfo._id];
+        return;
     }
 
     // 获取家庭其他成员信息

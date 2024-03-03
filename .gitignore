@@ -24,4 +24,5 @@ dist
 pages.json
 
 
-/src/alicloud/releases.js
+/src/alicloud/releases.json
+/src/alicloud/dev.json

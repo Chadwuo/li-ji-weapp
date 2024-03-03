@@ -1,4 +1,4 @@
-import mpserverless from "~/alicloud/releases";
+import mpserverless from "~/alicloud/index";
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '~/stores/user'
 const { userInfo } = storeToRefs(useUserStore())
