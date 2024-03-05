@@ -11,21 +11,25 @@
 
         <div grid grid-cols-2 gap-5 mx-5 pt-6>
             <div v-for="i in books" :key="i._id" h-48 w-full rounded-l-xl rounded-r-3xl bg-white>
-                <div flex flex-col justify-center h-full>
-                    <div mx-4 my-auto>
+                <div flex flex-col justify-around h-full>
+                    <div mx-4>
                         <div text-lg text-red font-bold>{{ i.title }}</div>
                         <div text-sm text-gray>共 <span font-bold>{{ i.giftCount }}</span> 笔</div>
                     </div>
-                    <div h-7 w-18 bg-red self-end rounded-l-3xl flex items-center>
+                    <!-- <div h-7 w-18 bg-red self-end rounded-l-3xl flex items-center>
                         <div rounded-full w-3 h-3 bg-red-300 ms-2></div>
-                    </div>
-                    <div mx-4 my-auto>
+                    </div> -->
+                    <div mx-4>
                         <div text-lg font-bold> ￥{{ i.giftTotal }}</div>
                         <div text-sm text-gray>{{ i.date.value }}</div>
                         <div text-xs text-gray>{{ i.date.lunar_month }}{{ i.date.lunar_day }}</div>
                     </div>
                 </div>
-
+                <div relative>
+                    <div h-7 w-18 bg-red rounded-l-3xl flex items-center absolute right-0 bottom-22>
+                        <div rounded-full w-3 h-3 bg-red-300 ms-2></div>
+                    </div>
+                </div>
             </div>
             <div h-48 w-full rounded-l-xl rounded-r-3xl bg-white flex flex-col items-center justify-center
                 @click="router.push('/pages/book/edit')">
