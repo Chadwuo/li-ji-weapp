@@ -16,9 +16,6 @@
                         <div text-lg text-red font-bold>{{ i.title }}</div>
                         <div text-sm text-gray>共 <span font-bold>{{ i.giftCount }}</span> 笔</div>
                     </div>
-                    <!-- <div h-7 w-18 bg-red self-end rounded-l-3xl flex items-center>
-                        <div rounded-full w-3 h-3 bg-red-300 ms-2></div>
-                    </div> -->
                     <div mx-4>
                         <div text-lg font-bold> ￥{{ i.giftTotal }}</div>
                         <div text-sm text-gray>{{ i.date.value }}</div>
@@ -37,11 +34,12 @@
                 <div mt-3>添加礼簿</div>
             </div>
         </div>
+        <uv-load-more loadingIcon="circle" :status="loadMoreStatus" v-if="loadMoreStatus == 'loading'" />
     </div>
 </template>
 
 <script setup>
-import { onLoad, onShow } from '@dcloudio/uni-app'
+import { onLoad, onShow, onPullDownRefresh, onReachBottom } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 import logo from '~/static/logo.png'
 import { getBookPage } from '~/alicloud/services/book'
@@ -56,10 +54,22 @@ onShow(() => {
     console.log('book index page show')
 })
 
+const loadMoreStatus = ref('loadmore')
+
+onReachBottom(() => {
+    console.log('触底加载更多')
+    if (loadMoreStatus.value === 'loading' || loadMoreStatus.value === 'nomore') {
+        return
+    }
+    loadMoreStatus.value = 'loading'
+    pagination.value.pageNo++
+    loadData()
+})
+
 const pagination = ref({
     pageNo: 1,
     pageSize: 20,
-    loading: false
+    loading: false,
 })
 
 const loadData = () => {
@@ -69,8 +79,14 @@ const loadData = () => {
         pageNo
     }).then(res => {
         if (res.success) {
-            const newGiftBooks = statistics(res.result);
-            books.value = pageNo === 1 ? newGiftBooks : [...books.value, ...newGiftBooks];
+            console.log('object :>> ', res);
+            if (res.result.length == 0) {
+                loadMoreStatus.value = 'nomore'
+            } else {
+                const newGiftBooks = statistics(res.result)
+                books.value = pageNo === 1 ? newGiftBooks : [...books.value, ...newGiftBooks]
+                loadMoreStatus.value = 'loadmore'
+            }
         }
     })
 }
