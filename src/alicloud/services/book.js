@@ -1,7 +1,7 @@
 import mpserverless from "~/alicloud/index";
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '~/stores/user'
-const { userInfo } = storeToRefs(useUserStore())
+const { userDataScope } = storeToRefs(useUserStore())
 const db = mpserverless.db;
 
 /**
@@ -15,7 +15,7 @@ export const getBookPage = async (parameter) => {
         {
             $match: {
                 userId: {
-                    $in: userInfo.value.dataScope,
+                    $in: userDataScope.value,
                 },
             },
         },

@@ -5,32 +5,40 @@ import { useUserStore } from '~/stores/user'
 
 onLaunch(async () => {
     console.log('App Launch')
-    const userStore = useUserStore()
-    await mpserverless.init()
-    // 初始化用户信息
-    const res = await userStore.setUserInfo()
-    if (res.success) {
-        router.push({
-            path: '/pages/book/index',
-            tabBar: true
-        })
-    } else {
+
+    try {
+        await mpserverless.init()
+    } catch (error) {
         uni.showModal({
             title: '提示',
             content: '网络异常，请稍后再试...',
             showCancel: false,
+            confirmColor: '#F87171',
             success: function (res) {
                 if (res.confirm) {
                     // 重启
                     uni.reLaunch({
                         url: '/pages/index/index'
                     })
-
                 } else if (res.cancel) {
                     console.log('用户点击取消');
                 }
             }
         });
+    }
+    router.push({
+            path: '/pages/book/index',
+            tabBar: true
+        })
+    // 初始化用户信息
+    const userStore = useUserStore()
+    await userStore.initUserInfo()
+    await userStore.initUserDataScope()
+    if (userStore.userInfo) {
+        router.push({
+            path: '/pages/book/index',
+            tabBar: true
+        })
     }
 })
 onShow(() => {

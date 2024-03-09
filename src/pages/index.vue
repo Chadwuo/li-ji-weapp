@@ -4,8 +4,8 @@ import logo from '~/static/logo.png'
 
 <template>
   <div>
-    <div flex flex-col style="height: 90vh;">
-      <img h-14 w-14 m-auto :src="logo" />
+    <div class="flex flex-col" style="height: 90vh;">
+      <img class="h-14 w-14 m-auto" :src="logo" />
     </div>
   </div>
 </template>

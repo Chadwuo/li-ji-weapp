@@ -6,22 +6,29 @@ export const useUserStore = defineStore(
     'user',
     () => {
         const userInfo = ref(null)
+        const userDataScope = ref([])
 
-        async function setUserInfo() {
-            var res = await getUserInfo()
-            if (res.success) {
-                userInfo.value = res.data
-                await getUserDataScope()
+        async function initUserInfo() {
+            if (!userInfo.value) {
+                var res = await getUserInfo()
+                if (res.success) {
+                    userInfo.value = res.data
+                }
             }
-            return res
+        }
+
+        async function initUserDataScope() {
+            userDataScope.value = await getUserDataScope()
         }
 
         return {
             userInfo,
-            setUserInfo
+            userDataScope,
+            initUserInfo,
+            initUserDataScope,
         }
     },
     {
-        persist: false,
+        persist: true,
     },
 )
