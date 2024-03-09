@@ -87,8 +87,7 @@ export const getUserDataScope = async () => {
 
     // 没有加入家庭，就返回自己的id
     if (!familyMember) {
-        userInfo.dataScope = [userInfo._id];
-        return;
+        return [userInfo._id];
     }
 
     // 获取家庭其他成员信息
@@ -102,7 +101,5 @@ export const getUserDataScope = async () => {
         return i.userId;
     });
 
-    if (dataScope && dataScope.length > 0) {
-        userInfo.dataScope = dataScope;
-    }
+    return dataScope;
 }

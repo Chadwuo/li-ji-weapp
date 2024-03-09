@@ -1,12 +1,13 @@
 <template>
     <div>
-        <uni-nav-bar :statusBar="true" :border="false" backgroundColor="#f1f1f1" fixed :leftWidth="100">
+        <uv-navbar placeholder bgColor="#f1f1f1">
             <template v-slot:left>
-                <div flex items-center ms-4>
-                    <div text-lg font-bold ms-2>送礼</div>
+                <div class="flex items-center ms-4">
+                    <img class="h-6 w-6" :src="logo" />
+                    <div class="text-lg font-bold ms-2">礼簿</div>
                 </div>
             </template>
-        </uni-nav-bar>
+        </uv-navbar>
         <div grid grid-cols-1 gap-5 mx-6>
 
         </div>

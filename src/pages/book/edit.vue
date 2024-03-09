@@ -1,21 +1,21 @@
 <template>
     <div>
-        <uv-empty icon="https://cdn.uviewui.com/uview/empty/car.png"></uv-empty>
         <uv-form labelPosition="left" labelWidth="90">
-            <uv-form-item label="日期" borderBottom>
-                <uv-input v-model="book.title" border="none">
+            <uv-form-item label="日期" borderBottom rightIcon="arrow-right" leftIcon="calendar"
+                leftIconStyle="color:#F87171">
+                <uv-input v-model="dataSource.title" border="none">
                 </uv-input>
             </uv-form-item>
             <uv-form-item label="礼簿名称" borderBottom>
-                <uv-input v-model="book.title" border="none">
+                <uv-input v-model="dataSource.title" border="none">
                 </uv-input>
             </uv-form-item>
             <uv-form-item label="备注" borderBottom>
-                <uv-input v-model="book.title" border="none">
+                <uv-input v-model="dataSource.remarks" border="none">
                 </uv-input>
             </uv-form-item>
-            <uv-button type="primary" text="提交" customStyle="margin-top: 10px" @click="submit"></uv-button>
-            <uv-button type="error" text="重置" customStyle="margin-top: 10px" @click="reset"></uv-button>
+            <uv-button type="primary" text="提交" shape="circle" @click="submit" :loading="loading"
+                loadingMode="circle"></uv-button>
         </uv-form>
     </div>
 </template>
@@ -36,6 +36,13 @@ onLoad((option) => {
         });
     }
 });
+
+const dataSource = ref({});
+const loading = ref(false);
+
+const submit = () => {
+    console.log('object :>> ', dataSource.value);
+}
 
 const book = ref({});
 </script>

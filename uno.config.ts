@@ -18,6 +18,7 @@ export default defineConfig({
      * @see https://github.com/uni-helper/unocss-preset-uni
      */
     presetUni({
+      attributify: false,
       remRpx: false,
       uno: {
         dark: 'class',

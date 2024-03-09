@@ -1,37 +1,37 @@
 <template>
     <div>
-        <uni-nav-bar :statusBar="true" :border="false" backgroundColor="#f1f1f1" fixed :leftWidth="100">
+        <uv-navbar placeholder bgColor="#f1f1f1">
             <template v-slot:left>
-                <div flex items-center ms-4>
-                    <img h-6 w-6 :src="logo" />
-                    <div text-lg font-bold ms-2>礼簿</div>
+                <div class="flex items-center ms-4">
+                    <img class="h-6 w-6" :src="logo" />
+                    <div class="text-lg font-bold ms-2">礼簿</div>
                 </div>
             </template>
-        </uni-nav-bar>
+        </uv-navbar>
 
-        <div grid grid-cols-2 gap-5 mx-5 pt-6>
-            <div v-for="i in books" :key="i._id" h-48 w-full rounded-l-xl rounded-r-3xl bg-white>
-                <div flex flex-col justify-around h-full>
-                    <div mx-4>
-                        <div text-lg text-red font-bold>{{ i.title }}</div>
-                        <div text-sm text-gray>共 <span font-bold>{{ i.giftCount }}</span> 笔</div>
+        <div class="grid grid-cols-2 gap-5 mx-5 pt-6">
+            <div v-for="i in books" :key="i._id" class="h-48 w-full rounded-l-xl rounded-r-3xl bg-white">
+                <div class="flex flex-col justify-around h-full">
+                    <div class="mx-4">
+                        <div class="text-lg text-red font-bold">{{ i.title }}</div>
+                        <div class="text-sm text-gray">共 <span font-bold>{{ i.giftCount }}</span> 笔</div>
                     </div>
-                    <div mx-4>
-                        <div text-lg font-bold> ￥{{ i.giftTotal }}</div>
-                        <div text-sm text-gray>{{ i.date.value }}</div>
-                        <div text-xs text-gray>{{ i.date.lunar_month }}{{ i.date.lunar_day }}</div>
+                    <div class="mx-4">
+                        <div class="text-lg font-bold"> ￥{{ i.giftTotal }}</div>
+                        <div class="text-sm text-gray">{{ i.date.value }}</div>
+                        <div class="text-xs text-gray">{{ i.date.lunar_month }}{{ i.date.lunar_day }}</div>
                     </div>
                 </div>
-                <div relative>
-                    <div h-7 w-18 bg-red rounded-l-3xl flex items-center absolute right-0 bottom-22>
-                        <div rounded-full w-3 h-3 bg-red-300 ms-2></div>
+                <div class="relative">
+                    <div class="h-7 w-18 bg-red rounded-l-3xl flex items-center absolute right-0 bottom-22">
+                        <div class="rounded-full w-3 h-3 bg-red-300 ms-2"></div>
                     </div>
                 </div>
             </div>
-            <div h-48 w-full rounded-l-xl rounded-r-3xl bg-white flex flex-col items-center justify-center
+            <div class="h-48 w-full rounded-l-xl rounded-r-3xl bg-white flex flex-col items-center justify-center"
                 @click="router.push('/pages/book/edit')">
-                <div i-carbon-add-alt text-3xl text-red font-bold></div>
-                <div mt-3>添加礼簿</div>
+                <div class="i-carbon-add-alt text-3xl text-red font-bold"></div>
+                <div class="mt-3">添加礼簿</div>
             </div>
         </div>
         <uv-load-more loadingIcon="circle" :status="loadMoreStatus" v-if="loadMoreStatus == 'loading'" />
