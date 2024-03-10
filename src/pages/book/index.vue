@@ -17,7 +17,7 @@
                         <div class="text-sm text-gray">共 <span font-bold>{{ i.giftCount }}</span> 笔</div>
                     </div>
                     <div class="mx-4">
-                        <div class="text-lg font-bold"> ￥{{ i.giftTotal }}</div>
+                        <div class="text-lg font-bold"> <span class="text-sm">￥</span>{{ i.giftTotal }}</div>
                         <div class="text-sm text-gray">{{ i.date.value }}</div>
                         <div class="text-xs text-gray">{{ i.date.lunar_month }}{{ i.date.lunar_day }}</div>
                     </div>
@@ -34,6 +34,7 @@
                 <div class="mt-3">添加礼簿</div>
             </div>
         </div>
+        
         <uv-load-more loadingIcon="circle" :status="loadMoreStatus" v-if="loadMoreStatus == 'loading'" />
     </div>
 </template>
