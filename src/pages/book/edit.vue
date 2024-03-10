@@ -11,14 +11,19 @@
                         <uv-icon name="arrow-right"></uv-icon>
                     </template>
                 </uv-form-item>
-                <uv-form-item label="礼簿名称" borderBottom leftIcon="order" leftIconStyle="color:#b745cb">
-                    <uv-input v-model="dataSource.title" border="none" placeholder="请选择日期">
+                <uv-form-item label="名称" borderBottom leftIcon="order" leftIconStyle="color:#b745cb">
+                    <uv-input v-model="dataSource.title" border="none" placeholder="礼簿名称">
                     </uv-input>
                 </uv-form-item>
-                <uv-form-item label="备注" leftIcon="tags" leftIconStyle="color:#a5673f">
+                <uv-form-item label="成本" borderBottom leftIcon="coupon" leftIconStyle="color:#53c21d">
+                    <uv-input v-model="dataSource.cost" border="none" placeholder="宴席、伴手礼等费用" type="number">
+                    </uv-input>
+                </uv-form-item>
+                <uv-form-item label="备注" leftIcon="tags" leftIconStyle="color:#a5673f" borderBottom>
                     <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容">
                     </uv-input>
                 </uv-form-item>
+                <view class="text-xs text-gray mt-1">一场宴席活动中，用来登记所有来宾贺礼的名册，称为礼簿。</view>
             </uv-form>
         </div>
         <view class="card mt-4">
@@ -29,8 +34,9 @@
 
     <div class="fixed bottom-12 w-full">
         <div class="flex space-x-4 mx-4">
-            <uv-button text="删除" shape="circle" @click="submit" :loading="loading" loadingMode="circle"
-                v-if="dataSource._id"></uv-button>
+            <div class="w-40" v-if="dataSource._id">
+                <uv-button text="删除" shape="circle" @click="submit" :loading="loading" loadingMode="circle"></uv-button>
+            </div>
             <div class="w-full">
                 <uv-button type="primary" text="保存" shape="circle" @click="submit" :loading="loading"
                     loadingMode="circle"></uv-button>
