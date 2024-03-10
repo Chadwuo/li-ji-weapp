@@ -11,7 +11,7 @@
 
         <div class="grid grid-cols-2 gap-5 mx-5 pt-6">
             <div v-for="i in books" :key="i._id" class="h-48 w-full rounded-l-xl rounded-r-3xl bg-white"
-                @click="router.push(`/pages/book/edit?id=${i._id}`)">
+                @click="router.push(`/pages/book/detail?id=${i._id}`)">
                 <div class="flex flex-col justify-around h-full">
                     <div class="mx-4">
                         <div class="text-lg text-red font-bold">{{ i.title }}</div>
