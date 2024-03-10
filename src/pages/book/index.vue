@@ -10,7 +10,8 @@
         </uv-navbar>
 
         <div class="grid grid-cols-2 gap-5 mx-5 pt-6">
-            <div v-for="i in books" :key="i._id" class="h-48 w-full rounded-l-xl rounded-r-3xl bg-white">
+            <div v-for="i in books" :key="i._id" class="h-48 w-full rounded-l-xl rounded-r-3xl bg-white"
+                @click="router.push(`/pages/book/edit?id=${i._id}`)">
                 <div class="flex flex-col justify-around h-full">
                     <div class="mx-4">
                         <div class="text-lg text-red font-bold">{{ i.title }}</div>
@@ -19,7 +20,9 @@
                     <div class="mx-4">
                         <div class="text-lg font-bold"> <span class="text-sm">￥</span>{{ i.giftTotal }}</div>
                         <div class="text-sm text-gray">{{ i.date.value }}</div>
-                        <div class="text-xs text-gray">{{ i.date.lunar_month }}{{ i.date.lunar_day }}</div>
+                        <div class="text-xs text-gray">{{ i.date.lunar_month }} {{
+                        i.date.lunar_day }} {{ i.date.lunar_year }}
+                        </div>
                     </div>
                 </div>
                 <div class="relative">
@@ -34,7 +37,7 @@
                 <div class="mt-3">添加礼簿</div>
             </div>
         </div>
-        
+
         <uv-load-more loadingIcon="circle" :status="loadMoreStatus" v-if="loadMoreStatus == 'loading'" />
     </div>
 </template>
