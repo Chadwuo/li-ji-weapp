@@ -84,13 +84,9 @@ const loadData = () => {
     }).then(res => {
         if (res.success) {
             console.log('object :>> ', res);
-            if (res.result.length < pageSize) {
-                loadMoreStatus.value = 'nomore'
-            } else {
-                const newGiftBooks = statistics(res.result)
-                books.value = pageNo === 1 ? newGiftBooks : [...books.value, ...newGiftBooks]
-                loadMoreStatus.value = 'loadmore'
-            }
+            const newGiftBooks = statistics(res.result)
+            books.value = pageNo === 1 ? newGiftBooks : [...books.value, ...newGiftBooks]
+            loadMoreStatus.value = newGiftBooks.length < pageSize ? 'nomore' : 'loadmore'
         }
     })
 }
@@ -108,9 +104,10 @@ const statistics = (datas) => {
 }
 
 const handleBookClick = (e) => {
+    const { _id, title, date, giftCount, giftTotal } = e
     router.push({
-        path: 'pages/book/detail',
-        query: e
+        path: '/pages/book/detail',
+        query: { _id, title, date, giftCount, giftTotal }
     })
 }
 
