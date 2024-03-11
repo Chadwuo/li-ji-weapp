@@ -17,6 +17,12 @@ export declare interface Router {
    * @param delta 返回的页面数，如果 delta 大于现有页面数，则返回到首页
    */
   back: (delta?: number) => void
+
+  /**
+   * 解析 URL 参数
+   * @param obj URL 参数对象
+   */
+  getQueryParse: (obj: Record<string, any>) => Record<string, any>
 }
 
 /**
@@ -99,6 +105,32 @@ export function useRouter(config: RouterConfig = {}): Router {
       .join('&') // 将数组用 & 符号连接成字符串
   }
 
+  function getQueryParse(obj: Record<string, any>) {
+    let result: Record<string, any> = {};
+    for (let key in obj) {
+      let value = obj[key];
+      if (typeof value === 'string') {
+        try {
+          let decodedValue = decodeURIComponent(value);
+          // 尝试对解码后的值进行 JSON 解析
+          try {
+            result[key] = JSON.parse(decodedValue);
+          } catch (e) {
+            // 如果解析失败，就直接使用解码后的值
+            result[key] = decodedValue;
+          }
+        } catch (e) {
+          console.error(`Error decoding value for key "${key}": ${e}`);
+          result[key] = value;
+        }
+      } else {
+        result[key] = value;
+      }
+    }
+    return result;
+  }
+  
+
   function push(to: RouterLocationRaw) {
     let url = ''
     let replace = false
@@ -167,6 +199,7 @@ export function useRouter(config: RouterConfig = {}): Router {
     push,
     replace,
     back,
+    getQueryParse,
   }
 }
 
