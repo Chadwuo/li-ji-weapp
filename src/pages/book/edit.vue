@@ -23,13 +23,13 @@
                     <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容">
                     </uv-input>
                 </uv-form-item>
-                <view class="text-xs text-gray mt-1">一场宴席活动中，用来登记所有来宾贺礼的名册，称为礼簿。</view>
+                <div class="text-xs text-gray mt-1">一场宴席活动中，用来登记所有来宾贺礼的名册，称为礼簿。</div>
             </uv-form>
         </div>
-        <view class="card mt-4">
+        <div class="card mt-4">
             <ad unit-id="adunit-64aefbe92c2dc7bf"></ad>
-            <view class="text-xs text-gray mt-1">广告可以在设置中关闭</view>
-        </view>
+            <div class="text-xs text-gray mt-1">广告可以在设置中关闭</div>
+        </div>
     </div>
 
     <div class="fixed bottom-12 w-full">
