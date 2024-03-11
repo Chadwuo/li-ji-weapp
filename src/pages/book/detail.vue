@@ -49,7 +49,7 @@
         </div>
       </div>
     </div>
-    <view>
+    <div>
       <uv-collapse :border="false">
         <uv-collapse-item title="指标说明">
           <div>
@@ -57,7 +57,7 @@
           </div>
         </uv-collapse-item>
       </uv-collapse>
-    </view>
+    </div>
   </div>
 </template>
 
