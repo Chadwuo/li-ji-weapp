@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="flex items-center">
-        <div class="i-mingcute:wallet-2-line"></div>
+        <div class="i-mingcute:wallet-2-line mr-1"></div>
         <div class="text-sm font-bold">礼金：</div>
         <uv-count-to customStyle="font-weight: 700;font-size: 1.25rem;line-height: 1.75rem;" :startVal="0"
           :endVal="book.giftTotal">
