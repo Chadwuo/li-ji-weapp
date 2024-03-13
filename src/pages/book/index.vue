@@ -104,10 +104,10 @@ const statistics = (datas) => {
 }
 
 const handleBookClick = (e) => {
-    const { _id, title, date, giftCount, giftTotal } = e
+    const { _id, title, date, giftCount, giftTotal, cost, attendanceTotal } = e
     router.push({
         path: '/pages/book/detail',
-        query: { _id, title, date, giftCount, giftTotal }
+        query: { _id, title, date, giftCount, giftTotal, cost, attendanceTotal }
     })
 }
 

@@ -15,8 +15,8 @@
         </div>
       </div>
       <div>
-        <span>合计：</span>
-        <span class="text-xl font-bold"><span class="text-sm">￥</span>1000</span>
+        <span>礼金：</span>
+        <span class="text-xl font-bold"><span class="text-sm">￥</span>{{ book.giftTotal }}</span>
       </div>
       <div class="grid gap-5 grid-cols-4 divide-x">
         <div class="text-center">
@@ -30,7 +30,7 @@
         </div>
         <div class="text-center">
           <div class="text-lg font-bold text-black">
-            10
+            {{ book.attendanceTotal }}
           </div>
           <div class="text-xs text-gray flex justify-center items-center space-x-1">
             <div class="i-carbon:pedestrian-family"></div>
@@ -39,20 +39,20 @@
         </div>
         <div class="text-gray text-sm text-center">
           <div class="text-lg font-bold text-black">
-            {{ book.giftTotal }}
-          </div>
-          <div class="text-xs text-gray flex justify-center items-center space-x-1">
-            <div class="i-carbon:person-favorite"></div>
-            <div>礼金</div>
-          </div>
-        </div>
-        <div class="text-gray text-sm text-center">
-          <div class="text-lg font-bold text-black">
-            1000
+            {{ book.cost }}
           </div>
           <div class="text-xs text-gray flex justify-center items-center space-x-1">
             <div class="i-carbon:sprout"></div>
             <div>支出</div>
+          </div>
+        </div>
+        <div class="text-gray text-sm text-center">
+          <div class="text-lg font-bold text-black">
+            {{ book.giftTotal - book.cost }}
+          </div>
+          <div class="text-xs text-gray flex justify-center items-center space-x-1">
+            <div class="i-carbon:person-favorite"></div>
+            <div>合计</div>
           </div>
         </div>
       </div>
