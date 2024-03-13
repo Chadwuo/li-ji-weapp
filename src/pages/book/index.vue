@@ -107,7 +107,7 @@ const handleBookClick = (e) => {
     const { _id, title, date, giftCount, giftTotal, cost, attendanceTotal } = e
     router.push({
         path: '/pages/book/detail',
-        query: { _id, title, date, giftCount, giftTotal, cost, attendanceTotal }
+        query: { _id, title, date, giftCount, giftTotal, cost: cost || 0, attendanceTotal: attendanceTotal || 0 }
     })
 }
 
