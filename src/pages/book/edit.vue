@@ -65,7 +65,6 @@ onLoad((option) => {
             title: '礼簿详情'
         });
         getBookInfo({ _id: option.id }).then(res => {
-            console.log('object :>> ', res);
             dataSource.value = res.result;
         });
     }
@@ -102,8 +101,6 @@ const calendarConfirm = (e) => {
     dataSource.value.date = selectedDate;
     calendarRef.value.close();
 }
-
-
 
 </script>
 

@@ -18,7 +18,7 @@ onLaunch(async () => {
                 if (res.confirm) {
                     // 重启
                     uni.reLaunch({
-                        url: '/pages/index/index'
+                        url: '/pages/index'
                     })
                 } else if (res.cancel) {
                     console.log('用户点击取消');
