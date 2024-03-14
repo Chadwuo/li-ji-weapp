@@ -11,7 +11,8 @@
             <span class="ml-2">({{ book.date.value }}) </span>
           </div>
         </div>
-        <div><uv-button text="编辑" shape="circle" color="#E8E8E8" customStyle="color:#8799a3" size="mini"></uv-button>
+        <div><uv-button text="编辑" shape="circle" color="#E8E8E8" customStyle="color:#8799a3" size="mini"
+            @click="router.push(`/pages/book/edit?id=${book._id}`)"></uv-button>
         </div>
       </div>
       <div class="flex items-center">
@@ -20,7 +21,9 @@
         <uv-count-to customStyle="font-weight: 700;font-size: 1.25rem;line-height: 1.75rem;" :startVal="0"
           :endVal="book.giftTotal">
         </uv-count-to>
-        <div class="i-carbon:information-filled ml-auto text-gray" @click="handleInfoClick"></div>
+        <div class="ml-auto text-gray py-2 pl-2" @click="handleInfoClick">
+          <div class="i-carbon:information-filled "></div>
+        </div>
       </div>
       <div class="grid gap-5 grid-cols-4 divide-x">
         <div class="text-center">
@@ -90,7 +93,9 @@ const search = ref({
   showAction: false
 })
 
-const book = ref({})
+const book = ref({
+  date: {}
+})
 
 onLoad((option) => {
   book.value = { ...router.getQueryParse(option) }
