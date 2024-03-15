@@ -1,7 +1,7 @@
 import mpserverless from "~/alicloud/index";
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '~/stores/user'
-const { userDataScope } = storeToRefs(useUserStore())
+const { userDataScope, userInfo } = storeToRefs(useUserStore())
 const db = mpserverless.db;
 
 /**
@@ -60,11 +60,13 @@ export const getBookInfo = async (parameter) => {
  * @author chadwuo
  */
 export const addBook = async (parameter) => {
+    const { date, title, remarks, cost } = parameter
     return await db.collection('book').insertOne({
         userId: userInfo.value._id,
-        date: parameter.date,
-        title: parameter.title,
-        remarks: parameter.remarks,
+        date,
+        title,
+        remarks,
+        cost
     });
 }
 
@@ -75,15 +77,17 @@ export const addBook = async (parameter) => {
  * @author chadwuo
  */
 export const updateBook = async (parameter) => {
+    const { _id, date, title, remarks, cost } = parameter
     return await db.collection('book').updateOne(
         {
-            _id: parameter._id,
+            _id,
         },
         {
             $set: {
-                title: parameter.title,
-                date: parameter.date,
-                remarks: parameter.remarks,
+                title,
+                date,
+                remarks,
+                cost,
             },
         }
     );
@@ -95,13 +99,14 @@ export const updateBook = async (parameter) => {
  * @author chadwuo
  */
 export const deleteBook = async (parameter) => {
+    const { _id } = parameter
     let res = await db.collection('book').deleteOne({
-        _id: parameter._id,
+        _id,
     });
     if (res.success) {
         // 删除礼簿下所有收礼记录
         res = await db.collection('gift_receive').deleteMany({
-            bookId: parameter._id,
+            bookId: _id,
         });
     }
     return res
