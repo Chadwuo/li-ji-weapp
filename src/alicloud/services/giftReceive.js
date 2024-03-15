@@ -1,7 +1,7 @@
 import mpserverless from "~/alicloud";
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '~/stores/user'
-const { userInfo } = storeToRefs(useUserStore())
+const { userDataScope, userInfo } = storeToRefs(useUserStore())
 const db = mpserverless.db;
 
 /**
@@ -14,7 +14,7 @@ export const computedTotalGiftReceive = async () => {
         {
             $match: {
                 userId: {
-                    $in: dataScope,
+                    $in: userDataScope.value,
                 },
             },
         },
@@ -43,7 +43,7 @@ export const getGiftReceivePage = async (parameter) => {
         {
             $match: {
                 userId: {
-                    $in: dataScope,
+                    $in: userDataScope.value,
                 },
                 bookId: parameter.bookId,
             },
@@ -85,38 +85,39 @@ export const getGiftReceivePage = async (parameter) => {
  * @author chadwuo
  */
 export const addGiftReceive = async (parameter) => {
+    const { friendId, friendName, bookId, attendance, money, remarks } = parameter
     // 参数中没有亲友id
-    if (!parameter.friendId) {
-        parameter.friendName = parameter.friendName.trim();
+    if (!friendId) {
         // 根据亲友名查询库中是否存在
         const { result: friend } = await db.collection('friend').findOne({
             userId: {
-                $in: dataScope,
+                $in: userDataScope.value,
             },
-            name: parameter.friendName,
+            name: friendName.trim(),
         });
 
         if (friend && friend._id) {
             // 存在
-            parameter.friendId = friend._id;
+            friendId = friend._id;
         } else {
             // 添加
             const { result: newFriend } = await db.collection('friend').insertOne({
-                userId: userInfo._id,
-                name: parameter.friendName,
-                firstLetter: pinyin.getFirstLetter(parameter.friendName.substr(0, 1)),
+                userId: userInfo.value._id,
+                name: friendName,
+                firstLetter: pinyin.getFirstLetter(friendName.substr(0, 1)),
             });
             // 新添加的亲友id
-            parameter.friendId = newFriend.insertedId;
+            friendId = newFriend.insertedId;
         }
     }
 
     return await db.collection('gift_receive').insertOne({
-        userId: userInfo._id,
-        friendId: parameter.friendId,
-        bookId: parameter.bookId,
-        money: Number(parameter.money),
-        remarks: parameter.remarks,
+        userId: userInfo.value._id,
+        friendId,
+        bookId,
+        money: Number(money),
+        attendance: Number(attendance),
+        remarks,
     });
 };
 
@@ -126,16 +127,16 @@ export const addGiftReceive = async (parameter) => {
  * @author chadwuo
  */
 export const updateGiftReceive = async (parameter) => {
+    const { attendance, money, remarks } = parameter
     return await db.collection('gift_receive').updateOne(
         {
             _id: parameter._id,
         },
         {
             $set: {
-                friendId: parameter.friendId,
-                bookId: parameter.bookId,
-                money: Number(parameter.money),
-                remarks: parameter.remarks,
+                money: Number(money),
+                attendance: Number(attendance),
+                remarks,
             },
         }
     );

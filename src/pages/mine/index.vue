@@ -1,13 +1,26 @@
 <template>
-    <div mt-24>
-        <div>欢迎{{ JSON.stringify(userInfo) }}</div>
+    <div class="mt-24">
+        <div>
+            <uv-avatar :src="userInfo.avatarUrl" shape="square"></uv-avatar>
+            <div>
+                <div class="text-xl">{{ welcome() }}，{{ userInfo.nickName }}</div>
+                <div class="text-gray text-sm pt-2">jinrishici</div>
+            </div>
+        </div>
+        <div>
+            
+        </div>
     </div>
 </template>
 
 <script setup>
 import { useUserStore } from '~/stores/user'
 import { storeToRefs } from 'pinia'
+import { welcome } from "~/utils"
+
 const { userInfo } = storeToRefs(useUserStore())
+
+
 
 </script>
 

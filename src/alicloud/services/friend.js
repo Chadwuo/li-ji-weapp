@@ -1,7 +1,7 @@
 import mpserverless from "~/alicloud";
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '~/stores/user'
-const { userInfo } = storeToRefs(useUserStore())
+const { userDataScope, userInfo } = storeToRefs(useUserStore())
 const db = mpserverless.db;
 
 /**
@@ -20,7 +20,7 @@ export const getFriendList = async (parameter) => {
             },
             {
                 userId: {
-                    $in: dataScope,
+                    $in: userDataScope.value,
                 },
             },
         ],
@@ -44,12 +44,13 @@ export const getFriend = async (parameter) => {
  * @author chadwuo
  */
 export const getFriendGifts = async (parameter) => {
+    const { _id } = parameter
     const { result } = await db.collection("friend").findOne({
-        _id: parameter._id,
+        _id,
     });
     // 送礼集合
     const { result: giftOutList } = await db.collection("gift_out").find({
-        friendId: parameter._id,
+        friendId: _id,
     });
     // 收礼集合
     const { result: giftReceiveList } = await db
@@ -57,7 +58,7 @@ export const getFriendGifts = async (parameter) => {
         .aggregate([
             {
                 $match: {
-                    friendId: parameter._id,
+                    friendId: _id,
                 },
             },
             {
@@ -98,12 +99,13 @@ export const getFriendGifts = async (parameter) => {
  * @author chadwuo
  */
 export const addFriend = async (parameter) => {
+    const { name, relation, remarks, } = parameter
     return await db.collection("friend").insertOne({
         userId: userInfo.value._id,
-        name: parameter.name.trim(),
-        firstLetter: pinyin.getFirstLetter(parameter.name.substr(0, 1)),
-        relation: parameter.relation,
-        remarks: parameter.remarks,
+        name: name.trim(),
+        firstLetter: pinyin.getFirstLetter(name.substr(0, 1)),
+        relation,
+        remarks,
     });
 };
 
@@ -113,16 +115,17 @@ export const addFriend = async (parameter) => {
  * @author chadwuo
  */
 export const updateFriend = async (parameter) => {
+    const { _id, name, relation, remarks, } = parameter
     return await db.collection("friend").updateOne(
         {
-            _id: parameter._id,
+            _id,
         },
         {
             $set: {
-                name: parameter.name.trim(),
-                firstLetter: pinyin.getFirstLetter(parameter.name.substr(0, 1)),
-                relation: parameter.relation,
-                remarks: parameter.remarks,
+                name: name.trim(),
+                firstLetter: pinyin.getFirstLetter(name.substr(0, 1)),
+                relation,
+                remarks,
             },
         }
     );
@@ -134,19 +137,20 @@ export const updateFriend = async (parameter) => {
  * @author chadwuo
  */
 export const deleteFriend = async (parameter) => {
+    const { _id } = parameter
+
     // 删除亲友下所有送礼记录
     await db.collection("gift_out").deleteMany({
-        friendId: parameter._id,
+        friendId: _id,
     });
 
     // 删除亲友下所有收礼记录
     await db.collection("gift_receive").deleteMany({
-        friendId: parameter._id,
+        friendId: _id,
     });
-
 
     // 删除亲友
     return await db.collection("friend").deleteOne({
-        _id: parameter._id,
+        _id,
     });
 };
