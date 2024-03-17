@@ -12,8 +12,7 @@ interface NavigateToOptions {
        "/pages/family/index" |
        "/pages/friend/index" |
        "/pages/giftOut/index" |
-       "/pages/mine/index" |
-       "/pages-sub/index";
+       "/pages/mine/index";
 }
 interface RedirectToOptions extends NavigateToOptions {}
 
