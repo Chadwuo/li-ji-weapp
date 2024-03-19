@@ -14,7 +14,7 @@
                     1000
                 </div>
                 <div class="text-sm text-gray flex justify-center items-center space-x-1">
-                    <div class="i-carbon:home"></div>
+                    <div class="i-icon-park-outline:income"></div>
                     <div>收礼</div>
                 </div>
             </div>
@@ -23,31 +23,31 @@
                     1000
                 </div>
                 <div class="text-sm text-gray flex justify-center items-center space-x-1">
-                    <div class="i-carbon:home"></div>
-                    <div>收礼</div>
+                    <div class="i-icon-park-outline:expenses"></div>
+                    <div>送礼</div>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-xl mt-5 py-5">
+        <div class="bg-white rounded-xl mt-5 py-4">
             <uv-cell title="个人设置" isLink :border="false">
                 <template v-slot:icon>
-                    <div class="i-mingcute:settings-1-fill text-gray text-lg pr-2"></div>
+                    <div class="i-mingcute:settings-1-fill text-gray text-lg pr-4"></div>
                 </template>
             </uv-cell>
             <uv-cell title="常见问题" isLink :border="false">
                 <template v-slot:icon>
-                    <div class="i-ri:quill-pen-fill text-blue text-lg pr-2"></div>
+                    <div class="i-ic:round-question-answer text-blue text-lg pr-4"></div>
                 </template>
             </uv-cell>
             <uv-cell title="分享好友" isLink :border="false">
                 <template v-slot:icon>
-                    <div class="i-ri:wechat-fill text-green text-lg pr-2"></div>
+                    <div class="i-ri:wechat-fill text-green text-lg pr-4"></div>
                 </template>
             </uv-cell>
             <uv-cell title="关于礼记" isLink :border="false" url="/pages/about/index">
                 <!-- 自定义左侧图标 -->
                 <template v-slot:icon>
-                    <div class="i-ri:quill-pen-fill text-red text-lg pr-2"></div>
+                    <div class="i-ri:quill-pen-fill text-red text-lg pr-4"></div>
                 </template>
             </uv-cell>
         </div>
