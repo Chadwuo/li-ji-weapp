@@ -9,7 +9,7 @@
             </template>
         </uv-navbar>
 
-        <div class="grid grid-cols-2 gap-5 mx-5 pt-6">
+        <div class="grid grid-cols-2 gap-5 pt-6">
             <div v-for="i in books" :key="i._id" class="h-48 w-full rounded-l-xl rounded-r-3xl bg-white"
                 @click="handleBookClick(i)">
                 <div class="flex flex-col justify-around h-full">

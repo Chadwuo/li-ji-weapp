@@ -10,9 +10,11 @@ interface NavigateToOptions {
        "/pages/book/edit" |
        "/pages/book/index" |
        "/pages/family/index" |
+       "/pages/FAQs/index" |
        "/pages/friend/index" |
        "/pages/giftOut/index" |
        "/pages/mine/index" |
+       "/pages/settings/index" |
        "/pages-sub/contributors/index";
 }
 interface RedirectToOptions extends NavigateToOptions {}
