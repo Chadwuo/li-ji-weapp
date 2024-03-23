@@ -5,7 +5,7 @@ import { useUserStore } from '~/stores/user'
 
 onLaunch(async () => {
     console.log('App Launch')
-   
+
     try {
         await mpserverless.init()
     } catch (error) {
@@ -28,14 +28,15 @@ onLaunch(async () => {
     }
     // 初始化用户信息
     const userStore = useUserStore()
-    await userStore.initUserInfo()
-    await userStore.initUserDataScope()
-    if (userStore.userInfo) {
-        router.push({
-            path: '/pages/book/index',
-            tabBar: true
-        })
+    if (!userStore.userInfo) {
+        await userStore.initUserInfo()
+        await userStore.initUserDataScope()
     }
+
+    router.push({
+        path: '/pages/book/index',
+        tabBar: true
+    })
 })
 onShow(() => {
     console.log('App Show')

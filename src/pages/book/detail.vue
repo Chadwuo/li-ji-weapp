@@ -65,9 +65,7 @@
       </div>
     </div>
 
-
     <div class="my-5">
-
       <uv-empty></uv-empty>
     </div>
 
@@ -126,6 +124,7 @@ const handleInfoClick = () => {
 <style lang="scss" scoped></style>
 
 <route lang="json">{
+  "layout": "home",
   "style": {
     "navigationBarTitleText": "详情"
   }
