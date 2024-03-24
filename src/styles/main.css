@@ -2,10 +2,7 @@
 page {
   box-sizing: border-box;
   background: #f1f1f1;
-}
-
-.app {
-  color: #000000;
+  height: 100%;
 }
 
 .dark {
