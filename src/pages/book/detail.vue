@@ -65,8 +65,19 @@
       </div>
     </div>
 
-    <div class="my-5">
-      <uv-empty></uv-empty>
+    <div v-if="giftList.length == 0"> <uv-empty></uv-empty></div>
+    <div class="my-5 space-y-3 bg-white rounded-2xl">
+      <div v-for="gift in giftList" :key="gift._id">
+        <div class="flex justify-around items-center h-18">
+          <div class="text-lg">{{ gift.friendInfo.name }}</div>
+          <div class="text-right">
+            <div class="text-red font-bold text-lg"><span class="text-sm">￥</span>{{ gift.money }}</div>
+            <div class="text-gray text-sm">礼金</div>
+          </div>
+        </div>
+      </div>
+
+      <uv-load-more loadingIcon="circle" :status="loadMoreStatus" v-if="loadMoreStatus == 'loading'" />
     </div>
 
     <uv-popup ref="popup" mode="bottom" round="10" closeable>
@@ -86,6 +97,7 @@
 
 <script setup>
 import { onLoad } from '@dcloudio/uni-app'
+import { getGiftReceivePage } from '~/alicloud/services/giftReceive'
 const search = ref({
   keyword: '',
   showAction: false
@@ -95,23 +107,53 @@ const book = ref({
   date: {}
 })
 
+const giftList = ref([])
 onLoad((option) => {
   book.value = { ...router.getQueryParse(option) }
+  loadData()
 })
 
-const searchOk = (keyword) => {
-  console.log('search', keyword)
-  uni.showToast({
-    title: keyword,
-    duration: 2000
-  });
+const loadMoreStatus = ref('loadmore')
+onReachBottom(() => {
+  if (loadMoreStatus.value === 'loading' || loadMoreStatus.value === 'nomore') {
+    return
+  }
+  loadMoreStatus.value = 'loading'
+  pagination.value.pageNo++
+  loadData()
+})
+
+const pagination = ref({
+  pageNo: 1,
+  pageSize: 20,
+  loading: false,
+})
+
+const loadData = () => {
+  const { pageSize, pageNo } = pagination.value
+  getGiftReceivePage({
+    bookId: book.value._id,
+    keyword: search.value.keyword,
+    pageSize,
+    pageNo
+  }).then(res => {
+    if (res.success) {
+      giftList.value = pageNo === 1 ? res.result : [...giftList.value, ...res.result]
+      loadMoreStatus.value = res.result.length < pageSize ? 'nomore' : 'loadmore'
+    }
+  })
 }
 
-const searchCancel = (keyword) => {
+const searchOk = () => {
+  loadData()
+}
+
+const searchCancel = () => {
   search.value = {
     keyword: '',
     showAction: false
   }
+  loadData()
 }
 
 const popup = ref(null)

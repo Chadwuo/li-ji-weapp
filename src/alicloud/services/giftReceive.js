@@ -38,7 +38,7 @@ export const computedTotalGiftReceive = async () => {
  * @author chadwuo
  */
 export const getGiftReceivePage = async (parameter) => {
-    const { pageSize, pageNo } = parameter
+    const { pageSize, pageNo, keyword } = parameter
     return await db.collection('gift_receive').aggregate([
         {
             $match: {
@@ -55,12 +55,6 @@ export const getGiftReceivePage = async (parameter) => {
             },
         },
         {
-            $skip: (pageNo - 1) * pageSize,
-        },
-        {
-            $limit: pageSize,
-        },
-        {
             $lookup: {
                 // 左连接
                 from: 'friend', // 关联到de表
@@ -75,6 +69,17 @@ export const getGiftReceivePage = async (parameter) => {
                 path: '$friendInfo',
                 preserveNullAndEmptyArrays: true, // 空的数组也拆分
             },
+        },
+        {
+            $match: {
+                "friendInfo.name": { $regex: keyword ?? '', $options: 'i' }
+            }
+        },
+        {
+            $skip: (pageNo - 1) * pageSize,
+        },
+        {
+            $limit: pageSize,
         },
     ]);
 };

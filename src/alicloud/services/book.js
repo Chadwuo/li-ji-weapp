@@ -100,6 +100,12 @@ export const updateBook = async (parameter) => {
  */
 export const deleteBook = async (parameter) => {
     const { _id } = parameter
+    if (!_id) {
+        return {
+            success: false,
+            message: '礼簿id不能为空',
+        };
+    }
     let res = await db.collection('book').deleteOne({
         _id,
     });
