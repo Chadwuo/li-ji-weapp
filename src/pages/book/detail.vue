@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-full flex flex-col">
     <div class="px-5 pt-3 pb-5 space-y-3 bg-white rounded-b-2xl">
       <uv-search placeholder="请输入搜索内容" v-model="search.keyword" :showAction="search.showAction" actionText="取消"
         @focus="search.showAction = true" @custom="searchCancel" @search="searchOk"></uv-search>
@@ -65,7 +65,7 @@
       </div>
     </div>
 
-    <div v-if="giftList.length == 0"> <uv-empty></uv-empty></div>
+    <div class="my-auto" v-if="giftList.length == 0"> <uv-empty></uv-empty></div>
     <div class="my-5 space-y-3 bg-white rounded-2xl">
       <div v-for="gift in giftList" :key="gift._id">
         <div class="flex justify-around items-center h-18">

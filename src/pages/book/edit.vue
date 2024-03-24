@@ -156,7 +156,7 @@ const calendarConfirm = (e) => {
 <style lang="scss" scoped></style>
 
 <route lang="json">{
-    "layout": "home",
+    "layout": "blank",
     "style": {
         "navigationBarTitleText": "新增"
     }

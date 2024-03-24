@@ -3,10 +3,8 @@ import logo from '~/static/logo.png'
 </script>
 
 <template>
-  <div>
-    <div class="flex flex-col" style="height: 90vh;">
-      <img class="h-14 w-14 m-auto" :src="logo" />
-    </div>
+  <div class="flex flex-col h-full">
+    <img class="h-14 w-14 m-auto" :src="logo" />
   </div>
 </template>
 

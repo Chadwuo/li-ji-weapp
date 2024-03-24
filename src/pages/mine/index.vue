@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-24 space-y-5">
+    <div class="pt-24 space-y-5">
         <div class="flex items-center">
             <uv-avatar :src="userInfo.avatarUrl" shape="square" :size="55"></uv-avatar>
             <div class="ml-3">
