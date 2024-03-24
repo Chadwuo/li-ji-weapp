@@ -40,7 +40,7 @@ export const computedTotalGiftOut = async () => {
  * @author chadwuo
  */
 export const getGiftOutPage = async (parameter) => {
-    const { pageSize, pageNo } = parameter
+    const { pageSize, pageNo, keyword } = parameter
     return await db.collection('gift_out').aggregate([
         {
             $match: {
@@ -54,12 +54,6 @@ export const getGiftOutPage = async (parameter) => {
                 date: -1,
                 _id: 1,
             },
-        },
-        {
-            $skip: (pageNo - 1) * pageSize,
-        },
-        {
-            $limit: pageSize,
         },
         {
             $lookup: {
@@ -76,6 +70,17 @@ export const getGiftOutPage = async (parameter) => {
                 path: '$friendInfo',
                 preserveNullAndEmptyArrays: true, // 空的数组也拆分
             },
+        },
+        {
+            $match: {
+                "friendInfo.name": { $regex: keyword ?? '', $options: 'i' }
+            }
+        },
+        {
+            $skip: (pageNo - 1) * pageSize,
+        },
+        {
+            $limit: pageSize,
         },
     ]);
 };
