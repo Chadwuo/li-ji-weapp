@@ -37,8 +37,13 @@
             ]" size="35" gap="0.4"></uv-avatar-group>
                 </template>
             </uv-cell>
+            <uv-cell title="开通家人共享" url="/pages/family/index" isLink :border="false" cellStyle="background-color:white">
+                <template v-slot:icon>
+                    <div class="i-material-symbols:family-home text-red text-lg mx-2"></div>
+                </template>
+            </uv-cell>
         </div>
-        <div class="bg-white rounded-xl py-3 space-y-2">
+        <div class="bg-white rounded-xl py-3 space-y-2 px-1">
             <uv-cell isLink cellStyle="background-color:white">
                 <template v-slot:icon>
                     <div class="i-ri:customer-service-2-fill text-orange text-lg mx-2"></div>
@@ -49,7 +54,7 @@
             </uv-cell>
             <uv-cell isLink cellStyle="background-color:white">
                 <template v-slot:icon>
-                    <div class="i-icon-park-outline:topic text-rose text-lg mx-2"></div>
+                    <div class="i-icon-park-solid:topic text-rose text-lg mx-2"></div>
                 </template>
                 <template v-slot:title>
                     <button class="uv-reset-button w-full text-left" open-type="feedback">意见反馈</button>

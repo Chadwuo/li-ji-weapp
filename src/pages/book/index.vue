@@ -50,6 +50,11 @@ import { getBookPage } from '~/alicloud/services/book'
 
 const books = ref([])
 
+uni.$on('update_book_page', () => {
+    console.log('监听到事件来自 :>> update_book_page');
+    loadData()
+})
+
 onLoad(async () => {
     loadData()
 })

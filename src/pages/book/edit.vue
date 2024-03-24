@@ -29,10 +29,10 @@
     <div class="fixed bottom-12 w-full">
         <div class="flex space-x-4 mx-5">
             <div class="w-40" v-if="dataSource._id">
-                <uv-button text="删除" shape="circle" @click="submit" :loading="loading" loadingMode="circle"></uv-button>
+                <uv-button text="删除" shape="circle" @click="onDel"></uv-button>
             </div>
             <div class="w-full">
-                <uv-button type="primary" text="保存" shape="circle" @click="submit" :loading="loading"
+                <uv-button type="primary" text="保存" shape="circle" @click="onSubmit" :loading="loading"
                     loadingMode="circle"></uv-button>
             </div>
         </div>
@@ -49,14 +49,9 @@ const calendarRef = ref(null);
 
 // onLoad 接受 A 页面传递的参数
 onLoad((option) => {
-    console.log("参数", option);
-    if (!option.id) {
+    if (option.id) {
         uni.setNavigationBarTitle({
-            title: '新增礼簿'
-        });
-    } else {
-        uni.setNavigationBarTitle({
-            title: '礼簿详情'
+            title: '编辑'
         });
         getBookInfo({ _id: option.id }).then(res => {
             dataSource.value = res.result;
@@ -67,10 +62,70 @@ onLoad((option) => {
 const dataSource = ref({
     date: {},
 });
-const loading = ref(false);
 
-const submit = () => {
-    calendarRef.value.open();
+const loading = ref(false);
+const onSubmit = () => {
+    loading.value = true;
+    if (dataSource.value._id) {
+        updateBook(dataSource.value).then(res => {
+            if (res.success) {
+                uni.$emit('update_book_page')
+                uni.showToast({
+                    title: '更新成功',
+                    icon: 'success'
+                })
+                setTimeout(() => {
+                    uni.navigateBack({
+                        delta: 2,
+                    });
+                }, 1000)
+            }
+        }).finally(() => {
+            loading.value = false;
+        });
+    } else {
+        addBook(dataSource.value).then(res => {
+            if (res.success) {
+                dataSource.value._id = res.result;
+                uni.$emit('update_book_page')
+                uni.showToast({
+                    title: '添加成功',
+                    icon: 'success'
+                })
+                setTimeout(() => {
+                    uni.navigateBack();
+                }, 1000)
+            }
+        }).finally(() => {
+            loading.value = false;
+        });
+    }
+}
+
+const onDel = () => {
+    uni.showModal({
+        title: '删除礼簿',
+        content: '该礼簿所有来往记录都将被删除，确定删除？',
+        confirmColor: '#F87171',
+        success: (res) => {
+            if (res.confirm) {
+                deleteBook(dataSource.value).then(res => {
+                    if (res.success) {
+                        uni.$emit('update_book_page')
+                        uni.showToast({
+                            title: '删除成功',
+                            icon: 'success'
+                        })
+                        setTimeout(() => {
+                            uni.navigateBack({
+                                delta: 2,
+                            });
+                        }, 1000)
+                    }
+                });
+            }
+        }
+    });
 }
 
 const calendarConfirm = (e) => {
@@ -103,6 +158,6 @@ const calendarConfirm = (e) => {
 <route lang="json">{
     "layout": "home",
     "style": {
-        "navigationBarTitleText": "详情"
+        "navigationBarTitleText": "新增"
     }
 }</route>
