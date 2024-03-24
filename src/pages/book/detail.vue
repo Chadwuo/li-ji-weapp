@@ -2,7 +2,8 @@
   <div class="h-full flex flex-col">
     <div class="px-5 pt-3 pb-5 space-y-3 bg-white rounded-b-2xl">
       <uv-search placeholder="请输入搜索内容" v-model="search.keyword" :showAction="search.showAction" actionText="取消"
-        @focus="search.showAction = true" @custom="searchCancel" @search="searchOk"></uv-search>
+        @focus="search.showAction = true" @custom="searchCancel" @search="searchOk">
+      </uv-search>
       <div class="flex justify-between items-center">
         <div>
           <div class="text-red font-bold text-lg">{{ book.title }}</div>
@@ -98,21 +99,15 @@
 <script setup>
 import { onLoad } from '@dcloudio/uni-app'
 import { getGiftReceivePage } from '~/alicloud/services/giftReceive'
-const search = ref({
-  keyword: '',
-  showAction: false
-})
 
 const book = ref({
   date: {}
 })
-
 const giftList = ref([])
 onLoad((option) => {
   book.value = { ...router.getQueryParse(option) }
   loadData()
 })
-
 const loadMoreStatus = ref('loadmore')
 onReachBottom(() => {
   if (loadMoreStatus.value === 'loading' || loadMoreStatus.value === 'nomore') {
@@ -122,13 +117,11 @@ onReachBottom(() => {
   pagination.value.pageNo++
   loadData()
 })
-
 const pagination = ref({
   pageNo: 1,
   pageSize: 20,
   loading: false,
 })
-
 const loadData = () => {
   const { pageSize, pageNo } = pagination.value
   getGiftReceivePage({
@@ -144,10 +137,13 @@ const loadData = () => {
   })
 }
 
+const search = ref({
+  keyword: '',
+  showAction: false
+})
 const searchOk = () => {
   loadData()
 }
-
 const searchCancel = () => {
   search.value = {
     keyword: '',

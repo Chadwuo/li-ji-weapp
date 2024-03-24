@@ -86,7 +86,7 @@ const onSubmit = () => {
     } else {
         addBook(dataSource.value).then(res => {
             if (res.success) {
-                dataSource.value._id = res.result;
+                //dataSource.value._id = res.result;
                 uni.$emit('update_book_page')
                 uni.showToast({
                     title: '添加成功',
