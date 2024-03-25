@@ -13,8 +13,8 @@
         <div class="space-y-3">
             <div v-for="i in giftList" :key="i._id">
                 <div class="bg-white rounded-2xl p-4 flex items-center">
-                    <div class="rounded-full bg-gradient-to-r from-purple-500 to-pink-500 w-12 h-12 flex">
-                        <div class="i-carbon:sprout m-auto w-8 h-8 text-red"></div>
+                    <div class="rounded-full bg-red-50 w-12 h-12 flex">
+                        <div class="m-auto w-8 h-8 text-red" :class="i.icon=='1'?'':'i-mdi:account-school-outline'"></div>
                     </div>
                     <div class="grow mx-4">
                         <div class="text-lg font-bold">{{ i.friendInfo.name }}</div>
