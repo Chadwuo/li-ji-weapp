@@ -12,6 +12,7 @@ interface NavigateToOptions {
        "/pages/family/index" |
        "/pages/FAQs/index" |
        "/pages/friend/index" |
+       "/pages/giftOut/edit" |
        "/pages/giftOut/index" |
        "/pages/mine/index" |
        "/pages/settings/index" |
