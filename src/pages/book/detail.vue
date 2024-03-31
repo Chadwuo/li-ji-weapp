@@ -17,21 +17,21 @@
             @click="router.push(`/pages/book/edit?id=${book._id}`)">
           </uv-button> -->
           <div class="py-2 pl-2" @click="router.push(`/pages/book/edit?id=${book._id}`)">
-            <div class="i-carbon:edit"></div>
+            <div class="i-carbon-edit"></div>
           </div>
-          <div class="py-2 pl-2" @click="editGiftOutRef.show()" >
+          <div class="py-2 pl-2" @click="editGiftInRef.show()">
             <div class="i-carbon-add-alt"></div>
           </div>
         </div>
       </div>
       <div class="flex items-center">
-        <div class="i-mingcute:wallet-2-line mr-1"></div>
+        <div class="i-mingcute-wallet-2-line mr-1"></div>
         <div class="text-sm font-bold">礼金：</div>
         <uv-count-to customStyle="font-weight: 700;font-size: 1.25rem;line-height: 1.75rem;" :startVal="0"
           :endVal="book.giftTotal">
         </uv-count-to>
         <div class="ml-auto text-gray py-2 pl-2" @click="handleInfoClick">
-          <div class="i-carbon:information-filled "></div>
+          <div class="i-carbon-information-filled "></div>
         </div>
       </div>
       <div class="grid gap-5 grid-cols-4 divide-x">
@@ -40,7 +40,7 @@
             {{ book.giftCount }}
           </div>
           <div class="text-xs text-gray flex justify-center items-center space-x-1">
-            <div class="i-carbon:home"></div>
+            <div class="i-carbon-home"></div>
             <div>亲友</div>
           </div>
         </div>
@@ -49,7 +49,7 @@
             {{ book.attendanceTotal }}
           </div>
           <div class="text-xs text-gray flex justify-center items-center space-x-1">
-            <div class="i-carbon:pedestrian-family"></div>
+            <div class="i-carbon-pedestrian-family"></div>
             <div>出席</div>
           </div>
         </div>
@@ -67,7 +67,7 @@
             {{ book.giftTotal - book.cost }}
           </div>
           <div class="text-xs text-gray flex justify-center items-center space-x-1">
-            <div class="i-carbon:wallet"></div>
+            <div class="i-carbon-wallet"></div>
             <div>合计</div>
           </div>
         </div>
@@ -103,7 +103,7 @@
         </div>
       </div>
     </uv-popup>
-    <EditGiftOut ref="editGiftOutRef"></EditGiftOut>
+    <EditGiftIn ref="editGiftInRef"></EditGiftIn>
   </div>
 </template>
 
@@ -111,7 +111,7 @@
 import { onLoad } from '@dcloudio/uni-app'
 import { getGiftReceivePage } from '~/alicloud/services/giftReceive'
 
-const editGiftOutRef = ref(null)
+const editGiftInRef = ref(null)
 const book = ref({
   date: {}
 })

@@ -77,7 +77,7 @@ const dataSource = ref({
 const columns = [
     {
         name: "结婚",
-        icon: "i-fluent-emoji-high-contrast-wedding",
+        icon: "i-bi-postcard-heart",
     },
     {
         name: "宝宝",

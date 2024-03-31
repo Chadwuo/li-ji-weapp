@@ -12,6 +12,9 @@
                 @focus="search.showAction = true" @custom="searchCancel" @search="searchOk">
             </uv-search>
         </div>
+        <div class="py-2 pl-2" @click="editGiftOutRef.show()">
+            <div class="i-carbon-add-alt"></div>
+          </div>
         <div class="my-auto" v-if="giftList.length == 0">
             <uv-empty></uv-empty>
         </div>
@@ -34,12 +37,14 @@
             </div>
         </div>
     </div>
+    <editGiftOut ref="editGiftOutRef"></editGiftOut>
 </template>
 
 <script setup>
 import { onLoad } from '@dcloudio/uni-app'
 import { getGiftOutPage } from '~/alicloud/services/giftOut'
 
+const editGiftOutRef = ref(null)
 const giftList = ref([])
 onLoad(() => {
     loadData()
