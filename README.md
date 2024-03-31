@@ -45,12 +45,11 @@
 
 ### 鸣谢
 
+- [uni-app](https://github.com/dcloudio/uni-app)：Uniapp
 - [uni-vitesse](https://github.com/Ares-Chang/uni-vitesse)：Uniapp + Vue 3 + TS + UnoCSS template
-- [wl-pinyin](https://www.npmjs.com/package/wl-pinyin)：汉字转拼音库
+- [uv-ui](https://github.com/climblee/uv-ui)：多平台快速开发的UI框架
 - [dayjs](https://github.com/iamkun/dayjs)：Moment.js 的 2kB 轻量化方案，拥有同样强大的 API
-- [wx_calendar](https://github.com/treadpit/wx_calendar)：小历同学
 - [relationship](https://github.com/mumuy/relationship)：中国亲戚关系计算器
-- [阿里云 Serverless](https://serverless.aliyun.com)：阿里云 Serverless
 - [今日诗词 API](https://www.jinrishici.com)：![今日诗词](https://v2.jinrishici.com/one.svg)
 
 ## Star History
