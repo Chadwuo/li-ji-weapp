@@ -12,8 +12,16 @@
             <span class="ml-2">({{ book.date.value }}) </span>
           </div>
         </div>
-        <div><uv-button text="编辑" shape="circle" color="#E8E8E8" customStyle="color:#8799a3" size="mini"
-            @click="router.push(`/pages/book/edit?id=${book._id}`)"></uv-button>
+        <div class="flex text-xl text-red font-bold ">
+          <!-- <uv-button text="编辑" shape="circle" color="#E8E8E8" customStyle="color:#8799a3" size="mini"
+            @click="router.push(`/pages/book/edit?id=${book._id}`)">
+          </uv-button> -->
+          <div class="py-2 pl-2" @click="router.push(`/pages/book/edit?id=${book._id}`)">
+            <div class="i-carbon:edit"></div>
+          </div>
+          <div class="py-2 pl-2" @click="editGiftOutRef.show()" >
+            <div class="i-carbon-add-alt"></div>
+          </div>
         </div>
       </div>
       <div class="flex items-center">
@@ -66,7 +74,9 @@
       </div>
     </div>
 
-    <div class="my-auto" v-if="giftList.length == 0"> <uv-empty></uv-empty></div>
+    <div class="my-auto" v-if="giftList.length == 0">
+      <uv-empty></uv-empty>
+    </div>
     <div class="my-5 space-y-3 bg-white rounded-2xl">
       <div v-for="gift in giftList" :key="gift._id">
         <div class="flex justify-around items-center h-18">
@@ -93,6 +103,7 @@
         </div>
       </div>
     </uv-popup>
+    <EditGiftOut ref="editGiftOutRef"></EditGiftOut>
   </div>
 </template>
 
@@ -100,6 +111,7 @@
 import { onLoad } from '@dcloudio/uni-app'
 import { getGiftReceivePage } from '~/alicloud/services/giftReceive'
 
+const editGiftOutRef = ref(null)
 const book = ref({
   date: {}
 })

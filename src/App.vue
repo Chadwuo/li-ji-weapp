@@ -34,8 +34,8 @@ onLaunch(async () => {
     }
 
     router.push({
-        path: '/pages/giftOut/edit',
-        //tabBar: true
+        path: '/pages/book/index',
+        tabBar: true
     })
 })
 onShow(() => {

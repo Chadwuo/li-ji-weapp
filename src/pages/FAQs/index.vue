@@ -36,6 +36,7 @@
 <style lang="scss" scoped></style>
 
 <route lang="json">{
+    "layout": "blank",
     "style": {
       "navigationBarTitleText": "常见问题"
     }

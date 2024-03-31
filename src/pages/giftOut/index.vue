@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="h-full flex flex-col">
         <uv-navbar placeholder bgColor="#f1f1f1">
             <template v-slot:left>
                 <div class="flex items-center ms-4">
@@ -7,14 +7,20 @@
                 </div>
             </template>
         </uv-navbar>
-        <uv-search placeholder="请输入搜索内容" v-model="search.keyword" :showAction="search.showAction" actionText="取消"
-            @focus="search.showAction = true" @custom="searchCancel" @search="searchOk">
-        </uv-search>
+        <div>
+            <uv-search placeholder="请输入搜索内容" v-model="search.keyword" :showAction="search.showAction" actionText="取消"
+                @focus="search.showAction = true" @custom="searchCancel" @search="searchOk">
+            </uv-search>
+        </div>
+        <div class="my-auto" v-if="giftList.length == 0">
+            <uv-empty></uv-empty>
+        </div>
         <div class="space-y-3">
             <div v-for="i in giftList" :key="i._id">
                 <div class="bg-white rounded-2xl p-4 flex items-center">
                     <div class="rounded-full bg-red-50 w-12 h-12 flex">
-                        <div class="m-auto w-8 h-8 text-red" :class="i.icon == '1' ? '' : 'i-mdi:account-school-outline'">
+                        <div class="m-auto w-8 h-8 text-red"
+                            :class="i.icon == '1' ? '' : 'i-mdi:account-school-outline'">
                         </div>
                     </div>
                     <div class="grow mx-4">
