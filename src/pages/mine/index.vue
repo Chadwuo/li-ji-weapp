@@ -6,7 +6,7 @@
                 <div class="text-lg">{{ welcome() }}，{{ userInfo.nickName }}</div>
                 <div class="text-gray text-sm mt-1">{{ jinrishici }}</div>
             </div>
-            <div @click="router.push('/pages/settings/index')" class="i-ri:settings-line ml-auto text-lg"></div>
+            <div @click="router.push('/pages/settings/index')" class="i-ri-settings-line ml-auto text-lg"></div>
         </div>
         <div class="bg-white rounded-xl grid gap-5 grid-cols-2 divide-x p-5">
             <div class="text-center">
@@ -46,7 +46,7 @@
         <div class="bg-white rounded-xl py-3 space-y-2 px-1">
             <uv-cell isLink cellStyle="background-color:white">
                 <template v-slot:icon>
-                    <div class="i-ri:customer-service-2-fill text-orange text-lg mx-2"></div>
+                    <div class="i-ri-customer-service-2-fill text-orange text-lg mx-2"></div>
                 </template>
                 <template v-slot:title>
                     <button class="uv-reset-button w-full text-left" open-type="contact">在线客服</button>
@@ -54,7 +54,7 @@
             </uv-cell>
             <uv-cell isLink cellStyle="background-color:white">
                 <template v-slot:icon>
-                    <div class="i-icon-park-solid:topic text-rose text-lg mx-2"></div>
+                    <div class="i-icon-park-solid-topic text-rose text-lg mx-2"></div>
                 </template>
                 <template v-slot:title>
                     <button class="uv-reset-button w-full text-left" open-type="feedback">意见反馈</button>
@@ -62,7 +62,7 @@
             </uv-cell>
             <uv-cell isLink cellStyle="background-color:white">
                 <template v-slot:icon>
-                    <div class="i-ri:wechat-fill text-green text-lg pr-4"></div>
+                    <div class="i-ri-wechat-fill text-green text-lg pr-4"></div>
                 </template>
                 <template v-slot:title>
                     <button class="uv-reset-button w-full text-left" open-type="share">分享好友</button>
@@ -70,12 +70,12 @@
             </uv-cell>
             <uv-cell title="常见问题" url="/pages/FAQs/index" isLink cellStyle="background-color:white">
                 <template v-slot:icon>
-                    <div class="i-ic:round-question-answer text-blue text-lg mx-2"></div>
+                    <div class="i-ic-round-question-answer text-blue text-lg mx-2"></div>
                 </template>
             </uv-cell>
             <uv-cell title="个人设置" :border="false" url="/pages/settings/index" isLink cellStyle="background-color:white">
                 <template v-slot:icon>
-                    <div class="i-mingcute:settings-1-fill text-gray text-lg mx-2"></div>
+                    <div class="i-mingcute-settings-1-fill text-gray text-lg mx-2"></div>
                 </template>
             </uv-cell>
         </div>
