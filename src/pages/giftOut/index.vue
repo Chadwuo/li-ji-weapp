@@ -12,7 +12,7 @@
                 @focus="search.showAction = true" @custom="searchCancel" @search="searchOk">
             </uv-search>
         </div>
-        <div class="py-2 pl-2" @click="editGiftOutRef.show()">
+        <div class="py-2 pl-2" @click="router.push(`/pages/giftOut/edit`)">
             <div class="i-carbon-add-alt"></div>
           </div>
         <div class="my-auto" v-if="giftList.length == 0">
@@ -37,7 +37,6 @@
             </div>
         </div>
     </div>
-    <editGiftOut ref="editGiftOutRef"></editGiftOut>
 </template>
 
 <script setup>

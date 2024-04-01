@@ -88,7 +88,6 @@ const loadData = () => {
         pageNo
     }).then(res => {
         if (res.success) {
-            console.log('object :>> ', res);
             const newGiftBooks = statistics(res.result)
             books.value = pageNo === 1 ? newGiftBooks : [...books.value, ...newGiftBooks]
             loadMoreStatus.value = newGiftBooks.length < pageSize ? 'nomore' : 'loadmore'
