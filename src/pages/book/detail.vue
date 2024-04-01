@@ -19,7 +19,7 @@
           <div class="py-2 pl-2" @click="router.push(`/pages/book/edit?id=${book._id}`)">
             <div class="i-carbon-edit"></div>
           </div>
-          <div class="py-2 pl-2" @click="editGiftInRef.show()">
+          <div class="py-2 pl-2" @click="router.push(`/pages/giftIn/edit`)">
             <div class="i-carbon-add-alt"></div>
           </div>
         </div>
@@ -103,7 +103,6 @@
         </div>
       </div>
     </uv-popup>
-    <EditGiftIn ref="editGiftInRef"></EditGiftIn>
   </div>
 </template>
 
