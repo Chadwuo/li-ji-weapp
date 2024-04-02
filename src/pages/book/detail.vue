@@ -93,13 +93,13 @@
 
     <uv-popup ref="popup" mode="bottom" round="10" closeable>
       <div class="px-5 pt-4">
-        <div class="text-center font-bold">指标说明</div>
+        <div class="text-center font-bold">名词解释</div>
         <div class="mt-5 text-sm space-y-1">
-          <div class="">礼金：是全部礼金收入</div>
-          <div class="">亲友：是人情份数，提前准备好伴手礼哦</div>
-          <div class="">出席：提前和亲友沟通参加当天宴席的人数，定好酒席，静待亲友</div>
-          <div class="">支出：在礼簿编辑页面可以添加伴手礼、酒席等本次宴席的成本</div>
-          <div class="">合计：很简单，全部礼金收入 - 成本支出</div>
+          <div><span class="font-bold">礼金：</span> <span>是全部礼金收入</span></div>
+          <div><span class="font-bold">亲友：</span> <span>是人情份数，提前准备好伴手礼哦</span></div>
+          <div><span class="font-bold">出席：</span> <span>提前和亲友沟通参加当天宴席的人数，定好酒席，静待亲友</span></div>
+          <div><span class="font-bold">支出：</span> <span>在礼簿编辑页面可以添加伴手礼、酒席等本次宴席的成本</span></div>
+          <div><span class="font-bold">合计：</span> <span>全部礼金收入 - 成本支出</span></div>
         </div>
       </div>
     </uv-popup>
@@ -173,7 +173,7 @@ const handleInfoClick = () => {
 <style lang="scss" scoped></style>
 
 <route lang="json">{
-  "layout": "home",
+  "layout": "blank",
   "style": {
     "navigationBarTitleText": "详情"
   }

@@ -2,39 +2,39 @@
     <div>
         <div class="m-5">
             <div class="bg-white rounded-xl p-4">
-                <uv-form labelPosition="top" labelAlign="center">
-                    <uv-form-item label="亲友" borderBottom>
+                <uv-form labelPosition="left" labelWidth="60">
+                    <uv-form-item label="亲友" >
                         <uv-input v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友">
                         </uv-input>
                         <template v-slot:right>
                             <div class="i-system-uicons-contacts text-gray text-lg"></div>
                         </template>
                     </uv-form-item>
-                    <uv-form-item label="金额" borderBottom>
+                    <uv-form-item label="金额" >
                         <uv-input v-model="dataSource.money" border="none" placeholder="随礼金额">
                         </uv-input>
                     </uv-form-item>
-                    <uv-form-item label="出席" borderBottom>
+                    <uv-form-item label="出席" >
                         <uv-input v-model="dataSource.attendance" border="none" placeholder="参加宴席人数">
                         </uv-input>
                     </uv-form-item>
                     <uv-form-item label="备注">
-                        <uv-textarea  v-model="dataSource.remarks" border="none" autoHeight>
-                        </uv-textarea >
+                        <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容">
+                        </uv-input>
+                    </uv-form-item>
+
+                    <uv-form-item>
+                        <div class="flex space-x-4">
+                            <div class="w-40" v-if="dataSource._id">
+                                <uv-button text="删除" shape="circle" @click="onDel"></uv-button>
+                            </div>
+                            <div class="w-full">
+                                <uv-button type="primary" shape="circle" text="保存" @click="onSubmit" :loading="loading"
+                                    loadingMode="circle"></uv-button>
+                            </div>
+                        </div>
                     </uv-form-item>
                 </uv-form>
-            </div>
-        </div>
-
-        <div class="fixed bottom-12 w-full">
-            <div class="flex space-x-4 mx-5">
-                <div class="w-40" v-if="dataSource._id">
-                    <uv-button text="删除" shape="circle" @click="onDel"></uv-button>
-                </div>
-                <div class="w-full">
-                    <uv-button type="primary" text="保存" shape="circle" @click="onSubmit" :loading="loading"
-                        loadingMode="circle"></uv-button>
-                </div>
             </div>
         </div>
     </div>
