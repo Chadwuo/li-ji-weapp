@@ -3,7 +3,6 @@
         <uv-navbar placeholder bgColor="#f1f1f1">
             <template v-slot:left>
                 <div class="flex items-center ms-4">
-                    <img class="h-6 w-6" :src="logo" />
                     <div class="text-lg font-bold ms-2">礼簿</div>
                 </div>
             </template>

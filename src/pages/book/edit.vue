@@ -1,8 +1,7 @@
 <template>
     <div class="bg-white rounded-xl p-4 mx-5 mt-3">
-        <uv-form labelPosition="left" labelWidth="100">
-            <uv-form-item label="日期" borderBottom leftIcon="calendar" leftIconStyle="color:#F87171"
-                @click="calendarRef.open()">
+        <uv-form labelPosition="left" labelWidth="60">
+            <uv-form-item label="日期" @click="calendarRef.open()">
                 <uv-input v-model="dataSource.date.value" disabled disabledColor="#ffffff" border="none"
                     placeholder="请选择日期">
                 </uv-input>
@@ -10,34 +9,34 @@
                     <uv-icon name="arrow-right"></uv-icon>
                 </template>
             </uv-form-item>
-            <uv-form-item label="名称" borderBottom leftIcon="order" leftIconStyle="color:#b745cb">
+            <uv-form-item label="名称">
                 <uv-input v-model="dataSource.title" border="none" placeholder="礼簿名称">
                 </uv-input>
             </uv-form-item>
-            <uv-form-item label="成本" borderBottom leftIcon="coupon" leftIconStyle="color:#53c21d">
+            <uv-form-item label="成本">
                 <uv-input v-model="dataSource.cost" border="none" placeholder="宴席、伴手礼等费用" type="number">
                 </uv-input>
             </uv-form-item>
-            <uv-form-item label="备注" leftIcon="tags" leftIconStyle="color:#a5673f" borderBottom>
+            <uv-form-item label="备注">
                 <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容">
                 </uv-input>
             </uv-form-item>
-            <div class="text-xs text-gray mt-3">一场宴席活动中，用来登记所有来宾贺礼的名册，称为礼簿。</div>
+            <uv-form-item>
+                <div class="text-xs text-gray mt-3">一场宴席活动中，用来登记所有来宾贺礼的名册，称为礼簿。</div>
+            </uv-form-item>
+            <uv-form-item>
+                <div class="flex space-x-4">
+                    <div class="w-40" v-if="dataSource._id">
+                        <uv-button text="删除" shape="circle" @click="onDel"></uv-button>
+                    </div>
+                    <div class="w-full">
+                        <uv-button type="primary" shape="circle" text="保存" @click="onSubmit" :loading="loading"
+                            loadingMode="circle"></uv-button>
+                    </div>
+                </div>
+            </uv-form-item>
         </uv-form>
     </div>
-
-    <div class="fixed bottom-12 w-full">
-        <div class="flex space-x-4 mx-5">
-            <div class="w-40" v-if="dataSource._id">
-                <uv-button text="删除" shape="circle" @click="onDel"></uv-button>
-            </div>
-            <div class="w-full">
-                <uv-button type="primary" text="保存" shape="circle" @click="onSubmit" :loading="loading"
-                    loadingMode="circle"></uv-button>
-            </div>
-        </div>
-    </div>
-
     <uv-calendars ref="calendarRef" @confirm="calendarConfirm" lunar color="#F87171" confirmColor="#F87171"
         :date="dataSource.date.value" />
 </template>
