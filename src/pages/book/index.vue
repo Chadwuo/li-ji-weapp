@@ -14,7 +14,9 @@
                 @click="handleBookClick(i)">
                 <div class="flex flex-col justify-around h-full">
                     <div class="mx-4">
-                        <div class="text-lg text-red font-bold">{{ i.title }}</div>
+                        <div class="text-lg font-bold" :class="[hasMourningWords(i.title) ? 'text-gray' : 'text-red']">
+                            {{
+                        i.title }}</div>
                         <div class="text-sm text-gray">共 <span font-bold>{{ i.giftCount }}</span> 笔</div>
                     </div>
                     <div class="mx-4">
@@ -26,8 +28,10 @@
                     </div>
                 </div>
                 <div class="relative">
-                    <div class="h-7 w-18 bg-red rounded-l-3xl flex items-center absolute right-0 bottom-22">
-                        <div class="rounded-full w-3 h-3 bg-red-300 ms-2"></div>
+                    <div class="h-7 w-18 bg-red rounded-l-3xl flex items-center absolute right-0 bottom-22"
+                        :class="[hasMourningWords(i.title) ? 'bg-gray' : 'bg-red']">
+                        <div class="rounded-full w-3 h-3 bg-red-300 ms-2"
+                            :class="[hasMourningWords(i.title) ? 'bg-gray-300' : 'bg-red-300']"></div>
                     </div>
                 </div>
             </div>
@@ -115,6 +119,13 @@ const handleBookClick = (e) => {
     })
 }
 
+const hasMourningWords = (bookName) => {
+    if (!bookName) return 'red'
+    const words = ["悼", "哀", "丧", "殇", '奠', "祭", "死", '葬', "追悼", "白事", "节哀", "哀悼", "追思", "缅怀", "悼念", "吊唁", "逝世", "辞世", "归西", "仙逝", "别世", "过世", "去世", "寿终", "长眠"]
+    return words.some(function (word) {
+        return bookName.indexOf(word) !== -1
+    })
+}
 </script>
 
 <style lang="scss" scoped></style>

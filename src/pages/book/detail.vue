@@ -95,11 +95,11 @@
       <div class="px-5 pt-4">
         <div class="text-center font-bold">名词解释</div>
         <div class="mt-5 text-sm space-y-1">
-          <div><span class="font-bold">礼金：</span> <span>是全部礼金收入</span></div>
-          <div><span class="font-bold">亲友：</span> <span>是人情份数，提前准备好伴手礼哦</span></div>
-          <div><span class="font-bold">出席：</span> <span>提前和亲友沟通参加当天宴席的人数，定好酒席，静待亲友</span></div>
-          <div><span class="font-bold">支出：</span> <span>在礼簿编辑页面可以添加伴手礼、酒席等本次宴席的成本</span></div>
-          <div><span class="font-bold">合计：</span> <span>全部礼金收入 - 成本支出</span></div>
+          <div><span class="font-bold">礼金：</span> <span>指所有礼金收入的总和</span></div>
+          <div><span class="font-bold">亲友：</span> <span>表示人情往来次数，需预先备好伴手礼以表心意</span></div>
+          <div><span class="font-bold">出席：</span> <span>需与亲友提前协商确定当日宴席的实际到场人数，并据此预定酒席，恭候亲朋光临</span></div>
+          <div><span class="font-bold">支出：</span> <span>在礼簿编辑阶段，可记录下诸如伴手礼、酒席等本次宴席相关成本费用</span></div>
+          <div><span class="font-bold">合计：</span> <span>即全部礼金收入减去宴席相关成本后的净额</span></div>
         </div>
       </div>
     </uv-popup>

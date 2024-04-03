@@ -6,27 +6,31 @@ export const useUserStore = defineStore(
     'user',
     () => {
         const userInfo = ref(null)
-        const userDataScope = ref([])
+        const userDataScope = computed(() => {
+            if (!userInfo.value.userFamily) {
+                return [userInfo.value._id]
+            } else {
+                return userFamily.value.map((i) => i.userId);
+            }
+        })
 
         async function initUserInfo() {
             var res = await getUserInfo()
-            if (res.success) {
-                userInfo.value = res.data
+            if (!res.success) {
+                throw new Error(res);
             }
-        }
-
-        async function initUserDataScope() {
-            userDataScope.value = await getUserDataScope()
+            userInfo.value = res.data
         }
 
         return {
             userInfo,
             userDataScope,
             initUserInfo,
-            initUserDataScope,
         }
     },
     {
-        persist: true,
+        persist: {
+            paths: [],
+        },
     },
 )
