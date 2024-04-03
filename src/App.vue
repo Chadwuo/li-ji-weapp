@@ -5,10 +5,16 @@ import { useUserStore } from '~/stores/user'
 
 onLaunch(async () => {
     console.log('App Launch')
-
     try {
         await mpserverless.init()
+        // 初始化用户信息
+        await useUserStore().initUserInfo()
+        router.push({
+            path: '/pages/book/index',
+            tabBar: true
+        })
     } catch (error) {
+        console.log('mpserverless error :>>', error)
         uni.showModal({
             title: '提示',
             content: '网络异常，请稍后再试...',
@@ -26,17 +32,6 @@ onLaunch(async () => {
             }
         });
     }
-    // 初始化用户信息
-    const userStore = useUserStore()
-    if (!userStore.userInfo) {
-        await userStore.initUserInfo()
-        await userStore.initUserDataScope()
-    }
-
-    router.push({
-        path: '/pages/book/index',
-        tabBar: true
-    })
 })
 onShow(() => {
     console.log('App Show')

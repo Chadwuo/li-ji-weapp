@@ -41,10 +41,9 @@
         <div class="space-y-3">
             <div v-for="i in giftList" :key="i._id">
                 <div class="bg-white rounded-2xl p-4 flex items-center">
-                    <div class="rounded-full bg-red-50 w-12 h-12 flex">
-                        <div class="m-auto w-8 h-8 text-red"
-                            :class="i.icon == '1' ? '' : 'i-mdi:account-school-outline'">
-                        </div>
+                    <div class="rounded-full w-12 h-12 flex"
+                        :class="[i.icon == 'i-tabler-candle' ? 'bg-gray-100 text-gray' : 'bg-red-50 text-red']">
+                        <div class="m-auto w-8 h-8" :class="i.icon"></div>
                     </div>
                     <div class="grow mx-4">
                         <div class="text-lg font-bold">{{ i.friendInfo.name }}</div>
@@ -52,7 +51,8 @@
                         <div class="text-sm">{{ i.date.lunar_month }} {{ i.date.lunar_day }} {{ i.date.lunar_year }}
                         </div>
                     </div>
-                    <div class="text-red font-bold"><span class="text-sm">￥</span>{{ i.money }}</div>
+                    <div class="font-bold" :class="[i.icon == 'i-tabler-candle' ? 'text-gray' : 'text-red']">
+                        <span class="text-sm">￥</span>{{ i.money }}</div>
                 </div>
             </div>
         </div>

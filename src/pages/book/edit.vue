@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white rounded-xl p-4 mx-5 mt-3">
+    <div class="mx-5 bg-white rounded-xl p-4 mt-3">
         <uv-form labelPosition="left" labelWidth="60">
             <uv-form-item label="日期" @click="calendarRef.open()">
                 <uv-input v-model="dataSource.date.value" disabled disabledColor="#ffffff" border="none"
