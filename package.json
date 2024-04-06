@@ -63,6 +63,7 @@
     "dayjs": "^1.11.10",
     "pinia": "^2.0.36",
     "pinia-plugin-persistedstate": "^3.2.1",
+    "pinyin-pro": "^3.19.6",
     "vue": "^3.4.21",
     "vue-i18n": "^9.10.1"
   },

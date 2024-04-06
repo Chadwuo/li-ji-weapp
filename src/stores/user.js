@@ -1,16 +1,16 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { getUserInfo, getUserDataScope } from '~/alicloud/services/user'
+import { getUserInfo } from '~/alicloud/services/user'
 
 export const useUserStore = defineStore(
     'user',
     () => {
         const userInfo = ref(null)
         const userDataScope = computed(() => {
-            if (!userInfo.value.userFamily) {
+            if (!userInfo.value.familyMembers) {
                 return [userInfo.value._id]
             } else {
-                return userFamily.value.map((i) => i.userId);
+                return familyMembers.value.map((i) => i.userId);
             }
         })
 
@@ -20,6 +20,7 @@ export const useUserStore = defineStore(
                 throw new Error(res);
             }
             userInfo.value = res.data
+            console.log('userInfo :>> ', userInfo.value);
         }
 
         return {

@@ -10,7 +10,9 @@ interface NavigateToOptions {
        "/pages/book/edit" |
        "/pages/book/index" |
        "/pages/family/index" |
+       "/pages/family/invite" |
        "/pages/FAQs/index" |
+       "/pages/friend/edit" |
        "/pages/friend/index" |
        "/pages/giftIn/edit" |
        "/pages/giftOut/edit" |

@@ -63,7 +63,6 @@
 import { onLoad } from '@dcloudio/uni-app'
 import { getGiftOutPage } from '~/alicloud/services/giftOut'
 
-const editGiftOutRef = ref(null)
 const giftList = ref([])
 onLoad(() => {
     loadData()
