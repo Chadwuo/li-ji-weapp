@@ -29,15 +29,15 @@
             </div>
         </div>
         <div class="bg-white rounded-xl p-1">
-            <uv-cell isLink :border="false" url="/pages/family/index" cellStyle="background-color:white" value="家人共享">
+            <uv-cell isLink :border="false" url="/pages/family/index" cellStyle="background-color:white" value="家人共享"
+                v-if="userInfo.familyMembers">
                 <template v-slot:title>
-                    <uv-avatar-group :urls="[
-                'https://cdn.uviewui.com/uview/album/1.jpg',
-                'https://cdn.uviewui.com/uview/album/2.jpg',
-            ]" size="35" gap="0.4"></uv-avatar-group>
+                    <uv-avatar-group :urls="userInfo.familyMembers.map(i => i.avatarUrl)" size="35" gap="0.4">
+                    </uv-avatar-group>
                 </template>
             </uv-cell>
-            <uv-cell title="开通家人共享" url="/pages/family/index" isLink :border="false" cellStyle="background-color:white">
+            <uv-cell v-else title="开通家人共享" url="/pages/family/index" isLink :border="false"
+                cellStyle="background-color:white">
                 <template v-slot:icon>
                     <div class="i-material-symbols:family-home text-red text-lg mx-2"></div>
                 </template>
