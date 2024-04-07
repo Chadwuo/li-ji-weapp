@@ -53,6 +53,8 @@ onLoad((option) => {
         getGiftReceive({ _id: option.id }).then(res => {
             dataSource.value = res.result;
         });
+    }else{
+        dataSource.value.bookId = option.bookId;
     }
 });
 
@@ -62,7 +64,7 @@ const onSubmit = () => {
     if (dataSource.value._id) {
         updateGiftReceive(dataSource.value).then(res => {
             if (res.success) {
-                uni.$emit('update_giftout_page')
+                uni.$emit('gift_in_edit_page_update')
                 uni.showToast({
                     title: '更新成功',
                     icon: 'success'
@@ -79,8 +81,7 @@ const onSubmit = () => {
     } else {
         addGiftReceive(dataSource.value).then(res => {
             if (res.success) {
-                //dataSource.value._id = res.result;
-                uni.$emit('update_giftout_page')
+                uni.$emit('gift_in_edit_page_update')
                 uni.showToast({
                     title: '添加成功',
                     icon: 'success'

@@ -28,9 +28,9 @@
                     </div>
                 </div>
                 <div class="relative">
-                    <div class="h-7 w-18 bg-red rounded-l-3xl flex items-center absolute right-0 bottom-22"
+                    <div class="h-7 w-18 rounded-l-3xl flex items-center absolute right-0 bottom-22"
                         :class="[hasMourningWords(i.title) ? 'bg-gray' : 'bg-red']">
-                        <div class="rounded-full w-3 h-3 bg-red-300 ms-2"
+                        <div class="rounded-full w-3 h-3 ms-2"
                             :class="[hasMourningWords(i.title) ? 'bg-gray-300' : 'bg-red-300']"></div>
                     </div>
                 </div>
@@ -47,28 +47,19 @@
 </template>
 
 <script setup>
-import { onLoad, onShow, onPullDownRefresh, onReachBottom } from '@dcloudio/uni-app'
-import { ref } from 'vue'
 import logo from '~/static/logo.png'
 import { getBookPage } from '~/alicloud/services/book'
+import { hasMourningWords } from '~/utils/index'
+
+uni.$on('gift_in_edit_page_update', () => {
+    loadData()
+})
 
 const books = ref([])
-
-uni.$on('update_book_page', () => {
-    loadData()
-})
-
 onLoad(async () => {
-    console.log('监听到onLoad事件');
     loadData()
 })
-
-onShow(() => {
-    console.log('book index page show')
-})
-
 const loadMoreStatus = ref('loadmore')
-
 onReachBottom(() => {
     console.log('触底加载更多')
     if (loadMoreStatus.value === 'loading' || loadMoreStatus.value === 'nomore') {
@@ -119,13 +110,6 @@ const handleBookClick = (e) => {
     })
 }
 
-const hasMourningWords = (bookName) => {
-    if (!bookName) return 'red'
-    const words = ["悼", "哀", "丧", "殇", '奠', "祭", "死", '葬', "追悼", "白事", "节哀", "哀悼", "追思", "缅怀", "悼念", "吊唁", "逝世", "辞世", "归西", "仙逝", "别世", "过世", "去世", "寿终", "长眠"]
-    return words.some(function (word) {
-        return bookName.indexOf(word) !== -1
-    })
-}
 </script>
 
 <style lang="scss" scoped></style>

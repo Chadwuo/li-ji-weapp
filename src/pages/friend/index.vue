@@ -39,14 +39,20 @@ const searchCancel = () => {
     }
     loadData()
 }
-const pagination = ref({
-    pageNo: 1,
-    pageSize: 20,
-    loading: false,
-})
 const loadData = () => {
-    const { pageSize, pageNo } = pagination.value
-    
+    getFriendList({ keyword: search.value.keyword }).then(res => {
+        // 根据首字母firstLetter进行分组
+        const map = new Map()
+        res.result.forEach(item => {
+            const key = item.firstLetter
+            if (!map.has(key)) {
+                map.set(key, [])
+            }
+            map.get(key).push(item)
+        })
+        friendsList.value = Array.from(map)
+        console.log('object :>> ', friendsList.value);
+    })
 }
 onLoad(() => {
     loadData()

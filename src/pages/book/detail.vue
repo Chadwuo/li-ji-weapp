@@ -6,20 +6,20 @@
       </uv-search>
       <div class="flex justify-between items-center">
         <div>
-          <div class="text-red font-bold text-lg">{{ book.title }}</div>
+          <div class="font-bold text-lg" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">{{ book.title }}</div>
           <div class="text-sm text-gray mt-1">
             <span>{{ book.date.lunar_month }} {{ book.date.lunar_day }} {{ book.date.lunar_year }}</span>
             <span class="ml-2">({{ book.date.value }}) </span>
           </div>
         </div>
-        <div class="flex text-xl text-red font-bold ">
+        <div class="flex text-xl font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
           <!-- <uv-button text="编辑" shape="circle" color="#E8E8E8" customStyle="color:#8799a3" size="mini"
             @click="router.push(`/pages/book/edit?id=${book._id}`)">
           </uv-button> -->
           <div class="py-2 pl-2" @click="router.push(`/pages/book/edit?id=${book._id}`)">
             <div class="i-carbon-edit"></div>
           </div>
-          <div class="py-2 pl-2" @click="router.push(`/pages/giftIn/edit`)">
+          <div class="py-2 pl-2" @click="router.push(`/pages/giftIn/edit?bookId=${book._id}`)">
             <div class="i-carbon-add-alt"></div>
           </div>
         </div>
@@ -82,7 +82,7 @@
         <div class="flex justify-around items-center h-18">
           <div class="text-lg">{{ gift.friendInfo.name }}</div>
           <div class="text-right">
-            <div class="text-red font-bold text-lg"><span class="text-sm">￥</span>{{ gift.money }}</div>
+            <div class="font-bold text-lg" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']"><span class="text-sm">￥</span>{{ gift.money }}</div>
             <div class="text-gray text-sm">礼金</div>
           </div>
         </div>
@@ -107,8 +107,8 @@
 </template>
 
 <script setup>
-import { onLoad } from '@dcloudio/uni-app'
 import { getGiftReceivePage } from '~/alicloud/services/giftReceive'
+import { hasMourningWords } from '~/utils/index'
 
 const editGiftInRef = ref(null)
 const book = ref({
@@ -118,6 +118,13 @@ const giftList = ref([])
 onLoad((option) => {
   book.value = { ...router.getQueryParse(option) }
   loadData()
+  uni.$on('gift_in_edit_page_update', () => {
+    loadData()
+  })
+})
+onUnload(() => {
+  uni.$off('gift_in_edit_page_update')
+  console.log('book detail page unload');
 })
 const loadMoreStatus = ref('loadmore')
 onReachBottom(() => {
