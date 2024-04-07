@@ -32,7 +32,7 @@
             <uv-cell isLink :border="false" url="/pages/family/index" cellStyle="background-color:white" value="家人共享"
                 v-if="userInfo.familyMembers">
                 <template v-slot:title>
-                    <uv-avatar-group :urls="userInfo.familyMembers.map(i => i.avatarUrl)" size="35" gap="0.4">
+                    <uv-avatar-group :urls="userInfo.familyMembers.map(i => i.user.avatarUrl)" size="35" gap="0.4">
                     </uv-avatar-group>
                 </template>
             </uv-cell>

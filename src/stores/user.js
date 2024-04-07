@@ -10,7 +10,7 @@ export const useUserStore = defineStore(
             if (!userInfo.value.familyMembers) {
                 return [userInfo.value._id]
             } else {
-                return familyMembers.value.map((i) => i.userId);
+                return userInfo.value.familyMembers.map((i) => i.userId);
             }
         })
 

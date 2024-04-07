@@ -38,7 +38,7 @@
         <div class="my-auto" v-if="giftList.length == 0">
             <uv-empty></uv-empty>
         </div>
-        <div class="space-y-3">
+        <div class="space-y-3 mt-5">
             <div v-for="i in giftList" :key="i._id">
                 <div class="bg-white rounded-2xl p-4 flex items-center">
                     <div class="rounded-full w-12 h-12 flex"
