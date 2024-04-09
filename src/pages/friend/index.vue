@@ -10,13 +10,22 @@
                 </div>
             </template>
         </uv-navbar>
-        <div class="bg-white px-5 pb-5 rounded-b-2xl">
+        <div class="bg-white px-5 pb-3">
             <uv-search placeholder="请输入搜索内容" v-model="search.keyword" :showAction="search.showAction" actionText="取消"
                 @focus="search.showAction = true" @custom="searchCancel" @search="searchOk">
             </uv-search>
         </div>
         <div>
-
+            <uv-index-list>
+                <template v-for="(value, key) of friendsList" :key="key">
+                    <uv-index-item>
+                        <uv-index-anchor :text="value.letter"></uv-index-anchor>
+                        <view v-for="(cell, index) in value.items">
+                            <uv-cell :title="cell.name" size="large"></uv-cell>
+                        </view>
+                    </uv-index-item>
+                </template>
+            </uv-index-list>
         </div>
     </div>
 </template>
@@ -44,13 +53,18 @@ const loadData = () => {
         // 根据首字母firstLetter进行分组
         const map = new Map()
         res.result.forEach(item => {
-            const key = item.firstLetter
+            const key = item.firstLetter.toUpperCase()
             if (!map.has(key)) {
                 map.set(key, [])
             }
-            map.get(key).push(item)
+            map.get(key).push(item);
         })
-        friendsList.value = Array.from(map)
+
+        const keys = Array.from(map.keys()).sort();
+        friendsList.value = keys.map(key => ({
+            letter: key,
+            items: map.get(key)
+        }));
         console.log('object :>> ', friendsList.value);
     })
 }

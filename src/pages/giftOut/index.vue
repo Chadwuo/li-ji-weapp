@@ -39,7 +39,7 @@
             <uv-empty></uv-empty>
         </div>
         <div class="space-y-3 mt-5">
-            <div v-for="i in giftList" :key="i._id">
+            <div v-for="i in giftList" :key="i._id" @click="handleGiftClick(i)">
                 <div class="bg-white rounded-2xl p-4 flex items-center">
                     <div class="rounded-full w-12 h-12 flex"
                         :class="[i.icon == 'i-tabler-candle' ? 'bg-gray-100 text-gray' : 'bg-red-50 text-red']">
@@ -52,7 +52,8 @@
                         </div>
                     </div>
                     <div class="font-bold" :class="[i.icon == 'i-tabler-candle' ? 'text-gray' : 'text-red']">
-                        <span class="text-sm">￥</span>{{ i.money }}</div>
+                        <span class="text-sm">￥</span>{{ i.money }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -109,7 +110,13 @@ const searchCancel = () => {
     }
     loadData()
 }
-
+const handleGiftClick = (e) => {
+    const { _id, title, money, icon, remarks, date, friendInfo } = e
+    router.push({
+        path: '/pages/giftOut/edit',
+        query: { _id, title, money, icon, remarks, date, friendName: friendInfo.name }
+    })
+}
 </script>
 
 <style lang="scss" scoped></style>
