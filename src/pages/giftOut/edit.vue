@@ -106,14 +106,7 @@ const columns = [
 const calendarRef = ref(null);
 
 onLoad((option) => {
-    if (option.id) {
-        uni.setNavigationBarTitle({
-            title: '编辑'
-        });
-        getGiftOut({ _id: option.id }).then(res => {
-            dataSource.value = res.result;
-        });
-    }
+    dataSource.value = { ...router.getQueryParse(option) }
 });
 
 const onSelectIcont = (i) => {
@@ -223,6 +216,6 @@ const calendarConfirm = (e) => {
 <route lang="json">{
     "layout": "blank",
     "style": {
-        "navigationBarTitleText": "新增送礼"
+        "navigationBarTitleText": "送礼记录"
     }
 }</route>

@@ -3,18 +3,18 @@
         <div class="m-5">
             <div class="bg-white rounded-xl p-4">
                 <uv-form labelPosition="left" labelWidth="60">
-                    <uv-form-item label="亲友" >
+                    <uv-form-item label="亲友">
                         <uv-input v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友">
                         </uv-input>
                         <template v-slot:right>
                             <div class="i-system-uicons-contacts text-gray text-lg"></div>
                         </template>
                     </uv-form-item>
-                    <uv-form-item label="金额" >
+                    <uv-form-item label="金额">
                         <uv-input v-model="dataSource.money" border="none" placeholder="随礼金额">
                         </uv-input>
                     </uv-form-item>
-                    <uv-form-item label="出席" >
+                    <uv-form-item label="出席">
                         <uv-input v-model="dataSource.attendance" border="none" placeholder="参加宴席人数">
                         </uv-input>
                     </uv-form-item>
@@ -46,16 +46,7 @@ const dataSource = ref({
     date: {},
 })
 onLoad((option) => {
-    if (option.id) {
-        uni.setNavigationBarTitle({
-            title: '编辑'
-        });
-        getGiftReceive({ _id: option.id }).then(res => {
-            dataSource.value = res.result;
-        });
-    }else{
-        dataSource.value.bookId = option.bookId;
-    }
+    dataSource.value = { ...router.getQueryParse(option) }
 });
 
 const loading = ref(false);
@@ -129,6 +120,6 @@ const onDel = () => {
 <route lang="json">{
     "layout": "blank",
     "style": {
-        "navigationBarTitleText": "新增收礼"
+        "navigationBarTitleText": "收礼记录"
     }
 }</route>

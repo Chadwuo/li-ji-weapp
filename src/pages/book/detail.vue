@@ -6,7 +6,8 @@
       </uv-search>
       <div class="flex justify-between items-center">
         <div>
-          <div class="font-bold text-lg" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">{{ book.title }}</div>
+          <div class="font-bold text-lg" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">{{
+        book.title }}</div>
           <div class="text-sm text-gray mt-1">
             <span>{{ book.date.lunar_month }} {{ book.date.lunar_day }} {{ book.date.lunar_year }}</span>
             <span class="ml-2">({{ book.date.value }}) </span>
@@ -78,11 +79,15 @@
       <uv-empty></uv-empty>
     </div>
     <div class="my-5 space-y-3 bg-white rounded-2xl">
-      <div v-for="gift in giftList" :key="gift._id">
+      <div v-for="gift in giftList" :key="gift._id" @click="handleGiftClick(gift)">
         <div class="flex justify-around items-center h-18">
-          <div class="text-lg">{{ gift.friendInfo.name }}</div>
+          <div>
+            <div class="text-lg">{{ gift.friendInfo.name }}</div>
+            <div class="text-gray text-sm">出席：{{ gift.attendance }} 人</div>
+          </div>
           <div class="text-right">
-            <div class="font-bold text-lg" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']"><span class="text-sm">￥</span>{{ gift.money }}</div>
+            <div class="font-bold text-lg" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']"><span
+                class="text-sm">￥</span>{{ gift.money }}</div>
             <div class="text-gray text-sm">礼金</div>
           </div>
         </div>
@@ -175,6 +180,13 @@ const handleInfoClick = () => {
   popup.value.open()
 }
 
+const handleGiftClick = (e) => {
+  const { _id, money, attendance, remarks, friendInfo, bookId } = e
+  router.push({
+    path: '/pages/giftIn/edit',
+    query: { _id, money, attendance, remarks, friendName: friendInfo.name }
+  })
+}
 </script>
 
 <style lang="scss" scoped></style>
