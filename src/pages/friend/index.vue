@@ -65,7 +65,6 @@ const loadData = () => {
             letter: key,
             items: map.get(key)
         }));
-        console.log('object :>> ', friendsList.value);
     })
 }
 onLoad(() => {
