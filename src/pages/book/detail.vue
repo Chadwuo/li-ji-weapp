@@ -115,7 +115,6 @@
 import { getGiftReceivePage } from '~/alicloud/services/giftReceive'
 import { hasMourningWords } from '~/utils/index'
 
-const editGiftInRef = ref(null)
 const book = ref({
   date: {}
 })
