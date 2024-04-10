@@ -96,7 +96,7 @@ const onDel = () => {
             if (res.confirm) {
                 deleteGiftReceive(dataSource.value).then(res => {
                     if (res.success) {
-                        uni.$emit('update_giftout_page')
+                        uni.$emit('gift_in_edit_page_update')
                         uni.showToast({
                             title: '删除成功',
                             icon: 'success'
