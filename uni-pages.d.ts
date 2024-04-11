@@ -12,6 +12,7 @@ interface NavigateToOptions {
        "/pages/family/index" |
        "/pages/family/invite" |
        "/pages/FAQs/index" |
+       "/pages/friend/detail" |
        "/pages/friend/edit" |
        "/pages/friend/index" |
        "/pages/giftIn/edit" |
@@ -19,6 +20,7 @@ interface NavigateToOptions {
        "/pages/giftOut/index" |
        "/pages/mine/index" |
        "/pages/settings/index" |
+       "/pages/sponsor/index" |
        "/pages-sub/contributors/index";
 }
 interface RedirectToOptions extends NavigateToOptions {}

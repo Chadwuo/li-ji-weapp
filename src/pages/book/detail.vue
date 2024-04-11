@@ -188,7 +188,8 @@ const handleGiftClick = (e) => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
 
 <route lang="json">{
   "layout": "blank",

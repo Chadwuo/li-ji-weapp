@@ -1,27 +1,34 @@
 <template>
     <div class="mt-3 space-y-3">
         <div class="bg-white rounded-xl p-1">
-            <uv-cell title="开源协议" value="GPL-3.0 license"></uv-cell>
-            <uv-cell title="开发团队" :border="false" isLink url="/pages-sub/contributors/index"
-                cellStyle="background-color:white"></uv-cell>
-
-        </div>
-        <div class="bg-white rounded-xl p-1">
-            <uv-cell title="隐私政策" isLink cellStyle="background-color:white" @click="openPrivacyContract"></uv-cell>
-            <uv-cell title="备案号" value="皖ICP备2023023087号-1X" :border="false"></uv-cell>
-        </div>
-
-        <div class="bg-white rounded-xl p-1">
             <uv-cell title="关闭广告" label="" :border="false" cellStyle="background-color:white">
                 <template v-slot:value>
                     <uv-switch v-model="value" @change="onChange"></uv-switch>
                 </template>
             </uv-cell>
         </div>
-
         <div class="bg-white rounded-xl p-1">
-            <uv-cell title="关于礼记" :border="false" isLink url="/pages/about/index"
-                cellStyle="background-color:white"></uv-cell>
+            <uv-cell isLink :border="false" cellStyle="background-color:white">
+                <template v-slot:title>
+                    <button class="uv-reset-button w-full text-left" open-type="contact">在线客服</button>
+                </template>
+            </uv-cell>
+            <uv-cell isLink :border="false" cellStyle="background-color:white">
+                <template v-slot:title>
+                    <button class="uv-reset-button w-full text-left" open-type="feedback">意见反馈</button>
+                </template>
+            </uv-cell>
+
+            <uv-cell title="开发团队" :border="false" isLink url="/pages-sub/contributors/index" cellStyle="background-color:white">
+            </uv-cell>
+            <uv-cell title="开源协议" :border="false" value="GPL-3.0 license"></uv-cell>
+        </div>
+        <div class="bg-white rounded-xl p-1">
+            <uv-cell title="备案号" :border="false" value="皖ICP备2023023087号-1X"></uv-cell>
+            <uv-cell title="隐私政策" :border="false" isLink cellStyle="background-color:white" @click="openPrivacyContract">
+            </uv-cell>
+            <uv-cell title="关于礼记" isLink :border="false" url="/pages/about/index" cellStyle="background-color:white">
+            </uv-cell>
         </div>
     </div>
 </template>
