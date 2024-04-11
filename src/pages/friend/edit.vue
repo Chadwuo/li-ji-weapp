@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import { addFriend, updateFriend, delFriend } from '~/alicloud/services/friend'
+import { addFriend, updateFriend, deleteFriend } from '~/alicloud/services/friend'
 const dataSource = ref({
     date: {},
 })
@@ -46,7 +46,7 @@ const loading = ref(false);
 const onSubmit = () => {
     loading.value = true;
     if (dataSource.value._id) {
-        updateGiftReceive(dataSource.value).then(res => {
+        updateFriend(dataSource.value).then(res => {
             if (res.success) {
                 uni.$emit('friend_edit_page_update')
                 uni.showToast({
@@ -85,7 +85,7 @@ const onDel = () => {
         confirmColor: '#F87171',
         success: (res) => {
             if (res.confirm) {
-                delFriend(dataSource.value).then(res => {
+                deleteFriend(dataSource.value).then(res => {
                     if (res.success) {
                         uni.$emit('friend_edit_page_update')
                         uni.showToast({

@@ -98,6 +98,10 @@ const statistics = (datas) => {
             (total, item) => total + Number(item.money),
             0
         );
+        i.attendanceTotal = i.giftList.reduce(
+            (total, item) => total + Number(item.attendance),
+            0
+        );
         return i;
     });
 }

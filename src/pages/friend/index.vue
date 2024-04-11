@@ -16,12 +16,12 @@
             </uv-search>
         </div>
         <div>
-            <uv-index-list>
+            <uv-index-list custom-nav-height="90" :index-list="friendsList.map(i => i.letter)" activeColor="#f87171">
                 <template v-for="(value, key) of friendsList" :key="key">
                     <uv-index-item>
                         <uv-index-anchor :text="value.letter"></uv-index-anchor>
                         <view v-for="(cell, index) in value.items">
-                            <uv-cell :title="cell.name" size="large"></uv-cell>
+                            <uv-cell :title="cell.name" size="large" @click="onFriendClick(cell)"></uv-cell>
                         </view>
                     </uv-index-item>
                 </template>
@@ -70,6 +70,13 @@ const loadData = () => {
 onLoad(() => {
     loadData()
 })
+const onFriendClick = (e) => {
+    const { _id, name, relation, remarks } = e
+    router.push({
+        path: '/pages/friend/detail',
+        query: { _id, name, relation, remarks }
+    })
+}
 </script>
 
 <style lang="scss" scoped></style>

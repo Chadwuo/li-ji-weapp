@@ -38,9 +38,9 @@
         <div class="my-auto" v-if="giftList.length == 0">
             <uv-empty></uv-empty>
         </div>
-        <div class="space-y-3 mt-5">
+        <div class="space-y-3 mt-5 bg-white">
             <div v-for="i in giftList" :key="i._id" @click="handleGiftClick(i)">
-                <div class="bg-white rounded-2xl p-4 flex items-center">
+                <div class="p-4 flex items-center">
                     <div class="rounded-full w-12 h-12 flex"
                         :class="[i.icon == 'i-tabler-candle' ? 'bg-gray-100 text-gray' : 'bg-red-50 text-red']">
                         <div class="m-auto w-8 h-8" :class="i.icon"></div>

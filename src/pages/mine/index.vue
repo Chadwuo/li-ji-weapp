@@ -14,7 +14,7 @@
                     1000
                 </div>
                 <div class="text-sm text-gray flex justify-center items-center space-x-1">
-                    <div class="i-icon-park-outline:income"></div>
+                    <div class="i-icon-park-outline-income"></div>
                     <div>收礼</div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                     1000
                 </div>
                 <div class="text-sm text-gray flex justify-center items-center space-x-1">
-                    <div class="i-icon-park-outline:expenses"></div>
+                    <div class="i-icon-park-outline-expenses"></div>
                     <div>送礼</div>
                 </div>
             </div>
@@ -44,22 +44,13 @@
             </uv-cell>
         </div>
         <div class="bg-white rounded-xl py-3 space-y-3 px-1">
-            <uv-cell :border="false" isLink cellStyle="background-color:white">
+            <uv-cell title="支持礼记" url="/pages/sponsor/index" isLink :border="false"
+                cellStyle="background-color:white">
                 <template v-slot:icon>
-                    <div class="i-ri-customer-service-2-fill text-orange text-lg mx-2"></div>
-                </template>
-                <template v-slot:title>
-                    <button class="uv-reset-button w-full text-left" open-type="contact">在线客服</button>
+                    <div class="i-bx-like text-red text-lg mx-2"></div>
                 </template>
             </uv-cell>
-            <uv-cell :border="false" isLink cellStyle="background-color:white">
-                <template v-slot:icon>
-                    <div class="i-icon-park-solid-topic text-rose text-lg mx-2"></div>
-                </template>
-                <template v-slot:title>
-                    <button class="uv-reset-button w-full text-left" open-type="feedback">意见反馈</button>
-                </template>
-            </uv-cell>
+           
             <uv-cell :border="false" isLink cellStyle="background-color:white">
                 <template v-slot:icon>
                     <div class="i-ri-wechat-fill text-green text-lg pr-4"></div>
