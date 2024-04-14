@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3">
-    <div class="bg-white rounded-xl p-4 space-y-2xl" v-if="!userInfo.familyMembers">
+    <div class="bg-white rounded-2xl p-4 space-y-2xl" v-if="!userInfo.familyMembers">
       <div class="text-center">
         <img src="/static/home.svg">
         <div class="text-xl font-bold mt-5">家庭共享</div>
@@ -27,8 +27,8 @@
       </div>
     </div>
     <div v-else>
-      <div class="bg-white rounded-xl p-1">
-        <div class="bg-white rounded-xl py-3 space-y-3 px-1">
+      <div class="bg-white rounded-2xl p-1">
+        <div class="bg-white rounded-2xl py-3 space-y-3 px-1">
           <template v-for="i in userInfo.familyMembers" :key="i._id">
             <uv-cell :title="i.user.nickName" :label="i.relation" :border="false" isLink
               cellStyle="background-color:white">
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="mt-3">
-        <button openType="share" icon="plus" class="uv-reset-button bg-white rounded-xl p-2">
+        <button openType="share" icon="plus" class="uv-reset-button bg-white rounded-2xl p-2">
           <div class="text-red flex items-center justify-center"><div class="i-carbon-add text-2xl"></div> 邀请家庭成员</div>
         </button>
       </div>

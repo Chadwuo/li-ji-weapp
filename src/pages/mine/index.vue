@@ -8,7 +8,7 @@
             </div>
             <div @click="router.push('/pages/settings/index')" class="i-ri-settings-line ml-auto text-lg"></div>
         </div>
-        <div class="bg-white rounded-xl grid gap-5 grid-cols-2 divide-x p-5">
+        <div class="bg-white rounded-2xl grid gap-5 grid-cols-2 divide-x p-5">
             <div class="text-center">
                 <div class="text-lg font-bold text-black">
                     1000
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-xl p-1">
+        <div class="bg-white rounded-2xl p-1">
             <uv-cell isLink :border="false" url="/pages/family/index" cellStyle="background-color:white" value="家人共享"
                 v-if="userInfo.familyMembers">
                 <template v-slot:title>
@@ -43,7 +43,7 @@
                 </template>
             </uv-cell>
         </div>
-        <div class="bg-white rounded-xl py-3 space-y-3 px-1">
+        <div class="bg-white rounded-2xl py-3 space-y-3 px-1">
             <uv-cell title="支持礼记" url="/pages/sponsor/index" isLink :border="false"
                 cellStyle="background-color:white">
                 <template v-slot:icon>

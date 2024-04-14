@@ -83,7 +83,8 @@
         <div class="flex justify-around items-center h-18">
           <div>
             <div class="text-lg">{{ gift.friendInfo.name }}</div>
-            <div class="text-gray text-sm">出席：{{ gift.attendance }} 人</div>
+            <div class="text-gray text-sm">出席：{{ gift.attendance || 0 }} 人</div>
+
           </div>
           <div class="text-right">
             <div class="font-bold text-lg" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']"><span
@@ -188,8 +189,7 @@ const handleGiftClick = (e) => {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
 
 <route lang="json">{
   "layout": "blank",
