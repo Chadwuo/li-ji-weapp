@@ -10,7 +10,7 @@
         </uv-navbar>
 
         <div class="grid grid-cols-2 gap-5 pt-6">
-            <div v-for="i in books" :key="i._id" class="h-48 w-full rounded-l-xl rounded-r-3xl bg-white"
+            <div v-for="i in books" :key="i._id" class="h-48 w-full rounded-l-5 rounded-r-10 bg-white"
                 @click="handleBookClick(i)">
                 <div class="flex flex-col justify-around h-full">
                     <div class="mx-4">
@@ -28,14 +28,14 @@
                     </div>
                 </div>
                 <div class="relative">
-                    <div class="h-7 w-18 rounded-l-3xl flex items-center absolute right-0 bottom-22"
+                    <div class="h-7 w-18 rounded-l-full flex items-center absolute right-0 bottom-22"
                         :class="[hasMourningWords(i.title) ? 'bg-gray' : 'bg-red']">
                         <div class="rounded-full w-3 h-3 ms-2"
                             :class="[hasMourningWords(i.title) ? 'bg-gray-300' : 'bg-red-300']"></div>
                     </div>
                 </div>
             </div>
-            <div class="h-48 w-full rounded-l-xl rounded-r-3xl bg-white flex flex-col items-center justify-center"
+            <div class="h-48 w-full rounded-l-5 rounded-r-10 bg-white flex flex-col items-center justify-center"
                 @click="router.push('/pages/book/edit')">
                 <div class="i-carbon-add-alt text-3xl text-red font-bold"></div>
                 <div class="mt-3">添加礼簿</div>
@@ -99,7 +99,7 @@ const statistics = (datas) => {
             0
         );
         i.attendanceTotal = i.giftList.reduce(
-            (total, item) => total + Number(item.attendance),
+            (total, item) => total + Number(item.attendance || 0),
             0
         );
         return i;

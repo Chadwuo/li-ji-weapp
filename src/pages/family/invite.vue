@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="bg-white rounded-xl p-4 mt-3 space-y-2xl">
+        <div class="bg-white rounded-2xl p-4 mt-3 space-y-2xl">
             <div class="text-center">
                 <img src="/static/invite_family.svg" alt="">
                 <div class="text-xl font-blod mt-5">微信用户</div>

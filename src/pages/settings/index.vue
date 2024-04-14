@@ -1,13 +1,13 @@
 <template>
     <div class="mt-3 space-y-3">
-        <div class="bg-white rounded-xl p-1">
+        <div class="bg-white rounded-2xl p-1">
             <uv-cell title="关闭广告" label="" :border="false" cellStyle="background-color:white">
                 <template v-slot:value>
                     <uv-switch v-model="value" @change="onChange"></uv-switch>
                 </template>
             </uv-cell>
         </div>
-        <div class="bg-white rounded-xl p-1">
+        <div class="bg-white rounded-2xl p-1">
             <uv-cell isLink :border="false" cellStyle="background-color:white">
                 <template v-slot:title>
                     <button class="uv-reset-button w-full text-left" open-type="contact">在线客服</button>
@@ -23,7 +23,7 @@
             </uv-cell>
             <uv-cell title="开源协议" :border="false" value="GPL-3.0 license"></uv-cell>
         </div>
-        <div class="bg-white rounded-xl p-1">
+        <div class="bg-white rounded-2xl p-1">
             <uv-cell title="备案号" :border="false" value="皖ICP备2023023087号-1X"></uv-cell>
             <uv-cell title="隐私政策" :border="false" isLink cellStyle="background-color:white" @click="openPrivacyContract">
             </uv-cell>

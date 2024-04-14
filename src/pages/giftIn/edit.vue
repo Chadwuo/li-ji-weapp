@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="m-5">
-            <div class="bg-white rounded-xl p-4">
+            <div class="bg-white rounded-2xl p-4">
                 <uv-form labelPosition="left" labelWidth="60">
                     <uv-form-item label="亲友">
                         <uv-input v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友">

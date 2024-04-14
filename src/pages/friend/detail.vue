@@ -49,21 +49,6 @@
             <uv-empty></uv-empty>
         </div>
         <div class="my-5 space-y-3">
-            <!-- <div v-for="gift in giftList" :key="gift._id" @click="handleGiftClick(gift)">
-                <div class="flex justify-around items-center h-18">
-                    <div>
-                        <div class="text-lg">{{ gift.friendInfo.name }}</div>
-                        <div class="text-gray text-sm">出席：{{ gift.attendance }} 人</div>
-                    </div>
-                    <div class="text-right">
-                        <div class="font-bold text-lg"
-                            :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']"><span
-                                class="text-sm">￥</span>{{ gift.money }}</div>
-                        <div class="text-gray text-sm">礼金</div>
-                    </div>
-                </div>
-            </div> -->
-
             <view class="cu-timeline" v-for="(gift, index) in giftList" :key="index" @click="handleGiftClick(gift)">
                 <view class="cu-time">{{ gift.year }}</view>
                 <view class="cu-item " v-for="(item, index) in gift.list" :key="index">
@@ -88,6 +73,7 @@
 </template>
 
 <script setup>
+import dayjs from 'dayjs';
 import { getFriendGifts } from '~/alicloud/services/friend'
 import { hasMourningWords } from '~/utils/index'
 

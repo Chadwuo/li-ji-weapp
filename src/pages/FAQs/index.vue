@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white rounded-xl p-1 mt-3">
+    <div class="bg-white rounded-2xl p-1 mt-3">
         <uv-collapse :border="false">
             <uv-collapse-item title="Q：这个软件收费吗？" >
                 <text class="px-1 leading-relaxed">A：永远不会收取任何费用。</text>

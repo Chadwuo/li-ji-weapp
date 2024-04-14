@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="m-5">
-            <div class="bg-white rounded-xl p-4">
+            <div class="bg-white rounded-2xl p-4">
                 <uv-form labelPosition="left" labelWidth="60">
                     <uv-form-item label="姓名">
                         <uv-input v-model="dataSource.name" border="none" placeholder="请输入姓名">
