@@ -37,13 +37,23 @@
             </uv-form-item>
         </uv-form>
     </div>
+    <div class="mt-auto" v-if="!userInfo.skipAD">
+        <ad unit-id="adunit-64aefbe92c2dc7bf"></ad>
+        <div class="text-xs text-gray flex ms-5 mt-2"><i class="i-carbon-information-filled"></i><span>广告可以在设置中关闭</span>
+        </div>
+        <uv-safe-bottom></uv-safe-bottom>
+    </div>
     <uv-calendars ref="calendarRef" @confirm="calendarConfirm" lunar color="#F87171" confirmColor="#F87171"
         :date="dataSource.date.value" />
 </template>
 
 <script setup>
+import { useUserStore } from '~/stores/user'
+import { storeToRefs } from 'pinia'
+const { userInfo } = storeToRefs(useUserStore())
+
 import { onLoad } from "@dcloudio/uni-app";
-import { getBookInfo, addBook, updateBook, deleteBook } from '~/alicloud/services/book'
+import { get, add, update, del } from '~/alicloud/services/book'
 const calendarRef = ref(null);
 
 // onLoad 接受 A 页面传递的参数
@@ -52,7 +62,7 @@ onLoad((option) => {
         uni.setNavigationBarTitle({
             title: '编辑'
         });
-        getBookInfo({ _id: option.id }).then(res => {
+        get({ _id: option.id }).then(res => {
             dataSource.value = res.result;
         });
     }
@@ -66,7 +76,7 @@ const loading = ref(false);
 const onSubmit = () => {
     loading.value = true;
     if (dataSource.value._id) {
-        updateBook(dataSource.value).then(res => {
+        update(dataSource.value).then(res => {
             if (res.success) {
                 uni.$emit('update_book_page')
                 uni.showToast({
@@ -83,7 +93,7 @@ const onSubmit = () => {
             loading.value = false;
         });
     } else {
-        addBook(dataSource.value).then(res => {
+        add(dataSource.value).then(res => {
             if (res.success) {
                 //dataSource.value._id = res.result;
                 uni.$emit('update_book_page')
@@ -108,7 +118,7 @@ const onDel = () => {
         confirmColor: '#F87171',
         success: (res) => {
             if (res.confirm) {
-                deleteBook(dataSource.value).then(res => {
+                del(dataSource.value).then(res => {
                     if (res.success) {
                         uni.$emit('update_book_page')
                         uni.showToast({
@@ -152,9 +162,7 @@ const calendarConfirm = (e) => {
 
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
 
 <route lang="json">{
     "layout": "blank",

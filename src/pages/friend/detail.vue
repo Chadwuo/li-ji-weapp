@@ -225,10 +225,6 @@ const handleEditClick = (e) => {
     left: 36rpx;
 }
 
-.cu-timeline>.cu-item:not([class*="cicon-"])::before {
-    //content: "\e763";
-}
-
 .cu-timeline>.cu-item[class*="cicon-"]::before {
     background-color: var(--white);
     width: 50rpx;

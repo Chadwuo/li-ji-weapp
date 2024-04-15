@@ -10,31 +10,15 @@
                 </div>
             </template>
         </uv-navbar>
-        <div class="bg-white px-5 pb-5 rounded-b-2xl">
-            <uv-search placeholder="请输入搜索内容" v-model="search.keyword" :showAction="search.showAction" actionText="取消"
-                @focus="search.showAction = true" @custom="searchCancel" @search="searchOk">
-            </uv-search>
-            <div class="grid gap-5 grid-cols-2 divide-x mt-5">
-                <div class="text-gray text-sm text-center">
-                    <div class="text-lg font-bold text-black">
-                        10
-                    </div>
-                    <div class="text-xs text-gray flex justify-center items-center space-x-1">
-                        <div class="i-carbon:sprout"></div>
-                        <div>次数</div>
-                    </div>
-                </div>
-                <div class="text-gray text-sm text-center">
-                    <div class="text-lg font-bold text-black">
-                        11000
-                    </div>
-                    <div class="text-xs text-gray flex justify-center items-center space-x-1">
-                        <div class="i-carbon-wallet"></div>
-                        <div>总计</div>
-                    </div>
-                </div>
+        <div class="bg-white px-5 pb-3 rounded-b-2xl">
+            <uv-tabs :list="tabsList" @click="onTabsClick" lineColor="#f87171"></uv-tabs>
+            <div class="mt-3">
+                <uv-search placeholder="请输入搜索内容" v-model="search.keyword" :showAction="search.showAction"
+                    actionText="取消" @focus="search.showAction = true" @custom="searchCancel" @search="searchOk">
+                </uv-search>
             </div>
         </div>
+
         <div class="my-auto" v-if="giftList.length == 0">
             <uv-empty></uv-empty>
         </div>
@@ -62,8 +46,56 @@
 
 <script setup>
 import { onLoad } from '@dcloudio/uni-app'
-import { getGiftOutPage } from '~/alicloud/services/giftOut'
+import { page } from '~/alicloud/services/giftOut'
 
+const tabsList = ref([{
+    name: "全部",
+    value: "",
+}, {
+    name: "结婚",
+    value: "i-bi-postcard-heart",
+},
+{
+    name: "宝宝",
+    value: "i-mingcute-baby-line",
+},
+{
+    name: "周岁",
+    value: "i-icon-park-outline-baby-feet",
+},
+{
+    name: "乔迁",
+    value: "i-tabler-home-move",
+},
+{
+    name: "生日",
+    value: "i-mingcute-cake-line",
+},
+{
+    name: "升学",
+    value: "i-carbon-education",
+},
+{
+    name: "压岁",
+    value: "i-icon-park-outline-red-envelope",
+},
+{
+    name: "探望",
+    value: "i-healthicons-fruits-outline",
+},
+{
+    name: "白事",
+    value: "i-tabler-candle",
+},
+{
+    name: "其他",
+    value: "i-mingcute-wallet-2-line",
+},
+])
+const onTabsClick = (item) => {
+    search.value.icon = item.value
+    loadData()
+}
 const giftList = ref([])
 onLoad(() => {
     loadData()
@@ -84,8 +116,8 @@ const pagination = ref({
 })
 const loadData = () => {
     const { pageSize, pageNo } = pagination.value
-    getGiftOutPage({
-        keyword: search.value.keyword,
+    page({
+        ...search.value,
         pageSize,
         pageNo
     }).then(res => {
@@ -98,6 +130,7 @@ const loadData = () => {
 
 const search = ref({
     keyword: '',
+    icon: '',
     showAction: false
 })
 const searchOk = () => {

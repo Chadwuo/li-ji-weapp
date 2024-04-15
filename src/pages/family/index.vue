@@ -30,8 +30,7 @@
       <div class="bg-white rounded-2xl p-1">
         <div class="bg-white rounded-2xl py-3 space-y-3 px-1">
           <template v-for="i in userInfo.familyMembers" :key="i._id">
-            <uv-cell :title="i.user.nickName" :label="i.relation" :border="false" isLink
-              cellStyle="background-color:white">
+            <uv-cell :title="i.user.nickName" :label="i.relation" :border="false" isLink>
               <template v-slot:icon>
                 <uv-avatar :src="i.user.avatarUrl"></uv-avatar>
               </template>

@@ -1,47 +1,54 @@
 <template>
-    <div>
-        <div class="m-5">
-            <div class="bg-white rounded-2xl p-4">
-                <uv-form labelPosition="left" labelWidth="60">
-                    <uv-form-item label="亲友">
-                        <uv-input v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友">
-                        </uv-input>
-                        <template v-slot:right>
-                            <div class="i-system-uicons-contacts text-gray text-lg"></div>
-                        </template>
-                    </uv-form-item>
-                    <uv-form-item label="金额">
-                        <uv-input v-model="dataSource.money" border="none" placeholder="随礼金额">
-                        </uv-input>
-                    </uv-form-item>
-                    <uv-form-item label="出席">
-                        <uv-input v-model="dataSource.attendance" border="none" placeholder="参加宴席人数">
-                        </uv-input>
-                    </uv-form-item>
-                    <uv-form-item label="备注">
-                        <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容">
-                        </uv-input>
-                    </uv-form-item>
+    <div class="m-5">
+        <div class="bg-white rounded-2xl p-4">
+            <uv-form labelPosition="left" labelWidth="60">
+                <uv-form-item label="亲友">
+                    <uv-input v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友">
+                    </uv-input>
+                    <template v-slot:right>
+                        <div class="i-system-uicons-contacts text-gray text-lg"></div>
+                    </template>
+                </uv-form-item>
+                <uv-form-item label="金额">
+                    <uv-input v-model="dataSource.money" border="none" placeholder="随礼金额">
+                    </uv-input>
+                </uv-form-item>
+                <uv-form-item label="出席">
+                    <uv-input v-model="dataSource.attendance" border="none" placeholder="参加宴席人数">
+                    </uv-input>
+                </uv-form-item>
+                <uv-form-item label="备注">
+                    <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容">
+                    </uv-input>
+                </uv-form-item>
 
-                    <uv-form-item>
-                        <div class="flex space-x-4">
-                            <div class="w-40" v-if="dataSource._id">
-                                <uv-button text="删除" shape="circle" @click="onDel"></uv-button>
-                            </div>
-                            <div class="w-full">
-                                <uv-button type="primary" shape="circle" text="保存" @click="onSubmit" :loading="loading"
-                                    loadingMode="circle"></uv-button>
-                            </div>
+                <uv-form-item>
+                    <div class="flex space-x-4">
+                        <div class="w-40" v-if="dataSource._id">
+                            <uv-button text="删除" shape="circle" @click="onDel"></uv-button>
                         </div>
-                    </uv-form-item>
-                </uv-form>
-            </div>
+                        <div class="w-full">
+                            <uv-button type="primary" shape="circle" text="保存" @click="onSubmit" :loading="loading"
+                                loadingMode="circle"></uv-button>
+                        </div>
+                    </div>
+                </uv-form-item>
+            </uv-form>
         </div>
+    </div>
+    <div class="mt-auto" v-if="!userInfo.skipAD">
+        <ad unit-id="adunit-64aefbe92c2dc7bf"></ad>
+        <div class="text-xs text-gray flex ms-5 mt-2"><i class="i-carbon-information-filled"></i><span>广告可以在设置中关闭</span>
+        </div>
+        <uv-safe-bottom></uv-safe-bottom>
     </div>
 </template>
 
 <script setup>
-import { addGiftReceive, updateGiftReceive, deleteGiftReceive, getGiftReceive } from '~/alicloud/services/giftReceive'
+import { useUserStore } from '~/stores/user'
+import { storeToRefs } from 'pinia'
+const { userInfo } = storeToRefs(useUserStore())
+import { add, update, del } from '~/alicloud/services/giftReceive'
 const dataSource = ref({
     date: {},
 })
@@ -53,7 +60,7 @@ const loading = ref(false);
 const onSubmit = () => {
     loading.value = true;
     if (dataSource.value._id) {
-        updateGiftReceive(dataSource.value).then(res => {
+        update(dataSource.value).then(res => {
             if (res.success) {
                 uni.$emit('gift_in_edit_page_update')
                 uni.showToast({
@@ -70,7 +77,7 @@ const onSubmit = () => {
             loading.value = false;
         });
     } else {
-        addGiftReceive(dataSource.value).then(res => {
+        add(dataSource.value).then(res => {
             if (res.success) {
                 uni.$emit('gift_in_edit_page_update')
                 uni.showToast({
@@ -94,7 +101,7 @@ const onDel = () => {
         confirmColor: '#F87171',
         success: (res) => {
             if (res.confirm) {
-                deleteGiftReceive(dataSource.value).then(res => {
+                del(dataSource.value).then(res => {
                     if (res.success) {
                         uni.$emit('gift_in_edit_page_update')
                         uni.showToast({

@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import { addGiftOut, updateGiftOut, deleteGiftOut, getGiftOut } from '~/alicloud/services/giftOut'
+import { add, update, del } from '~/alicloud/services/giftOut'
 const dataSource = ref({
     date: {},
 })
@@ -126,7 +126,7 @@ const loading = ref(false);
 const onSubmit = () => {
     loading.value = true;
     if (dataSource.value._id) {
-        updateGiftOut(dataSource.value).then(res => {
+        update(dataSource.value).then(res => {
             if (res.success) {
                 uni.$emit('update_giftout_page')
                 uni.showToast({
@@ -143,7 +143,7 @@ const onSubmit = () => {
             loading.value = false;
         });
     } else {
-        addGiftOut(dataSource.value).then(res => {
+        add(dataSource.value).then(res => {
             if (res.success) {
                 //dataSource.value._id = res.result;
                 uni.$emit('update_giftout_page')
@@ -168,7 +168,7 @@ const onDel = () => {
         confirmColor: '#F87171',
         success: (res) => {
             if (res.confirm) {
-                deleteGiftOut(dataSource.value).then(res => {
+                del(dataSource.value).then(res => {
                     if (res.success) {
                         uni.$emit('update_giftout_page')
                         uni.showToast({
