@@ -1,40 +1,47 @@
 <template>
-    <div>
-        <div class="m-5">
-            <div class="bg-white rounded-2xl p-4">
-                <uv-form labelPosition="left" labelWidth="60">
-                    <uv-form-item label="姓名">
-                        <uv-input v-model="dataSource.name" border="none" placeholder="请输入姓名">
-                        </uv-input>
-                    </uv-form-item>
-                    <uv-form-item label="关系">
-                        <uv-input v-model="dataSource.relation" border="none" placeholder="请输入内容">
-                        </uv-input>
-                    </uv-form-item>
-                    <uv-form-item label="备注">
-                        <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容">
-                        </uv-input>
-                    </uv-form-item>
+    <div class="m-5">
+        <div class="bg-white rounded-2xl p-4">
+            <uv-form labelPosition="left" labelWidth="60">
+                <uv-form-item label="姓名">
+                    <uv-input v-model="dataSource.name" border="none" placeholder="请输入姓名">
+                    </uv-input>
+                </uv-form-item>
+                <uv-form-item label="关系">
+                    <uv-input v-model="dataSource.relation" border="none" placeholder="请输入内容">
+                    </uv-input>
+                </uv-form-item>
+                <uv-form-item label="备注">
+                    <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容">
+                    </uv-input>
+                </uv-form-item>
 
-                    <uv-form-item>
-                        <div class="flex space-x-4">
-                            <div class="w-40" v-if="dataSource._id">
-                                <uv-button text="删除" shape="circle" @click="onDel"></uv-button>
-                            </div>
-                            <div class="w-full">
-                                <uv-button type="primary" shape="circle" text="保存" @click="onSubmit" :loading="loading"
-                                    loadingMode="circle"></uv-button>
-                            </div>
+                <uv-form-item>
+                    <div class="flex space-x-4">
+                        <div class="w-40" v-if="dataSource._id">
+                            <uv-button text="删除" shape="circle" @click="onDel"></uv-button>
                         </div>
-                    </uv-form-item>
-                </uv-form>
-            </div>
+                        <div class="w-full">
+                            <uv-button type="primary" shape="circle" text="保存" @click="onSubmit" :loading="loading"
+                                loadingMode="circle"></uv-button>
+                        </div>
+                    </div>
+                </uv-form-item>
+            </uv-form>
         </div>
+    </div>
+    <div class="mt-auto" v-if="!userInfo.skipAD">
+        <ad unit-id="adunit-64aefbe92c2dc7bf"></ad>
+        <div class="text-xs text-gray flex ms-5 mt-2"><i class="i-carbon-information-filled"></i><span>广告可以在设置中关闭</span>
+        </div>
+        <uv-safe-bottom></uv-safe-bottom>
     </div>
 </template>
 
 <script setup>
-import { addFriend, updateFriend, deleteFriend } from '~/alicloud/services/friend'
+import { useUserStore } from '~/stores/user'
+import { storeToRefs } from 'pinia'
+const { userInfo } = storeToRefs(useUserStore())
+import { add, update, del } from '~/alicloud/services/friend'
 const dataSource = ref({
     date: {},
 })
@@ -46,7 +53,7 @@ const loading = ref(false);
 const onSubmit = () => {
     loading.value = true;
     if (dataSource.value._id) {
-        updateFriend(dataSource.value).then(res => {
+        update(dataSource.value).then(res => {
             if (res.success) {
                 uni.$emit('friend_edit_page_update')
                 uni.showToast({
@@ -61,7 +68,7 @@ const onSubmit = () => {
             loading.value = false;
         });
     } else {
-        addFriend(dataSource.value).then(res => {
+        add(dataSource.value).then(res => {
             if (res.success) {
                 uni.$emit('friend_edit_page_update')
                 uni.showToast({
@@ -85,7 +92,7 @@ const onDel = () => {
         confirmColor: '#F87171',
         success: (res) => {
             if (res.confirm) {
-                deleteFriend(dataSource.value).then(res => {
+                del(dataSource.value).then(res => {
                     if (res.success) {
                         uni.$emit('friend_edit_page_update')
                         uni.showToast({

@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { getFriendList } from '~/alicloud/services/friend'
+import { list } from '~/alicloud/services/friend'
 
 const friendsList = ref([])
 const search = ref({
@@ -49,7 +49,7 @@ const searchCancel = () => {
     loadData()
 }
 const loadData = () => {
-    getFriendList({ keyword: search.value.keyword }).then(res => {
+    list({ keyword: search.value.keyword }).then(res => {
         // 根据首字母firstLetter进行分组
         const map = new Map()
         res.result.forEach(item => {

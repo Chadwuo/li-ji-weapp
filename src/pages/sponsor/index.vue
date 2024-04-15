@@ -14,10 +14,9 @@
         <div class="text-center my-5">
             <uv-button type="primary" shape="circle" text="观看广告视频" @click="onSupport"></uv-button>
         </div>
-
-        <div>
-            <ad unit-id="adunit-45fd166651f430ec" ad-type="video" ad-theme="white"></ad>
-        </div>
+    </div>
+    <div class="mt-auto">
+        <ad unit-id="adunit-45fd166651f430ec" ad-type="video" ad-theme="white"></ad>
     </div>
 </template>
 

@@ -14,3 +14,7 @@ page {
 .uv-button--circle {
   border-radius: 1rem !important;
 }
+
+.uv-cell--clickable {
+  background-color: #fff !important;
+}

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { getUserInfo } from '~/alicloud/services/user'
+import { getInfo } from '~/alicloud/services/user'
 
 export const useUserStore = defineStore(
     'user',
@@ -15,7 +15,7 @@ export const useUserStore = defineStore(
         })
 
         async function initUserInfo() {
-            var res = await getUserInfo()
+            var res = await getInfo()
             if (!res.success) {
                 throw new Error(res);
             }

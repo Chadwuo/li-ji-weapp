@@ -32,7 +32,7 @@
           :endVal="book.giftTotal">
         </uv-count-to>
         <div class="ml-auto text-gray py-2 pl-2" @click="handleInfoClick">
-          <div class="i-carbon-information-filled "></div>
+          <div class="i-carbon-information-filled"></div>
         </div>
       </div>
       <div class="grid gap-5 grid-cols-4 divide-x">
@@ -113,7 +113,7 @@
 </template>
 
 <script setup>
-import { getGiftReceivePage } from '~/alicloud/services/giftReceive'
+import { page } from '~/alicloud/services/giftReceive'
 import { hasMourningWords } from '~/utils/index'
 
 const book = ref({
@@ -147,7 +147,7 @@ const pagination = ref({
 })
 const loadData = () => {
   const { pageSize, pageNo } = pagination.value
-  getGiftReceivePage({
+  page({
     bookId: book.value._id,
     keyword: search.value.keyword,
     pageSize,

@@ -48,7 +48,7 @@
 
 <script setup>
 import logo from '~/static/logo.png'
-import { getBookPage } from '~/alicloud/services/book'
+import { page } from '~/alicloud/services/book'
 import { hasMourningWords } from '~/utils/index'
 
 uni.$on('gift_in_edit_page_update', () => {
@@ -78,7 +78,7 @@ const pagination = ref({
 
 const loadData = () => {
     const { pageSize, pageNo } = pagination.value
-    getBookPage({
+    page({
         pageSize,
         pageNo
     }).then(res => {
