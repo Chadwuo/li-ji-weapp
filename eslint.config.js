@@ -10,4 +10,9 @@ module.exports = uni(
     },
   },
   unocss.configs.flat,
+  {
+    rules: {
+      'no-console': 'off',
+    },
+  },
 )
