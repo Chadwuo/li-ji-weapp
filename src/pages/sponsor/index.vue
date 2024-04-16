@@ -82,6 +82,6 @@ const rewardedSuccess = () => {
 
 <route lang="json">{
     "style": {
-        "navigationBarTitleText": "开发团队"
+        "navigationBarTitleText": "支持礼记"
     }
 }</route>
