@@ -29,8 +29,7 @@
             </div>
         </div>
         <div class="bg-white rounded-2xl p-1">
-            <uv-cell isLink :border="false" url="/pages/family/index" value="家人共享"
-                v-if="userInfo.familyMembers">
+            <uv-cell isLink :border="false" url="/pages/family/index" value="家人共享" v-if="userInfo.familyMembers">
                 <template v-slot:title>
                     <uv-avatar-group :urls="userInfo.familyMembers.map(i => i.user.avatarUrl)" size="35" gap="0.4">
                     </uv-avatar-group>
@@ -103,6 +102,14 @@ const statistics = async () => {
         staticData.value.giftIn = giftInRes.data
     }
 }
+
+onShareAppMessage(() => {
+    return {
+        title: "可能是东半球最好用的人情记账工具",
+        path: `/pages/index`,
+        imageUrl: "/static/share.png",
+    };
+})
 
 </script>
 

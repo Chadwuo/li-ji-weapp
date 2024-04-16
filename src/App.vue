@@ -3,16 +3,18 @@
 import mpserverless from "~/alicloud/index";
 import { useUserStore } from '~/stores/user'
 
-onLaunch(async () => {
+onLaunch(async (arg) => {
     console.log('App Launch')
     try {
         await mpserverless.init()
         // 初始化用户信息
         await useUserStore().initUserInfo()
-        router.push({
-            path: '/pages/book/index',
-            tabBar: true
-        })
+        if (arg.path == 'pages/index') {
+            router.push({
+                path: '/pages/book/index',
+                tabBar: true
+            })
+        }
     } catch (error) {
         console.log('mpserverless error :>>', error)
         uni.showModal({
