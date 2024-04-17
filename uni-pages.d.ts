@@ -15,6 +15,7 @@ interface NavigateToOptions {
        "/pages/friend/detail" |
        "/pages/friend/edit" |
        "/pages/friend/index" |
+       "/pages/friend/select" |
        "/pages/giftIn/edit" |
        "/pages/giftOut/edit" |
        "/pages/giftOut/index" |
