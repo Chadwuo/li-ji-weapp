@@ -37,33 +37,24 @@ function loadData() {
 }
 onLoad(() => {
   loadData()
-  uni.$on('friendEeditPageUpdate', () => {
-    loadData()
-  })
+})
+
+let instance = null
+onMounted(() => {
+  instance = getCurrentInstance().proxy
 })
 function onFriendClick(e) {
-  const { _id, name, relation, remarks } = e
-  router.push({
-    path: '/pages/friend/detail',
-    query: { _id, name, relation, remarks },
+  const eventChannel = instance.getOpenerEventChannel()
+  eventChannel.emit('acceptDataFromOpenedPage', {
+    friendId: e._id,
+    friendName: e.name,
   })
+  uni.navigateBack()
 }
 </script>
 
 <template>
   <div>
-    <uv-navbar placeholder>
-      <template #left>
-        <div class="flex items-center">
-          <div class="ms-2 text-lg font-bold">
-            亲友
-          </div>
-          <div class="p-2" @click="router.push(`/pages/friend/edit`)">
-            <div class="i-carbon-add-alt text-red" />
-          </div>
-        </div>
-      </template>
-    </uv-navbar>
     <div class="bg-white px-5 pb-3">
       <uv-search
         v-model="search.keyword" placeholder="请输入搜索内容" :show-action="search.showAction" action-text="取消"
@@ -91,7 +82,7 @@ function onFriendClick(e) {
 {
     "layout": "blank",
     "style": {
-        "navigationStyle": "custom"
+        "navigationBarTitleText": "选择亲友"
     }
 }
 </route>
