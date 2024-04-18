@@ -80,9 +80,9 @@ function onFriendClick(e) {
 
 <route lang="json">
 {
-    "layout": "blank",
-    "style": {
-        "navigationBarTitleText": "选择亲友"
-    }
+  "layout": "blank",
+  "style": {
+    "navigationBarTitleText": "选择亲友"
+  }
 }
 </route>

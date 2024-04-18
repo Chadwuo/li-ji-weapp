@@ -56,10 +56,7 @@ function onBlur() {
     <div class="rounded-2xl bg-white p-1">
       <uv-cell is-link :border="false">
         <template #title>
-          <button
-            class="uv-reset-button w-full text-left" open-type="chooseAvatar"
-            @chooseavatar="onChooseAvatar"
-          >
+          <button class="uv-reset-button w-full text-left" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
             头像
           </button>
         </template>
@@ -95,12 +92,10 @@ function onBlur() {
           </button>
         </template>
       </uv-cell>
-
-      <uv-cell title="开发团队" :border="false" is-link url="/pages-sub/contributors/index" />
-      <uv-cell title="开源协议" :border="false" value="GPL-3.0 license" />
     </div>
     <div class="rounded-2xl bg-white p-1">
       <uv-cell title="备案号" :border="false" value="皖ICP备2023023087号-1X" />
+      <uv-cell title="开源协议" :border="false" value="GPL-3.0 license" />
       <uv-cell title="隐私政策" :border="false" is-link @click="openPrivacyContract" />
       <uv-cell title="关于礼记" is-link :border="false" url="/pages/about/index" />
     </div>
@@ -111,8 +106,8 @@ function onBlur() {
 
 <route lang="json">
 {
-    "style": {
-        "navigationBarTitleText": "设置"
-    }
+  "style": {
+    "navigationBarTitleText": "设置"
+  }
 }
 </route>

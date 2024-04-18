@@ -121,8 +121,8 @@ function handleGiftClick(e) {
       <uv-tabs :list="tabsList" line-color="#f87171" @click="onTabsClick" />
       <div class="mt-3">
         <uv-search
-          v-model="search.keyword" placeholder="请输入搜索内容" :show-action="search.showAction"
-          action-text="取消" @focus="search.showAction = true" @custom="searchCancel" @search="searchOk"
+          v-model="search.keyword" placeholder="请输入搜索内容" :show-action="search.showAction" action-text="取消"
+          @focus="search.showAction = true" @custom="searchCancel" @search="searchOk"
         />
       </div>
     </div>
@@ -161,9 +161,9 @@ function handleGiftClick(e) {
 
 <route lang="json">
 {
-    "layout": "blank",
-    "style": {
-        "navigationStyle": "custom"
-    }
+  "layout": "blank",
+  "style": {
+    "navigationStyle": "custom"
+  }
 }
 </route>
