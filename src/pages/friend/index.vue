@@ -89,9 +89,9 @@ function onFriendClick(e) {
 
 <route lang="json">
 {
-    "layout": "blank",
-    "style": {
-        "navigationStyle": "custom"
-    }
+  "layout": "blank",
+  "style": {
+    "navigationStyle": "custom"
+  }
 }
 </route>

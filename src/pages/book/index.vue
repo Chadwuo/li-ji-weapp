@@ -143,8 +143,8 @@ function handleBookClick(e) {
 
 <route lang="json">
 {
-    "style": {
-        "navigationStyle": "custom"
-    }
+  "style": {
+    "navigationStyle": "custom"
+  }
 }
 </route>

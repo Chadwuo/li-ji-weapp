@@ -123,9 +123,9 @@ function onDel() {
 
 <route lang="json">
 {
-    "layout": "blank",
-    "style": {
-        "navigationBarTitleText": "亲友"
-    }
+  "layout": "blank",
+  "style": {
+    "navigationBarTitleText": "亲友"
+  }
 }
 </route>

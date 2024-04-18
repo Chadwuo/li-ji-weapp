@@ -119,10 +119,7 @@ function calendarConfirm(e) {
   <div class="mx-5 mt-3 rounded-2xl bg-white p-4">
     <uv-form label-position="left" label-width="60">
       <uv-form-item label="日期" @click="calendarRef.open()">
-        <uv-input
-          v-model="dataSource.date.value" disabled disabled-color="#ffffff" border="none"
-          placeholder="请选择日期"
-        />
+        <uv-input v-model="dataSource.date.value" disabled disabled-color="#ffffff" border="none" placeholder="请选择日期" />
         <template #right>
           <uv-icon name="arrow-right" />
         </template>
@@ -173,9 +170,9 @@ function calendarConfirm(e) {
 
 <route lang="json">
 {
-    "layout": "blank",
-    "style": {
-        "navigationBarTitleText": "新增"
-    }
+  "layout": "blank",
+  "style": {
+    "navigationBarTitleText": "新增"
+  }
 }
 </route>

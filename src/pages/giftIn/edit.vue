@@ -96,14 +96,11 @@ function onSelectFriend() {
       <uv-form label-position="left" label-width="60">
         <uv-form-item label="亲友">
           <uv-input
-            v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友"
-            :disabled="dataSource._id" disabled-color="#fff"
+            v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友" :disabled="dataSource._id"
+            disabled-color="#fff"
           />
           <template #right>
-            <div
-              v-show="!dataSource._id" class="i-system-uicons-contacts text-lg text-gray"
-              @click="onSelectFriend"
-            />
+            <div v-show="!dataSource._id" class="i-system-uicons-contacts text-lg text-gray" @click="onSelectFriend" />
           </template>
         </uv-form-item>
         <uv-form-item label="金额">
@@ -145,9 +142,9 @@ function onSelectFriend() {
 
 <route lang="json">
 {
-    "layout": "blank",
-    "style": {
-        "navigationBarTitleText": "收礼记录"
-    }
+  "layout": "blank",
+  "style": {
+    "navigationBarTitleText": "收礼记录"
+  }
 }
 </route>

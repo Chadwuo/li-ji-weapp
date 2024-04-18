@@ -172,9 +172,7 @@ function handleGiftClick(e) {
           </div>
           <div class="text-right">
             <div class="text-lg font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
-              <span
-                class="text-sm"
-              >￥</span>{{ gift.money }}
+              <span class="text-sm">￥</span>{{ gift.money }}
             </div>
             <div class="text-sm text-gray">
               礼金

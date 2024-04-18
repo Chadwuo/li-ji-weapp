@@ -11,67 +11,68 @@ const statisticsData = ref({
   sadTotal: 0,
 })
 const giftList = ref([])
+const loading = ref(false)
 
 onLoad((option) => {
   dataSource.value = { ...router.getQueryParse(option) }
   loadData()
 })
 
-function loadData() {
-  getFriendGifts({
-    _id: dataSource.value._id,
-  }).then((res) => {
-    if (res.success) {
-      const { giftOutList, giftReceiveList } = res.result
-      statisticsData.value.sadCount = giftOutList.length // 送礼次数
-      statisticsData.value.happyCount = giftReceiveList.length // 收礼次数
-      const inList = giftReceiveList.map((i) => {
-        // 收礼金额总计
-        statisticsData.value.happyTotal += i.money
-        return {
-          _id: i._id,
-          title: i.bookInfo.title,
-          money: i.money,
-          date: i.bookInfo.date,
-          year: i.bookInfo.date.year,
-          bookId: i.bookInfo._id,
-          attendance: i.attendance,
-          self: false,
-        }
-      })
-      const outList = giftOutList.map((i) => {
-        // 送礼金额总计
-        statisticsData.value.sadTotal += i.money
-        return {
-          _id: i._id,
-          title: i.title,
-          money: i.money,
-          date: i.date,
-          year: i.date.year,
-          icon: i.icon,
-          self: true,
-          remarks: i.remarks,
-        }
-      })
+async function loadData() {
+  loading.value = true
+  const res = await getFriendGifts({ _id: dataSource.value._id })
+  if (res.success) {
+    const { giftOutList, giftReceiveList } = res.result
+    statisticsData.value.sadCount = giftOutList.length // 送礼次数
+    statisticsData.value.happyCount = giftReceiveList.length // 收礼次数
+    const inList = giftReceiveList.map((i) => {
+      // 收礼金额总计
+      statisticsData.value.happyTotal += i.money
+      return {
+        _id: i._id,
+        title: i.bookInfo.title,
+        money: i.money,
+        date: i.bookInfo.date,
+        year: i.bookInfo.date.year,
+        bookId: i.bookInfo._id,
+        attendance: i.attendance,
+        self: false,
+      }
+    })
+    const outList = giftOutList.map((i) => {
+      // 送礼金额总计
+      statisticsData.value.sadTotal += i.money
+      return {
+        _id: i._id,
+        title: i.title,
+        money: i.money,
+        date: i.date,
+        year: i.date.year,
+        icon: i.icon,
+        self: true,
+        remarks: i.remarks,
+      }
+    })
 
-      const allGifts = [...inList, ...outList]
-      const sortedGifts = allGifts.sort(
-        (a, b) => dayjs(b.date.value).unix() - dayjs(a.date.value).unix(),
-      )
+    const allGifts = [...inList, ...outList]
+    const sortedGifts = allGifts.sort(
+      (a, b) => dayjs(b.date.value).unix() - dayjs(a.date.value).unix(),
+    )
 
-      const groupedGifts = sortedGifts.reduce((acc, curr) => {
-        acc[curr.year] = acc[curr.year] ? [...acc[curr.year], curr] : [curr]
-        return acc
-      }, {})
+    const groupedGifts = sortedGifts.reduce((acc, curr) => {
+      acc[curr.year] = acc[curr.year] ? [...acc[curr.year], curr] : [curr]
+      return acc
+    }, {})
 
-      const sortedGroupedGifts = Object.entries(groupedGifts).map(([year, list]) => ({
-        year,
-        list,
-      })).sort((a, b) => b.year - a.year)
+    const sortedGroupedGifts = Object.entries(groupedGifts).map(([year, list]) => ({
+      year,
+      list,
+    })).sort((a, b) => b.year - a.year)
 
-      giftList.value = sortedGroupedGifts
-    }
-  })
+    giftList.value = sortedGroupedGifts
+  }
+
+  loading.value = false
 }
 
 function onGiftClick(e) {
@@ -148,7 +149,11 @@ function handleEditClick(e) {
       </div>
     </div>
 
-    <div v-if="giftList.length === 0" class="my-auto">
+    <div v-if="loading" class="mt-5">
+      <uv-loading-icon mode="circle" text="努力加载中..." :vertical="true" />
+    </div>
+
+    <div v-if="giftList.length === 0 && !loading" class="my-auto">
       <uv-empty />
     </div>
     <div class="my-5 space-y-3">
@@ -186,6 +191,7 @@ function handleEditClick(e) {
         </view>
       </view>
     </div>
+    <uv-safe-bottom />
   </div>
 </template>
 
@@ -195,89 +201,89 @@ function handleEditClick(e) {
  ==================== */
 
 .cu-timeline {
-    display: block;
-    background-color: var(--white);
+  display: block;
+  background-color: var(--white);
 }
 
 .cu-timeline .cu-time {
-    width: 120rpx;
-    text-align: center;
-    padding: 20rpx 0;
-    font-size: 26rpx;
-    color: #888;
-    display: block;
+  width: 120rpx;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 26rpx;
+  color: #888;
+  display: block;
 }
 
 .cu-timeline>.cu-item {
-    padding: 30rpx 30rpx 30rpx 120rpx;
-    position: relative;
-    display: block;
-    z-index: 0;
+  padding: 30rpx 30rpx 30rpx 120rpx;
+  position: relative;
+  display: block;
+  z-index: 0;
 }
 
 .cu-timeline>.cu-item:not([class*="text-"]) {
-    color: #ccc;
+  color: #ccc;
 }
 
 .cu-timeline>.cu-item::after {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 1rpx;
-    background-color: #ddd;
-    left: 60rpx;
-    height: 100%;
-    top: 0;
-    z-index: 8;
+  content: "";
+  display: block;
+  position: absolute;
+  width: 1rpx;
+  background-color: #ddd;
+  left: 60rpx;
+  height: 100%;
+  top: 0;
+  z-index: 8;
 }
 
 .cu-timeline>.cu-item::before {
-    font-family: "cuIcon";
-    display: block;
-    position: absolute;
-    top: 36rpx;
-    z-index: 9;
-    background-color: var(--white);
-    width: 50rpx;
-    height: 50rpx;
-    text-align: center;
-    border: none;
-    line-height: 50rpx;
-    left: 36rpx;
+  font-family: "cuIcon";
+  display: block;
+  position: absolute;
+  top: 36rpx;
+  z-index: 9;
+  background-color: var(--white);
+  width: 50rpx;
+  height: 50rpx;
+  text-align: center;
+  border: none;
+  line-height: 50rpx;
+  left: 36rpx;
 }
 
 .cu-timeline>.cu-item[class*="cicon-"]::before {
-    background-color: var(--white);
-    width: 50rpx;
-    height: 50rpx;
-    text-align: center;
-    border: none;
-    line-height: 50rpx;
-    left: 36rpx;
+  background-color: var(--white);
+  width: 50rpx;
+  height: 50rpx;
+  text-align: center;
+  border: none;
+  line-height: 50rpx;
+  left: 36rpx;
 }
 
 .cu-timeline>.cu-item>.content {
-    padding: 30rpx;
-    border-radius: 6rpx;
-    display: block;
-    line-height: 1.6;
+  padding: 30rpx;
+  border-radius: 6rpx;
+  display: block;
+  line-height: 1.6;
 }
 
 .cu-timeline>.cu-item>.content:not([class*="bg-"]) {
-    background-color: var(--ghostWhite);
-    color: var(--black);
+  background-color: var(--ghostWhite);
+  color: var(--black);
 }
 
 .cu-timeline>.cu-item>.content+.content {
-    margin-top: 20rpx;
+  margin-top: 20rpx;
 }
 </style>
 
 <route lang="json">
 {
-    "layout": "blank",
-    "style": {
-        "navigationBarTitleText": "详情"
-    }
+  "layout": "blank",
+  "style": {
+    "navigationBarTitleText": "详情"
+  }
 }
 </route>
