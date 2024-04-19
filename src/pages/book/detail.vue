@@ -96,9 +96,6 @@ function handleGiftClick(e) {
           </div>
         </div>
         <div class="flex text-xl font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
-          <!-- <uv-button text="编辑" shape="circle" color="#E8E8E8" customStyle="color:#8799a3" size="mini"
-            @click="router.push(`/pages/book/edit?id=${book._id}`)">
-          </uv-button> -->
           <div class="py-2 pl-2" @click="router.push(`/pages/book/edit?id=${book._id}`)">
             <div class="i-carbon-edit" />
           </div>

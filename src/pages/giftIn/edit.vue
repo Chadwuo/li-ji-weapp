@@ -131,8 +131,8 @@ function onSelectFriend() {
   </div>
   <div v-if="!userInfo.skipAD" class="mt-auto">
     <ad unit-id="adunit-64aefbe92c2dc7bf" />
-    <div class="ms-5 mt-2 flex text-xs text-gray">
-      <i class="i-carbon-information-filled" /><span>广告可以在设置中关闭</span>
+    <div class="mt-2 flex text-xs text-gray">
+      <i class="i-carbon-information-filled mx-3" /><span>广告可以在设置中关闭</span>
     </div>
     <uv-safe-bottom />
   </div>
