@@ -30,8 +30,8 @@ const columns = [
     icon: 'i-carbon-education',
   },
   {
-    name: '压岁',
-    icon: 'i-icon-park-outline-red-envelope',
+    name: '福寿',
+    icon: 'i-mingcute-blessing-line',
   },
   {
     name: '探望',
