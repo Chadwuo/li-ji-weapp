@@ -57,14 +57,12 @@
   "quickapp": {},
   /* 小程序特有相关 */
   "mp-weixin": {
-    "darkmode": true,
     "appid": "wx200dacbd79781fa0",
     "setting": {
       "urlCheck": false
     },
     "usingComponents": true,
     "lazyCodeLoading": "requiredComponents"
-
   },
   "mp-alipay": {
     "usingComponents": true
