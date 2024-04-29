@@ -37,7 +37,7 @@ function loadData() {
 }
 onLoad(() => {
   loadData()
-  uni.$on('friendEeditPageUpdate', () => {
+  uni.$on('friendPageUpdate', () => {
     loadData()
   })
 })

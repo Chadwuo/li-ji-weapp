@@ -56,7 +56,7 @@ function onTabsClick(item) {
 
 onLoad(() => {
   loadData()
-  uni.$on('giftOutEditPageUpdate', () => {
+  uni.$on('giftOutPageUpdate', () => {
     loadData()
   })
 })
