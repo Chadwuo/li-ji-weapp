@@ -12,12 +12,9 @@ const pagination = ref({
 })
 
 onLoad(async () => {
-  loadData()
+  // loadData()
 
-  uni.$on('giftInEditPageUpdate', () => {
-    loadData()
-  })
-  uni.$on('giftInEditPageUpdate', () => {
+  uni.$on('bookPageUpdate', () => {
     loadData()
   })
 })
@@ -141,7 +138,7 @@ function handleBookClick(e) {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
+<route lang="json" type="home">
 {
   "style": {
     "navigationStyle": "custom"

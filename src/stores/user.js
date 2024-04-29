@@ -5,7 +5,7 @@ import { getInfo } from '~/alicloud/services/user'
 export const useUserStore = defineStore(
   'user',
   () => {
-    const userInfo = ref(null)
+    const userInfo = ref({})
     const userDataScope = computed(() => {
       if (!userInfo.value.familyMembers)
         return [userInfo.value._id]
@@ -13,23 +13,22 @@ export const useUserStore = defineStore(
         return userInfo.value.familyMembers.map(i => i.userId)
     })
 
-    async function initUserInfo() {
+    async function getUserInfo() {
       const res = await getInfo()
       if (!res.success)
         throw new Error(res)
-
-      userInfo.value = res.data
+      userInfo.value = res.result
     }
 
     return {
       userInfo,
       userDataScope,
-      initUserInfo,
+      getUserInfo,
     }
   },
   {
     persist: {
-      paths: [],
+      paths: ['userInfo'],
     },
   },
 )

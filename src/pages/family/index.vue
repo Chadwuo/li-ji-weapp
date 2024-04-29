@@ -12,7 +12,7 @@ async function onCreate() {
   loading.value = true
   await add().then(async (res) => {
     if (res.success)
-      await useUserStore().initUserInfo()
+      await useUserStore().getUserInfo()
   }).finally(() => {
     loading.value = false
   })
@@ -47,7 +47,7 @@ async function onSelectedAction(e) {
   if (name === '删除') {
     delFamilyMember({ _id: data._id }).then(async (res) => {
       if (res.success) {
-        await useUserStore().initUserInfo()
+        await useUserStore().getUserInfo()
         actionSheetRef.value.close()
       }
     }).finally(() => {
@@ -57,7 +57,7 @@ async function onSelectedAction(e) {
   if (name === '解散') {
     del({ familyId: data.familyId }).then(async (res) => {
       if (res.success) {
-        await useUserStore().initUserInfo()
+        await useUserStore().getUserInfo()
         actionSheetRef.value.close()
       }
     }).finally(() => {

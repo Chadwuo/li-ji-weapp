@@ -21,12 +21,6 @@ const popup = ref(null)
 onLoad((option) => {
   book.value = { ...router.getQueryParse(option) }
   loadData()
-  uni.$on('giftInEditPageUpdate', () => {
-    loadData()
-  })
-})
-onUnload(() => {
-  uni.$off('giftInEditPageUpdate')
 })
 
 onReachBottom(() => {
