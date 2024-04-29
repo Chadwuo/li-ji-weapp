@@ -75,7 +75,7 @@ function onSubmit() {
   if (dataSource.value._id) {
     update(dataSource.value).then((res) => {
       if (res.success) {
-        uni.$emit('giftOutEditPageUpdate')
+        uni.$emit('giftOutPageUpdate')
         uni.showToast({
           title: '更新成功',
           icon: 'success',
@@ -94,7 +94,7 @@ function onSubmit() {
     add(dataSource.value).then((res) => {
       if (res.success) {
         // dataSource.value._id = res.result;
-        uni.$emit('giftOutEditPageUpdate')
+        uni.$emit('giftOutPageUpdate')
         uni.showToast({
           title: '添加成功',
           icon: 'success',
@@ -118,7 +118,7 @@ function onDel() {
       if (res.confirm) {
         del(dataSource.value).then((res) => {
           if (res.success) {
-            uni.$emit('giftOutEditPageUpdate')
+            uni.$emit('giftOutPageUpdate')
             uni.showToast({
               title: '删除成功',
               icon: 'success',
