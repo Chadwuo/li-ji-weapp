@@ -12,25 +12,8 @@ onLaunch(async () => {
     await useUserStore().getUserInfo()
     uni.$emit('bookPageUpdate')
   }
-  catch (error) {
-    console.log('mpserverless error :>>', error)
-    uni.showModal({
-      title: '提示',
-      content: '网络异常，请稍后再试...',
-      showCancel: false,
-      confirmColor: '#F87171',
-      success(res) {
-        if (res.confirm) {
-          // 重启
-          uni.reLaunch({
-            url: '/pages/book/index',
-          })
-        }
-        else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      },
-    })
+  catch {
+    router.push('/pages/exception/500')
   }
 })
 onShow(() => {

@@ -8,6 +8,7 @@ interface NavigateToOptions {
        "/pages/about/index" |
        "/pages/book/detail" |
        "/pages/book/edit" |
+       "/pages/exception/500" |
        "/pages/family/index" |
        "/pages/family/invite" |
        "/pages/FAQs/index" |
