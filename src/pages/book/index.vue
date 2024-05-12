@@ -13,9 +13,12 @@ const pagination = ref({
 
 onLoad(async () => {
   // loadData()
-
+  uni.showLoading({
+    title: '正在加载数据...',
+  })
   uni.$on('bookPageUpdate', () => {
     loadData()
+    uni.hideLoading()
   })
 })
 
