@@ -5,10 +5,10 @@
 <template>
   <div class="bg-white p-5 space-y-3">
     <div class="font-bold">
-      这个软件免费吗？
+      礼记 免费吗？
     </div>
     <div class="text-sm text-gray-500 leading-relaxed">
-      免费，未来推出的所有功能也都会是免费。
+      免费。礼记运营需要一定的服务器费用，目前依靠程序内部广告收益（你如果非常不喜欢广告，甚至可以关闭），可以收支平衡，是可维续的。
     </div>
     <div class="my-5">
       <uv-line />
@@ -28,7 +28,7 @@
     <div class="text-sm text-gray-500 leading-relaxed">
       礼记从21年11月份写下第一行代码至今，经历了500+ 次代码提交、来自全球开发者参与的50+ 个拉取请求、20+
       个版本迭代、累计为5000+
-      用户提供稳定服务。礼记运营需要一定的服务器费用，费用并不高，目前依靠程序内部广告收益（你如果非常不喜欢广告，甚至可以关闭），可以收支平衡，是可维续的。
+      用户提供稳定服务。
     </div>
     <div class="my-5">
       <uv-line />
