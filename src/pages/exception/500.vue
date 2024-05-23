@@ -52,8 +52,8 @@ async function onRetry() {
 
 <route lang="json">
 {
-    "style": {
-        "navigationStyle": "custom"
-    }
+  "style": {
+    "navigationStyle": "custom"
+  }
 }
 </route>
