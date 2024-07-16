@@ -13,8 +13,19 @@ onLoad((options) => {
 })
 function onAgree() {
   if (userInfo.value.familyMembers) {
-    router.push({
-      path: '/pages/family/index',
+    uni.showModal({
+      title: '提示',
+      content: '你当前已属于一个家庭账户，无法直接加入新的家庭。若要接受新邀请，请先退出当前家庭。',
+      showCancel: false,
+      confirmText: '我的家庭',
+      confirmColor: '#f87171',
+      success(res) {
+        if (res.confirm) {
+          router.push({
+            path: '/pages/family/index',
+          })
+        }
+      },
     })
     return
   }
@@ -89,10 +100,7 @@ function onReject() {
       </div>
 
       <div class="mt-10 space-y-xl">
-        <uv-button
-          type="primary" shape="circle" text="同意" :loading="loading" loading-mode="circle"
-          @click="onAgree"
-        />
+        <uv-button type="primary" shape="circle" text="同意" :loading="loading" loading-mode="circle" @click="onAgree" />
         <uv-button shape="circle" text="拒绝" :loading="loading" loading-mode="circle" @click="onReject" />
       </div>
     </div>
@@ -103,8 +111,8 @@ function onReject() {
 
 <route lang="json">
 {
-    "style": {
-        "navigationBarTitleText": "家人共享"
-    }
+  "style": {
+    "navigationBarTitleText": "家人共享"
+  }
 }
 </route>
