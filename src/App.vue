@@ -5,12 +5,16 @@ import { useUserStore } from '~/stores/user'
 
 onLaunch(async () => {
   console.log('App Launch')
+  uni.showLoading({
+    title: '正在加载数据...',
+  })
   try {
     // 初始化阿里云sdk
     await mpserverless.init()
     // 初始化用户store
     await useUserStore().getUserInfo()
     uni.$emit('bookPageUpdate')
+    uni.hideLoading()
   }
   catch {
     router.push('/pages/exception/500')
