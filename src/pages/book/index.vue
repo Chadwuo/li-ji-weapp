@@ -13,13 +13,16 @@ const pagination = ref({
 
 onLoad(async () => {
   // loadData()
-  uni.showLoading({
-    title: '正在加载数据...',
+  uni.$on('bookPageUpdate', async () => {
+    await loadData()
   })
-  uni.$on('bookPageUpdate', () => {
-    loadData()
-    uni.hideLoading()
-  })
+})
+
+onPullDownRefresh(async () => {
+  console.log('下拉刷新事件')
+  pagination.value.pageNo = 1
+  await loadData()
+  uni.stopPullDownRefresh()
 })
 
 onReachBottom(() => {
@@ -32,9 +35,9 @@ onReachBottom(() => {
   loadData()
 })
 
-function loadData() {
+async function loadData() {
   const { pageSize, pageNo } = pagination.value
-  page({
+  await page({
     pageSize,
     pageNo,
   }).then((res) => {
@@ -144,7 +147,8 @@ function handleBookClick(e) {
 <route lang="json" type="home">
 {
   "style": {
-    "navigationStyle": "custom"
+    "navigationStyle": "custom",
+    "enablePullDownRefresh": true
   }
 }
 </route>
