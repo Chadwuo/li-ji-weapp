@@ -1,9 +1,6 @@
 <script setup>
-import { storeToRefs } from 'pinia'
-import { useUserStore } from '~/stores/user'
 import { add, del, get, update } from '~/alicloud/services/book'
 
-const { userInfo } = storeToRefs(useUserStore())
 const calendarRef = ref(null)
 
 const dataSource = ref({
@@ -153,13 +150,8 @@ function calendarConfirm(e) {
       </uv-form-item>
     </uv-form>
   </div>
-  <div v-if="!userInfo.skipAD" class="mt-auto">
-    <ad unit-id="adunit-64aefbe92c2dc7bf" />
-    <div class="mt-2 flex text-xs text-gray">
-      <i class="i-carbon-information-filled mx-3" /><span>广告可以在设置中关闭</span>
-    </div>
-    <uv-safe-bottom />
-  </div>
+  <Advertisement class="mt-auto" />
+  <uv-safe-bottom />
   <uv-calendars
     ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date.value"
     @confirm="calendarConfirm"
