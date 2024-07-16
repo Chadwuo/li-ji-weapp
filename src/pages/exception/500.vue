@@ -1,34 +1,38 @@
 <script setup>
-import { useUserStore } from '~/stores/user'
+// import { useUserStore } from '~/stores/user'
 
-const disabled = ref(false)
-const btnText = ref('重试')
-const codeRef = ref(null)
+// const disabled = ref(false)
+// const btnText = ref('重试')
+// const codeRef = ref(null)
 
-function codeChange(text) {
-  btnText.value = text
-}
+// function codeChange(text) {
+//   btnText.value = text
+// }
 
 async function onRetry() {
-  uni.showLoading({
-    title: '正在重新连接...',
+  // 这个新的重启api可以更好解决问题
+  wx.restartMiniProgram({
+    path: '/pages/book/index',
   })
+  // uni.showLoading({
+  //   title: '正在重新连接...',
+  // })
 
-  setTimeout(async () => {
-    const userStore = useUserStore()
-    try {
-      await userStore.getUserInfo()
-      router.push({
-        path: '/pages/book/index',
-        tabBar: true,
-      })
-    }
-    catch (error) {
-      console.log('mpserverless error :>>', error)
-      uni.hideLoading()
-      codeRef.value.start()
-    }
-  }, 1500)
+  // setTimeout(async () => {
+  //   const userStore = useUserStore()
+  //   try {
+  //     await userStore.getUserInfo()
+  //     router.push({
+  //       path: '/pages/book/index',
+  //       tabBar: true,
+  //     })
+  //   }
+  //   catch (error) {
+  //     console.log('mpserverless error :>>', error)
+  //     uni.hideLoading()
+  //     codeRef.value.start()
+  //   }
+  // }, 1500)
 }
 </script>
 
@@ -39,11 +43,10 @@ async function onRetry() {
       网络连接断开，请检查网络哦~
     </div>
     <div class="mt-8 min-w-24">
-      <uv-code
-        ref="codeRef" :seconds="3" start-text="重试" change-text="X秒后再试" end-text="重试" @change="codeChange"
-        @start="disabled = true" @end="disabled = false"
-      />
-      <uv-button type="primary" shape="circle" :text="btnText" :disabled="disabled" @click="onRetry" />
+      <!-- <uv-code ref="codeRef" :seconds="3" start-text="重试" change-text="X秒后再试" end-text="重试" @change="codeChange"
+        @start="disabled = true" @end="disabled = false" />
+      <uv-button type="primary" shape="circle" :text="btnText" :disabled="disabled" @click="onRetry" /> -->
+      <uv-button type="primary" shape="circle" text="重启应用" @click="onRetry" />
     </div>
   </div>
 </template>
