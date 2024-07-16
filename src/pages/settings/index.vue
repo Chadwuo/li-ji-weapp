@@ -6,7 +6,7 @@ import mpserverless from '~/alicloud/index'
 
 const { userInfo } = storeToRefs(useUserStore())
 function onChange(val) {
-  update({ skipAD: val })
+  update({ enableAD: val })
 }
 
 function openPrivacyContract() {
@@ -22,10 +22,9 @@ function onChooseAvatar(e) {
       avatarUrl: fileUrl,
     }).then((res) => {
       if (res.success) {
-        wx.showToast({
+        uni.showToast({
           title: '修改成功',
           icon: 'none',
-          duration: 2000,
         })
         userInfo.value.avatarUrl = fileUrl
       }
@@ -39,10 +38,9 @@ function onBlur() {
       nickName: nickName_edit.value,
     }).then((res) => {
       if (res.success) {
-        wx.showToast({
+        uni.showToast({
           title: '修改成功',
           icon: 'none',
-          duration: 2000,
         })
         userInfo.value.nickName = nickName_edit.value
       }
@@ -71,9 +69,9 @@ function onBlur() {
       </uv-cell>
     </div>
     <div class="rounded-2xl bg-white p-1">
-      <uv-cell title="关闭广告" :label="userInfo.skipAD ? '礼记会继续努力，期待得到你的认可！' : '页面广告已开启，礼记因你更美好！'" :border="false">
+      <uv-cell title="开启广告" :label="userInfo.enableAD ? '页面广告已开启，礼记因你更美好！' : '礼记会继续努力，期待得到你的认可！'" :border="false">
         <template #value>
-          <uv-switch v-model="userInfo.skipAD" active-color="#f87171" @change="onChange" />
+          <uv-switch v-model="userInfo.enableAD" active-color="#f87171" @change="onChange" />
         </template>
       </uv-cell>
     </div>

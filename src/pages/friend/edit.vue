@@ -1,9 +1,6 @@
 <script setup>
-import { storeToRefs } from 'pinia'
-import { useUserStore } from '~/stores/user'
 import { add, del, update } from '~/alicloud/services/friend'
 
-const { userInfo } = storeToRefs(useUserStore())
 const dataSource = ref({
   date: {},
 })
@@ -110,13 +107,8 @@ function onDel() {
       </uv-form>
     </div>
   </div>
-  <div v-if="!userInfo.skipAD" class="mt-auto">
-    <ad unit-id="adunit-64aefbe92c2dc7bf" />
-    <div class="mt-2 flex text-xs text-gray">
-      <i class="i-carbon-information-filled mx-3" /><span>广告可以在设置中关闭</span>
-    </div>
-    <uv-safe-bottom />
-  </div>
+  <Advertisement class="mt-auto" />
+  <uv-safe-bottom />
 </template>
 
 <style lang="scss" scoped></style>
