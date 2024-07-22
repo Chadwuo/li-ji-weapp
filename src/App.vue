@@ -16,7 +16,8 @@ onLaunch(async () => {
     uni.$emit('bookPageUpdate')
     uni.hideLoading()
   }
-  catch {
+  catch (error) {
+    console.log('App Launch Error :>> ', error)
     router.push('/pages/exception/500')
   }
 })
