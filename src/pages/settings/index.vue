@@ -52,19 +52,16 @@ function onBlur() {
 <template>
   <div class="mt-3 space-y-3">
     <div class="rounded-2xl bg-white p-1">
-      <uv-cell is-link :border="false">
-        <template #title>
-          <button class="uv-reset-button w-full text-left" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
-            头像
-          </button>
-        </template>
-        <template #value>
-          <uv-avatar :src="userInfo.avatarUrl" />
-        </template>
-      </uv-cell>
+      <button class="uv-reset-button w-full text-left" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
+        <uv-cell title="头像" is-link :border="false">
+          <template #value>
+            <uv-avatar :src="userInfo.avatarUrl" />
+          </template>
+        </uv-cell>
+      </button>
       <uv-cell title="昵称" :border="false" is-link>
         <template #value>
-          <input v-model="nickName_edit" class="text-right text-sm" type="nickname" @blur="onBlur">
+          <input v-model="nickName_edit" class="w-4/5 py-2 text-right text-sm" type="nickname" @blur="onBlur">
         </template>
       </uv-cell>
     </div>
