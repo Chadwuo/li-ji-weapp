@@ -144,8 +144,8 @@ function handleGiftClick(e) {
               {{ i.friendInfo.name }}
             </div>
             <div>{{ i.title }}<span v-if="i.remarks">（{{ i.remarks }}）</span></div>
-            <div class="text-sm">
-              {{ i.date.lunar_month }} {{ i.date.lunar_day }} {{ i.date.lunar_year }}
+            <div class="mt-1 text-xs text-gray">
+              {{ i.date.value }} {{ i.date.lunar_month }} {{ i.date.lunar_day }} {{ i.date.lunar_year }}
             </div>
           </div>
           <div class="font-bold" :class="[i.icon === 'i-tabler-candle' ? 'text-gray' : 'text-red']">
