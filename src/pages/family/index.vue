@@ -80,7 +80,7 @@ onShareAppMessage(() => {
 </script>
 
 <template>
-  <div class="mt-3">
+  <div class="mt-3 h-full flex flex-col">
     <div v-if="!userInfo.familyMembers" class="rounded-2xl bg-white p-4 space-y-2xl">
       <div class="text-center">
         <img src="/static/home.svg">
@@ -147,6 +147,7 @@ onShareAppMessage(() => {
         </button>
       </div>
     </div>
+    <Advertisement class="mt-auto" />
   </div>
   <uv-action-sheet
     ref="actionSheetRef" :actions="actionSheetList" :safe-area-inset-bottom="true"

@@ -87,32 +87,28 @@ function handleBookClick(e) {
       </template>
     </uv-navbar>
 
-    <div class="grid grid-cols-2 gap-5 pt-6">
+    <div class="grid grid-cols-2 mt-5 gap-5">
       <div
-        v-for="i in books" :key="i._id" class="h-48 w-full rounded-l-5 rounded-r-10 bg-white"
+        v-for="i in books" :key="i._id" class="h-40 w-full rounded-l-5 rounded-r-10 bg-white py-5"
         @click="handleBookClick(i)"
       >
-        <div class="h-full flex flex-col justify-around">
-          <div class="mx-4">
-            <div class="text-lg font-bold" :class="[hasMourningWords(i.title) ? 'text-gray' : 'text-red']">
-              {{
-                i.title }}
-            </div>
-            <div class="text-sm text-gray">
-              共 <span font-bold>{{ i.giftCount }}</span> 笔
-            </div>
+        <div class="mx-4 h-full flex flex-col justify-around">
+          <div class="text-lg font-bold" :class="[hasMourningWords(i.title) ? 'text-gray' : 'text-red']">
+            {{
+              i.title }}
           </div>
-          <div class="mx-4">
-            <div class="text-lg font-bold">
-              <span class="text-sm">￥</span>{{ i.giftTotal }}
-            </div>
-            <div class="text-sm text-gray">
-              {{ i.date.value }}
-            </div>
-            <div class="text-xs text-gray">
-              {{ i.date.lunar_month }} {{
-                i.date.lunar_day }} {{ i.date.lunar_year }}
-            </div>
+          <div class="text-sm text-gray">
+            共 <span font-bold>{{ i.giftCount }}</span> 笔
+          </div>
+          <div class="mt-auto text-lg font-bold">
+            <span class="text-sm">￥</span>{{ i.giftTotal }}
+          </div>
+          <div class="text-sm text-gray">
+            {{ i.date.value }}
+          </div>
+          <div class="text-xs text-gray">
+            {{ i.date.lunar_month }} {{
+              i.date.lunar_day }} {{ i.date.lunar_year }}
           </div>
         </div>
         <div class="relative">
@@ -128,7 +124,7 @@ function handleBookClick(e) {
         </div>
       </div>
       <div
-        class="h-48 w-full flex flex-col items-center justify-center rounded-l-5 rounded-r-10 bg-white"
+        class="h-40 w-full flex flex-col items-center justify-center rounded-l-5 rounded-r-10 bg-white py-5"
         @click="router.push('/pages/book/edit')"
       >
         <div class="i-carbon-add-alt text-3xl text-red font-bold" />
