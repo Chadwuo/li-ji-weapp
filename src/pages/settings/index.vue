@@ -94,6 +94,9 @@ function onBlur() {
       <uv-cell title="隐私政策" :border="false" is-link @click="openPrivacyContract" />
       <uv-cell title="关于礼记" is-link :border="false" url="/pages/about/index" />
     </div>
+    <div class="overflow-hidden rounded-2xl bg-white">
+      <Advertisement />
+    </div>
   </div>
 </template>
 
