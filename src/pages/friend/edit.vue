@@ -52,8 +52,8 @@ function onSubmit() {
 
 function onDel() {
   uni.showModal({
-    title: '删除来往记录',
-    content: '此操作无法恢复，确定删除？',
+    title: '删除亲友',
+    content: '该亲友所有来往记录都将被删除，确定删除？',
     confirmColor: '#F87171',
     success: (res) => {
       if (res.confirm) {

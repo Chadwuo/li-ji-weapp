@@ -3,6 +3,7 @@ import { add, del, update } from '~/alicloud/services/giftOut'
 
 const dataSource = ref({
   date: {},
+  friendInfo: {},
 })
 const columns = [
   {
@@ -50,12 +51,12 @@ const calendarRef = ref(null)
 const loading = ref(false)
 
 const validInput = computed(() => {
-  return dataSource.value.friendName && dataSource.value.date.value && dataSource.value.money && dataSource.value.title
+  return dataSource.value.friendInfo.name && dataSource.value.date.value && dataSource.value.money && dataSource.value.title
 })
 onLoad((option) => {
   const arg = router.getQueryParse(option)
   if (arg._id)
-    dataSource.value = { ...arg }
+    dataSource.value = { ...dataSource.value, ...arg }
 })
 
 function onSelectIcont(i) {
@@ -148,6 +149,14 @@ function onSelectFriend() {
   })
 }
 
+function onFriendClick(e) {
+  const { _id, name, relation, remarks } = e
+  router.push({
+    path: '/pages/friend/detail',
+    query: { _id, name, relation, remarks },
+  })
+}
+
 function calendarConfirm(e) {
   const {
     year,
@@ -202,8 +211,8 @@ function calendarConfirm(e) {
           </uv-form-item>
           <uv-form-item label="亲友">
             <uv-input
-              v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友" :disabled="dataSource._id"
-              disabled-color="#fff"
+              v-model="dataSource.friendInfo.name" border="none" placeholder="点击右侧图标选择亲友"
+              :disabled="dataSource._id" disabled-color="#fff"
             />
             <template #right>
               <div
@@ -235,6 +244,10 @@ function calendarConfirm(e) {
             </div>
           </uv-form-item>
         </uv-form>
+      </div>
+
+      <div v-if="dataSource.friendInfo._id" class="mt-3 rounded-2xl bg-white p-1">
+        <uv-cell title="查看往来记录" is-link :border="false" @click="onFriendClick(dataSource.friendInfo)" />
       </div>
     </div>
     <uv-calendars

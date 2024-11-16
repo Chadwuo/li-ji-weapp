@@ -45,10 +45,7 @@ onMounted(() => {
 })
 function onFriendClick(e) {
   const eventChannel = instance.getOpenerEventChannel()
-  eventChannel.emit('acceptDataFromOpenedPage', {
-    friendId: e._id,
-    friendName: e.name,
-  })
+  eventChannel.emit('acceptDataFromOpenedPage', e)
   uni.navigateBack()
 }
 </script>

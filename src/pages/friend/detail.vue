@@ -80,13 +80,13 @@ function onGiftClick(e) {
   if (bookId) {
     router.push({
       path: '/pages/giftIn/edit',
-      query: { _id, money, attendance, remarks, friendName: dataSource.value.name },
+      query: { _id, money, attendance, remarks, friendInfo: dataSource.value },
     })
   }
   else {
     router.push({
       path: '/pages/giftOut/edit',
-      query: { _id, title, money, icon, remarks, date, friendName: dataSource.value.name },
+      query: { _id, title, money, icon, remarks, date, friendInfo: dataSource.value },
     })
   }
 }
