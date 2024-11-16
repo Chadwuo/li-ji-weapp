@@ -3,13 +3,15 @@ import { add, del, update } from '~/alicloud/services/giftReceive'
 
 const dataSource = ref({
   date: {},
+  friendInfo: {},
 })
 const validInput = computed(() => {
-  return dataSource.value.friendName && dataSource.value.money
+  return dataSource.value.friendInfo.name && dataSource.value.money
 })
 
 onLoad((option) => {
-  dataSource.value = { ...router.getQueryParse(option) }
+  const arg = router.getQueryParse(option)
+  dataSource.value = { ...dataSource.value, ...arg }
 })
 
 const loading = ref(false)
@@ -78,11 +80,16 @@ function onSelectFriend() {
     url: '/pages/friend/select',
     events: {
       acceptDataFromOpenedPage(data) {
-        const { friendName, friendId } = data
-        dataSource.value.friendName = friendName
-        dataSource.value.friendId = friendId
+        dataSource.value.friendInfo = data
       },
     },
+  })
+}
+function onFriendClick(e) {
+  const { _id, name, relation, remarks } = e
+  router.push({
+    path: '/pages/friend/detail',
+    query: { _id, name, relation, remarks },
   })
 }
 </script>
@@ -93,8 +100,8 @@ function onSelectFriend() {
       <uv-form label-position="left" label-width="60">
         <uv-form-item label="亲友">
           <uv-input
-            v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友" :disabled="dataSource._id"
-            disabled-color="#fff"
+            v-model="dataSource.friendInfo.name" border="none" placeholder="点击右侧图标选择亲友"
+            :disabled="dataSource._id" disabled-color="#fff"
           />
           <template #right>
             <div v-show="!dataSource._id" class="i-system-uicons-contacts text-lg text-gray" @click="onSelectFriend" />
@@ -124,6 +131,9 @@ function onSelectFriend() {
           </div>
         </uv-form-item>
       </uv-form>
+    </div>
+    <div v-if="dataSource.friendInfo._id" class="mt-3 rounded-2xl bg-white p-1">
+      <uv-cell title="查看往来记录" is-link :border="false" @click="onFriendClick(dataSource.friendInfo)" />
     </div>
   </div>
   <Advertisement class="mt-auto" />

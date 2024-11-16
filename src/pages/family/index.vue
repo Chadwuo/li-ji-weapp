@@ -80,6 +80,7 @@ onShareAppMessage(() => {
 </script>
 
 <template>
+  <div><uv-notice-bar text="您好！因微信平台政策限制，【家人共享】功能暂时受限，邀请家庭成员功能无法使用。如需帮助，请联系在线客服。感谢您的理解与支持！" /></div>
   <div class="mt-3 h-full flex flex-col">
     <div v-if="!userInfo.familyMembers" class="rounded-2xl bg-white p-4 space-y-2xl">
       <div class="text-center">
@@ -139,13 +140,13 @@ onShareAppMessage(() => {
           </template>
         </div>
       </div>
-      <div class="mt-3">
-        <button openType="share" icon="plus" class="uv-reset-button rounded-2xl bg-white p-2">
+      <!-- <div class="mt-3">
+        <button disabled openType="share" icon="plus" class="uv-reset-button rounded-2xl bg-white p-2">
           <div class="flex items-center justify-center text-red">
             <div class="i-carbon-add text-2xl" /> 邀请家庭成员
           </div>
         </button>
-      </div>
+      </div> -->
     </div>
     <Advertisement class="mt-auto" />
   </div>

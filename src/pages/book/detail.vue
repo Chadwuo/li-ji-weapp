@@ -66,7 +66,7 @@ function handleGiftClick(e) {
   const { _id, money, attendance, remarks, friendInfo } = e
   router.push({
     path: '/pages/giftIn/edit',
-    query: { _id, money, attendance, remarks, friendName: friendInfo.name },
+    query: { _id, money, attendance, remarks, friendInfo },
   })
 }
 </script>

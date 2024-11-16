@@ -64,6 +64,7 @@ function onBlur() {
           <input v-model="nickName_edit" class="w-4/5 py-2 text-right text-sm" type="nickname" @blur="onBlur">
         </template>
       </uv-cell>
+      <uv-cell title="标识" :border="false" :value="userInfo.oAuthUserId" />
     </div>
     <div class="rounded-2xl bg-white p-1">
       <uv-cell title="开启广告" :label="userInfo.enableAD ? '页面广告已开启，礼记因你更美好！' : '礼记会继续努力，期待得到你的认可！'" :border="false">

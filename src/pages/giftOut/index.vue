@@ -98,7 +98,7 @@ function handleGiftClick(e) {
   const { _id, title, money, icon, remarks, date, friendInfo } = e
   router.push({
     path: '/pages/giftOut/edit',
-    query: { _id, title, money, icon, remarks, date, friendName: friendInfo.name },
+    query: { _id, title, money, icon, remarks, date, friendInfo },
   })
 }
 </script>

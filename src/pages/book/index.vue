@@ -89,7 +89,7 @@ function handleBookClick(e) {
 
     <div class="grid grid-cols-2 mt-5 gap-5">
       <div
-        v-for="i in books" :key="i._id" class="h-40 w-full rounded-l-5 rounded-r-10 bg-white py-5"
+        v-for="i in books" :key="i._id" class="h-40 w-full rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
         @click="handleBookClick(i)"
       >
         <div class="mx-4 h-full flex flex-col justify-around">
@@ -113,7 +113,7 @@ function handleBookClick(e) {
         </div>
         <div class="relative">
           <div
-            class="absolute bottom-22 right-0 h-7 w-18 flex items-center rounded-l-full"
+            class="absolute bottom-18 right-0 h-7 w-18 flex items-center rounded-l-full"
             :class="[hasMourningWords(i.title) ? 'bg-gray' : 'bg-red']"
           >
             <div
@@ -124,7 +124,7 @@ function handleBookClick(e) {
         </div>
       </div>
       <div
-        class="h-40 w-full flex flex-col items-center justify-center rounded-l-5 rounded-r-10 bg-white py-5"
+        class="h-40 w-full flex flex-col items-center justify-center rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
         @click="router.push('/pages/book/edit')"
       >
         <div class="i-carbon-add-alt text-3xl text-red font-bold" />
