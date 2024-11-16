@@ -77,10 +77,10 @@ function onReject() {
           </div>
           <div>
             <div class="font-bold">
-              协同共享记账
+              协同记账
             </div>
             <div class="text-sm text-gray">
-              安全共享你的数据，使亲友和你共同记录家庭人情往来
+              贴心记账伙伴，让家庭人情往来记录更轻松。
             </div>
           </div>
         </div>
@@ -93,7 +93,7 @@ function onReject() {
               私密且安全
             </div>
             <div class="text-sm text-gray">
-              信息会加密，你可以随时停止共享
+              确保记录安全无虞，你能够自由掌控。
             </div>
           </div>
         </div>
