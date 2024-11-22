@@ -136,7 +136,9 @@ function onFriendClick(e) {
       <uv-cell title="查看往来记录" is-link :border="false" @click="onFriendClick(dataSource.friendInfo)" />
     </div>
   </div>
-  <Advertisement class="mt-auto" />
+  <div class="mt-auto">
+    <ad unit-id="adunit-64aefbe92c2dc7bf" />
+  </div>
   <uv-safe-bottom />
 </template>
 

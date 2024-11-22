@@ -107,7 +107,9 @@ function onDel() {
       </uv-form>
     </div>
   </div>
-  <Advertisement class="mt-auto" />
+  <div class="mt-auto">
+    <ad unit-id="adunit-64aefbe92c2dc7bf" />
+  </div>
   <uv-safe-bottom />
 </template>
 
