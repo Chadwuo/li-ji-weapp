@@ -150,7 +150,9 @@ function calendarConfirm(e) {
       </uv-form-item>
     </uv-form>
   </div>
-  <Advertisement class="mt-auto" />
+  <div class="mt-auto">
+    <ad unit-id="adunit-64aefbe92c2dc7bf" />
+  </div>
   <uv-safe-bottom />
   <uv-calendars
     ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date.value"

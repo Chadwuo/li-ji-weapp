@@ -5,9 +5,9 @@ import { update } from '@/alicloud/services/user'
 import mpserverless from '~/alicloud/index'
 
 const { userInfo } = storeToRefs(useUserStore())
-function onChange(val) {
-  update({ enableAD: val })
-}
+// function onChange(val) {
+//   update({ enableAD: val })
+// }
 
 function openPrivacyContract() {
   wx.openPrivacyContract()
@@ -66,13 +66,13 @@ function onBlur() {
       </uv-cell>
       <uv-cell title="标识" :border="false" :value="userInfo.oAuthUserId" />
     </div>
-    <div class="rounded-2xl bg-white p-1">
+    <!-- <div class="rounded-2xl bg-white p-1">
       <uv-cell title="开启广告" :label="userInfo.enableAD ? '页面广告已开启，礼记因你更美好！' : '礼记会继续努力，期待得到你的认可！'" :border="false">
         <template #value>
           <uv-switch v-model="userInfo.enableAD" active-color="#f87171" @change="onChange" />
         </template>
       </uv-cell>
-    </div>
+    </div> -->
     <div class="rounded-2xl bg-white p-1">
       <uv-cell is-link :border="false">
         <template #title>
@@ -96,7 +96,7 @@ function onBlur() {
       <uv-cell title="关于礼记" is-link :border="false" url="/pages/about/index" />
     </div>
     <div class="overflow-hidden rounded-2xl bg-white">
-      <Advertisement />
+      <ad unit-id="adunit-64aefbe92c2dc7bf" />
     </div>
   </div>
 </template>
