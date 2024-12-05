@@ -1,85 +1,41 @@
-/// <reference types="vitest" />
-
-import { resolve } from 'node:path'
-import { defineConfig } from 'vite'
-import uni from '@dcloudio/vite-plugin-uni'
-import Unocss from 'unocss/vite'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import UniPages from '@uni-helper/vite-plugin-uni-pages'
-import UniLayouts from '@uni-helper/vite-plugin-uni-layouts'
-import VueDevTools from 'vite-plugin-vue-devtools'
+import Uni from "@dcloudio/vite-plugin-uni";
+import UniHelperComponents from "@uni-helper/vite-plugin-uni-components";
+import UniHelperLayouts from "@uni-helper/vite-plugin-uni-layouts";
+import UniHelperManifest from "@uni-helper/vite-plugin-uni-manifest";
+import UniHelperPages from "@uni-helper/vite-plugin-uni-pages";
+import AutoImport from "unplugin-auto-import/vite";
+import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  resolve: {
-    alias: {
-      '~/': `${resolve(__dirname, 'src')}/`,
-    },
-  },
-  plugins: [
-    /**
-     * vite-plugin-uni-pages
-     * @see https://github.com/uni-helper/vite-plugin-uni-pages
-     */
-    UniPages({
-      subPackages: [
-        'src/pages-sub',
-      ],
-    }),
+export default async () => {
+  const UnoCSS = (await import("unocss/vite")).default;
 
-    /**
-     * vite-plugin-uni-layouts
-     * @see https://github.com/uni-helper/vite-plugin-uni-layouts
-     */
-    UniLayouts(),
-
-    /**
-     * unocss
-     * @see https://github.com/antfu/unocss
-     * see unocss.config.ts for config
-     */
-    Unocss(),
-
-    /**
-     * unplugin-auto-import 按需 import
-     * @see https://github.com/antfu/unplugin-auto-import
-     */
-    AutoImport({
-      imports: [
-        'vue',
-        'uni-app',
-      ],
-      dts: true,
-      dirs: [
-        './src/composables',
-      ],
-      vueTemplate: true,
-    }),
-
-    /**
-     * unplugin-vue-components 按需引入组件
-     * 注意：需注册至 uni 之前，否则不会生效
-     * @see https://github.com/antfu/vite-plugin-components
-     */
-    Components({
-      dts: 'src/components.d.ts',
-    }),
-
-    /**
-     * vite-plugin-vue-devtools 增强 Vue 开发者体验
-     * @see https://github.com/webfansplz/vite-plugin-vue-devtools
-     */
-    VueDevTools(),
-
-    uni(),
-  ],
-
-  /**
-   * Vitest
-   * @see https://github.com/vitest-dev/vitest
-   */
-  test: {
-    environment: 'jsdom',
-  },
-})
+  return defineConfig({
+    plugins: [
+      // https://github.com/uni-helper/vite-plugin-uni-manifest
+      UniHelperManifest(),
+      // https://github.com/uni-helper/vite-plugin-uni-pages
+      UniHelperPages({
+        dts: "src/uni-pages.d.ts",
+      }),
+      // https://github.com/uni-helper/vite-plugin-uni-layouts
+      UniHelperLayouts(),
+      // https://github.com/uni-helper/vite-plugin-uni-components
+      UniHelperComponents({
+        dts: "src/components.d.ts",
+        directoryAsNamespace: true,
+      }),
+      Uni(),
+      // https://github.com/antfu/unplugin-auto-import
+      AutoImport({
+        imports: ["vue", "@vueuse/core", "uni-app"],
+        dts: "src/auto-imports.d.ts",
+        dirs: ["src/composables", "src/stores", "src/utils"],
+        vueTemplate: true,
+      }),
+      // https://github.com/antfu/unocss
+      // see unocss.config.ts for config
+      UnoCSS(),
+    ],
+  });
+};

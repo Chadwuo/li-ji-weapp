@@ -40,8 +40,7 @@
     "up": "npx taze major --exclude pinia,/@dcloudio/ -wir && npx @dcloudio/uvm@latest",
     "lint": "eslint .",
     "test": "vitest",
-    "preinstall": "npx only-allow pnpm",
-    "postinstall": "npx simple-git-hooks"
+    "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
     "@alicloud/mpserverless-sdk": "^3.1.5",

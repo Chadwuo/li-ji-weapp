@@ -1,41 +1,27 @@
 {
+  "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
-    "target": "es2016",
-    "jsx": "preserve",
-    "lib": ["DOM", "ESNext"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "baseUrl": ".",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
     "paths": {
-      "~/*": ["src/*"],
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
-    "resolveJsonModule": true,
     "types": [
       "@dcloudio/types",
-      "@uni-helper/uni-app-types",
-      "@vue-macros/reactivity-transform/macros-global"
+      "@mini-types/alipay",
+      "miniprogram-api-typings",
+      "@uni-helper/uni-types"
     ],
-    "allowJs": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "sourceMap": true
+  },
+  "vueCompilerOptions": {
+    // 调整 Volar（Vue 语言服务工具）解析行为，用于为 uni-app 组件提供 TypeScript 类型
+    "plugins": ["@uni-helper/uni-types/volar-plugin"]
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
-    "./auto-imports.d.ts"
-  ],
-  "exclude": ["dist", "node_modules"],
-
-  // uni-app Component type prompt
-  "vueCompilerOptions": {
-    "nativeTags": ["block", "component", "template", "slot"]
-  }
+    "src/**/*.vue"
+  ]
 }
