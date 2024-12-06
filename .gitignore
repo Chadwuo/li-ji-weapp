@@ -19,3 +19,7 @@ dist
 *.njsproj
 *.sln
 *.sw?
+src/uni-pages.d.ts
+src/components.d.ts
+src/auto-imports.d.ts
+pnpm-lock.yaml
