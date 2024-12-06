@@ -1,9 +1,8 @@
 <template>
-  <view class="px-10 py-20 text-center">
-    <slot />
-    <app-footer />
-    <view class="mx-auto mt-5 text-center text-sm opacity-25">
-      [Default Layout]
-    </view>
-  </view>
+  <div class="h-full">
+    <main class="mx-5 h-full flex flex-col color-gray-700 font-sans dark:color-gray-200">
+      <slot />
+      <Footer class="mt-auto" />
+    </main>
+  </div>
 </template>

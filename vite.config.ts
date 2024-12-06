@@ -5,12 +5,18 @@ import UniHelperManifest from "@uni-helper/vite-plugin-uni-manifest";
 import UniHelperPages from "@uni-helper/vite-plugin-uni-pages";
 import AutoImport from "unplugin-auto-import/vite";
 import { defineConfig } from "vite";
+import { resolve } from 'node:path'
 
 // https://vitejs.dev/config/
 export default async () => {
   const UnoCSS = (await import("unocss/vite")).default;
 
   return defineConfig({
+    resolve: {
+      alias: {
+        "~/": `${resolve(__dirname, "src")}/`,
+      },
+    },
     plugins: [
       // https://github.com/uni-helper/vite-plugin-uni-manifest
       UniHelperManifest(),
