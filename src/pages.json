@@ -1,13 +1,133 @@
 {
   "pages": [
     {
-      "path": "pages/index",
-      "type": "home"
+      "path": "pages/book/page",
+      "type": "home",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true
+      }
     },
     {
-      "path": "pages/hi",
+      "path": "pages/about/index",
       "type": "page",
-      "layout": "home"
+      "style": {
+        "navigationBarTitleText": "关于礼记"
+      }
+    },
+    {
+      "path": "pages/book/detail",
+      "type": "page",
+      "layout": "blank",
+      "style": {
+        "navigationBarTitleText": "详情"
+      }
+    },
+    {
+      "path": "pages/book/edit",
+      "type": "page",
+      "layout": "blank",
+      "style": {
+        "navigationBarTitleText": "新增"
+      }
+    },
+    {
+      "path": "pages/exception/500",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/family/index",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "家人共享"
+      }
+    },
+    {
+      "path": "pages/family/invite",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "家人共享"
+      }
+    },
+    {
+      "path": "pages/faq/index",
+      "type": "page",
+      "layout": "blank",
+      "style": {
+        "navigationBarTitleText": "常见问题"
+      }
+    },
+    {
+      "path": "pages/friend/detail",
+      "type": "page",
+      "layout": "blank",
+      "style": {
+        "navigationBarTitleText": "详情"
+      }
+    },
+    {
+      "path": "pages/friend/edit",
+      "type": "page",
+      "layout": "blank",
+      "style": {
+        "navigationBarTitleText": "亲友"
+      }
+    },
+    {
+      "path": "pages/friend/list",
+      "type": "page",
+      "layout": "blank",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/giftIn/edit",
+      "type": "page",
+      "layout": "blank",
+      "style": {
+        "navigationBarTitleText": "收礼记录"
+      }
+    },
+    {
+      "path": "pages/giftOut/edit",
+      "type": "page",
+      "layout": "blank",
+      "style": {
+        "navigationBarTitleText": "送礼记录"
+      }
+    },
+    {
+      "path": "pages/giftOut/page",
+      "type": "page",
+      "layout": "blank",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/mine/index",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/settings/index",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "设置"
+      }
+    },
+    {
+      "path": "pages/sponsor/index",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "支持礼记"
+      }
     }
   ],
   "globalStyle": {
