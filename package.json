@@ -1,6 +1,6 @@
 {
-  "name": "vitesse-uni-app",
-  "version": "0.0.0",
+  "name": "liji-uni-app",
+  "version": "3.2.0",
   "private": true,
   "packageManager": "pnpm@9.12.3",
   "license": "MIT",

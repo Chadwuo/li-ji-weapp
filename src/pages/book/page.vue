@@ -1,7 +1,5 @@
 <script setup>
-import logo from '~/static/logo.png'
-import { page } from '~/alicloud/services/book'
-import { hasMourningWords } from '~/utils/index'
+import logo from '/static/logo.png'
 
 const books = ref([])
 const loadMoreStatus = ref('loadmore')
@@ -19,14 +17,12 @@ onLoad(async () => {
 })
 
 onPullDownRefresh(async () => {
-  console.log('下拉刷新事件')
   pagination.value.pageNo = 1
   await loadData()
   uni.stopPullDownRefresh()
 })
 
 onReachBottom(() => {
-  console.log('触底加载更多')
   if (loadMoreStatus.value === 'loading' || loadMoreStatus.value === 'nomore')
     return
 
@@ -43,8 +39,10 @@ async function loadData() {
   }).then((res) => {
     if (res.success) {
       const newGiftBooks = statistics(res.result)
-      books.value = pageNo === 1 ? newGiftBooks : [...books.value, ...newGiftBooks]
-      loadMoreStatus.value = newGiftBooks.length < pageSize ? 'nomore' : 'loadmore'
+      books.value
+        = pageNo === 1 ? newGiftBooks : [...books.value, ...newGiftBooks]
+      loadMoreStatus.value
+        = newGiftBooks.length < pageSize ? 'nomore' : 'loadmore'
     }
   })
 }
@@ -69,7 +67,15 @@ function handleBookClick(e) {
   const { _id, title, date, giftCount, giftTotal, cost, attendanceTotal } = e
   router.push({
     path: '/pages/book/detail',
-    query: { _id, title, date, giftCount, giftTotal, cost: cost || 0, attendanceTotal: attendanceTotal || 0 },
+    query: {
+      _id,
+      title,
+      date,
+      giftCount,
+      giftTotal,
+      cost: cost || 0,
+      attendanceTotal: attendanceTotal || 0,
+    },
   })
 }
 </script>
@@ -89,13 +95,17 @@ function handleBookClick(e) {
 
     <div class="grid grid-cols-2 mt-5 gap-5">
       <div
-        v-for="i in books" :key="i._id" class="h-40 w-full rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
+        v-for="i in books"
+        :key="i._id"
+        class="h-40 w-full rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
         @click="handleBookClick(i)"
       >
         <div class="mx-4 h-full flex flex-col justify-around">
-          <div class="text-lg font-bold" :class="[hasMourningWords(i.title) ? 'text-gray' : 'text-red']">
-            {{
-              i.title }}
+          <div
+            class="text-lg font-bold"
+            :class="[hasMourningWords(i.title) ? 'text-gray' : 'text-red']"
+          >
+            {{ i.title }}
           </div>
           <div class="text-sm text-gray">
             共 <span font-bold>{{ i.giftCount }}</span> 笔
@@ -107,8 +117,8 @@ function handleBookClick(e) {
             {{ i.date.value }}
           </div>
           <div class="text-xs text-gray">
-            {{ i.date.lunar_month }} {{
-              i.date.lunar_day }} {{ i.date.lunar_year }}
+            {{ i.date.lunar_month }} {{ i.date.lunar_day }}
+            {{ i.date.lunar_year }}
           </div>
         </div>
         <div class="relative">
@@ -118,7 +128,9 @@ function handleBookClick(e) {
           >
             <div
               class="ms-2 h-3 w-3 rounded-full"
-              :class="[hasMourningWords(i.title) ? 'bg-gray-300' : 'bg-red-300']"
+              :class="[
+                hasMourningWords(i.title) ? 'bg-gray-300' : 'bg-red-300',
+              ]"
             />
           </div>
         </div>
@@ -134,7 +146,11 @@ function handleBookClick(e) {
       </div>
     </div>
 
-    <uv-load-more v-if="loadMoreStatus === 'loading'" loading-icon="circle" :status="loadMoreStatus" />
+    <uv-load-more
+      v-if="loadMoreStatus === 'loading'"
+      loading-icon="circle"
+      :status="loadMoreStatus"
+    />
   </div>
 </template>
 

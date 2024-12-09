@@ -3,7 +3,6 @@ First of all, thank you for your contribution! 😄
 Pull request will be merged after one of collaborators approve.
 Please makes sure that these form are filled before submitting your pull request, thank you!
 
-
 ### 这个变动的性质是
 
 - [ ] 新特性提交
