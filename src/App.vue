@@ -1,18 +1,20 @@
 <script setup lang="ts">
-onLaunch(() => {
-    console.log('App Launch')
-    uni.login({
-        provider: 'weixin', //使用微信登录
-        success: function (loginRes) {
-            console.log(loginRes.authResult);
-        }
+onLaunch(async () => {
+  console.log("App Launch");
+  try {
+    await useAuthStore().login();
+  } catch (error) {
+    console.log("App Launch Error :>> ", error);
+    wx.redirectTo({
+      url: "/pages/exception/500",
     });
-})
+  }
+});
 onShow(() => {
-    console.log('App Show')
-})
+  console.log("App Show");
+});
 
 onHide(() => {
-    console.log('App Hide')
-})
+  console.log("App Hide");
+});
 </script>

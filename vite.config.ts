@@ -5,7 +5,7 @@ import UniHelperManifest from "@uni-helper/vite-plugin-uni-manifest";
 import UniHelperPages from "@uni-helper/vite-plugin-uni-pages";
 import AutoImport from "unplugin-auto-import/vite";
 import { defineConfig } from "vite";
-import { resolve } from 'node:path'
+import { resolve } from "node:path";
 
 // https://vitejs.dev/config/
 export default async () => {
@@ -36,7 +36,7 @@ export default async () => {
       AutoImport({
         imports: ["vue", "@vueuse/core", "uni-app"],
         dts: "src/auto-imports.d.ts",
-        dirs: ["src/composables", "src/stores", "src/utils"],
+        dirs: ["src/composables", "src/stores", "src/utils", "src/api"],
         vueTemplate: true,
       }),
       // https://github.com/antfu/unocss

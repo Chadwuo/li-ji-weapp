@@ -1,36 +1,21 @@
-export const request = <T>(options: any) => {
-  // 1. 返回 Promise 对象
+export const request = <T>(options: WechatMiniprogram.RequestOption) => {
   return new Promise<Api.Common.Response<T>>((resolve, reject) => {
-    uni.request({
-      ...options,
-      dataType: "json",
-      // #ifndef MP-WEIXIN
-      responseType: "json",
-      // #endif
-      // 响应成功
+    wx.request({
+      ...requestInterceptor(options),
       success(res) {
-        // 状态码 2xx，参考 axios 的设计
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          // 2.1 提取核心数据 res.data
+        if (res.statusCode == 200) {
           resolve(res.data as Api.Common.Response<T>);
-        } else if (res.statusCode === 401) {
-          // 401错误  -> 清理用户信息，跳转到登录页
-          // userStore.clearUserInfo()
-          // uni.navigateTo({ url: '/pages/login/login' })
-          reject(res);
         } else {
-          // 其他错误 -> 根据后端错误信息轻提示
-          !options.hideErrorToast &&
-            uni.showToast({
-              icon: "none",
-              title: (res.data as Api.Common.Response<T>).message || "请求错误",
-            });
+          wx.showToast({
+            icon: "none",
+            title: (res.data as Api.Common.Response<T>).message || "请求错误",
+          });
           reject(res);
         }
       },
       // 响应失败
       fail(err) {
-        uni.showToast({
+        wx.showToast({
           icon: "none",
           title: "网络错误，换个网络试试",
         });
@@ -39,3 +24,16 @@ export const request = <T>(options: any) => {
     });
   });
 };
+
+function requestInterceptor(options: WechatMiniprogram.RequestOption) {
+  // 非 http 开头需拼接地址
+  if (!options.url.startsWith("http")) {
+    options.url = "baseUrl" + options.url;
+  }
+
+  const token = useAuthStore().token;
+  options.header = {
+    Authorization: token ? `Bearer ${token}` : null,
+  };
+  return options;
+}

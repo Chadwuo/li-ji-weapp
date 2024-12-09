@@ -9,7 +9,7 @@ import { request } from "../request";
 export function apiLoginPost(code: string) {
   return request<Api.User.LoginToken>({
     url: "/wechat/login",
-    method: "post",
+    method: "POST",
     data: {
       code,
     },

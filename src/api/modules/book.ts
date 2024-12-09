@@ -1,16 +1,15 @@
 import { request } from "../request";
 
-export function apiGiftBookPageGet(params: any) {
+export function apiGiftBookPageGet(data: any) {
   return request<Api.Common.PaginationResult<Api.Book.GiftBook>>({
     url: "/gift-book/page",
-    method: "get",
-    params,
+    data,
   });
 }
 
-export function apiGiftBookGet(params: any) {
+export function apiGiftBookGet(data: any) {
   return request<Api.Book.GiftBook>({
     url: "/gift-book",
-    params,
+    data,
   });
 }
