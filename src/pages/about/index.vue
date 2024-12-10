@@ -1,5 +1,5 @@
 <script setup>
-const { miniProgram } = uni.getAccountInfoSync()
+const { miniProgram } = wx.getAccountInfoSync()
 const version = miniProgram.version || '3.0.0'
 </script>
 
