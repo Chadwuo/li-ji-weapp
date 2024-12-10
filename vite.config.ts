@@ -1,4 +1,3 @@
-import { resolve } from 'node:path'
 import Uni from '@dcloudio/vite-plugin-uni'
 import UniHelperComponents from '@uni-helper/vite-plugin-uni-components'
 import UniHelperLayouts from '@uni-helper/vite-plugin-uni-layouts'
