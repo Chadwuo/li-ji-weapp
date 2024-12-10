@@ -100,6 +100,9 @@
     "vite": "^5.4.10",
     "vue-tsc": "^2.1.10"
   },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
   "lint-staged": {
     "*": "eslint --fix"
   }
