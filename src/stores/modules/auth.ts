@@ -15,19 +15,31 @@ export const useAuthStore = defineStore(
         const { code, errMsg } = await wx.login()
         if (code) {
           // 发起网络请求
-          const { result } = await apiLoginPost(code)
-          token.value = result.token
-          refreshToken.value = result.refreshToken
+          const res = await apiLoginPost(code)
+          if (res.succeeded) {
+            token.value = res.data.token
+            refreshToken.value = res.data.refreshToken
+          }
+          else {
+            throw new Error(res.errors)
+          }
         }
         else {
           throw new Error(errMsg)
         }
       }
+    }
 
-      const { result } = await apiUserInfoGet()
-      userInfo.value = result.userInfo
-      userFamilys.value = result.userFamilys
-      userSubscription.value = result.userSubscription
+    const getUserInfo = async () => {
+      const res = await apiUserInfoGet()
+      if (res.succeeded) {
+        userInfo.value = res.data.userInfo
+        userFamilys.value = res.data.userFamilys
+        userSubscription.value = res.data.userSubscription
+      }
+      else {
+        throw new Error(res.errors)
+      }
     }
 
     return {
@@ -35,9 +47,12 @@ export const useAuthStore = defineStore(
       token,
       refreshToken,
       login,
+      getUserInfo,
     }
   },
   {
-    persist: true,
+    persist: {
+      pick: ['token'],
+    },
   },
 )

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 onLaunch(async () => {
   try {
-    await useAuthStore().login()
+    const authStore = useAuthStore()
+    await authStore.login()
+    await authStore.getUserInfo()
   }
   catch {
     wx.redirectTo({

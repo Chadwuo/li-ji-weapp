@@ -1,81 +1,61 @@
-<script setup>
+<script setup lang="ts">
+import { apiGiftBookPageGet } from '@/api/modules/book'
+import { useLoadMore } from 'vue-request'
 import logo from '/static/logo.png'
 
-const books = ref([])
-const loadMoreStatus = ref('loadmore')
-const pagination = ref({
-  pageNo: 1,
-  pageSize: 20,
-  loading: false,
-})
+const { dataList, noMore, loadMore, refresh, mutate } = useLoadMore(
+  apiGiftBookPageGet,
+  {
+    isNoMore: (d) => {
+      return d?.list.length === d?.total
+    },
+    onSuccess: (data) => {
+      if (data.succeeded) {
+        const { items, page, total } = data.data
+        const list = statistics(items)
+        mutate({ list, page, total })
+      }
+    },
+  },
+)
 
 onLoad(async () => {
-  // loadData()
-  uni.$on('bookPageUpdate', async () => {
-    await loadData()
-  })
+  refresh()
 })
 
 onPullDownRefresh(async () => {
-  pagination.value.pageNo = 1
-  await loadData()
+  await refresh()
   uni.stopPullDownRefresh()
 })
 
 onReachBottom(() => {
-  if (loadMoreStatus.value === 'loading' || loadMoreStatus.value === 'nomore')
-    return
-
-  loadMoreStatus.value = 'loading'
-  pagination.value.pageNo++
-  loadData()
+  loadMore()
 })
 
-async function loadData() {
-  const { pageSize, pageNo } = pagination.value
-  await page({
-    pageSize,
-    pageNo,
-  }).then((res) => {
-    if (res.success) {
-      const newGiftBooks = statistics(res.result)
-      books.value
-        = pageNo === 1 ? newGiftBooks : [...books.value, ...newGiftBooks]
-      loadMoreStatus.value
-        = newGiftBooks.length < pageSize ? 'nomore' : 'loadmore'
-    }
-  })
-}
-
 // 计算礼簿收礼金额
-function statistics(datas) {
-  return datas.map((i) => {
-    i.giftCount = i.giftList.length || 0
-    i.giftTotal = i.giftList.reduce(
-      (total, item) => total + Number(item.money),
-      0,
-    )
-    i.attendanceTotal = i.giftList.reduce(
-      (total, item) => total + Number(item.attendance || 0),
-      0,
-    )
+function statistics(list: Api.GiftBook[]) {
+  return list.map((i) => {
+    // i.giftCount = i.giftList.length || 0
+    // i.giftTotal = i.giftList.reduce(
+    //   (total, item) => total + Number(item.money),
+    //   0,
+    // )
+    // i.attendanceTotal = i.giftList.reduce(
+    //   (total, item) => total + Number(item.attendance || 0),
+    //   0,
+    // )
     return i
   })
 }
 
-function handleBookClick(e) {
-  const { _id, title, date, giftCount, giftTotal, cost, attendanceTotal } = e
-  router.push({
-    path: '/pages/book/detail',
-    query: {
-      _id,
-      title,
-      date,
-      giftCount,
-      giftTotal,
-      cost: cost || 0,
-      attendanceTotal: attendanceTotal || 0,
-    },
+const handleBookClick = (id: string) => {
+  wx.navigateTo({
+    url: `/pages/book/detail?id=${id}`,
+  })
+}
+const handleBookAdd = () => {
+  wx.navigateTo({
+    url: '/pages/book/edit',
   })
 }
 </script>
@@ -95,16 +75,11 @@ function handleBookClick(e) {
 
     <div class="grid grid-cols-2 mt-5 gap-5">
       <div
-        v-for="i in books"
-        :key="i._id"
-        class="h-40 w-full rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
-        @click="handleBookClick(i)"
+        v-for="i in dataList" :key="i._id" class="h-40 w-full rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
+        @click="handleBookClick(i.id)"
       >
         <div class="mx-4 h-full flex flex-col justify-around">
-          <div
-            class="text-lg font-bold"
-            :class="[hasMourningWords(i.title) ? 'text-gray' : 'text-red']"
-          >
+          <div class="text-lg font-bold" :class="[hasMourningWords(i.title) ? 'text-gray' : 'text-red']">
             {{ i.title }}
           </div>
           <div class="text-sm text-gray">
@@ -127,8 +102,7 @@ function handleBookClick(e) {
             :class="[hasMourningWords(i.title) ? 'bg-gray' : 'bg-red']"
           >
             <div
-              class="ms-2 h-3 w-3 rounded-full"
-              :class="[
+              class="ms-2 h-3 w-3 rounded-full" :class="[
                 hasMourningWords(i.title) ? 'bg-gray-300' : 'bg-red-300',
               ]"
             />
@@ -137,7 +111,7 @@ function handleBookClick(e) {
       </div>
       <div
         class="h-40 w-full flex flex-col items-center justify-center rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
-        @click="router.push('/pages/book/edit')"
+        @click="handleBookAdd()"
       >
         <div class="i-carbon-add-alt text-3xl text-red font-bold" />
         <div class="mt-3">
@@ -145,12 +119,7 @@ function handleBookClick(e) {
         </div>
       </div>
     </div>
-
-    <uv-load-more
-      v-if="loadMoreStatus === 'loading'"
-      loading-icon="circle"
-      :status="loadMoreStatus"
-    />
+    <wd-loadmore :state="noMore ? 'loading' : 'finished'" />
   </div>
 </template>
 

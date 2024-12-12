@@ -1,11 +1,11 @@
 declare namespace Api {
   namespace Common {
     interface Response<T = any> {
-      code: string
-      message: string
-      result: T
-      type: string
-      time: string
+      statusCode: string
+      succeeded: boolean
+      data: T
+      errors: string
+      extras: string
     }
 
     interface PaginationCommon {
@@ -57,10 +57,23 @@ declare namespace Api {
     }
   }
 
-  namespace Book {
-    interface GiftBook {
-      id: string
-      name: string
-    }
+  interface GiftBook {
+    id: string
+    name: string
+  }
+
+  interface Friend {
+    id: string
+    name: string
+  }
+
+  interface GiftIn {
+    id: string
+    name: string
+  }
+
+  interface GiftOut {
+    id: string
+    name: string
   }
 }

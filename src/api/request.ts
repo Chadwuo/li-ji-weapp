@@ -9,7 +9,7 @@ export function request<T>(options: WechatMiniprogram.RequestOption) {
         else {
           wx.showToast({
             icon: 'none',
-            title: (res.data as Api.Common.Response<T>).message || '请求错误',
+            title: (res.data as Api.Common.Response<T>).errors || '请求错误',
           })
           reject(res)
         }
