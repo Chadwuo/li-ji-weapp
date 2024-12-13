@@ -1,1 +1,7 @@
 export * from './modules/auth'
+export * from './modules/book'
+export * from './modules/friend'
+export * from './modules/giftIn'
+export * from './modules/giftOut'
+export * from './modules/userFamily'
+export * from './modules/userSubscription'
