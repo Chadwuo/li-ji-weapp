@@ -141,9 +141,7 @@ function onSelectFriend() {
     url: '/pages/friend/select',
     events: {
       acceptDataFromOpenedPage(data) {
-        const { friendName, friendId } = data
-        dataSource.value.friendName = friendName
-        dataSource.value.friendId = friendId
+        dataSource.value.friendInfo = data
       },
     },
   })
