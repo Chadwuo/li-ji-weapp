@@ -12,7 +12,7 @@ const { dataList, noMore, loadMore, refresh, mutate } = useLoadMore(
     onSuccess: (data) => {
       if (data.succeeded) {
         const { items, page, total } = data.data
-        const list = statistics(items)
+        const list = items
         mutate({ list, page, total })
       }
     },
@@ -20,7 +20,7 @@ const { dataList, noMore, loadMore, refresh, mutate } = useLoadMore(
 )
 
 onLoad(async () => {
-  refresh()
+
 })
 
 onPullDownRefresh(async () => {
@@ -31,22 +31,6 @@ onPullDownRefresh(async () => {
 onReachBottom(() => {
   loadMore()
 })
-
-// 计算礼簿收礼金额
-function statistics(list: Api.GiftBook[]) {
-  return list.map((i) => {
-    // i.giftCount = i.giftList.length || 0
-    // i.giftTotal = i.giftList.reduce(
-    //   (total, item) => total + Number(item.money),
-    //   0,
-    // )
-    // i.attendanceTotal = i.giftList.reduce(
-    //   (total, item) => total + Number(item.attendance || 0),
-    //   0,
-    // )
-    return i
-  })
-}
 
 const handleBookClick = (id: string) => {
   wx.navigateTo({
@@ -62,7 +46,7 @@ const handleBookAdd = () => {
 
 <template>
   <div>
-    <uv-navbar placeholder bg-color="#f1f1f1">
+    <wd-navbar>
       <template #left>
         <div class="flex items-center">
           <img class="h-6 w-6" :src="logo">
@@ -71,8 +55,7 @@ const handleBookAdd = () => {
           </div>
         </div>
       </template>
-    </uv-navbar>
-
+    </wd-navbar>
     <div class="grid grid-cols-2 mt-5 gap-5">
       <div
         v-for="i in dataList" :key="i._id" class="h-40 w-full rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
@@ -89,7 +72,7 @@ const handleBookAdd = () => {
             <span class="text-sm">￥</span>{{ i.giftTotal }}
           </div>
           <div class="text-sm text-gray">
-            {{ i.date.value }}
+            {{ i.date }}
           </div>
           <div class="text-xs text-gray">
             {{ i.date.lunar_month }} {{ i.date.lunar_day }}

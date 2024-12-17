@@ -1,6 +1,6 @@
 <script setup>
-import { storeToRefs } from 'pinia'
 import jinrishiciApi from '@/utils/jinrishici.js'
+import { storeToRefs } from 'pinia'
 
 const { userInfo } = storeToRefs(useAuthStore())
 const jinrishici = ref('')
@@ -39,10 +39,7 @@ onShareAppMessage(() => {
 
 <template>
   <div class="pt-24 space-y-5">
-    <div
-      class="flex items-center"
-      @click="router.push('/pages/settings/index')"
-    >
+    <div class="flex items-center" @click="router.push('/pages/settings/index')">
       <uv-avatar :src="userInfo.avatarUrl" shape="square" :size="55" />
       <div class="ml-3">
         <div class="text-lg">
@@ -59,9 +56,7 @@ onShareAppMessage(() => {
         <div class="text-lg text-black font-bold">
           {{ formatMoney(staticData.giftIn.total) }}
         </div>
-        <div
-          class="flex items-center justify-center text-sm text-gray space-x-1"
-        >
+        <div class="flex items-center justify-center text-sm text-gray space-x-1">
           <div class="i-icon-park-outline-income" />
           <div>收礼({{ staticData.giftIn.count }})</div>
         </div>
@@ -70,49 +65,26 @@ onShareAppMessage(() => {
         <div class="text-lg text-black font-bold">
           {{ formatMoney(staticData.giftOut.total) }}
         </div>
-        <div
-          class="flex items-center justify-center text-sm text-gray space-x-1"
-        >
+        <div class="flex items-center justify-center text-sm text-gray space-x-1">
           <div class="i-icon-park-outline-expenses" />
           <div>送礼({{ staticData.giftOut.count }})</div>
         </div>
       </div>
     </div>
     <div class="rounded-2xl bg-white p-1">
-      <uv-cell
-        v-if="userInfo.familyMembers"
-        is-link
-        :border="false"
-        url="/pages/family/index"
-        value="家人共享"
-      >
+      <uv-cell v-if="userInfo.familyMembers" is-link :border="false" url="/pages/family/index" value="家人共享">
         <template #title>
-          <uv-avatar-group
-            :urls="userInfo.familyMembers.map((i) => i.user.avatarUrl)"
-            size="35"
-            gap="0.4"
-          />
+          <uv-avatar-group :urls="userInfo.familyMembers.map((i) => i.user.avatarUrl)" size="35" gap="0.4" />
         </template>
       </uv-cell>
-      <uv-cell
-        v-else
-        title="开通家人共享"
-        url="/pages/family/index"
-        is-link
-        :border="false"
-      >
+      <uv-cell v-else title="开通家人共享" url="/pages/family/index" is-link :border="false">
         <template #icon>
           <div class="i-material-symbols:family-home mx-2 text-lg text-red" />
         </template>
       </uv-cell>
     </div>
     <div class="rounded-2xl bg-white px-1 py-3 space-y-3">
-      <uv-cell
-        title="支持礼记"
-        url="/pages/sponsor/index"
-        is-link
-        :border="false"
-      >
+      <uv-cell title="支持礼记" url="/pages/sponsor/index" is-link :border="false">
         <template #icon>
           <div class="i-bx-like mx-2 text-lg text-red" />
         </template>
@@ -133,12 +105,7 @@ onShareAppMessage(() => {
           <div class="i-ic-round-question-answer mx-2 text-lg text-blue" />
         </template>
       </uv-cell>
-      <uv-cell
-        title="个人设置"
-        :border="false"
-        url="/pages/settings/index"
-        is-link
-      >
+      <uv-cell title="个人设置" :border="false" url="/pages/settings/index" is-link>
         <template #icon>
           <div class="i-mingcute-settings-1-fill mx-2 text-lg text-gray" />
         </template>

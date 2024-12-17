@@ -4,20 +4,20 @@ import { ref } from 'vue'
 export const useAuthStore = defineStore(
   'auth',
   () => {
-    const token = ref('')
-    const refreshToken = ref('')
-    const userInfo = ref<Api.User.UserInfo>()
+    const accessToken = ref<string>()
+    const refreshToken = ref<string>()
+    const userInfo = ref<Api.User.User>()
     const userFamilys = ref<Api.User.UserFamily[]>()
     const userSubscription = ref<Api.User.UserSubscription>()
 
     const login = async () => {
-      if (!token.value) {
+      if (!accessToken.value) {
         const { code, errMsg } = await wx.login()
         if (code) {
           // 发起网络请求
           const res = await apiLoginPost(code)
           if (res.succeeded) {
-            token.value = res.data.token
+            accessToken.value = res.data.accessToken
             refreshToken.value = res.data.refreshToken
           }
           else {
@@ -44,7 +44,7 @@ export const useAuthStore = defineStore(
 
     return {
       userInfo,
-      token,
+      accessToken,
       refreshToken,
       login,
       getUserInfo,
@@ -52,7 +52,7 @@ export const useAuthStore = defineStore(
   },
   {
     persist: {
-      pick: ['token'],
+      pick: ['accessToken', 'refreshToken'],
     },
   },
 )

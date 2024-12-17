@@ -7,10 +7,10 @@ import { request } from '../request'
  */
 export function apiLoginPost(code: string) {
   return request<Api.User.LoginToken>({
-    url: '/wechat/login',
+    url: '/wx-open/login',
     method: 'POST',
     data: {
-      code,
+      jsCode: code,
     },
   })
 }
@@ -18,6 +18,6 @@ export function apiLoginPost(code: string) {
 /** Get user info */
 export function apiUserInfoGet() {
   return request<Api.User.LoginUser>({
-    url: '/auth/get-user-info',
+    url: '/auth/user-info',
   })
 }

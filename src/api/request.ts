@@ -29,10 +29,10 @@ export function request<T>(options: WechatMiniprogram.RequestOption) {
 function requestInterceptor(options: WechatMiniprogram.RequestOption) {
   // 非 http 开头需拼接地址
   if (!options.url.startsWith('http')) {
-    options.url = `http://localhost:22240/${options.url}`
+    options.url = `http://localhost:2240/api${options.url}`
   }
 
-  const token = useAuthStore().token
+  const token = useAuthStore().accessToken
   options.header = {
     Authorization: token ? `Bearer ${token}` : null,
   }
