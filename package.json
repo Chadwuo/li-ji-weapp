@@ -76,7 +76,7 @@
     "@dcloudio/uni-stacktracey": "3.0.0-4020920240930001",
     "@dcloudio/uni-vue-devtools": "3.0.0-4020920240930001",
     "@dcloudio/vite-plugin-uni": "3.0.0-4020920240930001",
-    "@iconify-json/carbon": "^1.2.4",
+    "@iconify/json": "^2.2.285",
     "@mini-types/alipay": "^3.0.14",
     "@types/node": "^22.9.0",
     "@uni-helper/eslint-config": "^0.2.2",
