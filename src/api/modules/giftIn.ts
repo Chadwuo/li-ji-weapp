@@ -1,7 +1,7 @@
 import { request } from '../request'
 
 export function apiGiftInPageGet(data: any) {
-  return request<Api.Common.PaginationResult<Api.GiftIn>>({
+  return request<Api.PaginationResult<Api.GiftIn>>({
     url: '/gift-in/page',
     data,
   })

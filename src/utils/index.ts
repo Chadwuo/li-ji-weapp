@@ -34,7 +34,7 @@ export function formatMoney(money: number) {
   }
 }
 
-export function hasMourningWords(bookName: string) {
+export function hasMourningWords(bookName: string | undefined | null) {
   if (!bookName)
     return 'red'
   const words = [

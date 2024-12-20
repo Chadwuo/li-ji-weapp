@@ -1,15 +1,15 @@
 export function request<T>(options: WechatMiniprogram.RequestOption) {
-  return new Promise<Api.Common.Response<T>>((resolve, reject) => {
+  return new Promise<Api.Response<T>>((resolve, reject) => {
     wx.request({
       ...requestInterceptor(options),
       success(res) {
         if (res.statusCode === 200) {
-          resolve(res.data as Api.Common.Response<T>)
+          resolve(res.data as Api.Response<T>)
         }
         else {
           wx.showToast({
             icon: 'none',
-            title: (res.data as Api.Common.Response<T>).errors || '请求错误',
+            title: String((res.data as Api.Response<T>).errors) || '请求错误',
           })
           reject(res)
         }

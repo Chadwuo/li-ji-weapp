@@ -1,7 +1,7 @@
 import { request } from '../request'
 
 export function apiGiftOutPageGet(data: any) {
-  return request<Api.Common.PaginationResult<Api.GiftOut>>({
+  return request<Api.PaginationResult<Api.GiftOut>>({
     url: '/gift-out/page',
     data,
   })
