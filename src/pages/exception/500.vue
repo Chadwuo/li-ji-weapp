@@ -14,19 +14,16 @@ async function onRetry() {
       网络连接断开，请检查网络哦~
     </div>
     <div class="mt-8 min-w-24">
-      <uv-button
-        type="primary"
-        shape="circle"
-        text="重启应用"
-        @click="onRetry"
-      />
+      <wd-button type="primary" @click="onRetry">
+        重启应用
+      </wd-button>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
+<route lang="json" type="home">
 {
   "style": {
     "navigationStyle": "custom"

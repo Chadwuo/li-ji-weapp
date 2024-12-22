@@ -8,5 +8,14 @@ export default uni(
         'antfu/top-level-function': 'off',
       },
     },
+    rules: {
+      'vue/first-attribute-linebreak': [
+        'error',
+        {
+          multiline: 'ignore',
+          singleline: 'ignore',
+        },
+      ],
+    },
   },
 )

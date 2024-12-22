@@ -23,7 +23,7 @@ declare namespace Api {
      * @type {object}
      * @memberof ResTfulResultObject
      */
-    errors?: object
+    errors?: string | object
     /**
      *
      * @type {object}

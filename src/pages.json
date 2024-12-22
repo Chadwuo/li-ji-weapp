@@ -1,11 +1,10 @@
 {
   "pages": [
     {
-      "path": "pages/book/page",
+      "path": "pages/exception/500",
       "type": "home",
       "style": {
-        "navigationStyle": "custom",
-        "enablePullDownRefresh": true
+        "navigationStyle": "custom"
       }
     },
     {
@@ -32,10 +31,11 @@
       }
     },
     {
-      "path": "pages/exception/500",
+      "path": "pages/book/page",
       "type": "page",
       "style": {
-        "navigationStyle": "custom"
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true
       }
     },
     {
