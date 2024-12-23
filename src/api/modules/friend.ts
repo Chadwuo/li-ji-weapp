@@ -2,21 +2,21 @@ import { request } from '../request'
 
 export function apiFriendListGet(data: any) {
   return request<Api.Friend[]>({
-    url: '/friend/list',
+    url: 'friend/list',
     data,
   })
 }
 
 export function apiFriendGet(data: any) {
   return request<Api.Friend>({
-    url: '/friend',
+    url: 'friend',
     data,
   })
 }
 
 export function apiFriendPut(data: any) {
   return request<Api.Friend>({
-    url: '/friend',
+    url: 'friend',
     method: 'PUT',
     data,
   })
@@ -24,7 +24,7 @@ export function apiFriendPut(data: any) {
 
 export function apiFriendPost(data: any) {
   return request<Api.Friend>({
-    url: '/friend',
+    url: 'friend',
     method: 'POST',
     data,
   })
@@ -32,7 +32,7 @@ export function apiFriendPost(data: any) {
 
 export function apiFriendDelete(data: any) {
   return request<Api.Friend>({
-    url: '/friend',
+    url: 'friend',
     method: 'DELETE',
     data,
   })

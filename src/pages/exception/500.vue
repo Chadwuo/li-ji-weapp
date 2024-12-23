@@ -23,7 +23,7 @@ async function onRetry() {
 
 <style lang="scss" scoped></style>
 
-<route lang="json" type="home">
+<route lang="json">
 {
   "style": {
     "navigationStyle": "custom"

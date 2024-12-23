@@ -2,21 +2,21 @@ import { request } from '../request'
 
 export function apiGiftOutPageGet(data: any) {
   return request<Api.PaginationResult<Api.GiftOut>>({
-    url: '/gift-out/page',
+    url: 'gift-out/page',
     data,
   })
 }
 
 export function apiGiftOutGet(data: any) {
   return request<Api.GiftOut>({
-    url: '/gift-out',
+    url: 'gift-out',
     data,
   })
 }
 
 export function apiGiftOutPut(data: any) {
   return request<Api.GiftOut>({
-    url: '/gift-out',
+    url: 'gift-out',
     method: 'PUT',
     data,
   })
@@ -24,7 +24,7 @@ export function apiGiftOutPut(data: any) {
 
 export function apiGiftOutPost(data: any) {
   return request<Api.GiftOut>({
-    url: '/gift-out',
+    url: 'gift-out',
     method: 'POST',
     data,
   })
@@ -32,7 +32,7 @@ export function apiGiftOutPost(data: any) {
 
 export function apiGiftOutDelete(data: any) {
   return request<Api.GiftOut>({
-    url: '/gift-out',
+    url: 'gift-out',
     method: 'DELETE',
     data,
   })

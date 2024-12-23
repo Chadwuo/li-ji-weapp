@@ -7,7 +7,7 @@ import { request } from '../request'
  */
 export function apiLoginPost(code: string) {
   return request<Api.LoginToken>({
-    url: '/wx-open/login',
+    url: 'wx-open/login',
     method: 'POST',
     data: {
       jsCode: code,
@@ -18,6 +18,6 @@ export function apiLoginPost(code: string) {
 /** Get user info */
 export function apiUserInfoGet() {
   return request<Api.LoginUser>({
-    url: '/auth/user-info',
+    url: 'auth/user-info',
   })
 }

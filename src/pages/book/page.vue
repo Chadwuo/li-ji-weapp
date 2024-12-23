@@ -2,17 +2,13 @@
 import { apiGiftBookPageGet } from '@/api/modules/book'
 import { useLoadMore } from 'vue-request'
 import logo from '/static/logo.png'
-
-interface DataType {
-  list: Api.GiftBook[]
-  page: number
-  total: number
-}
-
-const { dataList, noMore, loadMore, refresh } = useLoadMore<DataType>(
-  async () => {
-    const response = await apiGiftBookPageGet({})
-    const { items, page = 0, total = 0 } = response.data || { items: [], page: 0, total: 0 }
+const { dataList, noMore, loadMore, refresh } = useLoadMore<Api.LoadMoreDataType<Api.GiftBook>>(
+  async (d) => {
+    const _page = d?.page ? d.page + 1 : 1;
+    const response = await apiGiftBookPageGet({
+      page: _page,
+    })
+    const { items, page = 0, total = 0 } = response.data || {}
     return {
       list: items || [],
       page,
@@ -25,10 +21,6 @@ const { dataList, noMore, loadMore, refresh } = useLoadMore<DataType>(
     },
   },
 )
-
-onLoad(async () => {
-
-})
 
 onPullDownRefresh(async () => {
   await refresh()
@@ -53,7 +45,7 @@ const handleBookAdd = () => {
 
 <template>
   <div>
-    <wd-navbar>
+    <wd-navbar safeAreaInsetTop custom-style="background-color: transparent !important;">
       <template #left>
         <div class="flex items-center">
           <img class="h-6 w-6" :src="logo">
@@ -65,8 +57,7 @@ const handleBookAdd = () => {
     </wd-navbar>
     <div class="grid grid-cols-2 mt-5 gap-5">
       <div v-for="i in dataList" :key="i.id" class="h-40 w-full rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
-           @click="handleBookClick(i.id)"
-      >
+        @click="handleBookClick(i.id)">
         <div class="mx-4 h-full flex flex-col justify-around">
           <div class="text-lg font-bold" :class="[hasMourningWords(i.title) ? 'text-gray' : 'text-red']">
             {{ i.title }}
@@ -86,19 +77,16 @@ const handleBookAdd = () => {
         </div>
         <div class="relative">
           <div class="absolute bottom-18 right-0 h-7 w-18 flex items-center rounded-l-full"
-               :class="[hasMourningWords(i.title) ? 'bg-gray' : 'bg-red']"
-          >
+            :class="[hasMourningWords(i.title) ? 'bg-gray' : 'bg-red']">
             <div class="ms-2 h-3 w-3 rounded-full" :class="[
               hasMourningWords(i.title) ? 'bg-gray-300' : 'bg-red-300',
-            ]"
-            />
+            ]" />
           </div>
         </div>
       </div>
       <div
         class="h-40 w-full flex flex-col items-center justify-center rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
-        @click="handleBookAdd()"
-      >
+        @click="handleBookAdd()">
         <div class="i-carbon-add-alt text-3xl text-red font-bold" />
         <div class="mt-3">
           添加礼簿
@@ -111,11 +99,9 @@ const handleBookAdd = () => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json" type="home">{
   "style": {
     "navigationStyle": "custom",
     "enablePullDownRefresh": true
   }
-}
-</route>
+}</route>
