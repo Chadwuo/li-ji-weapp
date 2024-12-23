@@ -4,6 +4,7 @@ onLaunch(async () => {
     const authStore = useAuthStore()
     await authStore.login()
     await authStore.getUserInfo()
+    throw new Error('test')
   }
   catch {
     wx.redirectTo({

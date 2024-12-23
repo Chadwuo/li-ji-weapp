@@ -23,5 +23,4 @@ src/uni-pages.d.ts
 src/components.d.ts
 src/auto-imports.d.ts
 pnpm-lock.yaml
-/src/manifest.json
 /src/pages.json
