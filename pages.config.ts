@@ -9,8 +9,7 @@ export default defineUniPages({
     backgroundTextStyle: '@bgTxtStyle',
     navigationBarBackgroundColor: '#000000',
     navigationBarTextStyle: '@navTxtStyle',
-    navigationBarTitleText: 'Vitesse-Uni',
-    navigationStyle: 'custom',
+    navigationBarTitleText: '礼记',
   },
   easycom: {
     autoscan: true,

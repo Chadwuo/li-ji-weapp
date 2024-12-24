@@ -8,3 +8,17 @@ page {
 	// 修改按钮背景色
 	// --wot-button-primary-bg-color: green;
 }
+
+// 去除button的所有默认样式，让其表现跟普通的view、text元素一样
+.reset-button {
+	padding: 0;
+	background-color: transparent;
+	font-size: inherit;
+	line-height: inherit;
+	color: inherit;
+	border-width: 0;
+}
+
+.reset-button::after {
+	border: none;
+}

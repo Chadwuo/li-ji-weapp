@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 
-const { userFamilys,userInfo } = storeToRefs(useAuthStore())
+const { userFamilys, userInfo } = storeToRefs(useAuthStore())
 const actionSheetRef = ref(null)
 const loading = ref(false)
 const actionSheetList = ref([])
@@ -73,8 +73,8 @@ async function onSelectedAction(e: any) {
 }
 
 onShareAppMessage(() => {
-  const familyId = userFamilys.value?[0].familyId
- 
+  const familyId = 1// userFamilys.value?[0].familyId
+
   const word = `${userInfo.value?.nickName}邀请你一起记录家庭中的人情往来`
   const avatarUrl = userInfo.value?.avatar
   return {

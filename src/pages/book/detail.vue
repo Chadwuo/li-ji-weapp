@@ -29,10 +29,10 @@ const { dataList, loading, loadMore, refresh } = useLoadMore<Api.LoadMoreDataTyp
 )
 const netAmount = computed(() => {
   if (book.value.moneyTotal !== undefined && book.value.cost !== undefined) {
-    return book.value.moneyTotal - book.value.cost;
+    return book.value.moneyTotal - book.value.cost
   }
-  return 0;
-});
+  return 0
+})
 
 onLoad(async (option) => {
   if (option?.id) {
@@ -75,7 +75,6 @@ const handleBookEdit = () => {
     url: `/pages/book/edit?id=${book.value.id}`,
   })
 }
-
 </script>
 
 <template>
@@ -107,7 +106,7 @@ const handleBookEdit = () => {
         <div class="text-sm font-bold">
           礼金：<span class="text-xl">{{ book.moneyTotal }}</span>
         </div>
-        <div class="ml-auto py-2 pl-2 text-gray" @click="popupShow = true">
+        <div class="ml-auto py-2 pl-2 text-gray" @click="() => popupShow = true">
           <div class="i-carbon-information-filled" />
         </div>
       </div>
@@ -179,7 +178,7 @@ const handleBookEdit = () => {
       <wd-loadmore :state="loading ? 'loading' : ''" />
     </div>
 
-    <wd-popup v-model="popupShow" position="bottom">
+    <wd-popup v-model="popupShow" safe-area-inset-bottom position="bottom" custom-class="rounded-t-2xl">
       <div class="px-5 pt-4">
         <div class="text-center font-bold">
           名词解释

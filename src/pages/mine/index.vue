@@ -84,32 +84,31 @@ onShareAppMessage(() => {
       </uv-cell>
     </div>
     <div class="rounded-2xl bg-white px-1 py-3 space-y-3">
-      <uv-cell title="支持礼记" url="/pages/sponsor/index" is-link :border="false">
+      <wd-cell title="支持礼记" is-link to="/pages/sponsor/index">
         <template #icon>
           <div class="i-bx-like mx-2 text-lg text-red" />
         </template>
-      </uv-cell>
-
-      <uv-cell :border="false" is-link>
+      </wd-cell>
+      <wd-cell is-link>
         <template #icon>
           <div class="i-ri-wechat-fill pr-4 text-lg text-green" />
         </template>
         <template #title>
-          <button class="uv-reset-button w-full text-left" open-type="share">
+          <button class="reset-button w-full text-left" open-type="share">
             分享好友
           </button>
         </template>
-      </uv-cell>
-      <uv-cell title="常见问题" :border="false" url="/pages/FAQs/index" is-link>
+      </wd-cell>
+      <wd-cell title="常见问题" is-link to="/pages/faq/index">
         <template #icon>
           <div class="i-ic-round-question-answer mx-2 text-lg text-blue" />
         </template>
-      </uv-cell>
-      <uv-cell title="个人设置" :border="false" url="/pages/settings/index" is-link>
+      </wd-cell>
+      <wd-cell title="个人设置" is-link to="/pages/settings/index">
         <template #icon>
           <div class="i-mingcute-settings-1-fill mx-2 text-lg text-gray" />
         </template>
-      </uv-cell>
+      </wd-cell>
     </div>
   </div>
 </template>
@@ -120,10 +119,8 @@ onShareAppMessage(() => {
 }
 </style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationStyle": "custom"
   }
-}
-</route>
+}</route>

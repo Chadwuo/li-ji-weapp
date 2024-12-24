@@ -1,9 +1,9 @@
 import { defineManifestConfig } from '@uni-helper/vite-plugin-uni-manifest'
 
 export default defineManifestConfig({
-  'name': 'liji-uni-app',
+  'name': 'li-ji',
   'appid': '',
-  'description': '',
+  'description': '每一份人情都值得礼记！',
   'versionName': '1.0.0',
   'versionCode': '100',
   'transformPx': false,

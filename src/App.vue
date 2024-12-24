@@ -4,11 +4,11 @@ onLaunch(async () => {
     const authStore = useAuthStore()
     await authStore.login()
     await authStore.getUserInfo()
-    throw new Error('test')
   }
-  catch {
+  catch (error) {
+    console.error(error)
     wx.redirectTo({
-      url: '/pages/exception/500',
+      url: `/pages/exception/500?error=${error}`,
     })
   }
 })
