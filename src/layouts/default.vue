@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-5 h-full flex flex-col color-gray-700 font-sans dark:color-gray-200">
+  <div class="mx-5 h-full flex flex-col font-sans color-gray-700 dark:color-gray-200">
     <slot />
     <Footer class="mt-auto" />
   </div>

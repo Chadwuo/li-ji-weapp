@@ -1,26 +1,23 @@
-<script setup>
+<script setup lang="ts">
 import { storeToRefs } from 'pinia'
 
-const { userInfo } = storeToRefs(useAuthStore())
+const { userFamilys,userInfo } = storeToRefs(useAuthStore())
 const actionSheetRef = ref(null)
 const loading = ref(false)
 const actionSheetList = ref([])
 
 async function onCreate() {
   loading.value = true
-
-  await add()
-    .then(async (res) => {
-      if (res.success)
-        await useUserStore().getUserInfo()
-    })
-    .finally(() => {
-      loading.value = false
-    })
+  const res = await apiUserFamilyPost({
+    role: '组织者',
+  })
+  if (res.succeeded) {
+    // TODO
+  }
 }
 
-function onClick(i) {
-  if (i.relation === '组织者') {
+function onClick(i: Api.UserFamily) {
+  if (i.role === '组织者') {
     actionSheetList.value = [
       {
         name: '解散',
@@ -42,39 +39,44 @@ function onClick(i) {
   actionSheetRef.value.open()
 }
 
-async function onSelectedAction(e) {
+async function onSelectedAction(e: any) {
   const { data, name } = e
   e.loading = true
-  if (name === '删除') {
-    delFamilyMember({ _id: data._id })
-      .then(async (res) => {
-        if (res.success) {
-          await useUserStore().getUserInfo()
-          actionSheetRef.value.close()
-        }
-      })
-      .finally(() => {
-        e.loading = false
-      })
+  const res = await apiUserFamilyDelete({ userId: data.userId, familyId: data.familyId })
+  if (res.succeeded) {
+    // TODO
   }
-  if (name === '解散') {
-    del({ familyId: data.familyId })
-      .then(async (res) => {
-        if (res.success) {
-          await useUserStore().getUserInfo()
-          actionSheetRef.value.close()
-        }
-      })
-      .finally(() => {
-        e.loading = false
-      })
-  }
+  // if (name === '删除') {
+  //   delFamilyMember({ _id: data._id })
+  //     .then(async (res) => {
+  //       if (res.success) {
+  //         await useUserStore().getUserInfo()
+  //         actionSheetRef.value.close()
+  //       }
+  //     })
+  //     .finally(() => {
+  //       e.loading = false
+  //     })
+  // }
+  // if (name === '解散') {
+  //   del({ familyId: data.familyId })
+  //     .then(async (res) => {
+  //       if (res.success) {
+  //         await useUserStore().getUserInfo()
+  //         actionSheetRef.value.close()
+  //       }
+  //     })
+  //     .finally(() => {
+  //       e.loading = false
+  //     })
+  // }
 }
 
 onShareAppMessage(() => {
-  const familyId = userInfo.value.familyMembers[0].familyId
-  const word = `${userInfo.value.nickName}邀请你一起记录家庭中的人情往来`
-  const avatarUrl = userInfo.value.avatarUrl
+  const familyId = userFamilys.value?[0].familyId
+ 
+  const word = `${userInfo.value?.nickName}邀请你一起记录家庭中的人情往来`
+  const avatarUrl = userInfo.value?.avatar
   return {
     title: '和我一起记录家庭中的人情往来',
     path: `/pages/family/invite?familyId=${familyId}&word=${word}&avatarUrl=${avatarUrl}`,
@@ -85,10 +87,7 @@ onShareAppMessage(() => {
 
 <template>
   <div class="mt-3 h-full flex flex-col">
-    <div
-      v-if="!userInfo.familyMembers"
-      class="rounded-2xl bg-white p-4 space-y-2xl"
-    >
+    <div v-if="!userFamilys" class="rounded-2xl bg-white p-4 space-y-2xl">
       <div class="text-center">
         <img src="/static/home.svg">
         <div class="mt-5 text-xl font-bold">
@@ -126,65 +125,44 @@ onShareAppMessage(() => {
       </div>
 
       <div class="w-full">
-        <uv-button
-          type="primary"
-          shape="circle"
-          text="与他人共享"
-          :loading="loading"
-          loading-mode="circle"
-          @click="onCreate"
-        />
+        <uv-button type="primary" shape="circle" text="与他人共享" :loading="loading" loading-mode="circle"
+          @click="onCreate" />
       </div>
     </div>
     <div v-else>
       <div class="rounded-2xl bg-white p-1">
         <div class="rounded-2xl bg-white px-1 py-3 space-y-3">
-          <template v-for="i in userInfo.familyMembers" :key="i._id">
-            <uv-cell
-              :title="i.user.nickName"
-              :label="i.relation"
-              :border="false"
-              is-link
-              @click="onClick(i)"
-            >
+          <template v-for="i in userFamilys" :key="i.userId">
+            <uv-cell :title="i.nickName" :label="i.role" :border="false" is-link @click="onClick(i)">
               <template #icon>
                 <div class="mr-3">
-                  <uv-avatar :src="i.user.avatarUrl" />
+                  <uv-avatar :src="i.avatar" />
                 </div>
               </template>
             </uv-cell>
           </template>
         </div>
       </div>
-      <!-- <div class="mt-3">
+      <div class="mt-3">
         <button disabled openType="share" icon="plus" class="uv-reset-button rounded-2xl bg-white p-2">
           <div class="flex items-center justify-center text-red">
             <div class="i-carbon-add text-2xl" /> 邀请家庭成员
           </div>
         </button>
-      </div> -->
+      </div>
     </div>
     <div class="mt-auto">
       <ad unit-id="adunit-64aefbe92c2dc7bf" />
     </div>
   </div>
-  <uv-action-sheet
-    ref="actionSheetRef"
-    :actions="actionSheetList"
-    :safe-area-inset-bottom="true"
-    :close-on-click-action="false"
-    cancel-text="取消"
-    round="1rem"
-    @select="onSelectedAction"
-  />
+  <uv-action-sheet ref="actionSheetRef" :actions="actionSheetList" :safe-area-inset-bottom="true"
+    :close-on-click-action="false" cancel-text="取消" round="1rem" @select="onSelectedAction" />
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationBarTitleText": "家人共享"
   }
-}
-</route>
+}</route>

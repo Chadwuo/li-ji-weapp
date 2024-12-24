@@ -4,12 +4,12 @@ declare namespace Api {
 		 *
 		 * @type {number}
 		 */
-		statusCode: number | null;
+		statusCode: number;
 		/**
 		 *
 		 * @type {object}
 		 */
-		data: T;
+		data?: T;
 		/**
 		 *
 		 * @type {boolean}
@@ -269,7 +269,7 @@ declare namespace Api {
 		 * ID
 		 * @type {number}
 		 */
-		id: number;
+		id?: number;
 		/**
 		 * 标题
 		 * @type {string}
@@ -375,7 +375,7 @@ declare namespace Api {
 		 * @type {number}
 		 * @memberof GiftIn
 		 */
-		id: number;
+		id?: number;
 		/**
 		 * 创建时间
 		 * @type {string}

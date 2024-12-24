@@ -1,4 +1,4 @@
-<script setup></script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="bg-white p-5 space-y-3">
@@ -54,8 +54,7 @@
       未来开发计划？
     </div>
     <div class="text-sm text-gray-500 leading-relaxed">
-      礼记3.0版本，代号 "Initial
-      D"，已经正式发布了。她重写了全部代码，全新的页面UI，并且添加了更多功能，更加安全稳定。对于发布后的短期，我们将专注于开发数据导出功能，数据统计报表功能。
+      礼记3.2版本，代号 "幽灵倒计时"，已经正式发布了。她重写了全部代码，全新的页面UI，并且添加了更多功能，更加安全稳定。对于发布后的短期，我们将专注于开发数据导出功能，数据统计报表功能。
     </div>
     <div class="my-5">
       <uv-line />
@@ -64,13 +63,8 @@
       我可以参与 礼记 项目吗？
     </div>
     <div class="flex items-center text-sm text-gray-500 leading-relaxed">
-      非常欢迎！请访问我们的<uv-link
-        font-size="0.875rem"
-        color="#f87171"
-        href="https://github.com/Chadwuo/li-ji-weapp"
-        text="开源社区"
-        :under-line="true"
-      />
+      非常欢迎！请访问我们的<uv-link font-size="0.875rem" color="#f87171" href="https://github.com/Chadwuo/li-ji-weapp" text="开源社区"
+        :under-line="true" />
     </div>
     <uv-safe-bottom />
   </div>
@@ -78,11 +72,9 @@
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "layout": "blank",
   "style": {
     "navigationBarTitleText": "常见问题"
   }
-}
-</route>
+}</route>

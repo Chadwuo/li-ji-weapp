@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 const { miniProgram } = wx.getAccountInfoSync()
-const version = miniProgram.version || '3.0.0'
+const version = miniProgram.version || '3.2.0'
 </script>
 
 <template>
@@ -23,7 +23,6 @@ const version = miniProgram.version || '3.0.0'
       「礼记」致力于记录和管理人情往来中的随礼、礼金、份子钱、送礼、收礼，专业又懂你的人情记账簿，全家人共享账本，多维度查询统计亲友间往来记录。每一份人情都值得礼记。
     </div>
   </div>
-  <Advertisement class="mt-auto" />
 </template>
 
 <style lang="scss" scoped></style>

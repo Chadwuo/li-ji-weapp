@@ -1,115 +1,103 @@
-<script setup>
-const book = ref({
-  date: {},
-})
-const giftList = ref([])
-const pagination = ref({
-  pageNo: 1,
-  pageSize: 20,
-  loading: false,
-})
+<script setup lang="ts">
+import { useLoadMore } from 'vue-request'
+
+const book = ref<Api.GiftBook>({})
 const search = ref({
   keyword: '',
   showAction: false,
 })
-const loadMoreStatus = ref('loadmore')
-const popup = ref(null)
+const popupShow = ref(false)
+const { dataList, loading, loadMore, refresh } = useLoadMore<Api.LoadMoreDataType<Api.GiftIn>>(
+  async (d) => {
+    const _page = d?.page ? d.page + 1 : 1
+    const response = await apiGiftInPageGet({
+      page: _page,
+    })
+    const { items, page = 0, total = 0 } = response.data || {}
+    return {
+      list: items || [],
+      page,
+      total,
+    }
+  },
+  {
+    isNoMore: (d) => {
+      return d?.list.length === d?.total
+    },
+    manual: true,
+  },
+)
+const netAmount = computed(() => {
+  if (book.value.moneyTotal !== undefined && book.value.cost !== undefined) {
+    return book.value.moneyTotal - book.value.cost;
+  }
+  return 0;
+});
 
-onLoad((option) => {
-  book.value = { ...router.getQueryParse(option) }
-  loadData()
+onLoad(async (option) => {
+  if (option?.id) {
+    await apiGiftBookGet({ id: option.id }).then((res) => {
+      if (res.succeeded && res.data)
+        book.value = res.data
+    })
+    loadMore()
+  }
 })
 
 onReachBottom(() => {
-  if (loadMoreStatus.value === 'loading' || loadMoreStatus.value === 'nomore')
-    return
-
-  loadMoreStatus.value = 'loading'
-  pagination.value.pageNo++
-  loadData()
+  loadMore()
 })
 
-function loadData() {
-  const { pageSize, pageNo } = pagination.value
-  page({
-    bookId: book.value._id,
-    keyword: search.value.keyword,
-    pageSize,
-    pageNo,
-  }).then((res) => {
-    if (res.success) {
-      giftList.value
-        = pageNo === 1 ? res.result : [...giftList.value, ...res.result]
-      loadMoreStatus.value
-        = res.result.length < pageSize ? 'nomore' : 'loadmore'
-    }
-  })
-}
-
 function searchOk() {
-  loadData()
+  refresh()
 }
 function searchCancel() {
   search.value = {
     keyword: '',
     showAction: false,
   }
-  loadData()
+  refresh()
 }
 
-function handleInfoClick() {
-  popup.value.open()
-}
-
-function handleGiftClick(e) {
-  const { _id, money, attendance, remarks, friendInfo } = e
-  router.push({
-    path: '/pages/giftIn/edit',
-    query: { _id, money, attendance, remarks, friendInfo },
+const handleGiftClick = (gid?: number) => {
+  wx.navigateTo({
+    url: `/pages/giftIn/edit?id=${gid}`,
   })
 }
+const handleGiftAdd = () => {
+  wx.navigateTo({
+    url: `/pages/giftIn/edit?bookId=${book.value.id}`,
+  })
+}
+
+const handleBookEdit = () => {
+  wx.navigateTo({
+    url: `/pages/book/edit?id=${book.value.id}`,
+  })
+}
+
 </script>
 
 <template>
   <div class="h-full flex flex-col">
     <div class="rounded-b-2xl bg-white px-5 pb-5 pt-3 space-y-3">
-      <uv-search
-        v-model="search.keyword"
-        placeholder="请输入搜索内容"
-        :show-action="search.showAction"
-        action-text="取消"
-        @focus="search.showAction = true"
-        @custom="searchCancel"
-        @search="searchOk"
-      />
+      <uv-search v-model="search.keyword" placeholder="请输入搜索内容" :show-action="search.showAction" action-text="取消"
+        @focus="search.showAction = true" @custom="searchCancel" @search="searchOk" />
       <div class="flex items-center justify-between">
         <div>
-          <div
-            class="text-lg font-bold"
-            :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']"
-          >
+          <div class="text-lg font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
             {{ book.title }}
           </div>
           <div class="mt-1 text-sm text-gray">
-            <span>{{ book.date.lunar_month }} {{ book.date.lunar_day }}
-              {{ book.date.lunar_year }}</span>
-            <span class="ml-2">({{ book.date.value }}) </span>
+            <span>{{ book.lunarDate }}</span>
+            <span class="ml-2">({{ book.date }}) </span>
           </div>
         </div>
-        <div
-          class="flex text-xl font-bold"
-          :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']"
-        >
-          <div
-            class="py-2 pl-2"
-            @click="router.push(`/pages/book/edit?id=${book._id}`)"
-          >
+        <div class="flex text-xl font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
+          <div class="py-2 pl-2" @click="handleBookEdit">
             <div class="i-carbon-edit" />
           </div>
-          <div
-            class="py-2 pl-2"
-            @click="router.push(`/pages/giftIn/edit?bookId=${book._id}`)"
-          >
+          <div class="py-2 pl-2" @click="handleGiftAdd">
             <div class="i-carbon-add-alt" />
           </div>
         </div>
@@ -117,9 +105,9 @@ function handleGiftClick(e) {
       <div class="flex items-end">
         <div class="i-mingcute-wallet-2-line p-1" />
         <div class="text-sm font-bold">
-          礼金：<span class="text-xl">{{ book.giftTotal }}</span>
+          礼金：<span class="text-xl">{{ book.moneyTotal }}</span>
         </div>
-        <div class="ml-auto py-2 pl-2 text-gray" @click="handleInfoClick">
+        <div class="ml-auto py-2 pl-2 text-gray" @click="popupShow = true">
           <div class="i-carbon-information-filled" />
         </div>
       </div>
@@ -128,9 +116,7 @@ function handleGiftClick(e) {
           <div class="text-lg text-black font-bold">
             {{ book.giftCount }}
           </div>
-          <div
-            class="flex items-center justify-center text-xs text-gray space-x-1"
-          >
+          <div class="flex items-center justify-center text-xs text-gray space-x-1">
             <div class="i-carbon-home" />
             <div>亲友</div>
           </div>
@@ -139,9 +125,7 @@ function handleGiftClick(e) {
           <div class="text-lg text-black font-bold">
             {{ book.attendanceTotal }}
           </div>
-          <div
-            class="flex items-center justify-center text-xs text-gray space-x-1"
-          >
+          <div class="flex items-center justify-center text-xs text-gray space-x-1">
             <div class="i-carbon-pedestrian-family" />
             <div>出席</div>
           </div>
@@ -150,20 +134,16 @@ function handleGiftClick(e) {
           <div class="text-lg text-black font-bold">
             {{ book.cost }}
           </div>
-          <div
-            class="flex items-center justify-center text-xs text-gray space-x-1"
-          >
+          <div class="flex items-center justify-center text-xs text-gray space-x-1">
             <div class="i-carbon:sprout" />
             <div>支出</div>
           </div>
         </div>
         <div class="text-center text-sm text-gray">
           <div class="text-lg text-black font-bold">
-            {{ book.giftTotal - book.cost }}
+            {{ netAmount }}
           </div>
-          <div
-            class="flex items-center justify-center text-xs text-gray space-x-1"
-          >
+          <div class="flex items-center justify-center text-xs text-gray space-x-1">
             <div class="i-carbon-wallet" />
             <div>合计</div>
           </div>
@@ -171,29 +151,22 @@ function handleGiftClick(e) {
       </div>
     </div>
 
-    <div v-if="giftList.length === 0" class="my-auto">
+    <div v-if="dataList.length === 0" class="my-auto">
       <uv-empty />
     </div>
     <div class="my-5 rounded-2xl bg-white space-y-3">
-      <div
-        v-for="gift in giftList"
-        :key="gift._id"
-        @click="handleGiftClick(gift)"
-      >
+      <div v-for="gift in dataList" :key="gift.id" @click="handleGiftClick(gift.id)">
         <div class="h-18 flex items-center justify-around">
           <div>
             <div class="text-lg">
-              {{ gift.friendInfo.name }}
+              {{ gift.friend?.name }}
             </div>
             <div class="text-sm text-gray">
               出席：{{ gift.attendance || 0 }} 人
             </div>
           </div>
           <div class="text-right">
-            <div
-              class="text-lg font-bold"
-              :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']"
-            >
+            <div class="text-lg font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
               <span class="text-sm">￥</span>{{ gift.money }}
             </div>
             <div class="text-sm text-gray">
@@ -203,14 +176,10 @@ function handleGiftClick(e) {
         </div>
       </div>
 
-      <uv-load-more
-        v-if="loadMoreStatus === 'loading'"
-        loading-icon="circle"
-        :status="loadMoreStatus"
-      />
+      <wd-loadmore :state="loading ? 'loading' : ''" />
     </div>
 
-    <uv-popup ref="popup" mode="bottom" round="10" closeable>
+    <wd-popup v-model="popupShow" position="bottom">
       <div class="px-5 pt-4">
         <div class="text-center font-bold">
           名词解释
@@ -238,17 +207,15 @@ function handleGiftClick(e) {
           </div>
         </div>
       </div>
-    </uv-popup>
+    </wd-popup>
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "layout": "blank",
   "style": {
     "navigationBarTitleText": "详情"
   }
-}
-</route>
+}</route>

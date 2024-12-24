@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const calendarRef = ref(null)
-const dataSource = ref<Api.GiftBook>()
+const dataSource = ref<Api.GiftBook>({})
 const validInput = computed(() => {
   return dataSource.value?.date && dataSource.value?.title
 })
@@ -21,10 +21,10 @@ onLoad((option) => {
 
 const onSubmit = async () => {
   loading.value = true
-  const api = dataSource.value?.id ? apiGiftBookPut : apiGiftBookPost
+  const api = dataSource.value.id ? apiGiftBookPut : apiGiftBookPost
   const res = await api(dataSource.value)
   uni.showToast({
-    title: `${res.succeeded ? (dataSource.value?.id ? '更新' : '新增') : ''}成功`,
+    title: `${res.succeeded ? (dataSource.value.id ? '更新' : '新增') : ''}成功`,
     icon: res.succeeded ? 'success' : 'error',
   })
   loading.value = false
@@ -38,7 +38,7 @@ const onDel = () => {
     success: async (e) => {
       if (!e.confirm)
         return
-      const res = await apiGiftBookDelete(dataSource.value)
+      const res = await apiGiftBookDelete({ id: dataSource.value.id })
       if (res.succeeded) {
         wx.showToast({
           title: '删除成功',
@@ -112,8 +112,7 @@ const openCalendar = () => {
           </div>
           <div class="w-full">
             <uv-button type="primary" shape="circle" text="保存" :loading="loading" :disabled="!validInput"
-                       loading-mode="circle" @click="onSubmit"
-            />
+              loading-mode="circle" @click="onSubmit" />
           </div>
         </div>
       </uv-form-item>
@@ -124,17 +123,14 @@ const openCalendar = () => {
   </div>
   <uv-safe-bottom />
   <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
-                @confirm="confirmCalendar"
-  />
+    @confirm="confirmCalendar" />
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "layout": "blank",
   "style": {
     "navigationBarTitleText": "新增"
   }
-}
-</route>
+}</route>
