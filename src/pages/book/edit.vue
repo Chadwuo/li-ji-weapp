@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useMessage } from 'wot-design-uni'
+
 const message = useMessage()
 const calendarRef = ref<any>(null)
 const dataSource = ref<Api.GiftBook>({})
@@ -34,7 +35,7 @@ const onSubmit = async () => {
 const onDel = () => {
   message.confirm({
     msg: '该礼簿所有来往记录都将被删除，确定删除？',
-    title: '删除礼簿'
+    title: '删除礼簿',
   }).then(async () => {
     const res = await apiGiftBookDelete({ id: dataSource.value.id })
     if (res.succeeded) {
@@ -94,8 +95,10 @@ const openCalendar = () => {
       </uv-form-item>
       <uv-form-item>
         <div class="flex space-x-4">
-          <div class="w-40" v-if="dataSource.id">
-            <wd-button plain @click="onDel">删除</wd-button>
+          <div v-if="dataSource.id" class="w-40">
+            <wd-button plain @click="onDel">
+              删除
+            </wd-button>
           </div>
           <div class="w-full">
             <wd-button block :loading="loading" :disabled="!validInput" @click="onSubmit">
@@ -105,9 +108,6 @@ const openCalendar = () => {
         </div>
       </uv-form-item>
     </uv-form>
-  </div>
-  <div class="mt-auto">
-    <ad unit-id="adunit-64aefbe92c2dc7bf" />
   </div>
 
   <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"

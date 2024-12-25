@@ -63,7 +63,7 @@
       我可以参与 礼记 项目吗？
     </div>
     <div class="flex items-center text-sm text-gray-500 leading-relaxed">
-      非常欢迎！请访问我们的<uv-link font-size="14" href="https://github.com/Chadwuo/li-ji-weapp" text="开源社区"
+      非常欢迎！请访问我们的<uv-link color="#f87171" href="https://github.com/Chadwuo/li-ji-weapp" text="开源社区"
         :under-line="true" />
     </div>
   </div>

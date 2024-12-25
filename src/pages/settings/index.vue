@@ -81,15 +81,12 @@ const onBlur = () => {
       <wd-cell title="隐私政策" is-link @click="openPrivacyContract" />
       <wd-cell title="关于礼记" is-link to="/pages/about/index" />
     </div>
-    <div class="overflow-hidden rounded-2xl bg-white">
-      <ad unit-id="adunit-64aefbe92c2dc7bf" />
-    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 :deep(.wd-cell__body) {
-    align-items: center;
+  align-items: center;
 }
 </style>
 

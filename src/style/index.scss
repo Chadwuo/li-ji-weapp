@@ -28,8 +28,10 @@ $uv-primary: #f87171;
 	color: inherit;
 
 	/* 移除按钮的内建样式 */
-	appearance: none; /* 对于大多数现代浏览器 */
-	-webkit-appearance: none; /* Safari 和 Chrome */
+	appearance: none;
+	/* 对于大多数现代浏览器 */
+	-webkit-appearance: none;
+	/* Safari 和 Chrome */
 
 	/* 移除点击时的轮廓 */
 	outline: none;

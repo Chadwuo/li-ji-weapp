@@ -17,18 +17,13 @@
       </text>
       如果您希望支持“礼记”，让这个社区继续成长并为更多人服务，请考虑保持广告开启状态。
     </div>
-    <div class="mt-auto">
-      <ad unit-id="adunit-45fd166651f430ec" ad-type="video" ad-theme="white" />
-    </div>
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationBarTitleText": "支持礼记"
   }
-}
-</route>
+}</route>

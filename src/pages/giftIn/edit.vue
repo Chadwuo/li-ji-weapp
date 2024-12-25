@@ -101,43 +101,20 @@ function onFriendClick(e) {
     <div class="rounded-2xl bg-white p-4">
       <uv-form label-position="left" label-width="60">
         <uv-form-item label="亲友">
-          <uv-input
-            v-model="dataSource.friendInfo.name"
-            border="none"
-            placeholder="点击右侧图标选择亲友"
-            :disabled="dataSource._id"
-            disabled-color="#fff"
-          />
+          <uv-input v-model="dataSource.friendInfo.name" border="none" placeholder="点击右侧图标选择亲友"
+            :disabled="dataSource._id" disabled-color="#fff" />
           <template #right>
-            <div
-              v-show="!dataSource._id"
-              class="i-system-uicons-contacts text-lg text-gray"
-              @click="onSelectFriend"
-            />
+            <div v-show="!dataSource._id" class="i-system-uicons-contacts text-lg text-gray" @click="onSelectFriend" />
           </template>
         </uv-form-item>
         <uv-form-item label="金额">
-          <uv-input
-            v-model="dataSource.money"
-            border="none"
-            placeholder="随礼金额"
-            type="number"
-          />
+          <uv-input v-model="dataSource.money" border="none" placeholder="随礼金额" type="number" />
         </uv-form-item>
         <uv-form-item label="出席">
-          <uv-input
-            v-model="dataSource.attendance"
-            border="none"
-            placeholder="参加宴席人数"
-            type="number"
-          />
+          <uv-input v-model="dataSource.attendance" border="none" placeholder="参加宴席人数" type="number" />
         </uv-form-item>
         <uv-form-item label="备注">
-          <uv-input
-            v-model="dataSource.remarks"
-            border="none"
-            placeholder="请输入内容"
-          />
+          <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容" />
         </uv-form-item>
 
         <uv-form-item>
@@ -146,42 +123,24 @@ function onFriendClick(e) {
               <uv-button text="删除" shape="circle" @click="onDel" />
             </div>
             <div class="w-full">
-              <uv-button
-                type="primary"
-                shape="circle"
-                text="保存"
-                :loading="loading"
-                :disabled="!validInput"
-                loading-mode="circle"
-                @click="onSubmit"
-              />
+              <uv-button type="primary" shape="circle" text="保存" :loading="loading" :disabled="!validInput"
+                loading-mode="circle" @click="onSubmit" />
             </div>
           </div>
         </uv-form-item>
       </uv-form>
     </div>
     <div v-if="dataSource.friendInfo._id" class="mt-3 rounded-2xl bg-white p-1">
-      <uv-cell
-        title="查看往来记录"
-        is-link
-        :border="false"
-        @click="onFriendClick(dataSource.friendInfo)"
-      />
+      <uv-cell title="查看往来记录" is-link :border="false" @click="onFriendClick(dataSource.friendInfo)" />
     </div>
   </div>
-  <div class="mt-auto">
-    <ad unit-id="adunit-64aefbe92c2dc7bf" />
-  </div>
-  <uv-safe-bottom />
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "layout": "blank",
   "style": {
     "navigationBarTitleText": "收礼记录"
   }
-}
-</route>
+}</route>

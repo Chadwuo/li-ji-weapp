@@ -47,8 +47,7 @@
       "urlCheck": false
     },
     "usingComponents": true,
-    "darkmode": false,
-    "themeLocation": "theme.json"
+    "darkmode": false
   },
   "mp-alipay": {
     "usingComponents": true

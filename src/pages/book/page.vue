@@ -36,7 +36,8 @@ const handleBookClick = (id?: number) => {
     wx.navigateTo({
       url: '/pages/book/edit',
     })
-  } else {
+  }
+  else {
     wx.navigateTo({
       url: `/pages/book/detail?id=${id}`,
     })
@@ -48,10 +49,11 @@ watchEffect(() => {
     wx.showLoading({
       title: '正在加载数据...',
     })
-  } else {
-    setTimeout(function () {
+  }
+  else {
+    setTimeout(() => {
       wx.hideLoading()
-    }, 1000);
+    }, 1000)
   }
 })
 </script>
@@ -69,13 +71,10 @@ watchEffect(() => {
       </template>
     </wd-navbar>
     <div class="grid grid-cols-2 mt-5 gap-5">
-      <div v-for="i in 20">
-        <div>{{ i }}</div>
-      </div>
       <div v-for="i in dataList" :key="i.id" class="h-40 w-full rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
         @click="handleBookClick(i.id)">
         <div class="mx-4 h-full flex flex-col justify-around">
-          <div class="text-lg font-bold line-clamp-2" :class="[hasMourningWords(i.title) ? 'text-gray' : 'text-red']">
+          <div class="line-clamp-2 text-lg font-bold" :class="[hasMourningWords(i.title) ? 'text-gray' : 'text-red']">
             {{ i.title }}
           </div>
           <div class="text-sm text-gray">
@@ -109,7 +108,7 @@ watchEffect(() => {
         </div>
       </div>
     </div>
-    <wd-loadmore :state="loadingMore ? 'loading' : ''" />
+    <wd-loadmore :state="loadingMore ? 'loading' : ''" :loading-props="{ color: '#f87171' }" />
   </div>
 </template>
 

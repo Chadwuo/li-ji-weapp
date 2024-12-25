@@ -84,25 +84,13 @@ function onDel() {
     <div class="rounded-2xl bg-white p-4">
       <uv-form label-position="left" label-width="60">
         <uv-form-item label="姓名">
-          <uv-input
-            v-model="dataSource.name"
-            border="none"
-            placeholder="请输入姓名"
-          />
+          <uv-input v-model="dataSource.name" border="none" placeholder="请输入姓名" />
         </uv-form-item>
         <uv-form-item label="关系">
-          <uv-input
-            v-model="dataSource.relation"
-            border="none"
-            placeholder="请输入内容"
-          />
+          <uv-input v-model="dataSource.relation" border="none" placeholder="请输入内容" />
         </uv-form-item>
         <uv-form-item label="备注">
-          <uv-input
-            v-model="dataSource.remarks"
-            border="none"
-            placeholder="请输入内容"
-          />
+          <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容" />
         </uv-form-item>
 
         <uv-form-item>
@@ -111,34 +99,21 @@ function onDel() {
               <uv-button text="删除" shape="circle" @click="onDel" />
             </div>
             <div class="w-full">
-              <uv-button
-                type="primary"
-                shape="circle"
-                text="保存"
-                :loading="loading"
-                :disabled="!validInput"
-                loading-mode="circle"
-                @click="onSubmit"
-              />
+              <uv-button type="primary" shape="circle" text="保存" :loading="loading" :disabled="!validInput"
+                loading-mode="circle" @click="onSubmit" />
             </div>
           </div>
         </uv-form-item>
       </uv-form>
     </div>
   </div>
-  <div class="mt-auto">
-    <ad unit-id="adunit-64aefbe92c2dc7bf" />
-  </div>
-  <uv-safe-bottom />
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "layout": "blank",
   "style": {
     "navigationBarTitleText": "亲友"
   }
-}
-</route>
+}</route>

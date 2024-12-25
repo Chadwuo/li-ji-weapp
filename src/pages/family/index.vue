@@ -89,7 +89,7 @@ onShareAppMessage(() => {
   <div class="mt-3 h-full flex flex-col">
     <div v-if="!userFamilys" class="rounded-2xl bg-white p-4 space-y-2xl">
       <div class="text-center">
-        <img src="/static/home.svg">
+        <img src="/static/home.svg" class="w-full">
         <div class="mt-5 text-xl font-bold">
           家人共享
         </div>
@@ -125,34 +125,35 @@ onShareAppMessage(() => {
       </div>
 
       <div class="w-full">
-        <uv-button type="primary" shape="circle" text="与他人共享" :loading="loading" loading-mode="circle"
-          @click="onCreate" />
+        <wd-button block open-type="share" :loading="loading" @click="onCreate">
+          与他人共享
+        </wd-button>
       </div>
     </div>
     <div v-else>
       <div class="rounded-2xl bg-white p-1">
         <div class="rounded-2xl bg-white px-1 py-3 space-y-3">
           <template v-for="i in userFamilys" :key="i.userId">
-            <uv-cell :title="i.nickName" :label="i.role" :border="false" is-link @click="onClick(i)">
+            <wd-cell center :title="i.nickName" :label="i.role" is-link @click="onClick(i)">
               <template #icon>
                 <div class="mr-3">
                   <uv-avatar :src="i.avatar" />
                 </div>
               </template>
-            </uv-cell>
+            </wd-cell>
           </template>
         </div>
       </div>
       <div class="mt-3">
-        <button disabled openType="share" icon="plus" class="uv-reset-button rounded-2xl bg-white p-2">
+        <wd-button plain block icon="add" open-type="share">
+          邀请家庭成员
+        </wd-button>
+        <!-- <button disabled openType="share" icon="plus" class="reset-button rounded-2xl bg-white p-2">
           <div class="flex items-center justify-center text-red">
             <div class="i-carbon-add text-2xl" /> 邀请家庭成员
           </div>
-        </button>
+        </button> -->
       </div>
-    </div>
-    <div class="mt-auto">
-      <ad unit-id="adunit-64aefbe92c2dc7bf" />
     </div>
   </div>
   <uv-action-sheet ref="actionSheetRef" :actions="actionSheetList" :safe-area-inset-bottom="true"

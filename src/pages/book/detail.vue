@@ -153,7 +153,7 @@ const handleBookEdit = () => {
     <div v-if="dataList.length === 0" class="my-auto">
       <uv-empty />
     </div>
-    <div class="my-5 rounded-2xl bg-white space-y-3">
+    <div v-else class="my-5 rounded-2xl bg-white space-y-3">
       <div v-for="gift in dataList" :key="gift.id" @click="handleGiftClick(gift.id)">
         <div class="h-18 flex items-center justify-around">
           <div>
@@ -174,7 +174,6 @@ const handleBookEdit = () => {
           </div>
         </div>
       </div>
-
       <wd-loadmore :state="loading ? 'loading' : ''" />
     </div>
 

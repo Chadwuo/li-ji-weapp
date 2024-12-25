@@ -29,6 +29,12 @@ const statistics = async () => {
   //   staticData.value.giftIn = giftInRes.data
 }
 
+const toSettings = () => {
+  wx.navigateTo({
+    url: '/pages/settings/index',
+  })
+}
+
 onShareAppMessage(() => {
   return {
     title: '可能是东半球最好用的人情记账工具',
@@ -40,7 +46,7 @@ onShareAppMessage(() => {
 
 <template>
   <div class="pt-24 space-y-5">
-    <div class="flex items-center">
+    <div class="flex items-center" @click="toSettings">
       <uv-avatar :src="userInfo?.avatar" shape="square" :size="55" />
       <div class="ml-3">
         <div class="text-lg">

@@ -12,7 +12,7 @@ const version = miniProgram.version || '3.2.0'
           礼记
         </div>
         <div class="mt-2 text-sm text-gray">
-          v{{ version }} "Initial D"
+          v{{ version }} "幽灵倒计时"
         </div>
       </div>
     </div>
