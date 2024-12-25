@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="bg-white p-5 space-y-3">
+  <div class="py-5 space-y-3">
     <div class="font-bold">
       礼记 免费吗？
     </div>
@@ -63,17 +63,15 @@
       我可以参与 礼记 项目吗？
     </div>
     <div class="flex items-center text-sm text-gray-500 leading-relaxed">
-      非常欢迎！请访问我们的<uv-link font-size="0.875rem" color="#f87171" href="https://github.com/Chadwuo/li-ji-weapp" text="开源社区"
+      非常欢迎！请访问我们的<uv-link font-size="14" href="https://github.com/Chadwuo/li-ji-weapp" text="开源社区"
         :under-line="true" />
     </div>
-    <uv-safe-bottom />
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
 <route lang="json">{
-  "layout": "blank",
   "style": {
     "navigationBarTitleText": "常见问题"
   }

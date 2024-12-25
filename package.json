@@ -45,6 +45,7 @@
     "postinstall": "npx simple-git-hooks"
   },
   "dependencies": {
+    "@climblee/uv-ui": "^1.1.20",
     "@dcloudio/uni-app": "3.0.0-4020920240930001",
     "@dcloudio/uni-app-plus": "3.0.0-4020920240930001",
     "@dcloudio/uni-components": "3.0.0-4020920240930001",
@@ -59,7 +60,6 @@
     "@dcloudio/uni-mp-weixin": "3.0.0-4020920240930001",
     "@dcloudio/uni-mp-xhs": "3.0.0-4020920240930001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-4020920240930001",
-    "@lottiefiles/dotlottie-vue": "^0.5.3",
     "@vueuse/core": "^11.2.0",
     "dayjs": "^1.11.13",
     "pinia": "^2.3.0",

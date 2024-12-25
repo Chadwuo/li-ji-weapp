@@ -27,10 +27,8 @@ const version = miniProgram.version || '3.2.0'
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
-    "style": {
-        "navigationBarTitleText": "关于礼记"
-    }
-}
-</route>
+<route lang="json">{
+  "style": {
+    "navigationBarTitleText": "关于礼记"
+  }
+}</route>

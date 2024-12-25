@@ -1,12 +1,13 @@
 <script setup lang="ts">
-const calendarRef = ref(null)
+import { useMessage } from 'wot-design-uni'
+const message = useMessage()
+const calendarRef = ref<any>(null)
 const dataSource = ref<Api.GiftBook>({})
 const validInput = computed(() => {
   return dataSource.value?.date && dataSource.value?.title
 })
 const loading = ref(false)
 
-// onLoad 接受 A 页面传递的参数
 onLoad((option) => {
   if (option?.id) {
     wx.setNavigationBarTitle({
@@ -23,7 +24,7 @@ const onSubmit = async () => {
   loading.value = true
   const api = dataSource.value.id ? apiGiftBookPut : apiGiftBookPost
   const res = await api(dataSource.value)
-  uni.showToast({
+  wx.showToast({
     title: `${res.succeeded ? (dataSource.value.id ? '更新' : '新增') : ''}成功`,
     icon: res.succeeded ? 'success' : 'error',
   })
@@ -31,54 +32,40 @@ const onSubmit = async () => {
 }
 
 const onDel = () => {
-  wx.showModal({
-    title: '删除礼簿',
-    content: '该礼簿所有来往记录都将被删除，确定删除？',
-    confirmColor: '#F87171',
-    success: async (e) => {
-      if (!e.confirm)
-        return
-      const res = await apiGiftBookDelete({ id: dataSource.value.id })
-      if (res.succeeded) {
-        wx.showToast({
-          title: '删除成功',
-          icon: 'success',
+  message.confirm({
+    msg: '该礼簿所有来往记录都将被删除，确定删除？',
+    title: '删除礼簿'
+  }).then(async () => {
+    const res = await apiGiftBookDelete({ id: dataSource.value.id })
+    if (res.succeeded) {
+      wx.showToast({
+        title: '删除成功',
+        icon: 'success',
+      })
+      setTimeout(() => {
+        uni.navigateBack({
+          delta: 2,
         })
-        setTimeout(() => {
-          uni.navigateBack({
-            delta: 2,
-          })
-        }, 1000)
-      }
-      else {
-        wx.showToast({
-          title: res.errors,
-          icon: 'error',
-        })
-      }
-    },
+      }, 1000)
+    }
+    else {
+      wx.showToast({
+        title: res.errors,
+        icon: 'error',
+      })
+    }
   })
 }
 
 const confirmCalendar = (e: any) => {
-  const { year, month, date, lunar } = e
-
-  const selectedDate = {
-    year,
-    month: Number(month),
-    day: date,
-    value: `${year}-${Number(month)}-${date}`,
-    lunar_day: lunar.IDayCn,
-    lunar_month: lunar.IMonthCn,
-    lunar_year: `${lunar.gzYear}${lunar.Animal}年`,
-    lunar_term: lunar.Term || '',
-  }
-  dataSource.value.date = selectedDate
+  const { lunar, fulldate } = e
+  dataSource.value.date = fulldate
+  dataSource.value.lunarDate = `${lunar.IMonthCn} ${lunar.IDayCn} ${lunar.gzYear}${lunar.Animal}年`
   calendarRef.value.close()
 }
 
 const openCalendar = () => {
-  calendarRef.value?.open()
+  calendarRef.value.open()
 }
 </script>
 
@@ -107,12 +94,13 @@ const openCalendar = () => {
       </uv-form-item>
       <uv-form-item>
         <div class="flex space-x-4">
-          <div v-if="dataSource.id" class="w-40">
-            <uv-button text="删除" shape="circle" @click="onDel" />
+          <div class="w-40" v-if="dataSource.id">
+            <wd-button plain @click="onDel">删除</wd-button>
           </div>
           <div class="w-full">
-            <uv-button type="primary" shape="circle" text="保存" :loading="loading" :disabled="!validInput"
-              loading-mode="circle" @click="onSubmit" />
+            <wd-button block :loading="loading" :disabled="!validInput" @click="onSubmit">
+              保存
+            </wd-button>
           </div>
         </div>
       </uv-form-item>
@@ -121,7 +109,7 @@ const openCalendar = () => {
   <div class="mt-auto">
     <ad unit-id="adunit-64aefbe92c2dc7bf" />
   </div>
-  <uv-safe-bottom />
+
   <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
     @confirm="confirmCalendar" />
 </template>

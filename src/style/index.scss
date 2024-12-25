@@ -2,23 +2,48 @@
 page {
 	background: #f1f1f1;
 	height: 100%;
+	box-sizing: border-box;
 	// 修改按主题色
 	--wot-color-theme: #f87171;
+	--wot-cell-tap-bg: transparent;
 
 	// 修改按钮背景色
 	// --wot-button-primary-bg-color: green;
 }
 
+$uv-primary: #f87171;
+
 // 去除button的所有默认样式，让其表现跟普通的view、text元素一样
 .reset-button {
+	/* 移除内外边距 */
+	margin: 0;
 	padding: 0;
-	background-color: transparent;
-	font-size: inherit;
-	line-height: inherit;
-	color: inherit;
-	border-width: 0;
-}
 
-.reset-button::after {
+	/* 移除默认的背景和边框 */
+	background: none;
 	border: none;
+
+	/* 移除默认的文字样式 */
+	font: inherit;
+	color: inherit;
+
+	/* 移除按钮的内建样式 */
+	appearance: none; /* 对于大多数现代浏览器 */
+	-webkit-appearance: none; /* Safari 和 Chrome */
+
+	/* 移除点击时的轮廓 */
+	outline: none;
+
+	/* 可选：确保按钮可以被点击 */
+	cursor: pointer;
+
+	/* 如果需要完全去除所有用户交互样式 */
+	&:active,
+	&:focus,
+	&:hover,
+	&:after {
+		background: none;
+		border: none;
+		outline: none;
+	}
 }

@@ -2,7 +2,7 @@
 import { useLoadMore } from 'vue-request'
 import logo from '/static/logo.png'
 
-const { dataList, loading, loadMore, refresh } = useLoadMore<Api.LoadMoreDataType<Api.GiftBook>>(
+const { dataList, loading, loadingMore, loadMore, refresh } = useLoadMore<Api.LoadMoreDataType<Api.GiftBook>>(
   async (d) => {
     const _page = d?.page ? d.page + 1 : 1
     const response = await apiGiftBookPageGet({
@@ -24,7 +24,7 @@ const { dataList, loading, loadMore, refresh } = useLoadMore<Api.LoadMoreDataTyp
 
 onPullDownRefresh(async () => {
   await refresh()
-  uni.stopPullDownRefresh()
+  wx.stopPullDownRefresh()
 })
 
 onReachBottom(() => {
@@ -43,6 +43,17 @@ const handleBookClick = (id?: number) => {
   }
 }
 
+watchEffect(() => {
+  if (loading.value && !loadingMore.value) {
+    wx.showLoading({
+      title: '正在加载数据...',
+    })
+  } else {
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 1000);
+  }
+})
 </script>
 
 <template>
@@ -58,10 +69,13 @@ const handleBookClick = (id?: number) => {
       </template>
     </wd-navbar>
     <div class="grid grid-cols-2 mt-5 gap-5">
+      <div v-for="i in 20">
+        <div>{{ i }}</div>
+      </div>
       <div v-for="i in dataList" :key="i.id" class="h-40 w-full rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
         @click="handleBookClick(i.id)">
         <div class="mx-4 h-full flex flex-col justify-around">
-          <div class="text-lg font-bold" :class="[hasMourningWords(i.title) ? 'text-gray' : 'text-red']">
+          <div class="text-lg font-bold line-clamp-2" :class="[hasMourningWords(i.title) ? 'text-gray' : 'text-red']">
             {{ i.title }}
           </div>
           <div class="text-sm text-gray">
@@ -95,7 +109,7 @@ const handleBookClick = (id?: number) => {
         </div>
       </div>
     </div>
-    <wd-loadmore :state="loading ? 'loading' : ''" />
+    <wd-loadmore :state="loadingMore ? 'loading' : ''" />
   </div>
 </template>
 
