@@ -318,7 +318,7 @@ declare namespace Api {
 		 * @type {number}
 		 * @memberof Friend
 		 */
-		id: number;
+		id?: number;
 		/**
 		 * 创建时间
 		 * @type {string}
@@ -331,18 +331,6 @@ declare namespace Api {
 		 * @memberof Friend
 		 */
 		updateTime?: string | null;
-		/**
-		 * 用户Id
-		 * @type {number}
-		 * @memberof Friend
-		 */
-		userId?: number;
-		/**
-		 *
-		 * @type {User}
-		 * @memberof Friend
-		 */
-		user?: User;
 		/**
 		 * 姓名
 		 * @type {string}
@@ -389,18 +377,6 @@ declare namespace Api {
 		 */
 		updateTime?: string | null;
 		/**
-		 * 用户Id
-		 * @type {number}
-		 * @memberof GiftIn
-		 */
-		userId?: number;
-		/**
-		 *
-		 * @type {User}
-		 * @memberof GiftIn
-		 */
-		user?: User;
-		/**
 		 * 金额
 		 * @type {number}
 		 * @memberof GiftIn
@@ -426,10 +402,10 @@ declare namespace Api {
 		giftBookId?: number;
 		/**
 		 *
-		 * @type {GiftBook}
+		 * @type {string}
 		 * @memberof GiftIn
 		 */
-		giftBook?: GiftBook;
+		giftBookTitle?: string | null;
 		/**
 		 * 亲友Id
 		 * @type {number}
@@ -438,10 +414,10 @@ declare namespace Api {
 		friendId?: number;
 		/**
 		 *
-		 * @type {Friend}
+		 * @type {string}
 		 * @memberof GiftIn
 		 */
-		friend?: Friend;
+		friendName?: string | null;
 	}
 
 	interface GiftOut {
@@ -450,7 +426,7 @@ declare namespace Api {
 		 * @type {number}
 		 * @memberof GiftOut
 		 */
-		id: number;
+		id?: number;
 		/**
 		 * 创建时间
 		 * @type {string}
@@ -519,9 +495,9 @@ declare namespace Api {
 		friendId?: number;
 		/**
 		 *
-		 * @type {Friend}
+		 * @type {string}
 		 * @memberof GiftOut
 		 */
-		friend?: Friend;
+		friendName?: string | null;
 	}
 }

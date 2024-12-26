@@ -1,6 +1,6 @@
-export function request<T>(options: WechatMiniprogram.RequestOption) {
+export function request<T>(options: UniApp.RequestOptions) {
 	return new Promise<Api.Response<T>>((resolve, reject) => {
-		wx.request({
+		uni.request({
 			...requestInterceptor(options),
 			success(res) {
 				if (res.statusCode === 200) {
@@ -25,7 +25,7 @@ export function request<T>(options: WechatMiniprogram.RequestOption) {
 	});
 }
 
-function requestInterceptor(options: WechatMiniprogram.RequestOption) {
+function requestInterceptor(options: UniApp.RequestOptions) {
 	// 非 http 开头需拼接地址
 	if (!options.url.startsWith('http')) {
 		options.url = `${import.meta.env.VITE_SERVICE_BASE_URL}/${options.url}`;

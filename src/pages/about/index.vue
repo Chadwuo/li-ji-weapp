@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { miniProgram } = wx.getAccountInfoSync()
-const version = miniProgram.version || '3.2.0'
+const version = miniProgram.version || '4.0'
 </script>
 
 <template>

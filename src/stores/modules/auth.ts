@@ -12,7 +12,7 @@ export const useAuthStore = defineStore(
 
 		const login = async () => {
 			if (!accessToken.value) {
-				const { code, errMsg } = await wx.login();
+				const { code, errMsg } = await uni.login();
 				if (code) {
 					// 发起网络请求
 					const res = await apiLoginPost(code);

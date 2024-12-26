@@ -7,7 +7,8 @@ const search = ref({
   showAction: false,
 })
 const popupShow = ref(false)
-const { dataList, loading, loadMore, refresh } = useLoadMore<Api.LoadMoreDataType<Api.GiftIn>>(
+
+const { dataList, loading, loadingMore, loadMore, refresh } = useLoadMore<Api.LoadMoreDataType<Api.GiftIn>>(
   async (d) => {
     const _page = d?.page ? d.page + 1 : 1
     const response = await apiGiftInPageGet({
@@ -27,6 +28,7 @@ const { dataList, loading, loadMore, refresh } = useLoadMore<Api.LoadMoreDataTyp
     manual: true,
   },
 )
+
 const netAmount = computed(() => {
   if (book.value.moneyTotal !== undefined && book.value.cost !== undefined) {
     return book.value.moneyTotal - book.value.cost
@@ -40,7 +42,7 @@ onLoad(async (option) => {
       if (res.succeeded && res.data)
         book.value = res.data
     })
-    loadMore()
+    refresh()
   }
 })
 
@@ -158,7 +160,7 @@ const handleBookEdit = () => {
         <div class="h-18 flex items-center justify-around">
           <div>
             <div class="text-lg">
-              {{ gift.friend?.name }}
+              {{ gift.friendName }}
             </div>
             <div class="text-sm text-gray">
               出席：{{ gift.attendance || 0 }} 人
@@ -174,7 +176,7 @@ const handleBookEdit = () => {
           </div>
         </div>
       </div>
-      <wd-loadmore :state="loading ? 'loading' : ''" />
+      <wd-loadmore :state="loadingMore ? 'loading' : ''" :loading-props="{ color: '#f87171' }" />
     </div>
 
     <wd-popup v-model="popupShow" safe-area-inset-bottom position="bottom" custom-class="rounded-t-2xl">
