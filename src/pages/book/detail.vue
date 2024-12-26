@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useLoadMore } from 'vue-request'
+import { useMessage } from 'wot-design-uni'
 
+const message = useMessage()
 const book = ref<Api.GiftBook>({})
 const search = ref({
   keyword: '',
@@ -8,7 +10,7 @@ const search = ref({
 })
 const popupShow = ref(false)
 
-const { dataList, loading, loadingMore, loadMore, refresh } = useLoadMore<Api.LoadMoreDataType<Api.GiftIn>>(
+const { dataList, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftIn>>(
   async (d) => {
     const _page = d?.page ? d.page + 1 : 1
     const response = await apiGiftInPageGet({
@@ -36,29 +38,32 @@ const netAmount = computed(() => {
   return 0
 })
 
+const loading = ref(false)
 onLoad(async (option) => {
+  loading.value = true
   if (option?.id) {
     await apiGiftBookGet({ id: option.id }).then((res) => {
       if (res.succeeded && res.data)
         book.value = res.data
     })
-    refresh()
+    await refreshAsync()
   }
+  loading.value = false
 })
 
 onReachBottom(() => {
-  loadMore()
+  loadMoreAsync()
 })
 
 function searchOk() {
-  refresh()
+  refreshAsync()
 }
 function searchCancel() {
   search.value = {
     keyword: '',
     showAction: false,
   }
-  refresh()
+  refreshAsync()
 }
 
 const handleGiftClick = (gid?: number) => {
@@ -71,19 +76,50 @@ const handleGiftAdd = () => {
     url: `/pages/giftIn/edit?bookId=${book.value.id}`,
   })
 }
-
 const handleBookEdit = () => {
   wx.navigateTo({
     url: `/pages/book/edit?id=${book.value.id}`,
+  })
+}
+const handleBookDel = () => {
+  message.confirm({
+    msg: '该礼簿所有来往记录都将被删除，确定删除？',
+    title: '删除礼簿',
+  }).then(async () => {
+    const res = await apiGiftBookDelete({ id: book.value.id })
+    if (res.succeeded) {
+      wx.showToast({
+        title: '删除成功',
+        icon: 'success',
+      })
+      setTimeout(() => {
+        uni.navigateBack({
+          delta: 2,
+        })
+      }, 1000)
+    }
+    else {
+      wx.showToast({
+        title: res.errors,
+        icon: 'error',
+      })
+    }
   })
 }
 </script>
 
 <template>
   <div class="h-full flex flex-col">
-    <div class="rounded-b-2xl bg-white px-5 pb-5 pt-3 space-y-3">
+    <div v-if="loading" class="mb-5 rounded-b-2xl bg-white p-5">
+      <wd-skeleton
+        :row-col="[{ width: '30%' }, { width: '60%' }, { width: '20%' }, [{ width: '20%' }, { width: '20%' }, { width: '20%' }, { width: '20%' }]]"
+      />
+    </div>
+
+    <div v-else class="mb-5 rounded-b-2xl bg-white px-5 pb-5 pt-3 space-y-3">
       <uv-search v-model="search.keyword" placeholder="请输入搜索内容" :show-action="search.showAction" action-text="取消"
-        @focus="search.showAction = true" @custom="searchCancel" @search="searchOk" />
+                 @focus="search.showAction = true" @custom="searchCancel" @search="searchOk"
+      />
       <div class="flex items-center justify-between">
         <div>
           <div class="text-lg font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
@@ -95,11 +131,11 @@ const handleBookEdit = () => {
           </div>
         </div>
         <div class="flex text-xl font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
-          <div class="py-2 pl-2" @click="handleBookEdit">
-            <div class="i-carbon-edit" />
+          <div class="py-2 pl-2" @click="handleBookDel">
+            <div class="i-line-md-document-delete" />
           </div>
-          <div class="py-2 pl-2" @click="handleGiftAdd">
-            <div class="i-carbon-add-alt" />
+          <div class="py-2 pl-2" @click="handleBookEdit">
+            <div class="i-line-md-edit" />
           </div>
         </div>
       </div>
@@ -152,32 +188,27 @@ const handleBookEdit = () => {
       </div>
     </div>
 
-    <div v-if="dataList.length === 0" class="my-auto">
-      <uv-empty />
-    </div>
-    <div v-else class="my-5 rounded-2xl bg-white space-y-3">
-      <div v-for="gift in dataList" :key="gift.id" @click="handleGiftClick(gift.id)">
-        <div class="h-18 flex items-center justify-around">
-          <div>
-            <div class="text-lg">
-              {{ gift.friendName }}
-            </div>
-            <div class="text-sm text-gray">
-              出席：{{ gift.attendance || 0 }} 人
-            </div>
+    <wd-card type="rectangle">
+      <template #title>
+        <wd-button icon="add" size="small" @click="handleGiftAdd">
+          添加
+        </wd-button>
+      </template>
+      <wd-skeleton v-if="loading" theme="paragraph" />
+      <div v-else>
+        <uv-empty v-if="dataList.length === 0" />
+        <div v-else class="space-y-3">
+          <div v-for="gift in dataList" :key="gift.id" @click="handleGiftClick(gift.id)">
+            <wd-cell center size="large" :title="gift.friendName" :label="`出席：${gift.attendance || 0}人`">
+              <div class="text-lg font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
+                <span class="text-sm">￥</span>{{ gift.money }}
+              </div>
+            </wd-cell>
           </div>
-          <div class="text-right">
-            <div class="text-lg font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
-              <span class="text-sm">￥</span>{{ gift.money }}
-            </div>
-            <div class="text-sm text-gray">
-              礼金
-            </div>
-          </div>
+          <wd-loadmore :state="loadingMore ? 'loading' : ''" :loading-props="{ color: '#f87171' }" />
         </div>
       </div>
-      <wd-loadmore :state="loadingMore ? 'loading' : ''" :loading-props="{ color: '#f87171' }" />
-    </div>
+    </wd-card>
 
     <wd-popup v-model="popupShow" safe-area-inset-bottom position="bottom" custom-class="rounded-t-2xl">
       <div class="px-5 pt-4">
@@ -213,9 +244,11 @@ const handleBookEdit = () => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "layout": "blank",
   "style": {
     "navigationBarTitleText": "详情"
   }
-}</route>
+}
+</route>

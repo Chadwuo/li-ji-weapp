@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { useMessage } from 'wot-design-uni'
-
-const message = useMessage()
 const calendarRef = ref<any>(null)
 const dataSource = ref<Api.GiftBook>({})
 const validInput = computed(() => {
@@ -30,32 +27,6 @@ const onSubmit = async () => {
     icon: res.succeeded ? 'success' : 'error',
   })
   loading.value = false
-}
-
-const onDel = () => {
-  message.confirm({
-    msg: '该礼簿所有来往记录都将被删除，确定删除？',
-    title: '删除礼簿',
-  }).then(async () => {
-    const res = await apiGiftBookDelete({ id: dataSource.value.id })
-    if (res.succeeded) {
-      wx.showToast({
-        title: '删除成功',
-        icon: 'success',
-      })
-      setTimeout(() => {
-        uni.navigateBack({
-          delta: 2,
-        })
-      }, 1000)
-    }
-    else {
-      wx.showToast({
-        title: res.errors,
-        icon: 'error',
-      })
-    }
-  })
 }
 
 const confirmCalendar = (e: any) => {
@@ -94,31 +65,27 @@ const openCalendar = () => {
         </div>
       </uv-form-item>
       <uv-form-item>
-        <div class="flex space-x-4">
-          <div v-if="dataSource.id" class="w-40">
-            <wd-button plain @click="onDel">
-              删除
-            </wd-button>
-          </div>
-          <div class="w-full">
-            <wd-button block :loading="loading" :disabled="!validInput" @click="onSubmit">
-              保存
-            </wd-button>
-          </div>
+        <div class="w-full">
+          <wd-button block :loading="loading" :disabled="!validInput" @click="onSubmit">
+            保存
+          </wd-button>
         </div>
       </uv-form-item>
     </uv-form>
   </div>
 
   <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
-    @confirm="confirmCalendar" />
+                @confirm="confirmCalendar"
+  />
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "layout": "blank",
   "style": {
     "navigationBarTitleText": "新增"
   }
-}</route>
+}
+</route>
