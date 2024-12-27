@@ -67,17 +67,17 @@ function searchCancel() {
 }
 
 const handleGiftClick = (gid?: number) => {
-  wx.navigateTo({
+  uni.navigateTo({
     url: `/pages/giftIn/edit?id=${gid}`,
   })
 }
 const handleGiftAdd = () => {
-  wx.navigateTo({
+  uni.navigateTo({
     url: `/pages/giftIn/edit?bookId=${book.value.id}`,
   })
 }
 const handleBookEdit = () => {
-  wx.navigateTo({
+  uni.navigateTo({
     url: `/pages/book/edit?id=${book.value.id}`,
   })
 }
@@ -88,7 +88,7 @@ const handleBookDel = () => {
   }).then(async () => {
     const res = await apiGiftBookDelete({ id: book.value.id })
     if (res.succeeded) {
-      wx.showToast({
+      uni.showToast({
         title: '删除成功',
         icon: 'success',
       })
@@ -99,7 +99,7 @@ const handleBookDel = () => {
       }, 1000)
     }
     else {
-      wx.showToast({
+      uni.showToast({
         title: res.errors,
         icon: 'error',
       })
@@ -112,14 +112,10 @@ const handleBookDel = () => {
   <div class="h-full flex flex-col">
     <div v-if="loading" class="mb-5 rounded-b-2xl bg-white p-5">
       <wd-skeleton
-        :row-col="[{ width: '30%' }, { width: '60%' }, { width: '20%' }, [{ width: '20%' }, { width: '20%' }, { width: '20%' }, { width: '20%' }]]"
-      />
+        :row-col="[{ width: '30%' }, { width: '60%' }, { width: '20%' }, [{ width: '20%' }, { width: '20%' }, { width: '20%' }, { width: '20%' }]]" />
     </div>
 
     <div v-else class="mb-5 rounded-b-2xl bg-white px-5 pb-5 pt-3 space-y-3">
-      <uv-search v-model="search.keyword" placeholder="请输入搜索内容" :show-action="search.showAction" action-text="取消"
-                 @focus="search.showAction = true" @custom="searchCancel" @search="searchOk"
-      />
       <div class="flex items-center justify-between">
         <div>
           <div class="text-lg font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
@@ -132,10 +128,10 @@ const handleBookDel = () => {
         </div>
         <div class="flex text-xl font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
           <div class="py-2 pl-2" @click="handleBookDel">
-            <div class="i-line-md-document-delete" />
+            <div class="i-ant-design-delete-outlined" />
           </div>
           <div class="py-2 pl-2" @click="handleBookEdit">
-            <div class="i-line-md-edit" />
+            <div class="i-ant-design-edit-outlined" />
           </div>
         </div>
       </div>
@@ -145,7 +141,7 @@ const handleBookDel = () => {
           礼金：<span class="text-xl">{{ book.moneyTotal }}</span>
         </div>
         <div class="ml-auto py-2 pl-2 text-gray" @click="() => popupShow = true">
-          <div class="i-carbon-information-filled" />
+          <div class="i-ant-design-info-circle-filled" />
         </div>
       </div>
       <div class="grid grid-cols-4 gap-5 divide-x">
@@ -190,14 +186,24 @@ const handleBookDel = () => {
 
     <wd-card type="rectangle">
       <template #title>
-        <wd-button icon="add" size="small" @click="handleGiftAdd">
-          添加
-        </wd-button>
+        <div class="w-full flex items-center">
+          <div>
+            <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
+              @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true" />
+          </div>
+
+          <div class="ml-auto">
+            <wd-button icon="add" size="small" :type="hasMourningWords(book.title) ? 'info' : 'primary '"
+              @click="handleGiftAdd">
+              添加
+            </wd-button>
+          </div>
+        </div>
       </template>
       <wd-skeleton v-if="loading" theme="paragraph" />
       <div v-else>
         <uv-empty v-if="dataList.length === 0" />
-        <div v-else class="space-y-3">
+        <div v-else>
           <div v-for="gift in dataList" :key="gift.id" @click="handleGiftClick(gift.id)">
             <wd-cell center size="large" :title="gift.friendName" :label="`出席：${gift.attendance || 0}人`">
               <div class="text-lg font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
@@ -244,11 +250,9 @@ const handleBookDel = () => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "layout": "blank",
   "style": {
     "navigationBarTitleText": "详情"
   }
-}
-</route>
+}</route>

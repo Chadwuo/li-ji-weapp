@@ -8,7 +8,7 @@ const loading = ref(false)
 
 onLoad((option) => {
   if (option?.id) {
-    wx.setNavigationBarTitle({
+    uni.setNavigationBarTitle({
       title: '编辑',
     })
     apiGiftBookGet({ id: option.id }).then((res) => {
@@ -22,7 +22,7 @@ const onSubmit = async () => {
   loading.value = true
   const api = dataSource.value.id ? apiGiftBookPut : apiGiftBookPost
   const res = await api(dataSource.value)
-  wx.showToast({
+  uni.showToast({
     title: `${res.succeeded ? (dataSource.value.id ? '更新' : '新增') : ''}成功`,
     icon: res.succeeded ? 'success' : 'error',
   })
@@ -75,17 +75,14 @@ const openCalendar = () => {
   </div>
 
   <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
-                @confirm="confirmCalendar"
-  />
+    @confirm="confirmCalendar" />
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "layout": "blank",
   "style": {
     "navigationBarTitleText": "新增"
   }
-}
-</route>
+}</route>

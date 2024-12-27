@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { miniProgram } = wx.getAccountInfoSync()
+const { miniProgram } = uni.getAccountInfoSync()
 const version = miniProgram.version || '4.0'
 </script>
 

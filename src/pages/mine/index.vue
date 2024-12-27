@@ -30,7 +30,7 @@ const statistics = async () => {
 }
 
 const toSettings = () => {
-  wx.navigateTo({
+  uni.navigateTo({
     url: '/pages/settings/index',
   })
 }
