@@ -1,82 +1,32 @@
-<script setup>
-const dataSource = ref({
-  date: {},
-})
+<script setup lang="ts">
+const dataSource = ref<Api.Friend>({})
 onLoad((option) => {
-  dataSource.value = { ...router.getQueryParse(option) }
+  if (option?.id) {
+    uni.setNavigationBarTitle({
+      title: '编辑',
+    })
+    apiFriendGet({ id: option.id }).then((res) => {
+      if (res.succeeded && res.data)
+        dataSource.value = res.data
+    })
+  }
 })
 const validInput = computed(() => {
   return dataSource.value.name
 })
 
 const loading = ref(false)
-function onSubmit() {
+const onSubmit = async () => {
   loading.value = true
-  if (dataSource.value._id) {
-    update(dataSource.value)
-      .then((res) => {
-        if (res.success) {
-          uni.$emit('friendPageUpdate')
-          uni.showToast({
-            title: '更新成功',
-            icon: 'success',
-          })
-          setTimeout(() => {
-            uni.navigateBack({
-              delta: 2,
-            })
-          }, 1000)
-        }
-      })
-      .finally(() => {
-        loading.value = false
-      })
-  }
-  else {
-    add(dataSource.value)
-      .then((res) => {
-        if (res.success) {
-          uni.$emit('friendPageUpdate')
-          uni.showToast({
-            title: '添加成功',
-            icon: 'success',
-          })
-          setTimeout(() => {
-            uni.navigateBack()
-          }, 1000)
-        }
-      })
-      .finally(() => {
-        loading.value = false
-      })
-  }
+  const api = dataSource.value.id ? apiFriendPut : apiFriendPost
+  const res = await api(dataSource.value)
+  uni.showToast({
+    title: `${res.succeeded ? (dataSource.value.id ? '更新' : '新增') : ''}成功`,
+    icon: res.succeeded ? 'success' : 'error',
+  })
+  loading.value = false
 }
 
-function onDel() {
-  uni.showModal({
-    title: '删除亲友',
-    content: '该亲友所有来往记录都将被删除，确定删除？',
-    confirmColor: '#F87171',
-    success: (res) => {
-      if (res.confirm) {
-        del(dataSource.value).then((res) => {
-          if (res.success) {
-            uni.$emit('friendPageUpdate')
-            uni.showToast({
-              title: '删除成功',
-              icon: 'success',
-            })
-            setTimeout(() => {
-              uni.navigateBack({
-                delta: 2,
-              })
-            }, 1000)
-          }
-        })
-      }
-    },
-  })
-}
 </script>
 
 <template>
@@ -94,14 +44,10 @@ function onDel() {
         </uv-form-item>
 
         <uv-form-item>
-          <div class="flex space-x-4">
-            <div v-if="dataSource._id" class="w-40">
-              <uv-button text="删除" shape="circle" @click="onDel" />
-            </div>
-            <div class="w-full">
-              <uv-button type="primary" shape="circle" text="保存" :loading="loading" :disabled="!validInput"
-                loading-mode="circle" @click="onSubmit" />
-            </div>
+          <div class="w-full">
+            <wd-button block :loading="loading" :disabled="!validInput" @click="onSubmit">
+              保存
+            </wd-button>
           </div>
         </uv-form-item>
       </uv-form>

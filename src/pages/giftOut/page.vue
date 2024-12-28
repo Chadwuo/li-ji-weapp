@@ -1,4 +1,6 @@
-<script setup>
+<script setup lang="ts">
+import { useLoadMore } from 'vue-request'
+
 const tabsList = ref([
   {
     name: '全部',
@@ -45,72 +47,68 @@ const tabsList = ref([
     value: 'i-mingcute-wallet-2-line',
   },
 ])
-const giftList = ref([])
-const loadMoreStatus = ref('loadmore')
-const pagination = ref({
-  pageNo: 1,
-  pageSize: 20,
-  loading: false,
-})
 const search = ref({
   keyword: '',
   icon: '',
   showAction: false,
 })
+const { dataList, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftOut>>(
+  async (d) => {
+    const _page = d?.page ? d.page + 1 : 1
+    const response = await apiGiftInPageGet({
+      page: _page,
+    })
+    const { items, page = 0, total = 0 } = response.data || {}
+    return {
+      list: items || [],
+      page,
+      total,
+    }
+  },
+  {
+    isNoMore: (d) => {
+      return d?.list.length === d?.total
+    },
+  },
+)
 
-function onTabsClick(item) {
+function onTabsClick(item: any) {
   search.value.icon = item.value
-  loadData()
+  refreshAsync()
 }
 
-onLoad(() => {
-  loadData()
-  uni.$on('giftOutPageUpdate', () => {
-    loadData()
-  })
+onPullDownRefresh(async () => {
+  await refreshAsync()
+  uni.stopPullDownRefresh()
 })
 
 onReachBottom(() => {
-  if (loadMoreStatus.value === 'loading' || loadMoreStatus.value === 'nomore')
-    return
-
-  loadMoreStatus.value = 'loading'
-  pagination.value.pageNo++
-  loadData()
+  loadMoreAsync()
 })
 
-function loadData() {
-  const { pageSize, pageNo } = pagination.value
-  page({
-    ...search.value,
-    pageSize,
-    pageNo,
-  }).then((res) => {
-    if (res.success) {
-      giftList.value
-        = pageNo === 1 ? res.result : [...giftList.value, ...res.result]
-      loadMoreStatus.value
-        = res.result.length < pageSize ? 'nomore' : 'loadmore'
-    }
-  })
-}
-
 function searchOk() {
-  loadData()
+  refreshAsync()
 }
 function searchCancel() {
   search.value = {
     keyword: '',
+    icon: '',
     showAction: false,
   }
-  loadData()
+  refreshAsync()
 }
-function handleGiftClick(e) {
-  const { _id, title, money, icon, remarks, date, friendInfo } = e
-  router.push({
-    path: '/pages/giftOut/edit',
-    query: { _id, title, money, icon, remarks, date, friendInfo },
-  })
+
+const handleGiftClick = (id?: number) => {
+  if (!id) {
+    uni.navigateTo({
+      url: '/pages/giftOut/edit',
+    })
+  }
+  else {
+    uni.navigateTo({
+      url: `/pages/giftOut/edit?id=${id}`,
+    })
+  }
 }
 </script>
 
@@ -122,7 +120,7 @@ function handleGiftClick(e) {
           <div class="ms-2 text-lg font-bold">
             送礼
           </div>
-          <div class="p-2" @click="router.push(`/pages/giftOut/edit`)">
+          <div class="p-2" @click="handleGiftClick">
             <div class="i-carbon-add-alt text-red" />
           </div>
         </div>
@@ -131,65 +129,50 @@ function handleGiftClick(e) {
     <div class="rounded-b-2xl bg-white px-5 pb-3">
       <uv-tabs :list="tabsList" line-color="#f87171" @click="onTabsClick" />
       <div class="mt-3">
-        <uv-search
-          v-model="search.keyword"
-          placeholder="请输入搜索内容"
-          :show-action="search.showAction"
-          action-text="取消"
-          @focus="search.showAction = true"
-          @custom="searchCancel"
-          @search="searchOk"
-        />
+        <uv-search v-model="search.keyword" placeholder="请输入搜索内容" :show-action="search.showAction" action-text="取消"
+          @focus="search.showAction = true" @custom="searchCancel" @search="searchOk" />
       </div>
     </div>
 
-    <div v-if="giftList.length === 0" class="my-auto">
+    <div v-if="dataList.length === 0" class="my-auto">
       <uv-empty />
     </div>
     <div class="mt-5 bg-white space-y-3">
-      <div v-for="i in giftList" :key="i._id" @click="handleGiftClick(i)">
+      <div v-for="i in dataList" :key="i.id" @click="handleGiftClick(i.id)">
         <div class="flex items-center p-4">
-          <div
-            class="h-12 w-12 flex rounded-full"
-            :class="[
-              i.icon === 'i-tabler-candle'
-                ? 'bg-gray-100 text-gray'
-                : 'bg-red-50 text-red',
-            ]"
-          >
+          <div class="h-12 w-12 flex rounded-full" :class="[
+            i.icon === 'i-tabler-candle'
+              ? 'bg-gray-100 text-gray'
+              : 'bg-red-50 text-red',
+          ]">
             <div class="m-auto h-8 w-8" :class="i.icon" />
           </div>
           <div class="mx-4 grow">
             <div class="text-lg font-bold">
-              {{ i.friendInfo.name }}
+              {{ i.friendName }}
             </div>
             <div>
               {{ i.title }}<span v-if="i.remarks">（{{ i.remarks }}）</span>
             </div>
             <div class="mt-1 text-xs text-gray">
-              {{ i.date.value }} {{ i.date.lunar_month }}
-              {{ i.date.lunar_day }} {{ i.date.lunar_year }}
+              {{ i.date }} {{ i.lunarDate }}
             </div>
           </div>
-          <div
-            class="font-bold"
-            :class="[i.icon === 'i-tabler-candle' ? 'text-gray' : 'text-red']"
-          >
+          <div class="font-bold" :class="[i.icon === 'i-tabler-candle' ? 'text-gray' : 'text-red']">
             <span class="text-sm">￥</span>{{ i.money }}
           </div>
         </div>
       </div>
+      <wd-loadmore :state="loadingMore ? 'loading' : ''" :loading-props="{ color: '#f87171' }" />
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "layout": "blank",
   "style": {
     "navigationStyle": "custom"
   }
-}
-</route>
+}</route>

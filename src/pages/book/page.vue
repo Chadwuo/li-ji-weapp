@@ -2,7 +2,7 @@
 import { useLoadMore } from 'vue-request'
 import logo from '/static/logo.png'
 
-const { dataList, loading, loadingMore, loadMore, refresh } = useLoadMore<Api.LoadMoreDataType<Api.GiftBook>>(
+const { dataList, loading, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftBook>>(
   async (d) => {
     const _page = d?.page ? d.page + 1 : 1
     const response = await apiGiftBookPageGet({
@@ -23,12 +23,12 @@ const { dataList, loading, loadingMore, loadMore, refresh } = useLoadMore<Api.Lo
 )
 
 onPullDownRefresh(async () => {
-  await refresh()
+  await refreshAsync()
   uni.stopPullDownRefresh()
 })
 
 onReachBottom(() => {
-  loadMore()
+  loadMoreAsync()
 })
 
 const handleBookClick = (id?: number) => {

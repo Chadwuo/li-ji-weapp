@@ -93,9 +93,7 @@ const handleBookDel = () => {
         icon: 'success',
       })
       setTimeout(() => {
-        uni.navigateBack({
-          delta: 2,
-        })
+        uni.navigateBack()
       }, 1000)
     }
     else {
@@ -126,7 +124,7 @@ const handleBookDel = () => {
             <span class="ml-2">({{ book.date }}) </span>
           </div>
         </div>
-        <div class="flex text-xl font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
+        <div class="flex text-xl" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
           <div class="py-2 pl-2" @click="handleBookDel">
             <div class="i-ant-design-delete-outlined" />
           </div>

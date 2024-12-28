@@ -58,19 +58,19 @@ const onDel = () => {
   })
 }
 
-function onSelectFriend() {
+const onSelectFriend = () => {
   uni.navigateTo({
     url: '/pages/friend/select',
     events: {
-      acceptDataFromOpenedPage(data) {
-        dataSource.value.friendId = data
-        dataSource.value.friendName = data
+      acceptDataFromOpenedPage(e: Api.Friend) {
+        dataSource.value.friendId = e.id
+        dataSource.value.friendName = e.name
       },
     },
   })
 }
 
-function onFriendClick(id: number) {
+const onFriendClick = (id: number) => {
   uni.navigateTo({
     url: '/pages/friend/detail',
   })

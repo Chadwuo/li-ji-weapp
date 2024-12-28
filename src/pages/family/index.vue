@@ -2,10 +2,9 @@
 import { storeToRefs } from 'pinia'
 
 const { userFamilys, userInfo } = storeToRefs(useAuthStore())
-const actionSheetRef = ref(null)
+const actionSheetShow = ref(false)
+const actionSheetList = ref()
 const loading = ref(false)
-const actionSheetList = ref([])
-
 async function onCreate() {
   loading.value = true
   const res = await apiUserFamilyPost({
@@ -36,16 +35,17 @@ function onClick(i: Api.UserFamily) {
     ]
   }
 
-  actionSheetRef.value.open()
+  actionSheetShow.value = true
 }
 
 async function onSelectedAction(e: any) {
-  const { data, name } = e
   e.loading = true
-  const res = await apiUserFamilyDelete({ userId: data.userId, familyId: data.familyId })
-  if (res.succeeded) {
-    // TODO
-  }
+  const { data } = e.item
+  console.log('object :>> ', data);
+  // const res = await apiUserFamilyDelete({ userId: data.userId, familyId: data.familyId })
+  // if (res.succeeded) {
+  //   // TODO
+  // }
   // if (name === '删除') {
   //   delFamilyMember({ _id: data._id })
   //     .then(async (res) => {
@@ -156,8 +156,8 @@ onShareAppMessage(() => {
       </div>
     </div>
   </div>
-  <uv-action-sheet ref="actionSheetRef" :actions="actionSheetList" :safe-area-inset-bottom="true"
-    :close-on-click-action="false" cancel-text="取消" round="1rem" @select="onSelectedAction" />
+  <wd-action-sheet v-model="actionSheetShow" :actions="actionSheetList" @select="onSelectedAction" cancel-text="取消"
+    :close-on-click-action="false" />
 </template>
 
 <style lang="scss" scoped></style>

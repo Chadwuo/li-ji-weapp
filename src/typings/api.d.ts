@@ -440,23 +440,11 @@ declare namespace Api {
 		 */
 		updateTime?: string | null;
 		/**
-		 * 用户Id
-		 * @type {number}
-		 * @memberof GiftOut
-		 */
-		userId?: number;
-		/**
-		 *
-		 * @type {User}
-		 * @memberof GiftOut
-		 */
-		user?: User;
-		/**
 		 * 主题
-		 * @type {number}
+		 * @type {string}
 		 * @memberof GiftOut
 		 */
-		title?: number;
+		title?: string;
 		/**
 		 * 金额
 		 * @type {number}
@@ -465,10 +453,10 @@ declare namespace Api {
 		money?: number;
 		/**
 		 * Icon
-		 * @type {number}
+		 * @type {string}
 		 * @memberof GiftOut
 		 */
-		icon?: number | null;
+		icon?: string | null;
 		/**
 		 * 备注
 		 * @type {string}
