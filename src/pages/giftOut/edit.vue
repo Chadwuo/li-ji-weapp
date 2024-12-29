@@ -131,13 +131,6 @@ const onSelectFriend = () => {
   })
 }
 
-
-const onFriendClick = (id: number) => {
-  uni.navigateTo({
-    url: '/pages/friend/detail',
-  })
-}
-
 const confirmCalendar = (e: any) => {
   const { lunar, fulldate } = e
   dataSource.value.date = fulldate
@@ -147,6 +140,12 @@ const confirmCalendar = (e: any) => {
 
 const openCalendar = () => {
   calendarRef.value.open()
+}
+
+const navigateToFriendDetailPage = (id: number) => {
+  uni.navigateTo({
+    url: `/pages/friend/detail?id=${id}`,
+  })
 }
 </script>
 
@@ -159,7 +158,8 @@ const openCalendar = () => {
             i.icon === dataSource.icon
               ? selectedIconStyle
               : 'bg-gray-100  text-gray',
-          ]">
+          ]"
+          >
             <div class="m-auto h-8 w-8" :class="i.icon" />
           </div>
           <div class="mt-1 text-center text-sm">
@@ -178,7 +178,8 @@ const openCalendar = () => {
           </uv-form-item>
           <uv-form-item label="亲友">
             <uv-input v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友" :disabled="dataSource.id"
-              disabled-color="#fff" />
+                      disabled-color="#fff"
+            />
             <template #right>
               <div v-show="!dataSource.id" class="i-system-uicons-contacts text-lg text-gray" @click="onSelectFriend" />
             </template>
@@ -193,13 +194,16 @@ const openCalendar = () => {
             <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容" />
           </uv-form-item>
           <uv-form-item>
-            <div class="flex space-x-4">
+            <div class="w-full flex space-x-4">
               <div v-if="dataSource.id" class="w-40">
-                <uv-button text="删除" shape="circle" @click="onDel" />
+                <wd-button plain @click="onDel">
+                  删除
+                </wd-button>
               </div>
               <div class="w-full">
-                <uv-button type="primary" shape="circle" text="保存" :loading="loading" :disabled="!validInput"
-                  loading-mode="circle" @click="onSubmit" />
+                <wd-button block :loading="loading" :disabled="!validInput" @click="onSubmit">
+                  保存
+                </wd-button>
               </div>
             </div>
           </uv-form-item>
@@ -207,19 +211,22 @@ const openCalendar = () => {
       </div>
 
       <div v-if="dataSource.friendId" class="mt-3 rounded-2xl bg-white p-1">
-        <uv-cell title="查看往来记录" is-link :border="false" @click="onFriendClick(dataSource.friendId)" />
+        <uv-cell title="查看往来记录" is-link :border="false" @click="navigateToFriendDetailPage(dataSource.friendId)" />
       </div>
     </div>
     <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
-      @confirm="confirmCalendar" />
+                  @confirm="confirmCalendar"
+    />
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "layout": "blank",
   "style": {
     "navigationBarTitleText": "送礼记录"
   }
-}</route>
+}
+</route>

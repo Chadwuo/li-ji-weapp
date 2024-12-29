@@ -1,23 +1,10 @@
 <script setup lang="ts">
-const friendsList = ref<Array<{ letter: string; items: Array<Api.Friend> }>>()
+const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
 const search = ref({
   keyword: '',
   showAction: false,
 })
 
-onLoad(() => {
-  loadData()
-})
-function searchOk() {
-  loadData()
-}
-function searchCancel() {
-  search.value = {
-    keyword: '',
-    showAction: false,
-  }
-  loadData()
-}
 const loadData = () => {
   apiFriendListGet({}).then((res) => {
     if (res.succeeded) {
@@ -33,13 +20,25 @@ const loadData = () => {
 
       const keys = Array.from(map.keys()).sort()
       friendsList.value = keys.map(key => ({
-        letter: key,
-        items: map.get(key),
+        index: key,
+        data: map.get(key),
       }))
     }
   })
 }
-
+onLoad(() => {
+  loadData()
+})
+function searchOk() {
+  loadData()
+}
+function searchCancel() {
+  search.value = {
+    keyword: '',
+    showAction: false,
+  }
+  loadData()
+}
 const onFriendClick = (id?: number) => {
   if (!id) {
     uni.navigateTo({
@@ -56,7 +55,7 @@ const onFriendClick = (id?: number) => {
 
 <template>
   <div>
-    <uv-navbar placeholder>
+    <wd-navbar safe-area-inset-top custom-style="background-color: transparent !important;">
       <template #left>
         <div class="flex items-center">
           <div class="ms-2 text-lg font-bold">
@@ -67,31 +66,32 @@ const onFriendClick = (id?: number) => {
           </div>
         </div>
       </template>
-    </uv-navbar>
-    <div class="bg-white px-5 pb-3">
-      <uv-search v-model="search.keyword" placeholder="请输入搜索内容" :show-action="search.showAction" action-text="取消"
-        @focus="search.showAction = true" @custom="searchCancel" @search="searchOk" />
-    </div>
+    </wd-navbar>
     <div>
-      <uv-index-list custom-nav-height="90" :index-list="friendsList?.map((i) => i.letter)" active-color="#f87171">
-        <template v-for="(value, key) of friendsList" :key="key">
-          <uv-index-item>
-            <uv-index-anchor :text="value.letter" />
-            <view v-for="cell in value.items" :key="cell.id">
-              <uv-cell :title="cell.name" size="large" @click="onFriendClick(cell.id)" />
-            </view>
-          </uv-index-item>
-        </template>
-      </uv-index-list>
+      <wd-search v-model="search.keyword" custom-class="background-color: transparent" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
+                 @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
+      />
+      <div>
+        <wd-index-bar sticky>
+          <div v-for="item in friendsList" :key="item.index">
+            <wd-index-anchor :index="item.index" />
+            <wd-cell v-for="cell in item.data" :key="cell.id" clickable border :title="cell.name"
+                     @click="onFriendClick(cell.id)"
+            />
+          </div>
+        </wd-index-bar>
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "layout": "blank",
   "style": {
     "navigationStyle": "custom"
   }
-}</route>
+}
+</route>

@@ -42,7 +42,7 @@ const openCalendar = () => {
 </script>
 
 <template>
-  <div class="mx-5 mt-3 rounded-2xl bg-white p-4">
+  <div class="rounded-2xl bg-white p-5">
     <uv-form label-position="left" label-width="60">
       <uv-form-item label="日期" @click="openCalendar">
         <uv-input v-model="dataSource.date" disabled disabled-color="#ffffff" border="none" placeholder="请选择日期" />
@@ -73,16 +73,17 @@ const openCalendar = () => {
       </uv-form-item>
     </uv-form>
   </div>
-
   <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
-    @confirm="confirmCalendar" />
+                @confirm="confirmCalendar"
+  />
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
-  "layout": "blank",
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "新增"
   }
-}</route>
+}
+</route>

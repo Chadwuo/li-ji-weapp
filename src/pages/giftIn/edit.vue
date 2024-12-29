@@ -70,20 +70,21 @@ const onSelectFriend = () => {
   })
 }
 
-const onFriendClick = (id: number) => {
+const navigateToFriendDetailPage = (id: number) => {
   uni.navigateTo({
-    url: '/pages/friend/detail',
+    url: `/pages/friend/detail?id=${id}`,
   })
 }
 </script>
 
 <template>
-  <div class="m-5">
-    <div class="rounded-2xl bg-white p-4">
+  <div>
+    <div class="rounded-2xl bg-white p-5">
       <uv-form label-position="left" label-width="60">
         <uv-form-item label="亲友">
           <uv-input v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友" :disabled="dataSource.id"
-            disabled-color="#fff" />
+                    disabled-color="#fff"
+          />
           <template #right>
             <div v-show="!dataSource.id" class="i-system-uicons-contacts text-lg text-gray" @click="onSelectFriend" />
           </template>
@@ -115,16 +116,17 @@ const onFriendClick = (id: number) => {
       </uv-form>
     </div>
     <div v-if="dataSource.friendId" class="mt-3 rounded-2xl bg-white p-1">
-      <uv-cell title="查看往来记录" is-link :border="false" @click="onFriendClick(dataSource.friendId)" />
+      <uv-cell title="查看往来记录" is-link :border="false" @click="navigateToFriendDetailPage(dataSource.friendId)" />
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
-  "layout": "blank",
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "收礼记录"
   }
-}</route>
+}
+</route>

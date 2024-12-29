@@ -58,7 +58,7 @@ export default defineManifestConfig({
     },
     usingComponents: true,
     darkmode: false,
-    // themeLocation: 'theme.json',
+    themeLocation: 'theme.json',
   },
   'mp-alipay': {
     usingComponents: true,
@@ -70,7 +70,7 @@ export default defineManifestConfig({
     usingComponents: true,
   },
   'h5': {
-    darkmode: true,
+    darkmode: false,
     themeLocation: 'theme.json',
   },
   'uniStatistics': {

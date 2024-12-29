@@ -55,7 +55,7 @@ const search = ref({
 const { dataList, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftOut>>(
   async (d) => {
     const _page = d?.page ? d.page + 1 : 1
-    const response = await apiGiftInPageGet({
+    const response = await apiGiftOutPageGet({
       page: _page,
     })
     const { items, page = 0, total = 0 } = response.data || {}
@@ -113,8 +113,8 @@ const handleGiftClick = (id?: number) => {
 </script>
 
 <template>
-  <div class="h-full flex flex-col">
-    <uv-navbar placeholder>
+  <div>
+    <wd-navbar safe-area-inset-top custom-style="background-color: transparent !important;">
       <template #left>
         <div class="flex items-center">
           <div class="ms-2 text-lg font-bold">
@@ -125,54 +125,58 @@ const handleGiftClick = (id?: number) => {
           </div>
         </div>
       </template>
-    </uv-navbar>
-    <div class="rounded-b-2xl bg-white px-5 pb-3">
+    </wd-navbar>
+
+    <div class="rounded-2xl bg-white p-5">
       <uv-tabs :list="tabsList" line-color="#f87171" @click="onTabsClick" />
       <div class="mt-3">
         <uv-search v-model="search.keyword" placeholder="请输入搜索内容" :show-action="search.showAction" action-text="取消"
-          @focus="search.showAction = true" @custom="searchCancel" @search="searchOk" />
+                   @focus="search.showAction = true" @custom="searchCancel" @search="searchOk"
+        />
       </div>
-    </div>
 
-    <div v-if="dataList.length === 0" class="my-auto">
-      <uv-empty />
-    </div>
-    <div class="mt-5 bg-white space-y-3">
-      <div v-for="i in dataList" :key="i.id" @click="handleGiftClick(i.id)">
-        <div class="flex items-center p-4">
-          <div class="h-12 w-12 flex rounded-full" :class="[
-            i.icon === 'i-tabler-candle'
-              ? 'bg-gray-100 text-gray'
-              : 'bg-red-50 text-red',
-          ]">
-            <div class="m-auto h-8 w-8" :class="i.icon" />
-          </div>
-          <div class="mx-4 grow">
-            <div class="text-lg font-bold">
-              {{ i.friendName }}
+      <div v-if="dataList.length === 0" class="my-auto">
+        <uv-empty />
+      </div>
+      <div v-else class="mt-5 bg-white space-y-3">
+        <div v-for="i in dataList" :key="i.id" @click="handleGiftClick(i.id)">
+          <div class="flex flex-shrink-0 items-center justify-between py-4">
+            <div class="h-12 w-12 flex flex-shrink rounded-full" :class="[
+              i.icon === 'i-tabler-candle'
+                ? 'bg-gray-100 text-gray'
+                : 'bg-red-50 text-red',
+            ]"
+            >
+              <div class="m-auto h-8 w-8" :class="i.icon" />
             </div>
-            <div>
-              {{ i.title }}<span v-if="i.remarks">（{{ i.remarks }}）</span>
+            <div class="mx-4">
+              <div class="text-lg font-bold">
+                {{ i.friendName }}
+              </div>
+              <div>
+                {{ i.title }}<span v-if="i.remarks">（{{ i.remarks }}）</span>
+              </div>
+              <div class="mt-1 text-xs text-gray">
+                {{ i.date }} {{ i.lunarDate }}
+              </div>
             </div>
-            <div class="mt-1 text-xs text-gray">
-              {{ i.date }} {{ i.lunarDate }}
+            <div class="font-bold" :class="[i.icon === 'i-tabler-candle' ? 'text-gray' : 'text-red']">
+              <span class="text-sm">￥</span>{{ i.money }}
             </div>
-          </div>
-          <div class="font-bold" :class="[i.icon === 'i-tabler-candle' ? 'text-gray' : 'text-red']">
-            <span class="text-sm">￥</span>{{ i.money }}
           </div>
         </div>
+        <wd-loadmore :state="loadingMore ? 'loading' : ''" :loading-props="{ color: '#f87171' }" />
       </div>
-      <wd-loadmore :state="loadingMore ? 'loading' : ''" :loading-props="{ color: '#f87171' }" />
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
-  "layout": "blank",
+<route lang="json">
+{
   "style": {
     "navigationStyle": "custom"
   }
-}</route>
+}
+</route>

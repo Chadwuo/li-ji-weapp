@@ -1,6 +1,6 @@
 <template>
   <wd-message-box />
-  <div class="mx-5 h-full flex flex-col color-black font-sans">
+  <div class="mx-3 h-full flex flex-col font-sans">
     <slot />
     <Footer class="mt-auto" />
     <uv-safe-bottom />

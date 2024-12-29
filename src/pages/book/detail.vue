@@ -107,13 +107,14 @@ const handleBookDel = () => {
 </script>
 
 <template>
-  <div class="h-full flex flex-col">
-    <div v-if="loading" class="mb-5 rounded-b-2xl bg-white p-5">
+  <div>
+    <div v-if="loading" class="mb-5 rounded-2xl bg-white p-5">
       <wd-skeleton
-        :row-col="[{ width: '30%' }, { width: '60%' }, { width: '20%' }, [{ width: '20%' }, { width: '20%' }, { width: '20%' }, { width: '20%' }]]" />
+        :row-col="[{ width: '30%' }, { width: '60%' }, { width: '20%' }, [{ width: '20%' }, { width: '20%' }, { width: '20%' }, { width: '20%' }]]"
+      />
     </div>
 
-    <div v-else class="mb-5 rounded-b-2xl bg-white px-5 pb-5 pt-3 space-y-3">
+    <div v-else class="mb-5 rounded-2xl bg-white px-5 pb-5 pt-3 space-y-3">
       <div class="flex items-center justify-between">
         <div>
           <div class="text-lg font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
@@ -182,22 +183,22 @@ const handleBookDel = () => {
       </div>
     </div>
 
-    <wd-card type="rectangle">
-      <template #title>
-        <div class="w-full flex items-center">
-          <div>
-            <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
-              @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true" />
-          </div>
-
-          <div class="ml-auto">
-            <wd-button icon="add" size="small" :type="hasMourningWords(book.title) ? 'info' : 'primary '"
-              @click="handleGiftAdd">
-              添加
-            </wd-button>
-          </div>
+    <div class="rounded-2xl bg-white p-5">
+      <div class="w-full flex items-center">
+        <div>
+          <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
+                     @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
+          />
         </div>
-      </template>
+
+        <div class="ml-auto">
+          <wd-button icon="add" size="small" :type="hasMourningWords(book.title) ? 'info' : 'primary '"
+                     @click="handleGiftAdd"
+          >
+            添加
+          </wd-button>
+        </div>
+      </div>
       <wd-skeleton v-if="loading" theme="paragraph" />
       <div v-else>
         <uv-empty v-if="dataList.length === 0" />
@@ -212,7 +213,7 @@ const handleBookDel = () => {
           <wd-loadmore :state="loadingMore ? 'loading' : ''" :loading-props="{ color: '#f87171' }" />
         </div>
       </div>
-    </wd-card>
+    </div>
 
     <wd-popup v-model="popupShow" safe-area-inset-bottom position="bottom" custom-class="rounded-t-2xl">
       <div class="px-5 pt-4">
@@ -248,9 +249,10 @@ const handleBookDel = () => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
-  "layout": "blank",
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "详情"
   }
-}</route>
+}
+</route>
