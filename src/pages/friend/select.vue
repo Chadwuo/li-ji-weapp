@@ -1,83 +1,84 @@
 <script setup lang="ts">
-const friendsList = ref<Array<{ letter: string; items: Array<Api.Friend> }>>()
+const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
 let instance: any = null
 const search = ref({
-    keyword: '',
-    showAction: false,
-})
-onLoad(() => {
-    loadData()
+  keyword: '',
+  showAction: false,
 })
 const loadData = () => {
-    apiFriendListGet({}).then((res) => {
-        if (res.succeeded) {
-            // 根据首字母firstLetter进行分组
-            const map = new Map()
-            res.data?.forEach((item) => {
-                const key = item.firstLetter?.toUpperCase()
-                if (!map.has(key))
-                    map.set(key, [])
+  apiFriendListGet({}).then((res) => {
+    if (res.succeeded) {
+      // 根据首字母firstLetter进行分组
+      const map = new Map()
+      res.data?.forEach((item) => {
+        const key = item.firstLetter?.toUpperCase()
+        if (!map.has(key))
+          map.set(key, [])
 
-                map.get(key).push(item)
-            })
+        map.get(key).push(item)
+      })
 
-            const keys = Array.from(map.keys()).sort()
-            friendsList.value = keys.map(key => ({
-                letter: key,
-                items: map.get(key),
-            }))
-        }
-    })
+      const keys = Array.from(map.keys()).sort()
+      friendsList.value = keys.map(key => ({
+        index: key,
+        data: map.get(key),
+      }))
+    }
+  })
 }
+onLoad(() => {
+  loadData()
+})
 
 onMounted(() => {
-    instance = getCurrentInstance()?.proxy
+  instance = getCurrentInstance()?.proxy
 })
 
 function onFriendClick(e: Api.Friend) {
-    const eventChannel = instance.getOpenerEventChannel()
-    eventChannel.emit('acceptDataFromOpenedPage', e)
-    uni.navigateBack()
+  const eventChannel = instance.getOpenerEventChannel()
+  eventChannel.emit('acceptDataFromOpenedPage', e)
+  uni.navigateBack()
 }
 
 function searchOk() {
-    loadData()
+  loadData()
 }
 function searchCancel() {
-    search.value = {
-        keyword: '',
-        showAction: false,
-    }
-    loadData()
+  search.value = {
+    keyword: '',
+    showAction: false,
+  }
+  loadData()
 }
 </script>
 
 <template>
+  <div>
     <div>
-        <div class="bg-white px-5 pb-3">
-            <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
-                @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true" />
-        </div>
-        <div>
-            <uv-index-list custom-nav-height="90" :index-list="friendsList?.map(i => i.letter)" active-color="#f87171">
-                <template v-for="(value, key) of friendsList" :key="key">
-                    <uv-index-item>
-                        <uv-index-anchor :text="value.letter" />
-                        <view v-for="cell in value.items" :key="cell.id">
-                            <uv-cell :title="cell.name" size="large" @click="onFriendClick(cell)" />
-                        </view>
-                    </uv-index-item>
-                </template>
-            </uv-index-list>
-        </div>
+      <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
+                 @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
+      />
     </div>
+    <div>
+      <wd-index-bar sticky>
+        <div v-for="item in friendsList" :key="item.index">
+          <wd-index-anchor :index="item.index" />
+          <wd-cell v-for="cell in item.data" :key="cell.id" clickable border :title="cell.name"
+                   @click="onFriendClick(cell)"
+          />
+        </div>
+      </wd-index-bar>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
     "layout": "blank",
     "style": {
         "navigationBarTitleText": "选择亲友"
     }
-}</route>
+}
+</route>

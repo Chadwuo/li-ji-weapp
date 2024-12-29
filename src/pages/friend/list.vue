@@ -68,7 +68,7 @@ const onFriendClick = (id?: number) => {
       </template>
     </wd-navbar>
     <div>
-      <wd-search v-model="search.keyword" custom-class="background-color: transparent" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
+      <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
                  @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
       />
       <div>

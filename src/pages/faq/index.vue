@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="py-5 space-y-3">
+  <div class="rounded-2xl bg-white p-5">
     <div class="font-bold">
       礼记 免费吗？
     </div>
@@ -64,15 +64,18 @@
     </div>
     <div class="flex items-center text-sm text-gray-500 leading-relaxed">
       非常欢迎！请访问我们的<uv-link color="#f87171" href="https://github.com/Chadwuo/li-ji-weapp" text="开源社区"
-        :under-line="true" />
+                          :under-line="true"
+      />
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "常见问题"
   }
-}</route>
+}
+</route>
