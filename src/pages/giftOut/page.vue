@@ -52,7 +52,7 @@ const search = ref({
   icon: '',
   showAction: false,
 })
-const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftOut>>(
+const { dataList, loading, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftOut>>(
   async (d) => {
     const _page = d?.page ? d.page + 1 : 1
     const response = await apiGiftOutPageGet({
@@ -130,43 +130,53 @@ const handleGiftClick = (id?: number) => {
     </wd-navbar>
 
     <div class="rounded-2xl bg-white p-5">
+      <uv-search v-model="search.keyword" placeholder="请输入搜索内容" :show-action="search.showAction" action-text="取消"
+        @focus="search.showAction = true" @custom="searchCancel" @search="searchOk" />
       <uv-tabs :list="tabsList" line-color="#f87171" @click="onTabsClick" />
-      <div class="mt-3">
-        <uv-search v-model="search.keyword" placeholder="请输入搜索内容" :show-action="search.showAction" action-text="取消"
-          @focus="search.showAction = true" @custom="searchCancel" @search="searchOk" />
-      </div>
 
-      <div v-if="dataList.length === 0" class="my-auto">
-        <uv-empty />
-      </div>
-      <div v-else class="mt-5 bg-white space-y-3">
-        <div v-for="i in dataList" :key="i.id" @click="handleGiftClick(i.id)">
-          <div class="flex flex-shrink-0 items-center justify-between py-4">
-            <div class="h-12 w-12 flex flex-shrink rounded-full" :class="[
-              i.icon === 'i-tabler-candle'
-                ? 'bg-gray-100 text-gray'
-                : 'bg-red-50 text-red',
-            ]">
-              <div class="m-auto h-8 w-8" :class="i.icon" />
-            </div>
-            <div class="mx-4">
-              <div class="text-lg font-bold">
-                {{ i.friendName }}
-              </div>
-              <div>
-                {{ i.title }}<span v-if="i.remarks">（{{ i.remarks }}）</span>
-              </div>
-              <div class="mt-1 text-xs text-gray">
-                {{ i.date }} {{ i.lunarDate }}
-              </div>
-            </div>
-            <div class="font-bold" :class="[i.icon === 'i-tabler-candle' ? 'text-gray' : 'text-red']">
-              <span class="text-sm">￥</span>{{ i.money }}
-            </div>
+      <div v-if="loading" class="mt-5 text-center">
+        <div class=" space-y-5">
+          <div class="flex" v-for="i in 6">
+            <wd-skeleton :row-col="[{ size: '52px', type: 'circle' }]" />
+            <wd-skeleton :custom-style="{ width: '100%', marginLeft: '12px' }"
+              :row-col="[{ width: '40%' }, { width: '100%' }, { width: '60%' }]" />
           </div>
         </div>
-        <wd-loadmore :state="loadingMore ? 'loading' : noMore ? 'finished' : ''"
-          :loading-props="{ color: '#f87171' }" />
+      </div>
+
+      <div v-else>
+        <div v-if="dataList.length === 0" class="my-24">
+          <uv-empty />
+        </div>
+        <div v-else class="bg-white space-y-5 my-5">
+          <div v-for="i in dataList" :key="i.id" @click="handleGiftClick(i.id)">
+            <div class="flex">
+              <div class="h-12 w-12 flex flex-shrink-0 rounded-full" :class="[
+                i.icon === 'i-tabler-candle'
+                  ? 'bg-gray-100 text-gray'
+                  : 'bg-red-50 text-red',
+              ]">
+                <div class="m-auto h-8 w-8" :class="i.icon" />
+              </div>
+              <div class="mx-4 grow">
+                <div class="text-lg font-bold">
+                  {{ i.friendName }}
+                </div>
+                <div class="text-gray">
+                  {{ i.title }}<span v-if="i.remarks">（{{ i.remarks }}）</span>
+                </div>
+                <div class="mt-1 text-xs text-gray">
+                  {{ i.date }} {{ i.lunarDate }}
+                </div>
+              </div>
+              <div class="text-lg font-bold" :class="[i.icon === 'i-tabler-candle' ? 'text-gray' : 'text-red']">
+                <span class="text-sm">￥</span>{{ i.money }}
+              </div>
+            </div>
+          </div>
+          <wd-loadmore :state="loadingMore ? 'loading' : noMore ? 'finished' : ''"
+            :loading-props="{ color: '#f87171' }" />
+        </div>
       </div>
     </div>
   </div>

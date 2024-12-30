@@ -1,57 +1,50 @@
 <script setup>
 import { storeToRefs } from 'pinia'
+import { useMessage } from 'wot-design-uni'
 
-const { userInfo } = storeToRefs(useAuthStore())
+const message = useMessage()
+const { userFamilys } = storeToRefs(useAuthStore())
 const inviteData = ref({})
-const loading = ref(false)
 
 onLoad((options) => {
   inviteData.value = options
 })
-function onAgree() {
-  if (userInfo.value.familyMembers) {
-    uni.showModal({
+const onAgree = async () => {
+  if (userFamilys.value) {
+    message.alert({
+      msg: '你当前已属于一个家庭账户，无法直接加入新的家庭。若要接受新邀请，请先退出当前家庭。',
       title: '提示',
-      content:
-        '你当前已属于一个家庭账户，无法直接加入新的家庭。若要接受新邀请，请先退出当前家庭。',
-      showCancel: false,
       confirmText: '我的家庭',
-      confirmColor: '#f87171',
-      success(res) {
-        if (res.confirm) {
-          router.push({
-            path: '/pages/family/index',
-          })
-        }
-      },
+    }).then(() => {
+      uni.navigateTo({
+        url: '/pages/family/index',
+      })
     })
     return
   }
-  loading.value = true
-  join({
+  uni.showLoading({
+    mask: true,
+  })
+  const res = await apiUserFamilyPost({
+    role: '成员',
     familyId: inviteData.value.familyId,
   })
-    .then(async (res) => {
-      if (res.success) {
-        await useUserStore().getUserInfo()
-        uni.showToast({
-          title: '加入成功',
-          icon: 'none',
-        })
-        router.push({
-          path: '/pages/family/index',
-        })
-      }
+  if (res.succeeded) {
+    // TODO
+    uni.showToast({
+      title: '加入成功',
+      icon: 'none',
     })
-    .finally(() => {
-      loading.value = false
+    uni.navigateTo({
+      url: '/pages/family/index',
     })
+  }
+  uni.hideLoading()
 }
 
-function onReject() {
-  router.push({
-    path: '/pages/book/index',
-    tabBar: true,
+const onReject = () => {
+  uni.switchTab({
+    url: '/pages/book/page',
   })
 }
 </script>
@@ -98,23 +91,13 @@ function onReject() {
           </div>
         </div>
       </div>
-
-      <div class="mt-10 space-y-xl">
-        <uv-button
-          type="primary"
-          shape="circle"
-          text="同意"
-          :loading="loading"
-          loading-mode="circle"
-          @click="onAgree"
-        />
-        <uv-button
-          shape="circle"
-          text="拒绝"
-          :loading="loading"
-          loading-mode="circle"
-          @click="onReject"
-        />
+      <div class="w-full flex mt-10">
+        <wd-button plain @click="onReject">
+          拒绝
+        </wd-button>
+        <wd-button @click="onAgree">
+          同意
+        </wd-button>
       </div>
     </div>
   </div>
@@ -122,10 +105,8 @@ function onReject() {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationBarTitleText": "家人共享"
   }
-}
-</route>
+}</route>

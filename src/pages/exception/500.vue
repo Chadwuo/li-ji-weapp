@@ -11,10 +11,10 @@ const onRetry = () => {
   <div class="mt-auto flex flex-col items-center text-gray">
     <div class="i-iconoir-wifi-error text-12" />
     <div class="mt-8 text-sm">
-      网络连接断开，请检查网络哦~
+      啊哦，出现了一个小错误，请稍后再试~
     </div>
     <div class="mt-8 min-w-24">
-      <wd-button type="primary" @click="onRetry">
+      <wd-button @click="onRetry">
         重启应用
       </wd-button>
     </div>

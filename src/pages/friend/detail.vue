@@ -131,7 +131,11 @@ const handleFriendDel = () => {
 
 <template>
   <div>
-    <div class="rounded-2xl bg-white p-5 space-y-3">
+    <div v-if="loading" class="rounded-2xl bg-white p-5">
+      <wd-skeleton
+        :row-col="[{ width: '30%' }, { width: '50%' }, [{ width: '0' }, { width: '30%' }, { width: '0' }], { width: '0' }, [{ width: '0' }, { width: '20%' }, { width: '20%' }, { width: '0' }]]" />
+    </div>
+    <div v-else class="rounded-2xl bg-white p-5 space-y-3">
       <div class="flex items-center justify-between">
         <div>
           <div class="text-lg font-bold">
@@ -186,7 +190,7 @@ const handleFriendDel = () => {
       <div class="text-gray mt-3">正在努力加载中...</div>
     </div>
 
-    <div v-if="giftList?.length === 0 && !loading" class="mt-5">
+    <div v-if="giftList?.length === 0 && !loading" class="my-24">
       <uv-empty />
     </div>
     <div class="my-5 space-y-3">
@@ -208,7 +212,7 @@ const handleFriendDel = () => {
                   {{ item.date }}
                 </view>
               </view>
-              <view class="mr-4 text-center">
+              <view class="ml-3 text-center flex-shrink-0">
                 <view>
                   <text class="text-sm">
                     ￥
@@ -222,6 +226,8 @@ const handleFriendDel = () => {
         </view>
       </view>
     </div>
+    
+    
   </div>
 </template>
 
@@ -245,7 +251,7 @@ const handleFriendDel = () => {
 }
 
 .cu-timeline>.cu-item {
-  padding: 30rpx 30rpx 30rpx 120rpx;
+  padding: 30rpx 0 30rpx 120rpx;
   position: relative;
   display: block;
   z-index: 0;

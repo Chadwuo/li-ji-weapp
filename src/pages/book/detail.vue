@@ -3,6 +3,7 @@ import { useLoadMore } from 'vue-request'
 import { useMessage } from 'wot-design-uni'
 
 const message = useMessage()
+const loading = ref(false)
 const book = ref<Api.GiftBook>({})
 const search = ref({
   keyword: '',
@@ -38,7 +39,6 @@ const netAmount = computed(() => {
   return 0
 })
 
-const loading = ref(false)
 onLoad(async (option) => {
   loading.value = true
   if (option?.id) {
@@ -198,13 +198,15 @@ const handleBookDel = () => {
           </wd-button>
         </div>
       </div>
-      
+
       <div v-if="loading" class="mt-5 text-center">
         <wd-loading color="#f87171" />
         <div class="text-gray mt-3">正在努力加载中...</div>
       </div>
       <div v-else>
-        <uv-empty v-if="dataList.length === 0" />
+        <div v-if="dataList.length === 0" class="my-24">
+          <uv-empty />
+        </div>
         <div v-else>
           <div v-for="gift in dataList" :key="gift.id" @click="handleGiftClick(gift.id)">
             <wd-cell center size="large" :title="gift.friendName" :label="`出席：${gift.attendance || 0}人`">

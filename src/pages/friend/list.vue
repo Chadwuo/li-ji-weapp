@@ -75,6 +75,9 @@ const onFriendClick = (id?: number) => {
     <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
       @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true" />
     <div class="grow">
+      <div v-if="friendsList?.length === 0" class="my-24">
+          <uv-empty />
+        </div>
       <wd-index-bar sticky>
         <div v-for="item in friendsList" :key="item.index">
           <wd-index-anchor :index="item.index" />
