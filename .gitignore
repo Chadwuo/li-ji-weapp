@@ -19,8 +19,8 @@ dist
 *.njsproj
 *.sln
 *.sw?
+pnpm-lock.yaml
 src/uni-pages.d.ts
 src/components.d.ts
 src/auto-imports.d.ts
-pnpm-lock.yaml
-/src/pages.json
+src/pages.json

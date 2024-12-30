@@ -4,7 +4,7 @@ export default defineManifestConfig({
   'name': 'li-ji',
   'appid': '',
   'description': '每一份人情都值得礼记！',
-  'versionName': '1.0.0',
+  'versionName': '4.0.0',
   'versionCode': '100',
   'transformPx': false,
   /* 5+App特有相关 */
