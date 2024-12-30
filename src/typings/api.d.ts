@@ -407,6 +407,12 @@ declare namespace Api {
 		 */
 		giftBookTitle?: string | null;
 		/**
+		 * 日期
+		 * @type {string}
+		 * @memberof GiftOut
+		 */
+		giftBookDate?: string;
+		/**
 		 * 亲友Id
 		 * @type {number}
 		 * @memberof GiftIn
@@ -487,5 +493,10 @@ declare namespace Api {
 		 * @memberof GiftOut
 		 */
 		friendName?: string | null;
+	}
+
+	interface FriendGifts {
+		giftInList?: GiftIn[];
+		giftOutList?: GiftOut[];
 	}
 }

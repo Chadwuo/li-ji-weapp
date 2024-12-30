@@ -5,7 +5,7 @@ const search = ref({
   showAction: false,
 })
 
-const loadData = () => {
+const loadData = async () => {
   apiFriendListGet({}).then((res) => {
     if (res.succeeded) {
       // 根据首字母firstLetter进行分组
@@ -29,6 +29,10 @@ const loadData = () => {
 onLoad(() => {
   loadData()
 })
+onPullDownRefresh(async () => {
+  await loadData()
+  uni.stopPullDownRefresh()
+})
 function searchOk() {
   loadData()
 }
@@ -39,6 +43,7 @@ function searchCancel() {
   }
   loadData()
 }
+
 const onFriendClick = (id?: number) => {
   if (!id) {
     uni.navigateTo({
@@ -54,7 +59,7 @@ const onFriendClick = (id?: number) => {
 </script>
 
 <template>
-  <div>
+  <div class="h-full flex flex-col">
     <wd-navbar safe-area-inset-top custom-style="background-color: transparent !important;">
       <template #left>
         <div class="flex items-center">
@@ -67,31 +72,26 @@ const onFriendClick = (id?: number) => {
         </div>
       </template>
     </wd-navbar>
-    <div>
-      <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
-                 @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
-      />
-      <div>
-        <wd-index-bar sticky>
-          <div v-for="item in friendsList" :key="item.index">
-            <wd-index-anchor :index="item.index" />
-            <wd-cell v-for="cell in item.data" :key="cell.id" clickable border :title="cell.name"
-                     @click="onFriendClick(cell.id)"
-            />
-          </div>
-        </wd-index-bar>
-      </div>
+    <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
+      @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true" />
+    <div class="grow">
+      <wd-index-bar sticky>
+        <div v-for="item in friendsList" :key="item.index">
+          <wd-index-anchor :index="item.index" />
+          <wd-cell v-for="cell in item.data" :key="cell.id" clickable border :title="cell.name"
+            @click="onFriendClick(cell.id)" />
+        </div>
+      </wd-index-bar>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "layout": "blank",
   "style": {
-    "navigationStyle": "custom"
+    "navigationStyle": "custom",
+    "enablePullDownRefresh": true
   }
-}
-</route>
+}</route>

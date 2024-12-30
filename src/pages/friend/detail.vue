@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import dayjs from 'dayjs'
 import { useMessage } from 'wot-design-uni'
 
 const message = useMessage()
@@ -10,7 +11,7 @@ const statisticsData = ref({
   happyCount: 0,
   sadCount: 0,
 })
-const giftList = ref<any>()
+const giftList = ref<Array<any>>()
 const loading = ref(false)
 
 onLoad(async (option) => {
@@ -26,59 +27,63 @@ onLoad(async (option) => {
 })
 
 const loadGifts = async () => {
-  // const res = await getFriendGifts({ _id: dataSource.value._id })
-  // if (res.success) {
-  //   const { giftOutList, giftReceiveList } = res.result
-  //   statisticsData.value.sadCount = giftOutList.length // 送礼次数
-  //   statisticsData.value.happyCount = giftReceiveList.length // 收礼次数
-  //   const inList = giftReceiveList.map((i) => {
-  //     // 收礼金额总计
-  //     statisticsData.value.happyTotal += i.money
-  //     return {
-  //       _id: i._id,
-  //       title: i.bookInfo.title,
-  //       money: i.money,
-  //       date: i.bookInfo.date,
-  //       year: i.bookInfo.date.year,
-  //       bookId: i.bookInfo._id,
-  //       attendance: i.attendance,
-  //       self: false,
-  //     }
-  //   })
-  //   const outList = giftOutList.map((i) => {
-  //     // 送礼金额总计
-  //     statisticsData.value.sadTotal += i.money
-  //     return {
-  //       _id: i._id,
-  //       title: i.title,
-  //       money: i.money,
-  //       date: i.date,
-  //       year: i.date.year,
-  //       icon: i.icon,
-  //       self: true,
-  //       remarks: i.remarks,
-  //     }
-  //   })
+  const { data, succeeded } = await apiFriendGiftListGet({ id: friend.value.id })
+  if (!succeeded) return;
+  const giftInList = data?.giftInList ?? []
+  const giftOutList = data?.giftOutList ?? []
+  statisticsData.value.sadCount = giftOutList.length // 送礼次数
+  statisticsData.value.happyCount = giftInList.length// 收礼次数
+  const inList = giftInList.map((i) => {
+    // 收礼金额总计
+    statisticsData.value.happyTotal += i.money || 0
+    return {
+      id: i.id,
+      title: i.giftBookTitle,
+      money: i.money,
+      date: i.giftBookDate,
+      year: dayjs(i.giftBookDate).year(),
+      bookId: i.giftBookId,
+      attendance: i.attendance,
+      self: false,
+    }
+  })
+  const outList = giftOutList.map((i) => {
+    // 送礼金额总计
+    statisticsData.value.sadTotal += i.money || 0
+    return {
+      id: i.id,
+      title: i.title,
+      money: i.money,
+      date: i.date,
+      year: dayjs(i.date).year(),
+      icon: i.icon,
+      remarks: i.remarks,
+      self: true,
+    }
+  })
 
-  //   const allGifts = [...inList, ...outList]
-  //   const sortedGifts = allGifts.sort(
-  //     (a, b) => dayjs(b.date.value).unix() - dayjs(a.date.value).unix(),
-  //   )
+  // Merge and sort all gifts by date
+  const allGifts = [...inList, ...outList].sort(
+    (a, b) => dayjs(b.date).unix() - dayjs(a.date).unix(),
+  )
 
-  //   const groupedGifts = sortedGifts.reduce((acc, curr) => {
-  //     acc[curr.year] = acc[curr.year] ? [...acc[curr.year], curr] : [curr]
-  //     return acc
-  //   }, {})
+  // Group gifts by year
+  const groupedGifts = allGifts.reduce((acc, curr) => {
+    const year = curr.year;
+    if (!acc[year]) {
+      acc[year] = [];
+    }
+    acc[year].push(curr);
+    return acc;
+  }, {} as { [key: number]: any[] });
 
-  //   const sortedGroupedGifts = Object.entries(groupedGifts)
-  //     .map(([year, list]) => ({
-  //       year,
-  //       list,
-  //     }))
-  //     .sort((a, b) => b.year - a.year)
-
-  //   giftList.value = sortedGroupedGifts
-  // }
+  // Convert to array and sort by year
+  giftList.value = Object.entries(groupedGifts)
+    .map(([year, list]) => ({
+      year: parseInt(year, 10), // Ensure year is a number
+      list,
+    }))
+    .sort((a, b) => b.year - a.year);
 }
 
 const onGiftClick = (e: Api.GiftIn | Api.GiftOut) => {
@@ -125,8 +130,8 @@ const handleFriendDel = () => {
 </script>
 
 <template>
-  <div class="h-full flex flex-col">
-    <div class="rounded-b-2xl bg-white px-5 pb-5 pt-3 space-y-3">
+  <div>
+    <div class="rounded-2xl bg-white p-5 space-y-3">
       <div class="flex items-center justify-between">
         <div>
           <div class="text-lg font-bold">
@@ -176,11 +181,12 @@ const handleFriendDel = () => {
       </div>
     </div>
 
-    <div v-if="loading" class="mt-5">
-      <uv-loading-icon mode="circle" text="努力加载中..." :vertical="true" />
+    <div v-if="loading" class="mt-5 text-center">
+      <wd-loading color="#f87171" />
+      <div class="text-gray mt-3">正在努力加载中...</div>
     </div>
 
-    <div v-if="giftList.length === 0 && !loading" class="my-auto">
+    <div v-if="giftList?.length === 0 && !loading" class="mt-5">
       <uv-empty />
     </div>
     <div class="my-5 space-y-3">
@@ -199,8 +205,7 @@ const handleFriendDel = () => {
                   {{ item.remarks }}
                 </text>
                 <view class="text-sm text-gray">
-                  {{ item.date.value }} {{ item.date.lunar_month
-                  }}{{ item.date.lunar_day }}
+                  {{ item.date }}
                 </view>
               </view>
               <view class="mr-4 text-center">
@@ -217,7 +222,6 @@ const handleFriendDel = () => {
         </view>
       </view>
     </div>
-    <uv-safe-bottom />
   </div>
 </template>
 
@@ -306,7 +310,6 @@ const handleFriendDel = () => {
 </style>
 
 <route lang="json">{
-  "layout": "blank",
   "style": {
     "navigationBarTitleText": "详情"
   }

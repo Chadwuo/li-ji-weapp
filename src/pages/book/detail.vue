@@ -10,7 +10,7 @@ const search = ref({
 })
 const popupShow = ref(false)
 
-const { dataList, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftIn>>(
+const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftIn>>(
   async (d) => {
     const _page = d?.page ? d.page + 1 : 1
     const response = await apiGiftInPageGet({
@@ -52,6 +52,8 @@ onLoad(async (option) => {
 })
 
 onReachBottom(() => {
+  if (noMore.value)
+    return
   loadMoreAsync()
 })
 
@@ -110,8 +112,7 @@ const handleBookDel = () => {
   <div>
     <div v-if="loading" class="mb-5 rounded-2xl bg-white p-5">
       <wd-skeleton
-        :row-col="[{ width: '30%' }, { width: '60%' }, { width: '20%' }, [{ width: '20%' }, { width: '20%' }, { width: '20%' }, { width: '20%' }]]"
-      />
+        :row-col="[{ width: '30%' }, { width: '60%' }, { width: '20%' }, [{ width: '20%' }, { width: '20%' }, { width: '20%' }, { width: '20%' }]]" />
     </div>
 
     <div v-else class="mb-5 rounded-2xl bg-white px-5 pb-5 pt-3 space-y-3">
@@ -187,19 +188,21 @@ const handleBookDel = () => {
       <div class="w-full flex items-center">
         <div>
           <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
-                     @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
-          />
+            @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true" />
         </div>
 
         <div class="ml-auto">
           <wd-button icon="add" size="small" :type="hasMourningWords(book.title) ? 'info' : 'primary '"
-                     @click="handleGiftAdd"
-          >
+            @click="handleGiftAdd">
             添加
           </wd-button>
         </div>
       </div>
-      <wd-skeleton v-if="loading" theme="paragraph" />
+      
+      <div v-if="loading" class="mt-5 text-center">
+        <wd-loading color="#f87171" />
+        <div class="text-gray mt-3">正在努力加载中...</div>
+      </div>
       <div v-else>
         <uv-empty v-if="dataList.length === 0" />
         <div v-else>
@@ -210,7 +213,8 @@ const handleBookDel = () => {
               </div>
             </wd-cell>
           </div>
-          <wd-loadmore :state="loadingMore ? 'loading' : ''" :loading-props="{ color: '#f87171' }" />
+          <wd-loadmore :state="loadingMore ? 'loading' : noMore ? 'finished' : ''"
+            :loading-props="{ color: '#f87171' }" />
         </div>
       </div>
     </div>
@@ -249,10 +253,8 @@ const handleBookDel = () => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationBarTitleText": "详情"
   }
-}
-</route>
+}</route>

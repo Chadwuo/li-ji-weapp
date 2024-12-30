@@ -37,3 +37,10 @@ export function apiFriendDelete(data: any) {
     data,
   })
 }
+
+export function apiFriendGiftListGet(data: any) {
+  return request<Api.FriendGifts>({
+    url: 'friend/gift-list',
+    data,
+  })
+}

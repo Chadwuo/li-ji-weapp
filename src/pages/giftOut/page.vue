@@ -52,7 +52,7 @@ const search = ref({
   icon: '',
   showAction: false,
 })
-const { dataList, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftOut>>(
+const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftOut>>(
   async (d) => {
     const _page = d?.page ? d.page + 1 : 1
     const response = await apiGiftOutPageGet({
@@ -83,6 +83,8 @@ onPullDownRefresh(async () => {
 })
 
 onReachBottom(() => {
+  if (noMore.value)
+    return
   loadMoreAsync()
 })
 
@@ -131,8 +133,7 @@ const handleGiftClick = (id?: number) => {
       <uv-tabs :list="tabsList" line-color="#f87171" @click="onTabsClick" />
       <div class="mt-3">
         <uv-search v-model="search.keyword" placeholder="请输入搜索内容" :show-action="search.showAction" action-text="取消"
-                   @focus="search.showAction = true" @custom="searchCancel" @search="searchOk"
-        />
+          @focus="search.showAction = true" @custom="searchCancel" @search="searchOk" />
       </div>
 
       <div v-if="dataList.length === 0" class="my-auto">
@@ -145,8 +146,7 @@ const handleGiftClick = (id?: number) => {
               i.icon === 'i-tabler-candle'
                 ? 'bg-gray-100 text-gray'
                 : 'bg-red-50 text-red',
-            ]"
-            >
+            ]">
               <div class="m-auto h-8 w-8" :class="i.icon" />
             </div>
             <div class="mx-4">
@@ -165,7 +165,8 @@ const handleGiftClick = (id?: number) => {
             </div>
           </div>
         </div>
-        <wd-loadmore :state="loadingMore ? 'loading' : ''" :loading-props="{ color: '#f87171' }" />
+        <wd-loadmore :state="loadingMore ? 'loading' : noMore ? 'finished' : ''"
+          :loading-props="{ color: '#f87171' }" />
       </div>
     </div>
   </div>
@@ -173,10 +174,9 @@ const handleGiftClick = (id?: number) => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
-    "navigationStyle": "custom"
+    "navigationStyle": "custom",
+    "enablePullDownRefresh": true
   }
-}
-</route>
+}</route>

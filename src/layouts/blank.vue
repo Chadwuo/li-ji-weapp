@@ -1,6 +1,4 @@
 <template>
   <wd-message-box />
-  <div>
-    <slot />
-  </div>
+  <slot />
 </template>

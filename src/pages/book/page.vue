@@ -47,7 +47,7 @@ const handleBookClick = (id?: number) => {
 watchEffect(() => {
   if (loading.value && !loadingMore.value) {
     uni.showLoading({
-      title: '正在加载数据...',
+      title: '正在努力加载中...',
     })
   }
   else {
