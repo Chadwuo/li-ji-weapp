@@ -3,6 +3,11 @@ export function request<T>(options: UniApp.RequestOptions) {
     uni.request({
       ...requestInterceptor(options),
       success(res) {
+        if (res.header.Authorization) {
+          const authStore = useAuthStore()
+          authStore.accessToken = res.header.Authorization
+          authStore.refreshToken = res.header['X-Authorization']
+        }
         if (res.statusCode === 200) {
           const result = res.data as Api.Response<T>
           if (!result.succeeded) {
@@ -40,8 +45,10 @@ function requestInterceptor(options: UniApp.RequestOptions) {
   }
 
   const token = useAuthStore().accessToken
+  const refreshToken = useAuthStore().refreshToken
   options.header = {
-    Authorization: token ? `Bearer ${token}` : null,
+    'Authorization': `Bearer ${token}`,
+    'X-Authorization': `Bearer ${refreshToken}`,
   }
   return options
 }
