@@ -13,22 +13,10 @@ const statisticsData = ref({
 })
 const giftList = ref<Array<any>>()
 const loading = ref(false)
-
-onLoad(async (option) => {
-  loading.value = true
-  if (option?.id) {
-    await apiFriendGet({ id: option.id }).then((res) => {
-      if (res.succeeded && res.data)
-        friend.value = res.data
-    })
-    await loadGifts()
-  }
-  loading.value = false
-})
-
 const loadGifts = async () => {
   const { data, succeeded } = await apiFriendGiftListGet({ id: friend.value.id })
-  if (!succeeded) return;
+  if (!succeeded)
+    return
   const giftInList = data?.giftInList ?? []
   const giftOutList = data?.giftOutList ?? []
   statisticsData.value.sadCount = giftOutList.length // 送礼次数
@@ -69,22 +57,34 @@ const loadGifts = async () => {
 
   // Group gifts by year
   const groupedGifts = allGifts.reduce((acc, curr) => {
-    const year = curr.year;
+    const year = curr.year
     if (!acc[year]) {
-      acc[year] = [];
+      acc[year] = []
     }
-    acc[year].push(curr);
-    return acc;
-  }, {} as { [key: number]: any[] });
+    acc[year].push(curr)
+    return acc
+  }, {} as { [key: number]: any[] })
 
   // Convert to array and sort by year
   giftList.value = Object.entries(groupedGifts)
     .map(([year, list]) => ({
-      year: parseInt(year, 10), // Ensure year is a number
+      year: Number.parseInt(year, 10), // Ensure year is a number
       list,
     }))
-    .sort((a, b) => b.year - a.year);
+    .sort((a, b) => b.year - a.year)
 }
+
+onLoad(async (option) => {
+  loading.value = true
+  if (option?.id) {
+    await apiFriendGet({ id: option.id }).then((res) => {
+      if (res.succeeded && res.data)
+        friend.value = res.data
+    })
+    await loadGifts()
+  }
+  loading.value = false
+})
 
 const onGiftClick = (e: Api.GiftIn | Api.GiftOut) => {
   if ('giftBookId' in e && e.giftBookId) {
@@ -133,7 +133,8 @@ const handleFriendDel = () => {
   <div>
     <div v-if="loading" class="rounded-2xl bg-white p-5">
       <wd-skeleton
-        :row-col="[{ width: '30%' }, { width: '50%' }, [{ width: '0' }, { width: '30%' }, { width: '0' }], { width: '0' }, [{ width: '0' }, { width: '20%' }, { width: '20%' }, { width: '0' }]]" />
+        :row-col="[{ width: '30%' }, { width: '50%' }, [{ width: '0' }, { width: '30%' }, { width: '0' }], { width: '0' }, [{ width: '0' }, { width: '20%' }, { width: '20%' }, { width: '0' }]]"
+      />
     </div>
     <div v-else class="rounded-2xl bg-white p-5 space-y-3">
       <div class="flex items-center justify-between">
@@ -158,7 +159,8 @@ const handleFriendDel = () => {
         <span class="text-lg font-bold" :class="statisticsData.happyTotal >= statisticsData.sadTotal
           ? 'text-red'
           : 'text-green'
-          ">
+        "
+        >
           {{ statisticsData.happyTotal - statisticsData.sadTotal }}
         </span>
         <span class="text-sm">(收支差)</span>
@@ -187,7 +189,9 @@ const handleFriendDel = () => {
 
     <div v-if="loading" class="mt-5 text-center">
       <wd-loading color="#f87171" />
-      <div class="text-gray mt-3">正在努力加载中...</div>
+      <div class="mt-3 text-gray">
+        正在努力加载中...
+      </div>
     </div>
 
     <div v-if="giftList?.length === 0 && !loading" class="my-24">
@@ -212,7 +216,7 @@ const handleFriendDel = () => {
                   {{ item.date }}
                 </view>
               </view>
-              <view class="ml-3 text-center flex-shrink-0">
+              <view class="ml-3 flex-shrink-0 text-center">
                 <view>
                   <text class="text-sm">
                     ￥
@@ -226,8 +230,6 @@ const handleFriendDel = () => {
         </view>
       </view>
     </div>
-    
-    
   </div>
 </template>
 
@@ -315,8 +317,10 @@ const handleFriendDel = () => {
 }
 </style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "详情"
   }
-}</route>
+}
+</route>
