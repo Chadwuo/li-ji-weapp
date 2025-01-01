@@ -6,7 +6,7 @@ import UniHelperPages from '@uni-helper/vite-plugin-uni-pages'
 import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
 
-// https://vitejs.dev/config/
+// https://vitejs.dev/config
 export default async () => {
   const UnoCSS = (await import('unocss/vite')).default
 
