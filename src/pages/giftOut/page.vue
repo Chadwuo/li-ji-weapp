@@ -100,7 +100,7 @@ function searchCancel() {
   refreshAsync()
 }
 
-const handleGiftClick = (id?: number) => {
+const handleGiftClick = (id?: string) => {
   if (!id) {
     uni.navigateTo({
       url: '/pages/giftOut/edit',

@@ -26,11 +26,12 @@ const loadGifts = async () => {
     statisticsData.value.happyTotal += i.money || 0
     return {
       id: i.id,
-      title: i.giftBookTitle,
+      title: i.title,
       money: i.money,
-      date: i.giftBookDate,
-      year: dayjs(i.giftBookDate).year(),
-      bookId: i.giftBookId,
+      date: i.Date,
+      lunarDate: i.lunarDate,
+      year: dayjs(i.Date).year(),
+      giftBookId: i.giftBookId,
       attendance: i.attendance,
       self: false,
     }
@@ -43,6 +44,7 @@ const loadGifts = async () => {
       title: i.title,
       money: i.money,
       date: i.date,
+      lunarDate: i.lunarDate,
       year: dayjs(i.date).year(),
       icon: i.icon,
       remarks: i.remarks,
@@ -133,8 +135,7 @@ const handleFriendDel = () => {
   <div>
     <div v-if="loading" class="rounded-2xl bg-white p-5">
       <wd-skeleton
-        :row-col="[{ width: '30%' }, { width: '50%' }, [{ width: '0' }, { width: '30%' }, { width: '0' }], { width: '0' }, [{ width: '0' }, { width: '20%' }, { width: '20%' }, { width: '0' }]]"
-      />
+        :row-col="[{ width: '30%' }, { width: '50%' }, [{ width: '0' }, { width: '30%' }, { width: '0' }], { width: '0' }, [{ width: '0' }, { width: '20%' }, { width: '20%' }, { width: '0' }]]" />
     </div>
     <div v-else class="rounded-2xl bg-white p-5 space-y-3">
       <div class="flex items-center justify-between">
@@ -159,8 +160,7 @@ const handleFriendDel = () => {
         <span class="text-lg font-bold" :class="statisticsData.happyTotal >= statisticsData.sadTotal
           ? 'text-red'
           : 'text-green'
-        "
-        >
+          ">
           {{ statisticsData.happyTotal - statisticsData.sadTotal }}
         </span>
         <span class="text-sm">(收支差)</span>
@@ -212,9 +212,12 @@ const handleFriendDel = () => {
                 <text class="text-sm text-gray">
                   {{ item.remarks }}
                 </text>
-                <view class="text-sm text-gray">
-                  {{ item.date }}
-                </view>
+                <div class="text-sm text-gray">
+                  {{ item.lunarDate }}
+                </div>
+                <div class="text-xs text-gray">
+                  {{ dayjs(item.date).format('L') }}
+                </div>
               </view>
               <view class="ml-3 flex-shrink-0 text-center">
                 <view>
@@ -317,10 +320,8 @@ const handleFriendDel = () => {
 }
 </style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationBarTitleText": "详情"
   }
-}
-</route>
+}</route>

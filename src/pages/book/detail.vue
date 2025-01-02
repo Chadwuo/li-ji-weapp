@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import dayjs from 'dayjs'
 import { useLoadMore } from 'vue-request'
 import { useMessage } from 'wot-design-uni'
 
@@ -16,6 +17,7 @@ const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMo
     const _page = d?.page ? d.page + 1 : 1
     const response = await apiGiftInPageGet({
       page: _page,
+      giftBookId: book.value.id,
     })
     const { items, page = 0, total = 0 } = response.data || {}
     return {
@@ -39,13 +41,18 @@ const netAmount = computed(() => {
   return 0
 })
 
+const loadData = async () => {
+  await apiGiftBookGet({ id: book.value.id }).then((res) => {
+    if (res.succeeded && res.data)
+      book.value = res.data
+  })
+}
+
 onLoad(async (option) => {
   loading.value = true
   if (option?.id) {
-    await apiGiftBookGet({ id: option.id }).then((res) => {
-      if (res.succeeded && res.data)
-        book.value = res.data
-    })
+    book.value.id = option.id
+    await loadData()
     await refreshAsync()
   }
   loading.value = false
@@ -68,19 +75,34 @@ function searchCancel() {
   refreshAsync()
 }
 
-const handleGiftClick = (gid?: number) => {
+const handleGiftClick = (gid?: string) => {
   uni.navigateTo({
     url: `/pages/giftIn/edit?id=${gid}`,
+    events: {
+      editSuccess: () => {
+        refreshAsync()
+      }
+    }
   })
 }
 const handleGiftAdd = () => {
   uni.navigateTo({
     url: `/pages/giftIn/edit?bookId=${book.value.id}`,
+    events: {
+      editSuccess: () => {
+        refreshAsync()
+      }
+    }
   })
 }
 const handleBookEdit = () => {
   uni.navigateTo({
     url: `/pages/book/edit?id=${book.value.id}`,
+    events: {
+      editSuccess: () => {
+        loadData()
+      }
+    }
   })
 }
 const handleBookDel = () => {
@@ -123,7 +145,7 @@ const handleBookDel = () => {
           </div>
           <div class="mt-1 text-sm text-gray">
             <span>{{ book.lunarDate }}</span>
-            <span class="ml-2">({{ book.date }}) </span>
+            <span class="ml-2">({{ dayjs(book.date).format('L') }}) </span>
           </div>
         </div>
         <div class="flex text-xl" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">

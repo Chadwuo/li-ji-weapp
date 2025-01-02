@@ -3,10 +3,12 @@ export function request<T>(options: UniApp.RequestOptions) {
     uni.request({
       ...requestInterceptor(options),
       success(res) {
-        if (res.header.Authorization) {
+        var accessToken = res.header['access-token']
+        var refreshAccessToken = res.header['x-access-token']
+        if (refreshAccessToken && accessToken && accessToken !== "invalid_token") {
           const authStore = useAuthStore()
-          authStore.accessToken = res.header.Authorization
-          authStore.refreshToken = res.header['X-Authorization']
+          authStore.accessToken = accessToken
+          authStore.refreshToken = refreshAccessToken
         }
         if (res.statusCode === 200) {
           const result = res.data as Api.Response<T>

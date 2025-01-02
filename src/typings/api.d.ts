@@ -121,10 +121,10 @@ declare namespace Api {
 	interface User {
 		/**
 		 * 雪花Id
-		 * @type {number}
+		 * @type {string}
 		 * @memberof User
 		 */
-		id: number;
+		id: string;
 		/**
 		 * 创建时间
 		 * @type {string}
@@ -171,9 +171,9 @@ declare namespace Api {
 	interface UserFamily {
 		/**
 		 * 用户Id
-		 * @type {number}
+		 * @type {string}
 		 */
-		userId?: number;
+		userId?: string;
 		/**
 		 * 昵称
 		 * @type {string}
@@ -198,10 +198,10 @@ declare namespace Api {
 	interface UserSubscription {
 		/**
 		 * 雪花Id
-		 * @type {number}
+		 * @type {string}
 		 * @memberof UserSubscription
 		 */
-		id: number;
+		id: string;
 		/**
 		 * 创建时间
 		 * @type {string}
@@ -216,16 +216,10 @@ declare namespace Api {
 		updateTime?: string | null;
 		/**
 		 * 用户Id
-		 * @type {number}
+		 * @type {string}
 		 * @memberof UserSubscription
 		 */
-		userId?: number;
-		/**
-		 *
-		 * @type {User}
-		 * @memberof UserSubscription
-		 */
-		user?: User;
+		userId?: string;
 		/**
 		 * 商户订单号
 		 * @type {string}
@@ -267,9 +261,9 @@ declare namespace Api {
 	interface GiftBook {
 		/**
 		 * ID
-		 * @type {number}
+		 * @type {string}
 		 */
-		id?: number;
+		id?: string;
 		/**
 		 * 标题
 		 * @type {string}
@@ -315,10 +309,10 @@ declare namespace Api {
 	interface Friend {
 		/**
 		 * 雪花Id
-		 * @type {number}
+		 * @type {string}
 		 * @memberof Friend
 		 */
-		id?: number;
+		id?: string;
 		/**
 		 * 创建时间
 		 * @type {string}
@@ -360,10 +354,10 @@ declare namespace Api {
 	interface GiftIn {
 		/**
 		 * 雪花Id
-		 * @type {number}
+		 * @type {string}
 		 * @memberof GiftIn
 		 */
-		id?: number;
+		id?: string;
 		/**
 		 * 创建时间
 		 * @type {string}
@@ -396,28 +390,34 @@ declare namespace Api {
 		remarks?: string | null;
 		/**
 		 * 礼簿Id
-		 * @type {number}
+		 * @type {string}
 		 * @memberof GiftIn
 		 */
-		giftBookId?: number;
+		giftBookId?: string;
 		/**
 		 *
 		 * @type {string}
 		 * @memberof GiftIn
 		 */
-		giftBookTitle?: string | null;
+		title?: string | null;
 		/**
 		 * 日期
 		 * @type {string}
 		 * @memberof GiftOut
 		 */
-		giftBookDate?: string;
+		Date?: string;
 		/**
-		 * 亲友Id
-		 * @type {number}
+		 * 农历
+		 * @type {string}
 		 * @memberof GiftIn
 		 */
-		friendId?: number;
+		lunarDate?: string | null;
+		/**
+		 * 亲友Id
+		 * @type {string}
+		 * @memberof GiftIn
+		 */
+		friendId?: string;
 		/**
 		 *
 		 * @type {string}
@@ -429,10 +429,10 @@ declare namespace Api {
 	interface GiftOut {
 		/**
 		 * 雪花Id
-		 * @type {number}
+		 * @type {string}
 		 * @memberof GiftOut
 		 */
-		id?: number;
+		id?: string;
 		/**
 		 * 创建时间
 		 * @type {string}
@@ -483,10 +483,10 @@ declare namespace Api {
 		lunarDate?: string | null;
 		/**
 		 * 亲友Id
-		 * @type {number}
+		 * @type {string}
 		 * @memberof GiftOut
 		 */
-		friendId?: number;
+		friendId?: string;
 		/**
 		 *
 		 * @type {string}

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const instance: any = getCurrentInstance()
 const calendarRef = ref<any>(null)
 const dataSource = ref<Api.GiftBook>({})
 const validInput = computed(() => {
@@ -18,14 +19,25 @@ onLoad((option) => {
   }
 })
 
+const editSuccess = () => {
+  const eventChannel = instance.proxy.getOpenerEventChannel();
+  eventChannel.emit('editSuccess')
+  setTimeout(() => {
+    uni.navigateBack()
+  }, 600)
+}
+
 const onSubmit = async () => {
   loading.value = true
   const api = dataSource.value.id ? apiGiftBookPut : apiGiftBookPost
   const res = await api(dataSource.value)
-  uni.showToast({
-    title: `${res.succeeded ? (dataSource.value.id ? '更新' : '新增') : ''}成功`,
-    icon: res.succeeded ? 'success' : 'error',
-  })
+  if (res.succeeded) {
+    uni.showToast({
+      title: `${dataSource.value.id ? '更新' : '新增'}成功`,
+      icon: 'success',
+    })
+    editSuccess()
+  }
   loading.value = false
 }
 
@@ -74,16 +86,13 @@ const openCalendar = () => {
     </uv-form>
   </div>
   <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
-                @confirm="confirmCalendar"
-  />
+    @confirm="confirmCalendar" />
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationBarTitleText": "新增"
   }
-}
-</route>
+}</route>

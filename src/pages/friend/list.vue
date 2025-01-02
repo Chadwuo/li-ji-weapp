@@ -44,7 +44,7 @@ function searchCancel() {
   loadData()
 }
 
-const onFriendClick = (id?: number) => {
+const onFriendClick = (id?: string) => {
   if (!id) {
     uni.navigateTo({
       url: '/pages/friend/edit',

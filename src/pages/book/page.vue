@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import dayjs from 'dayjs'
 import { useLoadMore } from 'vue-request'
 import logo from '/static/logo.png'
 
@@ -31,7 +32,7 @@ onReachBottom(() => {
   loadMoreAsync()
 })
 
-const handleBookClick = (id?: number) => {
+const handleBookClick = (id?: string) => {
   if (!id) {
     uni.navigateTo({
       url: '/pages/book/edit',
@@ -84,10 +85,10 @@ watchEffect(() => {
             <span class="text-sm">￥</span>{{ i.moneyTotal }}
           </div>
           <div class="text-sm text-gray">
-            {{ i.date }}
+            {{ i.lunarDate }}
           </div>
           <div class="text-xs text-gray">
-            {{ i.lunarDate }}
+            {{ dayjs(i.date).format('L') }}
           </div>
         </div>
         <div class="relative">

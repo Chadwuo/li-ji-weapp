@@ -1,6 +1,6 @@
 <script setup lang="ts">
+const instance: any = getCurrentInstance()
 const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
-let instance: any = null
 const search = ref({
   keyword: '',
   showAction: false,
@@ -28,10 +28,6 @@ const loadData = () => {
 }
 onLoad(() => {
   loadData()
-})
-
-onMounted(() => {
-  instance = getCurrentInstance()?.proxy
 })
 
 function onFriendClick(e: Api.Friend) {

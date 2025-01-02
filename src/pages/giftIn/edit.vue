@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useMessage } from 'wot-design-uni'
 
+const instance: any = getCurrentInstance()
 const message = useMessage()
 const loading = ref(false)
 const dataSource = ref<Api.GiftIn>({})
@@ -17,21 +18,32 @@ onLoad((option) => {
       if (res.succeeded && res.data)
         dataSource.value = res.data
     })
+  } else {
+    dataSource.value.giftBookId = option?.bookId
   }
 })
+
+const editSuccess = () => {
+  const eventChannel = instance.proxy.getOpenerEventChannel();
+  eventChannel.emit('editSuccess')
+  setTimeout(() => {
+    uni.navigateBack()
+  }, 600)
+}
 
 const onSubmit = async () => {
   loading.value = true
   const api = dataSource.value.id ? apiGiftInPut : apiGiftInPost
   const res = await api(dataSource.value)
-  uni.showToast({
-    title: `${res.succeeded ? (dataSource.value.id ? '更新' : '新增') : ''}成功`,
-    icon: res.succeeded ? 'success' : 'error',
-  })
+  if (res.succeeded) {
+    uni.showToast({
+      title: `${dataSource.value.id ? '更新' : '新增'}成功`,
+      icon: 'success',
+    })
+    editSuccess()
+  }
+
   loading.value = false
-  setTimeout(() => {
-    uni.navigateBack()
-  }, 1000)
 }
 
 const onDel = () => {
@@ -45,15 +57,8 @@ const onDel = () => {
         title: '删除成功',
         icon: 'success',
       })
-      setTimeout(() => {
-        uni.navigateBack()
-      }, 1000)
-    }
-    else {
-      uni.showToast({
-        title: res.errors,
-        icon: 'error',
-      })
+
+      editSuccess()
     }
   })
 }
@@ -70,7 +75,7 @@ const onSelectFriend = () => {
   })
 }
 
-const navigateToFriendDetailPage = (id: number) => {
+const navigateToFriendDetailPage = (id: string) => {
   uni.navigateTo({
     url: `/pages/friend/detail?id=${id}`,
   })
@@ -83,8 +88,7 @@ const navigateToFriendDetailPage = (id: number) => {
       <uv-form label-position="left" label-width="60">
         <uv-form-item label="亲友">
           <uv-input v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友" :disabled="dataSource.id"
-                    disabled-color="#fff"
-          />
+            disabled-color="#fff" />
           <template #right>
             <div v-show="!dataSource.id" class="i-system-uicons-contacts text-lg text-gray" @click="onSelectFriend" />
           </template>
@@ -123,10 +127,8 @@ const navigateToFriendDetailPage = (id: number) => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationBarTitleText": "收礼记录"
   }
-}
-</route>
+}</route>
