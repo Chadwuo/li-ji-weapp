@@ -10,12 +10,13 @@ export function request<T>(options: UniApp.RequestOptions) {
           authStore.accessToken = accessToken
           authStore.refreshToken = refreshAccessToken
         }
+        
         if (res.statusCode === 200) {
           const result = res.data as Api.Response<T>
           if (!result.succeeded) {
             uni.showToast({
               icon: 'none',
-              title: result.errors || '系统错误',
+              title: JSON.stringify(result.errors || 'Request Error.'),
             })
           }
           resolve(res.data as Api.Response<T>)

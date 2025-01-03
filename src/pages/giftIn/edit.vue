@@ -2,6 +2,7 @@
 import { useMessage } from 'wot-design-uni'
 
 const instance: any = getCurrentInstance()
+const eventChannel = instance.proxy.getOpenerEventChannel();
 const message = useMessage()
 const loading = ref(false)
 const dataSource = ref<Api.GiftIn>({})
@@ -24,7 +25,6 @@ onLoad((option) => {
 })
 
 const editSuccess = () => {
-  const eventChannel = instance.proxy.getOpenerEventChannel();
   eventChannel.emit('editSuccess')
   setTimeout(() => {
     uni.navigateBack()

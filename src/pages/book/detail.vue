@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import dayjs from 'dayjs'
 import { useLoadMore } from 'vue-request'
 import { useMessage } from 'wot-design-uni'
 
@@ -18,6 +17,8 @@ const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMo
     const response = await apiGiftInPageGet({
       page: _page,
       giftBookId: book.value.id,
+      field: 'money',
+      order: 'desc'
     })
     const { items, page = 0, total = 0 } = response.data || {}
     return {
@@ -120,12 +121,6 @@ const handleBookDel = () => {
         uni.navigateBack()
       }, 1000)
     }
-    else {
-      uni.showToast({
-        title: res.errors,
-        icon: 'error',
-      })
-    }
   })
 }
 </script>
@@ -145,7 +140,7 @@ const handleBookDel = () => {
           </div>
           <div class="mt-1 text-sm text-gray">
             <span>{{ book.lunarDate }}</span>
-            <span class="ml-2">({{ dayjs(book.date).format('L') }}) </span>
+            <span class="ml-2">({{ book.date }}) </span>
           </div>
         </div>
         <div class="flex text-xl" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">

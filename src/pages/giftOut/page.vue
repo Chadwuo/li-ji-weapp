@@ -57,6 +57,8 @@ const { dataList, loading, loadingMore, noMore, loadMoreAsync, refreshAsync } = 
     const _page = d?.page ? d.page + 1 : 1
     const response = await apiGiftOutPageGet({
       page: _page,
+      field: 'date',
+      order: 'desc'
     })
     const { items, page = 0, total = 0 } = response.data || {}
     return {
@@ -101,14 +103,24 @@ function searchCancel() {
 }
 
 const handleGiftClick = (id?: string) => {
-  if (!id) {
+  if (id) {
     uni.navigateTo({
-      url: '/pages/giftOut/edit',
+      url: `/pages/giftOut/edit?id=${id}`,
+      events: {
+        editSuccess: () => {
+          refreshAsync()
+        }
+      }
     })
   }
   else {
     uni.navigateTo({
-      url: `/pages/giftOut/edit?id=${id}`,
+      url: '/pages/giftOut/edit',
+      events: {
+        editSuccess: () => {
+          refreshAsync()
+        }
+      }
     })
   }
 }
@@ -122,7 +134,7 @@ const handleGiftClick = (id?: string) => {
           <div class="ms-2 text-lg font-bold">
             送礼
           </div>
-          <div class="p-2" @click="handleGiftClick">
+          <div class="p-2" @click="handleGiftClick()">
             <div class="i-carbon-add-alt text-red" />
           </div>
         </div>
@@ -165,8 +177,13 @@ const handleGiftClick = (id?: string) => {
                 <div class="text-gray">
                   {{ i.title }}<span v-if="i.remarks">（{{ i.remarks }}）</span>
                 </div>
-                <div class="mt-1 text-xs text-gray">
-                  {{ i.date }} {{ i.lunarDate }}
+                <div class="text-xs text-gray mt-1">
+                  <div>
+                    {{ i.date }}
+                  </div>
+                  <div>
+                    {{ i.lunarDate }}
+                  </div>
                 </div>
               </div>
               <div class="text-lg font-bold" :class="[i.icon === 'i-tabler-candle' ? 'text-gray' : 'text-red']">

@@ -11,11 +11,11 @@ onLoad(() => {
   statistics()
 })
 
-const staticData = ref({
-  giftOutTotal: 0,
-  giftInTotal: 0,
-  giftOutCount: 0,
-  giftInCount: 0,
+const staticData = ref<Api.StatOverall>({
+  inCount: 0,
+  outCount: 0,
+  inTotal: 0,
+  outTotal: 0,
 })
 const statistics = async () => {
   // const [giftOutRes, giftInRes] = await Promise.all([
@@ -27,6 +27,12 @@ const statistics = async () => {
 
   // if (giftInRes.success)
   //   staticData.value.giftIn = giftInRes.data
+
+  apiStatisticsOverallGet().then((res) => {
+    if (res.succeeded && res.data) {
+      staticData.value = res.data
+    }
+  })
 }
 
 const toSettings = () => {
@@ -61,20 +67,20 @@ onShareAppMessage(() => {
     <div class="grid grid-cols-2 gap-5 rounded-2xl bg-white p-5 divide-x">
       <div class="text-center">
         <div class="text-lg text-black font-bold">
-          {{ formatMoney(staticData.giftInTotal) }}
+          {{ formatMoney(staticData.inTotal) }}
         </div>
         <div class="flex items-center justify-center text-sm text-gray space-x-1">
           <div class="i-icon-park-outline-income" />
-          <div>收礼({{ staticData.giftInCount }})</div>
+          <div>收礼({{ staticData.inCount }})</div>
         </div>
       </div>
       <div class="text-center">
         <div class="text-lg text-black font-bold">
-          {{ formatMoney(staticData.giftOutTotal) }}
+          {{ formatMoney(staticData.outTotal) }}
         </div>
         <div class="flex items-center justify-center text-sm text-gray space-x-1">
           <div class="i-icon-park-outline-expenses" />
-          <div>送礼({{ staticData.giftOutTotal }})</div>
+          <div>送礼({{ staticData.outCount }})</div>
         </div>
       </div>
     </div>

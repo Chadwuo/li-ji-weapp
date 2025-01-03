@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import dayjs from 'dayjs'
 import { useLoadMore } from 'vue-request'
 import logo from '/static/logo.png'
 
@@ -84,11 +83,13 @@ watchEffect(() => {
           <div class="mt-auto text-lg font-bold">
             <span class="text-sm">￥</span>{{ i.moneyTotal }}
           </div>
-          <div class="text-sm text-gray">
-            {{ i.lunarDate }}
-          </div>
-          <div class="text-xs text-gray">
-            {{ dayjs(i.date).format('L') }}
+          <div class="text-xs text-gray mt-1">
+            <div>
+              {{ i.date }}
+            </div>
+            <div>
+              {{ i.lunarDate }}
+            </div>
           </div>
         </div>
         <div class="relative">

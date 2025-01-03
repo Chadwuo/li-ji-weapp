@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const instance: any = getCurrentInstance()
+const eventChannel = instance.proxy.getOpenerEventChannel();
 const calendarRef = ref<any>(null)
 const dataSource = ref<Api.GiftBook>({})
 const validInput = computed(() => {
@@ -20,7 +21,6 @@ onLoad((option) => {
 })
 
 const editSuccess = () => {
-  const eventChannel = instance.proxy.getOpenerEventChannel();
   eventChannel.emit('editSuccess')
   setTimeout(() => {
     uni.navigateBack()

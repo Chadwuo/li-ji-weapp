@@ -19,7 +19,7 @@ declare namespace Api {
 		 *
 		 * @type {object}
 		 */
-		errors: string;
+		errors: object;
 		/**
 		 *
 		 * @type {object}
@@ -405,7 +405,7 @@ declare namespace Api {
 		 * @type {string}
 		 * @memberof GiftOut
 		 */
-		Date?: string;
+		date?: string;
 		/**
 		 * 农历
 		 * @type {string}
@@ -498,5 +498,12 @@ declare namespace Api {
 	interface FriendGifts {
 		giftInList?: GiftIn[];
 		giftOutList?: GiftOut[];
+	}
+
+	interface StatOverall {
+		inCount: number;
+		outCount: number;
+		inTotal: number;
+		outTotal: number;
 	}
 }

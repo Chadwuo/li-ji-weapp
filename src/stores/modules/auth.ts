@@ -11,6 +11,9 @@ export const useAuthStore = defineStore(
     const userSubscription = ref<Api.UserSubscription>()
 
     const login = async () => {
+      // #ifdef H5
+      return
+      // #endif
       const { code, errMsg } = await uni.login()
       if (code) {
         // 发起网络请求
@@ -36,7 +39,7 @@ export const useAuthStore = defineStore(
         userSubscription.value = res.data.userSubscription
       }
       else {
-        throw new Error(res.errors)
+        throw new Error(JSON.stringify(res.errors || 'Request Error.'))
       }
     }
 

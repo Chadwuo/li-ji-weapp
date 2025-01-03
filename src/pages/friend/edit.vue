@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const instance: any = getCurrentInstance()
+const eventChannel = instance.proxy.getOpenerEventChannel();
 const dataSource = ref<Api.Friend>({})
 onLoad((option) => {
   if (option?.id) {
@@ -16,14 +18,23 @@ const validInput = computed(() => {
 })
 
 const loading = ref(false)
+const editSuccess = () => {
+  eventChannel.emit('editSuccess')
+  setTimeout(() => {
+    uni.navigateBack()
+  }, 600)
+}
 const onSubmit = async () => {
   loading.value = true
   const api = dataSource.value.id ? apiFriendPut : apiFriendPost
   const res = await api(dataSource.value)
-  uni.showToast({
-    title: `${res.succeeded ? (dataSource.value.id ? '更新' : '新增') : ''}成功`,
-    icon: res.succeeded ? 'success' : 'error',
-  })
+  if (res.succeeded) {
+    uni.showToast({
+      title: `${dataSource.value.id ? '更新' : '新增'}成功`,
+      icon: 'success',
+    })
+    editSuccess()
+  }
   loading.value = false
 }
 

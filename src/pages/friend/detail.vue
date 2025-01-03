@@ -28,9 +28,9 @@ const loadGifts = async () => {
       id: i.id,
       title: i.title,
       money: i.money,
-      date: i.Date,
+      date: i.date,
       lunarDate: i.lunarDate,
-      year: dayjs(i.Date).year(),
+      year: dayjs(i.date).year(),
       giftBookId: i.giftBookId,
       attendance: i.attendance,
       self: false,
@@ -76,13 +76,18 @@ const loadGifts = async () => {
     .sort((a, b) => b.year - a.year)
 }
 
+const loadData = async () => {
+  await apiFriendGet({ id: friend.value.id }).then((res) => {
+    if (res.succeeded && res.data)
+      friend.value = res.data
+  })
+}
+
 onLoad(async (option) => {
   loading.value = true
   if (option?.id) {
-    await apiFriendGet({ id: option.id }).then((res) => {
-      if (res.succeeded && res.data)
-        friend.value = res.data
-    })
+    friend.value.id = option.id
+    await loadData()
     await loadGifts()
   }
   loading.value = false
@@ -104,6 +109,11 @@ const onGiftClick = (e: Api.GiftIn | Api.GiftOut) => {
 const handleFriendEdit = () => {
   uni.navigateTo({
     url: `/pages/friend/edit?id=${friend.value.id}`,
+    events: {
+      editSuccess: () => {
+        loadData()
+      }
+    }
   })
 }
 const handleFriendDel = () => {
@@ -120,12 +130,6 @@ const handleFriendDel = () => {
       setTimeout(() => {
         uni.navigateBack()
       }, 1000)
-    }
-    else {
-      uni.showToast({
-        title: res.errors,
-        icon: 'error',
-      })
     }
   })
 }
@@ -212,11 +216,13 @@ const handleFriendDel = () => {
                 <text class="text-sm text-gray">
                   {{ item.remarks }}
                 </text>
-                <div class="text-sm text-gray">
-                  {{ item.lunarDate }}
-                </div>
-                <div class="text-xs text-gray">
-                  {{ dayjs(item.date).format('L') }}
+                <div class="text-xs text-gray mt-1">
+                  <div>
+                    {{ item.date }}
+                  </div>
+                  <div>
+                    {{ item.lunarDate }}
+                  </div>
                 </div>
               </view>
               <view class="ml-3 flex-shrink-0 text-center">

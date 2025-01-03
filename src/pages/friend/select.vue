@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const instance: any = getCurrentInstance()
+const eventChannel = instance.proxy.getOpenerEventChannel();
 const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
 const search = ref({
   keyword: '',
@@ -31,7 +32,6 @@ onLoad(() => {
 })
 
 function onFriendClick(e: Api.Friend) {
-  const eventChannel = instance.getOpenerEventChannel()
   eventChannel.emit('acceptDataFromOpenedPage', e)
   uni.navigateBack()
 }
@@ -49,19 +49,18 @@ function searchCancel() {
 </script>
 
 <template>
-  <div>
-    <div>
-      <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
-                 @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
-      />
-    </div>
-    <div>
+  <div class="h-full flex flex-col">
+    <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
+      @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true" />
+    <div class="grow">
+      <div v-if="friendsList?.length === 0" class="my-24">
+        <uv-empty />
+      </div>
       <wd-index-bar sticky>
         <div v-for="item in friendsList" :key="item.index">
           <wd-index-anchor :index="item.index" />
           <wd-cell v-for="cell in item.data" :key="cell.id" clickable border :title="cell.name"
-                   @click="onFriendClick(cell)"
-          />
+            @click="onFriendClick(cell)" />
         </div>
       </wd-index-bar>
     </div>
@@ -70,11 +69,9 @@ function searchCancel() {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
-    "layout": "blank",
-    "style": {
-        "navigationBarTitleText": "选择亲友"
-    }
-}
-</route>
+<route lang="json">{
+  "layout": "blank",
+  "style": {
+    "navigationBarTitleText": "选择亲友"
+  }
+}</route>
