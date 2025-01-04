@@ -3,14 +3,14 @@ export function request<T>(options: UniApp.RequestOptions) {
     uni.request({
       ...requestInterceptor(options),
       success(res) {
-        var accessToken = res.header['access-token']
-        var refreshAccessToken = res.header['x-access-token']
-        if (refreshAccessToken && accessToken && accessToken !== "invalid_token") {
+        const accessToken = res.header['access-token']
+        const refreshAccessToken = res.header['x-access-token']
+        if (refreshAccessToken && accessToken && accessToken !== 'invalid_token') {
           const authStore = useAuthStore()
           authStore.accessToken = accessToken
           authStore.refreshToken = refreshAccessToken
         }
-        
+
         if (res.statusCode === 200) {
           const result = res.data as Api.Response<T>
           if (!result.succeeded) {
@@ -26,6 +26,7 @@ export function request<T>(options: UniApp.RequestOptions) {
             icon: 'none',
             title: res.errMsg || '网络错误',
           })
+          console.error(res)
           reject(res)
         }
       },

@@ -1,38 +1,29 @@
 import { request } from '../request'
 
-export function apiUserFamilyListGet(data: any) {
+export function apiUserFamilyListGet() {
   return request<Api.UserFamily[]>({
-    url: 'user-fanmily/list',
-    data,
+    url: 'user-family/list',
   })
 }
 
 export function apiUserFamilyGet(data: any) {
   return request<Api.UserFamily>({
-    url: 'user-fanmily',
-    data,
-  })
-}
-
-export function apiUserFamilyPut(data: any) {
-  return request<Api.UserFamily>({
-    url: 'user-fanmily',
-    method: 'PUT',
+    url: 'user-family',
     data,
   })
 }
 
 export function apiUserFamilyPost(data: any) {
-  return request<Api.UserFamily>({
-    url: 'user-fanmily',
+  return request({
+    url: 'user-family',
     method: 'POST',
     data,
   })
 }
 
 export function apiUserFamilyDelete(data: any) {
-  return request<Api.UserFamily>({
-    url: 'user-fanmily',
+  return request({
+    url: 'user-family',
     method: 'DELETE',
     data,
   })

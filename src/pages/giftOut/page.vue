@@ -58,7 +58,7 @@ const { dataList, loading, loadingMore, noMore, loadMoreAsync, refreshAsync } = 
     const response = await apiGiftOutPageGet({
       page: _page,
       field: 'date',
-      order: 'desc'
+      order: 'desc',
     })
     const { items, page = 0, total = 0 } = response.data || {}
     return {
@@ -109,8 +109,8 @@ const handleGiftClick = (id?: string) => {
       events: {
         editSuccess: () => {
           refreshAsync()
-        }
-      }
+        },
+      },
     })
   }
   else {
@@ -119,8 +119,8 @@ const handleGiftClick = (id?: string) => {
       events: {
         editSuccess: () => {
           refreshAsync()
-        }
-      }
+        },
+      },
     })
   }
 }
@@ -143,15 +143,17 @@ const handleGiftClick = (id?: string) => {
 
     <div class="rounded-2xl bg-white p-5">
       <uv-search v-model="search.keyword" placeholder="请输入搜索内容" :show-action="search.showAction" action-text="取消"
-        @focus="search.showAction = true" @custom="searchCancel" @search="searchOk" />
+                 @focus="search.showAction = true" @custom="searchCancel" @search="searchOk"
+      />
       <uv-tabs :list="tabsList" line-color="#f87171" @click="onTabsClick" />
 
       <div v-if="loading" class="mt-5 text-center">
-        <div class=" space-y-5">
-          <div class="flex" v-for="i in 6">
+        <div class="space-y-5">
+          <div v-for="i in 6" :key="i" class="flex">
             <wd-skeleton :row-col="[{ size: '52px', type: 'circle' }]" />
             <wd-skeleton :custom-style="{ width: '100%', marginLeft: '12px' }"
-              :row-col="[{ width: '40%' }, { width: '100%' }, { width: '60%' }]" />
+                         :row-col="[{ width: '40%' }, { width: '100%' }, { width: '60%' }]"
+            />
           </div>
         </div>
       </div>
@@ -160,14 +162,15 @@ const handleGiftClick = (id?: string) => {
         <div v-if="dataList.length === 0" class="my-24">
           <uv-empty />
         </div>
-        <div v-else class="bg-white space-y-5 my-5">
+        <div v-else class="my-5 bg-white space-y-5">
           <div v-for="i in dataList" :key="i.id" @click="handleGiftClick(i.id)">
             <div class="flex">
               <div class="h-12 w-12 flex flex-shrink-0 rounded-full" :class="[
                 i.icon === 'i-tabler-candle'
                   ? 'bg-gray-100 text-gray'
                   : 'bg-red-50 text-red',
-              ]">
+              ]"
+              >
                 <div class="m-auto h-8 w-8" :class="i.icon" />
               </div>
               <div class="mx-4 grow">
@@ -177,7 +180,7 @@ const handleGiftClick = (id?: string) => {
                 <div class="text-gray">
                   {{ i.title }}<span v-if="i.remarks">（{{ i.remarks }}）</span>
                 </div>
-                <div class="text-xs text-gray mt-1">
+                <div class="mt-1 text-xs text-gray">
                   <div>
                     {{ i.date }}
                   </div>
@@ -192,7 +195,8 @@ const handleGiftClick = (id?: string) => {
             </div>
           </div>
           <wd-loadmore :state="loadingMore ? 'loading' : noMore ? 'finished' : ''"
-            :loading-props="{ color: '#f87171' }" />
+                       :loading-props="{ color: '#f87171' }"
+          />
         </div>
       </div>
     </div>
@@ -201,9 +205,11 @@ const handleGiftClick = (id?: string) => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationStyle": "custom",
     "enablePullDownRefresh": true
   }
-}</route>
+}
+</route>

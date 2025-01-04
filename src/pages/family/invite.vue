@@ -91,7 +91,7 @@ const onReject = () => {
           </div>
         </div>
       </div>
-      <div class="w-full flex mt-10">
+      <div class="mt-10 w-full flex">
         <wd-button plain @click="onReject">
           拒绝
         </wd-button>
@@ -105,8 +105,10 @@ const onReject = () => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "家人共享"
   }
-}</route>
+}
+</route>

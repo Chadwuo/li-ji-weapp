@@ -5,22 +5,35 @@ const { userFamilys, userInfo } = storeToRefs(useAuthStore())
 const actionSheetShow = ref(false)
 const actionSheetList = ref()
 const loading = ref(false)
-async function onCreate() {
+
+const loadData = async () => {
+  const res = await apiUserFamilyListGet()
+  if (res.succeeded) {
+    userFamilys.value = res.data
+  }
+}
+const onCreate = async () => {
   loading.value = true
   const res = await apiUserFamilyPost({
     role: '组织者',
   })
   if (res.succeeded) {
-    // TODO
+    loadData()
   }
+  loading.value = false
 }
 
+onPullDownRefresh(async () => {
+  await loadData()
+  uni.stopPullDownRefresh()
+})
+
 function onClick(i: Api.UserFamily) {
-  if (i.role === '组织者') {
+  if (i.userId === userInfo.value?.id) {
     actionSheetList.value = [
       {
-        name: '解散',
-        subname: '移除全部家庭成员并解散家庭',
+        name: '退出家庭',
+        subname: '退出后将无法共享数据',
         data: i,
       },
     ]
@@ -28,8 +41,8 @@ function onClick(i: Api.UserFamily) {
   else {
     actionSheetList.value = [
       {
-        name: '删除',
-        subname: '从你的家庭中移除此成员',
+        name: '移除成员',
+        subname: `确定从家庭中移除“${i.nickName}”？`,
         data: i,
       },
     ]
@@ -41,35 +54,10 @@ function onClick(i: Api.UserFamily) {
 async function onSelectedAction(e: any) {
   e.loading = true
   const { data } = e.item
-  console.log('object :>> ', data)
-  // const res = await apiUserFamilyDelete({ userId: data.userId, familyId: data.familyId })
-  // if (res.succeeded) {
-  //   // TODO
-  // }
-  // if (name === '删除') {
-  //   delFamilyMember({ _id: data._id })
-  //     .then(async (res) => {
-  //       if (res.success) {
-  //         await useUserStore().getUserInfo()
-  //         actionSheetRef.value.close()
-  //       }
-  //     })
-  //     .finally(() => {
-  //       e.loading = false
-  //     })
-  // }
-  // if (name === '解散') {
-  //   del({ familyId: data.familyId })
-  //     .then(async (res) => {
-  //       if (res.success) {
-  //         await useUserStore().getUserInfo()
-  //         actionSheetRef.value.close()
-  //       }
-  //     })
-  //     .finally(() => {
-  //       e.loading = false
-  //     })
-  // }
+  const res = await apiUserFamilyDelete({ userId: data.userId, familyId: data.familyId })
+  if (res.succeeded) {
+    loadData()
+  }
 }
 
 onShareAppMessage(() => {
@@ -88,7 +76,27 @@ onShareAppMessage(() => {
 <template>
   <div>
     <div class="mt-3 h-full flex flex-col">
-      <div v-if="!userFamilys" class="rounded-2xl bg-white p-4 space-y-2xl">
+      <div v-if="userFamilys && userFamilys.length">
+        <div class="rounded-2xl bg-white p-1">
+          <div class="rounded-2xl bg-white px-1 py-3 space-y-3">
+            <template v-for="i in userFamilys" :key="i.userId">
+              <wd-cell center :title="i.nickName" :label="i.role" is-link @click="onClick(i)">
+                <template #icon>
+                  <div class="mr-3">
+                    <uv-avatar :src="i.avatar" />
+                  </div>
+                </template>
+              </wd-cell>
+            </template>
+          </div>
+        </div>
+        <div class="mt-3">
+          <wd-button block icon="add" open-type="share">
+            邀请家庭成员
+          </wd-button>
+        </div>
+      </div>
+      <div v-else class="rounded-2xl bg-white p-4 space-y-2xl">
         <div class="text-center">
           <img src="/static/home.svg" class="w-full">
           <div class="mt-5 text-xl font-bold">
@@ -126,41 +134,25 @@ onShareAppMessage(() => {
         </div>
 
         <div class="w-full">
-          <wd-button block open-type="share" :loading="loading" @click="onCreate">
+          <wd-button block :loading="loading" @click="onCreate">
             与他人共享
-          </wd-button>
-        </div>
-      </div>
-      <div v-else>
-        <div class="rounded-2xl bg-white p-1">
-          <div class="rounded-2xl bg-white px-1 py-3 space-y-3">
-            <template v-for="i in userFamilys" :key="i.userId">
-              <wd-cell center :title="i.nickName" :label="i.role" is-link @click="onClick(i)">
-                <template #icon>
-                  <div class="mr-3">
-                    <uv-avatar :src="i.avatar" />
-                  </div>
-                </template>
-              </wd-cell>
-            </template>
-          </div>
-        </div>
-        <div class="mt-3">
-          <wd-button block icon="add" open-type="share">
-            邀请家庭成员
           </wd-button>
         </div>
       </div>
     </div>
     <wd-action-sheet v-model="actionSheetShow" :actions="actionSheetList" cancel-text="取消"
-      :close-on-click-action="false" @select="onSelectedAction" />
+                     :close-on-click-action="false" @select="onSelectedAction"
+    />
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
-    "navigationBarTitleText": "家人共享"
+    "navigationBarTitleText": "家人共享",
+    "enablePullDownRefresh": true
   }
-}</route>
+}
+</route>

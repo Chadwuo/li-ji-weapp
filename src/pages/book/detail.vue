@@ -18,7 +18,7 @@ const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMo
       page: _page,
       giftBookId: book.value.id,
       field: 'money',
-      order: 'desc'
+      order: 'desc',
     })
     const { items, page = 0, total = 0 } = response.data || {}
     return {
@@ -82,8 +82,8 @@ const handleGiftClick = (gid?: string) => {
     events: {
       editSuccess: () => {
         refreshAsync()
-      }
-    }
+      },
+    },
   })
 }
 const handleGiftAdd = () => {
@@ -92,8 +92,8 @@ const handleGiftAdd = () => {
     events: {
       editSuccess: () => {
         refreshAsync()
-      }
-    }
+      },
+    },
   })
 }
 const handleBookEdit = () => {
@@ -102,8 +102,8 @@ const handleBookEdit = () => {
     events: {
       editSuccess: () => {
         loadData()
-      }
-    }
+      },
+    },
   })
 }
 const handleBookDel = () => {
@@ -129,7 +129,8 @@ const handleBookDel = () => {
   <div>
     <div v-if="loading" class="mb-5 rounded-2xl bg-white p-5">
       <wd-skeleton
-        :row-col="[{ width: '30%' }, { width: '60%' }, { width: '20%' }, [{ width: '20%' }, { width: '20%' }, { width: '20%' }, { width: '20%' }]]" />
+        :row-col="[{ width: '30%' }, { width: '60%' }, { width: '20%' }, [{ width: '20%' }, { width: '20%' }, { width: '20%' }, { width: '20%' }]]"
+      />
     </div>
 
     <div v-else class="mb-5 rounded-2xl bg-white px-5 pb-5 pt-3 space-y-3">
@@ -205,12 +206,14 @@ const handleBookDel = () => {
       <div class="w-full flex items-center">
         <div>
           <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
-            @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true" />
+                     @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
+          />
         </div>
 
         <div class="ml-auto">
           <wd-button icon="add" size="small" :type="hasMourningWords(book.title) ? 'info' : 'primary '"
-            @click="handleGiftAdd">
+                     @click="handleGiftAdd"
+          >
             添加
           </wd-button>
         </div>
@@ -218,7 +221,9 @@ const handleBookDel = () => {
 
       <div v-if="loading" class="mt-5 text-center">
         <wd-loading color="#f87171" />
-        <div class="text-gray mt-3">正在努力加载中...</div>
+        <div class="mt-3 text-gray">
+          正在努力加载中...
+        </div>
       </div>
       <div v-else>
         <div v-if="dataList.length === 0" class="my-24">
@@ -233,7 +238,8 @@ const handleBookDel = () => {
             </wd-cell>
           </div>
           <wd-loadmore :state="loadingMore ? 'loading' : noMore ? 'finished' : ''"
-            :loading-props="{ color: '#f87171' }" />
+                       :loading-props="{ color: '#f87171' }"
+          />
         </div>
       </div>
     </div>
@@ -272,8 +278,10 @@ const handleBookDel = () => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "详情"
   }
-}</route>
+}
+</route>

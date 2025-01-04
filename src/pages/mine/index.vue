@@ -3,6 +3,20 @@ import { storeToRefs } from 'pinia'
 
 const { userInfo, userFamilys } = storeToRefs(useAuthStore())
 const jinrishici = ref('')
+const staticData = ref<Api.StatOverall>({
+  inCount: 0,
+  outCount: 0,
+  inTotal: 0,
+  outTotal: 0,
+})
+
+const statistics = async () => {
+  apiStatisticsOverallGet().then((res) => {
+    if (res.succeeded && res.data) {
+      staticData.value = res.data
+    }
+  })
+}
 
 onLoad(() => {
   jinrishiciLoad((result: any) => {
@@ -10,30 +24,6 @@ onLoad(() => {
   })
   statistics()
 })
-
-const staticData = ref<Api.StatOverall>({
-  inCount: 0,
-  outCount: 0,
-  inTotal: 0,
-  outTotal: 0,
-})
-const statistics = async () => {
-  // const [giftOutRes, giftInRes] = await Promise.all([
-  //   staticGiftOut(),
-  //   staticGiftIn(),
-  // ])
-  // if (giftOutRes.success)
-  //   staticData.value.giftOut = giftOutRes.data
-
-  // if (giftInRes.success)
-  //   staticData.value.giftIn = giftInRes.data
-
-  apiStatisticsOverallGet().then((res) => {
-    if (res.succeeded && res.data) {
-      staticData.value = res.data
-    }
-  })
-}
 
 const toSettings = () => {
   uni.navigateTo({
@@ -85,7 +75,7 @@ onShareAppMessage(() => {
       </div>
     </div>
     <div class="rounded-2xl bg-white p-2">
-      <wd-cell v-if="userFamilys" value="家人共享" is-link center to="/pages/family/index">
+      <wd-cell v-if="userFamilys && userFamilys.length" value="家人共享" is-link center to="/pages/family/index">
         <template #title>
           <uv-avatar-group :urls="userFamilys.map((i) => i.avatar)" gap="0.4" />
         </template>
@@ -128,8 +118,10 @@ onShareAppMessage(() => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationStyle": "custom"
   }
-}</route>
+}
+</route>

@@ -72,7 +72,8 @@ watchEffect(() => {
     </wd-navbar>
     <div class="grid grid-cols-2 mt-5 gap-5">
       <div v-for="i in dataList" :key="i.id" class="h-40 w-full rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
-        @click="handleBookClick(i.id)">
+           @click="handleBookClick(i.id)"
+      >
         <div class="mx-4 h-full flex flex-col justify-around">
           <div class="line-clamp-2 text-lg font-bold" :class="[hasMourningWords(i.title) ? 'text-gray' : 'text-red']">
             {{ i.title }}
@@ -83,7 +84,7 @@ watchEffect(() => {
           <div class="mt-auto text-lg font-bold">
             <span class="text-sm">￥</span>{{ i.moneyTotal }}
           </div>
-          <div class="text-xs text-gray mt-1">
+          <div class="mt-1 text-xs text-gray">
             <div>
               {{ i.date }}
             </div>
@@ -94,16 +95,19 @@ watchEffect(() => {
         </div>
         <div class="relative">
           <div class="absolute bottom-18 right-0 h-7 w-18 flex items-center rounded-l-full"
-            :class="[hasMourningWords(i.title) ? 'bg-gray' : 'bg-red']">
+               :class="[hasMourningWords(i.title) ? 'bg-gray' : 'bg-red']"
+          >
             <div class="ms-2 h-3 w-3 rounded-full" :class="[
               hasMourningWords(i.title) ? 'bg-gray-300' : 'bg-red-300',
-            ]" />
+            ]"
+            />
           </div>
         </div>
       </div>
       <div
         class="h-40 w-full flex flex-col items-center justify-center rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
-        @click="handleBookClick()">
+        @click="handleBookClick()"
+      >
         <div class="i-carbon-add-alt text-3xl text-red font-bold" />
         <div class="mt-3">
           添加礼簿
@@ -116,9 +120,11 @@ watchEffect(() => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json" type="home">{
+<route lang="json" type="home">
+{
   "style": {
     "navigationStyle": "custom",
     "enablePullDownRefresh": true
   }
-}</route>
+}
+</route>

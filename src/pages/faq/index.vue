@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="rounded-2xl bg-white p-5">
+  <div class="rounded-2xl bg-white p-5 space-y-2">
     <div class="font-bold">
       礼记 免费吗？
     </div>
