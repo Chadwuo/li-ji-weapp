@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 
-const { userInfo } = storeToRefs(useAuthStore())
+const { userInfo, accessToken, refreshToken } = storeToRefs(useAuthStore())
 const nickName_edit = ref(userInfo.value?.nickName)
 
 const openPrivacyContract = () => {
@@ -27,21 +27,32 @@ const onChooseAvatar = (e: any) => {
   //       }
   //     })
   //   })
+  // uni.uploadFile({
+  //   url: 'http://localhost:2240/api/user/upload-avatar', // 仅为示例，非真实的接口地址
+  //   filePath: e.detail.avatarUrl,
+  //   name: 'file',
+  //   header: {
+  //     'Authorization': `Bearer ${accessToken.value}`,
+  //     'X-Authorization': `Bearer ${refreshToken.value}`,
+  //   },
+  //   success: (uploadFileRes) => {
+  //     console.log(uploadFileRes.data)
+  //   },
+  // })
 }
 
-const onBlur = () => {
-  if (nickName_edit.value !== userInfo.value?.nickName) {
-    // update({
-    //   nickName: nickName_edit.value,
-    // }).then((res) => {
-    //   if (res.success) {
-    //     uni.showToast({
-    //       title: '修改成功',
-    //       icon: 'none',
-    //     })
-    //     userInfo.value.nickName = nickName_edit.value
-    //   }
-    // })
+const onBlur = async () => {
+  if (userInfo.value && nickName_edit.value !== userInfo.value.nickName) {
+    const res = await apiUserNickNamePut({
+      nickName: nickName_edit.value,
+    })
+    if (res.succeeded) {
+      uni.showToast({
+        title: '修改成功',
+        icon: 'none',
+      })
+      userInfo.value.nickName = nickName_edit.value
+    }
   }
 }
 </script>
@@ -90,8 +101,10 @@ const onBlur = () => {
 }
 </style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "设置"
   }
-}</route>
+}
+</route>

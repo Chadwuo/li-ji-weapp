@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const onRetry = () => {
-  // 这个新的重启api可以更好解决问题
+  uni.clearStorageSync()
+
   wx.restartMiniProgram({
     path: '/pages/book/index',
   })
@@ -23,8 +24,10 @@ const onRetry = () => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationStyle": "custom"
   }
-}</route>
+}
+</route>
