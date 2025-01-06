@@ -1,4 +1,5 @@
 <template>
+  <wd-toast />
   <wd-message-box />
   <div class="mx-3 h-full flex flex-col font-sans">
     <div class="grow">

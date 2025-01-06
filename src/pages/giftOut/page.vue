@@ -71,6 +71,7 @@ const { dataList, loading, loadingMore, noMore, loadMoreAsync, refreshAsync } = 
     isNoMore: (d) => {
       return d?.list.length === d?.total
     },
+    manual: true,
   },
 )
 
@@ -78,6 +79,10 @@ function onTabsClick(item: any) {
   search.value.icon = item.value
   refreshAsync()
 }
+
+onShow(() => {
+  refreshAsync()
+})
 
 onPullDownRefresh(async () => {
   await refreshAsync()

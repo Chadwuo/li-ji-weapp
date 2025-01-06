@@ -26,16 +26,20 @@ const loadData = async () => {
     }
   })
 }
-onLoad(() => {
+
+onShow(() => {
   loadData()
 })
+
 onPullDownRefresh(async () => {
   await loadData()
   uni.stopPullDownRefresh()
 })
+
 function searchOk() {
   loadData()
 }
+
 function searchCancel() {
   search.value = {
     keyword: '',
@@ -66,23 +70,25 @@ const onFriendClick = (id?: string) => {
           <div class="ms-2 text-lg font-bold">
             亲友
           </div>
-          <div class="p-2" @click="onFriendClick">
+          <div class="p-2" @click="onFriendClick()">
             <div class="i-carbon-add-alt text-red" />
           </div>
         </div>
       </template>
     </wd-navbar>
-    <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
-      @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true" />
+    <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left light
+               @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
+    />
     <div class="grow">
       <div v-if="friendsList?.length === 0" class="my-24">
-          <uv-empty />
-        </div>
+        <uv-empty />
+      </div>
       <wd-index-bar sticky>
         <div v-for="item in friendsList" :key="item.index">
           <wd-index-anchor :index="item.index" />
           <wd-cell v-for="cell in item.data" :key="cell.id" clickable border :title="cell.name"
-            @click="onFriendClick(cell.id)" />
+                   @click="onFriendClick(cell.id)"
+          />
         </div>
       </wd-index-bar>
     </div>
@@ -91,10 +97,12 @@ const onFriendClick = (id?: string) => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "layout": "blank",
   "style": {
     "navigationStyle": "custom",
     "enablePullDownRefresh": true
   }
-}</route>
+}
+</route>

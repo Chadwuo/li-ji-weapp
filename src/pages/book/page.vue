@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { useLoadMore } from 'vue-request'
+import { useToast } from 'wot-design-uni'
 import logo from '/static/logo.png'
 
+const toast = useToast()
 const { dataList, loading, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftBook>>(
   async (d) => {
     const _page = d?.page ? d.page + 1 : 1
     const response = await apiGiftBookPageGet({
       page: _page,
+      field: 'date',
+      order: 'desc',
     })
     const { items, page = 0, total = 0 } = response.data || {}
     return {
@@ -19,8 +23,15 @@ const { dataList, loading, loadingMore, loadMoreAsync, refreshAsync } = useLoadM
     isNoMore: (d) => {
       return d?.list.length === d?.total
     },
+    manual: true,
   },
 )
+
+onLoad(() => {
+  uni.$on('refreshBookPage', () => {
+    refreshAsync()
+  })
+})
 
 onPullDownRefresh(async () => {
   await refreshAsync()
@@ -46,13 +57,15 @@ const handleBookClick = (id?: string) => {
 
 watchEffect(() => {
   if (loading.value && !loadingMore.value) {
-    uni.showLoading({
-      title: '正在努力加载中...',
+    toast.loading({
+      loadingColor: '#F87171',
+      duration: 0,
+      msg: '加载中...',
     })
   }
   else {
     setTimeout(() => {
-      uni.hideLoading()
+      toast.close()
     }, 500)
   }
 })

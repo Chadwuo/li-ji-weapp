@@ -22,6 +22,9 @@ onLoad(() => {
   jinrishiciLoad((result: any) => {
     jinrishici.value = result.data.content
   })
+})
+
+onShow(() => {
   statistics()
 })
 

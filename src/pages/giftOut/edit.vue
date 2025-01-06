@@ -2,7 +2,7 @@
 import { useMessage } from 'wot-design-uni'
 
 const instance: any = getCurrentInstance()
-const eventChannel = instance.proxy.getOpenerEventChannel();
+const eventChannel = instance.proxy.getOpenerEventChannel()
 const message = useMessage()
 const dataSource = ref<Api.GiftOut>({})
 const columns = [
@@ -59,7 +59,6 @@ const validInput = computed(() => {
   )
 })
 onLoad((option) => {
-
   if (option?.id) {
     uni.setNavigationBarTitle({
       title: '编辑',
@@ -162,7 +161,8 @@ const navigateToFriendDetailPage = (id: string) => {
             i.icon === dataSource.icon
               ? selectedIconStyle
               : 'bg-gray-100  text-gray',
-          ]">
+          ]"
+          >
             <div class="m-auto h-8 w-8" :class="i.icon" />
           </div>
           <div class="mt-1 text-center text-sm">
@@ -181,7 +181,8 @@ const navigateToFriendDetailPage = (id: string) => {
           </uv-form-item>
           <uv-form-item label="亲友">
             <uv-input v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友" :disabled="dataSource.id"
-              disabled-color="#fff" />
+                      disabled-color="#fff"
+            />
             <template #right>
               <div v-show="!dataSource.id" class="i-system-uicons-contacts text-lg text-gray" @click="onSelectFriend" />
             </template>
@@ -203,7 +204,7 @@ const navigateToFriendDetailPage = (id: string) => {
                 </wd-button>
               </div>
               <div class="w-full">
-                <wd-button block :loading="loading" :disabled="!validInput" @click="onSubmit">
+                <wd-button block :loading="loading" loading-color="#F87171" :disabled="!validInput" @click="onSubmit">
                   保存
                 </wd-button>
               </div>
@@ -217,15 +218,18 @@ const navigateToFriendDetailPage = (id: string) => {
       </div>
     </div>
     <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
-      @confirm="confirmCalendar" />
+                  @confirm="confirmCalendar"
+    />
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "layout": "blank",
   "style": {
     "navigationBarTitleText": "送礼记录"
   }
-}</route>
+}
+</route>

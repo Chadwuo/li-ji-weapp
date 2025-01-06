@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const instance: any = getCurrentInstance()
-const eventChannel = instance.proxy.getOpenerEventChannel();
+const eventChannel = instance.proxy.getOpenerEventChannel()
 const calendarRef = ref<any>(null)
 const dataSource = ref<Api.GiftBook>({})
 const validInput = computed(() => {
@@ -22,6 +22,7 @@ onLoad((option) => {
 
 const editSuccess = () => {
   eventChannel.emit('editSuccess')
+  uni.$emit('refreshBookPage')
   setTimeout(() => {
     uni.navigateBack()
   }, 600)
@@ -78,7 +79,7 @@ const openCalendar = () => {
       </uv-form-item>
       <uv-form-item>
         <div class="w-full">
-          <wd-button block :loading="loading" :disabled="!validInput" @click="onSubmit">
+          <wd-button block :loading="loading" loading-color="#F87171" :disabled="!validInput" @click="onSubmit">
             保存
           </wd-button>
         </div>
@@ -86,13 +87,16 @@ const openCalendar = () => {
     </uv-form>
   </div>
   <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
-    @confirm="confirmCalendar" />
+                @confirm="confirmCalendar"
+  />
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "新增"
   }
-}</route>
+}
+</route>

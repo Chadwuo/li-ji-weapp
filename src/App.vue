@@ -4,6 +4,7 @@ onLaunch(async () => {
     const authStore = useAuthStore()
     await authStore.login()
     await authStore.getUserInfo()
+    uni.$emit('refreshBookPage')
   }
   catch (error) {
     console.error(error)
