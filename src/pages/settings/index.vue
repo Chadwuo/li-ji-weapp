@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+import { useNotify } from 'wot-design-uni'
 
+const { showNotify } = useNotify()
 const { userInfo, accessToken, refreshToken } = storeToRefs(useAuthStore())
 const nickName_edit = ref(userInfo.value?.nickName)
 
@@ -18,13 +20,10 @@ const onChooseAvatar = (e: any) => {
       'X-Authorization': `Bearer ${refreshToken.value}`,
     },
     success: (uploadFileRes) => {
-      const res = uploadFileRes.data as any
-      if (res.succeeded && userInfo.value) {
-        uni.showToast({
-          title: '修改成功',
-          icon: 'none',
-        })
-        userInfo.value.avatar = res.data
+      const result = JSON.parse(uploadFileRes.data)
+      if (result.succeeded && userInfo.value) {
+        showNotify({ type: 'success', message: '头像修改成功' })
+        userInfo.value.avatar = result.data
       }
     },
   })
@@ -36,10 +35,7 @@ const onBlur = async () => {
       nickName: nickName_edit.value,
     })
     if (res.succeeded) {
-      uni.showToast({
-        title: '修改成功',
-        icon: 'none',
-      })
+      showNotify({ type: 'success', message: '昵称修改成功' })
       userInfo.value.nickName = nickName_edit.value
     }
   }
