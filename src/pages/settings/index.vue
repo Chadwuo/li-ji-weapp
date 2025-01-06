@@ -9,36 +9,25 @@ const openPrivacyContract = () => {
 }
 
 const onChooseAvatar = (e: any) => {
-  // mpserverless.file
-  //   .uploadFile({
-  //     filePath: e.detail.avatarUrl,
-  //   })
-  //   .then((res) => {
-  //     const { fileUrl } = res
-  //     update({
-  //       avatarUrl: fileUrl,
-  //     }).then((res) => {
-  //       if (res.success) {
-  //         uni.showToast({
-  //           title: '修改成功',
-  //           icon: 'none',
-  //         })
-  //         userInfo.value.avatarUrl = fileUrl
-  //       }
-  //     })
-  //   })
-  // uni.uploadFile({
-  //   url: 'http://localhost:2240/api/user/upload-avatar', // 仅为示例，非真实的接口地址
-  //   filePath: e.detail.avatarUrl,
-  //   name: 'file',
-  //   header: {
-  //     'Authorization': `Bearer ${accessToken.value}`,
-  //     'X-Authorization': `Bearer ${refreshToken.value}`,
-  //   },
-  //   success: (uploadFileRes) => {
-  //     console.log(uploadFileRes.data)
-  //   },
-  // })
+  uni.uploadFile({
+    url: `${import.meta.env.VITE_SERVICE_API_URL}/user/upload-avatar`,
+    filePath: e.detail.avatarUrl,
+    name: 'file',
+    header: {
+      'Authorization': `Bearer ${accessToken.value}`,
+      'X-Authorization': `Bearer ${refreshToken.value}`,
+    },
+    success: (uploadFileRes) => {
+      const res = uploadFileRes.data as any
+      if (res.succeeded && userInfo.value) {
+        uni.showToast({
+          title: '修改成功',
+          icon: 'none',
+        })
+        userInfo.value.avatar = res.data
+      }
+    },
+  })
 }
 
 const onBlur = async () => {

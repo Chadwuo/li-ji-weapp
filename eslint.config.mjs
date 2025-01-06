@@ -13,7 +13,6 @@ export default uni(
         'error',
         {
           multiline: 'ignore',
-          singleline: 'ignore',
         },
       ],
     },
