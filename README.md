@@ -20,7 +20,7 @@
 ---
 
 ### 在线体验
- <img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/code.png" alt="Logo" width="240" height="240">
+ <img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/code.jpg" alt="Logo" width="240" height="240">
 
 ### 效果图
 > 画界面太难了，求个ui帮设计一下
