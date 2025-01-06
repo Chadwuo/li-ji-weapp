@@ -3,7 +3,7 @@ const onRetry = () => {
   uni.clearStorageSync()
 
   wx.restartMiniProgram({
-    path: '/pages/book/index',
+    path: '/pages/book/page',
   })
 }
 </script>
