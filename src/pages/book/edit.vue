@@ -22,7 +22,6 @@ onLoad((option) => {
 
 const editSuccess = () => {
   eventChannel.emit('editSuccess')
-  uni.$emit('refreshBookPage')
   setTimeout(() => {
     uni.navigateBack()
   }, 600)

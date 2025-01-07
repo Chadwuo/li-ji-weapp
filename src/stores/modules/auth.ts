@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 export const useAuthStore = defineStore(
   'auth',
@@ -9,14 +9,10 @@ export const useAuthStore = defineStore(
     const userInfo = ref<Api.User>()
     const userFamilys = ref<Array<Api.UserFamily>>()
     const userSubscription = ref<Api.UserSubscription>()
-
+    const isLogin = computed(() => Boolean(accessToken.value))
     const login = async () => {
-      if (accessToken.value) {
-        return
-      }
       const { code, errMsg } = await uni.login()
       if (code) {
-        // 发起网络请求
         const res = await apiLoginPost(code)
         if (res.succeeded && res.data) {
           accessToken.value = res.data.accessToken
@@ -43,7 +39,20 @@ export const useAuthStore = defineStore(
       }
     }
 
+    watch(userFamilys, async (newValue, oldValue) => {
+      const newScope = Array.isArray(newValue) ? newValue.map(i => i.userId) : []
+      const oldScope = Array.isArray(oldValue) ? oldValue.map(i => i.userId) : []
+
+      // 如果新旧不一样，就刷新token
+      if (newScope.join(',') !== oldScope.join(',')) {
+        apiUserRefreshTokenGet()
+      }
+    }, {
+      flush: 'post',
+    })
+
     return {
+      isLogin,
       userInfo,
       userFamilys,
       userSubscription,
@@ -54,8 +63,6 @@ export const useAuthStore = defineStore(
     }
   },
   {
-    persist: {
-      pick: ['accessToken', 'refreshToken'],
-    },
+    persist: true,
   },
 )

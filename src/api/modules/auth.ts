@@ -21,3 +21,9 @@ export function apiUserInfoGet() {
     url: 'auth/user-info',
   })
 }
+
+export function apiUserRefreshTokenGet() {
+  return request({
+    url: 'auth/refresh-token',
+  })
+}

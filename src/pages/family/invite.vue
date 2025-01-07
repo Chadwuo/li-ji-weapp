@@ -1,8 +1,9 @@
 <script setup>
 import { storeToRefs } from 'pinia'
-import { useMessage } from 'wot-design-uni'
+import { useMessage, useToast } from 'wot-design-uni'
 
 const message = useMessage()
+const toast = useToast()
 const { userFamilys } = storeToRefs(useAuthStore())
 const inviteData = ref({})
 
@@ -22,24 +23,21 @@ const onAgree = async () => {
     })
     return
   }
-  uni.showLoading({
-    mask: true,
+  toast.loading({
+    loadingColor: '#F87171',
+    duration: 0,
+    msg: '加载中...',
   })
   const res = await apiUserFamilyPost({
     role: '成员',
     familyId: inviteData.value.familyId,
   })
   if (res.succeeded) {
-    // TODO
-    uni.showToast({
-      title: '加入成功',
-      icon: 'none',
-    })
     uni.navigateTo({
       url: '/pages/family/index',
     })
   }
-  uni.hideLoading()
+  toast.close()
 }
 
 const onReject = () => {

@@ -153,12 +153,14 @@ const handleGiftClick = (id?: string) => {
       <uv-tabs :list="tabsList" line-color="#f87171" @click="onTabsClick" />
 
       <div v-if="loading" class="mt-5 text-center">
-        <wd-loading color="#f87171" />
-        <div class="mt-3 text-gray">
-          正在努力加载中...
+        <div class="flex">
+          <wd-skeleton :row-col="[{ size: '52px', type: 'circle' }]" />
+          <wd-skeleton :custom-style="{ width: '100%', marginLeft: '12px' }"
+                       :row-col="[{ width: '40%' }, { width: '100%' }, { width: '60%' }]"
+          />
         </div>
       </div>
-      <div>
+      <div v-else>
         <div v-if="dataList.length === 0" class="my-24">
           <uv-empty />
         </div>

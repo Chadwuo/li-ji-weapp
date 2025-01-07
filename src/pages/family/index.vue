@@ -61,15 +61,18 @@ async function onSelectedAction(e: any) {
 }
 
 onShareAppMessage(() => {
-  const familyId = 1// userFamilys.value?[0].familyId
+  if (userFamilys.value) {
+    const familyId = userFamilys.value[0].familyId
 
-  const word = `${userInfo.value?.nickName}邀请你一起记录家庭中的人情往来`
-  const avatarUrl = userInfo.value?.avatar
-  return {
-    title: '和我一起记录家庭中的人情往来',
-    path: `/pages/family/invite?familyId=${familyId}&word=${word}&avatarUrl=${avatarUrl}`,
-    imageUrl: '/static/share2.png',
+    const word = `${userInfo.value?.nickName}邀请你一起记录家庭中的人情往来`
+    const avatarUrl = userInfo.value?.avatar
+    return {
+      title: '和我一起记录家庭中的人情往来',
+      path: `/pages/family/invite?familyId=${familyId}&word=${word}&avatarUrl=${avatarUrl}`,
+      imageUrl: '/static/share2.png',
+    }
   }
+  return {}
 })
 </script>
 

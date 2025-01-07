@@ -2,9 +2,10 @@
 onLaunch(async () => {
   try {
     const authStore = useAuthStore()
-    await authStore.login()
-    await authStore.getUserInfo()
-    uni.$emit('refreshBookPage')
+    if (!authStore.isLogin) {
+      await authStore.login()
+      await authStore.getUserInfo()
+    }
   }
   catch (error) {
     console.error(error)
