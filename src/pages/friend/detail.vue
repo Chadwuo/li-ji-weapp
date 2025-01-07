@@ -112,8 +112,8 @@ const handleFriendEdit = () => {
     events: {
       editSuccess: () => {
         loadData()
-      }
-    }
+      },
+    },
   })
 }
 const handleFriendDel = () => {
@@ -139,7 +139,8 @@ const handleFriendDel = () => {
   <div>
     <div v-if="loading" class="rounded-2xl bg-white p-5">
       <wd-skeleton
-        :row-col="[{ width: '30%' }, { width: '50%' }, [{ width: '0' }, { width: '30%' }, { width: '0' }], { width: '0' }, [{ width: '0' }, { width: '20%' }, { width: '20%' }, { width: '0' }]]" />
+        :row-col="[{ width: '30%' }, { width: '50%' }, [{ width: '0' }, { width: '30%' }, { width: '0' }], { width: '0' }, [{ width: '0' }, { width: '20%' }, { width: '20%' }, { width: '0' }]]"
+      />
     </div>
     <div v-else class="rounded-2xl bg-white p-5 space-y-3">
       <div class="flex items-center justify-between">
@@ -164,7 +165,8 @@ const handleFriendDel = () => {
         <span class="text-lg font-bold" :class="statisticsData.happyTotal >= statisticsData.sadTotal
           ? 'text-red'
           : 'text-green'
-          ">
+        "
+        >
           {{ statisticsData.happyTotal - statisticsData.sadTotal }}
         </span>
         <span class="text-sm">(收支差)</span>
@@ -199,7 +201,7 @@ const handleFriendDel = () => {
     </div>
 
     <div v-if="giftList?.length === 0 && !loading" class="my-24">
-      <uv-empty />
+      <uv-empty text="还没有往来记录哦~" mode="favor" />
     </div>
     <div class="my-5 space-y-3">
       <view v-for="(gift, index) in giftList" :key="index" class="cu-timeline">
@@ -216,7 +218,7 @@ const handleFriendDel = () => {
                 <text class="text-sm text-gray">
                   {{ item.remarks }}
                 </text>
-                <div class="text-xs text-gray mt-1">
+                <div class="mt-1 text-xs text-gray">
                   <div>
                     {{ item.date }}
                   </div>
@@ -326,8 +328,10 @@ const handleFriendDel = () => {
 }
 </style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "详情"
   }
-}</route>
+}
+</route>

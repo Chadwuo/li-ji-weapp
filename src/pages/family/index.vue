@@ -12,6 +12,7 @@ const loadData = async () => {
     userFamilys.value = res.data
   }
 }
+
 const onCreate = async () => {
   loading.value = true
   const res = await apiUserFamilyPost({
@@ -22,6 +23,10 @@ const onCreate = async () => {
   }
   loading.value = false
 }
+
+onLoad(() => {
+  loadData()
+})
 
 onPullDownRefresh(async () => {
   await loadData()

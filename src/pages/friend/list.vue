@@ -6,7 +6,9 @@ const search = ref({
 })
 
 const loadData = async () => {
-  apiFriendListGet({}).then((res) => {
+  apiFriendListGet({
+    keyword: search.value.keyword,
+  }).then((res) => {
     if (res.succeeded) {
       // 根据首字母firstLetter进行分组
       const map = new Map()
@@ -81,7 +83,13 @@ const onFriendClick = (id?: string) => {
     />
     <div class="grow">
       <div v-if="friendsList?.length === 0" class="my-24">
-        <uv-empty />
+        <uv-empty text="还没有亲友记录哦~" mode="favor">
+          <div class="mt-6">
+            <wd-button class="mt-6" type="primary" @click="onFriendClick()">
+              添加亲友
+            </wd-button>
+          </div>
+        </uv-empty>
       </div>
       <wd-index-bar sticky>
         <div v-for="item in friendsList" :key="item.index">

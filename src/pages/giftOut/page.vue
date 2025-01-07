@@ -57,6 +57,7 @@ const { dataList, loading, loadingMore, noMore, loadMoreAsync, refreshAsync } = 
     const _page = d?.page ? d.page + 1 : 1
     const response = await apiGiftOutPageGet({
       page: _page,
+      keyword: search.value.keyword,
       field: 'date',
       order: 'desc',
     })
@@ -162,7 +163,13 @@ const handleGiftClick = (id?: string) => {
       </div>
       <div v-else>
         <div v-if="dataList.length === 0" class="my-24">
-          <uv-empty />
+          <uv-empty text="还没有送礼记录哦~" mode="favor">
+            <div class="mt-6">
+              <wd-button type="primary" @click="handleGiftClick()">
+                添加送礼
+              </wd-button>
+            </div>
+          </uv-empty>
         </div>
         <div v-else class="my-5 bg-white space-y-5">
           <div v-for="i in dataList" :key="i.id" @click="handleGiftClick(i.id)">

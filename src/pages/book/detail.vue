@@ -4,12 +4,12 @@ import { useMessage } from 'wot-design-uni'
 
 const message = useMessage()
 const loading = ref(false)
+const popupShow = ref(false)
 const book = ref<Api.GiftBook>({})
 const search = ref({
   keyword: '',
   showAction: false,
 })
-const popupShow = ref(false)
 
 const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftIn>>(
   async (d) => {
@@ -17,6 +17,7 @@ const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMo
     const response = await apiGiftInPageGet({
       page: _page,
       giftBookId: book.value.id,
+      keyword: search.value.keyword,
       field: 'money',
       order: 'desc',
     })
@@ -77,25 +78,28 @@ function searchCancel() {
 }
 
 const handleGiftClick = (gid?: string) => {
-  uni.navigateTo({
-    url: `/pages/giftIn/edit?id=${gid}`,
-    events: {
-      editSuccess: () => {
-        refreshAsync()
+  if (gid) {
+    uni.navigateTo({
+      url: `/pages/giftIn/edit?id=${gid}`,
+      events: {
+        editSuccess: () => {
+          refreshAsync()
+        },
       },
-    },
-  })
-}
-const handleGiftAdd = () => {
-  uni.navigateTo({
-    url: `/pages/giftIn/edit?bookId=${book.value.id}`,
-    events: {
-      editSuccess: () => {
-        refreshAsync()
+    })
+  }
+  else {
+    uni.navigateTo({
+      url: `/pages/giftIn/edit?bookId=${book.value.id}`,
+      events: {
+        editSuccess: () => {
+          refreshAsync()
+        },
       },
-    },
-  })
+    })
+  }
 }
+
 const handleBookEdit = () => {
   uni.navigateTo({
     url: `/pages/book/edit?id=${book.value.id}`,
@@ -106,6 +110,7 @@ const handleBookEdit = () => {
     },
   })
 }
+
 const handleBookDel = () => {
   message.confirm({
     msg: '该礼簿所有来往记录都将被删除，确定删除？',
@@ -203,20 +208,16 @@ const handleBookDel = () => {
     </div>
 
     <div class="rounded-2xl bg-white p-5">
-      <div class="w-full flex items-center">
-        <div>
+      <div class="w-full flex items-center justify-between">
+        <div class="w-full">
           <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
                      @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
           />
         </div>
 
-        <div class="ml-auto">
-          <wd-button icon="add" size="small" :type="hasMourningWords(book.title) ? 'info' : 'primary '"
-                     @click="handleGiftAdd"
-          >
-            添加
-          </wd-button>
-        </div>
+        <div v-if="!search.showAction" class="i-carbon-add-alt mr-3 pr-2 text-xl"
+             :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']" @click="handleGiftClick()"
+        />
       </div>
 
       <div v-if="loading" class="mt-5 text-center">
@@ -227,7 +228,15 @@ const handleBookDel = () => {
       </div>
       <div v-else>
         <div v-if="dataList.length === 0" class="my-24">
-          <uv-empty />
+          <uv-empty text="还没有收礼记录哦~" mode="favor">
+            <div class="mt-6">
+              <wd-button class="mt-6" :type="hasMourningWords(book.title) ? 'info' : 'primary '"
+                         @click="handleGiftClick()"
+              >
+                添加收礼
+              </wd-button>
+            </div>
+          </uv-empty>
         </div>
         <div v-else>
           <div v-for="gift in dataList" :key="gift.id" @click="handleGiftClick(gift.id)">
