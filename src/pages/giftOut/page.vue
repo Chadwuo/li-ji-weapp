@@ -57,9 +57,9 @@ const { dataList, loading, loadingMore, noMore, loadMoreAsync, refreshAsync } = 
     const _page = d?.page ? d.page + 1 : 1
     const response = await apiGiftOutPageGet({
       page: _page,
-      keyword: search.value.keyword,
       field: 'date',
       order: 'desc',
+      ...search.value,
     })
     const { items, page = 0, total = 0 } = response.data || {}
     return {
