@@ -65,7 +65,7 @@ const onFriendClick = (id?: string) => {
 </script>
 
 <template>
-  <div class="h-full flex flex-col">
+  <div class="bg-friend h-full bg-contain bg-no-repeat">
     <wd-navbar safe-area-inset-top custom-style="background-color: transparent !important;">
       <template #left>
         <div class="flex items-center">

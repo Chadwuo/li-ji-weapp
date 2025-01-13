@@ -1,11 +1,12 @@
 import { createSSRApp } from 'vue'
 import App from './App.vue'
+import { setupDayjs } from './plugins'
 import store from './stores'
-import { setupDayjs } from './plugins';
 import 'virtual:uno.css'
 import '@/style/index.scss'
+import '@/style/bg.scss'
 
-setupDayjs();
+setupDayjs()
 export function createApp() {
   const app = createSSRApp(App)
   app.use(store)

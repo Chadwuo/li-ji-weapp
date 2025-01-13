@@ -133,79 +133,81 @@ const handleGiftClick = (id?: string) => {
 </script>
 
 <template>
-  <div>
-    <wd-navbar safe-area-inset-top custom-style="background-color: transparent !important;">
-      <template #left>
-        <div class="flex items-center">
-          <div class="ms-2 text-lg font-bold">
-            送礼
-          </div>
-          <div class="p-2" @click="handleGiftClick()">
-            <div class="i-carbon-add-alt text-red" />
-          </div>
-        </div>
-      </template>
-    </wd-navbar>
-
-    <div class="rounded-2xl bg-white p-5">
-      <uv-search v-model="search.keyword" placeholder="请输入搜索内容" :show-action="search.showAction" action-text="取消"
-                 @focus="search.showAction = true" @custom="searchCancel" @search="searchOk"
-      />
-      <uv-tabs :list="tabsList" line-color="#f87171" @click="onTabsClick" />
-
-      <div v-if="loading" class="mt-5 text-center">
-        <div class="flex">
-          <wd-skeleton :row-col="[{ size: '52px', type: 'circle' }]" />
-          <wd-skeleton :custom-style="{ width: '100%', marginLeft: '12px' }"
-                       :row-col="[{ width: '40%' }, { width: '100%' }, { width: '60%' }]"
-          />
-        </div>
-      </div>
-      <div v-else>
-        <div v-if="dataList.length === 0" class="my-24">
-          <uv-empty text="还没有送礼记录哦~" mode="favor">
-            <div class="mt-6">
-              <wd-button type="primary" @click="handleGiftClick()">
-                添加送礼
-              </wd-button>
+  <div class="bg-gift bg-contain bg-no-repeat">
+    <div class="mx-5">
+      <wd-navbar safe-area-inset-top custom-style="background-color: transparent !important;">
+        <template #left>
+          <div class="flex items-center">
+            <div class="ms-2 text-lg font-bold">
+              送礼
             </div>
-          </uv-empty>
-        </div>
-        <div v-else class="my-5 bg-white space-y-5">
-          <div v-for="i in dataList" :key="i.id" @click="handleGiftClick(i.id)">
-            <div class="flex">
-              <div class="h-12 w-12 flex flex-shrink-0 rounded-full" :class="[
-                i.icon === 'i-tabler-candle'
-                  ? 'bg-gray-100 text-gray'
-                  : 'bg-red-50 text-red',
-              ]"
-              >
-                <div class="m-auto h-8 w-8" :class="i.icon" />
-              </div>
-              <div class="mx-4 grow">
-                <div class="text-lg font-bold">
-                  {{ i.friendName }}
-                </div>
-                <div class="text-gray">
-                  {{ i.title }}<span v-if="i.remarks">（{{ i.remarks }}）</span>
-                </div>
-                <div class="mt-1 text-xs text-gray">
-                  <div>
-                    {{ i.date }}
-                  </div>
-                  <div>
-                    {{ i.lunarDate }}
-                  </div>
-                </div>
-              </div>
-              <div class="text-lg font-bold" :class="[i.icon === 'i-tabler-candle' ? 'text-gray' : 'text-red']">
-                <span class="text-sm">￥</span>{{ i.money }}
-              </div>
+            <div class="p-2" @click="handleGiftClick()">
+              <div class="i-carbon-add-alt text-red" />
             </div>
           </div>
-          <wd-loadmore :state="loadingMore ? 'loading' : noMore ? 'finished' : ''"
-                       :loading-props="{ color: '#f87171' }"
-          />
+        </template>
+      </wd-navbar>
+
+      <div class="rounded-2xl bg-white p-5">
+        <uv-search v-model="search.keyword" placeholder="请输入搜索内容" :show-action="search.showAction" action-text="取消"
+                   @focus="search.showAction = true" @custom="searchCancel" @search="searchOk"
+        />
+        <uv-tabs :list="tabsList" line-color="#f87171" @click="onTabsClick" />
+
+        <div v-if="loading" class="mt-5 text-center">
+          <div class="flex">
+            <wd-skeleton :row-col="[{ size: '52px', type: 'circle' }]" />
+            <wd-skeleton :custom-style="{ width: '100%', marginLeft: '12px' }"
+                         :row-col="[{ width: '40%' }, { width: '100%' }, { width: '60%' }]"
+            />
+          </div>
+        </div>
+        <div v-else>
+          <div v-if="dataList.length === 0" class="my-24">
+            <uv-empty text="还没有送礼记录哦~" mode="favor">
+              <div class="mt-6">
+                <wd-button type="primary" @click="handleGiftClick()">
+                  添加送礼
+                </wd-button>
+              </div>
+            </uv-empty>
+          </div>
+          <div v-else class="my-5 bg-white space-y-5">
+            <div v-for="i in dataList" :key="i.id" @click="handleGiftClick(i.id)">
+              <div class="flex">
+                <div class="h-12 w-12 flex flex-shrink-0 rounded-full" :class="[
+                  i.icon === 'i-tabler-candle'
+                    ? 'bg-gray-100 text-gray'
+                    : 'bg-red-50 text-red',
+                ]"
+                >
+                  <div class="m-auto h-8 w-8" :class="i.icon" />
+                </div>
+                <div class="mx-4 grow">
+                  <div class="text-lg font-bold">
+                    {{ i.friendName }}
+                  </div>
+                  <div class="text-gray">
+                    {{ i.title }}<span v-if="i.remarks">（{{ i.remarks }}）</span>
+                  </div>
+                  <div class="mt-1 text-xs text-gray">
+                    <div>
+                      {{ i.date }}
+                    </div>
+                    <div>
+                      {{ i.lunarDate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="text-lg font-bold" :class="[i.icon === 'i-tabler-candle' ? 'text-gray' : 'text-red']">
+                  <span class="text-sm">￥</span>{{ i.money }}
+                </div>
+              </div>
+            </div>
+            <wd-loadmore :state="loadingMore ? 'loading' : noMore ? 'finished' : ''"
+                         :loading-props="{ color: '#f87171' }"
+            />
+          </div>
         </div>
       </div>
     </div>

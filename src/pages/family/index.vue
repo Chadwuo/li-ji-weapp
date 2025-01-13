@@ -74,7 +74,7 @@ onShareAppMessage(() => {
     return {
       title: '和我一起记录家庭中的人情往来',
       path: `/pages/family/invite?familyId=${familyId}&word=${word}&avatarUrl=${avatarUrl}`,
-      imageUrl: '/static/share2.png',
+      imageUrl: '/static/share/2.png',
     }
   }
   return {}
@@ -106,7 +106,7 @@ onShareAppMessage(() => {
       </div>
       <div v-else class="rounded-2xl bg-white p-4 space-y-2xl">
         <div class="text-center">
-          <img src="/static/home.svg" class="w-full">
+          <img src="/static/family/index.svg" class="w-full">
           <div class="mt-5 text-xl font-bold">
             家人共享
           </div>
@@ -143,7 +143,7 @@ onShareAppMessage(() => {
 
         <div class="w-full">
           <wd-button block :loading="loading" @click="onCreate">
-            与他人共享
+            与家人共享
           </wd-button>
         </div>
       </div>

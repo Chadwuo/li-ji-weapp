@@ -112,11 +112,6 @@ declare namespace Api {
      * @type {Array<UserFamily>}
      */
     userFamilys?: Array<UserFamily>
-    /**
-     *
-     * @type {UserSubscription}
-     */
-    userSubscription?: UserSubscription
   }
   interface User {
     /**
@@ -167,6 +162,12 @@ declare namespace Api {
      * @memberof User
      */
     phone?: string
+    /**
+     * 是否vip
+     * @type {boolean}
+     * @memberof User
+     */
+    isVip?: boolean
   }
   interface UserFamily {
     /**
@@ -194,68 +195,6 @@ declare namespace Api {
      * @type {string}
      */
     familyId?: string | null
-  }
-  interface UserSubscription {
-    /**
-     * 雪花Id
-     * @type {string}
-     * @memberof UserSubscription
-     */
-    id: string
-    /**
-     * 创建时间
-     * @type {string}
-     * @memberof UserSubscription
-     */
-    createTime?: string
-    /**
-     * 更新时间
-     * @type {string}
-     * @memberof UserSubscription
-     */
-    updateTime?: string | null
-    /**
-     * 用户Id
-     * @type {string}
-     * @memberof UserSubscription
-     */
-    userId?: string
-    /**
-     * 商户订单号
-     * @type {string}
-     * @memberof UserSubscription
-     */
-    outTradeNumber: string
-    /**
-     * 支付订单号
-     * @type {string}
-     * @memberof UserSubscription
-     */
-    transactionId: string
-    /**
-     * 交易状态
-     * @type {string}
-     * @memberof UserSubscription
-     */
-    tradeState?: string | null
-    /**
-     * 用户支付金额
-     * @type {number}
-     * @memberof UserSubscription
-     */
-    payerTotal?: number | null
-    /**
-     * 订阅到期时间
-     * @type {string}
-     * @memberof UserSubscription
-     */
-    expireTime?: string | null
-    /**
-     * 优惠标记
-     * @type {string}
-     * @memberof UserSubscription
-     */
-    goodsTag?: string | null
   }
 
   interface GiftBook {

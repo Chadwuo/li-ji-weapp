@@ -13,6 +13,9 @@ onLaunch(async () => {
       url: `/pages/exception/500?error=${error}`,
     })
   }
+  uni.redirectTo({
+    url: `/pages/subscription/index`,
+  })
 })
 onShow(() => {
 })

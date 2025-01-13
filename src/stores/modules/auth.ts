@@ -8,7 +8,6 @@ export const useAuthStore = defineStore(
     const refreshToken = ref<string>()
     const userInfo = ref<Api.User>()
     const userFamilys = ref<Array<Api.UserFamily>>()
-    const userSubscription = ref<Api.UserSubscription>()
     const isLogin = computed(() => Boolean(accessToken.value))
     const login = async () => {
       const { code, errMsg } = await uni.login()
@@ -32,7 +31,6 @@ export const useAuthStore = defineStore(
       if (res.succeeded && res.data) {
         userInfo.value = res.data.userInfo
         userFamilys.value = res.data.userFamilys
-        userSubscription.value = res.data.userSubscription
       }
       else {
         throw new Error(JSON.stringify(res.errors || 'Request Error.'))
@@ -55,7 +53,6 @@ export const useAuthStore = defineStore(
       isLogin,
       userInfo,
       userFamilys,
-      userSubscription,
       accessToken,
       refreshToken,
       login,

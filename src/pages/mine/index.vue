@@ -38,7 +38,7 @@ onShareAppMessage(() => {
   return {
     title: '可能是东半球最好用的人情记账工具',
     path: `/pages/book/page`,
-    imageUrl: '/static/share.png',
+    imageUrl: '/static/share/1.png',
   }
 })
 </script>

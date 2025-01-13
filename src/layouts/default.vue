@@ -2,7 +2,7 @@
   <wd-toast />
   <wd-message-box />
   <wd-notify />
-  <div class="mx-3 h-full flex flex-col font-sans">
+  <div class="h-full flex flex-col font-sans">
     <div class="grow">
       <slot />
     </div>
