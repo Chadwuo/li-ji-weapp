@@ -4,7 +4,7 @@ const version = miniProgram.version || '4.0'
 </script>
 
 <template>
-  <div class="h-full">
+  <div class="mx-3">
     <div class="mb-4 mt-6 text-center">
       <img class="m-auto h-14 w-14" src="/static/logo.png">
       <div class="my-3">
@@ -29,6 +29,6 @@ const version = miniProgram.version || '4.0'
 
 <route lang="json">{
   "style": {
-    "navigationBarTitleText": "关于礼记"
+    "navigationBarTitleText": ""
   }
 }</route>

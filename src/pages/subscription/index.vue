@@ -23,11 +23,24 @@ const pay = async () => {
     })
   }
 }
+const textArray = ref([
+  '欢迎使用',
+])
+const back = () => {
+  uni.navigateBack()
+}
+const loading = ref(false)
 </script>
 
 <template>
-  <div>
-    <wd-button @click="pay">
+  <div class="mx-3">
+    <wd-navbar custom-class=" bg-transparent" fixed placeholder @click-left="back" leftArrow :bordered="false"
+      safe-area-inset-top custom-style="background-color: transparent !important;">
+      <template #title>
+        <wd-notice-bar type="info" direction="vertical" :text="textArray" :delay="3" custom-class="text-center mt-1" />
+      </template>
+    </wd-navbar>
+    <wd-button @click="pay" block :loading="loading" loading-color="#F87171">
       立即购买
     </wd-button>
 
@@ -39,10 +52,8 @@ const pay = async () => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
-    "style": {
-        "navigationBarTitleText": "支持礼记"
-    }
-}
-</route>
+<route lang="json">{
+  "style": {
+    "navigationStyle": "custom"
+  }
+}</route>

@@ -43,39 +43,41 @@ const onBlur = async () => {
 </script>
 
 <template>
-  <div class="mt-3 space-y-3">
-    <div class="rounded-2xl bg-white p-2">
-      <wd-cell title="头像" is-link center>
-        <button class="reset-button flex flex-row-reverse" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
-          <uv-avatar :src="userInfo?.avatar" />
-        </button>
-      </wd-cell>
-      <wd-cell title="昵称" is-link center>
-        <input v-model="nickName_edit" class="text-right text-sm" type="nickname" @blur="onBlur">
-      </wd-cell>
-    </div>
+  <div class="mx-3">
+    <div class="mt-3 space-y-3">
+      <div class="rounded-2xl bg-white p-2">
+        <wd-cell title="头像" is-link center>
+          <button class="reset-button flex flex-row-reverse" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
+            <uv-avatar :src="userInfo?.avatar" />
+          </button>
+        </wd-cell>
+        <wd-cell title="昵称" is-link center>
+          <input v-model="nickName_edit" class="text-right text-sm" type="nickname" @blur="onBlur">
+        </wd-cell>
+      </div>
 
-    <div class="rounded-2xl bg-white p-2">
-      <wd-cell is-link :clickable="false">
-        <template #title>
-          <button class="reset-button w-full text-left" open-type="contact">
-            在线客服
-          </button>
-        </template>
-      </wd-cell>
-      <wd-cell is-link :clickable="false">
-        <template #title>
-          <button class="reset-button w-full text-left" open-type="feedback">
-            意见反馈
-          </button>
-        </template>
-      </wd-cell>
-    </div>
-    <div class="rounded-2xl bg-white p-2">
-      <wd-cell title-width="80px" title="备案号" value="皖ICP备2024069565号-1X" />
-      <wd-cell title="开源协议" value="GPL-3.0 license" />
-      <wd-cell title="隐私政策" is-link @click="openPrivacyContract" />
-      <wd-cell title="关于礼记" is-link to="/pages/about/index" />
+      <div class="rounded-2xl bg-white p-2">
+        <wd-cell is-link :clickable="false">
+          <template #title>
+            <button class="reset-button w-full text-left" open-type="contact">
+              在线客服
+            </button>
+          </template>
+        </wd-cell>
+        <wd-cell is-link :clickable="false">
+          <template #title>
+            <button class="reset-button w-full text-left" open-type="feedback">
+              意见反馈
+            </button>
+          </template>
+        </wd-cell>
+      </div>
+      <div class="rounded-2xl bg-white p-2">
+        <wd-cell title-width="80px" title="备案号" value="皖ICP备2024069565号-1X" />
+        <wd-cell title="开源协议" value="GPL-3.0 license" />
+        <wd-cell title="隐私政策" is-link @click="openPrivacyContract" />
+        <wd-cell title="关于礼记" is-link to="/pages/about/index" />
+      </div>
     </div>
   </div>
 </template>
@@ -86,10 +88,8 @@ const onBlur = async () => {
 }
 </style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationBarTitleText": "设置"
   }
-}
-</route>
+}</route>

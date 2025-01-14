@@ -153,83 +153,75 @@ const navigateToFriendDetailPage = (id: string) => {
 </script>
 
 <template>
-  <div>
-    <div class="m-5">
-      <div class="grid grid-cols-5 mt-3 justify-items-center gap-2 rounded-2xl bg-white p-4">
-        <div v-for="i in columns" :key="i.name" @click="onSelectIcont(i)">
-          <div class="h-12 w-12 flex rounded-full" :class="[
-            i.icon === dataSource.icon
-              ? selectedIconStyle
-              : 'bg-gray-100  text-gray',
-          ]"
-          >
-            <div class="m-auto h-8 w-8" :class="i.icon" />
-          </div>
-          <div class="mt-1 text-center text-sm">
-            {{ i.name }}
-          </div>
+  <div class="mx-3">
+    <div class="grid grid-cols-5 mt-3 justify-items-center gap-2 rounded-2xl bg-white p-4">
+      <div v-for="i in columns" :key="i.name" @click="onSelectIcont(i)">
+        <div class="h-12 w-12 flex rounded-full" :class="[
+          i.icon === dataSource.icon
+            ? selectedIconStyle
+            : 'bg-gray-100  text-gray',
+        ]">
+          <div class="m-auto h-8 w-8" :class="i.icon" />
+        </div>
+        <div class="mt-1 text-center text-sm">
+          {{ i.name }}
         </div>
       </div>
+    </div>
 
-      <div class="mt-3 rounded-2xl bg-white p-4">
-        <uv-form label-position="left" label-width="60">
-          <uv-form-item label="日期" @click="openCalendar">
-            <uv-input v-model="dataSource.date" disabled disabled-color="#ffffff" border="none" placeholder="请选择日期" />
-            <template #right>
-              <uv-icon name="arrow-right" />
-            </template>
-          </uv-form-item>
-          <uv-form-item label="亲友">
-            <uv-input v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友" :disabled="dataSource.id"
-                      disabled-color="#fff"
-            />
-            <template #right>
-              <div v-show="!dataSource.id" class="i-system-uicons-contacts text-lg text-gray" @click="onSelectFriend" />
-            </template>
-          </uv-form-item>
-          <uv-form-item label="事由">
-            <uv-input v-model="dataSource.title" border="none" placeholder="随礼事由" />
-          </uv-form-item>
-          <uv-form-item label="金额">
-            <uv-input v-model="dataSource.money" border="none" placeholder="随礼金额" type="number" />
-          </uv-form-item>
-          <uv-form-item label="备注">
-            <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容" />
-          </uv-form-item>
-          <uv-form-item>
-            <div class="w-full flex space-x-4">
-              <div v-if="dataSource.id" class="w-40">
-                <wd-button plain @click="onDel">
-                  删除
-                </wd-button>
-              </div>
-              <div class="w-full">
-                <wd-button block :loading="loading" loading-color="#F87171" :disabled="!validInput" @click="onSubmit">
-                  保存
-                </wd-button>
-              </div>
+    <div class="mt-3 rounded-2xl bg-white p-4">
+      <uv-form label-position="left" label-width="60">
+        <uv-form-item label="日期" @click="openCalendar">
+          <uv-input v-model="dataSource.date" disabled disabled-color="#ffffff" border="none" placeholder="请选择日期" />
+          <template #right>
+            <uv-icon name="arrow-right" />
+          </template>
+        </uv-form-item>
+        <uv-form-item label="亲友">
+          <uv-input v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友" :disabled="dataSource.id"
+            disabled-color="#fff" />
+          <template #right>
+            <div v-show="!dataSource.id" class="i-system-uicons-contacts text-lg text-gray" @click="onSelectFriend" />
+          </template>
+        </uv-form-item>
+        <uv-form-item label="事由">
+          <uv-input v-model="dataSource.title" border="none" placeholder="随礼事由" />
+        </uv-form-item>
+        <uv-form-item label="金额">
+          <uv-input v-model="dataSource.money" border="none" placeholder="随礼金额" type="number" />
+        </uv-form-item>
+        <uv-form-item label="备注">
+          <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容" />
+        </uv-form-item>
+        <uv-form-item>
+          <div class="w-full flex space-x-4">
+            <div v-if="dataSource.id" class="w-40">
+              <wd-button plain @click="onDel">
+                删除
+              </wd-button>
             </div>
-          </uv-form-item>
-        </uv-form>
-      </div>
+            <div class="w-full">
+              <wd-button block :loading="loading" loading-color="#F87171" :disabled="!validInput" @click="onSubmit">
+                保存
+              </wd-button>
+            </div>
+          </div>
+        </uv-form-item>
+      </uv-form>
+    </div>
 
-      <div v-if="dataSource.friendId" class="mt-3 rounded-2xl bg-white p-1">
-        <uv-cell title="查看往来记录" is-link :border="false" @click="navigateToFriendDetailPage(dataSource.friendId)" />
-      </div>
+    <div v-if="dataSource.friendId" class="mt-3 rounded-2xl bg-white p-1">
+      <uv-cell title="查看往来记录" is-link :border="false" @click="navigateToFriendDetailPage(dataSource.friendId)" />
     </div>
     <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
-                  @confirm="confirmCalendar"
-    />
+      @confirm="confirmCalendar" />
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
-  "layout": "blank",
+<route lang="json">{
   "style": {
     "navigationBarTitleText": "送礼记录"
   }
-}
-</route>
+}</route>

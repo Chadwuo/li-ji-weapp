@@ -82,7 +82,7 @@ onShareAppMessage(() => {
 </script>
 
 <template>
-  <div>
+  <div class="mx-3">
     <div class="mt-3 h-full flex flex-col">
       <div v-if="userFamilys && userFamilys.length">
         <div class="rounded-2xl bg-white p-1">

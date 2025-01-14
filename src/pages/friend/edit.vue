@@ -41,26 +41,28 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  <div class="rounded-2xl bg-white p-4">
-    <uv-form label-position="left" label-width="60">
-      <uv-form-item label="姓名">
-        <uv-input v-model="dataSource.name" border="none" placeholder="请输入姓名" />
-      </uv-form-item>
-      <uv-form-item label="关系">
-        <uv-input v-model="dataSource.relation" border="none" placeholder="请输入内容" />
-      </uv-form-item>
-      <uv-form-item label="备注">
-        <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容" />
-      </uv-form-item>
+  <div class="mx-3">
+    <div class="rounded-2xl bg-white p-4">
+      <uv-form label-position="left" label-width="60">
+        <uv-form-item label="姓名">
+          <uv-input v-model="dataSource.name" border="none" placeholder="请输入姓名" />
+        </uv-form-item>
+        <uv-form-item label="关系">
+          <uv-input v-model="dataSource.relation" border="none" placeholder="请输入内容" />
+        </uv-form-item>
+        <uv-form-item label="备注">
+          <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容" />
+        </uv-form-item>
 
-      <uv-form-item>
-        <div class="w-full">
-          <wd-button block :loading="loading" :disabled="!validInput" @click="onSubmit">
-            保存
-          </wd-button>
-        </div>
-      </uv-form-item>
-    </uv-form>
+        <uv-form-item>
+          <div class="w-full">
+            <wd-button block :loading="loading" :disabled="!validInput" @click="onSubmit">
+              保存
+            </wd-button>
+          </div>
+        </uv-form-item>
+      </uv-form>
+    </div>
   </div>
 </template>
 

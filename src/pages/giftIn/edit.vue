@@ -84,7 +84,7 @@ const navigateToFriendDetailPage = (id: string) => {
 </script>
 
 <template>
-  <div>
+  <div class="mx-3">
     <div class="rounded-2xl bg-white p-5">
       <uv-form label-position="left" label-width="60">
         <uv-form-item label="亲友">

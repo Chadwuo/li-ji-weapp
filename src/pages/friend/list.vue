@@ -66,7 +66,7 @@ const onFriendClick = (id?: string) => {
 
 <template>
   <div class="bg-friend h-full bg-contain bg-no-repeat">
-    <wd-navbar safe-area-inset-top custom-style="background-color: transparent !important;">
+    <wd-navbar :bordered="false" safe-area-inset-top custom-style="background-color: transparent !important;">
       <template #left>
         <div class="flex items-center">
           <div class="ms-2 text-lg font-bold">
@@ -107,7 +107,6 @@ const onFriendClick = (id?: string) => {
 
 <route lang="json">
 {
-  "layout": "blank",
   "style": {
     "navigationStyle": "custom",
     "enablePullDownRefresh": true

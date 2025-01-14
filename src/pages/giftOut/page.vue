@@ -134,8 +134,8 @@ const handleGiftClick = (id?: string) => {
 
 <template>
   <div class="bg-gift bg-contain bg-no-repeat">
-    <div class="mx-5">
-      <wd-navbar safe-area-inset-top custom-style="background-color: transparent !important;">
+    <div class="mx-3">
+      <wd-navbar :bordered="false" safe-area-inset-top custom-style="background-color: transparent !important;">
         <template #left>
           <div class="flex items-center">
             <div class="ms-2 text-lg font-bold">

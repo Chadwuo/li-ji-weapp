@@ -131,7 +131,7 @@ const handleBookDel = () => {
 </script>
 
 <template>
-  <div>
+  <div class="mx-3">
     <div v-if="loading" class="mb-5 rounded-2xl bg-white p-5">
       <wd-skeleton
         :row-col="[{ width: '30%' }, { width: '60%' }, { width: '20%' }, [{ width: '20%' }, { width: '20%' }, { width: '20%' }, { width: '20%' }]]"

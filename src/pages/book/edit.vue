@@ -54,48 +54,47 @@ const openCalendar = () => {
 </script>
 
 <template>
-  <div class="rounded-2xl bg-white p-5">
-    <uv-form label-position="left" label-width="60">
-      <uv-form-item label="日期" @click="openCalendar">
-        <uv-input v-model="dataSource.date" disabled disabled-color="#ffffff" border="none" placeholder="请选择日期" />
-        <template #right>
-          <uv-icon name="arrow-right" />
-        </template>
-      </uv-form-item>
-      <uv-form-item label="名称">
-        <uv-input v-model="dataSource.title" border="none" placeholder="礼簿名称" />
-      </uv-form-item>
-      <uv-form-item label="成本">
-        <uv-input v-model="dataSource.cost" border="none" placeholder="宴席、伴手礼等费用" type="number" />
-      </uv-form-item>
-      <uv-form-item label="备注">
-        <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容" />
-      </uv-form-item>
-      <uv-form-item>
-        <div class="mt-3 text-xs text-gray">
-          一场宴席活动中，用来登记所有来宾贺礼的名册，称为礼簿。
-        </div>
-      </uv-form-item>
-      <uv-form-item>
-        <div class="w-full">
-          <wd-button block :loading="loading" loading-color="#F87171" :disabled="!validInput" @click="onSubmit">
-            保存
-          </wd-button>
-        </div>
-      </uv-form-item>
-    </uv-form>
+  <div class="mx-3">
+    <div class="rounded-2xl bg-white p-5">
+      <uv-form label-position="left" label-width="60">
+        <uv-form-item label="日期" @click="openCalendar">
+          <uv-input v-model="dataSource.date" disabled disabled-color="#ffffff" border="none" placeholder="请选择日期" />
+          <template #right>
+            <uv-icon name="arrow-right" />
+          </template>
+        </uv-form-item>
+        <uv-form-item label="名称">
+          <uv-input v-model="dataSource.title" border="none" placeholder="礼簿名称" />
+        </uv-form-item>
+        <uv-form-item label="成本">
+          <uv-input v-model="dataSource.cost" border="none" placeholder="宴席、伴手礼等费用" type="number" />
+        </uv-form-item>
+        <uv-form-item label="备注">
+          <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容" />
+        </uv-form-item>
+        <uv-form-item>
+          <div class="mt-3 text-xs text-gray">
+            一场宴席活动中，用来登记所有来宾贺礼的名册，称为礼簿。
+          </div>
+        </uv-form-item>
+        <uv-form-item>
+          <div class="w-full">
+            <wd-button block :loading="loading" loading-color="#F87171" :disabled="!validInput" @click="onSubmit">
+              保存
+            </wd-button>
+          </div>
+        </uv-form-item>
+      </uv-form>
+    </div>
+    <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
+      @confirm="confirmCalendar" />
   </div>
-  <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
-                @confirm="confirmCalendar"
-  />
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationBarTitleText": "新增"
   }
-}
-</route>
+}</route>

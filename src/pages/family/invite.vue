@@ -48,7 +48,7 @@ const onReject = () => {
 </script>
 
 <template>
-  <div>
+  <div class="mx-3">
     <div class="mt-3 rounded-2xl bg-white p-4">
       <div>
         <div class="mt-5 flex items-center justify-center space-x-3xl">

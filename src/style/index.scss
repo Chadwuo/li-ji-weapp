@@ -14,6 +14,10 @@ page {
 
 $uv-primary: #f87171;
 
+.wd-button.is-round {
+	border-radius: 0.75rem !important;
+}
+
 // 去除button的所有默认样式，让其表现跟普通的view、text元素一样
 .reset-button {
 	/* 移除内外边距 */
@@ -51,6 +55,6 @@ $uv-primary: #f87171;
 	}
 }
 
-.wd-index-anchor{
+.wd-index-anchor {
 	background-color: transparent !important;
 }

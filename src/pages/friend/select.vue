@@ -70,7 +70,6 @@ function searchCancel() {
 <style lang="scss" scoped></style>
 
 <route lang="json">{
-  "layout": "blank",
   "style": {
     "navigationBarTitleText": "选择亲友"
   }
