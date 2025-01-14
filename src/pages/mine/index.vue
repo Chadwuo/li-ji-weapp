@@ -45,7 +45,7 @@ onShareAppMessage(() => {
 
 <template>
   <div class="bg-mine bg-contain bg-no-repeat">
-    <div class="pt-24 space-y-5 mx-3">
+    <div class="mx-3 pt-24 space-y-5">
       <div class="flex items-center" @click="toSettings">
         <uv-avatar :src="userInfo?.avatar" shape="square" :size="55" />
         <div class="ml-3">
@@ -91,11 +91,11 @@ onShareAppMessage(() => {
         </wd-cell>
       </div>
       <div class="rounded-2xl bg-white p-2 space-y-3">
-        <wd-cell title="支持礼记" is-link to="/pages/subscription/index">
+        <!-- <wd-cell title="支持礼记" is-link to="/pages/subscription/index">
           <template #icon>
             <div class="i-bx-like mx-2 text-lg text-red" />
           </template>
-        </wd-cell>
+        </wd-cell> -->
         <wd-cell is-link>
           <template #icon>
             <div class="i-ri-wechat-fill pr-4 text-lg text-green" />
@@ -123,8 +123,10 @@ onShareAppMessage(() => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationStyle": "custom"
   }
-}</route>
+}
+</route>

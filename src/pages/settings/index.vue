@@ -88,8 +88,10 @@ const onBlur = async () => {
 }
 </style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "设置"
   }
-}</route>
+}
+</route>

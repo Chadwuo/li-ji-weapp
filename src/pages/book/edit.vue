@@ -87,14 +87,17 @@ const openCalendar = () => {
       </uv-form>
     </div>
     <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
-      @confirm="confirmCalendar" />
+                  @confirm="confirmCalendar"
+    />
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "新增"
   }
-}</route>
+}
+</route>

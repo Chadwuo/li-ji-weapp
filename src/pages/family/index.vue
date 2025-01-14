@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+import { useMessage } from 'wot-design-uni'
 
+const message = useMessage()
 const { userFamilys, userInfo } = storeToRefs(useAuthStore())
 const actionSheetShow = ref(false)
 const actionSheetList = ref()
@@ -67,8 +69,26 @@ async function onSelectedAction(e: any) {
 
 onShareAppMessage(() => {
   if (userFamilys.value) {
-    const familyId = userFamilys.value[0].familyId
+    // if (userFamilys.value.length >= 1 && userInfo.value?.isVip) {
+    //   message
+    //     .confirm({
+    //       msg: '开通会员解锁家庭成员数量上限',
+    //       title: '家庭成员超过上限',
+    //       confirmButtonText: '开通会员',
+    //       cancelButtonText: '再想想',
+    //     })
+    //     .then(() => {
+    //       uni.navigateTo({
+    //         url: '/pages/subscription/index',
+    //       })
+    //     })
+    //     .catch(() => {
+    //       return {}
+    //     })
+    //   return {}
+    // }
 
+    const familyId = userFamilys.value[0].familyId
     const word = `${userInfo.value?.nickName}邀请你一起记录家庭中的人情往来`
     const avatarUrl = userInfo.value?.avatar
     return {

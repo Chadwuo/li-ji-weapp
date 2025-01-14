@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const instance: any = getCurrentInstance()
-const eventChannel = instance.proxy.getOpenerEventChannel();
+const eventChannel = instance.proxy.getOpenerEventChannel()
 const dataSource = ref<Api.Friend>({})
 onLoad((option) => {
   if (option?.id) {
@@ -37,7 +37,6 @@ const onSubmit = async () => {
   }
   loading.value = false
 }
-
 </script>
 
 <template>
@@ -68,8 +67,10 @@ const onSubmit = async () => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "亲友"
   }
-}</route>
+}
+</route>

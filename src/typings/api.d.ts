@@ -445,4 +445,65 @@ declare namespace Api {
     inTotal: number
     outTotal: number
   }
+
+  interface WechatPayTransactionOutput {
+    /**
+     *
+     * @type {string}
+     * @memberof WechatPayTransactionOutput
+     */
+    prepayId: string
+    /**
+     *
+     * @type {string}
+     * @memberof WechatPayTransactionOutput
+     */
+    outTradeNumber: string
+    /**
+     *
+     * @type {WechatPayParaOutput}
+     * @memberof WechatPayTransactionOutput
+     */
+    singInfo: WechatPayParaOutput
+  }
+
+  interface WechatPayParaOutput {
+    /**
+     *
+     * @type {string}
+     * @memberof WechatPayParaOutput
+     */
+    appId: string
+    /**
+     *
+     * @type {string}
+     * @memberof WechatPayParaOutput
+     */
+    timeStamp: string
+    /**
+     *
+     * @type {string}
+     * @memberof WechatPayParaOutput
+     */
+    nonceStr: string
+    /**
+     *
+     * @type {string}
+     * @memberof WechatPayParaOutput
+     */
+    package: string
+    /**
+     *
+     * @type {string}
+     * @memberof WechatPayParaOutput
+     */
+    signType: 'MD5' | 'HMAC-SHA256' | 'RSA' | undefined
+    /**
+     *
+     * @type {string}
+     * @memberof WechatPayParaOutput
+     */
+    paySign: string
+  }
+
 }

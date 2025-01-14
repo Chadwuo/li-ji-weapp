@@ -22,8 +22,10 @@
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "支持礼记"
   }
-}</route>
+}
+</route>
