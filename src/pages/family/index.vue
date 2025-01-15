@@ -68,37 +68,49 @@ async function onSelectedAction(e: any) {
 }
 
 onShareAppMessage(() => {
-  if (userFamilys.value) {
-    // if (userFamilys.value.length >= 1 && userInfo.value?.isVip) {
-    //   message
-    //     .confirm({
-    //       msg: '开通会员解锁家庭成员数量上限',
-    //       title: '家庭成员超过上限',
-    //       confirmButtonText: '开通会员',
-    //       cancelButtonText: '再想想',
-    //     })
-    //     .then(() => {
-    //       uni.navigateTo({
-    //         url: '/pages/subscription/index',
-    //       })
-    //     })
-    //     .catch(() => {
-    //       return {}
-    //     })
-    //   return {}
-    // }
+  const promise = new Promise<Page.CustomShareContent>((resolve, reject) => {
+    if (!userFamilys.value) {
+      reject()
+    } else {
+      if (userFamilys.value.length >= 2 && !userInfo.value?.isVip) {
+        reject()
+        message
+          .confirm({
+            msg: '开通会员后解锁家庭成员数量无上限权益',
+            title: '家庭成员超过上限',
+            confirmButtonText: '开通会员',
+            cancelButtonText: '再想想',
+          })
+          .then(() => {
+            uni.navigateTo({
+              url: '/pages/subscription/index',
+            })
+          })
+          .catch(() => {
+            console.log('点击了取消按钮')
+          })
+      } else {
+        const familyId = userFamilys.value[0].familyId
+        const word = `${userInfo.value?.nickName}邀请你一起记录家庭中的人情往来`
+        const avatarUrl = userInfo.value?.avatar
+        resolve({
+          title: '和我一起记录家庭中的人情往来',
+          path: `/pages/family/invite?familyId=${familyId}&word=${word}&avatarUrl=${avatarUrl}`,
+          imageUrl: '/static/share/2.png',
 
-    const familyId = userFamilys.value[0].familyId
-    const word = `${userInfo.value?.nickName}邀请你一起记录家庭中的人情往来`
-    const avatarUrl = userInfo.value?.avatar
-    return {
-      title: '和我一起记录家庭中的人情往来',
-      path: `/pages/family/invite?familyId=${familyId}&word=${word}&avatarUrl=${avatarUrl}`,
-      imageUrl: '/static/share/2.png',
+        })
+      }
     }
+  })
+
+  return {
+    title: '可能是东半球最好用的人情记账工具',
+    path: `/pages/book/page`,
+    imageUrl: '/static/share/1.png',
+    promise
   }
-  return {}
 })
+
 </script>
 
 <template>
@@ -169,18 +181,15 @@ onShareAppMessage(() => {
       </div>
     </div>
     <wd-action-sheet v-model="actionSheetShow" :actions="actionSheetList" cancel-text="取消"
-                     :close-on-click-action="false" @select="onSelectedAction"
-    />
+      :close-on-click-action="false" @select="onSelectedAction" />
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationBarTitleText": "家人共享",
     "enablePullDownRefresh": true
   }
-}
-</route>
+}</route>

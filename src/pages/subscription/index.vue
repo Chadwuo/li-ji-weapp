@@ -2,9 +2,6 @@
 import { storeToRefs } from 'pinia'
 
 const loading = ref(false)
-const textArray = ref([
-  '欢迎使用',
-])
 const { userInfo } = storeToRefs(useAuthStore())
 const pay = async () => {
   loading.value = true
@@ -28,20 +25,11 @@ const pay = async () => {
   }
 }
 
-const back = () => {
-  uni.navigateBack()
-}
 </script>
 
 <template>
   <div class="mx-3">
-    <wd-navbar custom-class=" bg-transparent" :bordered="false" safe-area-inset-top leftarrow placeholder fixed
-               custom-style="background-color: transparent !important;" @click-left="back"
-    >
-      <template #title>
-        <wd-notice-bar type="info" direction="vertical" :text="textArray" :delay="3" custom-class="text-center mt-1" />
-      </template>
-    </wd-navbar>
+    
     <wd-button block :loading="loading" loading-color="#F87171" @click="pay">
       立即购买
     </wd-button>
@@ -54,10 +42,8 @@ const back = () => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
-    "navigationStyle": "custom"
+    "navigationBarTitleText": ""
   }
-}
-</route>
+}</route>
