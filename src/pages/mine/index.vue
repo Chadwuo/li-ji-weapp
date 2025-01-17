@@ -44,7 +44,7 @@ onShareAppMessage(() => {
 </script>
 
 <template>
-  <div class="bg-mine bg-contain bg-no-repeat">
+  <div class="bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_mine.png')] bg-contain bg-no-repeat">
     <div class="mx-3 pt-24 space-y-5">
       <div class="flex items-center" @click="toSettings">
         <div class="relative">
@@ -126,8 +126,10 @@ onShareAppMessage(() => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationStyle": "custom"
   }
-}</route>
+}
+</route>

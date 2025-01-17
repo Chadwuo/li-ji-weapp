@@ -53,7 +53,7 @@ const handleBookClick = (id?: string) => {
 </script>
 
 <template>
-  <div class="bg-book bg-contain bg-no-repeat">
+  <div class="bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_book.png')] bg-contain bg-no-repeat">
     <div class="mx-3">
       <wd-navbar :bordered="false" safe-area-inset-top custom-style="background-color: transparent !important;">
         <template #left>

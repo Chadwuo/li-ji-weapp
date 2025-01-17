@@ -4,7 +4,6 @@ import { setupDayjs } from './plugins'
 import store from './stores'
 import 'virtual:uno.css'
 import '@/style/index.scss'
-import '@/style/bg.scss'
 
 setupDayjs()
 export function createApp() {

@@ -7,7 +7,6 @@ const { userFamilys, userInfo } = storeToRefs(useAuthStore())
 const actionSheetShow = ref(false)
 const actionSheetList = ref()
 const loading = ref(false)
-
 const loadData = async () => {
   const res = await apiUserFamilyListGet()
   if (res.succeeded) {
@@ -71,7 +70,8 @@ onShareAppMessage(() => {
   const promise = new Promise<Page.CustomShareContent>((resolve, reject) => {
     if (!userFamilys.value) {
       reject()
-    } else {
+    }
+    else {
       if (userFamilys.value.length >= 2 && !userInfo.value?.isVip) {
         reject()
         message
@@ -89,7 +89,8 @@ onShareAppMessage(() => {
           .catch(() => {
             console.log('点击了取消按钮')
           })
-      } else {
+      }
+      else {
         const familyId = userFamilys.value[0].familyId
         const word = `${userInfo.value?.nickName}邀请你一起记录家庭中的人情往来`
         const avatarUrl = userInfo.value?.avatar
@@ -107,28 +108,25 @@ onShareAppMessage(() => {
     title: '可能是东半球最好用的人情往来记账工具',
     path: `/pages/book/page`,
     imageUrl: '/static/share/1.png',
-    promise
+    promise,
   }
 })
-
 </script>
 
 <template>
   <div class="mx-3">
     <div class="mt-3 h-full flex flex-col">
       <div v-if="userFamilys && userFamilys.length">
-        <div class="rounded-2xl bg-white p-1">
-          <div class="rounded-2xl bg-white px-1 py-3 space-y-3">
-            <template v-for="i in userFamilys" :key="i.userId">
-              <wd-cell center :title="i.nickName" :label="i.role" is-link @click="onClick(i)">
-                <template #icon>
-                  <div class="mr-3">
-                    <uv-avatar :src="i.avatar" />
-                  </div>
-                </template>
-              </wd-cell>
-            </template>
-          </div>
+        <div class="rounded-2xl bg-white px-1 py-3 space-y-3">
+          <template v-for="i in userFamilys" :key="i.userId">
+            <wd-cell center :title="i.nickName" :label="i.role" is-link @click="onClick(i)">
+              <template #icon>
+                <div class="mr-3">
+                  <uv-avatar :src="i.avatar" />
+                </div>
+              </template>
+            </wd-cell>
+          </template>
         </div>
         <div class="mt-3">
           <wd-button block icon="add" open-type="share">
@@ -138,7 +136,7 @@ onShareAppMessage(() => {
       </div>
       <div v-else class="rounded-2xl bg-white p-4 space-y-2xl">
         <div class="text-center">
-          <img src="/static/family/index.svg" class="w-full">
+          <img src="/static/family/index.png" class="w-full">
           <div class="mt-5 text-xl font-bold">
             家人共享
           </div>
@@ -181,15 +179,18 @@ onShareAppMessage(() => {
       </div>
     </div>
     <wd-action-sheet v-model="actionSheetShow" :actions="actionSheetList" cancel-text="取消"
-      :close-on-click-action="false" @select="onSelectedAction" />
+                     :close-on-click-action="false" @select="onSelectedAction"
+    />
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "家人共享",
     "enablePullDownRefresh": true
   }
-}</route>
+}
+</route>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { friendCategory } from '@/constants/app';
+import { friendCategory } from '@/constants/app'
 
-const columns = friendCategory.map((i) => ({ name: i, value: i }));
+const columns = friendCategory.map(i => ({ name: i, value: i }))
 const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
 const search = ref({
   keyword: '',
@@ -75,7 +75,7 @@ const onFriendClick = (id?: string) => {
 </script>
 
 <template>
-  <div class="bg-friend h-full bg-contain bg-no-repeat">
+  <div class="h-full bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_friend.png')] bg-contain bg-no-repeat">
     <wd-navbar :bordered="false" safe-area-inset-top custom-style="background-color: transparent !important;">
       <template #left>
         <div class="flex items-center">
@@ -90,7 +90,8 @@ const onFriendClick = (id?: string) => {
     </wd-navbar>
     <div>
       <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
-        @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true" />
+                 @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
+      />
       <uv-tabs :list="columns" line-color="#f87171" @click="onTabsClick" />
     </div>
     <div class="grow">
@@ -107,7 +108,8 @@ const onFriendClick = (id?: string) => {
         <div v-for="item in friendsList" :key="item.index">
           <wd-index-anchor :index="item.index" />
           <wd-cell v-for="cell in item.data" :key="cell.id" clickable border :title="cell.name"
-            @click="onFriendClick(cell.id)" />
+                   @click="onFriendClick(cell.id)"
+          />
         </div>
       </wd-index-bar>
     </div>
@@ -116,9 +118,11 @@ const onFriendClick = (id?: string) => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationStyle": "custom",
     "enablePullDownRefresh": true
   }
-}</route>
+}
+</route>

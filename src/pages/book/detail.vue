@@ -265,11 +265,11 @@ const handleBookDel = () => {
           </div>
           <div>
             <span class="font-bold">亲友：</span>
-            <span>表示人情往来次数，需预先备好伴手礼以表心意</span>
+            <span>统计亲友来礼份数，预先备好伴手礼以表心意</span>
           </div>
           <div>
             <span class="font-bold">出席：</span>
-            <span>需与亲友提前协商确定当日宴席的实际到场人数，并据此预定酒席，恭候亲朋光临</span>
+            <span>与亲友提前协商确定当日宴席的实际到场人数，并据此预定酒席，恭候亲朋光临</span>
           </div>
           <div>
             <span class="font-bold">支出：</span>
