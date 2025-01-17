@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import { friendCategory } from '@/constants/app';
+
+const columns = friendCategory.map((i) => ({ name: i, value: i }));
 const instance: any = getCurrentInstance()
 const eventChannel = instance.proxy.getOpenerEventChannel()
 const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
 const search = ref({
   keyword: '',
+  relation: '',
   showAction: false,
 })
 const loadData = () => {
@@ -36,12 +40,18 @@ function onFriendClick(e: Api.Friend) {
   uni.navigateBack()
 }
 
+const onTabsClick = (item: any) => {
+  search.value.relation = item.value
+  loadData()
+}
+
 function searchOk() {
   loadData()
 }
 function searchCancel() {
   search.value = {
     keyword: '',
+    relation: '',
     showAction: false,
   }
   loadData()
@@ -50,9 +60,11 @@ function searchCancel() {
 
 <template>
   <div class="h-full flex flex-col">
-    <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
-               @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
-    />
+    <div>
+      <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
+        @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true" />
+      <uv-tabs :list="columns" line-color="#f87171" @click="onTabsClick" />
+    </div>
     <div class="grow">
       <div v-if="friendsList?.length === 0" class="my-24">
         <uv-empty />
@@ -61,8 +73,7 @@ function searchCancel() {
         <div v-for="item in friendsList" :key="item.index">
           <wd-index-anchor :index="item.index" />
           <wd-cell v-for="cell in item.data" :key="cell.id" clickable border :title="cell.name"
-                   @click="onFriendClick(cell)"
-          />
+            @click="onFriendClick(cell)" />
         </div>
       </wd-index-bar>
     </div>
@@ -71,10 +82,8 @@ function searchCancel() {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationBarTitleText": "选择亲友"
   }
-}
-</route>
+}</route>

@@ -1,13 +1,13 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="mx-3">
-    <div class="rounded-2xl bg-white p-5 space-y-2">
+  <div class="m-5">
+    <div class="rounded-2xl space-y-2">
       <div class="font-bold">
         礼记 免费吗？
       </div>
       <div class="text-sm text-gray-500 leading-relaxed">
-        免费。礼记运营需要一定的服务器费用，目前依靠程序内部广告收益，可以收支平衡，是可维续的。
+        完全免费，并承诺永远免费！
       </div>
       <div class="my-5">
         <uv-line />
@@ -16,8 +16,7 @@
         谁在维护 礼记？
       </div>
       <div class="text-sm text-gray-500 leading-relaxed">
-        礼记
-        是一个独立的开源社区驱动的项目，所有人都能参与项目讨论、开发、审查代码。
+        礼记 是一个独立的开源社区驱动的项目，所有人都能参与项目讨论、开发、审查代码。
       </div>
       <div class="my-5">
         <uv-line />
@@ -43,15 +42,6 @@
         <uv-line />
       </div>
       <div class="font-bold">
-        遇到了显示不正确或者有bug？
-      </div>
-      <div class="text-sm text-gray-500 leading-relaxed">
-        建议遇到bug先更新微信版本，如果问题还存在可以在意见反馈中填写你遇到的问题。
-      </div>
-      <div class="my-5">
-        <uv-line />
-      </div>
-      <div class="font-bold">
         未来开发计划？
       </div>
       <div class="text-sm text-gray-500 leading-relaxed">
@@ -63,10 +53,9 @@
       <div class="font-bold">
         我可以参与 礼记 项目吗？
       </div>
-      <div class="flex items-center text-sm text-gray-500 leading-relaxed">
-        非常欢迎！请访问我们的<uv-link color="#f87171" href="https://github.com/Chadwuo/li-ji-weapp" text="开源社区"
-                            :under-line="true"
-        />
+      <div class="text-sm text-gray-500 leading-relaxed">
+        非常欢迎！请访问我们的 <div class="inline-block"><uv-link color="#f87171" href="https://github.com/Chadwuo/li-ji-weapp" text="开源社区"
+          :under-line="true" /></div> 页面，并参与项目的开发、讨论、设计。
       </div>
     </div>
   </div>
@@ -74,10 +63,8 @@
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationBarTitleText": "常见问题"
   }
-}
-</route>
+}</route>

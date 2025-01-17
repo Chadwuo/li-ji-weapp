@@ -26,6 +26,12 @@ const onChooseAvatar = (e: any) => {
         userInfo.value.avatar = result.data
       }
     },
+    fail: (err) => {
+      uni.showToast({
+        title: err.errMsg,
+        icon: 'none',
+      })
+    }
   })
 }
 
@@ -88,10 +94,8 @@ const onBlur = async () => {
 }
 </style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationBarTitleText": "设置"
   }
-}
-</route>
+}</route>

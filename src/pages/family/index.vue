@@ -104,7 +104,7 @@ onShareAppMessage(() => {
   })
 
   return {
-    title: '可能是东半球最好用的人情记账工具',
+    title: '可能是东半球最好用的人情往来记账工具',
     path: `/pages/book/page`,
     imageUrl: '/static/share/1.png',
     promise

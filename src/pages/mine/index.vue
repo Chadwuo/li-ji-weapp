@@ -36,7 +36,7 @@ const toSettings = () => {
 
 onShareAppMessage(() => {
   return {
-    title: '可能是东半球最好用的人情记账工具',
+    title: '可能是东半球最好用的人情往来记账工具',
     path: `/pages/book/page`,
     imageUrl: '/static/share/1.png',
   }
@@ -94,11 +94,11 @@ onShareAppMessage(() => {
         </wd-cell>
       </div>
       <div class="rounded-2xl bg-white p-2 space-y-3">
-        <wd-cell title="支持礼记" is-link to="/pages/subscription/index">
+        <!-- <wd-cell title="支持礼记" is-link to="/pages/subscription/index">
           <template #icon>
             <div class="i-bx-like mx-2 text-lg text-red" />
           </template>
-        </wd-cell>
+        </wd-cell> -->
         <wd-cell is-link>
           <template #icon>
             <div class="i-ri-wechat-fill pr-4 text-lg text-green" />

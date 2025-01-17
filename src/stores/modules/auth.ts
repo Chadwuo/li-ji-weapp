@@ -10,6 +10,7 @@ export const useAuthStore = defineStore(
     const userFamilys = ref<Array<Api.UserFamily>>()
     const isLogin = computed(() => Boolean(accessToken.value))
     const login = async () => {
+      // #ifdef MP-WEIXIN
       const { code, errMsg } = await uni.login()
       if (code) {
         const res = await apiLoginPost(code)
@@ -24,6 +25,7 @@ export const useAuthStore = defineStore(
       else {
         throw new Error(errMsg)
       }
+      // #endif
     }
 
     const getUserInfo = async () => {

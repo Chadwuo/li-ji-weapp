@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import { friendCategory } from '@/constants/app';
+
+const columns = friendCategory.map((i) => ({ name: i, value: i }));
 const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
 const search = ref({
   keyword: '',
+  relation: '',
   showAction: false,
 })
 
@@ -38,6 +42,11 @@ onPullDownRefresh(async () => {
   uni.stopPullDownRefresh()
 })
 
+const onTabsClick = (item: any) => {
+  search.value.relation = item.value
+  loadData()
+}
+
 function searchOk() {
   loadData()
 }
@@ -45,6 +54,7 @@ function searchOk() {
 function searchCancel() {
   search.value = {
     keyword: '',
+    relation: '',
     showAction: false,
   }
   loadData()
@@ -78,9 +88,11 @@ const onFriendClick = (id?: string) => {
         </div>
       </template>
     </wd-navbar>
-    <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left light
-               @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
-    />
+    <div>
+      <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
+        @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true" />
+      <uv-tabs :list="columns" line-color="#f87171" @click="onTabsClick" />
+    </div>
     <div class="grow">
       <div v-if="friendsList?.length === 0" class="my-24">
         <uv-empty text="还没有亲友记录哦~" mode="favor">
@@ -95,8 +107,7 @@ const onFriendClick = (id?: string) => {
         <div v-for="item in friendsList" :key="item.index">
           <wd-index-anchor :index="item.index" />
           <wd-cell v-for="cell in item.data" :key="cell.id" clickable border :title="cell.name"
-                   @click="onFriendClick(cell.id)"
-          />
+            @click="onFriendClick(cell.id)" />
         </div>
       </wd-index-bar>
     </div>
@@ -105,11 +116,9 @@ const onFriendClick = (id?: string) => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationStyle": "custom",
     "enablePullDownRefresh": true
   }
-}
-</route>
+}</route>
