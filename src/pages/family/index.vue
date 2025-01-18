@@ -69,11 +69,11 @@ async function onSelectedAction(e: any) {
 onShareAppMessage(() => {
   const promise = new Promise<Page.CustomShareContent>((resolve, reject) => {
     if (!userFamilys.value) {
-      reject()
+      reject(new Error('User families not found'))
     }
     else {
       if (userFamilys.value.length >= 2 && !userInfo.value?.isVip) {
-        reject()
+        reject(new Error('Family member limit exceeded'))
         message
           .confirm({
             msg: '开通会员后解锁家庭成员数量无上限权益',
@@ -87,7 +87,6 @@ onShareAppMessage(() => {
             })
           })
           .catch(() => {
-            console.log('点击了取消按钮')
           })
       }
       else {
@@ -136,7 +135,7 @@ onShareAppMessage(() => {
       </div>
       <div v-else class="rounded-2xl bg-white p-4 space-y-2xl">
         <div class="text-center">
-          <img src="/static/family/index.png" class="w-full">
+          <img src="/static/family/index.svg" class="w-full">
           <div class="mt-5 text-xl font-bold">
             家人共享
           </div>
