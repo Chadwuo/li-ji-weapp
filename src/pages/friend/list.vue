@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { friendCategory } from '@/constants/app'
 
-const columns = friendCategory.map(i => ({ name: i, value: i }))
+const columns = [
+  { name: '全部', value: '' },
+  ...friendCategory.map(i => ({ name: i, value: i })),
+]
 const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
 const search = ref({
   keyword: '',

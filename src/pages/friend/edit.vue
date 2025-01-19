@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { friendCategory } from '@/constants/app'
 
-const columns = friendCategory.filter(i => i !== '全部').map(i => ({ name: i, value: i }))
+const columns = friendCategory.map(i => ({ name: i, value: i }))
 const instance: any = getCurrentInstance()
 const eventChannel = instance.proxy.getOpenerEventChannel()
 const dataSource = ref<Api.Friend>({})

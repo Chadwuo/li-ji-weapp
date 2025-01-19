@@ -1,20 +1,19 @@
 <script setup lang="ts">
+import { giftCategory } from '@/constants/app'
 import { useMessage } from 'wot-design-uni'
-import { giftCategory } from '@/constants/app';
 
-//'结婚': 'i-bi-postcard-heart',
-//'宝宝': 'i-mingcute-baby-line',
-//'周岁': 'i-icon-park-outline-baby-feet',
-//'乔迁': 'i-tabler-home-move',
-//'生日': 'i-mingcute-cake-line',
-//'升学': 'i-carbon-education',
-//'福寿': 'i-mingcute-blessing-line',
-//'探望': 'i-healthicons-fruits-outline',
-//'白事': 'i-tabler-candle',
-//'其他': 'i-mingcute-wallet-2-line',
+// '结婚': 'i-bi-postcard-heart',
+// '宝宝': 'i-mingcute-baby-line',
+// '周岁': 'i-icon-park-outline-baby-feet',
+// '乔迁': 'i-tabler-home-move',
+// '生日': 'i-mingcute-cake-line',
+// '升学': 'i-carbon-education',
+// '福寿': 'i-mingcute-blessing-line',
+// '探望': 'i-healthicons-fruits-outline',
+// '白事': 'i-tabler-candle',
+// '其他': 'i-mingcute-wallet-2-line',
 const columns = Object.entries(giftCategory)
-  .filter(([name]) => name !== '全部')
-  .map(([name, icon]) => ({ name, icon }));
+  .map(([name, icon]) => ({ name, icon }))
 const instance: any = getCurrentInstance()
 const eventChannel = instance.proxy.getOpenerEventChannel()
 const message = useMessage()
@@ -133,7 +132,8 @@ const navigateToFriendDetailPage = (id: string) => {
           i.icon === dataSource.icon
             ? selectedIconStyle
             : 'bg-gray-100  text-gray',
-        ]">
+        ]"
+        >
           <div class="m-auto h-8 w-8" :class="i.icon" />
         </div>
         <div class="mt-1 text-center text-sm">
@@ -152,7 +152,8 @@ const navigateToFriendDetailPage = (id: string) => {
         </uv-form-item>
         <uv-form-item label="亲友">
           <uv-input v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友" :disabled="dataSource.id"
-            disabled-color="#fff" />
+                    disabled-color="#fff"
+          />
           <template #right>
             <div v-show="!dataSource.id" class="i-system-uicons-contacts text-lg text-gray" @click="onSelectFriend" />
           </template>
@@ -187,14 +188,17 @@ const navigateToFriendDetailPage = (id: string) => {
       <uv-cell title="查看往来记录" is-link :border="false" @click="navigateToFriendDetailPage(dataSource.friendId)" />
     </div>
     <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
-      @confirm="confirmCalendar" />
+                  @confirm="confirmCalendar"
+    />
   </div>
 </template>
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "送礼记录"
   }
-}</route>
+}
+</route>

@@ -2,8 +2,10 @@
 import { giftCategory } from '@/constants/app'
 import { useLoadMore } from 'vue-request'
 
-const columns = Object.entries(giftCategory)
-  .map(([name, icon]) => ({ name, value: icon }))
+const columns = [
+  { name: '全部', value: '' },
+  ...Object.entries(giftCategory).map(([name, icon]) => ({ name, value: icon })),
+]
 const search = ref({
   keyword: '',
   icon: '',
