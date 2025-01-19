@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { friendCategory } from '@/constants/app'
+
+const columns = friendCategory.filter(i => i !== '全部').map(i => ({ name: i, value: i }))
 const instance: any = getCurrentInstance()
 const eventChannel = instance.proxy.getOpenerEventChannel()
 const dataSource = ref<Api.Friend>({})
@@ -47,7 +50,12 @@ const onSubmit = async () => {
           <uv-input v-model="dataSource.name" border="none" placeholder="请输入姓名" />
         </uv-form-item>
         <uv-form-item label="关系">
-          <uv-input v-model="dataSource.relation" border="none" placeholder="请输入内容" />
+          <!-- <uv-input v-model="dataSource.relation" border="none" placeholder="请输入内容" /> -->
+          <wd-radio-group v-model="dataSource.relation" cell shape="button">
+            <wd-radio v-for="item in columns" :key="item.value" :value="item.value">
+              {{ item.name }}
+            </wd-radio>
+          </wd-radio-group>
         </uv-form-item>
         <uv-form-item label="备注">
           <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容" />

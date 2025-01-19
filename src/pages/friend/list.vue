@@ -12,6 +12,7 @@ const search = ref({
 const loadData = async () => {
   apiFriendListGet({
     keyword: search.value.keyword,
+    relation: search.value.relation,
   }).then((res) => {
     if (res.succeeded) {
       // 根据首字母firstLetter进行分组

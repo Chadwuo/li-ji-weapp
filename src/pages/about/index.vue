@@ -4,8 +4,8 @@ const version = miniProgram.version || '4.0'
 </script>
 
 <template>
-  <div class="mx-3">
-    <div class="mb-4 mt-6 text-center">
+  <div class="mx-3 bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_about.webp')] bg-contain bg-no-repeat">
+    <div class="mb-4 pt-18 text-center">
       <img class="m-auto h-14 w-14" src="/static/logo.png">
       <div class="my-3">
         <div class="text-xl font-bold">
@@ -17,10 +17,7 @@ const version = miniProgram.version || '4.0'
       </div>
     </div>
     <div class="indent-8 text-sm leading-relaxed">
-      礼尚往来，是中华民族的传统美德，老一辈人一般会在举行宴席的时候用手写人情簿的方式来记录每一个亲友的礼金。这种方式存在很多弊端，比如人情簿丢失、无法携带在身边、很难搜索到某个人的送礼记录、由于手写原因无法辨认清楚内容等等。
-    </div>
-    <div class="mt-2 indent-4 text-sm leading-relaxed">
-      「礼记」致力于记录和管理人情往来中的随礼、礼金、份子钱、送礼、收礼，专业又懂你的人情记账簿，全家人共享账本，多维度查询统计亲友间往来记录。每一份人情都值得礼记。
+      专注于记录和管理亲友间的收礼、随礼、份子钱、礼金、心意、礼物、红包等，「礼记」理解中国传统文化中的人情世故，支持多维度查询和统计亲友间的往来记录，提供全家人共享的账本功能，您贴心的人情往来数字记账伙伴。
     </div>
   </div>
 </template>

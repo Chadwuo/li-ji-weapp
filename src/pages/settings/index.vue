@@ -31,7 +31,7 @@ const onChooseAvatar = (e: any) => {
         title: err.errMsg,
         icon: 'none',
       })
-    }
+    },
   })
 }
 
@@ -52,31 +52,23 @@ const onBlur = async () => {
   <div class="mx-3">
     <div class="mt-3 space-y-3">
       <div class="rounded-2xl bg-white p-2">
-        <wd-cell title="头像" is-link center>
+        <wd-cell title="头像" is-link center title-width="80px">
           <button class="reset-button flex flex-row-reverse" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
             <uv-avatar :src="userInfo?.avatar" />
           </button>
         </wd-cell>
-        <wd-cell title="昵称" is-link center>
+        <wd-cell title="昵称" is-link center title-width="80px">
           <input v-model="nickName_edit" class="text-right text-sm" type="nickname" @blur="onBlur">
         </wd-cell>
       </div>
 
       <div class="rounded-2xl bg-white p-2">
-        <wd-cell is-link :clickable="false">
-          <template #title>
-            <button class="reset-button w-full text-left" open-type="contact">
-              在线客服
-            </button>
-          </template>
-        </wd-cell>
-        <wd-cell is-link :clickable="false">
-          <template #title>
-            <button class="reset-button w-full text-left" open-type="feedback">
-              意见反馈
-            </button>
-          </template>
-        </wd-cell>
+        <button class="reset-button" open-type="contact">
+          <wd-cell is-link :clickable="false" title="在线客服" />
+        </button>
+        <button class="reset-button" open-type="feedback">
+          <wd-cell is-link :clickable="false" title="意见反馈" />
+        </button>
       </div>
       <div class="rounded-2xl bg-white p-2">
         <wd-cell title-width="80px" title="备案号" value="皖ICP备2024069565号-1X" />
@@ -94,8 +86,10 @@ const onBlur = async () => {
 }
 </style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationBarTitleText": "设置"
   }
-}</route>
+}
+</route>

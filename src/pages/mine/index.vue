@@ -99,16 +99,18 @@ onShareAppMessage(() => {
             <div class="i-bx-like mx-2 text-lg text-red" />
           </template>
         </wd-cell> -->
-        <wd-cell is-link>
+        <!-- <wd-cell title="夸夸礼记" is-link @click="openComment">
           <template #icon>
-            <div class="i-ri-wechat-fill pr-4 text-lg text-green" />
+            <div class="i-bx-like mx-2 text-lg text-red" />
           </template>
-          <template #title>
-            <button class="reset-button w-full text-left" open-type="share">
-              分享好友
-            </button>
-          </template>
-        </wd-cell>
+        </wd-cell> -->
+        <button class="reset-button" open-type="share">
+          <wd-cell is-link title="分享好友">
+            <template #icon>
+              <div class="i-ri-wechat-fill pr-4 text-lg text-green" />
+            </template>
+          </wd-cell>
+        </button>
         <wd-cell title="常见问题" is-link to="/pages/faq/index">
           <template #icon>
             <div class="i-ic-round-question-answer mx-2 text-lg text-blue" />
