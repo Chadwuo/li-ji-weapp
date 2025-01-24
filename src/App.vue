@@ -13,6 +13,10 @@ onLaunch(async () => {
       url: `/pages/exception/500?error=${error}`,
     })
   }
+
+  // uni.redirectTo({
+  //   url: `/pages/migrate/index`,
+  // })
 })
 onShow(() => {
 })

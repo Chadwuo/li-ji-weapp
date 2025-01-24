@@ -15,7 +15,7 @@ export function apiGiftInGet(data: any) {
 }
 
 export function apiGiftInPut(data: any) {
-  return request<Api.GiftIn>({
+  return request<boolean>({
     url: 'gift-in',
     method: 'PUT',
     data,
@@ -23,7 +23,7 @@ export function apiGiftInPut(data: any) {
 }
 
 export function apiGiftInPost(data: any) {
-  return request<Api.GiftIn>({
+  return request<string>({
     url: 'gift-in',
     method: 'POST',
     data,
@@ -31,7 +31,7 @@ export function apiGiftInPost(data: any) {
 }
 
 export function apiGiftInDelete(data: any) {
-  return request<Api.GiftIn>({
+  return request<boolean>({
     url: 'gift-in',
     method: 'DELETE',
     data,

@@ -15,7 +15,7 @@ export function apiFriendGet(data: any) {
 }
 
 export function apiFriendPut(data: any) {
-  return request<Api.Friend>({
+  return request<boolean>({
     url: 'friend',
     method: 'PUT',
     data,
@@ -23,7 +23,7 @@ export function apiFriendPut(data: any) {
 }
 
 export function apiFriendPost(data: any) {
-  return request<Api.Friend>({
+  return request<string>({
     url: 'friend',
     method: 'POST',
     data,
@@ -31,7 +31,7 @@ export function apiFriendPost(data: any) {
 }
 
 export function apiFriendDelete(data: any) {
-  return request<Api.Friend>({
+  return request<boolean>({
     url: 'friend',
     method: 'DELETE',
     data,

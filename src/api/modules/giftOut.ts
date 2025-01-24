@@ -15,7 +15,7 @@ export function apiGiftOutGet(data: any) {
 }
 
 export function apiGiftOutPut(data: any) {
-  return request<Api.GiftOut>({
+  return request<boolean>({
     url: 'gift-out',
     method: 'PUT',
     data,
@@ -23,7 +23,7 @@ export function apiGiftOutPut(data: any) {
 }
 
 export function apiGiftOutPost(data: any) {
-  return request<Api.GiftOut>({
+  return request<string>({
     url: 'gift-out',
     method: 'POST',
     data,
@@ -31,7 +31,7 @@ export function apiGiftOutPost(data: any) {
 }
 
 export function apiGiftOutDelete(data: any) {
-  return request<Api.GiftOut>({
+  return request<boolean>({
     url: 'gift-out',
     method: 'DELETE',
     data,

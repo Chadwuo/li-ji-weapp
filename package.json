@@ -46,6 +46,7 @@
     "postinstall": "npx simple-git-hooks"
   },
   "dependencies": {
+    "@alicloud/mpserverless-sdk": "^3.1.5",
     "@climblee/uv-ui": "^1.1.20",
     "@dcloudio/uni-app": "3.0.0-4020920240930001",
     "@dcloudio/uni-app-plus": "3.0.0-4020920240930001",

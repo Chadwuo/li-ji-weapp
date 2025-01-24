@@ -14,7 +14,7 @@ export function apiUserFamilyGet(data: any) {
 }
 
 export function apiUserFamilyPost(data: any) {
-  return request({
+  return request<string>({
     url: 'user-family',
     method: 'POST',
     data,
@@ -22,7 +22,7 @@ export function apiUserFamilyPost(data: any) {
 }
 
 export function apiUserFamilyDelete(data: any) {
-  return request({
+  return request<boolean>({
     url: 'user-family',
     method: 'DELETE',
     data,
