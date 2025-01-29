@@ -20,6 +20,7 @@ $uv-primary: #f87171;
 
 // 去除button的所有默认样式，让其表现跟普通的view、text元素一样
 .reset-button {
+	display: inline;
 	/* 移除内外边距 */
 	margin: 0;
 	padding: 0;

@@ -27,9 +27,7 @@ onLoad((option) => {
 
 const editSuccess = () => {
   eventChannel.emit('editSuccess')
-  setTimeout(() => {
-    uni.navigateBack()
-  }, 600)
+  uni.navigateBack()
 }
 
 const onSubmit = async () => {
