@@ -7,11 +7,16 @@ const mpserverless = new MPServerless(wx, options)
 
 const msg = ref('ok')
 const percentage = ref(0)
-const userDataScope = ['631b3268e1a35c188109245b', '631c5acbe1a35c1881094aa4']
+const userDataScope = ''
 onLoad(async () => {
   await mpserverless.init()
 
-  wx.getLaunchOptionsSync()
+  const { referrerInfo } = wx.getLaunchOptionsSync()
+  if (referrerInfo) {
+    userDataScope = referrerInfo.extraData
+    if (!userDataScope)
+      star()
+  }
 })
 
 const getCollection = async (table) => {
@@ -132,18 +137,18 @@ const star = async () => {
   await Promise.all(promises4)
   // --------------------------------------------------
 
-  // const promises5 = userDataScope.map(async (element) => {
-  //     try {
-  //         await db.collection('user').updateOne({
-  //             _id: element,
-  //         }, {
-  //             $set: { migrate: true },
-  //         })
-  //     } catch (error) {
-  //         console.error(`用户 ${element._id} 状态更新时出错:`, error);
-  //     }
-  // });
-  // await Promise.all(promises5);
+  const promises5 = userDataScope.map(async (element) => {
+    try {
+      await db.collection('user').updateOne({
+        _id: element,
+      }, {
+        $set: { migrate: true },
+      })
+    } catch (error) {
+      console.error(`用户 ${element._id} 状态更新时出错:`, error);
+    }
+  });
+  await Promise.all(promises5);
   percentage.value = 100
   msg.value = 'ok'
 }
@@ -159,9 +164,6 @@ const welcome = () => {
   <div v-if="msg !== 'ok'" class="h-full flex flex-col items-center justify-center">
     <div class="i-dashicons-update text-12" />
     <div class="mt-8 text-center">
-      <wd-button @click="star">
-        开始
-      </wd-button>
       <div class="text-xl">
         正在同步
       </div>
@@ -196,10 +198,8 @@ const welcome = () => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">
-{
-    "style": {
-        "navigationStyle": "custom"
-    }
-}
-</route>
+<route lang="json">{
+  "style": {
+    "navigationStyle": "custom"
+  }
+}</route>

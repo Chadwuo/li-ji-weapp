@@ -139,17 +139,19 @@ const handleFriendDel = () => {
   <div class="mx-3">
     <div v-if="loading" class="rounded-2xl bg-white p-5">
       <wd-skeleton
-        :row-col="[{ width: '30%' }, { width: '50%' }, [{ width: '0' }, { width: '30%' }, { width: '0' }], { width: '0' }, [{ width: '0' }, { width: '20%' }, { width: '20%' }, { width: '0' }]]"
-      />
+        :row-col="[{ width: '30%' }, { width: '50%' }, [{ width: '0' }, { width: '30%' }, { width: '0' }], { width: '0' }, [{ width: '0' }, { width: '20%' }, { width: '20%' }, { width: '0' }]]" />
     </div>
     <div v-else class="rounded-2xl bg-white p-5 space-y-3">
-      <div class="flex items-center justify-between">
+      <div class="flex justify-between">
         <div>
           <div class="text-lg font-bold">
             {{ friend.name }}
           </div>
           <div class="mt-1 text-sm text-gray">
-            <span>{{ friend.relation }}</span>
+            关系：{{ friend.relation }}
+          </div>
+          <div class="mt-1 text-sm text-gray">
+            备注：{{ friend.remarks }}
           </div>
         </div>
         <div class="flex text-xl text-red font-bold">
@@ -165,8 +167,7 @@ const handleFriendDel = () => {
         <span class="text-lg font-bold" :class="statisticsData.happyTotal >= statisticsData.sadTotal
           ? 'text-red'
           : 'text-green'
-        "
-        >
+          ">
           {{ statisticsData.happyTotal - statisticsData.sadTotal }}
         </span>
         <span class="text-sm">(收支差)</span>
@@ -328,10 +329,8 @@ const handleFriendDel = () => {
 }
 </style>
 
-<route lang="json">
-{
+<route lang="json">{
   "style": {
     "navigationBarTitleText": "详情"
   }
-}
-</route>
+}</route>
