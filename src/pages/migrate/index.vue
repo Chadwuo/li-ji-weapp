@@ -8,16 +8,6 @@ const mpserverless = new MPServerless(wx, options)
 const msg = ref('ok')
 const percentage = ref(0)
 const userDataScope = ''
-onLoad(async () => {
-  await mpserverless.init()
-
-  const { referrerInfo } = wx.getLaunchOptionsSync()
-  if (referrerInfo) {
-    userDataScope = referrerInfo.extraData
-    if (!userDataScope)
-      star()
-  }
-})
 
 const getCollection = async (table) => {
   const db = mpserverless.db
@@ -60,6 +50,11 @@ const getCollection = async (table) => {
   }, [])
 }
 
+const welcome = () => {
+  uni.switchTab({
+    url: '/pages/book/page',
+  })
+}
 const star = async () => {
   const friends = await getCollection('friend')
   const books = await getCollection('book')
@@ -144,20 +139,26 @@ const star = async () => {
       }, {
         $set: { migrate: true },
       })
-    } catch (error) {
-      console.error(`用户 ${element._id} 状态更新时出错:`, error);
     }
-  });
-  await Promise.all(promises5);
+    catch (error) {
+      console.error(`用户 ${element._id} 状态更新时出错:`, error)
+    }
+  })
+  await Promise.all(promises5)
   percentage.value = 100
   msg.value = 'ok'
 }
 
-const welcome = () => {
-  uni.switchTab({
-    url: '/pages/book/page',
-  })
-}
+onLoad(async () => {
+  await mpserverless.init()
+
+  const { referrerInfo } = wx.getLaunchOptionsSync()
+  if (referrerInfo) {
+    userDataScope = referrerInfo.extraData
+    if (!userDataScope)
+      star()
+  }
+})
 </script>
 
 <template>
@@ -198,8 +199,10 @@ const welcome = () => {
 
 <style lang="scss" scoped></style>
 
-<route lang="json">{
+<route lang="json">
+{
   "style": {
     "navigationStyle": "custom"
   }
-}</route>
+}
+</route>
