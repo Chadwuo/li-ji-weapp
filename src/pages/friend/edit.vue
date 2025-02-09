@@ -2,8 +2,6 @@
 import { friendCategory } from '@/constants/app'
 
 const columns = friendCategory.map(i => ({ name: i, value: i }))
-const instance: any = getCurrentInstance()
-const eventChannel = instance.proxy.getOpenerEventChannel()
 const dataSource = ref<Api.Friend>({})
 onLoad((option) => {
   if (option?.id) {
@@ -21,10 +19,7 @@ const validInput = computed(() => {
 })
 
 const loading = ref(false)
-const editSuccess = () => {
-  eventChannel.emit('editSuccess')
-  uni.navigateBack()
-}
+
 const onSubmit = async () => {
   loading.value = true
   const api = dataSource.value.id ? apiFriendPut : apiFriendPost
@@ -34,7 +29,7 @@ const onSubmit = async () => {
       title: `${dataSource.value.id ? '更新' : '新增'}成功`,
       icon: 'success',
     })
-    editSuccess()
+    uni.navigateBack()
   }
   loading.value = false
 }

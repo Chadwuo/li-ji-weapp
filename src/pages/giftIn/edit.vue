@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { useMessage } from 'wot-design-uni'
-
-const instance: any = getCurrentInstance()
-const eventChannel = instance.proxy.getOpenerEventChannel()
-const message = useMessage()
 const loading = ref(false)
 const dataSource = ref<Api.GiftIn>({})
 const validInput = computed(() => {
@@ -25,11 +20,6 @@ onLoad((option) => {
   }
 })
 
-const editSuccess = () => {
-  eventChannel.emit('editSuccess')
-  uni.navigateBack()
-}
-
 const onSubmit = async () => {
   loading.value = true
   const api = dataSource.value.id ? apiGiftInPut : apiGiftInPost
@@ -39,27 +29,10 @@ const onSubmit = async () => {
       title: `${dataSource.value.id ? '更新' : '新增'}成功`,
       icon: 'success',
     })
-    editSuccess()
+    uni.navigateBack()
   }
 
   loading.value = false
-}
-
-const onDel = () => {
-  message.confirm({
-    msg: '此操作无法恢复，确定删除？',
-    title: '删除来往记录',
-  }).then(async () => {
-    const res = await apiGiftInDelete({ id: dataSource.value.id })
-    if (res.succeeded) {
-      uni.showToast({
-        title: '删除成功',
-        icon: 'success',
-      })
-
-      editSuccess()
-    }
-  })
 }
 
 const onSelectFriend = () => {
@@ -71,12 +44,6 @@ const onSelectFriend = () => {
         dataSource.value.friendName = e.name
       },
     },
-  })
-}
-
-const navigateToFriendDetailPage = (id: string) => {
-  uni.navigateTo({
-    url: `/pages/friend/detail?id=${id}`,
   })
 }
 </script>
@@ -105,11 +72,6 @@ const navigateToFriendDetailPage = (id: string) => {
 
         <uv-form-item>
           <div class="w-full flex space-x-4">
-            <div v-if="dataSource.id" class="w-40">
-              <wd-button plain @click="onDel">
-                删除
-              </wd-button>
-            </div>
             <div class="w-full">
               <wd-button block :loading="loading" loading-color="#F87171" :disabled="!validInput" @click="onSubmit">
                 保存
@@ -118,9 +80,6 @@ const navigateToFriendDetailPage = (id: string) => {
           </div>
         </uv-form-item>
       </uv-form>
-    </div>
-    <div v-if="dataSource.friendId" class="mt-3 rounded-2xl bg-white p-1">
-      <uv-cell title="查看往来记录" is-link :border="false" @click="navigateToFriendDetailPage(dataSource.friendId)" />
     </div>
   </div>
 </template>

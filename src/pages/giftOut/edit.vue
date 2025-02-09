@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { giftCategory } from '@/constants/app'
-import { useMessage } from 'wot-design-uni'
 
 // '结婚': 'i-bi-postcard-heart',
 // '宝宝': 'i-mingcute-baby-line',
@@ -14,9 +13,6 @@ import { useMessage } from 'wot-design-uni'
 // '其他': 'i-mingcute-wallet-2-line',
 const columns = Object.entries(giftCategory)
   .map(([name, icon]) => ({ name, icon }))
-const instance: any = getCurrentInstance()
-const eventChannel = instance.proxy.getOpenerEventChannel()
-const message = useMessage()
 const dataSource = ref<Api.GiftOut>({})
 
 const calendarRef = ref<any>(null)
@@ -30,6 +26,7 @@ const validInput = computed(() => {
     && dataSource.value.title
   )
 })
+
 onLoad((option) => {
   if (option?.id) {
     uni.setNavigationBarTitle({
@@ -55,11 +52,6 @@ const selectedIconStyle = computed(() => {
     : 'text-white bg-gray'
 })
 
-const editSuccess = () => {
-  eventChannel.emit('editSuccess')
-  uni.navigateBack()
-}
-
 const onSubmit = async () => {
   loading.value = true
   const api = dataSource.value.id ? apiGiftOutPut : apiGiftOutPost
@@ -69,27 +61,10 @@ const onSubmit = async () => {
       title: `${dataSource.value.id ? '更新' : '新增'}成功`,
       icon: 'success',
     })
-    editSuccess()
+    uni.navigateBack()
   }
 
   loading.value = false
-}
-
-const onDel = () => {
-  message.confirm({
-    msg: '此操作无法恢复，确定删除？',
-    title: '删除来往记录',
-  }).then(async () => {
-    const res = await apiGiftOutDelete({ id: dataSource.value.id })
-    if (res.succeeded) {
-      uni.showToast({
-        title: '删除成功',
-        icon: 'success',
-      })
-
-      editSuccess()
-    }
-  })
 }
 
 const onSelectFriend = () => {
@@ -113,12 +88,6 @@ const confirmCalendar = (e: any) => {
 
 const openCalendar = () => {
   calendarRef.value.open()
-}
-
-const navigateToFriendDetailPage = (id: string) => {
-  uni.navigateTo({
-    url: `/pages/friend/detail?id=${id}`,
-  })
 }
 </script>
 
@@ -166,25 +135,15 @@ const navigateToFriendDetailPage = (id: string) => {
           <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容" />
         </uv-form-item>
         <uv-form-item>
-          <div class="w-full flex space-x-4">
-            <div v-if="dataSource.id" class="w-40">
-              <wd-button plain @click="onDel">
-                删除
-              </wd-button>
-            </div>
-            <div class="w-full">
-              <wd-button block :loading="loading" loading-color="#F87171" :disabled="!validInput" @click="onSubmit">
-                保存
-              </wd-button>
-            </div>
+          <div class="w-full">
+            <wd-button block :loading="loading" loading-color="#F87171" :disabled="!validInput" @click="onSubmit">
+              保存
+            </wd-button>
           </div>
         </uv-form-item>
       </uv-form>
     </div>
 
-    <div v-if="dataSource.friendId" class="mt-3 rounded-2xl bg-white p-1">
-      <uv-cell title="查看往来记录" is-link :border="false" @click="navigateToFriendDetailPage(dataSource.friendId)" />
-    </div>
     <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
                   @confirm="confirmCalendar"
     />

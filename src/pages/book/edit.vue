@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const instance: any = getCurrentInstance()
-const eventChannel = instance.proxy.getOpenerEventChannel()
 const calendarRef = ref<any>(null)
 const dataSource = ref<Api.GiftBook>({})
 const validInput = computed(() => {
@@ -11,7 +9,7 @@ const loading = ref(false)
 onLoad((option) => {
   if (option?.id) {
     uni.setNavigationBarTitle({
-      title: '编辑',
+      title: '更新礼簿',
     })
     apiGiftBookGet({ id: option.id }).then((res) => {
       if (res.succeeded && res.data)
@@ -20,23 +18,31 @@ onLoad((option) => {
   }
 })
 
-const editSuccess = () => {
-  eventChannel.emit('editSuccess')
-  setTimeout(() => {
-    uni.navigateBack()
-  }, 600)
-}
-
 const onSubmit = async () => {
   loading.value = true
-  const api = dataSource.value.id ? apiGiftBookPut : apiGiftBookPost
-  const res = await api(dataSource.value)
-  if (res.succeeded) {
-    uni.showToast({
-      title: `${dataSource.value.id ? '更新' : '新增'}成功`,
-      icon: 'success',
-    })
-    editSuccess()
+  if (dataSource.value.id) {
+    const res = await apiGiftBookPut(dataSource.value)
+    if (res.succeeded) {
+      uni.showToast({
+        title: '更新成功',
+        icon: 'success',
+      })
+      setTimeout(() => {
+        uni.navigateBack()
+      }, 600)
+    }
+  }
+  else {
+    const res = await apiGiftBookPost(dataSource.value)
+    if (res.succeeded) {
+      uni.showToast({
+        title: '新增成功',
+        icon: 'success',
+      })
+      uni.redirectTo({
+        url: `/pages/book/detail?id=${res.data}`,
+      })
+    }
   }
   loading.value = false
 }
@@ -97,7 +103,7 @@ const openCalendar = () => {
 <route lang="json">
 {
   "style": {
-    "navigationBarTitleText": "新增"
+    "navigationBarTitleText": "新增礼簿"
   }
 }
 </route>

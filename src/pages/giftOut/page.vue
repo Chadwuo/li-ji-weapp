@@ -2,6 +2,7 @@
 import { giftCategory } from '@/constants/app'
 import { useLoadMore } from 'vue-request'
 
+const loading = ref(false)
 const columns = [
   { name: '全部', value: '' },
   ...Object.entries(giftCategory).map(([name, icon]) => ({ name, value: icon })),
@@ -11,7 +12,7 @@ const search = ref({
   icon: '',
   showAction: false,
 })
-const { dataList, loading, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftOut>>(
+const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftOut>>(
   async (d) => {
     const _page = d?.page ? d.page + 1 : 1
     const response = await apiGiftOutPageGet({
@@ -40,8 +41,13 @@ const onTabsClick = (item: any) => {
   refreshAsync()
 }
 
-onShow(() => {
-  refreshAsync()
+onLoad(() => {
+  loading.value = true
+})
+
+onShow(async () => {
+  await refreshAsync()
+  loading.value = false
 })
 
 onPullDownRefresh(async () => {
@@ -70,22 +76,12 @@ function searchCancel() {
 const handleGiftClick = (id?: string) => {
   if (id) {
     uni.navigateTo({
-      url: `/pages/giftOut/edit?id=${id}`,
-      events: {
-        editSuccess: () => {
-          refreshAsync()
-        },
-      },
+      url: `/pages/giftOut/detail?id=${id}`,
     })
   }
   else {
     uni.navigateTo({
       url: '/pages/giftOut/edit',
-      events: {
-        editSuccess: () => {
-          refreshAsync()
-        },
-      },
     })
   }
 }
@@ -106,7 +102,7 @@ const handleGiftClick = (id?: string) => {
       </template>
     </wd-navbar>
     <div>
-      <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
+      <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left light
                  @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
       />
       <uv-tabs :list="columns" line-color="#f87171" @click="onTabsClick" />

@@ -54,9 +54,12 @@ onLoad(async (option) => {
   loading.value = true
   if (option?.id) {
     book.value.id = option.id
-    await loadData()
-    await refreshAsync()
   }
+})
+
+onShow(async () => {
+  await loadData()
+  await refreshAsync()
   loading.value = false
 })
 
@@ -80,22 +83,12 @@ function searchCancel() {
 const handleGiftClick = (gid?: string) => {
   if (gid) {
     uni.navigateTo({
-      url: `/pages/giftIn/edit?id=${gid}`,
-      events: {
-        editSuccess: () => {
-          refreshAsync()
-        },
-      },
+      url: `/pages/giftIn/detail?id=${gid}`,
     })
   }
   else {
     uni.navigateTo({
       url: `/pages/giftIn/edit?bookId=${book.value.id}`,
-      events: {
-        editSuccess: () => {
-          refreshAsync()
-        },
-      },
     })
   }
 }
@@ -103,11 +96,6 @@ const handleGiftClick = (gid?: string) => {
 const handleBookEdit = () => {
   uni.navigateTo({
     url: `/pages/book/edit?id=${book.value.id}`,
-    events: {
-      editSuccess: () => {
-        loadData()
-      },
-    },
   })
 }
 
