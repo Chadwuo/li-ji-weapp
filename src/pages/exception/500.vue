@@ -10,7 +10,7 @@ const onRetry = () => {
 
 <template>
   <div class="h-full flex flex-col items-center justify-center text-gray">
-    <div class="i-tabler-error-404 text-12" />
+    <div class="i-hugeicons-wifi-error-01 text-12" />
     <div class="mt-8 text-sm">
       啊哦，出现了一个小错误，请稍后再试~
     </div>

@@ -59,7 +59,7 @@ onShareAppMessage(() => {
             {{ jinrishici }}
           </div>
         </div>
-        <div class="i-ri-settings-line ml-auto text-lg" />
+        <div class="i-hugeicons-settings-03 ml-auto text-lg" />
       </div>
       <div class="grid grid-cols-2 gap-5 rounded-2xl bg-white p-5 divide-x">
         <div class="text-center">
@@ -89,36 +89,36 @@ onShareAppMessage(() => {
         </wd-cell>
         <wd-cell v-else title="开通家人共享" is-link to="/pages/family/index">
           <template #icon>
-            <div class="i-material-symbols:family-home mx-2 text-lg text-red" />
+            <div class="i-hugeicons-home-12 mx-2 text-lg text-red" />
           </template>
         </wd-cell>
       </div>
       <div class="rounded-2xl bg-white p-2 space-y-3">
         <!-- <wd-cell title="支持礼记" is-link to="/pages/subscription/index">
           <template #icon>
-            <div class="i-bx-like mx-2 text-lg text-red" />
+            <div class="i-hugeicons-thumbs-up mx-2 text-lg text-red" />
           </template>
         </wd-cell> -->
         <!-- <wd-cell title="夸夸礼记" is-link @click="openComment">
           <template #icon>
-            <div class="i-bx-like mx-2 text-lg text-red" />
+            <div class="i-hugeicons-thumbs-up mx-2 text-lg text-red" />
           </template>
         </wd-cell> -->
         <button class="reset-button" open-type="share">
           <wd-cell is-link title="分享好友">
             <template #icon>
-              <div class="i-ri-wechat-fill pr-4 text-lg text-green" />
+              <div class="i-hugeicons-share-01 pr-4 text-lg text-green" />
             </template>
           </wd-cell>
         </button>
         <wd-cell title="常见问题" is-link to="/pages/faq/index">
           <template #icon>
-            <div class="i-ic-round-question-answer mx-2 text-lg text-blue" />
+            <div class="i-hugeicons-bubble-chat-question mx-2 text-lg text-blue" />
           </template>
         </wd-cell>
         <wd-cell title="个人设置" is-link to="/pages/settings/index">
           <template #icon>
-            <div class="i-mingcute-settings-1-fill mx-2 text-lg text-gray" />
+            <div class="i-hugeicons-settings-03 mx-2 text-lg text-gray" />
           </template>
         </wd-cell>
       </div>

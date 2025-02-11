@@ -2,11 +2,11 @@
 import { giftCategory } from '@/constants/app'
 
 // '结婚': 'i-bi-postcard-heart',
-// '宝宝': 'i-mingcute-baby-line',
+// '宝宝': 'i-hugeicons-baby-01',
 // '周岁': 'i-icon-park-outline-baby-feet',
 // '乔迁': 'i-tabler-home-move',
 // '生日': 'i-mingcute-cake-line',
-// '升学': 'i-carbon-education',
+// '升学': 'i-hugeicons-student',
 // '福寿': 'i-mingcute-blessing-line',
 // '探望': 'i-healthicons-fruits-outline',
 // '白事': 'i-tabler-candle',
@@ -122,7 +122,7 @@ const openCalendar = () => {
                     disabled-color="#fff"
           />
           <template #right>
-            <div v-show="!dataSource.id" class="i-system-uicons-contacts text-lg text-gray" @click="onSelectFriend" />
+            <div v-show="!dataSource.id" class="i-hugeicons-contact-01 text-lg text-gray" @click="onSelectFriend" />
           </template>
         </uv-form-item>
         <uv-form-item label="事由">

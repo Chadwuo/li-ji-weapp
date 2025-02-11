@@ -180,7 +180,7 @@ onLoad(async () => {
     </div>
   </div>
   <div v-else class="h-full flex flex-col items-center justify-center text-gray">
-    <div class="i-flat-color-icons-ok text-12" />
+    <div class="i-hugeicons-checkmark-circle-01 text-12" />
     <div class="mt-8 text-sm">
       数据同步完成，如需帮助，请联系
       <div class="inline text-red font-bold">

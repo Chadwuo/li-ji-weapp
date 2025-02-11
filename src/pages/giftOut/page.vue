@@ -96,7 +96,7 @@ const handleGiftClick = (id?: string) => {
             送礼
           </div>
           <div class="p-2" @click="handleGiftClick()">
-            <div class="i-carbon-add-alt text-red" />
+            <div class="i-hugeicons-plus-sign-circle text-red" />
           </div>
         </div>
       </template>

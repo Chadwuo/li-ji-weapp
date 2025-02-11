@@ -139,19 +139,19 @@ const handleBookDel = () => {
         </div>
         <div class="flex text-xl" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
           <div class="py-2 pl-2" @click="handleBookDel">
-            <div class="i-ant-design-delete-outlined" />
+            <div class="i-hugeicons-delete-02" />
           </div>
           <div class="py-2 pl-2" @click="handleBookEdit">
-            <div class="i-ant-design-edit-outlined" />
+            <div class="i-hugeicons-edit-01" />
           </div>
         </div>
       </div>
       <div class="flex items-end">
         <div class="i-mingcute-wallet-2-line p-1" />
-        <div class="text-sm font-bold">
+        <div class="ml-1 text-sm font-bold">
           礼金：<span class="text-xl">{{ book.moneyTotal }}</span>
         </div>
-        <div class="ml-auto py-2 pl-2 text-gray" @click="() => popupShow = true">
+        <div class="ml-auto p-1 text-gray" @click="() => popupShow = true">
           <div class="i-ant-design-info-circle-filled" />
         </div>
       </div>
@@ -161,7 +161,7 @@ const handleBookDel = () => {
             {{ book.giftCount }}
           </div>
           <div class="flex items-center justify-center text-xs text-gray space-x-1">
-            <div class="i-carbon-home" />
+            <div class="i-hugeicons-home-12" />
             <div>亲友</div>
           </div>
         </div>
@@ -188,7 +188,7 @@ const handleBookDel = () => {
             {{ netAmount }}
           </div>
           <div class="flex items-center justify-center text-xs text-gray space-x-1">
-            <div class="i-carbon-wallet" />
+            <div class="i-hugeicons-bitcoin-wallet" />
             <div>合计</div>
           </div>
         </div>
@@ -203,7 +203,7 @@ const handleBookDel = () => {
           />
         </div>
 
-        <div v-if="!search.showAction" class="i-carbon-add-alt mr-3 pr-2 text-xl"
+        <div v-if="!search.showAction" class="i-hugeicons-plus-sign-circle mr-3 pr-2 text-xl"
              :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']" @click="handleGiftClick()"
         />
       </div>

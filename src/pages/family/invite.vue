@@ -63,7 +63,7 @@ const onReject = () => {
       <div class="mt-10 space-y-xl">
         <div class="flex items-center">
           <div class="m-3 text-red">
-            <i class="i-tabler-device-mobile-share text-3xl" />
+            <i class="i-hugeicons-share-01 text-3xl" />
           </div>
           <div>
             <div class="font-bold">
@@ -76,7 +76,7 @@ const onReject = () => {
         </div>
         <div class="flex items-center">
           <div class="m-3 text-red">
-            <i class="i-tabler-lock-heart text-3xl" />
+            <i class="i-hugeicons-blocked text-3xl" />
           </div>
           <div>
             <div class="font-bold">

@@ -87,13 +87,13 @@ const onFriendClick = (id?: string) => {
             亲友
           </div>
           <div class="p-2" @click="onFriendClick()">
-            <div class="i-carbon-add-alt text-red" />
+            <div class="i-hugeicons-plus-sign-circle text-red" />
           </div>
         </div>
       </template>
     </wd-navbar>
     <div>
-      <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
+      <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left light
                  @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
       />
       <uv-tabs :list="columns" line-color="#f87171" @click="onTabsClick" />

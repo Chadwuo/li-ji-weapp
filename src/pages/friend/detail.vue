@@ -161,10 +161,10 @@ const handleFriendDel = () => {
         </div>
         <div class="flex text-xl text-red font-bold">
           <div class="py-2 pl-2" @click="handleFriendDel">
-            <div class="i-ant-design-delete-outlined" />
+            <div class="i-hugeicons-delete-02" />
           </div>
           <div class="py-2 pl-2" @click="handleFriendEdit">
-            <div class="i-carbon-edit" />
+            <div class="i-hugeicons-edit-01" />
           </div>
         </div>
       </div>

@@ -103,7 +103,7 @@ const handleBookClick = (id?: string) => {
           class="h-40 w-full flex flex-col items-center justify-center rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
           @click="handleBookClick()"
         >
-          <div class="i-carbon-add-alt text-3xl text-red font-bold" />
+          <div class="i-hugeicons-plus-sign-circle text-3xl text-red font-bold" />
           <div class="mt-3">
             添加礼簿
           </div>

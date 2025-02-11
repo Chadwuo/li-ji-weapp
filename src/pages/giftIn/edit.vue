@@ -57,7 +57,7 @@ const onSelectFriend = () => {
                     disabled-color="#fff"
           />
           <template #right>
-            <div v-show="!dataSource.id" class="i-system-uicons-contacts text-lg text-gray" @click="onSelectFriend" />
+            <div v-show="!dataSource.id" class="i-hugeicons-contact-01 text-lg text-gray" @click="onSelectFriend" />
           </template>
         </uv-form-item>
         <uv-form-item label="金额">
