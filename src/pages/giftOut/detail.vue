@@ -97,12 +97,6 @@ const navigateToFriendDetailPage = () => {
           <div class="space-y-2">
             <div class="flex">
               <div class="w-18 text-gray">
-                记录编号
-              </div>
-              <div>{{ dataSource.id }}</div>
-            </div>
-            <div class="flex">
-              <div class="w-18 text-gray">
                 创建时间
               </div>
               <div>{{ dataSource.createTime }}</div>

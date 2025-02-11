@@ -4,20 +4,26 @@ const version = miniProgram.version || '4.0'
 </script>
 
 <template>
-  <div class="mx-3 bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_about.webp')] bg-contain bg-no-repeat">
-    <div class="mb-4 pt-18 text-center">
-      <img class="m-auto h-14 w-14" src="/static/logo.png">
-      <div class="my-3">
-        <div class="text-xl font-bold">
+  <div class="bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_about.webp')] bg-contain bg-no-repeat">
+    <div class="mx-10">
+      <div class="w-20 pt-12 text-center">
+        <img class="h-20 w-20" src="/static/logo.png">
+        <div class="mt-5 text-xl font-bold">
           礼记
         </div>
-        <div class="mt-2 text-sm text-gray">
-          v{{ version }} "幽灵倒计时"
+        <div class="mt-2 text-xs text-gray">
+          当前版本 {{ version }}
         </div>
       </div>
-    </div>
-    <div class="indent-8 text-sm leading-relaxed">
-      专注于记录和管理亲友间的收礼、随礼、份子钱、礼金、心意、礼物、红包等，「礼记」理解中国传统文化中的人情世故，支持多维度查询和统计亲友间的往来记录，提供全家人共享的账本功能，您贴心的人情往来数字记账伙伴。
+      <div class="pt-12 leading-loose">
+        指尖的轻触
+        <br>
+        系住年轮诗意的轨迹
+        <br>
+        云端织就人情的绸缎
+        <br>
+        让礼记替我们留下爱的份量
+      </div>
     </div>
   </div>
 </template>

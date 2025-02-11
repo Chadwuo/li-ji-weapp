@@ -62,13 +62,18 @@ const onBlur = async () => {
         </wd-cell>
       </div>
 
-      <div class="rounded-2xl bg-white p-2">
-        <button class="reset-button" open-type="contact">
-          <wd-cell is-link :clickable="false" title="在线客服" />
-        </button>
-        <button class="reset-button" open-type="feedback">
-          <wd-cell is-link :clickable="false" title="意见反馈" />
-        </button>
+      <div>
+        <div class="rounded-2xl bg-white p-2">
+          <button class="reset-button" open-type="contact">
+            <wd-cell is-link :clickable="false" title="在线客服" />
+          </button>
+          <button class="reset-button" open-type="feedback">
+            <wd-cell is-link :clickable="false" title="异常反馈" />
+          </button>
+        </div>
+        <div class="mt-1 px-2 text-xs text-gray">
+          使用异常反馈，向开发者报告App功能异常问题，与开发者共享诊断日志，帮助开发者快速定位问题，改进App。
+        </div>
       </div>
       <div class="rounded-2xl bg-white p-2">
         <wd-cell title-width="80px" title="备案号" value="皖ICP备2024069565号-1X" />
