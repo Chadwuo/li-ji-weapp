@@ -97,7 +97,7 @@
     "eslint": "^9.16.0",
     "lint-staged": "^15.2.10",
     "miniprogram-api-typings": "^4.0.1",
-    "sass": "^1.78.0",
+    "sass": "1.78.0",
     "simple-git-hooks": "^2.11.1",
     "typescript": "~5.5.4",
     "unocss": "^0.64.0",
