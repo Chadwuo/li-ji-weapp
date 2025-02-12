@@ -184,7 +184,6 @@ const handleFriendDel = () => {
             {{ statisticsData.happyTotal }}
           </div>
           <div class="flex items-center justify-center text-sm text-gray space-x-1">
-            <div class="i-icon-park-outline-income" />
             <div>收礼({{ statisticsData.happyCount }})</div>
           </div>
         </div>
@@ -193,7 +192,6 @@ const handleFriendDel = () => {
             {{ statisticsData.sadTotal }}
           </div>
           <div class="flex items-center justify-center text-sm text-gray space-x-1">
-            <div class="i-icon-park-outline:expenses" />
             <div>送礼({{ statisticsData.sadCount }})</div>
           </div>
         </div>
