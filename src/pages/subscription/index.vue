@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia'
 const loading = ref(false)
 const { userInfo } = storeToRefs(useAuthStore())
 const isVip = computed(() => userInfo.value?.isVip)
+const outTradeNumber = ref('')
 const pay = async () => {
   loading.value = true
   const res = await apiWechatPayCreatePayPost({
@@ -66,18 +67,18 @@ const pay = async () => {
 
         <div class="mt-14 text-sm">
           <div v-if="isVip">
-            NO.202502131889816510038499328
+            NO.{{ outTradeNumber }}
           </div>
           <div v-else>
             <span class="font-bold">￥</span>
-            <span class="text-2xl font-bold">29.8</span>
+            <span class="text-2xl font-bold">19.8</span>
             <span class="line-throug ml-2 text-gray">￥68</span>
           </div>
         </div>
       </div>
     </div>
     <div class="mt-6">
-      尊享权益
+      会员权益
     </div>
     <div v-if="!isVip" class="fixed bottom-0 w-full rounded-t-xl bg-white py-6">
       <div class="mx-3">
