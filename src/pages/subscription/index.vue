@@ -3,6 +3,7 @@ import { storeToRefs } from 'pinia'
 
 const loading = ref(false)
 const { userInfo } = storeToRefs(useAuthStore())
+const isVip = computed(() => userInfo.value?.isVip)
 const pay = async () => {
   loading.value = true
   const res = await apiWechatPayCreatePayPost({
@@ -21,9 +22,9 @@ const pay = async () => {
           userInfo.value.isVip = true
         }
       },
-      fail(res) {
+      fail() {
         uni.showToast({
-          title: res.errMsg,
+          title: '支付取消',
           icon: 'none',
         })
       },
@@ -44,7 +45,7 @@ const pay = async () => {
         🎉
       </div>
       <div class="mt-4 text-2xl">
-        永久会员限时优惠活动
+        {{ isVip ? '您已经是VIP了' : '开通永久VIP会员' }}
       </div>
       <div class="mt-2 text-sm text-gray">
         为效率和情怀充值，让你的人情往来记账更高效
@@ -58,19 +59,33 @@ const pay = async () => {
           礼记永久会员权益
         </div>
         <div class="mt-3 flex space-x-3">
-          <div>家庭成员无上限</div>
+          <div>不限共享人数</div>
           <div>VIP身份标识</div>
           <!-- <div>敬请期待</div> -->
         </div>
-        <div class="mt-14 text-2xl font-bold">
-          <span class="text-sm">￥</span> 29.9
+
+        <div class="mt-14 text-sm">
+          <div v-if="isVip">
+            NO.202502131889816510038499328
+          </div>
+          <div v-else>
+            <span class="font-bold">￥</span>
+            <span class="text-2xl font-bold">29.8</span>
+            <span class="line-throug ml-2 text-gray">￥68</span>
+          </div>
         </div>
       </div>
     </div>
-    <div v-if="!userInfo?.isVip" class="mt-auto w-full">
-      <wd-button block :loading="loading" loading-color="#F87171" @click="pay">
-        立即购买
-      </wd-button>
+    <div class="mt-6">
+      尊享权益
+    </div>
+    <div v-if="!isVip" class="fixed bottom-0 w-full rounded-t-xl bg-white py-6">
+      <div class="mx-3">
+        <wd-button block :loading="loading" loading-color="#F87171" @click="pay">
+          立即购买
+        </wd-button>
+      </div>
+      <uv-safe-bottom />
     </div>
   </div>
 </template>
@@ -79,6 +94,7 @@ const pay = async () => {
 
 <route lang="json">
 {
+  "layout": false,
   "style": {
     "navigationBarTitleText": ""
   }
