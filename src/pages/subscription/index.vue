@@ -1,13 +1,30 @@
 <script setup lang="ts">
+import { apiUserSubscriptionGet, apiWxPayCreatePayPost } from '@/api'
 import { storeToRefs } from 'pinia'
 
 const loading = ref(false)
 const { userInfo } = storeToRefs(useAuthStore())
 const isVip = computed(() => userInfo.value?.isVip)
-const outTradeNumber = ref('')
+const userSubscription = ref<Api.UserSubscription>()
+const subscriptionPlan = ref<Api.SubscriptionPlan>()
+
+const loadUserSubscriptionData = async () => {
+  const res = await apiUserSubscriptionGet()
+  if (res.succeeded && res.data) {
+    userSubscription.value = res.data
+  }
+}
+
+const loadSubscriptionPlanData = async () => {
+  const res = await apiSubscriptionPlanGet()
+  if (res.succeeded && res.data) {
+    subscriptionPlan.value = res.data
+  }
+}
+
 const pay = async () => {
   loading.value = true
-  const res = await apiWechatPayCreatePayPost({
+  const res = await apiWxPayCreatePayPost({
     planId: 1,
   })
   if (res.succeeded && res.data) {
@@ -19,9 +36,9 @@ const pay = async () => {
           title: '支付成功 谢谢！',
           icon: 'none',
         })
-        if (userInfo.value) {
+        loadUserSubscriptionData()
+        if (userInfo.value)
           userInfo.value.isVip = true
-        }
       },
       fail() {
         uni.showToast({
@@ -35,6 +52,11 @@ const pay = async () => {
     })
   }
 }
+
+onLoad(async () => {
+  await loadUserSubscriptionData()
+  await loadSubscriptionPlanData
+})
 </script>
 
 <template>
@@ -57,7 +79,7 @@ const pay = async () => {
     >
       <div class="p-5 text-amber">
         <div class="text-2xl font-bold">
-          礼记永久会员权益
+          {{ subscriptionPlan?.title }}
         </div>
         <div class="mt-3 flex space-x-3">
           <div>不限共享人数</div>
@@ -67,11 +89,11 @@ const pay = async () => {
 
         <div class="mt-14 text-sm">
           <div v-if="isVip">
-            NO.{{ outTradeNumber }}
+            NO.{{ userSubscription?.outTradeNumber }}
           </div>
           <div v-else>
             <span class="font-bold">￥</span>
-            <span class="text-2xl font-bold">19.8</span>
+            <span class="text-2xl font-bold">{{ subscriptionPlan?.price }}</span>
             <span class="line-throug ml-2 text-gray">￥68</span>
           </div>
         </div>

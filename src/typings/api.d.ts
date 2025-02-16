@@ -197,6 +197,63 @@ declare namespace Api {
     familyId?: string | null
   }
 
+  interface UserSubscription {
+    /**
+     * 雪花Id
+     * @type {number}
+     * @memberof UserSubscription
+     */
+    id?: number
+    /**
+     * 创建时间
+     * @type {string}
+     * @memberof UserSubscription
+     */
+    createTime?: string
+    /**
+     * 更新时间
+     * @type {string}
+     * @memberof UserSubscription
+     */
+    updateTime?: string | null
+    /**
+     * 商户订单号
+     * @type {string}
+     * @memberof UserSubscription
+     */
+    outTradeNumber: string
+    /**
+     * 支付订单号
+     * @type {string}
+     * @memberof UserSubscription
+     */
+    transactionId?: string | null
+    /**
+     * 交易状态
+     * @type {string}
+     * @memberof UserSubscription
+     */
+    tradeState?: string | null
+    /**
+     * 金额
+     * @type {number}
+     * @memberof UserSubscription
+     */
+    amountTotal?: number
+    /**
+     * 用户支付金额
+     * @type {number}
+     * @memberof UserSubscription
+     */
+    payerTotal?: number | null
+    /**
+     * 用户Id
+     * @type {number}
+     * @memberof UserSubscription
+     */
+    userId?: number
+  }
+
   interface GiftBook {
     /**
      * ID
@@ -506,4 +563,30 @@ declare namespace Api {
     paySign: string
   }
 
+  interface SubscriptionPlan {
+    /**
+     * 雪花Id
+     * @type {number}
+     * @memberof SubscriptionPlan
+     */
+    id?: number
+    /**
+     * 标题
+     * @type {string}
+     * @memberof SubscriptionPlan
+     */
+    title?: string | null
+    /**
+     * 价格
+     * @type {number}
+     * @memberof SubscriptionPlan
+     */
+    price?: number
+    /**
+     * 描述
+     * @type {string}
+     * @memberof SubscriptionPlan
+     */
+    desc?: string | null
+  }
 }

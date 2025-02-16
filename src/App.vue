@@ -4,7 +4,6 @@ onLaunch(async () => {
     const authStore = useAuthStore()
     if (!authStore.isLogin) {
       await authStore.login()
-      await authStore.getUserInfo()
     }
   }
   catch (error) {
