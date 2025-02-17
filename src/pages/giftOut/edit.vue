@@ -120,7 +120,7 @@ const openCalendar = () => {
         <wd-input v-model="dataSource.money" label="金额" prop="money" placeholder="随礼金额" type="number"
                   :rules="[{ required: true, message: '请填写随礼金额' }]"
         />
-        <wd-textarea v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
+        <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
       </wd-form>
       <wd-button block :loading="loading" @click="onSubmit">
         保存

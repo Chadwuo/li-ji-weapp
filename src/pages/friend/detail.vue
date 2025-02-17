@@ -152,9 +152,9 @@ const handleFriendDel = () => {
           <div class="text-lg font-bold">
             {{ friend.name }}
           </div>
-          <div class="mt-1 text-sm text-gray">
+          <div class="mt-1 flex items-center text-sm text-gray">
             关系：
-            <wd-tag type="primary">
+            <wd-tag v-if="friend.tag" type="primary" mark>
               {{ friend.tag }}
             </wd-tag>
           </div>

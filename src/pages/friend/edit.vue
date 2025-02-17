@@ -42,7 +42,7 @@ const onSubmit = async () => {
                   :rules="[{ required: true, message: '请填写亲友姓名' }]"
         />
         <wd-select-picker v-model="dataSource.tag" type="radio" label="标签" :columns="columns" />
-        <wd-textarea v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
+        <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
       </wd-form>
       <wd-button block :loading="loading" @click="onSubmit">
         保存

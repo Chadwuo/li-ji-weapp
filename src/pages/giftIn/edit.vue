@@ -64,7 +64,7 @@ const onSelectFriend = () => {
                   :rules="[{ required: true, message: '请填写随礼金额' }]"
         />
         <wd-input v-model="dataSource.attendance" label="出席" prop="attendance" type="number" placeholder="参加宴席人数" />
-        <wd-textarea v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
+        <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
       </wd-form>
       <wd-button block :loading="loading" @click="onSubmit">
         保存
