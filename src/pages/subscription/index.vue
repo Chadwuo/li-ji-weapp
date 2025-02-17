@@ -34,9 +34,10 @@ const pay = async () => {
       success() {
         uni.showToast({
           title: '支付成功 谢谢！',
-          icon: 'none',
+          icon: 'success',
         })
-        loadUserSubscriptionData()
+        if (userSubscription.value)
+          userSubscription.value.outTradeNumber = res.data?.outTradeNumber || ''
         if (userInfo.value)
           userInfo.value.isVip = true
       },
@@ -55,7 +56,7 @@ const pay = async () => {
 
 onLoad(async () => {
   await loadUserSubscriptionData()
-  await loadSubscriptionPlanData
+  await loadSubscriptionPlanData()
 })
 </script>
 
@@ -83,8 +84,8 @@ onLoad(async () => {
         </div>
         <div class="mt-3 flex space-x-3">
           <div>不限共享人数</div>
-          <div>VIP身份标识</div>
-          <!-- <div>敬请期待</div> -->
+          <div>VIP身份展示</div>
+          <div>专属客服</div>
         </div>
 
         <div class="mt-14 text-sm">
@@ -99,9 +100,9 @@ onLoad(async () => {
         </div>
       </div>
     </div>
-    <div class="mt-6">
+    <!-- <div class="mt-6">
       会员权益
-    </div>
+    </div> -->
     <div v-if="!isVip" class="fixed bottom-0 w-full rounded-t-xl bg-white py-6">
       <div class="mx-3">
         <wd-button block :loading="loading" loading-color="#F87171" @click="pay">

@@ -7,14 +7,7 @@ export const useAuthStore = defineStore(
     const accessToken = ref<string>()
     const refreshToken = ref<string>()
     const userFamilys = ref<Array<Api.UserFamily>>()
-    const userInfo = computed(() => {
-      if (accessToken.value) {
-        const token = accessToken.value.replace(/_/g, '/').replace(/-/g, '+')
-        const json = decodeURIComponent(escape(window.atob(token.split('.')[1])))
-        console.warn(JSON.parse(json))
-        return JSON.parse(json)
-      }
-    })
+    const userInfo = ref<Api.User>()
     const isLogin = computed(() => Boolean(accessToken.value))
 
     const login = async () => {
@@ -39,7 +32,7 @@ export const useAuthStore = defineStore(
     const getUserInfo = async () => {
       const res = await apiUserInfoGet()
       if (res.succeeded && res.data) {
-        // userInfo.value = res.data.userInfo
+        userInfo.value = res.data.userInfo
         userFamilys.value = res.data.userFamilys
       }
       else {
@@ -58,6 +51,8 @@ export const useAuthStore = defineStore(
     }
   },
   {
-    persist: true,
+    persist: {
+      pick: ['accessToken', 'refreshToken'],
+    },
   },
 )

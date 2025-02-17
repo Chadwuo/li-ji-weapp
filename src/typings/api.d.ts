@@ -334,11 +334,11 @@ declare namespace Api {
      */
     firstLetter?: string | null
     /**
-     * 关系
+     * 标签
      * @type {string}
      * @memberof Friend
      */
-    relation?: string | null
+    tag?: string | null
     /**
      * 备注
      * @type {string}

@@ -153,7 +153,10 @@ const handleFriendDel = () => {
             {{ friend.name }}
           </div>
           <div class="mt-1 text-sm text-gray">
-            关系：{{ friend.relation }}
+            关系：
+            <wd-tag type="primary">
+              {{ friend.tag }}
+            </wd-tag>
           </div>
           <div class="mt-1 text-sm text-gray">
             备注：{{ friend.remarks }}
