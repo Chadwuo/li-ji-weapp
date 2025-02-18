@@ -1,19 +1,20 @@
+import { apiWxOpenLoginPost } from '@/api'
 import { defineStore } from 'pinia'
-import { ref, watch } from 'vue'
 
 export const useAuthStore = defineStore(
   'auth',
   () => {
     const accessToken = ref<string>()
     const refreshToken = ref<string>()
-    const userInfo = ref<Api.User>()
     const userFamilys = ref<Array<Api.UserFamily>>()
+    const userInfo = ref<Api.User>()
     const isLogin = computed(() => Boolean(accessToken.value))
+
     const login = async () => {
       // #ifdef MP-WEIXIN
       const { code, errMsg } = await uni.login()
       if (code) {
-        const res = await apiLoginPost(code)
+        const res = await apiWxOpenLoginPost(code)
         if (res.succeeded && res.data) {
           accessToken.value = res.data.accessToken
           refreshToken.value = res.data.refreshToken
@@ -39,18 +40,6 @@ export const useAuthStore = defineStore(
       }
     }
 
-    watch(userFamilys, async (newValue, oldValue) => {
-      const newScope = Array.isArray(newValue) ? newValue.map(i => i.userId) : []
-      const oldScope = Array.isArray(oldValue) ? oldValue.map(i => i.userId) : []
-
-      // 如果新旧不一样，就刷新token
-      if (newScope.join(',') !== oldScope.join(',')) {
-        apiUserRefreshTokenGet()
-      }
-    }, {
-      flush: 'post',
-    })
-
     return {
       isLogin,
       userInfo,
@@ -62,6 +51,8 @@ export const useAuthStore = defineStore(
     }
   },
   {
-    persist: true,
+    persist: {
+      pick: ['accessToken', 'refreshToken'],
+    },
   },
 )

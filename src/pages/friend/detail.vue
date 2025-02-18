@@ -152,8 +152,11 @@ const handleFriendDel = () => {
           <div class="text-lg font-bold">
             {{ friend.name }}
           </div>
-          <div class="mt-1 text-sm text-gray">
-            关系：{{ friend.relation }}
+          <div class="mt-1 flex items-center text-sm text-gray">
+            关系：
+            <wd-tag v-if="friend.tag" type="primary" mark>
+              {{ friend.tag }}
+            </wd-tag>
           </div>
           <div class="mt-1 text-sm text-gray">
             备注：{{ friend.remarks }}
@@ -184,7 +187,6 @@ const handleFriendDel = () => {
             {{ statisticsData.happyTotal }}
           </div>
           <div class="flex items-center justify-center text-sm text-gray space-x-1">
-            <div class="i-icon-park-outline-income" />
             <div>收礼({{ statisticsData.happyCount }})</div>
           </div>
         </div>
@@ -193,7 +195,6 @@ const handleFriendDel = () => {
             {{ statisticsData.sadTotal }}
           </div>
           <div class="flex items-center justify-center text-sm text-gray space-x-1">
-            <div class="i-icon-park-outline:expenses" />
             <div>送礼({{ statisticsData.sadCount }})</div>
           </div>
         </div>
