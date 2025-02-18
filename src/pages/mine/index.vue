@@ -47,10 +47,7 @@ onShareAppMessage(() => {
   <div class="bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_mine.png')] bg-contain bg-no-repeat">
     <div class="mx-3 pt-24 space-y-5">
       <div class="flex items-center" @click="toSettings">
-        <div class="relative">
-          <uv-avatar :src="userInfo?.avatar" :size="55" />
-          <img v-if="userInfo?.isVip" class="absolute bottom-0 left-0" width="55" src="/static/avatar/ring.png">
-        </div>
+        <uv-avatar :src="userInfo?.avatar" :size="55" />
         <div class="ml-3">
           <div class="text-lg">
             {{ welcome() }}，{{ userInfo?.nickName }}
@@ -67,7 +64,6 @@ onShareAppMessage(() => {
             {{ formatMoney(staticData.inTotal) }}
           </div>
           <div class="flex items-center justify-center text-sm text-gray space-x-1">
-            <div class="i-icon-park-outline-income" />
             <div>收礼({{ staticData.inCount }})</div>
           </div>
         </div>
@@ -76,7 +72,6 @@ onShareAppMessage(() => {
             {{ formatMoney(staticData.outTotal) }}
           </div>
           <div class="flex items-center justify-center text-sm text-gray space-x-1">
-            <div class="i-icon-park-outline-expenses" />
             <div>送礼({{ staticData.outCount }})</div>
           </div>
         </div>
@@ -94,11 +89,11 @@ onShareAppMessage(() => {
         </wd-cell>
       </div>
       <div class="rounded-2xl bg-white p-2 space-y-3">
-        <!-- <wd-cell title="支持礼记" is-link to="/pages/subscription/index">
+        <wd-cell title="支持礼记" is-link to="/pages/subscription/index">
           <template #icon>
             <div class="i-hugeicons-thumbs-up mx-2 text-lg text-red" />
           </template>
-        </wd-cell> -->
+        </wd-cell>
         <!-- <wd-cell title="夸夸礼记" is-link @click="openComment">
           <template #icon>
             <div class="i-hugeicons-thumbs-up mx-2 text-lg text-red" />

@@ -37,7 +37,7 @@ export function request<T>(options: UniApp.RequestOptions) {
       fail(err) {
         uni.showToast({
           icon: 'none',
-          title: '网络错误，换个网络试试',
+          title: '网络错误，请稍后再试！',
         })
         reject(err)
       },

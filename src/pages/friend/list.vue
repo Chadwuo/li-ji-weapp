@@ -8,14 +8,14 @@ const columns = [
 const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
 const search = ref({
   keyword: '',
-  relation: '',
+  tag: '',
   showAction: false,
 })
 
 const loadData = async () => {
   apiFriendListGet({
     keyword: search.value.keyword,
-    relation: search.value.relation,
+    tag: search.value.tag,
   }).then((res) => {
     if (res.succeeded) {
       // 根据首字母firstLetter进行分组
@@ -47,7 +47,7 @@ onPullDownRefresh(async () => {
 })
 
 const onTabsClick = (item: any) => {
-  search.value.relation = item.value
+  search.value.tag = item.value
   loadData()
 }
 
@@ -58,7 +58,7 @@ function searchOk() {
 function searchCancel() {
   search.value = {
     keyword: '',
-    relation: '',
+    tag: '',
     showAction: false,
   }
   loadData()

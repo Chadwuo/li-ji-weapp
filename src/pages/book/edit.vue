@@ -1,9 +1,7 @@
 <script setup lang="ts">
 const calendarRef = ref<any>(null)
 const dataSource = ref<Api.GiftBook>({})
-const validInput = computed(() => {
-  return dataSource.value?.date && dataSource.value?.title
-})
+const formRef = ref()
 const loading = ref(false)
 
 onLoad((option) => {
@@ -19,17 +17,18 @@ onLoad((option) => {
 })
 
 const onSubmit = async () => {
+  const { valid } = await formRef.value.validate()
+  if (!valid)
+    return
   loading.value = true
   if (dataSource.value.id) {
     const res = await apiGiftBookPut(dataSource.value)
     if (res.succeeded) {
+      uni.navigateBack()
       uni.showToast({
         title: '更新成功',
-        icon: 'success',
+        icon: 'none',
       })
-      setTimeout(() => {
-        uni.navigateBack()
-      }, 600)
     }
   }
   else {
@@ -37,7 +36,7 @@ const onSubmit = async () => {
     if (res.succeeded) {
       uni.showToast({
         title: '新增成功',
-        icon: 'success',
+        icon: 'none',
       })
       uni.redirectTo({
         url: `/pages/book/detail?id=${res.data}`,
@@ -61,36 +60,21 @@ const openCalendar = () => {
 
 <template>
   <div class="mx-3">
-    <div class="rounded-2xl bg-white p-5">
-      <uv-form label-position="left" label-width="60">
-        <uv-form-item label="日期" @click="openCalendar">
-          <uv-input v-model="dataSource.date" disabled disabled-color="#ffffff" border="none" placeholder="请选择日期" />
-          <template #right>
-            <uv-icon name="arrow-right" />
-          </template>
-        </uv-form-item>
-        <uv-form-item label="名称">
-          <uv-input v-model="dataSource.title" border="none" placeholder="礼簿名称" />
-        </uv-form-item>
-        <uv-form-item label="成本">
-          <uv-input v-model="dataSource.cost" border="none" placeholder="宴席、伴手礼等费用" type="number" />
-        </uv-form-item>
-        <uv-form-item label="备注">
-          <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容" />
-        </uv-form-item>
-        <uv-form-item>
-          <div class="mt-3 text-xs text-gray">
-            一场宴席活动中，用来登记所有来宾贺礼的名册，称为礼簿。
-          </div>
-        </uv-form-item>
-        <uv-form-item>
-          <div class="w-full">
-            <wd-button block :loading="loading" loading-color="#F87171" :disabled="!validInput" @click="onSubmit">
-              保存
-            </wd-button>
-          </div>
-        </uv-form-item>
-      </uv-form>
+    <div class="rounded-2xl bg-white p-2 py-5">
+      <wd-form ref="formRef" :model="dataSource">
+        <wd-input v-model="dataSource.date" label="日期" prop="date" placeholder="请选择日期" suffix-icon="calendar" readonly :rules="[{ required: true, message: '请选择日期' }]"
+                  @click="openCalendar"
+        />
+        <wd-input v-model="dataSource.title" label="名称" prop="title" placeholder="礼簿名称" clearable :rules="[{ required: true, message: '请填写礼簿名称' }]" />
+        <wd-input v-model="dataSource.cost" label="成本" prop="cost" type="number" placeholder="宴席、伴手礼等费用" />
+        <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
+      </wd-form>
+      <div class="my-3 text-xs text-gray">
+        一场宴席活动中，用来登记所有来宾贺礼的名册，称为礼簿。
+      </div>
+      <wd-button block :loading="loading" @click="onSubmit">
+        保存
+      </wd-button>
     </div>
     <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
                   @confirm="confirmCalendar"

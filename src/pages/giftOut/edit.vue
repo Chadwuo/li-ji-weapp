@@ -17,15 +17,7 @@ const dataSource = ref<Api.GiftOut>({})
 
 const calendarRef = ref<any>(null)
 const loading = ref(false)
-
-const validInput = computed(() => {
-  return (
-    dataSource.value.friendName
-    && dataSource.value.date
-    && dataSource.value.money
-    && dataSource.value.title
-  )
-})
+const formRef = ref()
 
 onLoad((option) => {
   if (option?.id) {
@@ -53,15 +45,18 @@ const selectedIconStyle = computed(() => {
 })
 
 const onSubmit = async () => {
+  const { valid } = await formRef.value.validate()
+  if (!valid)
+    return
   loading.value = true
   const api = dataSource.value.id ? apiGiftOutPut : apiGiftOutPost
   const res = await api(dataSource.value)
   if (res.succeeded) {
+    uni.navigateBack()
     uni.showToast({
       title: `${dataSource.value.id ? '更新' : '新增'}成功`,
-      icon: 'success',
+      icon: 'none',
     })
-    uni.navigateBack()
   }
 
   loading.value = false
@@ -109,41 +104,28 @@ const openCalendar = () => {
       </div>
     </div>
 
-    <div class="mt-3 rounded-2xl bg-white p-4">
-      <uv-form label-position="left" label-width="60">
-        <uv-form-item label="日期" @click="openCalendar">
-          <uv-input v-model="dataSource.date" disabled disabled-color="#ffffff" border="none" placeholder="请选择日期" />
-          <template #right>
-            <uv-icon name="arrow-right" />
-          </template>
-        </uv-form-item>
-        <uv-form-item label="亲友">
-          <uv-input v-model="dataSource.friendName" border="none" placeholder="点击右侧图标选择亲友" :disabled="dataSource.id"
-                    disabled-color="#fff"
-          />
-          <template #right>
+    <div class="mt-3 rounded-2xl bg-white px-2 py-5">
+      <wd-form ref="formRef" :model="dataSource">
+        <wd-input v-model="dataSource.date" label="日期" prop="date" placeholder="请选择日期" suffix-icon="calendar" readonly :rules="[{ required: true, message: '请选择日期' }]"
+                  @click="openCalendar"
+        />
+        <wd-input v-model="dataSource.friendName" label="亲友" prop="friendName" placeholder="点击右侧图标选择亲友"
+                  :rules="[{ required: true, message: '请输入亲友姓名' }]"
+        >
+          <template #suffix>
             <div v-show="!dataSource.id" class="i-hugeicons-contact-01 text-lg text-gray" @click="onSelectFriend" />
           </template>
-        </uv-form-item>
-        <uv-form-item label="事由">
-          <uv-input v-model="dataSource.title" border="none" placeholder="随礼事由" />
-        </uv-form-item>
-        <uv-form-item label="金额">
-          <uv-input v-model="dataSource.money" border="none" placeholder="随礼金额" type="number" />
-        </uv-form-item>
-        <uv-form-item label="备注">
-          <uv-input v-model="dataSource.remarks" border="none" placeholder="请输入内容" />
-        </uv-form-item>
-        <uv-form-item>
-          <div class="w-full">
-            <wd-button block :loading="loading" loading-color="#F87171" :disabled="!validInput" @click="onSubmit">
-              保存
-            </wd-button>
-          </div>
-        </uv-form-item>
-      </uv-form>
+        </wd-input>
+        <wd-input v-model="dataSource.title" label="事由" prop="title" placeholder="随礼事由" :rules="[{ required: true, message: '请填写随礼事由' }]" />
+        <wd-input v-model="dataSource.money" label="金额" prop="money" placeholder="随礼金额" type="number"
+                  :rules="[{ required: true, message: '请填写随礼金额' }]"
+        />
+        <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
+      </wd-form>
+      <wd-button block :loading="loading" @click="onSubmit">
+        保存
+      </wd-button>
     </div>
-
     <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
                   @confirm="confirmCalendar"
     />

@@ -125,7 +125,7 @@ const navigateToFriendDetailPage = () => {
       </div>
     </div>
     <div class="mt-3 rounded-2xl bg-white p-1">
-      <uv-cell title="查看往来记录" is-link :border="false" @click="navigateToFriendDetailPage()" />
+      <wd-cell title="查看往来记录" is-link @click="navigateToFriendDetailPage()" />
     </div>
   </div>
 </template>
