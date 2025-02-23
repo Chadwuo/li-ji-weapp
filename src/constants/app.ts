@@ -11,4 +11,4 @@ export const giftCategory: Record<string, string> = {
   其他: 'i-mingcute-wallet-2-line',
 }
 
-export const friendCategory = ['亲戚', '朋友', '同学', '同事', '邻居', '其他']
+export const friendCategory = ['亲戚', '朋友', '同学', '同事']

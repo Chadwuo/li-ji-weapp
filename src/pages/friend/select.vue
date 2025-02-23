@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { friendCategory } from '@/constants/app'
-
-const columns = friendCategory.map(i => ({ name: i, value: i }))
 const instance: any = getCurrentInstance()
 const eventChannel = instance.proxy.getOpenerEventChannel()
 const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
@@ -67,7 +64,7 @@ function searchCancel() {
       <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
                  @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
       />
-      <uv-tabs :list="columns" line-color="#f87171" @click="onTabsClick" />
+      <uv-tabs :list="useAuthStore().friendTabsList" line-color="#f87171" @click="onTabsClick" />
     </div>
     <div class="grow">
       <div v-if="friendsList?.length === 0" class="my-24">

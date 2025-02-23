@@ -26,7 +26,7 @@ const onSubmit = async () => {
     if (res.succeeded) {
       uni.navigateBack()
       uni.showToast({
-        title: '更新成功',
+        title: '保存成功',
         icon: 'none',
       })
     }
@@ -34,10 +34,6 @@ const onSubmit = async () => {
   else {
     const res = await apiGiftBookPost(dataSource.value)
     if (res.succeeded) {
-      uni.showToast({
-        title: '新增成功',
-        icon: 'none',
-      })
       uni.redirectTo({
         url: `/pages/book/detail?id=${res.data}`,
       })

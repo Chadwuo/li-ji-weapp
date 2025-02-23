@@ -1,4 +1,4 @@
-import { apiWxOpenLoginPost } from '@/api'
+import { friendCategory } from '@/constants/app'
 import { defineStore } from 'pinia'
 
 export const useAuthStore = defineStore(
@@ -8,7 +8,14 @@ export const useAuthStore = defineStore(
     const refreshToken = ref<string>()
     const userFamilys = ref<Array<Api.UserFamily>>()
     const userInfo = ref<Api.User>()
+    const friendTags = ref<Array<Api.FriendTag>>([])
     const isLogin = computed(() => Boolean(accessToken.value))
+    const friendTagPickerColumns = computed(() => {
+      return [...friendCategory.map(item => ({ label: item, value: item })), ...friendTags.value.map(item => ({ label: item.name, value: item.name }))]
+    })
+    const friendTabsList = computed(() => {
+      return [{ name: '全部', value: '' }, ...friendCategory.map(item => ({ name: item, value: item })), ...friendTags.value.map(item => ({ name: item.name, value: item }))]
+    })
 
     const login = async () => {
       // #ifdef MP-WEIXIN
@@ -29,25 +36,39 @@ export const useAuthStore = defineStore(
       // #endif
     }
 
-    const getUserInfo = async () => {
+    const setupApp = async () => {
       const res = await apiUserInfoGet()
       if (res.succeeded && res.data) {
-        userInfo.value = res.data.userInfo
-        userFamilys.value = res.data.userFamilys
+        userInfo.value = res.data
       }
       else {
         throw new Error(JSON.stringify(res.errors || 'Request Error.'))
       }
+
+      apiUserFamilyListGet().then((res) => {
+        if (res.succeeded && res.data) {
+          userFamilys.value = res.data
+        }
+      })
+
+      apiFriendTagListGet().then((res) => {
+        if (res.succeeded && res.data) {
+          friendTags.value = res.data
+        }
+      })
     }
 
     return {
+      accessToken,
+      refreshToken,
       isLogin,
       userInfo,
       userFamilys,
-      accessToken,
-      refreshToken,
+      friendTags,
+      friendTagPickerColumns,
+      friendTabsList,
       login,
-      getUserInfo,
+      setupApp,
     }
   },
   {

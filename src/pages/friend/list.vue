@@ -1,10 +1,4 @@
 <script setup lang="ts">
-import { friendCategory } from '@/constants/app'
-
-const columns = [
-  { name: '全部', value: '' },
-  ...friendCategory.map(i => ({ name: i, value: i })),
-]
 const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
 const search = ref({
   keyword: '',
@@ -93,10 +87,10 @@ const onFriendClick = (id?: string) => {
       </template>
     </wd-navbar>
     <div>
-      <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left light
+      <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" light placeholder-left
                  @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
       />
-      <uv-tabs :list="columns" line-color="#f87171" @click="onTabsClick" />
+      <uv-tabs :list="useAuthStore().friendTabsList" line-color="#f87171" @click="onTabsClick" />
     </div>
     <div class="grow">
       <div v-if="friendsList?.length === 0" class="my-24">
