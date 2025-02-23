@@ -4,7 +4,7 @@ onLaunch(async () => {
     const authStore = useAuthStore()
     if (!authStore.isLogin)
       await authStore.login()
-    await authStore.getUserInfo()
+    await authStore.setupApp()
   }
   catch (error) {
     console.error(error)
@@ -12,10 +12,6 @@ onLaunch(async () => {
       url: `/pages/exception/500?error=${error}`,
     })
   }
-
-  // uni.redirectTo({
-  //   url: `/pages/migrate/index`,
-  // })
 })
 onShow(() => {
 })

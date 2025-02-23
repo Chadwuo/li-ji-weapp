@@ -54,7 +54,7 @@ const onSubmit = async () => {
   if (res.succeeded) {
     uni.navigateBack()
     uni.showToast({
-      title: `${dataSource.value.id ? '更新' : '新增'}成功`,
+      title: '保存成功',
       icon: 'none',
     })
   }

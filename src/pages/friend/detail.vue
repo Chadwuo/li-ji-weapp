@@ -153,7 +153,7 @@ const handleFriendDel = () => {
             {{ friend.name }}
           </div>
           <div class="mt-1 flex items-center text-sm text-gray">
-            关系：
+            标签：
             <wd-tag v-if="friend.tag" type="primary" mark>
               {{ friend.tag }}
             </wd-tag>

@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { friendCategory } from '@/constants/app'
-
-const columns = friendCategory.map(i => ({ label: i, value: i }))
 const dataSource = ref<Api.Friend>({})
 onLoad((option) => {
   if (option?.id) {
@@ -25,7 +22,7 @@ const onSubmit = async () => {
     if (res.succeeded) {
       uni.navigateBack()
       uni.showToast({
-        title: `${dataSource.value.id ? '更新' : '新增'}成功`,
+        title: '保存成功',
         icon: 'none',
       })
     }
@@ -41,7 +38,9 @@ const onSubmit = async () => {
         <wd-input v-model="dataSource.name" label="姓名" prop="name" clearable placeholder="请输入姓名"
                   :rules="[{ required: true, message: '请填写亲友姓名' }]"
         />
-        <wd-select-picker v-model="dataSource.tag" type="radio" label="标签" :columns="columns" />
+        <wd-select-picker v-model="dataSource.tag" type="radio" label="标签"
+                          :columns="useAuthStore().friendTagPickerColumns"
+        />
         <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
       </wd-form>
       <wd-button block :loading="loading" @click="onSubmit">

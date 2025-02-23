@@ -88,6 +88,13 @@ onShareAppMessage(() => {
           </template>
         </wd-cell>
       </div>
+      <div class="rounded-2xl bg-white p-2">
+        <wd-cell title="亲友标签" is-link to="/pages/friend/tag">
+          <template #icon>
+            <div class="i-hugeicons-tag-01 mx-2 text-lg text-red" />
+          </template>
+        </wd-cell>
+      </div>
       <div class="rounded-2xl bg-white p-2 space-y-3">
         <wd-cell title="支持礼记" is-link to="/pages/subscription/index">
           <template #icon>

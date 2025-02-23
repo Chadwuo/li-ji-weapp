@@ -95,7 +95,7 @@ onLoad(async () => {
           <div v-else>
             <span class="font-bold">￥</span>
             <span class="text-2xl font-bold">{{ subscriptionPlan?.price }}</span>
-            <span class="line-throug ml-2 text-gray">￥68</span>
+            <span class="ml-2 text-gray line-through">￥68</span>
           </div>
         </div>
       </div>
@@ -108,6 +108,9 @@ onLoad(async () => {
         <wd-button block :loading="loading" loading-color="#F87171" @click="pay">
           立即购买
         </wd-button>
+        <div class="mt-2 text-xs text-gray">
+          你购买的是永久会员权益，在交易成功后的一年内（支付平台支持的最长时间），可以申请无条件退款。
+        </div>
       </div>
       <uv-safe-bottom />
     </div>

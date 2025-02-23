@@ -101,18 +101,7 @@ declare namespace Api {
      */
     refreshToken: string
   }
-  interface LoginUser {
-    /**
-     *
-     * @type {User}
-     */
-    userInfo: User
-    /**
-     * 用户家庭信息
-     * @type {Array<UserFamily>}
-     */
-    userFamilys?: Array<UserFamily>
-  }
+
   interface User {
     /**
      * 雪花Id
@@ -345,6 +334,21 @@ declare namespace Api {
      * @memberof Friend
      */
     remarks?: string | null
+  }
+
+  interface FriendTag {
+    /**
+     *
+     * @type {number}
+     * @memberof FriendTag
+     */
+    id?: number
+    /**
+     *
+     * @type {string}
+     * @memberof FriendTag
+     */
+    name?: string | null
   }
 
   interface GiftIn {

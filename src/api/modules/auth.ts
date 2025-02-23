@@ -2,7 +2,7 @@ import { request } from '../request'
 
 /** Get user info */
 export function apiUserInfoGet() {
-  return request<Api.LoginUser>({
+  return request<Api.User>({
     url: 'auth/user-info',
   })
 }
