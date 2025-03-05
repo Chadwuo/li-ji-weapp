@@ -122,7 +122,7 @@ const handleFriendEdit = () => {
 }
 const handleFriendDel = () => {
   message.confirm({
-    msg: '该亲友所有来往记录都将被删除，确定删除？',
+    msg: '该亲友所有人情往来记录都将被删除，确定删除？',
     title: '删除亲友',
   }).then(async () => {
     const res = await apiFriendDelete({ id: friend.value.id })
@@ -209,7 +209,7 @@ const handleFriendDel = () => {
     </div>
 
     <div v-if="giftList?.length === 0 && !loading" class="my-24">
-      <uv-empty text="还没有往来记录哦~" mode="favor" />
+      <uv-empty text="还没有人情往来记录哦~" mode="favor" />
     </div>
     <div class="my-5 space-y-3">
       <view v-for="(gift, index) in giftList" :key="index" class="cu-timeline">
