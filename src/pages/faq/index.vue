@@ -4,6 +4,15 @@
   <div class="m-5">
     <div class="rounded-2xl space-y-2">
       <div class="font-bold">
+        礼记 是什么？
+      </div>
+      <div class="text-sm text-gray-500 leading-relaxed">
+        礼记 专注于记录和管理人情往来中的随礼、收礼、份子钱、礼金、心意、礼物、红包等，多维度查询和统计亲友间的往来记录，家人共享记账，你贴心的人情往来数字记账伙伴。
+      </div>
+      <div class="my-5">
+        <uv-line />
+      </div>
+      <div class="font-bold">
         礼记 免费吗？
       </div>
       <div class="text-sm text-gray-500 leading-relaxed">
@@ -37,15 +46,6 @@
       </div>
       <div class="text-sm text-gray-500 leading-relaxed">
         礼记是一个开源项目，优势在于可以吸引更多开发者和用户的参与，从而不断地进行改进和优化。此外，开源软件也有较高的安全性，因为更多的人参与开发和审查代码，可以及早发现和解决潜在的漏洞和风险。这是其他任何同类产品不具备的。
-      </div>
-      <div class="my-5">
-        <uv-line />
-      </div>
-      <div class="font-bold">
-        未来开发计划？
-      </div>
-      <div class="text-sm text-gray-500 leading-relaxed">
-        礼记4.0版本，代号 "幽灵倒计时"，已经正式发布了。她重写了全部后端代码，全新的软件框架，极大提升了性能，并且添加了更多功能，更加安全稳定。对于发布后的短期，我们将专注于开发数据导出功能，数据统计报表功能。
       </div>
       <div class="my-5">
         <uv-line />

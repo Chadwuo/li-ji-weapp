@@ -118,7 +118,7 @@ const handleGiftClick = (id?: string) => {
       </div>
       <div v-else>
         <div v-if="dataList.length === 0" class="my-24">
-          <uv-empty text="还没有送礼记录哦~" mode="favor">
+          <uv-empty text="还没有人情往来记录哦~" mode="favor">
             <div class="mt-6">
               <wd-button type="primary" @click="handleGiftClick()">
                 添加送礼

@@ -101,7 +101,7 @@ const handleBookEdit = () => {
 
 const handleBookDel = () => {
   message.confirm({
-    msg: '该礼簿所有来往记录都将被删除，确定删除？',
+    msg: '该礼簿所有人情往来记录都将被删除，确定删除？',
     title: '删除礼簿',
   }).then(async () => {
     const res = await apiGiftBookDelete({ id: book.value.id })
@@ -216,7 +216,7 @@ const handleBookDel = () => {
       </div>
       <div v-else>
         <div v-if="dataList.length === 0" class="my-24">
-          <uv-empty text="还没有收礼记录哦~" mode="favor">
+          <uv-empty text="还没有人情往来记录哦~" mode="favor">
             <div class="mt-6">
               <wd-button class="mt-6" :type="hasMourningWords(book.title) ? 'info' : 'primary '"
                          @click="handleGiftClick()"
