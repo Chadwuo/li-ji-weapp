@@ -41,11 +41,15 @@ onShareAppMessage(() => {
     imageUrl: '/static/share/1.png',
   }
 })
+
+const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
 </script>
 
 <template>
-  <div class="bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_mine.png')] bg-contain bg-no-repeat">
-    <div class="mx-3 pt-24 space-y-5">
+  <div class="bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_mine.png')] bg-contain bg-no-repeat"
+       :style="{ 'padding-top': `${paddingTop}px` }"
+  >
+    <div class="mx-3 space-y-5">
       <div class="flex items-center" @click="toSettings">
         <uv-avatar :src="userInfo?.avatar" :size="55" />
         <div class="ml-3">
