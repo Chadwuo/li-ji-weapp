@@ -85,14 +85,11 @@ const handleGiftClick = (id?: string) => {
     })
   }
 }
-
-const paddingTop = uni.getMenuButtonBoundingClientRect().top + 1
 </script>
 
 <template>
-  <div class="h-full bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_giftout.png')] bg-contain bg-no-repeat"
-       :style="{ 'padding-top': `${paddingTop}px` }"
-  >
+  <div class="h-full bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_giftout.png')] bg-contain bg-no-repeat">
+    <safe-area-inset-top />
     <div class="mx-3">
       <wd-search v-model="search.keyword" custom-class="!p-0 w-52" :hide-cancel="!search.showAction" light
                  placeholder-left @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
@@ -164,12 +161,3 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().top + 1
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationStyle": "custom",
-    "enablePullDownRefresh": true
-  }
-}
-</route>
