@@ -115,12 +115,3 @@ const handleBookClick = (id?: string) => {
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json" type="home">
-{
-  "style": {
-    "navigationStyle": "custom",
-    "enablePullDownRefresh": true
-  }
-}
-</route>

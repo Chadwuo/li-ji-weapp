@@ -31,14 +31,8 @@ export default defineUniPages({
       {
         iconPath: 'static/tabbar/book.png',
         selectedIconPath: 'static/tabbar/book_cur.png',
-        pagePath: 'pages/book/page',
+        pagePath: 'pages/index/index',
         text: '礼记',
-      },
-      {
-        iconPath: 'static/tabbar/icon_post.png',
-        selectedIconPath: 'static/tabbar/icon_post_cur.png',
-        pagePath: 'pages/giftOut/page',
-        text: '送礼',
       },
       {
         iconPath: 'static/tabbar/contact.png',

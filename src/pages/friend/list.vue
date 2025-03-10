@@ -70,17 +70,17 @@ const onFriendClick = (id?: string) => {
     })
   }
 }
-const paddingTop = uni.getMenuButtonBoundingClientRect().top + 1
 </script>
 
 <template>
-  <div class="h-full bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_friend.png')] bg-contain bg-no-repeat" :style="{ 'padding-top': `${paddingTop}px` }">
+  <div class="h-full bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_friend.png')] bg-contain bg-no-repeat">
+    <safe-area-inset-top />
     <div class="mx-3">
       <wd-search v-model="search.keyword" custom-class="!p-0 w-52" :hide-cancel="!search.showAction" light placeholder-left
                  @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
       />
       <div class="mt-2 flex items-center justify-between">
-        <div class="ms-2 text-lg font-bold">
+        <div class="ms-2 text-lg text-red font-bold">
           亲友
         </div>
         <div class="p-2" @click="onFriendClick()">
