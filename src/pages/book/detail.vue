@@ -6,10 +6,6 @@ const message = useMessage()
 const loading = ref(false)
 const popupShow = ref(false)
 const book = ref<Api.GiftBook>({})
-const search = ref({
-  keyword: '',
-  showAction: false,
-})
 const sortList = ref([
   { label: '默认', field: 'id', value: 1 },
   { label: '姓名', field: 'friendName', value: 0 },
@@ -23,7 +19,6 @@ const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMo
     const response = await apiGiftInPageGet({
       page: _page,
       giftBookId: book.value.id,
-      keyword: search.value.keyword,
       field: sort?.field,
       order: sort?.value === 1 ? 'asc' : 'desc',
     })
@@ -120,6 +115,12 @@ const handleBookDel = () => {
     }
   })
 }
+
+const handleSearchClick = () => {
+  uni.navigateTo({
+    url: '/pages/search/index',
+  })
+}
 </script>
 
 <template>
@@ -207,7 +208,10 @@ const handleBookDel = () => {
           />
         </div>
 
-        <div class="i-hugeicons-plus-sign-circle mr-3 pr-2 text-xl text-red" @click="handleGiftClick()" />
+        <div>
+          <div class="i-hugeicons-search-02 pr-2 text-xl text-red" @click="handleSearchClick()" />
+          <div class="i-hugeicons-plus-sign-circle pr-2 text-xl text-red" @click="handleGiftClick()" />
+        </div>
       </div>
 
       <div v-if="loading" class="mt-5 text-center">

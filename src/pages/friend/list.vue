@@ -3,12 +3,9 @@ const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
 const search = ref({
   keyword: '',
   tag: '',
-  showAction: false,
 })
-
 const loadData = async () => {
   apiFriendListGet({
-    keyword: search.value.keyword,
     tag: search.value.tag,
   }).then((res) => {
     if (res.succeeded) {
@@ -45,19 +42,6 @@ const onTabsClick = (item: any) => {
   loadData()
 }
 
-function searchOk() {
-  loadData()
-}
-
-function searchCancel() {
-  search.value = {
-    keyword: '',
-    tag: '',
-    showAction: false,
-  }
-  loadData()
-}
-
 const onFriendClick = (id?: string) => {
   if (!id) {
     uni.navigateTo({
@@ -70,15 +54,25 @@ const onFriendClick = (id?: string) => {
     })
   }
 }
+
+const onSearchClick = () => {
+  uni.navigateTo({
+    url: '/pages/search/index',
+    events: {
+      acceptDataFromOpenedPage(e: string) {
+        search.value.keyword = e
+        loadData()
+      },
+    },
+  })
+}
 </script>
 
 <template>
   <div class="h-full bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_friend.png')] bg-contain bg-no-repeat">
     <safe-area-inset-top />
     <div class="mx-3">
-      <wd-search v-model="search.keyword" custom-class="!p-0 w-52" :hide-cancel="!search.showAction" light placeholder-left
-                 @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
-      />
+      <wd-search custom-class="!p-0 w-52" light hide-cancel placeholder-left @click="onSearchClick" />
       <div class="mt-2 flex items-center justify-between">
         <div class="ms-2 text-lg text-red font-bold">
           亲友

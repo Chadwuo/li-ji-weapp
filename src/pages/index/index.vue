@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import BookPage from './modules/BookPage.vue'
-import GiftOutPage from './modules/GiftOutPage.vue'
+import BookPage from './components/BookPage.vue'
+import GiftOutPage from './components/GiftOutPage.vue'
 
 enum TabType {
   BOOKS = 'books',
   GIFT_OUT = 'giftOut',
 }
-const tab = ref < TabType > (TabType.BOOKS)
+const tab = ref<TabType>(TabType.BOOKS)
 
-const bookPageRef = ref < InstanceType < typeof BookPage > | null > (null)
-const giftOutPageRef = ref < InstanceType < typeof GiftOutPage > | null > (null)
+const bookPageRef = ref<InstanceType<typeof BookPage> | null>(null)
+const giftOutPageRef = ref<InstanceType<typeof GiftOutPage> | null>(null)
 
 onReady(async () => {
   bookPageRef.value?.refreshAsync()
@@ -42,13 +42,30 @@ const handleAddClick = () => {
     giftOutPageRef.value?.handleAdd()
   }
 }
+
+const onSearchClick = () => {
+  uni.navigateTo({
+    url: '/pages/search/index',
+    events: {
+      // eslint-disable-next-line unused-imports/no-unused-vars
+      acceptDataFromOpenedPage(e: string) {
+        if (tab.value === TabType.BOOKS) {
+          bookPageRef.value?.refreshAsync()
+        }
+        else {
+          giftOutPageRef.value?.refreshAsync()
+        }
+      },
+    },
+  })
+}
 </script>
 
 <template>
   <div class="h-full bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_giftout.png')] bg-contain bg-no-repeat">
     <safe-area-inset-top />
     <div class="mx-3">
-      <wd-search custom-class="!p-0 w-52" light placeholder-left hide-cancel />
+      <wd-search custom-class="!p-0 w-52" light placeholder-left hide-cancel @click="onSearchClick" />
       <div class="mt-2 flex items-center justify-between">
         <div class="flex items-center space-x-lg">
           <div class="ms-2" :class="[tab === TabType.BOOKS ? 'text-red  text-lg font-bold' : 'text-gray']"

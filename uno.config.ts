@@ -25,7 +25,7 @@ export default defineConfig({
     }),
   ],
   shortcuts: [
-    ['memorial', '!brightness-90 !contrast-90 !grayscale !filter'],
+    ['memorial', '!grayscale !filter'],
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
 })
