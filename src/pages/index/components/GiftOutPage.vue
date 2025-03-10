@@ -13,7 +13,6 @@ const columns = [
 const search = ref({
   keyword: '',
   icon: '',
-  showAction: false,
 })
 const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync }
   = useLoadMore<Api.LoadMoreDataType<Api.GiftOut>>(
