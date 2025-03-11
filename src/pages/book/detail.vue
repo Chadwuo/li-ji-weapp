@@ -2,6 +2,11 @@
 import { useLoadMore } from 'vue-request'
 import { useMessage } from 'wot-design-uni'
 
+const search = ref({
+  keyword: '',
+  field: 'id',
+  order: 'asc',
+})
 const message = useMessage()
 const loading = ref(false)
 const popupShow = ref(false)
@@ -15,12 +20,10 @@ const sortList = ref([
 const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftIn>>(
   async (d) => {
     const _page = d?.page ? d.page + 1 : 1
-    const sort = sortList.value.find(item => item.value !== 0)
     const response = await apiGiftInPageGet({
       page: _page,
       giftBookId: book.value.id,
-      field: sort?.field,
-      order: sort?.value === 1 ? 'asc' : 'desc',
+      ...search.value,
     })
     const { items, page = 0, total = 0 } = response.data || {}
     return {
@@ -70,16 +73,19 @@ onReachBottom(() => {
   loadMoreAsync()
 })
 
-const handleSortChange = (sort: any) => {
+const onSortChange = (sort: any) => {
   sortList.value.forEach((item) => {
     if (item.field !== sort.field) {
       item.value = 0
     }
   })
+
+  search.value.field = sort?.field
+  search.value.order = sort?.value === 1 ? 'asc' : 'desc'
   refreshAsync()
 }
 
-const handleGiftClick = (gid?: string) => {
+const onGiftClick = (gid?: string) => {
   if (gid) {
     uni.navigateTo({
       url: `/pages/giftIn/detail?id=${gid}`,
@@ -92,7 +98,7 @@ const handleGiftClick = (gid?: string) => {
   }
 }
 
-const handleBookEdit = () => {
+const onBookEdit = () => {
   uni.navigateTo({
     url: `/pages/book/edit?id=${book.value.id}`,
   })
@@ -116,9 +122,15 @@ const handleBookDel = () => {
   })
 }
 
-const handleSearchClick = () => {
+const onSearchClick = () => {
   uni.navigateTo({
     url: '/pages/search/index',
+    events: {
+      acceptDataFromOpenedPage(e: string) {
+        search.value.keyword = e
+        refreshAsync()
+      },
+    },
   })
 }
 </script>
@@ -146,7 +158,7 @@ const handleSearchClick = () => {
           <div class="py-2 pl-2" @click="handleBookDel">
             <div class="i-hugeicons-delete-02" />
           </div>
-          <div class="py-2 pl-2" @click="handleBookEdit">
+          <div class="py-2 pl-2" @click="onBookEdit">
             <div class="i-hugeicons-edit-01" />
           </div>
         </div>
@@ -204,13 +216,13 @@ const handleSearchClick = () => {
       <div class="w-full flex items-center justify-between">
         <div class="space-x-3">
           <wd-sort-button v-for="(item, index) in sortList" :key="index" v-model="item.value" :title="item.label"
-                          @change="handleSortChange(item)"
+                          @change="onSortChange(item)"
           />
         </div>
 
         <div>
-          <div class="i-hugeicons-search-02 pr-2 text-xl text-red" @click="handleSearchClick()" />
-          <div class="i-hugeicons-plus-sign-circle pr-2 text-xl text-red" @click="handleGiftClick()" />
+          <div class="i-hugeicons-search-02 pr-2 text-xl text-red" @click="onSearchClick()" />
+          <div class="i-hugeicons-plus-sign-circle pr-2 text-xl text-red" @click="onGiftClick()" />
         </div>
       </div>
 
@@ -224,16 +236,14 @@ const handleSearchClick = () => {
         <div v-if="dataList.length === 0" class="my-24">
           <uv-empty text="还没有人情往来记录哦~" mode="favor">
             <div class="mt-6">
-              <wd-button class="mt-6" type="primary"
-                         @click="handleGiftClick()"
-              >
+              <wd-button class="mt-6" type="primary" @click="onGiftClick()">
                 添加收礼
               </wd-button>
             </div>
           </uv-empty>
         </div>
         <div v-else>
-          <div v-for="gift in dataList" :key="gift.id" @click="handleGiftClick(gift.id)">
+          <div v-for="gift in dataList" :key="gift.id" @click="onGiftClick(gift.id)">
             <wd-cell center size="large" :title="gift.friendName" :label="`出席：${gift.attendance || 0}人`">
               <div class="text-lg text-red font-bold">
                 <span class="text-sm">￥</span>{{ gift.money }}
