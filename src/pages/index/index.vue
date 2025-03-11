@@ -11,7 +11,7 @@ const tab = ref<TabType>(TabType.BOOKS)
 const bookPageRef = ref<InstanceType<typeof BookPage> | null>(null)
 const giftOutPageRef = ref<InstanceType<typeof GiftOutPage> | null>(null)
 
-onReady(async () => {
+onShow(async () => {
   bookPageRef.value?.refreshAsync()
   giftOutPageRef.value?.refreshAsync()
 })
@@ -34,7 +34,7 @@ onReachBottom(() => {
     giftOutPageRef.value?.loadMoreAsync()
   }
 })
-const handleAddClick = () => {
+const addNew = () => {
   if (tab.value === TabType.BOOKS) {
     bookPageRef.value?.handleAdd()
   }
@@ -43,49 +43,66 @@ const handleAddClick = () => {
   }
 }
 
-const onSearchClick = () => {
+const performSearch = () => {
   uni.navigateTo({
     url: '/pages/search/index',
     events: {
-      // eslint-disable-next-line unused-imports/no-unused-vars
       acceptDataFromOpenedPage(e: string) {
         if (tab.value === TabType.BOOKS) {
-          bookPageRef.value?.refreshAsync()
+          bookPageRef.value?.handleSearch(e)
         }
         else {
-          giftOutPageRef.value?.refreshAsync()
+          giftOutPageRef.value?.handleSearch(e)
         }
       },
     },
   })
 }
+
+const bgImg = computed(() => {
+  if (tab.value === TabType.BOOKS) {
+    return 'https://poemcode.cn/liji-oss/assets/bg/bg_book.png'
+  }
+  else {
+    return 'https://poemcode.cn/liji-oss/assets/bg/bg_giftout.png'
+  }
+})
 </script>
 
 <template>
-  <div class="h-full bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_giftout.png')] bg-contain bg-no-repeat">
+  <div class="h-full bg-contain bg-no-repeat" :style="{ 'background-image': `url(${bgImg})` }">
     <safe-area-inset-top />
     <div class="mx-3">
-      <wd-search custom-class="!p-0 w-52" light placeholder-left hide-cancel @click="onSearchClick" />
+      <div class="w-36 flex items-center rounded-full bg-white p-1 px-2 text-gray" @click="performSearch()">
+        <i class="i-hugeicons-search-02" />
+        <div class="ms-1">
+          搜索人情往来
+        </div>
+      </div>
       <div class="mt-2 flex items-center justify-between">
         <div class="flex items-center space-x-lg">
-          <div class="ms-2" :class="[tab === TabType.BOOKS ? 'text-red  text-lg font-bold' : 'text-gray']"
+          <div class="ms-2" :class="[tab === TabType.BOOKS ? 'text-red  text-xl font-bold' : 'text-gray text-lg']"
                @click="tab = TabType.BOOKS"
           >
             礼簿
           </div>
-          <div class="ms-2" :class="[tab === TabType.GIFT_OUT ? 'text-red  text-lg font-bold' : 'text-gray']"
+          <div class="ms-2" :class="[tab === TabType.GIFT_OUT ? 'text-red  text-xl font-bold' : 'text-gray text-lg']"
                @click="tab = TabType.GIFT_OUT"
           >
             送礼
           </div>
         </div>
-        <div class="p-2" @click="handleAddClick()">
-          <i class="i-hugeicons-plus-sign-circle text-lg text-red" />
+        <div class="p-2" @click="addNew()">
+          <i class="i-hugeicons-plus-sign-circle text-xl text-red" />
         </div>
       </div>
 
-      <book-page v-show="tab === TabType.BOOKS" ref="bookPageRef" />
-      <gift-out-page v-show="tab === TabType.GIFT_OUT" ref="giftOutPageRef" />
+      <wd-transition :show="tab === TabType.BOOKS" name="slide-left">
+        <book-page ref="bookPageRef" />
+      </wd-transition>
+      <wd-transition :show="tab === TabType.GIFT_OUT" name="slide-right">
+        <gift-out-page ref="giftOutPageRef" />
+      </wd-transition>
     </div>
   </div>
 </template>

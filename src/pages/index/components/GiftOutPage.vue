@@ -2,7 +2,6 @@
 import { giftCategory } from '@/constants/app'
 import { useLoadMore } from 'vue-request'
 
-const loading = ref(false)
 const columns = [
   { name: '全部', value: '' },
   ...Object.entries(giftCategory).map(([name, icon]) => ({
@@ -44,12 +43,11 @@ const onTabsClick = (item: any) => {
   refreshAsync()
 }
 
-const handleAdd = () => {
-  uni.navigateTo({
-    url: '/pages/giftOut/edit',
-  })
-}
-const handleGiftClick = (id?: string) => {
+onMounted(() => {
+  refreshAsync()
+})
+
+const onGiftClick = (id?: string) => {
   if (id) {
     uni.navigateTo({
       url: `/pages/giftOut/detail?id=${id}`,
@@ -57,25 +55,29 @@ const handleGiftClick = (id?: string) => {
   }
 }
 
+const handleAdd = () => {
+  uni.navigateTo({
+    url: '/pages/giftOut/edit',
+  })
+}
+
+const handleSearch = (keyword: string) => {
+  search.value.keyword = keyword
+  refreshAsync()
+}
+
 defineExpose({
   handleAdd,
+  handleSearch,
   loadMoreAsync,
   refreshAsync,
 })
 </script>
 
 <template>
-  <uv-tabs :list="columns" line-color="#f87171" @click="onTabsClick" />
-  <div class="mx-3">
-    <div v-if="loading" class="mt-5 text-center">
-      <div class="flex">
-        <wd-skeleton :row-col="[{ size: '52px', type: 'circle' }]" />
-        <wd-skeleton :custom-style="{ width: '100%', marginLeft: '12px' }"
-                     :row-col="[{ width: '40%' }, { width: '100%' }, { width: '60%' }]"
-        />
-      </div>
-    </div>
-    <div v-else>
+  <div>
+    <uv-tabs :list="columns" line-color="#f87171" @click="onTabsClick" />
+    <div class="mx-3">
       <div v-if="dataList.length === 0" class="my-24">
         <uv-empty text="还没有人情往来记录哦~" mode="favor">
           <div class="mt-6">
@@ -86,7 +88,7 @@ defineExpose({
         </uv-empty>
       </div>
       <div v-else class="my-5 space-y-5">
-        <div v-for="i in dataList" :key="i.id" @click="handleGiftClick(i.id)">
+        <div v-for="i in dataList" :key="i.id" @click="onGiftClick(i.id)">
           <div class="flex">
             <div class="h-12 w-12 flex flex-shrink-0 rounded-full" :class="[
               i.icon === 'i-tabler-candle'

@@ -6,7 +6,7 @@ const search = ref({
 })
 const loadData = async () => {
   apiFriendListGet({
-    tag: search.value.tag,
+    ...search.value,
   }).then((res) => {
     if (res.succeeded) {
       // 根据首字母firstLetter进行分组
@@ -55,7 +55,7 @@ const onFriendClick = (id?: string) => {
   }
 }
 
-const onSearchClick = () => {
+const performSearch = () => {
   uni.navigateTo({
     url: '/pages/search/index',
     events: {
@@ -72,13 +72,18 @@ const onSearchClick = () => {
   <div class="h-full bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_friend.png')] bg-contain bg-no-repeat">
     <safe-area-inset-top />
     <div class="mx-3">
-      <wd-search custom-class="!p-0 w-52" light hide-cancel placeholder-left @click="onSearchClick" />
+      <div class="w-36 flex items-center rounded-full bg-white p-1 px-2 text-gray" @click="performSearch()">
+        <i class="i-hugeicons-search-02" />
+        <div class="ms-1">
+          搜索人情往来
+        </div>
+      </div>
       <div class="mt-2 flex items-center justify-between">
         <div class="ms-2 text-lg text-red font-bold">
           亲友
         </div>
         <div class="p-2" @click="onFriendClick()">
-          <i class="i-hugeicons-plus-sign-circle text-lg text-red" />
+          <i class="i-hugeicons-plus-sign-circle text-xl text-red" />
         </div>
       </div>
       <uv-tabs :list="useAuthStore().friendTabsList" line-color="#f87171" @click="onTabsClick" />
