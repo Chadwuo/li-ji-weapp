@@ -65,15 +65,16 @@ const onSearchClick = () => {
   <div class="h-full bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_giftout.png')] bg-contain bg-no-repeat">
     <safe-area-inset-top />
     <div class="mx-3">
-      <wd-search custom-class="!p-0 w-52" light placeholder-left hide-cancel @click="onSearchClick" />
+      <wd-search custom-class="!p-0 w-52" light hide-cancel placeholder-left @click="onSearchClick" />
       <div class="mt-2 flex items-center justify-between">
         <div class="flex items-center space-x-lg">
-          <div class="ms-2" :class="[tab === TabType.BOOKS ? 'text-red  text-lg font-bold' : 'text-gray']"
+          <div class="ms-2" :class="[tab === TabType.BOOKS ? 'text-red text-xl font-bold' : 'text-gray text-lg']"
                @click="tab = TabType.BOOKS"
           >
             礼簿
+            <img src="/static/shadow_book.png" class="absolute bottom-0 h-4 w-10">
           </div>
-          <div class="ms-2" :class="[tab === TabType.GIFT_OUT ? 'text-red  text-lg font-bold' : 'text-gray']"
+          <div class="ms-2" :class="[tab === TabType.GIFT_OUT ? 'text-red text-xl font-bold' : 'text-gray text-lg']"
                @click="tab = TabType.GIFT_OUT"
           >
             送礼
