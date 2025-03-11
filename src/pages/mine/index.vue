@@ -41,13 +41,14 @@ onShareAppMessage(() => {
     imageUrl: '/static/share/1.png',
   }
 })
-
+// #ifdef MP-WEIXIN
 const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
+// #endif
 </script>
 
 <template>
   <div class="bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_mine.png')] bg-contain bg-no-repeat"
-       :style="{ 'padding-top': `${paddingTop}px` }"
+       :style="{ 'padding-top': `${paddingTop || 55}px` }"
   >
     <div class="mx-3 space-y-5">
       <div class="flex items-center" @click="toSettings">
