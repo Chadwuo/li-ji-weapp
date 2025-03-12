@@ -24,6 +24,10 @@ const { dataList, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore < Api
   },
 )
 
+onMounted(() => {
+  refreshAsync()
+})
+
 const handleAdd = () => {
   uni.navigateTo({
     url: '/pages/book/edit',
@@ -47,7 +51,7 @@ defineExpose({
 
 <template>
   <div>
-    <div class="grid grid-cols-2 mt-5 gap-5">
+    <div class="grid grid-cols-2 mt-2 gap-5">
       <div v-for="i in dataList" :key="i.id" class="h-40 w-full rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg" :class="{ memorial: hasMourningWords(i.title) }"
            @click="handleBookClick(i.id)"
       >

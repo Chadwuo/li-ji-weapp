@@ -14,31 +14,33 @@ const search = ref({
   keyword: '',
   icon: '',
 })
-const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync }
-  = useLoadMore<Api.LoadMoreDataType<Api.GiftOut>>(
-    async (d) => {
-      const _page = d?.page ? d.page + 1 : 1
-      const response = await apiGiftOutPageGet({
-        page: _page,
-        field: 'date',
-        order: 'desc',
-        ...search.value,
-      })
-      const { items, page = 0, total = 0 } = response.data || {}
-      return {
-        list: items || [],
-        page,
-        total,
-      }
+const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftOut>>(
+  async (d) => {
+    const _page = d?.page ? d.page + 1 : 1
+    const response = await apiGiftOutPageGet({
+      page: _page,
+      field: 'date',
+      order: 'desc',
+      ...search.value,
+    })
+    const { items, page = 0, total = 0 } = response.data || {}
+    return {
+      list: items || [],
+      page,
+      total,
+    }
+  },
+  {
+    isNoMore: (d) => {
+      return d?.list.length === d?.total
     },
-    {
-      isNoMore: (d) => {
-        return d?.list.length === d?.total
-      },
-      manual: true,
-    },
-  )
+    manual: true,
+  },
+)
 
+onMounted(() => {
+  refreshAsync()
+})
 const onTabsClick = (item: any) => {
   search.value.icon = item.value
   refreshAsync()
