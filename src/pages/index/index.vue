@@ -11,7 +11,7 @@ const tab = ref<TabType>(TabType.BOOKS)
 const bookPageRef = ref<InstanceType<typeof BookPage> | null>(null)
 const giftOutPageRef = ref<InstanceType<typeof GiftOutPage> | null>(null)
 
-onReady(async () => {
+onShow(async () => {
   bookPageRef.value?.refreshAsync()
   giftOutPageRef.value?.refreshAsync()
 })
@@ -67,14 +67,15 @@ const onSearchClick = () => {
     <div class="mx-3">
       <wd-search custom-class="!p-0 w-52" light hide-cancel placeholder-left @click="onSearchClick" />
       <div class="mt-2 flex items-center justify-between">
-        <div class="flex items-center space-x-lg">
-          <div class="ms-2" :class="[tab === TabType.BOOKS ? 'text-red text-xl font-bold' : 'text-gray text-lg']"
+        <div class="flex items-center">
+          <div class="bg-contain bg-bottom bg-no-repeat p-2"
+               :class="[tab === TabType.BOOKS ? 'text-red text-xl font-bold bg-[url(\'/static/shadow_r.png\')]' : 'text-gray text-lg']"
                @click="tab = TabType.BOOKS"
           >
             礼簿
-            <img src="/static/shadow_book.png" class="absolute bottom-0 h-4 w-10">
           </div>
-          <div class="ms-2" :class="[tab === TabType.GIFT_OUT ? 'text-red text-xl font-bold' : 'text-gray text-lg']"
+          <div class="bg-contain bg-bottom bg-no-repeat p-2"
+               :class="[tab === TabType.GIFT_OUT ? 'text-red text-xl font-bold bg-[url(\'/static/shadow_r.png\')]' : 'text-gray text-lg']"
                @click="tab = TabType.GIFT_OUT"
           >
             送礼
