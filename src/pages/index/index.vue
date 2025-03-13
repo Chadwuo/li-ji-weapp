@@ -82,13 +82,13 @@ const bgImg = computed(() => {
       <div class="mt-2 flex items-center justify-between">
         <div class="flex items-center">
           <div class="bg-contain bg-bottom bg-no-repeat p-2"
-               :class="[tab === TabType.BOOKS ? 'text-red text-xl font-bold bg-[url(\'/static/shadow_r.png\')]' : 'text-gray text-lg']"
+               :class="[tab === TabType.BOOKS ? 'text-red text-2xl font-bold line-bg' : 'text-gray-500 text-lg']"
                @click="tab = TabType.BOOKS"
           >
             礼簿
           </div>
           <div class="bg-contain bg-bottom bg-no-repeat p-2"
-               :class="[tab === TabType.GIFT_OUT ? 'text-red text-xl font-bold bg-[url(\'/static/shadow_r.png\')]' : 'text-gray text-lg']"
+               :class="[tab === TabType.GIFT_OUT ? 'text-red text-2xl font-bold line-bg' : 'text-gray-500 text-lg']"
                @click="tab = TabType.GIFT_OUT"
           >
             送礼
@@ -109,7 +109,11 @@ const bgImg = computed(() => {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.line-bg {
+  background-image: url('/static/shadow_r.png');
+}
+</style>
 
 <route lang="json" type="home">
 {
