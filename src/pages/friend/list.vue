@@ -79,7 +79,7 @@ const performSearch = () => {
         </div>
       </div>
       <div class="mt-2 flex items-center justify-between">
-        <div class="ms-2 text-lg text-red font-bold">
+        <div class="ms-2 text-2xl text-red font-bold">
           亲友
         </div>
         <div class="p-2" @click="onFriendClick()">
