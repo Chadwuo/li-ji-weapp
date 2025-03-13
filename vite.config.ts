@@ -17,6 +17,7 @@ export default async () => {
       // https://github.com/uni-helper/vite-plugin-uni-pages
       UniHelperPages({
         dts: 'src/uni-pages.d.ts',
+        exclude: ['**/components/**/*.*'],
       }),
       // https://github.com/uni-helper/vite-plugin-uni-layouts
       UniHelperLayouts(),

@@ -20,12 +20,7 @@ onLoad(() => {
 })
 
 const openPopup = (item?: Api.FriendTag) => {
-  if (item) {
-    dataSource.value = item
-  }
-  else {
-    dataSource.value = {}
-  }
+  dataSource.value = item ?? {}
   popupShow.value = true
 }
 
@@ -81,14 +76,14 @@ const onDel = () => {
           <wd-input v-model="dataSource.name" label="标签名称" placeholder="请输入标签名称" />
         </wd-form>
         <div class="my-5 w-full flex space-x-4">
-          <div class="w-40">
+          <div v-if="dataSource.id" class="w-40">
             <wd-button plain @click="onDel">
               删除
             </wd-button>
           </div>
           <div class="w-full">
             <wd-button block @click="onSave">
-              编辑
+              保存
             </wd-button>
           </div>
         </div>

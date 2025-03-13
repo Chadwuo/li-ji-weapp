@@ -3,13 +3,10 @@ const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
 const search = ref({
   keyword: '',
   tag: '',
-  showAction: false,
 })
-
 const loadData = async () => {
   apiFriendListGet({
-    keyword: search.value.keyword,
-    tag: search.value.tag,
+    ...search.value,
   }).then((res) => {
     if (res.succeeded) {
       // 根据首字母firstLetter进行分组
@@ -45,19 +42,6 @@ const onTabsClick = (item: any) => {
   loadData()
 }
 
-function searchOk() {
-  loadData()
-}
-
-function searchCancel() {
-  search.value = {
-    keyword: '',
-    tag: '',
-    showAction: false,
-  }
-  loadData()
-}
-
 const onFriendClick = (id?: string) => {
   if (!id) {
     uni.navigateTo({
@@ -70,26 +54,38 @@ const onFriendClick = (id?: string) => {
     })
   }
 }
+
+const performSearch = () => {
+  uni.navigateTo({
+    url: '/pages/search/index',
+    events: {
+      acceptDataFromOpenedPage(e: string) {
+        search.value.keyword = e
+        loadData()
+      },
+    },
+  })
+}
 </script>
 
 <template>
   <div class="h-full bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_friend.png')] bg-contain bg-no-repeat">
-    <wd-navbar :bordered="false" safe-area-inset-top custom-style="background-color: transparent !important;">
-      <template #left>
-        <div class="flex items-center">
-          <div class="ms-2 text-lg font-bold">
-            亲友
-          </div>
-          <div class="p-2" @click="onFriendClick()">
-            <div class="i-hugeicons-plus-sign-circle text-red" />
-          </div>
+    <safe-area-inset-top />
+    <div class="mx-3">
+      <div class="w-36 flex items-center rounded-full bg-white p-1 px-2 text-gray" @click="performSearch()">
+        <i class="i-hugeicons-search-02" />
+        <div class="ms-1">
+          搜索人情往来
         </div>
-      </template>
-    </wd-navbar>
-    <div>
-      <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" light placeholder-left
-                 @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
-      />
+      </div>
+      <div class="mt-2 flex items-center justify-between">
+        <div class="ms-2 text-2xl text-red font-bold">
+          亲友
+        </div>
+        <div class="p-2" @click="onFriendClick()">
+          <i class="i-hugeicons-plus-sign-circle text-xl text-red" />
+        </div>
+      </div>
       <uv-tabs :list="useAuthStore().friendTabsList" line-color="#f87171" @click="onTabsClick" />
     </div>
     <div class="grow">

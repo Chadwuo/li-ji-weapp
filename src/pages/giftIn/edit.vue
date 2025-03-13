@@ -57,10 +57,10 @@ const onSelectFriend = () => {
                   :rules="[{ required: true, message: '请输入亲友姓名' }]"
         >
           <template #suffix>
-            <div v-show="!dataSource.id" class="i-hugeicons-contact-01 text-lg text-gray" @click="onSelectFriend" />
+            <div v-show="!dataSource.id" class="i-hugeicons-contact-01 text-base text-gray" @click="onSelectFriend" />
           </template>
         </wd-input>
-        <wd-input v-model="dataSource.money" label="金额" prop="money" placeholder="随礼金额" type="number"
+        <wd-input v-model="dataSource.money" label="礼金" prop="money" placeholder="随礼金额" type="number"
                   :rules="[{ required: true, message: '请填写随礼金额' }]"
         />
         <wd-input v-model="dataSource.attendance" label="出席" prop="attendance" type="number" placeholder="参加宴席人数" />

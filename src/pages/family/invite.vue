@@ -88,11 +88,11 @@ const onReject = () => {
           </div>
         </div>
       </div>
-      <div class="mt-10 w-full flex">
-        <wd-button plain @click="onReject">
+      <div class="mt-10 flex justify-around">
+        <wd-button plain block @click="onReject">
           拒绝
         </wd-button>
-        <wd-button @click="onAgree">
+        <wd-button block @click="onAgree">
           同意
         </wd-button>
       </div>

@@ -24,5 +24,8 @@ export default defineConfig({
       // },
     }),
   ],
+  shortcuts: [
+    ['memorial', '!grayscale !filter'],
+  ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
 })

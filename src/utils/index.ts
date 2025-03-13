@@ -36,7 +36,7 @@ export function formatMoney(money: number) {
 
 export function hasMourningWords(bookName: string | undefined | null) {
   if (!bookName)
-    return 'red'
+    return false
   const words = [
     '悼',
     '哀',

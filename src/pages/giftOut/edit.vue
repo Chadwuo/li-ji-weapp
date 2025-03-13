@@ -106,18 +106,22 @@ const openCalendar = () => {
 
     <div class="mt-3 rounded-2xl bg-white px-2 py-5">
       <wd-form ref="formRef" :model="dataSource">
-        <wd-input v-model="dataSource.date" label="日期" prop="date" placeholder="请选择日期" suffix-icon="calendar" readonly :rules="[{ required: true, message: '请选择日期' }]"
+        <wd-input v-model="dataSource.date" label="日期" prop="date" placeholder="请选择日期" readonly :rules="[{ required: true, message: '请选择日期' }]"
                   @click="openCalendar"
-        />
+        >
+          <template #suffix>
+            <div class="i-hugeicons-calendar-01 text-base text-gray" />
+          </template>
+        </wd-input>
         <wd-input v-model="dataSource.friendName" label="亲友" prop="friendName" placeholder="点击右侧图标选择亲友"
                   :rules="[{ required: true, message: '请输入亲友姓名' }]"
         >
           <template #suffix>
-            <div v-show="!dataSource.id" class="i-hugeicons-contact-01 text-lg text-gray" @click="onSelectFriend" />
+            <div v-show="!dataSource.id" class="i-hugeicons-contact-01 text-base text-gray" @click="onSelectFriend" />
           </template>
         </wd-input>
         <wd-input v-model="dataSource.title" label="事由" prop="title" placeholder="随礼事由" :rules="[{ required: true, message: '请填写随礼事由' }]" />
-        <wd-input v-model="dataSource.money" label="金额" prop="money" placeholder="随礼金额" type="number"
+        <wd-input v-model="dataSource.money" label="礼金" prop="money" placeholder="随礼金额" type="number"
                   :rules="[{ required: true, message: '请填写随礼金额' }]"
         />
         <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
