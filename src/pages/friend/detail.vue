@@ -115,14 +115,14 @@ const onGiftClick = (e: Api.GiftIn | Api.GiftOut) => {
   }
 }
 
-const handleFriendEdit = () => {
+const onFriendEdit = () => {
   uni.navigateTo({
     url: `/pages/friend/edit?id=${friend.value.id}`,
   })
 }
-const handleFriendDel = () => {
+const onFriendDel = () => {
   message.confirm({
-    msg: '该亲友所有来往记录都将被删除，确定删除？',
+    msg: '该亲友所有人情往来记录都将被删除，确定删除？',
     title: '删除亲友',
   }).then(async () => {
     const res = await apiFriendDelete({ id: friend.value.id })
@@ -163,10 +163,10 @@ const handleFriendDel = () => {
           </div>
         </div>
         <div class="flex text-xl text-red font-bold">
-          <div class="py-2 pl-2" @click="handleFriendDel">
+          <div class="py-2 pl-2" @click="onFriendDel">
             <div class="i-hugeicons-delete-02" />
           </div>
-          <div class="py-2 pl-2" @click="handleFriendEdit">
+          <div class="py-2 pl-2" @click="onFriendEdit">
             <div class="i-hugeicons-edit-01" />
           </div>
         </div>
@@ -209,7 +209,7 @@ const handleFriendDel = () => {
     </div>
 
     <div v-if="giftList?.length === 0 && !loading" class="my-24">
-      <uv-empty text="还没有往来记录哦~" mode="favor" />
+      <uv-empty text="还没有人情往来记录哦~" mode="favor" />
     </div>
     <div class="my-5 space-y-3">
       <view v-for="(gift, index) in giftList" :key="index" class="cu-timeline">

@@ -25,16 +25,7 @@ const onCreate = async () => {
   loading.value = false
 }
 
-onLoad(() => {
-  loadData()
-})
-
-onPullDownRefresh(async () => {
-  await loadData()
-  uni.stopPullDownRefresh()
-})
-
-function onClick(i: Api.UserFamily) {
+const onClick = (i: Api.UserFamily) => {
   if (i.userId === userInfo.value?.id) {
     actionSheetList.value = [
       {
@@ -57,7 +48,7 @@ function onClick(i: Api.UserFamily) {
   actionSheetShow.value = true
 }
 
-async function onSelectedAction(e: any) {
+const onSelectedAction = async (e: any) => {
   e.loading = true
   const { data } = e.item
   const res = await apiUserFamilyDelete({ userId: data.userId, familyId: data.familyId })
@@ -65,6 +56,15 @@ async function onSelectedAction(e: any) {
     loadData()
   }
 }
+
+onLoad(() => {
+  loadData()
+})
+
+onPullDownRefresh(async () => {
+  await loadData()
+  uni.stopPullDownRefresh()
+})
 
 onShareAppMessage(() => {
   const promise = new Promise<Page.CustomShareContent>((resolve, reject) => {

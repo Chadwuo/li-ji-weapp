@@ -2,14 +2,20 @@
 import { useLoadMore } from 'vue-request'
 import { useMessage } from 'wot-design-uni'
 
+const search = ref({
+  keyword: '',
+  field: 'id',
+  order: 'asc',
+})
 const message = useMessage()
 const loading = ref(false)
 const popupShow = ref(false)
 const book = ref<Api.GiftBook>({})
-const search = ref({
-  keyword: '',
-  showAction: false,
-})
+const sortList = ref([
+  { label: '默认', field: 'id', value: 1 },
+  { label: '姓名', field: 'friendName', value: 0 },
+  { label: '金额', field: 'money', value: 0 },
+])
 
 const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftIn>>(
   async (d) => {
@@ -17,9 +23,7 @@ const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMo
     const response = await apiGiftInPageGet({
       page: _page,
       giftBookId: book.value.id,
-      keyword: search.value.keyword,
-      field: 'money',
-      order: 'desc',
+      ...search.value,
     })
     const { items, page = 0, total = 0 } = response.data || {}
     return {
@@ -69,18 +73,19 @@ onReachBottom(() => {
   loadMoreAsync()
 })
 
-function searchOk() {
-  refreshAsync()
-}
-function searchCancel() {
-  search.value = {
-    keyword: '',
-    showAction: false,
-  }
+const onSortChange = (sort: any) => {
+  sortList.value.forEach((item) => {
+    if (item.field !== sort.field) {
+      item.value = 0
+    }
+  })
+
+  search.value.field = sort?.field
+  search.value.order = sort?.value === 1 ? 'asc' : 'desc'
   refreshAsync()
 }
 
-const handleGiftClick = (gid?: string) => {
+const onGiftClick = (gid?: string) => {
   if (gid) {
     uni.navigateTo({
       url: `/pages/giftIn/detail?id=${gid}`,
@@ -93,7 +98,7 @@ const handleGiftClick = (gid?: string) => {
   }
 }
 
-const handleBookEdit = () => {
+const onBookEdit = () => {
   uni.navigateTo({
     url: `/pages/book/edit?id=${book.value.id}`,
   })
@@ -101,7 +106,7 @@ const handleBookEdit = () => {
 
 const handleBookDel = () => {
   message.confirm({
-    msg: '该礼簿所有来往记录都将被删除，确定删除？',
+    msg: '该礼簿所有人情往来记录都将被删除，确定删除？',
     title: '删除礼簿',
   }).then(async () => {
     const res = await apiGiftBookDelete({ id: book.value.id })
@@ -116,10 +121,22 @@ const handleBookDel = () => {
     }
   })
 }
+
+const onSearchClick = () => {
+  uni.navigateTo({
+    url: '/pages/search/index',
+    events: {
+      acceptDataFromOpenedPage(e: string) {
+        search.value.keyword = e
+        refreshAsync()
+      },
+    },
+  })
+}
 </script>
 
 <template>
-  <div class="mx-3">
+  <div class="mx-3" :class="{ memorial: hasMourningWords(book.title) }">
     <div v-if="loading" class="mb-5 rounded-2xl bg-white p-5">
       <wd-skeleton
         :row-col="[{ width: '30%' }, { width: '60%' }, { width: '20%' }, [{ width: '20%' }, { width: '20%' }, { width: '20%' }, { width: '20%' }]]"
@@ -129,7 +146,7 @@ const handleBookDel = () => {
     <div v-else class="mb-5 rounded-2xl bg-white px-5 pb-5 pt-3 space-y-3">
       <div class="flex items-center justify-between">
         <div>
-          <div class="text-lg font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
+          <div class="text-lg text-red font-bold">
             {{ book.title }}
           </div>
           <div class="mt-1 text-sm text-gray">
@@ -137,11 +154,11 @@ const handleBookDel = () => {
             <span class="ml-2">({{ book.date }}) </span>
           </div>
         </div>
-        <div class="flex text-xl" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
+        <div class="flex text-xl text-red">
           <div class="py-2 pl-2" @click="handleBookDel">
             <div class="i-hugeicons-delete-02" />
           </div>
-          <div class="py-2 pl-2" @click="handleBookEdit">
+          <div class="py-2 pl-2" @click="onBookEdit">
             <div class="i-hugeicons-edit-01" />
           </div>
         </div>
@@ -197,15 +214,16 @@ const handleBookDel = () => {
 
     <div class="rounded-2xl bg-white p-5">
       <div class="w-full flex items-center justify-between">
-        <div class="w-full">
-          <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
-                     @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
+        <div class="space-x-3">
+          <wd-sort-button v-for="(item, index) in sortList" :key="index" v-model="item.value" :title="item.label"
+                          @change="onSortChange(item)"
           />
         </div>
 
-        <div v-if="!search.showAction" class="i-hugeicons-plus-sign-circle mr-3 pr-2 text-xl"
-             :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']" @click="handleGiftClick()"
-        />
+        <div>
+          <div class="i-hugeicons-search-02 pr-2 text-xl text-red" @click="onSearchClick()" />
+          <div class="i-hugeicons-plus-sign-circle pr-2 text-xl text-red" @click="onGiftClick()" />
+        </div>
       </div>
 
       <div v-if="loading" class="mt-5 text-center">
@@ -216,20 +234,18 @@ const handleBookDel = () => {
       </div>
       <div v-else>
         <div v-if="dataList.length === 0" class="my-24">
-          <uv-empty text="还没有收礼记录哦~" mode="favor">
+          <uv-empty text="还没有人情往来记录哦~" mode="favor">
             <div class="mt-6">
-              <wd-button class="mt-6" :type="hasMourningWords(book.title) ? 'info' : 'primary '"
-                         @click="handleGiftClick()"
-              >
+              <wd-button class="mt-6" type="primary" @click="onGiftClick()">
                 添加收礼
               </wd-button>
             </div>
           </uv-empty>
         </div>
         <div v-else>
-          <div v-for="gift in dataList" :key="gift.id" @click="handleGiftClick(gift.id)">
+          <div v-for="gift in dataList" :key="gift.id" @click="onGiftClick(gift.id)">
             <wd-cell center size="large" :title="gift.friendName" :label="`出席：${gift.attendance || 0}人`">
-              <div class="text-lg font-bold" :class="[hasMourningWords(book.title) ? 'text-gray' : 'text-red']">
+              <div class="text-lg text-red font-bold">
                 <span class="text-sm">￥</span>{{ gift.money }}
               </div>
             </wd-cell>

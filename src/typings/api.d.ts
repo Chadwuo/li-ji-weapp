@@ -189,10 +189,10 @@ declare namespace Api {
   interface UserSubscription {
     /**
      * 雪花Id
-     * @type {number}
+     * @type {string}
      * @memberof UserSubscription
      */
-    id?: number
+    id?: string
     /**
      * 创建时间
      * @type {string}
@@ -237,10 +237,10 @@ declare namespace Api {
     payerTotal?: number | null
     /**
      * 用户Id
-     * @type {number}
+     * @type {string}
      * @memberof UserSubscription
      */
-    userId?: number
+    userId?: string
   }
 
   interface GiftBook {
@@ -339,10 +339,10 @@ declare namespace Api {
   interface FriendTag {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof FriendTag
      */
-    id?: number
+    id?: string
     /**
      *
      * @type {string}
@@ -570,10 +570,10 @@ declare namespace Api {
   interface SubscriptionPlan {
     /**
      * 雪花Id
-     * @type {number}
+     * @type {string}
      * @memberof SubscriptionPlan
      */
-    id?: number
+    id?: string
     /**
      * 标题
      * @type {string}
