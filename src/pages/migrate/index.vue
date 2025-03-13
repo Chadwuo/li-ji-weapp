@@ -7,7 +7,7 @@ const mpserverless = new MPServerless(wx, options)
 
 const msg = ref('ok')
 const percentage = ref(0)
-const userDataScope = ''
+let userDataScope = ''
 
 const getCollection = async (table) => {
   const db = mpserverless.db
@@ -55,6 +55,7 @@ const welcome = () => {
     url: '/pages/book/page',
   })
 }
+// eslint-disable-next-line unused-imports/no-unused-vars
 const star = async () => {
   const friends = await getCollection('friend')
   const books = await getCollection('book')
@@ -68,7 +69,7 @@ const star = async () => {
   const promises = friends.map(async (element) => {
     try {
       const { name, relation, remarks } = element
-      const response = await apiFriendPost({ name, relation, remarks })
+      const response = await apiFriendPost({ name, tag: relation, remarks })
       const { data: friendId } = response
       // 设置旧ID到新ID的映射
       friendMap.set(element._id, friendId)
@@ -150,13 +151,16 @@ const star = async () => {
 }
 
 onLoad(async () => {
-  await mpserverless.init()
+  // await mpserverless.init()
 
   const { referrerInfo } = wx.getLaunchOptionsSync()
+  console.warn('referrerInfo', referrerInfo)
   if (referrerInfo) {
     userDataScope = referrerInfo.extraData
-    if (!userDataScope)
-      star()
+    console.warn('userDataScope', userDataScope)
+    if (!userDataScope && Array.isArray(userDataScope)) {
+      // star()
+    }
   }
 })
 </script>

@@ -80,13 +80,15 @@ const bgImg = computed(() => {
         </div>
       </div>
       <div class="mt-2 flex items-center justify-between">
-        <div class="flex items-center space-x-lg">
-          <div class="ms-2" :class="[tab === TabType.BOOKS ? 'text-red  text-xl font-bold' : 'text-gray text-lg']"
+        <div class="flex items-center">
+          <div class="bg-contain bg-bottom bg-no-repeat p-2"
+               :class="[tab === TabType.BOOKS ? 'text-red text-xl font-bold bg-[url(\'/static/shadow_r.png\')]' : 'text-gray text-lg']"
                @click="tab = TabType.BOOKS"
           >
             礼簿
           </div>
-          <div class="ms-2" :class="[tab === TabType.GIFT_OUT ? 'text-red  text-xl font-bold' : 'text-gray text-lg']"
+          <div class="bg-contain bg-bottom bg-no-repeat p-2"
+               :class="[tab === TabType.GIFT_OUT ? 'text-red text-xl font-bold bg-[url(\'/static/shadow_r.png\')]' : 'text-gray text-lg']"
                @click="tab = TabType.GIFT_OUT"
           >
             送礼
