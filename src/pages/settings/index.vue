@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { useNotify } from 'wot-design-uni'
 
+const appStore = useAppStore()
 const { showNotify } = useNotify()
 const { userInfo, accessToken, refreshToken } = storeToRefs(useAuthStore())
 const nickName_edit = ref(userInfo.value?.nickName)
@@ -12,7 +13,7 @@ const openPrivacyContract = () => {
 
 const onChooseAvatar = (e: any) => {
   uni.uploadFile({
-    url: `${import.meta.env.VITE_SERVICE_API_URL}/user/upload-avatar`,
+    url: `${appStore.baseApiUrl}/user/upload-avatar`,
     filePath: e.detail.avatarUrl,
     name: 'file',
     header: {

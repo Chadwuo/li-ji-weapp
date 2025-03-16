@@ -48,7 +48,8 @@ export function request<T>(options: UniApp.RequestOptions) {
 function requestInterceptor(options: UniApp.RequestOptions) {
   // 非 http 开头需拼接地址
   if (!options.url.startsWith('http')) {
-    options.url = `${import.meta.env.VITE_SERVICE_API_URL}/${options.url}`
+    const appStore = useAppStore()
+    options.url = `${appStore.baseApiUrl}/${options.url}`
   }
 
   const token = useAuthStore().accessToken
