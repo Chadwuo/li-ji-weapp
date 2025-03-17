@@ -37,7 +37,7 @@ const toSettings = () => {
 onShareAppMessage(() => {
   return {
     title: '可能是东半球最好用的人情往来记账工具',
-    path: `/pages/book/page`,
+    path: `/pages/index/index`,
     imageUrl: '/static/share/1.png',
   }
 })
