@@ -8,7 +8,7 @@ export const useAppStore = defineStore('app', () => {
   // #ifdef MP-WEIXIN
   const { miniProgram } = uni.getAccountInfoSync()
   version = miniProgram.version
-  baseApiUrl += miniProgram.envVersion === 'release' ? '-release' : '-dev'
+  baseApiUrl += miniProgram.envVersion === 'release' ? '/release' : ''
   // #endif
 
   return {
