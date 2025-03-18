@@ -70,7 +70,7 @@
     "vue": "~3.4.38",
     "vue-i18n": "^9.14.1",
     "vue-request": "^2.0.4",
-    "wot-design-uni": "^1.5.1"
+    "wot-design-uni": "^1.7.1"
   },
   "devDependencies": {
     "@dcloudio/types": "^3.4.14",
