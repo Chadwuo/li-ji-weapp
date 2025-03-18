@@ -2,6 +2,8 @@
 import BookPage from './components/BookPage.vue'
 import GiftOutPage from './components/GiftOutPage.vue'
 
+const authStore = useAuthStore()
+
 enum TabType {
   BOOKS = 'books',
   GIFT_OUT = 'giftOut',
@@ -12,8 +14,10 @@ const bookPageRef = ref<InstanceType<typeof BookPage> | null>(null)
 const giftOutPageRef = ref<InstanceType<typeof GiftOutPage> | null>(null)
 
 onShow(async () => {
-  bookPageRef.value?.refreshAsync()
-  giftOutPageRef.value?.refreshAsync()
+  if (!authStore.isLogin || !bookPageRef.value || !giftOutPageRef.value)
+    return
+  await bookPageRef.value.refreshAsync()
+  await giftOutPageRef.value.refreshAsync()
 })
 
 onPullDownRefresh(async () => {

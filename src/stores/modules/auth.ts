@@ -36,6 +36,17 @@ export const useAuthStore = defineStore(
       // #endif
     }
 
+    const logout = () => {
+      uni.clearStorageSync()
+
+      const pages = getCurrentPages()
+      if (pages.at(-1)?.route !== 'pages/welcome/index') {
+        uni.redirectTo({
+          url: '/pages/welcome/index',
+        })
+      }
+    }
+
     const setupApp = async () => {
       const res = await apiUserInfoGet()
       if (res.succeeded && res.data) {
@@ -68,6 +79,7 @@ export const useAuthStore = defineStore(
       friendTagPickerColumns,
       friendTabsList,
       login,
+      logout,
       setupApp,
     }
   },

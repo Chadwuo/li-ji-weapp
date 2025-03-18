@@ -28,6 +28,10 @@ const { dataList, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.L
   },
 )
 
+onMounted(() => {
+  refreshAsync()
+})
+
 const onBookClick = (id?: string) => {
   if (id) {
     uni.navigateTo({
