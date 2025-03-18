@@ -22,9 +22,7 @@ export function request<T>(options: UniApp.RequestOptions) {
           resolve(res.data as Api.Response<T>)
         }
         else if (res.statusCode === 401) {
-          uni.navigateTo({
-            url: '/pages/welcome/index',
-          })
+          useAuthStore().logout()
         }
         else {
           uni.showToast({

@@ -21,7 +21,6 @@ const onStart = async () => {
 }
 
 onLoad(() => {
-  uni.clearStorageSync()
   setTimeout(() => {
     showBtn.value = true
   }, 1500)
