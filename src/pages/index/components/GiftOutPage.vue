@@ -37,9 +37,6 @@ const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMo
   },
 )
 
-onMounted(() => {
-  refreshAsync()
-})
 const onTabsClick = (item: any) => {
   search.value.icon = item.value
   refreshAsync()

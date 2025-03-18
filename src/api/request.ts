@@ -22,7 +22,9 @@ export function request<T>(options: UniApp.RequestOptions) {
           resolve(res.data as Api.Response<T>)
         }
         else if (res.statusCode === 401) {
-          // TODO
+          uni.navigateTo({
+            url: '/pages/welcome/index',
+          })
         }
         else {
           uni.showToast({

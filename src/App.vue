@@ -2,9 +2,14 @@
 onLaunch(async () => {
   try {
     const authStore = useAuthStore()
-    if (!authStore.isLogin)
-      await authStore.login()
-    await authStore.setupApp()
+    if (!authStore.isLogin) {
+      uni.navigateTo({
+        url: '/pages/welcome/index',
+      })
+    }
+    else {
+      await authStore.setupApp()
+    }
   }
   catch (error) {
     console.error(error)
