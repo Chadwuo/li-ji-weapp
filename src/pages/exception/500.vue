@@ -6,13 +6,20 @@ const onRetry = () => {
     path: '/pages/book/page',
   })
 }
+
+const error = ref('')
+onLoad((option) => {
+  if (option?.error) {
+    error.value = option.error
+  }
+})
 </script>
 
 <template>
   <div class="h-full flex flex-col items-center justify-center text-gray">
     <div class="i-hugeicons-wifi-error-01 text-12" />
     <div class="mt-8 text-sm">
-      啊哦，出现了一个小错误，请稍后再试~
+      {{ error || '啊哦，出现了一个小错误，请稍后再试~' }}
     </div>
     <div class="mt-8 min-w-24">
       <wd-button @click="onRetry">

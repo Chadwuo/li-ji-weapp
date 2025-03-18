@@ -135,6 +135,7 @@ const star = async () => {
 
   const promises5 = userDataScope.map(async (element) => {
     try {
+      const db = mpserverless.db
       await db.collection('user').updateOne({
         _id: element,
       }, {
