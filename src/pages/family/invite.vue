@@ -41,7 +41,7 @@ const onAgree = async () => {
 
 const onReject = () => {
   uni.switchTab({
-    url: '/pages/book/page',
+    url: '/pages/index/index',
   })
 }
 </script>

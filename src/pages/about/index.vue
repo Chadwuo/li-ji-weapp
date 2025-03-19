@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const { miniProgram } = uni.getAccountInfoSync()
-const version = miniProgram.version || '4.0'
+const appStore = useAppStore()
+const version = appStore.version
 </script>
 
 <template>
