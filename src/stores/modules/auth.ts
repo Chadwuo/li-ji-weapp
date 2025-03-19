@@ -14,7 +14,7 @@ export const useAuthStore = defineStore(
       return [...friendCategory.map(item => ({ label: item, value: item })), ...friendTags.value.map(item => ({ label: item.name, value: item.name }))]
     })
     const friendTabsList = computed(() => {
-      return [{ name: '全部', value: '' }, ...friendCategory.map(item => ({ name: item, value: item })), ...friendTags.value.map(item => ({ name: item.name, value: item }))]
+      return [{ name: '全部', value: '' }, ...friendCategory.map(item => ({ name: item, value: item })), ...friendTags.value.map(item => ({ name: item.name, value: item.name }))]
     })
 
     const login = async () => {
@@ -34,6 +34,17 @@ export const useAuthStore = defineStore(
         throw new Error(errMsg)
       }
       // #endif
+    }
+
+    const logout = () => {
+      uni.clearStorageSync()
+
+      const pages = getCurrentPages()
+      if (pages.at(-1)?.route !== 'pages/welcome/index') {
+        uni.navigateTo({
+          url: '/pages/welcome/index',
+        })
+      }
     }
 
     const setupApp = async () => {
@@ -68,6 +79,7 @@ export const useAuthStore = defineStore(
       friendTagPickerColumns,
       friendTabsList,
       login,
+      logout,
       setupApp,
     }
   },

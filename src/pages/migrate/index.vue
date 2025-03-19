@@ -5,7 +5,7 @@ import options from './config.json'
 
 const mpserverless = new MPServerless(wx, options)
 
-const msg = ref('ok')
+const msg = ref('init')
 const percentage = ref(0)
 let userDataScope = ''
 
@@ -52,10 +52,10 @@ const getCollection = async (table) => {
 
 const welcome = () => {
   uni.switchTab({
-    url: '/pages/book/page',
+    url: '/pages/index/index',
   })
 }
-// eslint-disable-next-line unused-imports/no-unused-vars
+
 const star = async () => {
   const friends = await getCollection('friend')
   const books = await getCollection('book')
@@ -135,6 +135,7 @@ const star = async () => {
 
   const promises5 = userDataScope.map(async (element) => {
     try {
+      const db = mpserverless.db
       await db.collection('user').updateOne({
         _id: element,
       }, {
@@ -147,26 +148,45 @@ const star = async () => {
   })
   await Promise.all(promises5)
   percentage.value = 100
-  msg.value = 'ok'
+  msg.value = 'end'
 }
 
 onLoad(async () => {
-  // await mpserverless.init()
-
   const { referrerInfo } = wx.getLaunchOptionsSync()
+
   console.warn('referrerInfo', referrerInfo)
   if (referrerInfo) {
     userDataScope = referrerInfo.extraData
     console.warn('userDataScope', userDataScope)
-    if (!userDataScope && Array.isArray(userDataScope)) {
-      // star()
+
+    if (userDataScope && Array.isArray(userDataScope)) {
+      await mpserverless.init({
+        authorType: 'anonymous',
+      })
+      star()
     }
   }
 })
 </script>
 
 <template>
-  <div v-if="msg !== 'ok'" class="h-full flex flex-col items-center justify-center">
+  <div v-if="msg === 'end'" class="h-full flex flex-col items-center justify-center text-gray">
+    <div class="i-hugeicons-checkmark-circle-01 text-12" />
+    <div class="mt-8 text-sm">
+      数据同步完成，如需有问题请联系我们
+      <div class="inline text-red font-bold">
+        <button class="reset-button" open-type="contact">
+          在线客服
+        </button>
+      </div>
+    </div>
+    <div class="mt-8 min-w-24">
+      <wd-button @click="welcome">
+        欢迎使用
+      </wd-button>
+    </div>
+  </div>
+  <div v-else class="h-full flex flex-col items-center justify-center">
     <div class="i-dashicons-update text-12" />
     <div class="mt-8 text-center">
       <div class="text-xl">
@@ -181,22 +201,6 @@ onLoad(async () => {
       <div class="text-center text-xs text-gray">
         {{ msg }}
       </div>
-    </div>
-  </div>
-  <div v-else class="h-full flex flex-col items-center justify-center text-gray">
-    <div class="i-hugeicons-checkmark-circle-01 text-12" />
-    <div class="mt-8 text-sm">
-      数据同步完成，如需帮助，请联系
-      <div class="inline text-red font-bold">
-        <button class="reset-button" open-type="contact">
-          在线客服
-        </button>
-      </div>
-    </div>
-    <div class="mt-8 min-w-24">
-      <wd-button @click="welcome">
-        欢迎使用
-      </wd-button>
     </div>
   </div>
 </template>
