@@ -47,7 +47,7 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
 </script>
 
 <template>
-  <div class="bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_mine.png')] bg-contain bg-no-repeat"
+  <div class="bg-[url('https://liji.poemcode.cn/oss/assets/bg/bg_mine.png')] bg-contain bg-no-repeat"
        :style="{ 'padding-top': `${paddingTop || 55}px` }"
   >
     <div class="mx-3 space-y-5">

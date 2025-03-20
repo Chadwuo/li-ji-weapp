@@ -28,7 +28,7 @@ onLoad(() => {
 </script>
 
 <template>
-  <div class="bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_about.webp')] bg-contain bg-no-repeat">
+  <div class="bg-[url('https://liji.poemcode.cn/oss/assets/bg/bg_about.webp')] bg-contain bg-no-repeat">
     <safe-area-inset-top />
     <div class="mx-10">
       <wd-transition name="zoom-in" :duration="2000" show>
