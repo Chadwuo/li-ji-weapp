@@ -65,10 +65,10 @@ const performSearch = () => {
 
 const bgImg = computed(() => {
   if (tab.value === TabType.BOOKS) {
-    return 'https://poemcode.cn/liji-oss/assets/bg/bg_book.png'
+    return 'https://liji.poemcode.cn/oss/assets/bg/bg_book.png'
   }
   else {
-    return 'https://poemcode.cn/liji-oss/assets/bg/bg_giftout.png'
+    return 'https://liji.poemcode.cn/oss/assets/bg/bg_giftout.png'
   }
 })
 </script>

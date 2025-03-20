@@ -4,7 +4,7 @@ const version = appStore.version
 </script>
 
 <template>
-  <div class="bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_about.webp')] bg-contain bg-no-repeat">
+  <div class="bg-[url('https://liji.poemcode.cn/oss/assets/bg/bg_about.webp')] bg-contain bg-no-repeat">
     <div class="mx-10">
       <div class="w-20 pt-12 text-center">
         <img class="h-20 w-20" src="/static/logo.png">
