@@ -82,7 +82,7 @@ const performSearch = () => {
         <div class="ms-2 text-2xl text-red font-bold">
           亲友
         </div>
-        <div class="p-2" @click="onFriendClick()">
+        <div class="py-2 ps-2" @click="onFriendClick()">
           <i class="i-hugeicons-plus-sign-circle text-xl text-red" />
         </div>
       </div>

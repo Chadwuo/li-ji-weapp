@@ -220,9 +220,13 @@ const onSearchClick = () => {
           />
         </div>
 
-        <div>
-          <div class="i-hugeicons-search-02 pr-2 text-xl text-red" @click="onSearchClick()" />
-          <div class="i-hugeicons-plus-sign-circle pr-2 text-xl text-red" @click="onGiftClick()" />
+        <div class="flex text-xl text-red">
+          <div class="py-2 pl-2" @click="onSearchClick">
+            <div class="i-hugeicons-search-02" />
+          </div>
+          <div class="py-2 pl-2" @click="onGiftClick">
+            <div class="i-hugeicons-plus-sign-circle" />
+          </div>
         </div>
       </div>
 

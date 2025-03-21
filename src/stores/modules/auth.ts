@@ -41,7 +41,7 @@ export const useAuthStore = defineStore(
 
       const pages = getCurrentPages()
       if (pages.at(-1)?.route !== 'pages/welcome/index') {
-        uni.redirectTo({
+        uni.navigateTo({
           url: '/pages/welcome/index',
         })
       }
