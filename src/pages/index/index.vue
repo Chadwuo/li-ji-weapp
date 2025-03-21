@@ -84,21 +84,21 @@ const bgImg = computed(() => {
         </div>
       </div>
       <div class="mt-2 flex items-center justify-between">
-        <div class="flex items-center">
-          <div class="bg-contain bg-bottom bg-no-repeat p-2"
+        <div class="flex items-center space-x-xl">
+          <div class="bg-contain bg-bottom bg-no-repeat"
                :class="[tab === TabType.BOOKS ? 'text-red text-2xl font-bold line-bg' : 'text-gray-500 text-lg']"
                @click="tab = TabType.BOOKS"
           >
             礼簿
           </div>
-          <div class="bg-contain bg-bottom bg-no-repeat p-2"
+          <div class="bg-contain bg-bottom bg-no-repeat"
                :class="[tab === TabType.GIFT_OUT ? 'text-red text-2xl font-bold line-bg' : 'text-gray-500 text-lg']"
                @click="tab = TabType.GIFT_OUT"
           >
             送礼
           </div>
         </div>
-        <div class="p-2" @click="addNew()">
+        <div class="py-2 ps-2" @click="addNew()">
           <i class="i-hugeicons-plus-sign-circle text-xl text-red" />
         </div>
       </div>
@@ -115,7 +115,7 @@ const bgImg = computed(() => {
 
 <style lang="scss" scoped>
 .line-bg {
-  background-image: url('/static/shadow_r.png');
+  background-image: url('/static/title_line.webp');
 }
 </style>
 
