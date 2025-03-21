@@ -63,7 +63,7 @@ onLoad(async () => {
 <template>
   <div class="mx-3 h-full flex flex-col items-center">
     <div
-      class="bg-[url('https://poemcode.cn/liji-oss/assets/subscription/countdown_streamer.png')] bg-contain bg-no-repeat text-center"
+      class="bg-[url('https://liji.poemcode.cn/oss/assets/subscription/countdown_streamer.png')] bg-contain bg-no-repeat text-center"
     >
       <div class="mt-6 text-6xl">
         🎉
@@ -76,7 +76,7 @@ onLoad(async () => {
       </div>
     </div>
     <div
-      class="mt-6 h-52 w-full bg-[url('https://poemcode.cn/liji-oss/assets/subscription/vip_price_bg.png')] bg-contain bg-no-repeat"
+      class="mt-6 h-52 w-full bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_price_bg.png')] bg-contain bg-no-repeat"
     >
       <div class="p-5 text-amber">
         <div class="text-2xl font-bold">

@@ -69,7 +69,7 @@ const performSearch = () => {
 </script>
 
 <template>
-  <div class="h-full bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_friend.png')] bg-contain bg-no-repeat">
+  <div class="h-full bg-[url('https://liji.poemcode.cn/oss/assets/bg/bg_friend.png')] bg-contain bg-no-repeat">
     <safe-area-inset-top />
     <div class="mx-3">
       <div class="w-36 flex items-center rounded-full bg-white p-1 px-2 text-gray" @click="performSearch()">
