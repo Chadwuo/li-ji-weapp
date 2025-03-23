@@ -3,9 +3,11 @@ import MPServerless from '@alicloud/mpserverless-sdk'
 import dayjs from 'dayjs'
 import options from './config.json'
 
+const authStore = useAuthStore()
 const mpserverless = new MPServerless(wx, options)
 
-const msg = ref('init')
+const step = ref('init')
+const msg = ref('')
 const percentage = ref(0)
 let userDataScope = ''
 
@@ -148,12 +150,15 @@ const star = async () => {
   })
   await Promise.all(promises5)
   percentage.value = 100
-  msg.value = 'end'
+  step.value = 'end'
 }
 
-onLoad(async () => {
-  const { referrerInfo } = wx.getLaunchOptionsSync()
+onShow(async () => {
+  msg.value = '正在准备您的数据，请稍等...'
+  if (!authStore.isLogin)
+    return
 
+  const { referrerInfo } = wx.getLaunchOptionsSync()
   console.warn('referrerInfo', referrerInfo)
   if (referrerInfo) {
     userDataScope = referrerInfo.extraData
@@ -163,6 +168,7 @@ onLoad(async () => {
       await mpserverless.init({
         authorType: 'anonymous',
       })
+      step.value = 'ing'
       star()
     }
   }
@@ -170,15 +176,15 @@ onLoad(async () => {
 </script>
 
 <template>
-  <div v-if="msg === 'end'" class="h-full flex flex-col items-center justify-center text-gray">
+  <div v-if="step === 'init'" class="h-full flex flex-col items-center justify-center text-gray">
+    <div class="mt-8 text-sm">
+      {{ msg }}
+    </div>
+  </div>
+  <div v-else-if="step === 'end'" class="h-full flex flex-col items-center justify-center text-gray">
     <div class="i-hugeicons-checkmark-circle-01 text-12" />
     <div class="mt-8 text-sm">
-      数据同步完成，如需有问题请联系我们
-      <div class="inline text-red font-bold">
-        <button class="reset-button" open-type="contact">
-          在线客服
-        </button>
-      </div>
+      数据同步完成
     </div>
     <div class="mt-8 min-w-24">
       <wd-button @click="welcome">
@@ -186,7 +192,7 @@ onLoad(async () => {
       </wd-button>
     </div>
   </div>
-  <div v-else class="h-full flex flex-col items-center justify-center">
+  <div v-else-if="step === 'ing'" class="h-full flex flex-col items-center justify-center">
     <div class="i-dashicons-update text-12" />
     <div class="mt-8 text-center">
       <div class="text-xl">
