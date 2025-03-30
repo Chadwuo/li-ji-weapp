@@ -157,27 +157,25 @@ onShow(async () => {
   msg.value = '正在准备您的数据，请稍等...'
   if (!authStore.isLogin)
     return
+  const { query: { uids } } = wx.getLaunchOptionsSync()
+  userDataScope = JSON.parse(uids)
+  userDataScope.forEach((element) => {
+    msg.value += `\n${element}`
+  })
 
-  const { referrerInfo } = wx.getLaunchOptionsSync()
-  console.warn('referrerInfo', referrerInfo)
-  if (referrerInfo) {
-    userDataScope = referrerInfo.extraData
-    console.warn('userDataScope', userDataScope)
-
-    if (userDataScope && Array.isArray(userDataScope)) {
-      await mpserverless.init({
-        authorType: 'anonymous',
-      })
-      step.value = 'ing'
-      star()
-    }
+  if (Array.isArray(userDataScope) && userDataScope.length > 0) {
+    await mpserverless.init({
+      authorType: 'anonymous',
+    })
+    step.value = 'ing'
+    star()
   }
 })
 </script>
 
 <template>
   <div v-if="step === 'init'" class="h-full flex flex-col items-center justify-center text-gray">
-    <div class="mt-8 text-sm">
+    <div v-if="step === 'init'" class="mt-8 text-sm">
       {{ msg }}
     </div>
   </div>

@@ -23,6 +23,11 @@ const onSearch = (keyword: string) => {
   eventChannel.emit('acceptDataFromOpenedPage', keyword)
   uni.navigateBack()
 }
+
+onLoad((option) => {
+  if (option?.keyword)
+    keyword.value = option.keyword
+})
 </script>
 
 <template>
