@@ -57,7 +57,7 @@ const onFriendClick = (id?: string) => {
 
 const performSearch = () => {
   uni.navigateTo({
-    url: '/pages/search/index',
+    url: `/pages/search/index?keyword=${search.value.keyword}`,
     events: {
       acceptDataFromOpenedPage(e: string) {
         search.value.keyword = e
@@ -75,7 +75,7 @@ const performSearch = () => {
       <div class="w-36 flex items-center rounded-full bg-white p-1 px-2 text-gray" @click="performSearch()">
         <i class="i-hugeicons-search-02" />
         <div class="ms-1">
-          搜索人情往来
+          {{ search.keyword || '搜索人情往来' }}
         </div>
       </div>
       <div class="mt-2 flex items-center justify-between">
