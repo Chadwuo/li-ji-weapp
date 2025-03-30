@@ -57,7 +57,7 @@ const onFriendClick = (id?: string) => {
 
 const performSearch = () => {
   uni.navigateTo({
-    url: '/pages/search/index',
+    url: `/pages/search/index?keyword=${search.value.keyword}`,
     events: {
       acceptDataFromOpenedPage(e: string) {
         search.value.keyword = e
@@ -69,20 +69,20 @@ const performSearch = () => {
 </script>
 
 <template>
-  <div class="h-full bg-[url('https://poemcode.cn/liji-oss/assets/bg/bg_friend.png')] bg-contain bg-no-repeat">
+  <div class="h-full bg-[url('https://liji.poemcode.cn/oss/assets/bg/bg_friend.png')] bg-contain bg-no-repeat">
     <safe-area-inset-top />
     <div class="mx-3">
       <div class="w-36 flex items-center rounded-full bg-white p-1 px-2 text-gray" @click="performSearch()">
         <i class="i-hugeicons-search-02" />
         <div class="ms-1">
-          搜索人情往来
+          {{ search.keyword || '搜索人情往来' }}
         </div>
       </div>
       <div class="mt-2 flex items-center justify-between">
         <div class="ms-2 text-2xl text-red font-bold">
           亲友
         </div>
-        <div class="p-2" @click="onFriendClick()">
+        <div class="py-2 ps-2" @click="onFriendClick()">
           <i class="i-hugeicons-plus-sign-circle text-xl text-red" />
         </div>
       </div>
