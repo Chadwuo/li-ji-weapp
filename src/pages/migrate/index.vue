@@ -124,8 +124,8 @@ const star = async () => {
   percentage.value = 80
   const promises4 = gift_receives.map(async (element) => {
     try {
-      const { attendance, money, friendId, bookId } = element
-      await apiGiftInPost({ attendance: attendance || 0, money, giftBookId: bookMap.get(bookId), friendId: friendMap.get(friendId), friendName: 'liji' })
+      const { attendance, money, friendId, bookId, remarks } = element
+      await apiGiftInPost({ attendance: attendance || 0, money, remarks, giftBookId: bookMap.get(bookId), friendId: friendMap.get(friendId), friendName: 'liji' })
     }
     catch (error) {
       console.error(`迁移收礼 ${element._id} 数据时出错:`, error)
