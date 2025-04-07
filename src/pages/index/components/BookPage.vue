@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useLoadMore } from 'vue-request'
+import { useToast } from 'wot-design-uni'
 
+const toast = useToast()
 const search = ref({
   keyword: '',
 })
@@ -28,8 +30,15 @@ const { dataList, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.L
   },
 )
 
-onMounted(() => {
-  refreshAsync()
+onMounted(async () => {
+  toast.loading({
+    loadingColor: '#F87171',
+    msg: '加载中...',
+    direction: 'vertical',
+    position: 'middle',
+  })
+  await refreshAsync()
+  toast.close()
 })
 
 const onBookClick = (id?: string) => {
@@ -60,6 +69,7 @@ defineExpose({
 
 <template>
   <div>
+    <wd-toast />
     <div class="grid grid-cols-2 mt-2 gap-5">
       <div v-for="i in dataList" :key="i.id" class="h-40 w-full rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
            :class="{ memorial: hasMourningWords(i.title) }" @click="onBookClick(i.id)"
