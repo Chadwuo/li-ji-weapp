@@ -91,11 +91,12 @@ const onGiftClick = (gid?: string) => {
       url: `/pages/giftIn/detail?id=${gid}`,
     })
   }
-  else {
-    uni.navigateTo({
-      url: `/pages/giftIn/edit?bookId=${book.value.id}`,
-    })
-  }
+}
+
+const onGiftAdd = () => {
+  uni.navigateTo({
+    url: `/pages/giftIn/edit?bookId=${book.value.id}`,
+  })
 }
 
 const onBookEdit = () => {
@@ -224,7 +225,7 @@ const onSearchClick = () => {
           <div class="py-2 pl-2" @click="onSearchClick">
             <div class="i-hugeicons-search-02" />
           </div>
-          <div class="py-2 pl-2" @click="onGiftClick">
+          <div class="py-2 pl-2" @click="onGiftAdd()">
             <div class="i-hugeicons-plus-sign-circle" />
           </div>
         </div>
@@ -240,7 +241,7 @@ const onSearchClick = () => {
         <div v-if="dataList.length === 0" class="my-24">
           <uv-empty text="还没有人情往来记录哦~" mode="favor">
             <div class="mt-6">
-              <wd-button class="mt-6" type="primary" @click="onGiftClick()">
+              <wd-button class="mt-6" type="primary" @click="onGiftAdd()">
                 添加收礼
               </wd-button>
             </div>
