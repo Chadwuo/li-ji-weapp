@@ -9,11 +9,3 @@ export function apiWxOpenLoginPost(code: string) {
     },
   })
 }
-
-export function apiWxPayCreatePayPost(data: any) {
-  return request<Api.WechatPayTransactionOutput>({
-    url: 'wx-pay/pay-transaction',
-    method: 'POST',
-    data,
-  })
-}

@@ -156,6 +156,9 @@ const onSearchClick = () => {
           </div>
         </div>
         <div class="flex text-xl text-red">
+          <!-- <div class="py-2 pl-2" @click="handleBookDel">
+            <div class="i-hugeicons-pdf-02" />
+          </div> -->
           <div class="py-2 pl-2" @click="handleBookDel">
             <div class="i-hugeicons-delete-02" />
           </div>
