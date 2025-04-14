@@ -1,19 +1,10 @@
 <script setup lang="ts">
-import { apiUserSubscriptionGet, apiWxPayCreatePayPost } from '@/api'
 import { storeToRefs } from 'pinia'
 
 const loading = ref(false)
 const { userInfo } = storeToRefs(useAuthStore())
 const isVip = computed(() => userInfo.value?.isVip)
-const userSubscription = ref<Api.UserSubscription>()
 const subscriptionPlan = ref<Api.SubscriptionPlan>()
-
-const loadUserSubscriptionData = async () => {
-  const res = await apiUserSubscriptionGet()
-  if (res.succeeded && res.data) {
-    userSubscription.value = res.data
-  }
-}
 
 const loadSubscriptionPlanData = async () => {
   const res = await apiSubscriptionPlanGet()
@@ -24,22 +15,22 @@ const loadSubscriptionPlanData = async () => {
 
 const pay = async () => {
   loading.value = true
-  const res = await apiWxPayCreatePayPost({
-    planId: 1,
+  const res = await apiSubscriptionCreatePayPost({
+    planId: 2,
   })
   if (res.succeeded && res.data) {
     const payData = res.data.singInfo
     wx.requestPayment({
       ...payData,
-      success() {
-        uni.showToast({
-          title: '支付成功 谢谢！',
-          icon: 'success',
-        })
-        if (userSubscription.value)
-          userSubscription.value.outTradeNumber = res.data?.outTradeNumber || ''
-        if (userInfo.value)
-          userInfo.value.isVip = true
+      async success() {
+        const { data } = await apiUserMemberStatusPut()
+        if (data) {
+          userInfo.value = data
+          uni.showToast({
+            title: '支付成功 谢谢！',
+            icon: 'success',
+          })
+        }
       },
       fail() {
         uni.showToast({
@@ -55,7 +46,6 @@ const pay = async () => {
 }
 
 onLoad(async () => {
-  await loadUserSubscriptionData()
   await loadSubscriptionPlanData()
 })
 </script>
@@ -90,7 +80,7 @@ onLoad(async () => {
 
         <div class="mt-14 text-sm">
           <div v-if="isVip">
-            NO.{{ userSubscription?.outTradeNumber }}
+            NO.{{ userInfo?.id }}
           </div>
           <div v-else>
             <span class="font-bold">￥</span>
