@@ -34,6 +34,12 @@ const toSettings = () => {
   })
 }
 
+const toSubscription = () => {
+  uni.navigateTo({
+    url: '/pages/subscription/index',
+  })
+}
+
 onShareAppMessage(() => {
   return {
     title: '可能是东半球最好用的人情往来记账工具',
@@ -63,21 +69,31 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
         </div>
         <div class="i-hugeicons-settings-03 ml-auto text-lg" />
       </div>
-      <div class="grid grid-cols-2 gap-5 rounded-2xl bg-white p-5 divide-x">
-        <div class="text-center">
-          <div class="text-lg text-black font-bold">
-            {{ formatMoney(staticData.inTotal) }}
+      <div>
+        <div class="h-18 bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_ad.webp')] bg-cover bg-no-repeat px-4 -mb-3" @click="toSubscription">
+          <div class="pt-3 text-amber font-bold">
+            礼记 永久会员
           </div>
-          <div class="flex items-center justify-center text-sm text-gray space-x-1">
-            <div>收礼({{ staticData.inCount }})</div>
+          <div class="mt-1 text-xs text-amber">
+            会员限时 1 折，享20+ 权益 >
           </div>
         </div>
-        <div class="text-center">
-          <div class="text-lg text-black font-bold">
-            {{ formatMoney(staticData.outTotal) }}
+        <div class="grid grid-cols-2 gap-5 rounded-2xl bg-white p-5">
+          <div class="text-center">
+            <div class="text-lg text-black font-bold">
+              {{ formatMoney(staticData.inTotal) }}
+            </div>
+            <div class="flex items-center justify-center text-sm text-gray space-x-1">
+              <div>收礼({{ staticData.inCount }})</div>
+            </div>
           </div>
-          <div class="flex items-center justify-center text-sm text-gray space-x-1">
-            <div>送礼({{ staticData.outCount }})</div>
+          <div class="text-center">
+            <div class="text-lg text-black font-bold">
+              {{ formatMoney(staticData.outTotal) }}
+            </div>
+            <div class="flex items-center justify-center text-sm text-gray space-x-1">
+              <div>送礼({{ staticData.outCount }})</div>
+            </div>
           </div>
         </div>
       </div>
@@ -101,11 +117,11 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
         </wd-cell>
       </div>
       <div class="rounded-2xl bg-white p-2 space-y-3">
-        <wd-cell title="支持礼记" is-link to="/pages/subscription/index">
+        <!-- <wd-cell title="支持礼记" is-link to="/pages/subscription/index">
           <template #icon>
             <div class="i-hugeicons-thumbs-up mx-2 text-lg text-red" />
           </template>
-        </wd-cell>
+        </wd-cell> -->
         <!-- <wd-cell title="夸夸礼记" is-link @click="openComment">
           <template #icon>
             <div class="i-hugeicons-thumbs-up mx-2 text-lg text-red" />
