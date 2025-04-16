@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+import Equity from './components/Equity.vue'
 
 const loading = ref(false)
 const { userInfo } = storeToRefs(useAuthStore())
@@ -57,7 +58,7 @@ onLoad(async () => {
       <div class="mt-6 text-6xl">
         🎉
       </div>
-      <div class="mt-4 text-2xl">
+      <div class="mt-4 text-xl font-bold">
         开通永久VIP会员
       </div>
       <div class="mt-2 text-sm text-gray">
@@ -65,19 +66,13 @@ onLoad(async () => {
       </div>
     </div>
     <div
-      class="mt-6 h-52 w-full bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_price.webp')] bg-contain bg-no-repeat"
+      class="mt-6 w-full bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_equity_bg.webp')] bg-contain bg-no-repeat"
     >
-      <div class="p-5 text-amber">
-        <div class="text-2xl font-bold">
+      <div class="flex items-center justify-between p-5">
+        <div class="text-xl text-[#985426] font-bold">
           {{ subscriptionPlan?.title }}
         </div>
-        <div class="mt-3 flex space-x-3">
-          <div>不限共享人数</div>
-          <div>VIP身份展示</div>
-          <div>专属客服</div>
-        </div>
-
-        <div class="mt-14 text-sm">
+        <div class="text-[#CD7F32]">
           <div>
             <span class="font-bold">￥</span>
             <span class="text-2xl font-bold">{{ subscriptionPlan?.price }}</span>
@@ -86,9 +81,8 @@ onLoad(async () => {
         </div>
       </div>
     </div>
-    <!-- <div class="mt-6">
-      会员权益
-    </div> -->
+    <Equity class="mt-6 pb-36" />
+
     <div class="fixed bottom-0 w-full rounded-t-xl bg-white py-6">
       <div class="mx-3">
         <wd-button block :loading="loading" loading-color="#F87171" @click="pay">
@@ -99,7 +93,7 @@ onLoad(async () => {
           </div>
         </wd-button>
         <div class="mt-2 text-xs text-gray">
-          你购买的是永久会员权益，在交易成功后的一年内（支付平台支持的最长时间），可以申请无条件退款。
+          * 你购买的是永久会员权益，在交易成功后的一年内（支付平台支持的最长时间），可以申请无条件退款。
         </div>
       </div>
       <uv-safe-bottom />

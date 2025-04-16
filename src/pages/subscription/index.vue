@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+import Equity from './components/Equity.vue'
 
 const { userInfo } = storeToRefs(useAuthStore())
 const vipType = computed(() => {
@@ -44,8 +45,8 @@ onLoad(() => {
 
 <template>
   <div class="mx-3 h-full flex flex-col items-center">
-    <div class="mt-6 h-52 w-full bg-contain bg-no-repeat" :style="{ 'background-image': `url(${vipType.bg})` }">
-      <div class="p-5">
+    <div class="mt-6 w-full bg-no-repeat" :style="{ 'background-image': `url(${vipType.bg})`, 'background-size': '100% 100%' }">
+      <div class="h-36 flex flex-col p-5">
         <div class="text-2xl font-bold" :class="vipType.color">
           {{ vipType.text }}
         </div>
@@ -55,7 +56,7 @@ onLoad(() => {
           <div>专属客服</div>
         </div>
 
-        <div class="mt-14 flex text-sm">
+        <div class="mt-auto flex text-sm">
           <div class="rounded-lg bg-black px-2 text-center text-xs leading-5" :class="vipType.color">
             持卡人
           </div>
@@ -65,9 +66,7 @@ onLoad(() => {
         </div>
       </div>
     </div>
-    <!-- <div class="mt-6">
-      会员权益
-    </div> -->
+    <Equity class="mt-6" />
   </div>
 </template>
 
@@ -75,7 +74,6 @@ onLoad(() => {
 
 <route lang="json">
 {
-  "layout": false,
   "style": {
     "navigationBarTitleText": ""
   }

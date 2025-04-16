@@ -75,11 +75,11 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
           @click="toSubscription"
         >
           <div class="mt-3">
-            <div class="text-[#7D3F0B] font-bold">
+            <div class="text-[#985426] font-bold">
               礼记 永久会员
             </div>
-            <div class="mt-1 text-sm text-[#985426]">
-              会员限时 1 折，享20+ 权益 >
+            <div class="mt-1 text-sm text-[#CD7F32]">
+              会员限时 1 折，享专属服务 >
             </div>
           </div>
 
