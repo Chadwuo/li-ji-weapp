@@ -53,7 +53,7 @@ onLoad(async () => {
 <template>
   <div class="mx-3 h-full flex flex-col items-center">
     <div
-      class="bg-[url('https://liji.poemcode.cn/oss/assets/subscription/countdown_streamer.png')] bg-contain bg-no-repeat text-center"
+      class="bg-[url('https://liji.poemcode.cn/oss/assets/subscription/congratulate.webp')] bg-contain bg-no-repeat text-center"
     >
       <div class="mt-6 text-6xl">
         🎉
@@ -66,7 +66,7 @@ onLoad(async () => {
       </div>
     </div>
     <div
-      class="mt-6 h-52 w-full bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_price_bg.png')] bg-contain bg-no-repeat"
+      class="mt-6 h-52 w-full bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_price.webp')] bg-contain bg-no-repeat"
     >
       <div class="p-5 text-amber">
         <div class="text-2xl font-bold">
@@ -96,7 +96,11 @@ onLoad(async () => {
     <div v-if="!isVip" class="fixed bottom-0 w-full rounded-t-xl bg-white py-6">
       <div class="mx-3">
         <wd-button block :loading="loading" loading-color="#F87171" @click="pay">
-          立即购买
+          <div class="font-bold">
+            <span>￥</span>
+            <span>{{ subscriptionPlan?.price }}</span>
+            <span class="ml-2">立即购买</span>
+          </div>
         </wd-button>
         <div class="mt-2 text-xs text-gray">
           你购买的是永久会员权益，在交易成功后的一年内（支付平台支持的最长时间），可以申请无条件退款。
