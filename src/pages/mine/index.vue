@@ -70,12 +70,20 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
         <div class="i-hugeicons-settings-03 ml-auto text-lg" />
       </div>
       <div>
-        <div class="h-18 bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_ad.webp')] bg-cover bg-no-repeat px-4 -mb-3" @click="toSubscription">
-          <div class="pt-3 text-amber font-bold">
-            礼记 永久会员
+        <div class="h-18 flex bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_equity_bg.webp')] bg-contain bg-no-repeat px-4 -mb-4" @click="toSubscription">
+          <div class="mt-3">
+            <div class="text-[#7D3F0B] font-bold">
+              礼记 永久会员
+            </div>
+            <div class="mt-1 text-sm text-[#985426]">
+              会员限时 1 折，享20+ 权益 >
+            </div>
           </div>
-          <div class="mt-1 text-xs text-amber">
-            会员限时 1 折，享20+ 权益 >
+
+          <div class="ms-auto mt-4">
+            <div class="rounded-full from-[#fed7aa] to-[#d97706] bg-gradient-to-r px-2 py-1 text-sm text-white">
+              立即开通
+            </div>
           </div>
         </div>
         <div class="grid grid-cols-2 gap-5 rounded-2xl bg-white p-5">
