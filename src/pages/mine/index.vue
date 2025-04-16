@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 
-const { userInfo, userFamilys } = storeToRefs(useAuthStore())
+const { userInfo, userFamilys, isVip } = storeToRefs(useAuthStore())
 const jinrishici = ref('')
 const staticData = ref<Api.StatOverall>({
   inCount: 0,
@@ -36,7 +36,7 @@ const toSettings = () => {
 
 const toSubscription = () => {
   uni.navigateTo({
-    url: '/pages/subscription/index',
+    url: `/pages/subscription/${isVip.value ? 'index' : 'plan'}`,
   })
 }
 
@@ -70,7 +70,10 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
         <div class="i-hugeicons-settings-03 ml-auto text-lg" />
       </div>
       <div>
-        <div class="h-18 flex bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_equity_bg.webp')] bg-contain bg-no-repeat px-4 -mb-4" @click="toSubscription">
+        <div
+          class="h-18 flex bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_equity_bg.webp')] bg-contain bg-no-repeat px-4 -mb-4"
+          @click="toSubscription"
+        >
           <div class="mt-3">
             <div class="text-[#7D3F0B] font-bold">
               礼记 永久会员

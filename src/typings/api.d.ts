@@ -152,11 +152,11 @@ declare namespace Api {
      */
     phone?: string
     /**
-     * 是否vip
+     * 账号类型
      * @type {boolean}
      * @memberof User
      */
-    isVip?: boolean
+    accountType?: int
   }
   interface UserFamily {
     /**
