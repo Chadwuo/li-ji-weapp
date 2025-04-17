@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 
-const { userInfo, userFamilys, isVip } = storeToRefs(useAuthStore())
+const { userInfo, userFamilys, isVip, vipLevel } = storeToRefs(useAuthStore())
 const jinrishici = ref('')
 const staticData = ref<Api.StatOverall>({
   inCount: 0,
@@ -9,7 +9,6 @@ const staticData = ref<Api.StatOverall>({
   inTotal: 0,
   outTotal: 0,
 })
-
 const statistics = async () => {
   apiStatisticsOverallGet().then((res) => {
     if (res.succeeded && res.data) {
@@ -70,22 +69,22 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
         <div class="i-hugeicons-settings-03 ml-auto text-lg" />
       </div>
       <div>
-        <div
-          class="h-18 flex bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_equity_bg.webp')] bg-contain bg-no-repeat px-4 -mb-4"
-          @click="toSubscription"
+        <div class="h-18 flex bg-[length:100%_100%] bg-no-repeat px-4 -mb-4"
+             :style="{ 'background-image': `url(${vipLevel.bg})` }"
+             @click="toSubscription"
         >
           <div class="mt-3">
             <div class="text-[#985426] font-bold">
-              礼记 永久会员
+              {{ vipLevel.name }}
             </div>
-            <div class="mt-1 text-sm text-[#CD7F32]">
-              会员限时 1 折，享专属服务 >
+            <div class="mt-1 text-sm text-[#B8860B]">
+              {{ vipLevel.text }}
             </div>
           </div>
 
           <div class="ms-auto mt-4">
-            <div class="rounded-full from-[#fed7aa] to-[#d97706] bg-gradient-to-r px-2 py-1 text-sm text-white">
-              立即开通
+            <div class="rounded-full from-[#fed7aa] to-[#B8860B] bg-gradient-to-r px-2 py-1 text-sm text-white">
+              {{ isVip ? '我的权益' : '立即开通' }}
             </div>
           </div>
         </div>
