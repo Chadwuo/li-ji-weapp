@@ -10,7 +10,7 @@
     </div>
 
     <!-- 对比表格 -->
-    <div class="overflow-hidden rounded-lg bg-white shadow">
+    <div class="overflow-hidden rounded-2xl bg-white shadow">
       <!-- 表头 -->
       <div class="grid grid-cols-3 justify-items-center bg-gray-50">
         <div class="px-4 py-3 text-left text-gray-500 font-medium">
@@ -78,19 +78,19 @@
       我们列举了一些你可能关注的话题。如果没能找你想要的信息，可以联系在线客服获取更多支持。
     </div>
 
-    <div class="mt-6 rounded-lg bg-white">
-      <uv-collapse accordion :clickable="false">
-        <uv-collapse-item title="什么是永久会员？">
+    <div class="mt-6 rounded-2xl bg-white shadow">
+      <uv-collapse accordion :border="false">
+        <uv-collapse-item :clickable="false" title="什么是永久会员？">
           <text class="uv-collapse-content">
             永久会员指通过一次性支付费用，即可永久享受会员权益，无需定期续费
           </text>
         </uv-collapse-item>
-        <uv-collapse-item title="升级VIP后权益立即生效吗？">
+        <uv-collapse-item :clickable="false" title="升级VIP后权益立即生效吗？">
           <text class="uv-collapse-content">
             是的，成功升级后所有VIP权益将立即生效，部分需要人工配置的服务最迟在2小时内完成开通。
           </text>
         </uv-collapse-item>
-        <uv-collapse-item title="可以取消订阅吗？">
+        <uv-collapse-item :clickable="false" title="可以取消订阅吗？">
           <text class="uv-collapse-content">
             你购买的是永久会员权益，在交易成功后的一年内（支付平台支持的最长时间），可以申请无条件退款。
           </text>

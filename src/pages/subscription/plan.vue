@@ -66,15 +66,15 @@ onLoad(async () => {
           为效率和情怀充值，让你的人情往来记账更高效
         </div>
       </div>
-      <div class="mt-6 h-36 w-full bg-[length:100%_100%] bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_price_bg.webp')] bg-no-repeat">
-        <div class="justify-between p-5">
-          <div class="ml-8 text-xl text-[#985426] font-bold">
+      <div class="mt-6 w-full bg-[length:100%_100%] bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_price_bg.webp')] bg-no-repeat">
+        <div class="h-28 flex flex-col p-5">
+          <div class="ml-8 text-xl text-[#9F5300] font-bold">
             {{ subscriptionPlan?.title }}
           </div>
-          <div class="mt-2 text-slate-500">
+          <div class="m-2 text-gray">
             {{ subscriptionPlan?.desc }}
           </div>
-          <div class="my-2 text-center text-[#CD7F32]">
+          <div class="my-auto text-center text-[#9F5300]">
             <div>
               <span class="font-bold">￥</span>
               <span class="text-2xl font-bold">{{ subscriptionPlan?.price }}</span>

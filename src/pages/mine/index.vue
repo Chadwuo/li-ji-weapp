@@ -1,7 +1,31 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 
-const { userInfo, userFamilys, isVip, vipLevel } = storeToRefs(useAuthStore())
+const { userInfo, userFamilys, isVip } = storeToRefs(useAuthStore())
+const vipLevel = computed(() => {
+  switch (userInfo.value?.accountType) {
+    case 1:
+      return {
+        name: '创始会员',
+        text: '仅限百席，致敢于梦想的⌜创始人⌟',
+      }
+    case 2:
+      return {
+        name: '赠送会员',
+        text: '专属礼遇，馈赠予重要伙伴的特殊权益',
+      }
+    case 9:
+      return {
+        name: '永久会员',
+        text: '终身尊享，解锁平台无期限的特权礼遇',
+      }
+    default:
+      return {
+        name: '普通用户',
+        text: '会员限时 1 折，享专属服务 >',
+      }
+  }
+})
 const jinrishici = ref('')
 const staticData = ref<Api.StatOverall>({
   inCount: 0,
@@ -49,10 +73,6 @@ onShareAppMessage(() => {
 // #ifdef MP-WEIXIN
 const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
 // #endif
-// from-[#B8860B] to-[#F2CB69]
-// from-[#C02625] to-[#DB695B]
-// from-[#D044CF] to-[#EC70AE]
-// from-[#E9EEEE] to-[#FBFFFC]
 </script>
 
 <template>
@@ -73,25 +93,26 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
         <div class="i-hugeicons-settings-03 ml-auto text-lg" />
       </div>
       <div>
-        <div class="h-20 flex bg-cover bg-top bg-no-repeat px-4 -mb-4"
-             :style="{ 'background-image': `url(${vipLevel.bg})` }"
-             @click="toSubscription"
+        <div
+          class="h-18 flex bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_equity_bg.webp')] bg-contain bg-no-repeat px-4 -mb-4"
+          @click="toSubscription"
         >
           <div class="mt-2">
-            <div class="bg-gradient-to-r bg-clip-text text-lg text-transparent font-bold" :class="vipLevel.color">
+            <div class="text-[#7D3F0B] font-bold">
               {{ vipLevel.name }}
             </div>
-            <div class="mt-1 bg-gradient-to-r bg-clip-text text-sm text-transparent" :class="vipLevel.color">
+            <div class="mt-1 text-sm text-[#985426]">
               {{ vipLevel.text }}
             </div>
           </div>
 
-          <div class="ms-auto mt-5">
-            <div class="rounded-full bg-gradient-to-l px-2 py-1 text-sm text-white" :class="vipLevel.color">
+          <div class="ms-auto mt-4">
+            <div class="rounded-full from-[#fed7aa] to-[#d97706] bg-gradient-to-r px-2 py-1 text-sm text-white">
               {{ isVip ? '我的权益' : '立即开通' }}
             </div>
           </div>
         </div>
+
         <div class="grid grid-cols-2 gap-5 rounded-2xl bg-white p-5">
           <div class="text-center">
             <div class="text-lg text-black font-bold">

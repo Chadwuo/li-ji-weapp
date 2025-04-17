@@ -11,38 +11,6 @@ export const useAuthStore = defineStore(
     const friendTags = ref<Array<Api.FriendTag>>([])
     const isLogin = computed(() => Boolean(accessToken.value))
     const isVip = computed(() => Boolean(userInfo.value?.accountType || false))
-    const vipLevel = computed(() => {
-      switch (userInfo.value?.accountType) {
-        case 1:
-          return {
-            name: '创始会员',
-            color: 'from-[#B8860B] to-[#F2CB69]',
-            bg: 'https://liji.poemcode.cn/oss/assets/subscription/vip_pro_bg.webp',
-            text: '仅限百席，致敢于梦想的⌜创始人⌟',
-          }
-        case 2:
-          return {
-            name: '赠送会员',
-            color: 'from-[#C02625] to-[#DB695B]',
-            bg: 'https://liji.poemcode.cn/oss/assets/subscription/vip_free_bg.webp',
-            text: '专属礼遇，馈赠予重要伙伴的特殊权益',
-          }
-        case 9:
-          return {
-            name: '永久会员',
-            color: 'from-[#D044CF] to-[#EC70AE]',
-            bg: 'https://liji.poemcode.cn/oss/assets/subscription/vip_svip_bg.webp',
-            text: '终身尊享，解锁平台无期限的特权礼遇',
-          }
-        default:
-          return {
-            name: '普通用户',
-            color: 'from-[#E9EEEE] to-[#FBFFFC]',
-            bg: 'https://liji.poemcode.cn/oss/assets/subscription/vip_normal_bg.webp',
-            text: '会员限时 1 折，享专属服务 >',
-          }
-      }
-    })
     const friendTagPickerColumns = computed(() => {
       return [...friendCategory.map(item => ({ label: item, value: item })), ...friendTags.value.map(item => ({ label: item.name, value: item.name }))]
     })
@@ -107,7 +75,6 @@ export const useAuthStore = defineStore(
       refreshToken,
       isLogin,
       isVip,
-      vipLevel,
       userInfo,
       userFamilys,
       friendTags,
