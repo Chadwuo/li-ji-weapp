@@ -32,7 +32,7 @@
           2 人
         </div>
         <div class="px-4 py-3 text-center text-amber font-medium">
-          不限人数
+          无限制
         </div>
       </div>
       <div class="grid grid-cols-3 justify-items-center border-t border-gray-100">

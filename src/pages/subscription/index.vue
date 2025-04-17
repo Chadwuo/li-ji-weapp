@@ -2,40 +2,10 @@
 import { storeToRefs } from 'pinia'
 import VipEquity from './components/VipEquity.vue'
 
-const { userInfo } = storeToRefs(useAuthStore())
-const vipType = computed(() => {
-  if (userInfo.value?.accountType === 1) {
-    return {
-      text: '创始会员',
-      color: 'text-[#CD7F32]',
-      bg: 'https://liji.poemcode.cn/oss/assets/subscription/vip_price.webp',
-    }
-  }
-  else if (userInfo.value?.accountType === 2) {
-    return {
-      text: '赠送会员',
-      color: 'text-red',
-      bg: 'https://liji.poemcode.cn/oss/assets/subscription/vip_price.webp',
-    }
-  }
-  else if (userInfo.value?.accountType === 9) {
-    return {
-      text: '永久会员',
-      color: 'text-amber',
-      bg: 'https://liji.poemcode.cn/oss/assets/subscription/vip_price.webp',
-    }
-  }
-  else {
-    return {
-      text: '普通用户',
-      color: 'text-gray',
-      bg: 'https://liji.poemcode.cn/oss/assets/subscription/vip_price.webp',
-    }
-  }
-})
+const { isVip, vipLevel, userInfo } = storeToRefs(useAuthStore())
 
 onLoad(() => {
-  if (userInfo.value?.accountType === 0) {
+  if (!isVip.value) {
     uni.navigateTo({
       url: '/pages/subscription/plan',
     })
@@ -45,22 +15,22 @@ onLoad(() => {
 
 <template>
   <div class="mx-3 h-full flex flex-col items-center">
-    <div class="mt-6 w-full bg-no-repeat" :style="{ 'background-image': `url(${vipType.bg})`, 'background-size': '100% 100%' }">
-      <div class="h-36 flex flex-col p-5">
-        <div class="text-2xl font-bold" :class="vipType.color">
-          {{ vipType.text }}
+    <div class="mt-6 w-full bg-[length:100%_100%] bg-no-repeat"
+         :style="{ 'background-image': `url(${vipLevel.bg})` }"
+    >
+      <div class="h-24 flex flex-col p-5">
+        <div class="text-2xl font-bold" :class="vipLevel.color">
+          {{ vipLevel.name }}
         </div>
-        <div class="mt-3 flex space-x-3">
-          <div>不限共享人数</div>
-          <div>VIP身份展示</div>
-          <div>专属客服</div>
+        <div class="mt-3 flex whitespace-pre text-sm text-slate-500 leading-relaxed space-x-3">
+          {{ vipLevel.text }}
         </div>
 
-        <div class="mt-auto flex text-sm">
-          <div class="rounded-lg bg-black px-2 text-center text-xs leading-5" :class="vipType.color">
-            持卡人
+        <div class="ms-auto mt-auto flex text-sm">
+          <div class="rounded-lg text-center text-xs text-slate-500 leading-5">
+            持卡人：
           </div>
-          <div class="ms-2 text-slate-500 font-serif">
+          <div class="ms-2 font-serif" :class="vipLevel.color">
             {{ userInfo?.nickName }}
           </div>
         </div>

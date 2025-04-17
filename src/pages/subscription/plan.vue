@@ -60,24 +60,25 @@ onLoad(async () => {
           🎉
         </div>
         <div class="mt-4 text-xl font-bold">
-          开通永久VIP会员
+          永久VIP会员 限时 1 折起
         </div>
         <div class="mt-2 text-sm text-gray">
           为效率和情怀充值，让你的人情往来记账更高效
         </div>
       </div>
-      <div
-        class="mt-6 w-full bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_equity_bg.webp')] bg-contain bg-no-repeat"
-      >
-        <div class="flex items-center justify-between p-5">
+      <div class="mt-6 w-full bg-[length:100%_100%] bg-[url('https://liji.poemcode.cn/oss/assets/subscription/price.webp')] bg-no-repeat">
+        <div class="justify-between p-5">
           <div class="text-xl text-[#985426] font-bold">
             {{ subscriptionPlan?.title }}
           </div>
-          <div class="text-[#CD7F32]">
+          <div class="mt-2 text-slate-500">
+            {{ subscriptionPlan?.desc }}
+          </div>
+          <div class="my-2 text-center text-[#CD7F32]">
             <div>
               <span class="font-bold">￥</span>
               <span class="text-2xl font-bold">{{ subscriptionPlan?.price }}</span>
-              <span class="ml-2 text-gray line-through">￥98</span>
+              <span class="ml-2 text-lg text-gray font-bold line-through">￥98</span>
             </div>
           </div>
         </div>
