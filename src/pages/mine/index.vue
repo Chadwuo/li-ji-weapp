@@ -49,6 +49,10 @@ onShareAppMessage(() => {
 // #ifdef MP-WEIXIN
 const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
 // #endif
+// from-[#B8860B] to-[#F2CB69]
+// from-[#C02625] to-[#DB695B]
+// from-[#D044CF] to-[#EC70AE]
+// from-[#E9EEEE] to-[#FBFFFC]
 </script>
 
 <template>
@@ -69,21 +73,21 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
         <div class="i-hugeicons-settings-03 ml-auto text-lg" />
       </div>
       <div>
-        <div class="h-18 flex bg-[length:100%_100%] bg-no-repeat px-4 -mb-4"
+        <div class="h-20 flex bg-cover bg-top bg-no-repeat px-4 -mb-4"
              :style="{ 'background-image': `url(${vipLevel.bg})` }"
              @click="toSubscription"
         >
-          <div class="mt-3">
-            <div class="text-[#985426] font-bold">
+          <div class="mt-2">
+            <div class="bg-gradient-to-r bg-clip-text text-lg text-transparent font-bold" :class="vipLevel.color">
               {{ vipLevel.name }}
             </div>
-            <div class="mt-1 text-sm text-[#B8860B]">
+            <div class="mt-1 bg-gradient-to-r bg-clip-text text-sm text-transparent" :class="vipLevel.color">
               {{ vipLevel.text }}
             </div>
           </div>
 
-          <div class="ms-auto mt-4">
-            <div class="rounded-full from-[#fed7aa] to-[#B8860B] bg-gradient-to-r px-2 py-1 text-sm text-white">
+          <div class="ms-auto mt-5">
+            <div class="rounded-full bg-gradient-to-l px-2 py-1 text-sm text-white" :class="vipLevel.color">
               {{ isVip ? '我的权益' : '立即开通' }}
             </div>
           </div>
