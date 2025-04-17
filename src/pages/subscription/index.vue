@@ -18,21 +18,18 @@ onLoad(() => {
     <div class="mt-6 w-full bg-[length:100%_100%] bg-no-repeat"
          :style="{ 'background-image': `url(${vipLevel.bg})` }"
     >
-      <div class="h-24 flex flex-col p-5">
-        <div class="text-2xl font-bold" :class="vipLevel.color">
+      <div class="h-32 flex flex-col p-5">
+        <div class="bg-gradient-to-r bg-clip-text text-2xl text-transparent font-bold" :class="vipLevel.color">
           {{ vipLevel.name }}
         </div>
-        <div class="mt-3 flex whitespace-pre text-sm text-slate-500 leading-relaxed space-x-3">
-          {{ vipLevel.text }}
-        </div>
-
-        <div class="ms-auto mt-auto flex text-sm">
-          <div class="rounded-lg text-center text-xs text-slate-500 leading-5">
-            持卡人：
-          </div>
-          <div class="ms-2 font-serif" :class="vipLevel.color">
+        <div class="my-auto flex items-center">
+          <uv-avatar :src="userInfo?.avatar" :size="28" />
+          <div class="ml-2 bg-gradient-to-r bg-clip-text text-transparent" :class="vipLevel.color">
             {{ userInfo?.nickName }}
           </div>
+        </div>
+        <div class="mt-1 bg-gradient-to-r bg-clip-text text-sm text-transparent" :class="vipLevel.color">
+          {{ vipLevel.text }}
         </div>
       </div>
     </div>
