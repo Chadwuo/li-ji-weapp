@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import Equity from './components/Equity.vue'
+import VipEquity from './components/VipEquity.vue'
 
 const { userInfo } = storeToRefs(useAuthStore())
 const vipType = computed(() => {
@@ -66,7 +66,7 @@ onLoad(() => {
         </div>
       </div>
     </div>
-    <Equity class="mt-6" />
+    <vip-equity class="mt-6" />
   </div>
 </template>
 

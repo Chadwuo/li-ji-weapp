@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import Equity from './components/Equity.vue'
+import VipEquity from './components/VipEquity.vue'
 
 const loading = ref(false)
 const { userInfo } = storeToRefs(useAuthStore())
@@ -51,39 +51,40 @@ onLoad(async () => {
 </script>
 
 <template>
-  <div class="mx-3 h-full flex flex-col items-center">
-    <div
-      class="bg-[url('https://liji.poemcode.cn/oss/assets/subscription/congratulate.webp')] bg-contain bg-no-repeat text-center"
-    >
-      <div class="mt-6 text-6xl">
-        🎉
-      </div>
-      <div class="mt-4 text-xl font-bold">
-        开通永久VIP会员
-      </div>
-      <div class="mt-2 text-sm text-gray">
-        为效率和情怀充值，让你的人情往来记账更高效
-      </div>
-    </div>
-    <div
-      class="mt-6 w-full bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_equity_bg.webp')] bg-contain bg-no-repeat"
-    >
-      <div class="flex items-center justify-between p-5">
-        <div class="text-xl text-[#985426] font-bold">
-          {{ subscriptionPlan?.title }}
+  <div>
+    <div class="mx-3 h-full flex flex-col items-center pb-32">
+      <div
+        class="bg-[url('https://liji.poemcode.cn/oss/assets/subscription/congratulate.webp')] bg-contain bg-no-repeat text-center"
+      >
+        <div class="mt-6 text-6xl">
+          🎉
         </div>
-        <div class="text-[#CD7F32]">
-          <div>
-            <span class="font-bold">￥</span>
-            <span class="text-2xl font-bold">{{ subscriptionPlan?.price }}</span>
-            <span class="ml-2 text-gray line-through">￥98</span>
+        <div class="mt-4 text-xl font-bold">
+          开通永久VIP会员
+        </div>
+        <div class="mt-2 text-sm text-gray">
+          为效率和情怀充值，让你的人情往来记账更高效
+        </div>
+      </div>
+      <div
+        class="mt-6 w-full bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_equity_bg.webp')] bg-contain bg-no-repeat"
+      >
+        <div class="flex items-center justify-between p-5">
+          <div class="text-xl text-[#985426] font-bold">
+            {{ subscriptionPlan?.title }}
+          </div>
+          <div class="text-[#CD7F32]">
+            <div>
+              <span class="font-bold">￥</span>
+              <span class="text-2xl font-bold">{{ subscriptionPlan?.price }}</span>
+              <span class="ml-2 text-gray line-through">￥98</span>
+            </div>
           </div>
         </div>
       </div>
+      <vip-equity class="mt-6 pb-6" />
     </div>
-    <Equity class="mt-6 pb-36" />
-
-    <div class="fixed bottom-0 w-full rounded-t-xl bg-white py-6">
+    <div class="fixed bottom-0 w-full rounded-t-xl bg-white pt-6">
       <div class="mx-3">
         <wd-button block :loading="loading" loading-color="#F87171" @click="pay">
           <div class="font-bold">

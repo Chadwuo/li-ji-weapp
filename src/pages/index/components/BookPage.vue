@@ -38,7 +38,9 @@ onMounted(async () => {
     position: 'middle',
   })
   await refreshAsync()
-  toast.close()
+  setTimeout(() => {
+    toast.close()
+  }, 500)
 })
 
 const onBookClick = (id?: string) => {
