@@ -8,9 +8,10 @@ export function apiUserNickNamePut(data: any) {
   })
 }
 
-export function apiUserMemberStatusPut() {
+export function apiUserMemberStatusPut(data: any) {
   return request<Api.User>({
     url: 'user/member-status',
     method: 'PUT',
+    data,
   })
 }

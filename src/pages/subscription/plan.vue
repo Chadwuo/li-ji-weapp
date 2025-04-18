@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+import { useMessage } from 'wot-design-uni'
 import VipEquity from './components/VipEquity.vue'
 
+const message = useMessage()
 const loading = ref(false)
 const { userInfo } = storeToRefs(useAuthStore())
 const subscriptionPlan = ref<Api.SubscriptionPlan>()
 
 const loadSubscriptionPlanData = async () => {
-  const res = await apiSubscriptionPlanGet()
+  const res = await apiSubscriptionPlanGet({ planId: 1 })
   if (res.succeeded && res.data) {
     subscriptionPlan.value = res.data
   }
@@ -16,19 +18,24 @@ const loadSubscriptionPlanData = async () => {
 const pay = async () => {
   loading.value = true
   const res = await apiSubscriptionCreatePayPost({
-    planId: 2,
+    planId: 1,
   })
   if (res.succeeded && res.data) {
-    const payData = res.data.singInfo
+    const { singInfo, outTradeNumber } = res.data
     wx.requestPayment({
-      ...payData,
+      ...singInfo,
       async success() {
-        const { data } = await apiUserMemberStatusPut()
+        uni.showToast({
+          title: '支付成功 谢谢！',
+          icon: 'success',
+        })
+        const { data } = await apiUserMemberStatusPut({
+          outTradeNumber,
+        })
         if (data) {
           userInfo.value = data
-          uni.showToast({
-            title: '支付成功 谢谢！',
-            icon: 'success',
+          uni.redirectTo({
+            url: '/pages/subscription/index',
           })
         }
       },
@@ -45,6 +52,33 @@ const pay = async () => {
   }
 }
 
+const couponPay = async () => {
+  message
+    .prompt({
+      title: '优惠码兑换',
+      inputPlaceholder: '请输入优惠码',
+      inputPattern: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,
+      inputError: '无效的优惠码',
+    })
+    .then(async ({ action, value }) => {
+      if (action === 'confirm') {
+        const { succeeded, data } = await apiUserMemberStatusPut({
+          couponCode: value,
+        })
+        if (succeeded && data) {
+          userInfo.value = data
+          uni.redirectTo({
+            url: '/pages/subscription/index',
+          })
+          uni.showToast({
+            title: '兑换成功!',
+            icon: 'success',
+          })
+        }
+      }
+    })
+}
+
 onLoad(async () => {
   await loadSubscriptionPlanData()
 })
@@ -52,7 +86,7 @@ onLoad(async () => {
 
 <template>
   <div>
-    <div class="mx-3 h-full flex flex-col items-center pb-32">
+    <div class="mx-3 h-full pb-32 space-y-6">
       <div
         class="bg-[url('https://liji.poemcode.cn/oss/assets/subscription/congratulate.webp')] bg-contain bg-no-repeat text-center"
       >
@@ -66,7 +100,9 @@ onLoad(async () => {
           为效率和情怀充值，让你的人情往来记账更高效
         </div>
       </div>
-      <div class="mt-6 w-full bg-[length:100%_100%] bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_price_bg.webp')] bg-no-repeat">
+      <div
+        class="w-full bg-[length:100%_100%] bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_price_bg.webp')] bg-no-repeat"
+      >
         <div class="h-28 flex flex-col p-5">
           <div class="ml-8 text-xl text-[#9F5300] font-bold">
             {{ subscriptionPlan?.title }}
@@ -83,7 +119,14 @@ onLoad(async () => {
           </div>
         </div>
       </div>
-      <vip-equity class="mt-6 pb-6" />
+      <vip-equity />
+      <div class="rounded-2xl bg-white p-2">
+        <wd-cell title="优惠码兑换" is-link @click="couponPay()">
+          <template #icon>
+            <div class="i-hugeicons-coupon-percent mx-2 text-lg text-red" />
+          </template>
+        </wd-cell>
+      </div>
     </div>
     <div class="fixed bottom-0 w-full rounded-t-xl bg-white pt-6">
       <div class="mx-3">
@@ -100,6 +143,7 @@ onLoad(async () => {
       </div>
       <uv-safe-bottom />
     </div>
+    <wd-message-box />
   </div>
 </template>
 
