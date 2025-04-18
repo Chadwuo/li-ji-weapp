@@ -1,8 +1,9 @@
 import { request } from '../request'
 
-export function apiSubscriptionPlanGet() {
+export function apiSubscriptionPlanGet(data: any) {
   return request<Api.SubscriptionPlan>({
     url: 'subscription/plan',
+    data,
   })
 }
 

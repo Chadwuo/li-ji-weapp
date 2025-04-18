@@ -71,7 +71,7 @@
     </div>
 
     <!-- 常见问题 -->
-    <div class="mb-6 mt-6 text-center text-xl text-gray-800 font-bold">
+    <div class="mt-6 text-center text-xl text-gray-800 font-bold">
       常见问题
     </div>
     <div class="mt-2 text-sm text-gray">
