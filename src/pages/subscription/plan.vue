@@ -41,7 +41,7 @@ const pay = async () => {
       },
       fail() {
         uni.showToast({
-          title: '支付取消',
+          title: '支付取消 下次一定！',
           icon: 'none',
         })
       },
@@ -62,6 +62,9 @@ const couponPay = async () => {
     })
     .then(async ({ action, value }) => {
       if (action === 'confirm') {
+        uni.showLoading({
+          title: '兑换中...',
+        })
         const { succeeded, data } = await apiUserMemberStatusPut({
           couponCode: value,
         })
@@ -86,7 +89,7 @@ onLoad(async () => {
 
 <template>
   <div>
-    <div class="mx-3 h-full pb-32 space-y-6">
+    <div class="mx-3 h-full pb-36 space-y-6">
       <div
         class="bg-[url('https://liji.poemcode.cn/oss/assets/subscription/congratulate.webp')] bg-contain bg-no-repeat text-center"
       >
@@ -119,7 +122,9 @@ onLoad(async () => {
           </div>
         </div>
       </div>
-      <vip-equity />
+      <div>
+        <vip-equity />
+      </div>
       <div class="rounded-2xl bg-white p-2">
         <wd-cell title="优惠码兑换" is-link @click="couponPay()">
           <template #icon>

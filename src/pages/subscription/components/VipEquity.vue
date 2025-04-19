@@ -78,7 +78,7 @@
       我们列举了一些你可能关注的话题。如果没能找你想要的信息，可以联系在线客服获取更多支持。
     </div>
 
-    <div class="mt-6 rounded-2xl bg-white shadow">
+    <div class="mt-6 rounded-2xl bg-white p-2 shadow">
       <uv-collapse accordion :border="false">
         <uv-collapse-item :clickable="false" title="什么是永久会员？">
           <text class="uv-collapse-content">
