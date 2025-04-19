@@ -10,7 +10,7 @@ const vipLevel = computed(() => {
         name: 'VIP PRO',
         color: 'from-[#B8860B] to-[#F2CB69]',
         bg: 'https://liji.poemcode.cn/oss/assets/subscription/vip_pro_bg.webp',
-        text: '创世会员卡，仅限百席，致敢于梦想的⌜创始人⌟',
+        text: '创始会员卡，仅限百席，致敢于梦想的⌜创始人⌟',
       }
     case 2:
       return {
