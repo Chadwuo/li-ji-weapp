@@ -10,6 +10,7 @@ export const useAuthStore = defineStore(
     const userInfo = ref<Api.User>()
     const friendTags = ref<Array<Api.FriendTag>>([])
     const isLogin = computed(() => Boolean(accessToken.value))
+    const isVip = computed(() => Boolean(userInfo.value?.accountType || false))
     const friendTagPickerColumns = computed(() => {
       return [...friendCategory.map(item => ({ label: item, value: item })), ...friendTags.value.map(item => ({ label: item.name, value: item.name }))]
     })
@@ -27,7 +28,7 @@ export const useAuthStore = defineStore(
           refreshToken.value = res.data.refreshToken
         }
         else {
-          throw new Error(JSON.stringify(res.errors || 'Login Error.'))
+          throw new Error(JSON.stringify(res.errors || 'WxOpen Login Error.'))
         }
       }
       else {
@@ -53,7 +54,7 @@ export const useAuthStore = defineStore(
         userInfo.value = res.data
       }
       else {
-        throw new Error(JSON.stringify(res.errors || 'Request Error.'))
+        throw new Error(JSON.stringify(res.errors || 'Get User Info Error.'))
       }
 
       apiUserFamilyListGet().then((res) => {
@@ -73,6 +74,7 @@ export const useAuthStore = defineStore(
       accessToken,
       refreshToken,
       isLogin,
+      isVip,
       userInfo,
       userFamilys,
       friendTags,

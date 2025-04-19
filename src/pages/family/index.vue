@@ -3,7 +3,7 @@ import { storeToRefs } from 'pinia'
 import { useMessage } from 'wot-design-uni'
 
 const message = useMessage()
-const { userFamilys, userInfo } = storeToRefs(useAuthStore())
+const { userFamilys, userInfo, isVip } = storeToRefs(useAuthStore())
 const actionSheetShow = ref(false)
 const actionSheetList = ref()
 const loading = ref(false)
@@ -72,7 +72,7 @@ onShareAppMessage(() => {
       reject(new Error('User families not found'))
     }
     else {
-      if (userFamilys.value.length >= 2 && !userInfo.value?.isVip) {
+      if (userFamilys.value.length >= 2 && !isVip.value) {
         reject(new Error('Family member limit exceeded'))
         message
           .confirm({
@@ -135,7 +135,7 @@ onShareAppMessage(() => {
       </div>
       <div v-else class="rounded-2xl bg-white p-4 space-y-2xl">
         <div class="text-center">
-          <img src="/static/family/index.svg" class="w-full">
+          <img src="/static/family/index.webp" class="w-full">
           <div class="mt-5 text-xl font-bold">
             家人共享
           </div>
