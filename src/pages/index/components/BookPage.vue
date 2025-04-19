@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { useLoadMore } from 'vue-request'
-import { useToast } from 'wot-design-uni'
 
-const toast = useToast()
 const search = ref({
   keyword: '',
 })
@@ -29,18 +27,8 @@ const { dataList, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.L
     manual: true,
   },
 )
-
 onMounted(async () => {
-  toast.loading({
-    loadingColor: '#F87171',
-    msg: '加载中...',
-    direction: 'vertical',
-    position: 'middle',
-  })
   await refreshAsync()
-  setTimeout(() => {
-    toast.close()
-  }, 500)
 })
 
 const onBookClick = (id?: string) => {

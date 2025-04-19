@@ -28,7 +28,7 @@ export const useAuthStore = defineStore(
           refreshToken.value = res.data.refreshToken
         }
         else {
-          throw new Error(JSON.stringify(res.errors || 'Login Error.'))
+          throw new Error(JSON.stringify(res.errors || 'WxOpen Login Error.'))
         }
       }
       else {
@@ -54,7 +54,7 @@ export const useAuthStore = defineStore(
         userInfo.value = res.data
       }
       else {
-        throw new Error(JSON.stringify(res.errors || 'Request Error.'))
+        throw new Error(JSON.stringify(res.errors || 'Get User Info Error.'))
       }
 
       apiUserFamilyListGet().then((res) => {

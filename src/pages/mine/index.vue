@@ -6,17 +6,17 @@ const vipLevel = computed(() => {
   switch (userInfo.value?.accountType) {
     case 1:
       return {
-        name: '创始会员',
+        name: 'VIP PRO',
         text: '仅限百席，致敢于梦想的⌜创始人⌟',
       }
     case 2:
       return {
-        name: '赠送会员',
+        name: 'VIP',
         text: '专属礼遇，馈赠予重要伙伴的特殊权益',
       }
     case 9:
       return {
-        name: '永久会员',
+        name: 'SVIP',
         text: '终身尊享，解锁平台无期限的特权礼遇',
       }
     default:

@@ -47,10 +47,15 @@ const tabs = [{
 
 const curTab = ref(tabs[0])
 
-onShow(async () => {
+onShow(() => {
+  // if (authStore.isLogin) {
+  //   nextTick(() => {
+  //     curTab.value?.refreshAsync()
+  //   })
+  // }
   if (!authStore.isLogin || !bookPageRef.value || !giftOutPageRef.value)
     return
-  await curTab.value.refreshAsync()
+  curTab.value.refreshAsync()
 })
 
 onPullDownRefresh(async () => {
