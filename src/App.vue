@@ -1,5 +1,9 @@
 <script setup lang="ts">
 onLaunch(async () => {
+  uni.showLoading({
+    title: '加载中...',
+  })
+
   try {
     const authStore = useAuthStore()
     if (!authStore.isLogin) {
@@ -17,7 +21,11 @@ onLaunch(async () => {
       url: `/pages/exception/500?error=${error}`,
     })
   }
+  finally {
+    uni.hideLoading()
+  }
 })
+
 onShow(() => {
 })
 

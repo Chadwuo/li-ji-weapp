@@ -25,7 +25,7 @@ const onAgree = async () => {
   }
   toast.loading({
     loadingColor: '#F87171',
-    msg: '加载中...',
+    msg: '请稍等...',
   })
   const res = await apiUserFamilyPost({
     role: '成员',

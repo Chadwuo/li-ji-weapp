@@ -1,119 +1,69 @@
 <script setup lang="ts">
-import { apiUserSubscriptionGet, apiWxPayCreatePayPost } from '@/api'
 import { storeToRefs } from 'pinia'
+import VipEquity from './components/VipEquity.vue'
 
-const loading = ref(false)
-const { userInfo } = storeToRefs(useAuthStore())
-const isVip = computed(() => userInfo.value?.isVip)
-const userSubscription = ref<Api.UserSubscription>()
-const subscriptionPlan = ref<Api.SubscriptionPlan>()
-
-const loadUserSubscriptionData = async () => {
-  const res = await apiUserSubscriptionGet()
-  if (res.succeeded && res.data) {
-    userSubscription.value = res.data
+const { isVip, userInfo } = storeToRefs(useAuthStore())
+const vipLevel = computed(() => {
+  switch (userInfo.value?.accountType) {
+    case 1:
+      return {
+        name: 'VIP PRO',
+        color: 'from-[#B8860B] to-[#F2CB69]',
+        bg: 'https://liji.poemcode.cn/oss/assets/subscription/vip_pro_bg.webp',
+        text: '创世会员卡，仅限百席，致敢于梦想的⌜创始人⌟',
+      }
+    case 2:
+      return {
+        name: 'VIP',
+        color: 'from-[#C02625] to-[#DB695B]',
+        bg: 'https://liji.poemcode.cn/oss/assets/subscription/vip_free_bg.webp',
+        text: '专属礼遇，馈赠予重要伙伴的特殊权益',
+      }
+    case 9:
+      return {
+        name: 'SVIP',
+        color: 'from-[#D044CF] to-[#EC70AE]',
+        bg: 'https://liji.poemcode.cn/oss/assets/subscription/vip_svip_bg.webp',
+        text: '终身尊享，解锁平台无期限的特权礼遇',
+      }
+    default:
+      return {
+        name: '普通用户',
+        color: 'from-[#E9EEEE] to-[#FBFFFC]',
+        bg: 'https://liji.poemcode.cn/oss/assets/subscription/vip_normal_bg.webp',
+        text: '会员限时 1 折，享专属服务 >',
+      }
   }
-}
+})
 
-const loadSubscriptionPlanData = async () => {
-  const res = await apiSubscriptionPlanGet()
-  if (res.succeeded && res.data) {
-    subscriptionPlan.value = res.data
-  }
-}
-
-const pay = async () => {
-  loading.value = true
-  const res = await apiWxPayCreatePayPost({
-    planId: 1,
-  })
-  if (res.succeeded && res.data) {
-    const payData = res.data.singInfo
-    wx.requestPayment({
-      ...payData,
-      success() {
-        uni.showToast({
-          title: '支付成功 谢谢！',
-          icon: 'success',
-        })
-        if (userSubscription.value)
-          userSubscription.value.outTradeNumber = res.data?.outTradeNumber || ''
-        if (userInfo.value)
-          userInfo.value.isVip = true
-      },
-      fail() {
-        uni.showToast({
-          title: '支付取消',
-          icon: 'none',
-        })
-      },
-      complete() {
-        loading.value = false
-      },
+onLoad(() => {
+  if (!isVip.value) {
+    uni.navigateTo({
+      url: '/pages/subscription/plan',
     })
   }
-}
-
-onLoad(async () => {
-  await loadUserSubscriptionData()
-  await loadSubscriptionPlanData()
 })
 </script>
 
 <template>
   <div class="mx-3 h-full flex flex-col items-center">
-    <div
-      class="bg-[url('https://liji.poemcode.cn/oss/assets/subscription/countdown_streamer.png')] bg-contain bg-no-repeat text-center"
-    >
-      <div class="mt-6 text-6xl">
-        🎉
-      </div>
-      <div class="mt-4 text-2xl">
-        {{ isVip ? '您已经是VIP了' : '开通永久VIP会员' }}
-      </div>
-      <div class="mt-2 text-sm text-gray">
-        为效率和情怀充值，让你的人情往来记账更高效
-      </div>
-    </div>
-    <div
-      class="mt-6 h-52 w-full bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_price_bg.png')] bg-contain bg-no-repeat"
-    >
-      <div class="p-5 text-amber">
-        <div class="text-2xl font-bold">
-          {{ subscriptionPlan?.title }}
+    <div class="mt-6 w-full bg-[length:100%_100%] bg-no-repeat" :style="{ 'background-image': `url(${vipLevel.bg})` }">
+      <div class="h-32 flex flex-col p-5">
+        <div class="bg-gradient-to-r bg-clip-text text-2xl text-transparent font-bold" :class="vipLevel.color">
+          {{ vipLevel.name }}
         </div>
-        <div class="mt-3 flex space-x-3">
-          <div>不限共享人数</div>
-          <div>VIP身份展示</div>
-          <div>专属客服</div>
-        </div>
-
-        <div class="mt-14 text-sm">
-          <div v-if="isVip">
-            NO.{{ userSubscription?.outTradeNumber }}
-          </div>
-          <div v-else>
-            <span class="font-bold">￥</span>
-            <span class="text-2xl font-bold">{{ subscriptionPlan?.price }}</span>
-            <span class="ml-2 text-gray line-through">￥68</span>
+        <div class="my-auto flex items-center">
+          <uv-avatar :src="userInfo?.avatar" :size="28" />
+          <div class="ml-2 bg-gradient-to-r bg-clip-text text-transparent" :class="vipLevel.color">
+            {{ userInfo?.nickName }}
           </div>
         </div>
-      </div>
-    </div>
-    <!-- <div class="mt-6">
-      会员权益
-    </div> -->
-    <div v-if="!isVip" class="fixed bottom-0 w-full rounded-t-xl bg-white py-6">
-      <div class="mx-3">
-        <wd-button block :loading="loading" loading-color="#F87171" @click="pay">
-          立即购买
-        </wd-button>
-        <div class="mt-2 text-xs text-gray">
-          你购买的是永久会员权益，在交易成功后的一年内（支付平台支持的最长时间），可以申请无条件退款。
+        <div class="mt-1 bg-gradient-to-r bg-clip-text text-sm text-transparent" :class="vipLevel.color">
+          {{ vipLevel.text }}
         </div>
       </div>
-      <uv-safe-bottom />
     </div>
+    <vip-equity class="mt-6" />
   </div>
 </template>
 
@@ -121,7 +71,6 @@ onLoad(async () => {
 
 <route lang="json">
 {
-  "layout": false,
   "style": {
     "navigationBarTitleText": ""
   }

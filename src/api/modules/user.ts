@@ -8,8 +8,10 @@ export function apiUserNickNamePut(data: any) {
   })
 }
 
-export function apiUserSubscriptionGet() {
-  return request<Api.UserSubscription>({
-    url: 'user/user-subscription',
+export function apiUserMemberStatusPut(data: any) {
+  return request<Api.User>({
+    url: 'user/member-status',
+    method: 'PUT',
+    data,
   })
 }
