@@ -62,7 +62,7 @@
           数据导出
         </div>
         <div class="px-4 py-3 text-center text-sm text-gray-500">
-          每月3次
+          受限
         </div>
         <div class="px-4 py-3 text-center text-amber font-medium">
           无限制
@@ -81,17 +81,17 @@
     <div class="mt-6 rounded-2xl bg-white p-2 shadow">
       <uv-collapse accordion :border="false">
         <uv-collapse-item :clickable="false" title="会员有效期是多久？">
-          <text class="uv-collapse-content">
+          <text>
             VIP采用一次性付费模式，支付成功后即可永久享受全部会员权益，无需担心自动续费问题。
           </text>
         </uv-collapse-item>
         <uv-collapse-item :clickable="false" title="升级VIP后权益立即生效吗？">
-          <text class="uv-collapse-content">
+          <text>
             是的，成功升级后所有VIP权益将立即生效，部分需要人工配置的服务最迟在2小时内完成开通。
           </text>
         </uv-collapse-item>
         <uv-collapse-item :clickable="false" title="购买后可以申请退款吗？">
-          <text class="uv-collapse-content">
+          <text>
             在交易成功后的一年内（支付平台支持的最长时间），可以申请无条件退款。
           </text>
         </uv-collapse-item>

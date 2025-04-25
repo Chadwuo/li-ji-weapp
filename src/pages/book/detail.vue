@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import { useLoadMore } from 'vue-request'
 import { useMessage } from 'wot-design-uni'
 
+const appStore = useAppStore()
+const { accessToken, refreshToken } = storeToRefs(useAuthStore())
 const search = ref({
   keyword: '',
   field: 'id',
@@ -134,6 +137,42 @@ const onSearchClick = () => {
     },
   })
 }
+
+const handleBookExport = () => {
+  uni.showLoading({
+    title: '导出中...',
+    mask: true,
+  })
+  uni.downloadFile({
+    url: `${appStore.baseApiUrl}/gift-book/export-pdf/${book.value.id}`,
+    header: {
+      'Authorization': `Bearer ${accessToken.value}`,
+      'X-Authorization': `Bearer ${refreshToken.value}`,
+    },
+    success: (res) => {
+      uni.openDocument({
+        filePath: res.tempFilePath,
+        showMenu: true,
+        fileType: 'pdf',
+        fail: (err) => {
+          uni.showToast({
+            icon: 'none',
+            title: err.errMsg || '导出失败！',
+          })
+        },
+      })
+    },
+    fail: (err) => {
+      uni.showToast({
+        icon: 'none',
+        title: err.errMsg || '导出失败！',
+      })
+    },
+    complete: () => {
+      uni.hideLoading()
+    },
+  })
+}
 </script>
 
 <template>
@@ -156,9 +195,9 @@ const onSearchClick = () => {
           </div>
         </div>
         <div class="flex text-xl text-red">
-          <!-- <div class="py-2 pl-2" @click="handleBookDel">
+          <div class="py-2 pl-2" @click="handleBookExport">
             <div class="i-hugeicons-pdf-02" />
-          </div> -->
+          </div>
           <div class="py-2 pl-2" @click="handleBookDel">
             <div class="i-hugeicons-delete-02" />
           </div>
