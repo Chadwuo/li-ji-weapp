@@ -212,20 +212,20 @@ const onFriendDel = () => {
       <uv-empty text="还没有人情往来记录哦~" mode="favor" />
     </div>
     <div class="my-5 space-y-3">
-      <view v-for="(gift, index) in giftList" :key="index" class="cu-timeline">
-        <view class="cu-time">
+      <div v-for="(gift, index) in giftList" :key="index" class="cu-timeline">
+        <div class="cu-time">
           {{ gift.year }}
-        </view>
-        <view v-for="item in gift.list" :key="item._id" class="cu-item" @click="onGiftClick(item)">
-          <view class="rounded-2xl bg-white p-4" :class="item.self ? 'text-green' : 'text-red'">
-            <view class="flex items-center justify-between">
-              <view class="flex flex-col space-y-1">
-                <text class="text-bold text-lg">
+        </div>
+        <div v-for="item in gift.list" :key="item._id" class="cu-item" @click="onGiftClick(item)">
+          <div class="rounded-2xl bg-white p-4" :class="item.self ? 'text-green' : 'text-red'">
+            <div class="flex justify-between">
+              <div class="mr-3 flex flex-col space-y-1">
+                <div class="text-bold text-lg">
                   {{ item.title }}
-                </text>
-                <text class="text-sm text-gray">
+                </div>
+                <div class="text-sm text-gray">
                   {{ item.remarks }}
-                </text>
+                </div>
                 <div class="mt-1 text-xs text-gray">
                   <div>
                     {{ item.date }}
@@ -234,20 +234,17 @@ const onFriendDel = () => {
                     {{ item.lunarDate }}
                   </div>
                 </div>
-              </view>
-              <view class="ml-3 flex-shrink-0 text-center">
-                <view>
-                  <text class="text-sm">
-                    ￥
-                  </text><text class="text-lg font-bold">
-                    {{ item.money }}
-                  </text>
-                </view>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
+              </div>
+              <div class="ml-3 flex-shrink-0 text-right text-lg font-bold">
+                <div>{{ item.self ? '-' : '+' }}</div>
+                <div>
+                  ￥{{ item.money }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
