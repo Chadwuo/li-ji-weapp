@@ -3,8 +3,9 @@ import { storeToRefs } from 'pinia'
 import { useLoadMore } from 'vue-request'
 import { useMessage } from 'wot-design-uni'
 
+let videoAd: any = null
 const appStore = useAppStore()
-const { accessToken, refreshToken } = storeToRefs(useAuthStore())
+const { accessToken, refreshToken, isVip } = storeToRefs(useAuthStore())
 const search = ref({
   keyword: '',
   field: 'id',
@@ -56,11 +57,90 @@ const loadData = async () => {
       book.value = res.data
   })
 }
+const showVideoAd = () => {
+  if (videoAd) {
+    videoAd.show().catch(() => {
+      // 失败重试
+      videoAd.load()
+        .then(() => videoAd.show())
+        .catch((err: any) => {
+          uni.showToast({
+            icon: 'none',
+            title: '激励视频 广告显示失败',
+          })
+          console.error('激励视频 广告显示失败', err)
+        })
+    })
+  }
+}
+
+const statrBookExport = () => {
+  uni.showLoading({
+    title: '导出中...',
+    mask: true,
+  })
+  uni.downloadFile({
+    url: `${appStore.baseApiUrl}/gift-book/export-pdf/${book.value.id}`,
+    header: {
+      'Authorization': `Bearer ${accessToken.value}`,
+      'X-Authorization': `Bearer ${refreshToken.value}`,
+    },
+    success: (res) => {
+      uni.openDocument({
+        filePath: res.tempFilePath,
+        showMenu: true,
+        fileType: 'pdf',
+        fail: (err) => {
+          uni.showToast({
+            icon: 'none',
+            title: err.errMsg || '导出失败！',
+          })
+        },
+      })
+    },
+    fail: (err) => {
+      uni.showToast({
+        icon: 'none',
+        title: err.errMsg || '导出失败！',
+      })
+    },
+    complete: () => {
+      uni.hideLoading()
+    },
+  })
+}
+
+const handleBookExport = () => {
+  if (isVip.value) {
+    statrBookExport()
+  }
+  else {
+    showVideoAd()
+  }
+}
 
 onLoad(async (option) => {
   loading.value = true
   if (option?.id) {
     book.value.id = option.id
+  }
+
+  // 在页面onLoad回调事件中创建激励视频广告实例
+  if (wx.createRewardedVideoAd) {
+    videoAd = wx.createRewardedVideoAd({
+      adUnitId: 'adunit-f2113fa7b839e7e6',
+    })
+    videoAd.onLoad(() => { })
+    videoAd.onError((err: any) => {
+      console.error('激励视频广告加载失败', err)
+    })
+    videoAd.onClose((res: any) => {
+      // 用户点击了【关闭广告】按钮
+      if (res && res.isEnded) {
+        // 正常播放结束，可以下发游戏奖励
+        statrBookExport()
+      }
+    })
   }
 })
 
@@ -137,42 +217,6 @@ const onSearchClick = () => {
     },
   })
 }
-
-const handleBookExport = () => {
-  uni.showLoading({
-    title: '导出中...',
-    mask: true,
-  })
-  uni.downloadFile({
-    url: `${appStore.baseApiUrl}/gift-book/export-pdf/${book.value.id}`,
-    header: {
-      'Authorization': `Bearer ${accessToken.value}`,
-      'X-Authorization': `Bearer ${refreshToken.value}`,
-    },
-    success: (res) => {
-      uni.openDocument({
-        filePath: res.tempFilePath,
-        showMenu: true,
-        fileType: 'pdf',
-        fail: (err) => {
-          uni.showToast({
-            icon: 'none',
-            title: err.errMsg || '导出失败！',
-          })
-        },
-      })
-    },
-    fail: (err) => {
-      uni.showToast({
-        icon: 'none',
-        title: err.errMsg || '导出失败！',
-      })
-    },
-    complete: () => {
-      uni.hideLoading()
-    },
-  })
-}
 </script>
 
 <template>
@@ -184,26 +228,21 @@ const handleBookExport = () => {
     </div>
 
     <div v-else class="mb-5 rounded-2xl bg-white px-5 pb-5 pt-3 space-y-3">
-      <div class="flex items-center justify-between">
-        <div>
+      <div>
+        <div class="flex items-center justify-between">
           <div class="text-lg text-red font-bold">
             {{ book.title }}
           </div>
-          <div class="mt-1 text-sm text-gray">
-            <span>{{ book.lunarDate }}</span>
-            <span class="ml-2">({{ book.date }}) </span>
+          <div class="flex text-xl text-red space-x-2">
+            <i class="i-hugeicons-delete-02" @click="handleBookDel" />
+            <i class="i-hugeicons-pdf-02" @click="handleBookExport" />
+            <i class="i-hugeicons-edit-01" @click="onBookEdit" />
           </div>
         </div>
-        <div class="flex text-xl text-red">
-          <div class="py-2 pl-2" @click="handleBookExport">
-            <div class="i-hugeicons-pdf-02" />
-          </div>
-          <div class="py-2 pl-2" @click="handleBookDel">
-            <div class="i-hugeicons-delete-02" />
-          </div>
-          <div class="py-2 pl-2" @click="onBookEdit">
-            <div class="i-hugeicons-edit-01" />
-          </div>
+
+        <div class="mt-1 text-sm text-gray">
+          <span>{{ book.lunarDate }}</span>
+          <span class="ml-2">({{ book.date }}) </span>
         </div>
       </div>
       <div class="flex items-end">
@@ -262,14 +301,9 @@ const handleBookExport = () => {
                           @change="onSortChange(item)"
           />
         </div>
-
-        <div class="flex text-xl text-red">
-          <div class="py-2 pl-2" @click="onSearchClick">
-            <div class="i-hugeicons-search-02" />
-          </div>
-          <div class="py-2 pl-2" @click="onGiftAdd()">
-            <div class="i-hugeicons-plus-sign-circle" />
-          </div>
+        <div class="flex text-xl text-red space-x-2">
+          <i class="i-hugeicons-search-02" @click="onSearchClick" />
+          <i class="i-hugeicons-plus-sign-circle" @click="onGiftAdd" />
         </div>
       </div>
 

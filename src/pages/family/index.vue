@@ -135,7 +135,7 @@ onShareAppMessage(() => {
       </div>
       <div v-else class="rounded-2xl bg-white p-4 space-y-2xl">
         <div class="text-center">
-          <img src="/static/family/index.webp" class="w-full">
+          <img src="/static/family/index.png">
           <div class="mt-5 text-xl font-bold">
             家人共享
           </div>
