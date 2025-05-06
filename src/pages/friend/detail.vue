@@ -184,7 +184,7 @@ const onFriendDel = () => {
       <div class="grid grid-cols-2 gap-5 divide-x">
         <div class="text-center">
           <div class="text-lg text-red font-bold">
-            {{ statisticsData.happyTotal }}
+            <span class="text-sm">￥</span>{{ statisticsData.happyTotal }}
           </div>
           <div class="flex items-center justify-center text-sm text-gray space-x-1">
             <div>收礼({{ statisticsData.happyCount }})</div>
@@ -192,7 +192,7 @@ const onFriendDel = () => {
         </div>
         <div class="text-center">
           <div class="text-lg text-green font-bold">
-            {{ statisticsData.sadTotal }}
+            <span class="text-sm">￥</span>{{ statisticsData.sadTotal }}
           </div>
           <div class="flex items-center justify-center text-sm text-gray space-x-1">
             <div>送礼({{ statisticsData.sadCount }})</div>
@@ -227,18 +227,13 @@ const onFriendDel = () => {
                   {{ item.remarks }}
                 </div>
                 <div class="mt-1 text-xs text-gray">
-                  <div>
-                    {{ item.date }}
-                  </div>
-                  <div>
-                    {{ item.lunarDate }}
-                  </div>
+                  <span>{{ item.lunarDate }}</span>
+                  <span class="ml-2">({{ item.date }}) </span>
                 </div>
               </div>
               <div class="ml-3 flex-shrink-0 text-right text-lg font-bold">
-                <div>{{ item.self ? '-' : '+' }}</div>
                 <div>
-                  ￥{{ item.money }}
+                  {{ item.self ? '-' : '+' }}{{ item.money }}
                 </div>
               </div>
             </div>

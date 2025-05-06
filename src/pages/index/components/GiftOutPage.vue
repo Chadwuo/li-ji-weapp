@@ -113,15 +113,15 @@ defineExpose({
                 {{ i.title }}<span v-if="i.remarks">({{ i.remarks }})</span>
               </div>
               <div class="mt-1 text-xs text-gray">
-                <span>{{ i.date }}</span>
-                <span class="ml-2">({{ i.lunarDate }}) </span>
+                <span>{{ i.lunarDate }}</span>
+                <span class="ml-2">({{ i.date }}) </span>
               </div>
             </div>
             <div class="text-lg font-bold" :class="[
-              i.icon === 'i-tabler-candle' ? 'text-gray' : 'text-red',
+              i.icon === 'i-tabler-candle' ? 'text-gray' : 'text-green',
             ]"
             >
-              <span class="text-sm">￥</span>{{ i.money }}
+              -{{ i.money }}
             </div>
           </div>
         </div>

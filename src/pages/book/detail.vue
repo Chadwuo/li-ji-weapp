@@ -74,7 +74,7 @@ const showVideoAd = () => {
   }
 }
 
-const statrBookExport = () => {
+const startBookExport = () => {
   uni.showLoading({
     title: '导出中...',
     mask: true,
@@ -112,7 +112,7 @@ const statrBookExport = () => {
 
 const handleBookExport = () => {
   if (isVip.value) {
-    statrBookExport()
+    startBookExport()
   }
   else {
     showVideoAd()
@@ -138,7 +138,7 @@ onLoad(async (option) => {
       // 用户点击了【关闭广告】按钮
       if (res && res.isEnded) {
         // 正常播放结束，可以下发游戏奖励
-        statrBookExport()
+        startBookExport()
       }
     })
   }
@@ -246,9 +246,8 @@ const onSearchClick = () => {
         </div>
       </div>
       <div class="flex items-end">
-        <div class="i-mingcute-wallet-2-line p-1" />
-        <div class="ml-1 text-sm font-bold">
-          礼金：<span class="text-xl">{{ book.moneyTotal }}</span>
+        <div class="text-sm font-bold">
+          礼金：<span class="text-sm">￥</span><span class="text-xl">{{ book.moneyTotal }}</span>
         </div>
         <div class="ml-auto p-1 text-gray" @click="() => popupShow = true">
           <div class="i-ant-design-info-circle-filled" />
@@ -287,7 +286,7 @@ const onSearchClick = () => {
             {{ netAmount }}
           </div>
           <div class="flex items-center justify-center text-xs text-gray space-x-1">
-            <div class="i-hugeicons-bitcoin-wallet" />
+            <div class="i-mingcute-wallet-2-line" />
             <div>合计</div>
           </div>
         </div>
@@ -324,12 +323,25 @@ const onSearchClick = () => {
           </uv-empty>
         </div>
         <div v-else>
-          <div v-for="gift in dataList" :key="gift.id" @click="onGiftClick(gift.id)">
-            <wd-cell center size="large" :title="gift.friendName" :label="`出席：${gift.attendance || 0}人`">
-              <div class="text-lg text-red font-bold">
-                <span class="text-sm">￥</span>{{ gift.money }}
+          <div class="my-2 space-y-3">
+            <div v-for="gift in dataList" :key="gift.id" @click="onGiftClick(gift.id)">
+              <div class="flex justify-between">
+                <div class="text-lg">
+                  {{ gift.friendName }}
+                </div>
+                <div class="text-lg text-red font-bold">
+                  +{{ gift.money }}
+                </div>
               </div>
-            </wd-cell>
+              <div class="mt-1 flex justify-between">
+                <div class="text-sm text-gray">
+                  {{ `出席：${gift.attendance || 0}人` }}
+                </div>
+                <div class="line-clamp-1 text-sm text-gray">
+                  {{ gift.remarks }}
+                </div>
+              </div>
+            </div>
           </div>
           <wd-loadmore :state="loadingMore ? 'loading' : noMore ? 'finished' : ''"
                        :loading-props="{ color: '#f87171' }"
