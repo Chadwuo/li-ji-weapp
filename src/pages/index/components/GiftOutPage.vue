@@ -75,7 +75,15 @@ defineExpose({
 
 <template>
   <div>
-    <uv-tabs :list="columns" line-color="#f87171" @click="onTabsClick" />
+    <uv-tabs :list="columns" line-width="0" line-height="0" :active-style="{
+      color: '#f87171',
+      fontWeight: 'bold',
+      transform: 'scale(1.1)',
+    }" :inactive-style="{
+      color: '#606266',
+      transform: 'scale(1)',
+    }" item-style="height: 35px;" @click="onTabsClick"
+    />
     <div class="mx-3">
       <div v-if="dataList.length === 0" class="my-24">
         <uv-empty text="还没有人情往来记录哦~" mode="favor">

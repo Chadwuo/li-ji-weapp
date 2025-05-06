@@ -64,7 +64,15 @@ function searchCancel() {
       <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
                  @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
       />
-      <uv-tabs :list="useAuthStore().friendTabsList" line-color="#f87171" @click="onTabsClick" />
+      <uv-tabs :list="useAuthStore().friendTabsList" line-width="0" line-height="0" :active-style="{
+        color: '#f87171',
+        fontWeight: 'bold',
+        transform: 'scale(1.1)',
+      }" :inactive-style="{
+        color: '#606266',
+        transform: 'scale(1)',
+      }" item-style="height: 35px;" @click="onTabsClick"
+      />
     </div>
     <div class="grow">
       <div v-if="friendsList?.length === 0" class="my-24">
