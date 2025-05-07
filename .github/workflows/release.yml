@@ -1,4 +1,9 @@
+# .github/workflows/release.yml
+
 name: Release
+
+permissions:
+  contents: write
 
 on:
   push:
@@ -7,25 +12,18 @@ on:
 
 jobs:
   release:
-    permissions:
-      id-token: write
-      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
       - name: Set node
         uses: actions/setup-node@v4
         with:
+          registry-url: https://registry.npmjs.org/
           node-version: lts/*
-          cache: pnpm
-          registry-url: 'https://registry.npmjs.org'
 
-      - run: pnpm dlx changelogithub
+      - run: npx changelogithub # or changelogithub@0.12 to ensure a stable result
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
