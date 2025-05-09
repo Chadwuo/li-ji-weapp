@@ -76,14 +76,14 @@ onShareAppMessage(() => {
         reject(new Error('Family member limit exceeded'))
         message
           .confirm({
-            msg: '开通会员后解锁家庭成员数量无上限权益',
-            title: '家庭成员超过上限',
+            msg: '成为会员，即可解锁无限成员权益',
+            title: '家人共享权益',
             confirmButtonText: '开通会员',
-            cancelButtonText: '再想想',
+            cancelButtonText: '稍后再说',
           })
           .then(() => {
             uni.navigateTo({
-              url: '/pages/subscription/index',
+              url: '/pages/subscription/plan',
             })
           })
           .catch(() => {

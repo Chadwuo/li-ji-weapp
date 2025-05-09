@@ -115,7 +115,22 @@ const handleBookExport = () => {
     startBookExport()
   }
   else {
-    showVideoAd()
+    message
+      .confirm({
+        msg: '成为会员，即可解锁数据导出无限制权益',
+        title: '数据导出权益',
+        confirmButtonText: '开通会员',
+        cancelButtonText: '看广告解锁',
+      })
+      .then(() => {
+        uni.navigateTo({
+          url: '/pages/subscription/plan',
+        })
+      })
+      .catch(({ action }) => {
+        if (action === 'cancel')
+          showVideoAd()
+      })
   }
 }
 
