@@ -21,18 +21,15 @@ export const useAuthStore = defineStore(
     const login = async () => {
       // #ifdef MP-WEIXIN
       const { code, errMsg } = await uni.login()
-      if (code) {
-        const res = await apiWxOpenLoginPost(code)
-        if (res.succeeded && res.data) {
-          accessToken.value = res.data.accessToken
-          refreshToken.value = res.data.refreshToken
-        }
-        else {
-          throw new Error(JSON.stringify(res.errors || 'WxOpen Login Error.'))
-        }
+      if (!code)
+        throw new Error(errMsg)
+      const res = await apiWxOpenLoginPost(code)
+      if (res.succeeded && res.data) {
+        accessToken.value = res.data.accessToken
+        refreshToken.value = res.data.refreshToken
       }
       else {
-        throw new Error(errMsg)
+        throw new Error(JSON.stringify(res.errors || 'WxOpen Login Error.'))
       }
       // #endif
     }

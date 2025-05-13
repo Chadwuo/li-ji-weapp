@@ -18,7 +18,7 @@ onLaunch(async () => {
   catch (error) {
     console.error(error)
     uni.redirectTo({
-      url: `/pages/exception/500?error=${error}`,
+      url: `/pages/exception/500?error=${JSON.stringify(error)}`,
     })
   }
   finally {
