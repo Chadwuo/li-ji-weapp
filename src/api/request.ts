@@ -46,6 +46,11 @@ export function request<T>(options: UniApp.RequestOptions) {
 }
 
 function requestInterceptor(options: UniApp.RequestOptions) {
+  // #ifdef MP-WEIXIN
+  options.enableHttpDNS = true
+  options.httpDNSServiceId = 'wxa410372c837a5f26' as any
+  // #endif
+
   // 非 http 开头需拼接地址
   if (!options.url.startsWith('http')) {
     const appStore = useAppStore()
