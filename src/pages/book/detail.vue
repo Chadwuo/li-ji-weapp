@@ -338,20 +338,23 @@ const onSearchClick = () => {
           </uv-empty>
         </div>
         <div v-else>
-          <div class="my-2 space-y-3">
-            <div v-for="gift in dataList" :key="gift.id" @click="onGiftClick(gift.id)">
+          <div class="mt-5">
+            <div v-for="(gift, index) in dataList" :key="gift.id" @click="onGiftClick(gift.id)">
+              <div v-if="index">
+                <wd-divider />
+              </div>
               <div class="flex justify-between">
-                <div class="text-lg">
-                  {{ gift.friendName }}
+                <div>
+                  <span class="text-lg">
+                    {{ index + 1 }}. {{ gift.friendName }}
+                  </span>
+                  <span v-if="gift.attendance" class="ml-2 text-sm text-gray">{{ `出席：${gift.attendance}人` }}</span>
                 </div>
                 <div class="text-lg text-red font-bold">
                   +{{ gift.money }}
                 </div>
               </div>
               <div class="mt-1 flex justify-between">
-                <div class="text-sm text-gray">
-                  {{ `出席：${gift.attendance || 0}人` }}
-                </div>
                 <div class="line-clamp-1 text-sm text-gray">
                   {{ gift.remarks }}
                 </div>

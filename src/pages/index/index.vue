@@ -45,7 +45,10 @@ const tabs = [{
   },
 }]
 
-const curTab = ref(tabs[0])
+const curTabName = ref(TabType.BOOKS)
+const curTab = computed(() => {
+  return tabs.find(tab => tab.name === curTabName.value) || tabs[0]
+})
 
 onShow(() => {
   // if (authStore.isLogin) {
@@ -59,15 +62,15 @@ onShow(() => {
 })
 
 onPullDownRefresh(async () => {
-  await curTab.value?.refreshAsync()
+  await curTab.value.refreshAsync()
   uni.stopPullDownRefresh()
 })
 
 onReachBottom(() => {
-  curTab.value?.loadMoreAsync()
+  curTab.value.loadMoreAsync()
 })
 const addNew = () => {
-  curTab.value?.handleAdd()
+  curTab.value.handleAdd()
 }
 
 const performSearch = () => {
@@ -99,14 +102,14 @@ watch(() => curTab.value.keyword, (newVal) => {
       <div class="mt-2 flex items-center justify-between">
         <div class="flex items-center space-x-xl">
           <div class="bg-contain bg-bottom bg-no-repeat"
-               :class="[curTab.name === TabType.BOOKS ? 'text-red text-2xl font-bold line-bg' : 'text-gray-500 text-lg']"
-               @click="curTab = tabs[0]"
+               :class="[curTabName === TabType.BOOKS ? 'text-red text-2xl font-bold line-bg' : 'text-gray-500 text-lg']"
+               @click="curTabName = TabType.BOOKS"
           >
             礼簿
           </div>
           <div class="bg-contain bg-bottom bg-no-repeat"
-               :class="[curTab.name === TabType.GIFT_OUT ? 'text-red text-2xl font-bold line-bg' : 'text-gray-500 text-lg']"
-               @click="curTab = tabs[1]"
+               :class="[curTabName === TabType.GIFT_OUT ? 'text-red text-2xl font-bold line-bg' : 'text-gray-500 text-lg']"
+               @click="curTabName = TabType.GIFT_OUT"
           >
             送礼
           </div>
@@ -115,13 +118,20 @@ watch(() => curTab.value.keyword, (newVal) => {
           <i class="i-hugeicons-plus-sign-circle text-xl text-red" />
         </div>
       </div>
-
-      <wd-transition :show="curTab.name === TabType.BOOKS" name="slide-left">
+      <wd-tabs v-model="curTabName" swipeable animated>
+        <wd-tab :name="TabType.BOOKS">
+          <book-page ref="bookPageRef" />
+        </wd-tab>
+        <wd-tab :name="TabType.GIFT_OUT">
+          <gift-out-page ref="giftOutPageRef" />
+        </wd-tab>
+      </wd-tabs>
+      <!-- <wd-transition :show="curTab.name === TabType.BOOKS" name="slide-left">
         <book-page ref="bookPageRef" />
       </wd-transition>
       <wd-transition :show="curTab.name === TabType.GIFT_OUT" name="slide-right">
         <gift-out-page ref="giftOutPageRef" />
-      </wd-transition>
+      </wd-transition> -->
     </div>
   </div>
 </template>
@@ -129,6 +139,14 @@ watch(() => curTab.value.keyword, (newVal) => {
 <style lang="scss" scoped>
 .line-bg {
   background-image: url('/static/title_line.webp');
+}
+
+:deep(.wd-tabs) {
+  background: transparent;
+}
+
+:deep(.wd-tabs__nav) {
+  display: none;
 }
 </style>
 

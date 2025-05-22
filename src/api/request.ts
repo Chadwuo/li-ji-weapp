@@ -48,7 +48,7 @@ export function request<T>(options: UniApp.RequestOptions) {
 function requestInterceptor(options: UniApp.RequestOptions) {
   // #ifdef MP-WEIXIN
   options.enableHttpDNS = true
-  options.httpDNSServiceId = 'wxa410372c837a5f26' as any
+  options.httpDNSServiceId = 'wxa410372c837a5f26' as any // https://github.com/dcloudio/uni-app/issues/5479 等待修复
   // #endif
 
   // 非 http 开头需拼接地址
