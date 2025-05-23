@@ -110,13 +110,13 @@ onLoad(async () => {
           <div class="ml-8 text-xl text-[#9F5300] font-bold">
             {{ subscriptionPlan?.title }}
           </div>
-          <div class="m-2 text-gray">
+          <div class="my-3 ml-8 text-[#9F5300]">
             {{ subscriptionPlan?.desc }}
           </div>
-          <div class="my-auto text-center text-[#9F5300]">
+          <div class="my-auto text-center">
             <div>
-              <span class="font-bold">￥</span>
-              <span class="text-2xl font-bold">{{ subscriptionPlan?.price }}</span>
+              <span class="text-lg text-red font-bold">￥</span>
+              <span class="text-3xl text-red font-bold">{{ subscriptionPlan?.price }}</span>
               <span class="ml-2 text-lg text-gray font-bold line-through">￥98</span>
             </div>
           </div>
