@@ -79,7 +79,7 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
   <div class="bg-[url('https://liji.poemcode.cn/oss/assets/bg/bg_mine.png')] bg-contain bg-no-repeat"
        :style="{ 'padding-top': `${paddingTop || 55}px` }"
   >
-    <div class="mx-3 space-y-5">
+    <div class="mx-3 space-y-3">
       <div class="flex items-center" @click="toSettings">
         <uv-avatar :src="userInfo?.avatar" :size="55" />
         <div class="ml-3">

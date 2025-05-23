@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { giftCategory } from '@/constants/app'
 import { useLoadMore } from 'vue-request'
+import { giftCategory } from '@/constants/app'
 
 const columns = [
   { name: '全部', value: '' },
@@ -94,8 +94,9 @@ defineExpose({
           </div>
         </uv-empty>
       </div>
-      <div v-else class="my-5 space-y-5">
-        <div v-for="i in dataList" :key="i.id" @click="onGiftClick(i.id)">
+      <div v-else class="my-5">
+        <div v-for="(i, index) in dataList" :key="i.id" @click="onGiftClick(i.id)">
+          <uv-divider v-if="index" />
           <div class="flex">
             <div class="h-12 w-12 flex flex-shrink-0 rounded-full" :class="[
               i.icon === 'i-tabler-candle'

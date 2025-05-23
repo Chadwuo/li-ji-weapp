@@ -89,7 +89,7 @@ onLoad(async () => {
 
 <template>
   <div>
-    <div class="mx-3 h-full pb-36 space-y-6">
+    <div class="mx-3 h-full pb-36 space-y-3">
       <div
         class="bg-[url('https://liji.poemcode.cn/oss/assets/subscription/congratulate.webp')] bg-contain bg-no-repeat text-center"
       >

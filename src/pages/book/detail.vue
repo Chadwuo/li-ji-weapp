@@ -236,13 +236,13 @@ const onSearchClick = () => {
 
 <template>
   <div class="mx-3" :class="{ memorial: hasMourningWords(book.title) }">
-    <div v-if="loading" class="mb-5 rounded-2xl bg-white p-5">
+    <div v-if="loading" class="rounded-2xl bg-white p-5">
       <wd-skeleton
         :row-col="[{ width: '30%' }, { width: '60%' }, { width: '20%' }, [{ width: '20%' }, { width: '20%' }, { width: '20%' }, { width: '20%' }]]"
       />
     </div>
 
-    <div v-else class="mb-5 rounded-2xl bg-white px-5 pb-5 pt-3 space-y-3">
+    <div v-else class="rounded-2xl bg-white px-5 pb-5 pt-3 space-y-3">
       <div>
         <div class="flex items-center justify-between">
           <div class="text-lg text-red font-bold">
@@ -308,7 +308,7 @@ const onSearchClick = () => {
       </div>
     </div>
 
-    <div class="rounded-2xl bg-white p-5">
+    <div class="mt-3 rounded-2xl bg-white p-5">
       <div class="w-full flex items-center justify-between">
         <div class="space-x-3">
           <wd-sort-button v-for="(item, index) in sortList" :key="index" v-model="item.value" :title="item.label"
@@ -338,24 +338,22 @@ const onSearchClick = () => {
           </uv-empty>
         </div>
         <div v-else>
-          <div class="mt-5">
+          <div class="mt-2">
             <div v-for="(gift, index) in dataList" :key="gift.id" @click="onGiftClick(gift.id)">
-              <div v-if="index">
-                <wd-divider />
-              </div>
-              <div class="flex justify-between">
+              <uv-divider v-if="index" />
+              <div class="flex justify-between text-lg font-bold">
                 <div>
-                  <span class="text-lg">
-                    {{ index + 1 }}. {{ gift.friendName }}
-                  </span>
-                  <span v-if="gift.attendance" class="ml-2 text-sm text-gray">{{ `出席：${gift.attendance}人` }}</span>
+                  {{ gift.friendName }}
                 </div>
-                <div class="text-lg text-red font-bold">
+                <div class="text-red">
                   +{{ gift.money }}
                 </div>
               </div>
-              <div class="mt-1 flex justify-between">
-                <div class="line-clamp-1 text-sm text-gray">
+              <div class="text-sm text-gray">
+                <div v-if="gift.attendance">
+                  {{ `出席：${gift.attendance}人` }}
+                </div>
+                <div class="line-clamp-1">
                   {{ gift.remarks }}
                 </div>
               </div>

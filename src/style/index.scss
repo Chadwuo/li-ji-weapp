@@ -63,13 +63,16 @@ page {
 
 .wd-input__label.is-required::after {
 	content: ""; /* 清除原有内容 */
-    display: none; /* 确保伪元素不显示 */
+	display: none; /* 确保伪元素不显示 */
 }
 
 .wd-input__label.is-required {
 	padding-left: 0 !important;
 }
 
+.wd-divider {
+	padding: 0 !important;
+}
 
 @import '@climblee/uv-ui/index.scss';
 $uv-primary: #f87171;

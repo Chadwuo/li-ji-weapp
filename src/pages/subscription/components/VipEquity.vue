@@ -5,12 +5,12 @@
 <template>
   <div class="w-full">
     <!-- 方案对比 -->
-    <div class="mb-6 text-center text-xl text-gray-800 font-bold">
+    <div class="text-center text-xl text-gray-800 font-bold">
       方案对比
     </div>
 
     <!-- 对比表格 -->
-    <div class="overflow-hidden rounded-2xl bg-white shadow">
+    <div class="mt-4 overflow-hidden rounded-2xl bg-white">
       <!-- 表头 -->
       <div class="grid grid-cols-3 justify-items-center bg-gray-50">
         <div class="px-4 py-3 text-left text-gray-500 font-medium">
@@ -74,26 +74,25 @@
     <div class="mt-6 text-center text-xl text-gray-800 font-bold">
       常见问题
     </div>
-    <div class="mt-2 text-sm text-gray">
+    <div class="my-2 text-sm text-gray">
       我们列举了一些你可能关注的话题。如果没能找你想要的信息，可以联系在线客服获取更多支持。
     </div>
-
-    <div class="mt-6 rounded-2xl bg-white p-2 shadow">
+    <div class="rounded-2xl bg-white p-2">
       <uv-collapse accordion :border="false">
-        <uv-collapse-item :clickable="false" title="会员有效期是多久？">
-          <text>
+        <uv-collapse-item title="会员有效期是多久？">
+          <div class="px-1">
             VIP采用一次性付费模式，支付成功后即可永久享受全部会员权益，无需担心自动续费问题。
-          </text>
+          </div>
         </uv-collapse-item>
-        <uv-collapse-item :clickable="false" title="升级VIP后权益立即生效吗？">
-          <text>
+        <uv-collapse-item title="升级VIP后权益立即生效吗？">
+          <div class="px-1">
             是的，成功升级后所有VIP权益将立即生效，部分需要人工配置的服务最迟在2小时内完成开通。
-          </text>
+          </div>
         </uv-collapse-item>
-        <uv-collapse-item :clickable="false" title="购买后可以申请退款吗？">
-          <text>
+        <uv-collapse-item title="购买后可以申请退款吗？">
+          <div class="px-1">
             在交易成功后的一年内（支付平台支持的最长时间），可以申请无条件退款。
-          </text>
+          </div>
         </uv-collapse-item>
       </uv-collapse>
     </div>

@@ -142,7 +142,7 @@ watch(() => curTab.value.keyword, (newVal) => {
 }
 
 :deep(.wd-tabs) {
-  background: transparent;
+  background: transparent !important;
 }
 
 :deep(.wd-tabs__nav) {
