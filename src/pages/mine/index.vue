@@ -76,7 +76,7 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
 </script>
 
 <template>
-  <div class="bg-[url('https://liji.poemcode.cn/oss/assets/bg/bg_mine.png')] bg-contain bg-no-repeat"
+  <div class="bg-[url('https://liji.poetic.ltd/oss/assets/bg/bg_mine.png')] bg-contain bg-no-repeat"
        :style="{ 'padding-top': `${paddingTop || 55}px` }"
   >
     <div class="mx-3 space-y-3">
@@ -94,7 +94,7 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
       </div>
       <div>
         <div
-          class="h-18 flex bg-[url('https://liji.poemcode.cn/oss/assets/subscription/vip_equity_bg.webp')] bg-contain bg-no-repeat px-4 -mb-4"
+          class="h-18 flex bg-[url('https://liji.poetic.ltd/oss/assets/subscription/vip_equity_bg.webp')] bg-contain bg-no-repeat px-4 -mb-4"
           @click="toSubscription"
         >
           <div class="mt-2">

@@ -2,8 +2,8 @@ import { defineStore } from 'pinia'
 
 export const useAppStore = defineStore('app', () => {
   const searchHistory = ref<Array<string>>([])
-  let baseApiUrl = import.meta.env.VITE_SERVICE_API_URL
-  let version = '4.0.0'
+  let baseApiUrl = `${import.meta.env.VITE_SERVICE_URL}/api`
+  let version = '5.0.0'
 
   // #ifdef MP-WEIXIN
   const { miniProgram } = uni.getAccountInfoSync()

@@ -14,7 +14,7 @@ const giftOutPageRef = ref<InstanceType<typeof GiftOutPage> | null>(null)
 const tabs = [{
   name: TabType.BOOKS,
   keyword: '',
-  bgImg: 'https://liji.poemcode.cn/oss/assets/bg/bg_book.png',
+  bgImg: `${import.meta.env.VITE_SERVICE_URL}/oss/assets/bg/bg_book.png`,
   loadMoreAsync: () => {
     bookPageRef.value?.loadMoreAsync()
   },
@@ -30,7 +30,7 @@ const tabs = [{
 }, {
   name: TabType.GIFT_OUT,
   keyword: '',
-  bgImg: 'https://liji.poemcode.cn/oss/assets/bg/bg_giftout.png',
+  bgImg: `${import.meta.env.VITE_SERVICE_URL}/oss/assets/bg/bg_giftout.png`,
   loadMoreAsync: () => {
     giftOutPageRef.value?.loadMoreAsync()
   },

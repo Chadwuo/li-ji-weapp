@@ -1,5 +1,5 @@
-import { friendCategory } from '@/constants/app'
 import { defineStore } from 'pinia'
+import { friendCategory } from '@/constants/app'
 
 export const useAuthStore = defineStore(
   'auth',
