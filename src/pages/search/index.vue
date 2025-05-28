@@ -24,8 +24,10 @@ const onSearch = (word?: string) => {
   if (word) {
     keyword.value = word
   }
+  if (!keyword.value)
+    return
   if (!searchHistory.value?.includes(keyword.value)) {
-    searchHistory.value?.push(keyword.value)
+    searchHistory.value?.unshift(keyword.value)
   }
   nextTick(() => {
     searchResultRef.value?.handleSearch(keyword.value)
@@ -54,14 +56,14 @@ onReachBottom(() => {
 
 <template>
   <div>
-    <div class="fixed right-0 top-10 z-9 w-full">
+    <div class="fixed right-0 top-0 z-9 w-full uni-h5:top-40px">
       <wd-search v-model="keyword" maxlength="20" focus placeholder="请输入亲友姓名/关键词" @search="onSearch()"
                  @change="debouncedSearch()" @cancel="onCancel"
       />
     </div>
 
     <div class="mx-3 mt-16">
-      <div v-if="!keyword">
+      <div v-show="!keyword">
         <div v-if="searchHistory?.length">
           <div class="my-2 flex justify-between">
             <div class="text-lg font-bold">
@@ -76,7 +78,7 @@ onReachBottom(() => {
           </div>
         </div>
       </div>
-      <div v-else>
+      <div v-show="keyword">
         <wd-tabs v-model="activeTab" color="#f87171" slidable="always" swipeable animated @change="onSearch()">
           <wd-tab title="礼簿">
             <book-page ref="bookPageRef" />
@@ -96,13 +98,17 @@ onReachBottom(() => {
 }
 
 :deep(.wd-tabs__nav) {
-  position: fixed;
-  top: 5rem;
+  position: fixed !important;
+  top: 40px;
+  /*  #ifdef H5  */
+  top: 80px;
+  /*  #endif  */
+
   z-index: 9;
 }
 
 :deep(.wd-tabs__container) {
-  padding-top: 1.5rem;
+  padding-top: 24px;
 }
 </style>
 
