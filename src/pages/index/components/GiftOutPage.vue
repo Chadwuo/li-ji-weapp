@@ -9,7 +9,7 @@ const columns = [
     value: icon,
   })),
 ]
-const search = ref({
+const search = reactive({
   keyword: '',
   icon: '',
 })
@@ -20,7 +20,7 @@ const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMo
       page: _page,
       field: 'date',
       order: 'desc',
-      ...search.value,
+      ...search,
     })
     const { items, page = 0, total = 0 } = response.data || {}
     return {
@@ -37,15 +37,6 @@ const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMo
   },
 )
 
-const onTabsClick = (item: any) => {
-  search.value.icon = item.value
-  refreshAsync()
-}
-
-onMounted(() => {
-  refreshAsync()
-})
-
 const onGiftClick = (id?: string) => {
   if (id) {
     uni.navigateTo({
@@ -60,10 +51,17 @@ const handleAdd = () => {
   })
 }
 
-const handleSearch = (keyword: string) => {
-  search.value.keyword = keyword
-  refreshAsync()
+const onTabsClick = (item: any) => {
+  search.icon = item.value
 }
+
+const handleSearch = (keyword: string) => {
+  search.keyword = keyword
+}
+
+watch(search, () => {
+  refreshAsync()
+})
 
 defineExpose({
   handleAdd,

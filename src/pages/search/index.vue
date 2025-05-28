@@ -1,57 +1,115 @@
 <script setup lang="ts">
+import { useDebounceFn } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-
-const instance: any = getCurrentInstance()
-const eventChannel = instance.proxy.getOpenerEventChannel()
+import BookPage from '@/pages/index/components/BookPage.vue'
+import GiftOutPage from '@/pages/index/components/GiftOutPage.vue'
 
 const { searchHistory } = storeToRefs(useAppStore())
 const keyword = ref<string>('')
-const search = () => {
-  eventChannel.emit('acceptDataFromOpenedPage', keyword.value)
-  searchHistory.value?.push(keyword.value)
-  uni.navigateBack()
+const activeTab = ref(0)
+const bookPageRef = ref<InstanceType<typeof BookPage> | null>(null)
+const giftOutPageRef = ref<InstanceType<typeof GiftOutPage> | null>(null)
+const searchResultRef = computed(() => {
+  switch (activeTab.value) {
+    case 0:
+      return bookPageRef.value
+    case 1:
+      return giftOutPageRef.value
+    default:
+      return null
+  }
+})
+
+const onSearch = (word?: string) => {
+  if (word) {
+    keyword.value = word
+  }
+  if (!searchHistory.value?.includes(keyword.value)) {
+    searchHistory.value?.push(keyword.value)
+  }
+  nextTick(() => {
+    searchResultRef.value?.handleSearch(keyword.value)
+  })
 }
-const cancel = () => {
-  eventChannel.emit('acceptDataFromOpenedPage', '')
+
+const debouncedSearch = useDebounceFn(onSearch, 1000)
+
+const onCancel = () => {
   uni.navigateBack()
 }
 
 const onClear = () => {
   searchHistory.value = []
 }
-const onSearch = (keyword: string) => {
-  eventChannel.emit('acceptDataFromOpenedPage', keyword)
-  uni.navigateBack()
-}
 
 onLoad((option) => {
   if (option?.keyword)
     keyword.value = option.keyword
 })
+
+onReachBottom(() => {
+  searchResultRef.value?.loadMoreAsync()
+})
 </script>
 
 <template>
-  <wd-search v-model="keyword" light maxlength="10" focus placeholder="请输入亲友姓名/关键词" @search="search" @cancel="cancel" />
-  <div v-if="searchHistory?.length" class="mx-3">
-    <div class="my-2 flex justify-between">
-      <div class="text-lg font-bold">
-        搜索历史
-      </div>
-      <i class="i-hugeicons-delete-02 text-lg" @click="onClear" />
+  <div>
+    <div class="fixed right-0 top-10 z-9 w-full">
+      <wd-search v-model="keyword" maxlength="20" focus placeholder="请输入亲友姓名/关键词" @search="onSearch()"
+                 @change="debouncedSearch()" @cancel="onCancel"
+      />
     </div>
-    <div class="space-x-lg">
-      <wd-tag v-for="(item, index) in searchHistory" :key="index" round @click="onSearch(item)">
-        {{ item }}
-      </wd-tag>
+
+    <div class="mx-3 mt-16">
+      <div v-if="!keyword">
+        <div v-if="searchHistory?.length">
+          <div class="my-2 flex justify-between">
+            <div class="text-lg font-bold">
+              搜索历史
+            </div>
+            <i class="i-hugeicons-delete-02 text-lg" @click="onClear" />
+          </div>
+          <div class="space-x-lg">
+            <wd-tag v-for="(item, index) in searchHistory" :key="index" round @click="onSearch(item)">
+              {{ item }}
+            </wd-tag>
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        <wd-tabs v-model="activeTab" color="#f87171" slidable="always" swipeable animated @change="onSearch()">
+          <wd-tab title="礼簿">
+            <book-page ref="bookPageRef" />
+          </wd-tab>
+          <wd-tab title="送礼">
+            <gift-out-page ref="giftOutPageRef" />
+          </wd-tab>
+        </wd-tabs>
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+:deep(.wd-tabs) {
+  background: transparent !important;
+}
+
+:deep(.wd-tabs__nav) {
+  position: fixed;
+  top: 5rem;
+  z-index: 9;
+}
+
+:deep(.wd-tabs__container) {
+  padding-top: 1.5rem;
+}
+</style>
 
 <route lang="json">
 {
   "style": {
+    "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "搜索"
   }
 }

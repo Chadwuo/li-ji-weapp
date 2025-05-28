@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useLoadMore } from 'vue-request'
 
-const search = ref({
+const search = reactive({
   keyword: '',
 })
+
 const { dataList, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftBook>>(
   async (d) => {
     const _page = d?.page ? d.page + 1 : 1
@@ -11,7 +12,7 @@ const { dataList, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.L
       page: _page,
       field: 'date',
       order: 'desc',
-      ...search.value,
+      ...search,
     })
     const { items, page = 0, total = 0 } = response.data || {}
     return {
@@ -27,9 +28,6 @@ const { dataList, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.L
     manual: true,
   },
 )
-onMounted(async () => {
-  await refreshAsync()
-})
 
 const onBookClick = (id?: string) => {
   if (id) {
@@ -45,9 +43,12 @@ const handleAdd = () => {
 }
 
 const handleSearch = (keyword: string) => {
-  search.value.keyword = keyword
-  refreshAsync()
+  search.keyword = keyword
 }
+
+watch(search, () => {
+  refreshAsync()
+})
 
 defineExpose({
   handleAdd,
@@ -91,9 +92,9 @@ defineExpose({
           </div>
         </div>
       </div>
-      <div
-        class="h-40 w-full flex flex-col items-center justify-center rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
-        @click="handleAdd()"
+      <div v-show="!search.keyword"
+           class="h-40 w-full flex flex-col items-center justify-center rounded-l-5 rounded-r-10 bg-white py-5 shadow-lg"
+           @click="handleAdd()"
       >
         <div class="i-hugeicons-plus-sign-circle text-3xl text-red font-bold" />
         <div class="mt-3">
