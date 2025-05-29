@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useDebounceFn } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
+import FriendList from '@/pages/friend/components/FriendList.vue'
 import BookPage from '@/pages/index/components/BookPage.vue'
 import GiftOutPage from '@/pages/index/components/GiftOutPage.vue'
 
@@ -9,12 +10,16 @@ const keyword = ref<string>('')
 const activeTab = ref(0)
 const bookPageRef = ref<InstanceType<typeof BookPage> | null>(null)
 const giftOutPageRef = ref<InstanceType<typeof GiftOutPage> | null>(null)
+const friendsListRef = ref<InstanceType<typeof FriendList> | null>(null)
+
 const searchResultRef = computed(() => {
   switch (activeTab.value) {
     case 0:
       return bookPageRef.value
     case 1:
       return giftOutPageRef.value
+    case 2:
+      return friendsListRef.value
     default:
       return null
   }
@@ -30,7 +35,9 @@ const onSearch = (word?: string) => {
     searchHistory.value?.unshift(keyword.value)
   }
   nextTick(() => {
-    searchResultRef.value?.handleSearch(keyword.value)
+    searchResultRef.value?.handleSearch({
+      keyword: keyword.value,
+    })
   })
 }
 
@@ -85,6 +92,9 @@ onReachBottom(() => {
           </wd-tab>
           <wd-tab title="送礼">
             <gift-out-page ref="giftOutPageRef" />
+          </wd-tab>
+          <wd-tab title="亲友">
+            <friend-list ref="friendsListRef" />
           </wd-tab>
         </wd-tabs>
       </div>

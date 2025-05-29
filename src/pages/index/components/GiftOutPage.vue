@@ -1,14 +1,6 @@
 <script setup lang="ts">
 import { useLoadMore } from 'vue-request'
-import { giftCategory } from '@/constants/app'
 
-const columns = [
-  { name: '全部', value: '' },
-  ...Object.entries(giftCategory).map(([name, icon]) => ({
-    name,
-    value: icon,
-  })),
-]
 const search = reactive({
   keyword: '',
   icon: '',
@@ -51,12 +43,9 @@ const handleAdd = () => {
   })
 }
 
-const onTabsClick = (item: any) => {
-  search.icon = item.value
-}
-
-const handleSearch = (keyword: string) => {
-  search.keyword = keyword
+const handleSearch = (input: any) => {
+  search.keyword = input.keyword || ''
+  search.icon = input.icon || ''
 }
 
 watch(search, () => {
@@ -73,24 +62,16 @@ defineExpose({
 
 <template>
   <div>
-    <uv-tabs :list="columns" line-width="0" line-height="0" :active-style="{
-      color: '#f87171',
-      fontWeight: 'bold',
-      transform: 'scale(1.1)',
-    }" :inactive-style="{
-      color: '#606266',
-      transform: 'scale(1)',
-    }" item-style="height: 35px;" @click="onTabsClick"
-    />
     <div class="mx-3">
       <div v-if="dataList.length === 0" class="my-24">
-        <uv-empty text="还没有人情往来记录哦~" mode="favor">
+        <uv-empty v-if="!search.keyword" text="还没有人情往来记录哦~" mode="favor">
           <div class="mt-6">
-            <wd-button type="primary" @click="handleAdd()">
+            <wd-button class="mt-6" type="primary" @click="handleAdd()">
               添加送礼
             </wd-button>
           </div>
         </uv-empty>
+        <uv-empty v-else mode="search" />
       </div>
       <div v-else class="my-5">
         <div v-for="(i, index) in dataList" :key="i.id" @click="onGiftClick(i.id)">

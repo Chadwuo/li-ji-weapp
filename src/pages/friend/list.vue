@@ -1,69 +1,32 @@
 <script setup lang="ts">
-const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
-const search = ref({
-  keyword: '',
-  tag: '',
-})
-const loadData = async () => {
-  apiFriendListGet({
-    ...search.value,
-  }).then((res) => {
-    if (res.succeeded) {
-      // 根据首字母firstLetter进行分组
-      const map = new Map()
-      res.data?.forEach((item) => {
-        const key = item.firstLetter?.toUpperCase()
-        if (!map.has(key))
-          map.set(key, [])
+import FriendList from './components/FriendList.vue'
 
-        map.get(key).push(item)
-      })
-
-      const keys = Array.from(map.keys()).sort()
-      friendsList.value = keys.map(key => ({
-        index: key,
-        data: map.get(key),
-      }))
-    }
-  })
-}
+const friendsListRef = ref<InstanceType<typeof FriendList> | null>(null)
 
 onShow(() => {
-  loadData()
+  nextTick(() => {
+    friendsListRef.value?.loadData()
+  })
 })
 
 onPullDownRefresh(async () => {
-  await loadData()
-  uni.stopPullDownRefresh()
+  friendsListRef.value?.loadData()
 })
 
-const onTabsClick = (item: any) => {
-  search.value.tag = item.value
-  loadData()
+const addNew = () => {
+  uni.navigateTo({
+    url: '/pages/friend/edit',
+  })
 }
-
-const onFriendClick = (id?: string) => {
-  if (!id) {
-    uni.navigateTo({
-      url: '/pages/friend/edit',
-    })
-  }
-  else {
-    uni.navigateTo({
-      url: `/pages/friend/detail?id=${id}`,
-    })
-  }
-}
-
 const performSearch = () => {
   uni.navigateTo({
-    url: `/pages/search/index?keyword=${search.value.keyword}`,
-    events: {
-      acceptDataFromOpenedPage(e: string) {
-        search.value.keyword = e
-        loadData()
-      },
-    },
+    url: '/pages/search/index',
+  })
+}
+
+const onTabsClick = (item: any) => {
+  friendsListRef.value?.handleSearch({
+    tag: item.value,
   })
 }
 </script>
@@ -75,17 +38,19 @@ const performSearch = () => {
       <div class="w-36 flex items-center rounded-full bg-white p-1 px-2 text-gray" @click="performSearch()">
         <i class="i-hugeicons-search-02" />
         <div class="ms-1">
-          {{ search.keyword || '搜索人情往来' }}
+          {{ '搜索人情往来' }}
         </div>
       </div>
       <div class="mt-2 flex items-center justify-between">
         <div class="ms-2 text-2xl text-red font-bold">
           亲友
         </div>
-        <div class="py-2 ps-2" @click="onFriendClick()">
+        <div class="py-2 ps-2" @click="addNew()">
           <i class="i-hugeicons-plus-sign-circle text-xl text-red" />
         </div>
       </div>
+    </div>
+    <div>
       <uv-tabs :list="useAuthStore().friendTabsList" line-width="0" line-height="0" :active-style="{
         color: '#f87171',
         fontWeight: 'bold',
@@ -96,25 +61,7 @@ const performSearch = () => {
       }" item-style="height: 35px;" @click="onTabsClick"
       />
     </div>
-    <div class="grow">
-      <div v-if="friendsList?.length === 0" class="my-24">
-        <uv-empty text="还没有亲友记录哦~" mode="favor">
-          <div class="mt-6">
-            <wd-button class="mt-6" type="primary" @click="onFriendClick()">
-              添加亲友
-            </wd-button>
-          </div>
-        </uv-empty>
-      </div>
-      <wd-index-bar sticky>
-        <div v-for="item in friendsList" :key="item.index">
-          <wd-index-anchor :index="item.index" />
-          <wd-cell v-for="cell in item.data" :key="cell.id" clickable border :title="cell.name"
-                   @click="onFriendClick(cell.id)"
-          />
-        </div>
-      </wd-index-bar>
-    </div>
+    <friend-List ref="friendsListRef" />
   </div>
 </template>
 

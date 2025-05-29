@@ -1,7 +1,15 @@
 <script setup lang="ts">
+import { giftCategory } from '@/constants/app'
 import BookPage from './components/BookPage.vue'
 import GiftOutPage from './components/GiftOutPage.vue'
 
+const columns = [
+  { name: '全部', value: '' },
+  ...Object.entries(giftCategory).map(([name, icon]) => ({
+    name,
+    value: icon,
+  })),
+]
 const authStore = useAuthStore()
 const bookPageRef = ref<InstanceType<typeof BookPage> | null>(null)
 const giftOutPageRef = ref<InstanceType<typeof GiftOutPage> | null>(null)
@@ -65,6 +73,12 @@ const performSearch = () => {
   })
 }
 
+const onTabsClick = (item: any) => {
+  giftOutPageRef.value?.handleSearch({
+    icon: item.value,
+  })
+}
+
 watch(activeTab, () => {
   nextTick(() => {
     cur.value?.refreshAsync()
@@ -106,6 +120,17 @@ watch(activeTab, () => {
           <book-page ref="bookPageRef" />
         </wd-tab>
         <wd-tab>
+          <div>
+            <uv-tabs :list="columns" line-width="0" line-height="0" :active-style="{
+              color: '#f87171',
+              fontWeight: 'bold',
+              transform: 'scale(1.1)',
+            }" :inactive-style="{
+              color: '#606266',
+              transform: 'scale(1)',
+            }" item-style="height: 35px;" @click="onTabsClick"
+            />
+          </div>
           <gift-out-page ref="giftOutPageRef" />
         </wd-tab>
       </wd-tabs>
