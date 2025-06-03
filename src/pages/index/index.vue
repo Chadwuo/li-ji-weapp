@@ -1,8 +1,12 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { useMessage } from 'wot-design-uni'
 import { giftCategory } from '@/constants/app'
 import BookPage from './components/BookPage.vue'
 import GiftOutPage from './components/GiftOutPage.vue'
 
+const appStore = useAppStore()
+const { accessToken, refreshToken, isVip } = storeToRefs(useAuthStore())
 const columns = [
   { name: '全部', value: '' },
   ...Object.entries(giftCategory).map(([name, icon]) => ({
@@ -10,6 +14,7 @@ const columns = [
     value: icon,
   })),
 ]
+const message = useMessage()
 const authStore = useAuthStore()
 const bookPageRef = ref<InstanceType<typeof BookPage> | null>(null)
 const giftOutPageRef = ref<InstanceType<typeof GiftOutPage> | null>(null)
@@ -79,6 +84,66 @@ const onTabsClick = (item: any) => {
   })
 }
 
+const handleGiftExport = () => {
+  uni.showLoading({
+    title: '正在导出数据...',
+    mask: true,
+  })
+  uni.downloadFile({
+    url: `${appStore.baseApiUrl}/gift-out/export-pdf`,
+    header: {
+      'Authorization': `Bearer ${accessToken.value}`,
+      'X-Authorization': `Bearer ${refreshToken.value}`,
+    },
+    success: (res) => {
+      uni.openDocument({
+        filePath: res.tempFilePath,
+        showMenu: true,
+        fileType: 'pdf',
+        fail: (err) => {
+          uni.showToast({
+            icon: 'none',
+            title: err.errMsg || '导出失败！',
+          })
+        },
+      })
+    },
+    fail: (err) => {
+      uni.showToast({
+        icon: 'none',
+        title: err.errMsg || '导出失败！',
+      })
+    },
+    complete: () => {
+      uni.hideLoading()
+    },
+  })
+}
+
+const onGiftExport = () => {
+  if (isVip.value) {
+    handleGiftExport()
+  }
+  else {
+    message
+      .confirm({
+        msg: '成为会员，即可解锁数据导出无限制权益',
+        title: '数据导出权益',
+        confirmButtonText: '开通会员',
+        cancelButtonText: '看广告解锁',
+      })
+      .then(() => {
+        uni.navigateTo({
+          url: '/pages/subscription/plan',
+        })
+      })
+      .catch(({ action }) => {
+        if (action === 'cancel')
+          handleGiftExport()
+      })
+  }
+}
+
 watch(activeTab, () => {
   nextTick(() => {
     cur.value?.refreshAsync()
@@ -111,8 +176,9 @@ watch(activeTab, () => {
             送礼
           </div>
         </div>
-        <div class="py-2 ps-2" @click="addNew()">
-          <i class="i-hugeicons-plus-sign-circle text-xl text-red" />
+        <div class="flex text-xl text-red space-x-2">
+          <i v-show="activeTab === 1" class="i-hugeicons-cloud-download" @click="onGiftExport()" />
+          <i class="i-hugeicons-plus-sign-circle" @click="addNew()" />
         </div>
       </div>
       <wd-tabs v-model="activeTab" swipeable animated>

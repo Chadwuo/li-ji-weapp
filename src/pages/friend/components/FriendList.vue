@@ -34,7 +34,7 @@ const addNew = () => {
   })
 }
 
-const onFriendClick = (id: string) => {
+const onFriendClick = (id?: string) => {
   uni.navigateTo({
     url: `/pages/friend/detail?id=${id}`,
   })

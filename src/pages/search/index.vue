@@ -57,7 +57,12 @@ onLoad((option) => {
 })
 
 onReachBottom(() => {
-  searchResultRef.value?.loadMoreAsync()
+  if (activeTab.value === 0) {
+    bookPageRef.value?.loadMoreAsync()
+  }
+  else if (activeTab.value === 1) {
+    giftOutPageRef.value?.loadMoreAsync()
+  }
 })
 </script>
 

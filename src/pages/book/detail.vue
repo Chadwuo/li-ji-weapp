@@ -57,7 +57,7 @@ const loadData = async () => {
       book.value = res.data
   })
 }
-const showVideoAd = () => {
+const handlePlayVideoAd = () => {
   if (videoAd) {
     videoAd.show().catch(() => {
       // 失败重试
@@ -74,9 +74,9 @@ const showVideoAd = () => {
   }
 }
 
-const startBookExport = () => {
+const handleBookExport = () => {
   uni.showLoading({
-    title: '导出中...',
+    title: '正在导出数据...',
     mask: true,
   })
   uni.downloadFile({
@@ -110,30 +110,6 @@ const startBookExport = () => {
   })
 }
 
-const handleBookExport = () => {
-  if (isVip.value) {
-    startBookExport()
-  }
-  else {
-    message
-      .confirm({
-        msg: '成为会员，即可解锁数据导出无限制权益',
-        title: '数据导出权益',
-        confirmButtonText: '开通会员',
-        cancelButtonText: '看广告解锁',
-      })
-      .then(() => {
-        uni.navigateTo({
-          url: '/pages/subscription/plan',
-        })
-      })
-      .catch(({ action }) => {
-        if (action === 'cancel')
-          showVideoAd()
-      })
-  }
-}
-
 onLoad(async (option) => {
   loading.value = true
   if (option?.id) {
@@ -153,7 +129,7 @@ onLoad(async (option) => {
       // 用户点击了【关闭广告】按钮
       if (res && res.isEnded) {
         // 正常播放结束，可以下发游戏奖励
-        startBookExport()
+        handleBookExport()
       }
     })
   }
@@ -203,7 +179,31 @@ const onBookEdit = () => {
   })
 }
 
-const handleBookDel = () => {
+const onBookExport = () => {
+  if (isVip.value) {
+    handleBookExport()
+  }
+  else {
+    message
+      .confirm({
+        msg: '成为会员，即可解锁数据导出无限制权益',
+        title: '数据导出权益',
+        confirmButtonText: '开通会员',
+        cancelButtonText: '看广告解锁',
+      })
+      .then(() => {
+        uni.navigateTo({
+          url: '/pages/subscription/plan',
+        })
+      })
+      .catch(({ action }) => {
+        if (action === 'cancel')
+          handlePlayVideoAd()
+      })
+  }
+}
+
+const onBookDel = () => {
   message.confirm({
     msg: '该礼簿所有人情往来记录都将被删除，确定删除？',
     title: '删除礼簿',
@@ -232,6 +232,35 @@ const onSearchClick = () => {
     },
   })
 }
+
+const menu = ref<Array<Record<string, any>>>([
+  {
+    iconClass: 'edit-1',
+    content: '编辑礼簿',
+  },
+  {
+    iconClass: 'cloud-download',
+    content: '数据导出',
+  },
+  {
+    iconClass: 'delete1',
+    content: '删除礼簿',
+  },
+])
+
+function onMenuClick(e: any) {
+  switch (e.index) {
+    case 0:
+      onBookEdit()
+      break
+    case 1:
+      onBookExport()
+      break
+    case 2:
+      onBookDel()
+      break
+  }
+}
 </script>
 
 <template>
@@ -248,10 +277,15 @@ const onSearchClick = () => {
           <div class="text-lg text-red font-bold">
             {{ book.title }}
           </div>
-          <div class="flex text-xl text-red space-x-2">
-            <i class="i-hugeicons-delete-02" @click="handleBookDel" />
-            <i class="i-hugeicons-pdf-02" @click="handleBookExport" />
-            <i class="i-hugeicons-edit-01" @click="onBookEdit" />
+          <div class="flex text-xl space-x-2">
+            <!-- <i class="i-hugeicons-delete-02" @click="onBookDel" />
+            <i class="i-hugeicons-file-export" @click="onBookExport" />
+            <i class="i-hugeicons-edit-01" @click="onBookEdit" /> -->
+          </div>
+          <div>
+            <wd-popover mode="menu" :content="menu" placement="bottom-end" @menuclick="onMenuClick">
+              <i class="i-weui-more-filled text-xl" />
+            </wd-popover>
           </div>
         </div>
 
@@ -260,13 +294,8 @@ const onSearchClick = () => {
           <span class="ml-2">({{ book.date }}) </span>
         </div>
       </div>
-      <div class="flex items-end">
-        <div class="text-sm font-bold">
-          礼金：<span class="text-sm">￥</span><span class="text-xl">{{ book.moneyTotal }}</span>
-        </div>
-        <div class="ml-auto p-1 text-gray" @click="() => popupShow = true">
-          <div class="i-ant-design-info-circle-filled" />
-        </div>
+      <div class="text-sm font-bold">
+        <i class="i-hugeicons-information-circle text-sm text-gray" @click="() => popupShow = true" /> 礼金：<span class="text-sm">￥</span><span class="text-xl">{{ book.moneyTotal }}</span>
       </div>
       <div class="grid grid-cols-4 gap-5 divide-x">
         <div class="text-center">

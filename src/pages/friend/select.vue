@@ -59,7 +59,7 @@ function searchCancel() {
 </script>
 
 <template>
-  <div class="h-full flex flex-col">
+  <div>
     <div>
       <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
                  @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
