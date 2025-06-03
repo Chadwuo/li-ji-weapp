@@ -277,11 +277,11 @@ function onMenuClick(e: any) {
           <div class="text-lg text-red font-bold">
             {{ book.title }}
           </div>
-          <div class="flex text-xl space-x-2">
-            <!-- <i class="i-hugeicons-delete-02" @click="onBookDel" />
+          <!-- <div class="flex text-xl space-x-2">
+            <i class="i-hugeicons-delete-02" @click="onBookDel" />
             <i class="i-hugeicons-file-export" @click="onBookExport" />
-            <i class="i-hugeicons-edit-01" @click="onBookEdit" /> -->
-          </div>
+            <i class="i-hugeicons-edit-01" @click="onBookEdit" />
+          </div> -->
           <div>
             <wd-popover mode="menu" :content="menu" placement="bottom-end" @menuclick="onMenuClick">
               <i class="i-weui-more-filled text-xl" />

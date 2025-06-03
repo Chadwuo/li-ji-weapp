@@ -137,6 +137,27 @@ const onFriendDel = () => {
     }
   })
 }
+const menu = ref<Array<Record<string, any>>>([
+  {
+    iconClass: 'edit-1',
+    content: '编辑亲友',
+  },
+  {
+    iconClass: 'delete1',
+    content: '删除亲友',
+  },
+])
+
+function onMenuClick(e: any) {
+  switch (e.index) {
+    case 0:
+      onFriendEdit()
+      break
+    case 1:
+      onFriendDel()
+      break
+  }
+}
 </script>
 
 <template>
@@ -162,13 +183,10 @@ const onFriendDel = () => {
             备注：{{ friend.remarks }}
           </div>
         </div>
-        <div class="flex text-xl text-red font-bold">
-          <div class="py-2 pl-2" @click="onFriendDel">
-            <div class="i-hugeicons-delete-02" />
-          </div>
-          <div class="py-2 pl-2" @click="onFriendEdit">
-            <div class="i-hugeicons-edit-01" />
-          </div>
+        <div>
+          <wd-popover mode="menu" :content="menu" placement="bottom-end" @menuclick="onMenuClick">
+            <i class="i-weui-more-filled text-xl" />
+          </wd-popover>
         </div>
       </div>
       <div class="text-center">
