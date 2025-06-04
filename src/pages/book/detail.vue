@@ -370,11 +370,11 @@ function onMenuClick(e: any) {
           <div class="mt-2">
             <div v-for="(gift, index) in dataList" :key="gift.id" @click="onGiftClick(gift.id)">
               <uv-divider v-if="index" />
-              <div class="flex justify-between text-lg font-bold">
+              <div class="flex justify-between text-lg">
                 <div>
                   {{ gift.friendName }}
                 </div>
-                <div class="text-red">
+                <div class="text-red font-bold">
                   +{{ gift.money }}
                 </div>
               </div>
