@@ -83,7 +83,7 @@ onReachBottom(() => {
             </div>
             <i class="i-hugeicons-delete-02 text-lg" @click="onClear" />
           </div>
-          <div class="space-x-lg">
+          <div class="flex flex-wrap gap-3">
             <wd-tag v-for="(item, index) in searchHistory" :key="index" round @click="onSearch(item)">
               {{ item }}
             </wd-tag>

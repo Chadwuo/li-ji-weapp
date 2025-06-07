@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useLoadMore } from 'vue-request'
-import { useMessage } from 'wot-design-uni'
+import { useMessage, useQueue } from 'wot-design-uni'
 
+const { closeOutside } = useQueue()
 let videoAd: any = null
 const appStore = useAppStore()
 const { accessToken, refreshToken, isVip } = storeToRefs(useAuthStore())
@@ -264,7 +265,7 @@ function onMenuClick(e: any) {
 </script>
 
 <template>
-  <div class="mx-3" :class="{ memorial: hasMourningWords(book.title) }">
+  <div class="mx-3" :class="{ memorial: hasMourningWords(book.title) }" @click="closeOutside">
     <div v-if="loading" class="rounded-2xl bg-white p-5">
       <wd-skeleton
         :row-col="[{ width: '30%' }, { width: '60%' }, { width: '20%' }, [{ width: '20%' }, { width: '20%' }, { width: '20%' }, { width: '20%' }]]"

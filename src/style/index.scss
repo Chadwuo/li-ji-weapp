@@ -4,6 +4,7 @@ page {
 	height: 100%;
 	box-sizing: border-box;
 	// 修改按主题色
+	--wot-tag-fs: 14px;
 	--wot-color-theme: #f87171;
 	--wot-cell-tap-bg: transparent;
 	--wot-search-light-bg: transparent;
@@ -62,8 +63,10 @@ page {
 }
 
 .wd-input__label.is-required::after {
-	content: ""; /* 清除原有内容 */
-	display: none; /* 确保伪元素不显示 */
+	content: "";
+	/* 清除原有内容 */
+	display: none;
+	/* 确保伪元素不显示 */
 }
 
 .wd-input__label.is-required {

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
-import { useMessage } from 'wot-design-uni'
+import { useMessage, useQueue } from 'wot-design-uni'
 
+const { closeOutside } = useQueue()
 const message = useMessage()
 const friend = ref<Api.Friend>({})
 
@@ -161,7 +162,7 @@ function onMenuClick(e: any) {
 </script>
 
 <template>
-  <div class="mx-3">
+  <div class="mx-3" @click="closeOutside">
     <div v-if="loading" class="rounded-2xl bg-white p-5">
       <wd-skeleton
         :row-col="[{ width: '30%' }, { width: '50%' }, [{ width: '0' }, { width: '30%' }, { width: '0' }], { width: '0' }, [{ width: '0' }, { width: '20%' }, { width: '20%' }, { width: '0' }]]"
