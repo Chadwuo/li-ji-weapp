@@ -71,12 +71,13 @@ const openCalendar = () => {
         <wd-input v-model="dataSource.cost" label="成本" prop="cost" type="number" placeholder="宴席、伴手礼等费用" />
         <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
       </wd-form>
-      <div class="my-3 text-xs text-gray">
-        一场宴席活动中，用来登记所有来宾贺礼的名册，称为礼簿。
-      </div>
+
       <wd-button block :loading="loading" @click="onSubmit">
         保存
       </wd-button>
+    </div>
+    <div class="my-3 text-xs text-gray">
+      一场宴席活动中，用来登记所有来宾贺礼的名册，称为礼簿。
     </div>
     <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
                   @confirm="confirmCalendar"

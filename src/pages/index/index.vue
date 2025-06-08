@@ -161,7 +161,7 @@ watch(activeTab, () => {
           搜索人情往来
         </div>
       </div>
-      <div class="mt-2 flex items-center justify-between">
+      <div class="mt-4 flex items-center justify-between">
         <div class="flex items-center space-x-xl">
           <div class="bg-contain bg-bottom bg-no-repeat"
                :class="[activeTab === 0 ? 'text-red text-2xl font-bold line-bg' : 'text-gray-500 text-lg']"

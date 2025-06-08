@@ -2,20 +2,20 @@
 import { useDebounceFn } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import FriendList from '@/pages/friend/components/FriendList.vue'
-import BookPage from '@/pages/index/components/BookPage.vue'
 import GiftOutPage from '@/pages/index/components/GiftOutPage.vue'
+import GiftInList from '@/pages/search/components/GiftInList.vue'
 
 const { searchHistory } = storeToRefs(useAppStore())
 const keyword = ref<string>('')
 const activeTab = ref(0)
-const bookPageRef = ref<InstanceType<typeof BookPage> | null>(null)
+const giftInListRef = ref<InstanceType<typeof GiftInList> | null>(null)
 const giftOutPageRef = ref<InstanceType<typeof GiftOutPage> | null>(null)
 const friendsListRef = ref<InstanceType<typeof FriendList> | null>(null)
 
 const searchResultRef = computed(() => {
   switch (activeTab.value) {
     case 0:
-      return bookPageRef.value
+      return giftInListRef.value
     case 1:
       return giftOutPageRef.value
     case 2:
@@ -58,7 +58,7 @@ onLoad((option) => {
 
 onReachBottom(() => {
   if (activeTab.value === 0) {
-    bookPageRef.value?.loadMoreAsync()
+    giftInListRef.value?.loadMoreAsync()
   }
   else if (activeTab.value === 1) {
     giftOutPageRef.value?.loadMoreAsync()
@@ -69,7 +69,7 @@ onReachBottom(() => {
 <template>
   <div>
     <div class="fixed right-0 top-0 z-9 w-full uni-h5:top-40px">
-      <wd-search v-model="keyword" maxlength="20" focus placeholder="请输入亲友姓名/关键词" @search="onSearch()"
+      <wd-search v-model="keyword" :maxlength="20" focus placeholder="请输入亲友姓名/关键词" @search="onSearch()"
                  @change="debouncedSearch()" @cancel="onCancel"
       />
     </div>
@@ -92,8 +92,8 @@ onReachBottom(() => {
       </div>
       <div v-show="keyword">
         <wd-tabs v-model="activeTab" color="#f87171" slidable="always" swipeable animated @change="onSearch()">
-          <wd-tab title="礼簿">
-            <book-page ref="bookPageRef" />
+          <wd-tab title="收礼">
+            <gift-in-list ref="giftInListRef" />
           </wd-tab>
           <wd-tab title="送礼">
             <gift-out-page ref="giftOutPageRef" />

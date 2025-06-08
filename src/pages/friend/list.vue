@@ -41,12 +41,12 @@ const onTabsClick = (item: any) => {
           {{ '搜索人情往来' }}
         </div>
       </div>
-      <div class="mt-2 flex items-center justify-between">
-        <div class="ms-2 text-2xl text-red font-bold">
+      <div class="mt-4 flex items-center justify-between">
+        <div class="text-2xl text-red font-bold">
           亲友
         </div>
-        <div class="py-2 ps-2" @click="addNew()">
-          <i class="i-hugeicons-plus-sign-circle text-xl text-red" />
+        <div class="text-xl text-red">
+          <i class="i-hugeicons-plus-sign-circle" @click="addNew()" />
         </div>
       </div>
     </div>
