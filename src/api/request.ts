@@ -1,17 +1,19 @@
+// 提取状态码常量，提高代码可读性
+const HTTP_STATUS_OK = 200
+const HTTP_STATUS_UNAUTHORIZED = 401
+
 export function request<T>(options: UniApp.RequestOptions) {
   return new Promise<Api.Response<T>>((resolve, reject) => {
-    uni.request({
-      ...requestInterceptor(options),
-      success(res) {
-        const accessToken = res.header['access-token']
-        const refreshAccessToken = res.header['x-access-token']
-        if (refreshAccessToken && accessToken && accessToken !== 'invalid_token') {
-          const authStore = useAuthStore()
-          authStore.accessToken = accessToken
-          authStore.refreshToken = refreshAccessToken
-        }
+    // 统一处理请求拦截器
+    const processedOptions = requestInterceptor(options)
 
-        if (res.statusCode === 200) {
+    uni.request({
+      ...processedOptions,
+      success: (res) => {
+        // 处理 token 刷新逻辑
+        handleTokenRefresh(res.header)
+
+        if (res.statusCode === HTTP_STATUS_OK) {
           const result = res.data as Api.Response<T>
           if (!result.succeeded) {
             uni.showToast({
@@ -19,9 +21,9 @@ export function request<T>(options: UniApp.RequestOptions) {
               title: JSON.stringify(result.errors || 'Request Error.'),
             })
           }
-          resolve(res.data as Api.Response<T>)
+          resolve(result)
         }
-        else if (res.statusCode === 401) {
+        else if (res.statusCode === HTTP_STATUS_UNAUTHORIZED) {
           useAuthStore().logout()
         }
         else {
@@ -33,8 +35,7 @@ export function request<T>(options: UniApp.RequestOptions) {
           reject(res)
         }
       },
-      // 响应失败
-      fail(err) {
+      fail: (err) => {
         uni.showToast({
           icon: 'none',
           title: '网络错误，请稍后再试！',
@@ -43,6 +44,17 @@ export function request<T>(options: UniApp.RequestOptions) {
       },
     })
   })
+}
+
+// 提取 token 刷新逻辑
+function handleTokenRefresh(headers: Record<string, string | string[] | undefined>) {
+  const accessToken = headers['access-token']
+  const refreshAccessToken = headers['x-access-token']
+  if (refreshAccessToken && accessToken && accessToken !== 'invalid_token') {
+    const authStore = useAuthStore()
+    authStore.accessToken = accessToken as string
+    authStore.refreshToken = refreshAccessToken as string
+  }
 }
 
 function requestInterceptor(options: UniApp.RequestOptions) {
