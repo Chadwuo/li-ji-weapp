@@ -21,3 +21,9 @@ export function apiGiftBookPost(data: any) {
 export function apiGiftBookDelete(data: any) {
   return request.Delete<boolean>('gift-book', data)
 }
+
+export function apiGiftBookExportGet(data: any) {
+  return request.Get<UniNamespace.DownloadSuccessData>(`gift-book/export-pdf/${data}`, {
+    requestType: 'download',
+  })
+}

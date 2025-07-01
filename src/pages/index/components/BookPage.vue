@@ -1,33 +1,24 @@
 <script setup lang="ts">
-import { useLoadMore } from 'vue-request'
+import { usePagination } from 'alova/client'
 
 const search = reactive({
   keyword: '',
 })
+const { loading, page, data: dataList, isLastPage, reload } = usePagination((page, pageSize) => apiGiftBookPageGet({ page, pageSize, field: 'date', order: 'desc', ...search }), {
+  data: response => response.items || [],
+  append: true,
+  watchingStates: [search],
+})
 
-const { dataList, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftBook>>(
-  async (d) => {
-    const _page = d?.page ? d.page + 1 : 1
-    const response = await apiGiftBookPageGet({
-      page: _page,
-      field: 'date',
-      order: 'desc',
-      ...search,
-    })
-    const { items, page = 0, total = 0 } = response || {}
-    return {
-      list: items || [],
-      page,
-      total,
-    }
-  },
-  {
-    isNoMore: (d) => {
-      return d?.list.length === d?.total
-    },
-    manual: true,
-  },
-)
+const loadingMoreState = computed(() => {
+  if (loading.value) {
+    return 'loading'
+  }
+  else if (isLastPage.value) {
+    return 'finished'
+  }
+  return ''
+})
 
 const onBookClick = (id?: string) => {
   if (id) {
@@ -46,15 +37,17 @@ const handleSearch = (input: any) => {
   search.keyword = input.keyword || ''
 }
 
-watch(search, () => {
-  refreshAsync()
-})
-
 defineExpose({
   handleAdd,
   handleSearch,
-  loadMoreAsync,
-  refreshAsync,
+  loadMoreAsync: async () => {
+    if (loading.value || isLastPage.value)
+      return
+    await page.value++
+  },
+  refreshAsync: async () => {
+    await reload()
+  },
 })
 </script>
 
@@ -101,7 +94,7 @@ defineExpose({
         </div>
       </div>
     </div>
-    <wd-loadmore :state="loadingMore ? 'loading' : ''" :loading-props="{ color: '#f87171' }" />
+    <wd-loadmore :state="loadingMoreState" :loading-props="{ color: '#f87171' }" />
   </div>
 </template>
 

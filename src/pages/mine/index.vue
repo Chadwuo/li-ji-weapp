@@ -34,11 +34,7 @@ const staticData = ref<Api.StatOverall>({
   outTotal: 0,
 })
 const statistics = async () => {
-  apiStatisticsOverallGet().then((res) => {
-    if (res.succeeded && res.data) {
-      staticData.value = res.data
-    }
-  })
+  staticData.value = await apiStatisticsOverallGet()
 }
 
 onLoad(() => {

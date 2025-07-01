@@ -4,15 +4,12 @@ const dataSource = ref<Api.GiftBook>({})
 const formRef = ref()
 const loading = ref(false)
 
-onLoad((option) => {
+onLoad(async (option) => {
   if (option?.id) {
     uni.setNavigationBarTitle({
       title: '更新礼簿',
     })
-    apiGiftBookGet({ id: option.id }).then((res) => {
-      if (res.succeeded && res.data)
-        dataSource.value = res.data
-    })
+    dataSource.value = await apiGiftBookGet({ id: option.id })
   }
 })
 
@@ -22,22 +19,18 @@ const onSubmit = async () => {
     return
   loading.value = true
   if (dataSource.value.id) {
-    const res = await apiGiftBookPut(dataSource.value)
-    if (res.succeeded) {
-      uni.navigateBack()
-      uni.showToast({
-        title: '保存成功',
-        icon: 'none',
-      })
-    }
+    await apiGiftBookPut(dataSource.value)
+    uni.navigateBack()
+    uni.showToast({
+      title: '保存成功',
+      icon: 'none',
+    })
   }
   else {
-    const res = await apiGiftBookPost(dataSource.value)
-    if (res.succeeded) {
-      uni.redirectTo({
-        url: `/pages/book/detail?id=${res.data}`,
-      })
-    }
+    const id = await apiGiftBookPost(dataSource.value)
+    uni.redirectTo({
+      url: `/pages/book/detail?id=${id}`,
+    })
   }
   loading.value = false
 }

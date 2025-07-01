@@ -21,8 +21,8 @@ const loadGifts = async () => {
     happyCount: 0,
     sadCount: 0,
   }
-  const { data, succeeded } = await apiFriendGiftListGet({ id: friend.value.id })
-  if (!succeeded)
+  const data = await apiFriendGiftListGet({ id: friend.value.id })
+  if (!data)
     return
   const giftInList = data?.giftInList ?? []
   const giftOutList = data?.giftOutList ?? []
@@ -84,10 +84,7 @@ const loadGifts = async () => {
 }
 
 const loadData = async () => {
-  await apiFriendGet({ id: friend.value.id }).then((res) => {
-    if (res.succeeded && res.data)
-      friend.value = res.data
-  })
+  friend.value = await apiFriendGet({ id: friend.value.id })
 }
 
 onLoad(async (option) => {
@@ -126,8 +123,7 @@ const onFriendDel = () => {
     msg: '该亲友所有人情往来记录都将被删除，确定删除？',
     title: '删除亲友',
   }).then(async () => {
-    const res = await apiFriendDelete({ id: friend.value.id })
-    if (res.succeeded) {
+    if (await apiFriendDelete({ id: friend.value.id })) {
       uni.showToast({
         title: '删除成功',
         icon: 'success',

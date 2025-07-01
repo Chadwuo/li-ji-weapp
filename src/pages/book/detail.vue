@@ -1,19 +1,17 @@
 <script setup lang="ts">
+import { usePagination } from 'alova/client'
 import { storeToRefs } from 'pinia'
-import { useLoadMore } from 'vue-request'
 import { useMessage, useQueue } from 'wot-design-uni'
 
 const { closeOutside } = useQueue()
 let videoAd: any = null
-const appStore = useAppStore()
-const { accessToken, refreshToken, isVip } = storeToRefs(useAuthStore())
+const { isVip } = storeToRefs(useAuthStore())
 const search = ref({
   keyword: '',
   field: 'id',
   order: 'asc',
 })
 const message = useMessage()
-const loading = ref(false)
 const popupShow = ref(false)
 const book = ref<Api.GiftBook>({})
 const sortList = ref([
@@ -22,28 +20,22 @@ const sortList = ref([
   { label: '金额', field: 'money', value: 0 },
 ])
 
-const { dataList, loadingMore, noMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.LoadMoreDataType<Api.GiftIn>>(
-  async (d) => {
-    const _page = d?.page ? d.page + 1 : 1
-    const response = await apiGiftInPageGet({
-      page: _page,
-      giftBookId: book.value.id,
-      ...search.value,
-    })
-    const { items, page = 0, total = 0 } = response.data || {}
-    return {
-      list: items || [],
-      page,
-      total,
-    }
-  },
-  {
-    isNoMore: (d) => {
-      return d?.list.length === d?.total
-    },
-    manual: true,
-  },
-)
+const { loading, page, data: dataList, isLastPage, send: loadGiftData } = usePagination((page, pageSize) => apiGiftInPageGet({ page, pageSize, ...search.value }), {
+  data: response => response.items || [],
+  append: true,
+  immediate: false,
+  watchingStates: [search],
+})
+
+const loadingMoreState = computed(() => {
+  if (loading.value) {
+    return 'loading'
+  }
+  else if (isLastPage.value) {
+    return 'finished'
+  }
+  return ''
+})
 
 const netAmount = computed(() => {
   if (book.value.moneyTotal !== undefined && book.value.cost !== undefined) {
@@ -53,10 +45,7 @@ const netAmount = computed(() => {
 })
 
 const loadData = async () => {
-  await apiGiftBookGet({ id: book.value.id }).then((res) => {
-    if (res.succeeded && res.data)
-      book.value = res.data
-  })
+  book.value = await apiGiftBookGet({ id: book.value.id })
 }
 const handlePlayVideoAd = () => {
   if (videoAd) {
@@ -75,40 +64,24 @@ const handlePlayVideoAd = () => {
   }
 }
 
-const handleBookExport = () => {
+const handleBookExport = async () => {
   uni.showLoading({
     title: '正在导出数据...',
     mask: true,
   })
-  uni.downloadFile({
-    url: `${appStore.baseApiUrl}/gift-book/export-pdf/${book.value.id}`,
-    header: {
-      'Authorization': `Bearer ${accessToken.value}`,
-      'X-Authorization': `Bearer ${refreshToken.value}`,
-    },
-    success: (res) => {
-      uni.openDocument({
-        filePath: res.tempFilePath,
-        showMenu: true,
-        fileType: 'pdf',
-        fail: (err) => {
-          uni.showToast({
-            icon: 'none',
-            title: err.errMsg || '导出失败！',
-          })
-        },
-      })
-    },
+  const { tempFilePath } = await apiGiftBookExportGet(book.value.id)
+  uni.openDocument({
+    filePath: tempFilePath,
+    showMenu: true,
+    fileType: 'pdf',
     fail: (err) => {
       uni.showToast({
         icon: 'none',
         title: err.errMsg || '导出失败！',
       })
     },
-    complete: () => {
-      uni.hideLoading()
-    },
   })
+  uni.hideLoading()
 }
 
 onLoad(async (option) => {
@@ -138,14 +111,14 @@ onLoad(async (option) => {
 
 onShow(async () => {
   await loadData()
-  await refreshAsync()
+  await loadGiftData()
   loading.value = false
 })
 
 onReachBottom(() => {
-  if (noMore.value)
+  if (!isLastPage.value)
     return
-  loadMoreAsync()
+  page.value++
 })
 
 const onSortChange = (sort: any) => {
@@ -157,7 +130,6 @@ const onSortChange = (sort: any) => {
 
   search.value.field = sort?.field
   search.value.order = sort?.value === 1 ? 'asc' : 'desc'
-  refreshAsync()
 }
 
 const onGiftClick = (gid?: string) => {
@@ -209,8 +181,7 @@ const onBookDel = () => {
     msg: '该礼簿所有人情往来记录都将被删除，确定删除？',
     title: '删除礼簿',
   }).then(async () => {
-    const res = await apiGiftBookDelete({ id: book.value.id })
-    if (res.succeeded) {
+    if (await apiGiftBookDelete({ id: book.value.id })) {
       uni.showToast({
         title: '删除成功',
         icon: 'success',
@@ -225,12 +196,6 @@ const onBookDel = () => {
 const onSearchClick = () => {
   uni.navigateTo({
     url: '/pages/search/index',
-    events: {
-      acceptDataFromOpenedPage(e: string) {
-        search.value.keyword = e
-        refreshAsync()
-      },
-    },
   })
 }
 
@@ -296,7 +261,9 @@ function onMenuClick(e: any) {
         </div>
       </div>
       <div class="text-sm font-bold">
-        <i class="i-hugeicons-information-circle text-sm text-gray" @click="() => popupShow = true" /> 礼金：<span class="text-sm">￥</span><span class="text-xl">{{ book.moneyTotal }}</span>
+        <i class="i-hugeicons-information-circle text-sm text-gray" @click="() => popupShow = true" /> 礼金：<span
+          class="text-sm"
+        >￥</span><span class="text-xl">{{ book.moneyTotal }}</span>
       </div>
       <div class="grid grid-cols-4 gap-5 divide-x">
         <div class="text-center">
@@ -389,9 +356,7 @@ function onMenuClick(e: any) {
               </div>
             </div>
           </div>
-          <wd-loadmore :state="loadingMore ? 'loading' : noMore ? 'finished' : ''"
-                       :loading-props="{ color: '#f87171' }"
-          />
+          <wd-loadmore :state="loadingMoreState" :loading-props="{ color: '#f87171' }" />
         </div>
       </div>
     </div>
