@@ -14,7 +14,7 @@ const { dataList, loadingMore, loadMoreAsync, refreshAsync } = useLoadMore<Api.L
       order: 'desc',
       ...search,
     })
-    const { items, page = 0, total = 0 } = response.data || {}
+    const { items, page = 0, total = 0 } = response || {}
     return {
       list: items || [],
       page,

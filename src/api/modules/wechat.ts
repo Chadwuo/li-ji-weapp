@@ -1,11 +1,9 @@
-import { request } from '../request'
-
 export function apiWxOpenLoginPost(code: string) {
-  return request<Api.LoginToken>({
-    url: 'wx-open/login',
-    method: 'POST',
-    data: {
-      jsCode: code,
+  return request.Post<Api.LoginToken>('wx-open/login', {
+    jsCode: code,
+  }, {
+    meta: {
+      authRole: 'login',
     },
   })
 }

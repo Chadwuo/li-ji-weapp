@@ -5,8 +5,7 @@ import { giftCategory } from '@/constants/app'
 import BookPage from './components/BookPage.vue'
 import GiftOutPage from './components/GiftOutPage.vue'
 
-const appStore = useAppStore()
-const { accessToken, refreshToken, isVip } = storeToRefs(useAuthStore())
+const { isVip } = storeToRefs(useAuthStore())
 const columns = [
   { name: '全部', value: '' },
   ...Object.entries(giftCategory).map(([name, icon]) => ({
@@ -15,7 +14,6 @@ const columns = [
   })),
 ]
 const message = useMessage()
-const authStore = useAuthStore()
 const bookPageRef = ref<InstanceType<typeof BookPage> | null>(null)
 const giftOutPageRef = ref<InstanceType<typeof GiftOutPage> | null>(null)
 const activeTab = ref(0)
@@ -53,11 +51,7 @@ const cur = computed(() => {
 })
 
 onShow(() => {
-  if (authStore.isLogin) {
-    nextTick(() => {
-      cur.value?.refreshAsync()
-    })
-  }
+  cur.value?.refreshAsync()
 })
 
 onPullDownRefresh(async () => {
@@ -84,40 +78,24 @@ const onTabsClick = (item: any) => {
   })
 }
 
-const handleGiftExport = () => {
+const handleGiftExport = async () => {
   uni.showLoading({
     title: '正在导出数据...',
     mask: true,
   })
-  uni.downloadFile({
-    url: `${appStore.baseApiUrl}/gift-out/export-pdf`,
-    header: {
-      'Authorization': `Bearer ${accessToken.value}`,
-      'X-Authorization': `Bearer ${refreshToken.value}`,
-    },
-    success: (res) => {
-      uni.openDocument({
-        filePath: res.tempFilePath,
-        showMenu: true,
-        fileType: 'pdf',
-        fail: (err) => {
-          uni.showToast({
-            icon: 'none',
-            title: err.errMsg || '导出失败！',
-          })
-        },
-      })
-    },
+  const { tempFilePath } = await apiGiftOutExportGet()
+  uni.openDocument({
+    filePath: tempFilePath,
+    showMenu: true,
+    fileType: 'pdf',
     fail: (err) => {
       uni.showToast({
         icon: 'none',
         title: err.errMsg || '导出失败！',
       })
     },
-    complete: () => {
-      uni.hideLoading()
-    },
   })
+  uni.hideLoading()
 }
 
 const onGiftExport = () => {

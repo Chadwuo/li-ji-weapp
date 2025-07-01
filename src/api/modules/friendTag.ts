@@ -1,31 +1,15 @@
-import { request } from '../request'
-
 export function apiFriendTagListGet() {
-  return request<Api.FriendTag[]>({
-    url: 'friend-tag/list',
-  })
+  return request.Get<Api.FriendTag[]>('friend-tag/list')
 }
 
 export function apiFriendTagPut(data: any) {
-  return request<boolean>({
-    url: 'friend-tag',
-    method: 'PUT',
-    data,
-  })
+  return request.Put<boolean>('friend-tag', data)
 }
 
 export function apiFriendTagPost(data: any) {
-  return request<string>({
-    url: 'friend-tag',
-    method: 'POST',
-    data,
-  })
+  return request.Post<string>('friend-tag', data)
 }
 
 export function apiFriendTagDelete(data: any) {
-  return request<boolean>({
-    url: 'friend-tag',
-    method: 'DELETE',
-    data,
-  })
+  return request.Delete<boolean>('friend-tag', data)
 }

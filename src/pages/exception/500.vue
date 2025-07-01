@@ -16,12 +16,12 @@ onLoad((option) => {
 </script>
 
 <template>
-  <div class="h-full flex flex-col items-center justify-center text-gray">
+  <div class="mx-3 h-full flex flex-col items-center justify-center text-gray space-y-5">
     <div class="i-hugeicons-wifi-error-01 text-12" />
-    <div class="p-8 text-sm">
+    <div class="text-sm">
       {{ error || '啊哦，出现了一个小错误，请稍后再试~' }}
     </div>
-    <div class="mt-8 min-w-24">
+    <div class="min-w-24">
       <wd-button @click="onRetry">
         重启应用
       </wd-button>
