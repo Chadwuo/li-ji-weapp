@@ -1,16 +1,9 @@
-import { request } from '../request'
-
 export function apiSubscriptionPlanGet(data: any) {
-  return request<Api.SubscriptionPlan>({
-    url: 'subscription/plan',
-    data,
+  return request.Get<Api.SubscriptionPlan>('subscription/plan', {
+    params: data,
   })
 }
 
 export function apiSubscriptionCreatePayPost(data: any) {
-  return request<Api.WechatPayTransactionOutput>({
-    url: 'subscription/pay',
-    method: 'POST',
-    data,
-  })
+  return request.Post<Api.WechatPayTransactionOutput>('subscription/pay', data)
 }

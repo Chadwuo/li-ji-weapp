@@ -1,39 +1,23 @@
-import { request } from '../request'
-
 export function apiGiftBookPageGet(data: Api.PaginationQuery) {
-  return request<Api.PaginationResult<Api.GiftBook>>({
-    url: 'gift-book/page',
-    data,
+  return request.Get<Api.PaginationResult<Api.GiftBook>>('gift-book/page', {
+    params: data,
   })
 }
 
 export function apiGiftBookGet(data: any) {
-  return request<Api.GiftBook>({
-    url: 'gift-book',
-    data,
+  return request.Get<Api.GiftBook>('gift-book', {
+    params: data,
   })
 }
 
 export function apiGiftBookPut(data: any) {
-  return request<boolean>({
-    url: 'gift-book',
-    method: 'PUT',
-    data,
-  })
+  return request.Put<boolean>('gift-book', data)
 }
 
 export function apiGiftBookPost(data: any) {
-  return request<string>({
-    url: 'gift-book',
-    method: 'POST',
-    data,
-  })
+  return request.Post<string>('gift-book', data)
 }
 
 export function apiGiftBookDelete(data: any) {
-  return request<boolean>({
-    url: 'gift-book',
-    method: 'DELETE',
-    data,
-  })
+  return request.Delete<boolean>('gift-book', data)
 }

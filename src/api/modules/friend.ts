@@ -1,46 +1,29 @@
-import { request } from '../request'
-
 export function apiFriendListGet(data: any) {
-  return request<Api.Friend[]>({
-    url: 'friend/list',
-    data,
+  return request.Get<Api.Friend[]>('friend/list', {
+    params: data,
   })
 }
 
 export function apiFriendGet(data: any) {
-  return request<Api.Friend>({
-    url: 'friend',
-    data,
+  return request.Get<Api.Friend>('friend', {
+    params: data,
   })
 }
 
 export function apiFriendPut(data: any) {
-  return request<boolean>({
-    url: 'friend',
-    method: 'PUT',
-    data,
-  })
+  return request.Put<boolean>('friend', data)
 }
 
 export function apiFriendPost(data: any) {
-  return request<string>({
-    url: 'friend',
-    method: 'POST',
-    data,
-  })
+  return request.Post<string>('friend', data)
 }
 
 export function apiFriendDelete(data: any) {
-  return request<boolean>({
-    url: 'friend',
-    method: 'DELETE',
-    data,
-  })
+  return request.Delete<boolean>('friend', data)
 }
 
 export function apiFriendGiftListGet(data: any) {
-  return request<Api.FriendGifts>({
-    url: 'friend/gift-list',
-    data,
+  return request.Get<Api.FriendGifts>('friend/gift-list', {
+    params: data,
   })
 }

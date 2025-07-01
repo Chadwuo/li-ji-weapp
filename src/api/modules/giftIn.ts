@@ -1,39 +1,23 @@
-import { request } from '../request'
-
 export function apiGiftInPageGet(data: any) {
-  return request<Api.PaginationResult<Api.GiftIn>>({
-    url: 'gift-in/page',
-    data,
+  return request.Get<Api.PaginationResult<Api.GiftIn>>('gift-in/page', {
+    params: data,
   })
 }
 
 export function apiGiftInGet(data: any) {
-  return request<Api.GiftIn>({
-    url: 'gift-in',
-    data,
+  return request.Get<Api.GiftIn>('gift-in', {
+    params: data,
   })
 }
 
 export function apiGiftInPut(data: any) {
-  return request<boolean>({
-    url: 'gift-in',
-    method: 'PUT',
-    data,
-  })
+  return request.Put<boolean>('gift-in', data)
 }
 
 export function apiGiftInPost(data: any) {
-  return request<string>({
-    url: 'gift-in',
-    method: 'POST',
-    data,
-  })
+  return request.Post<string>('gift-in', data)
 }
 
 export function apiGiftInDelete(data: any) {
-  return request<boolean>({
-    url: 'gift-in',
-    method: 'DELETE',
-    data,
-  })
+  return request.Delete<boolean>('gift-in', data)
 }
