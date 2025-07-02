@@ -1,14 +1,11 @@
 <script setup lang="ts">
 const dataSource = ref<Api.Friend>({})
-onLoad((option) => {
+onLoad(async (option) => {
   if (option?.id) {
     uni.setNavigationBarTitle({
       title: '编辑',
     })
-    apiFriendGet({ id: option.id }).then((res) => {
-      if (res.succeeded && res.data)
-        dataSource.value = res.data
-    })
+    dataSource.value = await apiFriendGet({ id: option.id })
   }
 })
 const loading = ref(false)
@@ -18,14 +15,12 @@ const onSubmit = async () => {
   if (valid) {
     loading.value = true
     const api = dataSource.value.id ? apiFriendPut : apiFriendPost
-    const res = await api(dataSource.value)
-    if (res.succeeded) {
-      uni.navigateBack()
-      uni.showToast({
-        title: '保存成功',
-        icon: 'none',
-      })
-    }
+    await api(dataSource.value)
+    uni.navigateBack()
+    uni.showToast({
+      title: '保存成功',
+      icon: 'none',
+    })
     loading.value = false
   }
 }

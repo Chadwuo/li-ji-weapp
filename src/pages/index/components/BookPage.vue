@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import { usePagination } from 'alova/client'
 
-const search = reactive({
-  keyword: '',
-})
-const { loading, page, data: dataList, isLastPage, reload } = usePagination((page, pageSize) => apiGiftBookPageGet({ page, pageSize, field: 'date', order: 'desc', ...search }), {
+const { loading, page, data: dataList, isLastPage, reload } = usePagination((page, pageSize) => apiGiftBookPageGet({ page, pageSize, field: 'date', order: 'desc' }), {
   data: response => response.items || [],
   append: true,
-  watchingStates: [search],
 })
 
 const loadingMoreState = computed(() => {
@@ -33,17 +29,12 @@ const handleAdd = () => {
   })
 }
 
-const handleSearch = (input: any) => {
-  search.keyword = input.keyword || ''
-}
-
 defineExpose({
   handleAdd,
-  handleSearch,
   loadMoreAsync: async () => {
     if (loading.value || isLastPage.value)
       return
-    await page.value++
+    page.value++
   },
   refreshAsync: async () => {
     await reload()

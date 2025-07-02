@@ -7,29 +7,26 @@ const search = ref({
   tag: '',
   showAction: false,
 })
-const loadData = () => {
-  apiFriendListGet({
+const loadData = async () => {
+  const data = await apiFriendListGet({
     keyword: search.value.keyword,
     tag: search.value.tag,
-  }).then((res) => {
-    if (res.succeeded) {
-      // 根据首字母firstLetter进行分组
-      const map = new Map()
-      res.data?.forEach((item) => {
-        const key = item.firstLetter?.toUpperCase()
-        if (!map.has(key))
-          map.set(key, [])
-
-        map.get(key).push(item)
-      })
-
-      const keys = Array.from(map.keys()).sort()
-      friendsList.value = keys.map(key => ({
-        index: key,
-        data: map.get(key),
-      }))
-    }
   })
+  // 根据首字母firstLetter进行分组
+  const map = new Map()
+  data?.forEach((item) => {
+    const key = item.firstLetter?.toUpperCase()
+    if (!map.has(key))
+      map.set(key, [])
+
+    map.get(key).push(item)
+  })
+
+  const keys = Array.from(map.keys()).sort()
+  friendsList.value = keys.map(key => ({
+    index: key,
+    data: map.get(key),
+  }))
 }
 onLoad(() => {
   loadData()

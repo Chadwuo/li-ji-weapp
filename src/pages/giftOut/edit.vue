@@ -19,15 +19,12 @@ const calendarRef = ref<any>(null)
 const loading = ref(false)
 const formRef = ref()
 
-onLoad((option) => {
+onLoad(async (option) => {
   if (option?.id) {
     uni.setNavigationBarTitle({
       title: '编辑',
     })
-    apiGiftOutGet({ id: option.id }).then((res) => {
-      if (res.succeeded && res.data)
-        dataSource.value = res.data
-    })
+    dataSource.value = await apiGiftOutGet({ id: option.id })
   }
 })
 
@@ -50,14 +47,12 @@ const onSubmit = async () => {
     return
   loading.value = true
   const api = dataSource.value.id ? apiGiftOutPut : apiGiftOutPost
-  const res = await api(dataSource.value)
-  if (res.succeeded) {
-    uni.navigateBack()
-    uni.showToast({
-      title: '保存成功',
-      icon: 'none',
-    })
-  }
+  await api(dataSource.value)
+  uni.navigateBack()
+  uni.showToast({
+    title: '保存成功',
+    icon: 'none',
+  })
 
   loading.value = false
 }
@@ -106,8 +101,8 @@ const openCalendar = () => {
 
     <div class="mt-3 rounded-2xl bg-white px-2 py-5">
       <wd-form ref="formRef" :model="dataSource">
-        <wd-input v-model="dataSource.date" label="日期" prop="date" placeholder="请选择日期" readonly :rules="[{ required: true, message: '请选择日期' }]"
-                  @click="openCalendar"
+        <wd-input v-model="dataSource.date" label="日期" prop="date" placeholder="请选择日期" readonly
+                  :rules="[{ required: true, message: '请选择日期' }]" @click="openCalendar"
         >
           <template #suffix>
             <div class="i-hugeicons-calendar-01 text-base text-gray" />
@@ -120,7 +115,9 @@ const openCalendar = () => {
             <div v-show="!dataSource.id" class="i-hugeicons-contact-01 text-base text-gray" @click="onSelectFriend" />
           </template>
         </wd-input>
-        <wd-input v-model="dataSource.title" label="事由" prop="title" placeholder="随礼事由" :rules="[{ required: true, message: '请填写随礼事由' }]" />
+        <wd-input v-model="dataSource.title" label="事由" prop="title" placeholder="随礼事由"
+                  :rules="[{ required: true, message: '请填写随礼事由' }]"
+        />
         <wd-input v-model="dataSource.money" label="礼金" prop="money" placeholder="随礼金额" type="number"
                   :rules="[{ required: true, message: '请填写随礼金额' }]"
         />

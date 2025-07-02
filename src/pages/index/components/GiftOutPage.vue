@@ -47,7 +47,7 @@ defineExpose({
   loadMoreAsync: async () => {
     if (loading.value || isLastPage.value)
       return
-    await page.value++
+    page.value++
   },
   refreshAsync: async () => {
     await reload()
@@ -100,9 +100,7 @@ defineExpose({
             </div>
           </div>
         </div>
-        <wd-loadmore :state="loadingMoreState"
-                     :loading-props="{ color: '#f87171' }"
-        />
+        <wd-loadmore :state="loadingMoreState" :loading-props="{ color: '#f87171' }" />
       </div>
     </div>
   </div>

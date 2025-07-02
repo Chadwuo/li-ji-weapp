@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { friendCategory } from '@/constants/app'
 import { storeToRefs } from 'pinia'
 import { useMessage } from 'wot-design-uni'
+import { friendCategory } from '@/constants/app'
 
 const message = useMessage()
 const popupShow = ref(false)
@@ -9,10 +9,7 @@ const dataSource = ref<Api.FriendTag>({})
 const { friendTags } = storeToRefs(useAuthStore())
 
 const loadData = async () => {
-  const res = await apiFriendTagListGet()
-  if (res.succeeded && res.data) {
-    friendTags.value = res.data
-  }
+  friendTags.value = await apiFriendTagListGet()
 }
 
 onLoad(() => {
@@ -25,15 +22,13 @@ const openPopup = (item?: Api.FriendTag) => {
 }
 
 const onSave = async () => {
-  const res = dataSource.value.id ? await apiFriendTagPut(dataSource.value) : await apiFriendTagPost(dataSource.value)
-  if (res.succeeded) {
-    uni.showToast({
-      title: '保存成功',
-      icon: 'none',
-    })
-    popupShow.value = false
-    loadData()
-  }
+  dataSource.value.id ? await apiFriendTagPut(dataSource.value) : await apiFriendTagPost(dataSource.value)
+  uni.showToast({
+    title: '保存成功',
+    icon: 'none',
+  })
+  popupShow.value = false
+  loadData()
 }
 
 const onDel = () => {
@@ -41,15 +36,13 @@ const onDel = () => {
     msg: '此操作无法恢复，确定删除？',
     title: '删除亲友标签',
   }).then(async () => {
-    const res = await apiFriendTagDelete({ id: dataSource.value.id })
-    if (res.succeeded) {
-      uni.showToast({
-        title: '删除成功',
-        icon: 'none',
-      })
-      popupShow.value = false
-      loadData()
-    }
+    await apiFriendTagDelete({ id: dataSource.value.id })
+    uni.showToast({
+      title: '删除成功',
+      icon: 'none',
+    })
+    popupShow.value = false
+    loadData()
   })
 }
 </script>

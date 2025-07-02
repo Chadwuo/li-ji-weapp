@@ -3,15 +3,12 @@ const loading = ref(false)
 const dataSource = ref<Api.GiftIn>({})
 const formRef = ref()
 
-onLoad((option) => {
+onLoad(async (option) => {
   if (option?.id) {
     uni.setNavigationBarTitle({
       title: '编辑',
     })
-    apiGiftInGet({ id: option.id }).then((res) => {
-      if (res.succeeded && res.data)
-        dataSource.value = res.data
-    })
+    dataSource.value = await apiGiftInGet({ id: option.id })
   }
   else {
     dataSource.value.giftBookId = option?.bookId
@@ -24,14 +21,12 @@ const onSubmit = async () => {
     return
   loading.value = true
   const api = dataSource.value.id ? apiGiftInPut : apiGiftInPost
-  const res = await api(dataSource.value)
-  if (res.succeeded) {
-    uni.navigateBack()
-    uni.showToast({
-      title: '保存成功',
-      icon: 'none',
-    })
-  }
+  await api(dataSource.value)
+  uni.navigateBack()
+  uni.showToast({
+    title: '保存成功',
+    icon: 'none',
+  })
 
   loading.value = false
 }

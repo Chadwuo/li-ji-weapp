@@ -68,7 +68,7 @@ export const request = createAlova({
     const { config } = method
     const { requestType } = config
 
-    if (requestType === 'download') {
+    if (requestType === 'download' || requestType === 'upload') {
       return response
     }
     const {

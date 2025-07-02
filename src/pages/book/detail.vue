@@ -20,11 +20,13 @@ const sortList = ref([
   { label: '金额', field: 'money', value: 0 },
 ])
 
-const { loading, page, data: dataList, isLastPage, send: loadGiftData } = usePagination((page, pageSize) => apiGiftInPageGet({ page, pageSize, ...search.value }), {
+const { loading, page, data: dataList, isLastPage, reload } = usePagination((page, pageSize) => apiGiftInPageGet({ giftBookId: book.value.id, page, pageSize, ...search.value }), {
   data: response => response.items || [],
+  total: response => response.total || 0,
   append: true,
   immediate: false,
   watchingStates: [search],
+  debounce: 500,
 })
 
 const loadingMoreState = computed(() => {
@@ -111,12 +113,11 @@ onLoad(async (option) => {
 
 onShow(async () => {
   await loadData()
-  await loadGiftData()
-  loading.value = false
+  await reload()
 })
 
 onReachBottom(() => {
-  if (!isLastPage.value)
+  if (isLastPage.value)
     return
   page.value++
 })
@@ -231,7 +232,7 @@ function onMenuClick(e: any) {
 
 <template>
   <div class="mx-3" :class="{ memorial: hasMourningWords(book.title) }" @click="closeOutside">
-    <div v-if="loading" class="rounded-2xl bg-white p-5">
+    <div v-if="!book.title" class="rounded-2xl bg-white p-5">
       <wd-skeleton
         :row-col="[{ width: '30%' }, { width: '60%' }, { width: '20%' }, [{ width: '20%' }, { width: '20%' }, { width: '20%' }, { width: '20%' }]]"
       />

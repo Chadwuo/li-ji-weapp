@@ -5,10 +5,7 @@ const message = useMessage()
 const dataSource = ref<Api.GiftIn>({})
 
 const loadData = async () => {
-  apiGiftInGet({ id: dataSource.value.id }).then((res) => {
-    if (res.succeeded && res.data)
-      dataSource.value = res.data
-  })
+  dataSource.value = await apiGiftInGet({ id: dataSource.value.id })
 }
 
 onLoad((option) => {
@@ -32,14 +29,12 @@ const onDel = () => {
     msg: '此操作无法恢复，确定删除？',
     title: '删除来往记录',
   }).then(async () => {
-    const res = await apiGiftInDelete({ id: dataSource.value.id })
-    if (res.succeeded) {
-      uni.showToast({
-        title: '删除成功',
-        icon: 'success',
-      })
-      uni.navigateBack()
-    }
+    await apiGiftInDelete({ id: dataSource.value.id })
+    uni.showToast({
+      title: '删除成功',
+      icon: 'success',
+    })
+    uni.navigateBack()
   })
 }
 

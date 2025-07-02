@@ -1,50 +1,41 @@
 <script setup lang="ts">
+import { JSONStringify } from '@alova/shared'
 import { storeToRefs } from 'pinia'
 import { useNotify } from 'wot-design-uni'
 
-const appStore = useAppStore()
 const { showNotify } = useNotify()
-const { userInfo, accessToken, refreshToken } = storeToRefs(useAuthStore())
+const { userInfo } = storeToRefs(useAuthStore())
 const nickName_edit = ref(userInfo.value?.nickName)
 
 const openPrivacyContract = () => {
   wx.openPrivacyContract({ fail: () => { } })
 }
 
-const onChooseAvatar = (e: any) => {
-  uni.uploadFile({
-    url: `${appStore.baseApiUrl}/user/upload-avatar`,
+const onChooseAvatar = async (e: any) => {
+  const { data } = await apiUserAvatarPut({
     filePath: e.detail.avatarUrl,
     name: 'file',
-    header: {
-      'Authorization': `Bearer ${accessToken.value}`,
-      'X-Authorization': `Bearer ${refreshToken.value}`,
-    },
-    success: (uploadFileRes) => {
-      const result = JSON.parse(uploadFileRes.data)
-      if (result.succeeded && userInfo.value) {
-        showNotify({ type: 'success', message: '头像修改成功' })
-        userInfo.value.avatar = result.data
-      }
-    },
-    fail: (err) => {
-      uni.showToast({
-        title: err.errMsg,
-        icon: 'none',
-      })
-    },
   })
+  const result = JSON.parse(data) as Api.Response<string>
+  if (result.succeeded && userInfo.value) {
+    showNotify({ type: 'success', message: '头像修改成功' })
+    userInfo.value.avatar = result.data
+  }
+  else {
+    uni.showToast({
+      title: JSONStringify(result.errors),
+      icon: 'none',
+    })
+  }
 }
 
 const onBlur = async () => {
   if (userInfo.value && nickName_edit.value !== userInfo.value.nickName) {
-    const res = await apiUserNickNamePut({
+    await apiUserNickNamePut({
       nickName: nickName_edit.value,
     })
-    if (res.succeeded) {
-      showNotify({ type: 'success', message: '昵称修改成功' })
-      userInfo.value.nickName = nickName_edit.value
-    }
+    showNotify({ type: 'success', message: '昵称修改成功' })
+    userInfo.value.nickName = nickName_edit.value
   }
 }
 </script>

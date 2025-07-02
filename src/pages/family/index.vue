@@ -8,20 +8,15 @@ const actionSheetShow = ref(false)
 const actionSheetList = ref()
 const loading = ref(false)
 const loadData = async () => {
-  const res = await apiUserFamilyListGet()
-  if (res.succeeded) {
-    userFamilys.value = res.data
-  }
+  userFamilys.value = await apiUserFamilyListGet()
 }
 
 const onCreate = async () => {
   loading.value = true
-  const res = await apiUserFamilyPost({
+  await apiUserFamilyPost({
     role: '组织者',
   })
-  if (res.succeeded) {
-    loadData()
-  }
+  loadData()
   loading.value = false
 }
 
@@ -51,10 +46,8 @@ const onClick = (i: Api.UserFamily) => {
 const onSelectedAction = async (e: any) => {
   e.loading = true
   const { data } = e.item
-  const res = await apiUserFamilyDelete({ userId: data.userId, familyId: data.familyId })
-  if (res.succeeded) {
-    loadData()
-  }
+  await apiUserFamilyDelete({ userId: data.userId, familyId: data.familyId })
+  loadData()
 }
 
 onLoad(() => {

@@ -7,19 +7,26 @@ export function apiGiftOutPageGet(data: any) {
 export function apiGiftOutGet(data: any) {
   return request.Get<Api.GiftOut>('gift-out', {
     params: data,
+    hitSource: /^gift-out/,
   })
 }
 
 export function apiGiftOutPut(data: any) {
-  return request.Put<boolean>('gift-out', data)
+  return request.Put<boolean>('gift-out', data, {
+    name: 'gift-out-put',
+  })
 }
 
 export function apiGiftOutPost(data: any) {
-  return request.Post<string>('gift-out', data)
+  return request.Post<string>('gift-out', data, {
+    name: 'gift-out-post',
+  })
 }
 
 export function apiGiftOutDelete(data: any) {
-  return request.Delete<boolean>('gift-out', data)
+  return request.Delete<boolean>('gift-out', data, {
+    name: 'gift-out-delete',
+  })
 }
 
 export function apiGiftOutExportGet() {

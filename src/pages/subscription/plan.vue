@@ -9,47 +9,38 @@ const { userInfo } = storeToRefs(useAuthStore())
 const subscriptionPlan = ref<Api.SubscriptionPlan>()
 
 const loadSubscriptionPlanData = async () => {
-  const res = await apiSubscriptionPlanGet({ planId: 1 })
-  if (res.succeeded && res.data) {
-    subscriptionPlan.value = res.data
-  }
+  subscriptionPlan.value = await apiSubscriptionPlanGet({ planId: 1 })
 }
 
 const pay = async () => {
   loading.value = true
-  const res = await apiSubscriptionCreatePayPost({
+  const { singInfo, outTradeNumber } = await apiSubscriptionCreatePayPost({
     planId: 1,
   })
-  if (res.succeeded && res.data) {
-    const { singInfo, outTradeNumber } = res.data
-    wx.requestPayment({
-      ...singInfo,
-      async success() {
-        uni.showToast({
-          title: '支付成功 谢谢！',
-          icon: 'success',
-        })
-        const { data } = await apiUserMemberStatusPut({
-          outTradeNumber,
-        })
-        if (data) {
-          userInfo.value = data
-          uni.redirectTo({
-            url: '/pages/subscription/index',
-          })
-        }
-      },
-      fail() {
-        uni.showToast({
-          title: '支付取消 下次一定！',
-          icon: 'none',
-        })
-      },
-      complete() {
-        loading.value = false
-      },
-    })
-  }
+  wx.requestPayment({
+    ...singInfo,
+    async success() {
+      uni.showToast({
+        title: '支付成功 谢谢！',
+        icon: 'success',
+      })
+      userInfo.value = await apiUserMemberStatusPut({
+        outTradeNumber,
+      })
+      uni.redirectTo({
+        url: '/pages/subscription/index',
+      })
+    },
+    fail() {
+      uni.showToast({
+        title: '支付取消 下次一定！',
+        icon: 'none',
+      })
+    },
+    complete() {
+      loading.value = false
+    },
+  })
 }
 
 const couponPay = async () => {
@@ -65,19 +56,16 @@ const couponPay = async () => {
         uni.showLoading({
           title: '兑换中...',
         })
-        const { succeeded, data } = await apiUserMemberStatusPut({
+        userInfo.value = await apiUserMemberStatusPut({
           couponCode: value,
         })
-        if (succeeded && data) {
-          userInfo.value = data
-          uni.redirectTo({
-            url: '/pages/subscription/index',
-          })
-          uni.showToast({
-            title: '兑换成功!',
-            icon: 'success',
-          })
-        }
+        uni.redirectTo({
+          url: '/pages/subscription/index',
+        })
+        uni.showToast({
+          title: '兑换成功!',
+          icon: 'success',
+        })
       }
     })
 }
