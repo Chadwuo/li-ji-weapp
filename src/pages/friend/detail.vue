@@ -189,7 +189,7 @@ function onMenuClick(e: any) {
       <div class="text-center">
         <span class="text-lg font-bold" :class="statisticsData.happyTotal >= statisticsData.sadTotal
           ? 'text-red'
-          : 'text-green'
+          : 'text-teal'
         "
         >
           {{ statisticsData.happyTotal - statisticsData.sadTotal }}
@@ -206,7 +206,7 @@ function onMenuClick(e: any) {
           </div>
         </div>
         <div class="text-center">
-          <div class="text-lg text-green font-bold">
+          <div class="text-lg text-teal font-bold">
             <span class="text-sm">￥</span>{{ statisticsData.sadTotal }}
           </div>
           <div class="flex items-center justify-center text-sm text-gray space-x-1">
@@ -232,7 +232,7 @@ function onMenuClick(e: any) {
           {{ gift.year }}
         </div>
         <div v-for="item in gift.list" :key="item._id" class="cu-item" @click="onGiftClick(item)">
-          <div class="rounded-2xl bg-white p-4" :class="item.self ? 'text-green' : 'text-red'">
+          <div class="rounded-2xl bg-white p-4" :class="item.self ? 'text-teal' : 'text-red'">
             <div class="flex justify-between">
               <div class="mr-3 flex flex-col space-y-1">
                 <div class="text-bold text-lg">

@@ -60,7 +60,7 @@ const navigateToFriendDetailPage = () => {
         <div class="text-xl">
           {{ dataSource.friendName }}
         </div>
-        <div class="text-3xl text-green">
+        <div class="text-3xl text-teal">
           -{{ dataSource.money }}
         </div>
         <div>

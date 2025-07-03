@@ -52,7 +52,7 @@ const onReject = () => {
       <div>
         <div class="mt-5 flex items-center justify-center space-x-3xl">
           <div class="i-iconoir-favourite-book text-12 text-red" />
-          <div class="i-mingcute-transfer-3-fill text-2xl text-green" />
+          <div class="i-mingcute-transfer-3-fill text-2xl text-teal" />
           <uv-avatar :src="inviteData.avatarUrl" :size="55" />
         </div>
         <div class="mt-3 text-xl font-bold">

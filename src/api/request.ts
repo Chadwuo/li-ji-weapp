@@ -15,9 +15,11 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
         const { code, errMsg } = await uni.login()
         if (!code)
           throw new Error(errMsg)
+        await apiWxOpenLoginPost(code)
         // #endif
-
-        await apiWxOpenLoginPost('123456789JsCode不能为空')
+        // #ifdef H5
+        await apiWxOpenLoginPost('github.com/Chadwuo')
+        // #endif
       }
       catch (error) {
         // 提取错误信息
@@ -75,8 +77,16 @@ export const request = createAlova({
       statusCode: rawCode,
       data: rawData,
       errMsg,
+      header,
     } = response as UniNamespace.RequestSuccessCallbackResult
 
+    const accessToken = header['access-token']
+    const refreshAccessToken = header['x-access-token']
+    if (refreshAccessToken && accessToken && accessToken !== 'invalid_token') {
+      const authStore = useAuthStore()
+      authStore.accessToken = accessToken
+      authStore.refreshToken = refreshAccessToken
+    }
     // 处理 HTTP 状态码错误
     if (rawCode !== 200) {
       const errorMessage = ShowMessage(rawCode) || `HTTP请求错误[${rawCode}]`

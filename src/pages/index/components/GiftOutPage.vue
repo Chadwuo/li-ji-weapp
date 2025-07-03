@@ -93,7 +93,7 @@ defineExpose({
               </div>
             </div>
             <div class="text-lg font-bold" :class="[
-              i.icon === 'i-tabler-candle' ? 'text-gray' : 'text-green',
+              i.icon === 'i-tabler-candle' ? 'text-gray' : 'text-teal',
             ]"
             >
               -{{ i.money }}

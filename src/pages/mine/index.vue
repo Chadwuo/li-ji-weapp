@@ -161,7 +161,7 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
         <button class="reset-button" open-type="share">
           <wd-cell is-link title="分享好友">
             <template #icon>
-              <div class="i-hugeicons-share-01 pr-4 text-lg text-green" />
+              <div class="i-hugeicons-share-01 pr-4 text-lg text-teal" />
             </template>
           </wd-cell>
         </button>

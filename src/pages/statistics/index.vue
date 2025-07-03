@@ -5,23 +5,20 @@ const wordData = ref({})
 const bubbleData = ref({})
 
 const chatOpt = {
-  color: ['#f87171', '#4ade80', '#FAC858', '#EE6666', '#73C0DE', '#3CA272', '#FC8452', '#9A60B4', '#ea7ccc'],
+  color: ['#f87171', '#2dd4bf', '#FAC858', '#EE6666', '#73C0DE', '#3CA272', '#FC8452', '#9A60B4', '#ea7ccc'],
   dataLabel: false,
   dataPointShape: false,
   yAxis: {
     gridType: 'dash',
   },
   extra: {
-    line: {
+    area: {
       type: 'curve',
-      width: 2,
-      activeType: 'hollow',
-      onShadow: true,
-      animation: 'horizontal',
+      gradient: true,
     },
     column: {
       type: 'group',
-      width: 12,
+      width: 10,
     },
     bubble: {
       border: 1,
@@ -35,11 +32,11 @@ onMounted(() => {
       categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
       series: [
         {
-          name: '目标值',
+          name: '收礼',
           data: [35, 136, 31, 31, 33, 13, 34],
         },
         {
-          name: '完成量',
+          name: '送礼',
           data: [18, 27, 21, 24, 6, 28],
         },
       ],
@@ -48,24 +45,12 @@ onMounted(() => {
       categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
       series: [
         {
-          name: '成交量A',
-          data: [0, 0, 45, 95, 125, 95, 125, 95, 125, 15, 45, 15],
-          setShadow: [
-            3,
-            8,
-            10,
-            '#f87171',
-          ],
+          name: '收礼',
+          data: [0, 0, 20, 0, 80, 0, 24, 0, 22, 0, 0, 0],
         },
         {
-          name: '成交量C',
-          data: [100, 0, 0, 0, 20, 0, 0, 60, 0, 0, 0, 0],
-          setShadow: [
-            3,
-            8,
-            10,
-            '#4ade80',
-          ],
+          name: '送礼',
+          data: [0, 24, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0],
         },
       ],
     }
@@ -177,7 +162,7 @@ onMounted(() => {
     <div class="mx-3 space-y-3">
       <div>
         <div>
-          2025
+          <!-- 2025 -->
         </div>
         <div class="mt-4 flex items-center justify-between">
           <div class="text-2xl text-red font-bold">
@@ -186,47 +171,87 @@ onMounted(() => {
         </div>
       </div>
       <div class="grid grid-cols-2 gap-5 rounded-2xl bg-white p-5">
-        <div class="h-12 w-full rounded-xl bg-gray-100">
-          1
+        <div class="h-16 w-full flex items-center rounded-xl bg-gray-100">
+          <div class="mx-3 h-10 w-10 flex flex-shrink-0 rounded-full bg-red">
+            <div class="i-tabler-moneybag-plus m-auto h-6 w-6 text-white" />
+          </div>
+          <div>
+            <div class="text-lg font-bold">
+              2456
+            </div>
+            <div class="text-xs text-gray">
+              收礼
+            </div>
+          </div>
         </div>
-        <div class="h-12 w-full rounded-xl bg-gray-100">
-          1
+        <div class="h-16 w-full flex items-center rounded-xl bg-gray-100">
+          <div class="mx-3 h-10 w-10 flex flex-shrink-0 rounded-full bg-teal">
+            <div class="i-tabler-moneybag-minus m-auto h-6 w-6 text-white" />
+          </div>
+          <div>
+            <div class="text-lg font-bold">
+              2456
+            </div>
+            <div class="text-xs text-gray">
+              送礼
+            </div>
+          </div>
         </div>
-        <div class="h-12 w-full rounded-xl bg-gray-100">
-          1
+        <div class="h-16 w-full flex items-center rounded-xl bg-gray-100">
+          <div class="mx-3 h-10 w-10 flex flex-shrink-0 rounded-full bg-purple">
+            <div class="i-carbon-pedestrian-family m-auto h-6 w-6 text-white" />
+          </div>
+          <div>
+            <div class="text-lg font-bold">
+              2456
+            </div>
+            <div class="text-xs text-gray">
+              亲友人数
+            </div>
+          </div>
         </div>
-        <div class="h-12 w-full rounded-xl bg-gray-100">
-          1
+        <div class="h-16 w-full flex items-center rounded-xl bg-gray-100">
+          <div class="mx-3 h-10 w-10 flex flex-shrink-0 rounded-full bg-blue">
+            <div class="i-mingcute-wallet-2-line m-auto h-6 w-6 text-white" />
+          </div>
+          <div>
+            <div class="text-lg font-bold">
+              24562
+            </div>
+            <div class="text-xs text-gray">
+              收支差
+            </div>
+          </div>
         </div>
       </div>
-      <div>
-        <div class="py-2 font-bold">
-          统计
-        </div>
-        <qiun-data-charts class="h-64 rounded-2xl bg-white" type="column" :opts="chatOpt" :chart-data="columnData"
-                          :canvas2d="true" canvas-id="yYyVHjIKjesnOyIwPugazNNUgJXnomSt"
+      <div class="pt-2 font-bold">
+        统计
+      </div>
+      <div class="h-64 rounded-2xl bg-white">
+        <qiun-data-charts type="column" :opts="chatOpt" :chart-data="columnData"
+                          canvas-id="yYyVHjIKjesnOyIwPugazNNUgJXnomSt"
         />
       </div>
-      <div>
-        <div class="py-2 font-bold">
-          趋势
-        </div>
-        <qiun-data-charts class="h-64 rounded-2xl bg-white" type="line" :opts="chatOpt" :chart-data="lineData"
-                          :canvas2d="true" canvas-id="YEHelcwENZpuKFcATpnkQOWdNesmUPAL"
+      <div class="pt-2 font-bold">
+        趋势
+      </div>
+      <div class="h-64 rounded-2xl bg-white p-1">
+        <qiun-data-charts type="area" :opts="chatOpt" :chart-data="lineData"
+                          canvas-id="YEHelcwENZpuKFcATpnkQOWdNesmUPAL"
         />
       </div>
-      <div>
-        <div class="py-2 font-bold">
-          来源
-        </div>
-        <qiun-data-charts class="h-64 rounded-2xl bg-white" type="bubble" :opts="chatOpt" :chart-data="bubbleData" />
+      <div class="pt-2 font-bold">
+        来源
       </div>
-      <div>
-        <div class="py-2 font-bold">
-          词云
-        </div>
-        <qiun-data-charts class="h-64 rounded-2xl bg-white" type="word" :opts="chatOpt" :chart-data="wordData"
-                          :canvas2d="true" canvas-id="cRdrJdXetnAqEMJqtudXKJRhxxuwRmjp"
+      <div class="h-64 rounded-2xl bg-white p-1">
+        <qiun-data-charts type="bubble" :opts="chatOpt" :chart-data="bubbleData" />
+      </div>
+      <div class="pt-2 font-bold">
+        年度词云
+      </div>
+      <div class="h-64 rounded-2xl bg-white p-1">
+        <qiun-data-charts type="word" :opts="chatOpt" :chart-data="wordData"
+                          canvas-id="cRdrJdXetnAqEMJqtudXKJRhxxuwRmjp"
         />
       </div>
     </div>
