@@ -35,6 +35,12 @@ export default defineUniPages({
         text: '礼记',
       },
       {
+        iconPath: 'static/tabbar/statistics.png',
+        selectedIconPath: 'static/tabbar/statistics_cur.png',
+        pagePath: 'pages/statistics/index',
+        text: '统计',
+      },
+      {
         iconPath: 'static/tabbar/contact.png',
         selectedIconPath: 'static/tabbar/contact_cur.png',
         pagePath: 'pages/friend/list',
