@@ -172,51 +172,61 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="h-full">
+  <div class="h-full bg-[url('https://liji.poetic.ltd/oss/assets/bg/bg_friend.png')] bg-contain bg-no-repeat">
     <safe-area-inset-top />
-    <div class="space-y-3">
-      <div class="grid grid-cols-2 gap-5 bg-white p-4">
-        <div class="h-12 w-full rounded-lg bg-gray-100">
+    <div class="mx-3 space-y-3">
+      <div>
+        <div>
+          2025
+        </div>
+        <div class="mt-4 flex items-center justify-between">
+          <div class="text-2xl text-red font-bold">
+            统计
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-5 rounded-2xl bg-white p-5">
+        <div class="h-12 w-full rounded-xl bg-gray-100">
           1
         </div>
-        <div class="h-12 w-full rounded-lg bg-gray-100">
+        <div class="h-12 w-full rounded-xl bg-gray-100">
           1
         </div>
-        <div class="h-12 w-full rounded-lg bg-gray-100">
+        <div class="h-12 w-full rounded-xl bg-gray-100">
           1
         </div>
-        <div class="h-12 w-full rounded-lg bg-gray-100">
+        <div class="h-12 w-full rounded-xl bg-gray-100">
           1
         </div>
       </div>
-      <div class="h-64 bg-white p-4">
-        <div class="font-bold">
+      <div>
+        <div class="py-2 font-bold">
           统计
         </div>
-        <qiun-data-charts type="column" :opts="chatOpt" :chart-data="columnData" :canvas2d="true"
-                          canvas-id="yYyVHjIKjesnOyIwPugazNNUgJXnomSt"
+        <qiun-data-charts class="h-64 rounded-2xl bg-white" type="column" :opts="chatOpt" :chart-data="columnData"
+                          :canvas2d="true" canvas-id="yYyVHjIKjesnOyIwPugazNNUgJXnomSt"
         />
       </div>
-      <div class="h-64 bg-white p-4">
-        <div class="font-bold">
+      <div>
+        <div class="py-2 font-bold">
           趋势
         </div>
-        <qiun-data-charts type="line" :opts="chatOpt" :chart-data="lineData" :canvas2d="true"
-                          canvas-id="YEHelcwENZpuKFcATpnkQOWdNesmUPAL"
+        <qiun-data-charts class="h-64 rounded-2xl bg-white" type="line" :opts="chatOpt" :chart-data="lineData"
+                          :canvas2d="true" canvas-id="YEHelcwENZpuKFcATpnkQOWdNesmUPAL"
         />
       </div>
-      <div class="h-64 bg-white p-4">
-        <div class="font-bold">
+      <div>
+        <div class="py-2 font-bold">
           来源
         </div>
-        <qiun-data-charts type="bubble" :opts="chatOpt" :chart-data="bubbleData" />
+        <qiun-data-charts class="h-64 rounded-2xl bg-white" type="bubble" :opts="chatOpt" :chart-data="bubbleData" />
       </div>
-      <div class="h-64 bg-white p-4">
-        <div class="font-bold">
+      <div>
+        <div class="py-2 font-bold">
           词云
         </div>
-        <qiun-data-charts type="word" :opts="chatOpt" :chart-data="wordData" :canvas2d="true"
-                          canvas-id="cRdrJdXetnAqEMJqtudXKJRhxxuwRmjp"
+        <qiun-data-charts class="h-64 rounded-2xl bg-white" type="word" :opts="chatOpt" :chart-data="wordData"
+                          :canvas2d="true" canvas-id="cRdrJdXetnAqEMJqtudXKJRhxxuwRmjp"
         />
       </div>
     </div>
