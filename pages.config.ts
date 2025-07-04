@@ -37,7 +37,7 @@ export default defineUniPages({
       {
         iconPath: 'static/tabbar/pie-chart.png',
         selectedIconPath: 'static/tabbar/pie-chart-fill.png',
-        pagePath: 'pages/statistics/index',
+        pagePath: 'pages/stats/index',
         text: '统计',
       },
       {

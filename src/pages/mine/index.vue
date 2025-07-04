@@ -27,14 +27,14 @@ const vipLevel = computed(() => {
   }
 })
 const jinrishici = ref('')
-const staticData = ref<Api.StatOverall>({
+const statsData = ref<Api.StatsOverall>({
   inCount: 0,
   outCount: 0,
   inTotal: 0,
   outTotal: 0,
 })
 const statistics = async () => {
-  staticData.value = await apiStatisticsOverallGet()
+  statsData.value = await apiStatsOverallGet()
 }
 
 onLoad(() => {
@@ -112,18 +112,18 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
         <div class="grid grid-cols-2 gap-5 rounded-2xl bg-white p-5">
           <div class="text-center">
             <div class="text-lg text-black font-bold">
-              {{ formatMoney(staticData.inTotal) }}
+              {{ formatMoney(statsData.inTotal) }}
             </div>
             <div class="flex items-center justify-center text-sm text-gray space-x-1">
-              <div>收礼({{ staticData.inCount }})</div>
+              <div>收礼({{ statsData.inCount }})</div>
             </div>
           </div>
           <div class="text-center">
             <div class="text-lg text-black font-bold">
-              {{ formatMoney(staticData.outTotal) }}
+              {{ formatMoney(statsData.outTotal) }}
             </div>
             <div class="flex items-center justify-center text-sm text-gray space-x-1">
-              <div>送礼({{ staticData.outCount }})</div>
+              <div>送礼({{ statsData.outCount }})</div>
             </div>
           </div>
         </div>

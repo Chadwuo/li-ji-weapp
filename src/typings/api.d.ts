@@ -500,7 +500,16 @@ declare namespace Api {
     giftOutList?: GiftOut[]
   }
 
-  interface StatOverall {
+  interface StatsOverall {
+
+    inCount: number
+    outCount: number
+    inTotal: number
+    outTotal: number
+  }
+
+  interface StatsDashboard {
+    date: string
     inCount: number
     outCount: number
     inTotal: number

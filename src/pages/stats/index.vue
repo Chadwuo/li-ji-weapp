@@ -5,7 +5,7 @@ const wordData = ref({})
 const bubbleData = ref({})
 
 const chatOpt = {
-  color: ['#f87171', '#2dd4bf', '#FAC858', '#EE6666', '#73C0DE', '#3CA272', '#FC8452', '#9A60B4', '#ea7ccc'],
+  color: ['#F87171', '#2DD4BF', '#FAC858', '#EE6666', '#73C0DE', '#1890FF', '#FC8452', '#9A60B4', '#EA7CCC'],
   dataLabel: false,
   dataPointShape: false,
   yAxis: {
@@ -59,83 +59,11 @@ onMounted(() => {
       series: [
         {
           name: '跨全端图表',
-          textSize: 25,
-          data: undefined,
-        },
-        {
-          name: '微信小程序',
-          textSize: 20,
-          data: undefined,
-        },
-        {
-          name: '支付宝小程序',
-          textSize: 20,
-          data: undefined,
-        },
-        {
-          name: '百度小程序',
-          textSize: 20,
-          data: undefined,
-        },
-        {
-          name: 'QQ小程序',
-          textSize: 20,
-          data: undefined,
-        },
-        {
-          name: '头条小程序',
-          textSize: 20,
-          data: undefined,
-        },
-        {
-          name: '抖音小程序',
-          textSize: 20,
-          data: undefined,
-        },
-        {
-          name: '360小程序',
-          textSize: 20,
-          data: undefined,
-        },
-        {
-          name: '跨全端',
-          textSize: 10,
-          data: undefined,
+          textSize: 24,
         },
         {
           name: '跨全端',
           textSize: 12,
-          data: undefined,
-        },
-        {
-          name: '跨全端',
-          textSize: 10,
-          data: undefined,
-        },
-        {
-          name: '跨全端',
-          textSize: 12,
-          data: undefined,
-        },
-        {
-          name: '跨全端',
-          textSize: 10,
-          data: undefined,
-        },
-        {
-          name: '跨全端',
-          textSize: 12,
-          data: undefined,
-        },
-        {
-          name: '跨全端',
-          textSize: 10,
-          data: undefined,
-        },
-        {
-          name: '跨全端',
-          textSize: 12,
-          data: undefined,
         },
       ],
     }
