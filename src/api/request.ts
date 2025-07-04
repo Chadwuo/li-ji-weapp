@@ -61,7 +61,7 @@ export const request = createAlova({
   ...AdapterUniapp(),
   beforeRequest: onAuthRequired((method) => {
     method.config.enableHttpDNS = true
-    method.config.httpDNSServiceId = 'wxa410372c837a5f26' as any // https://github.com/dcloudio/uni-app/issues/5479 等待修复
+    method.config.httpDNSServiceId = 'wxa410372c837a5f26'
 
     const { envVersion } = useAppStore()
     method.baseURL += envVersion === 'release' ? '/release' : ''
