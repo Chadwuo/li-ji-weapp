@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import dayjs from 'dayjs'
+
 const columnData = ref({})
 const lineData = ref({})
 const wordData = ref({})
@@ -8,6 +10,9 @@ const chatOpt = {
   color: ['#F87171', '#2DD4BF', '#FAC858', '#EE6666', '#73C0DE', '#1890FF', '#FC8452', '#9A60B4', '#EA7CCC'],
   dataLabel: false,
   dataPointShape: false,
+  xAxis: {
+    itemCount: 12,
+  },
   yAxis: {
     gridType: 'dash',
   },
@@ -18,7 +23,7 @@ const chatOpt = {
     },
     column: {
       type: 'group',
-      width: 10,
+      width: 12,
     },
     bubble: {
       border: 1,
@@ -26,61 +31,193 @@ const chatOpt = {
   },
 }
 
-onMounted(() => {
-  setTimeout(() => {
-    columnData.value = {
-      categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-      series: [
-        {
-          name: '收礼',
-          data: [35, 136, 31, 31, 33, 13, 34],
-        },
-        {
-          name: '送礼',
-          data: [18, 27, 21, 24, 6, 28],
-        },
-      ],
-    }
-    lineData.value = {
-      categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-      series: [
-        {
-          name: '收礼',
-          data: [0, 0, 20, 0, 80, 0, 24, 0, 22, 0, 0, 0],
-        },
-        {
-          name: '送礼',
-          data: [0, 24, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0],
-        },
-      ],
-    }
+const statsData = ref<Api.StatsOverall>({
+  inCount: 0,
+  outCount: 0,
+  inTotal: 0,
+  outTotal: 0,
+})
 
-    wordData.value = {
-      series: [
-        {
-          name: '跨全端图表',
-          textSize: 24,
-        },
-        {
-          name: '跨全端',
-          textSize: 12,
-        },
-      ],
-    }
+onShow(async () => {
+  const { giftInList, giftOutList } = await apiStatsDashboardGet()
 
-    bubbleData.value = {
-      series: [
-        {
-          name: '气泡一',
-          data: [[95, 95, 23, '标题1']],
-        },
-        {
-          name: '气泡二',
-          data: [[130, 30, 30, '标题3']],
-        },
-      ],
+  const inCount = giftInList?.length || 0
+  const outCount = giftOutList?.length || 0
+  const inTotal = giftInList?.reduce((acc, curr) => acc + (curr.money || 0), 0) || 0
+  const outTotal = giftOutList?.reduce((acc, curr) => acc + (curr.money || 0), 0) || 0
+
+  statsData.value = {
+    inCount,
+    outCount,
+    inTotal,
+    outTotal,
+  }
+
+  const now = dayjs()
+  const monthCategories = Array.from({ length: 12 }, (_, i) =>
+    now.subtract(11 - i, 'month').format('M'))
+
+  const inCountByMonth = Array.from({ length: 12 }).fill(0) as number[]
+  const outCountByMonth = Array.from({ length: 12 }).fill(0) as number[]
+
+  // 统计近12个月内每月的收礼数量
+  giftInList?.forEach((item) => {
+    const itemDate = dayjs(item.date)
+    // 判断是否在近12个月内
+    if (itemDate.isSameOrAfter(now.subtract(1, 'year').add(1, 'day'), 'day') && itemDate.isSameOrBefore(now, 'day')) {
+      const diffMonth = now.diff(itemDate, 'month')
+      if (diffMonth >= 0 && diffMonth < 12) {
+        // 计算该日期对应的下标
+        const idx = 11 - diffMonth
+        inCountByMonth[idx] += 1
+      }
     }
-  }, 500)
+  })
+
+  // 统计近12个月内每月的送礼数量
+  giftOutList?.forEach((item) => {
+    const itemDate = dayjs(item.date)
+    if (itemDate.isSameOrAfter(now.subtract(1, 'year').add(1, 'day'), 'day') && itemDate.isSameOrBefore(now, 'day')) {
+      const diffMonth = now.diff(itemDate, 'month')
+      if (diffMonth >= 0 && diffMonth < 12) {
+        const idx = 11 - diffMonth
+        outCountByMonth[idx] += 1
+      }
+    }
+  })
+
+  columnData.value = {
+    categories: monthCategories,
+    series: [
+      {
+        name: '收礼次数',
+        data: inCountByMonth,
+      },
+      {
+        name: '送礼次数',
+        data: outCountByMonth,
+      },
+    ],
+  }
+
+  // 生成折线图数据（按近12个月统计收礼和送礼金额）
+  const inMoneyByMonth = Array.from({ length: 12 }).fill(0) as number[]
+  const outMoneyByMonth = Array.from({ length: 12 }).fill(0) as number[]
+
+  giftInList?.forEach((item) => {
+    const itemDate = dayjs(item.date)
+    if (itemDate.isSameOrAfter(now.subtract(1, 'year').add(1, 'day'), 'day') && itemDate.isSameOrBefore(now, 'day')) {
+      const diffMonth = now.diff(itemDate, 'month')
+      if (diffMonth >= 0 && diffMonth < 12) {
+        const idx = 11 - diffMonth
+        inMoneyByMonth[idx] += item.money || 0
+      }
+    }
+  })
+
+  giftOutList?.forEach((item) => {
+    const itemDate = dayjs(item.date)
+    if (itemDate.isSameOrAfter(now.subtract(1, 'year').add(1, 'day'), 'day') && itemDate.isSameOrBefore(now, 'day')) {
+      const diffMonth = now.diff(itemDate, 'month')
+      if (diffMonth >= 0 && diffMonth < 12) {
+        const idx = 11 - diffMonth
+        outMoneyByMonth[idx] += item.money || 0
+      }
+    }
+  })
+
+  lineData.value = {
+    categories: monthCategories,
+    series: [
+      {
+        name: '收礼金额',
+        data: inMoneyByMonth,
+      },
+      {
+        name: '送礼金额',
+        data: outMoneyByMonth,
+      },
+    ],
+  }
+
+  // 生成词云数据（统计送礼/收礼对象出现频率）
+  const wordMap: Record<string, number> = {}
+  giftInList?.forEach((item) => {
+    if (item.friendName) {
+      wordMap[item.friendName] = (wordMap[item.friendName] || 0) + 1
+    }
+    if (item.title) {
+      wordMap[item.title] = (wordMap[item.title] || 0) + 1
+    }
+  })
+  giftOutList?.forEach((item) => {
+    if (item.friendName) {
+      wordMap[item.friendName] = (wordMap[item.friendName] || 0) + 1
+    }
+    if (item.title) {
+      wordMap[item.title] = (wordMap[item.title] || 0) + 1
+    }
+  })
+  // 取出现频率最高的前20个词
+  const topWords = Object.entries(wordMap)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 20)
+  wordData.value = {
+    series: topWords.map(([name, count]) => ({
+      name,
+      textSize: 12 + Math.min(count, 10) * 2, // 词频越高字号越大
+    })),
+  }
+
+  // 生成气泡图数据（以金额为维度，以 friendName 为主体，统计每个人的收支情况）
+  const bubbleMap: Record<string, { inTotal: number, outTotal: number }> = {}
+
+  // 统计收礼（收入）
+  giftInList?.forEach((item) => {
+    if (item.friendName) {
+      if (!bubbleMap[item.friendName]) {
+        bubbleMap[item.friendName] = { inTotal: 0, outTotal: 0 }
+      }
+      bubbleMap[item.friendName].inTotal += item.money || 0
+    }
+  })
+
+  // 统计送礼（支出）
+  giftOutList?.forEach((item) => {
+    if (item.friendName) {
+      if (!bubbleMap[item.friendName]) {
+        bubbleMap[item.friendName] = { inTotal: 0, outTotal: 0 }
+      }
+      bubbleMap[item.friendName].outTotal += item.money || 0
+    }
+  })
+
+  // 计算收支差，并按收支差从高到低排序，取前10
+  const bubbleArr = Object.entries(bubbleMap)
+    .map(([name, obj]) => ({
+      name,
+      inTotal: obj.inTotal,
+      outTotal: obj.outTotal,
+      diff: obj.inTotal - obj.outTotal,
+    }))
+    .sort((a, b) => b.diff - a.diff)
+    .slice(0, 5)
+
+  // 组装气泡图数据：x为收入，y为支出，r为收支差绝对值（最小10），name为名称
+  // 每个人都是一个气泡
+  bubbleData.value = {
+    series: bubbleArr.map(item => ({
+      name: item.name,
+      data: [
+        [
+          Math.max(10, Math.abs(item.diff) / 30),
+          item.inTotal * 100 / (item.inTotal + item.outTotal), // r: 收入占比
+          item.inTotal / 100, // r: 收入
+          item.name, // 名称
+        ],
+      ],
+    })),
+  }
 })
 </script>
 
@@ -105,7 +242,7 @@ onMounted(() => {
           </div>
           <div>
             <div class="text-lg font-bold">
-              2456
+              {{ statsData.inTotal }}
             </div>
             <div class="text-xs text-gray">
               收礼
@@ -118,7 +255,7 @@ onMounted(() => {
           </div>
           <div>
             <div class="text-lg font-bold">
-              2456
+              {{ statsData.outTotal }}
             </div>
             <div class="text-xs text-gray">
               送礼
@@ -131,10 +268,10 @@ onMounted(() => {
           </div>
           <div>
             <div class="text-lg font-bold">
-              2456
+              {{ statsData.inCount + statsData.outCount }}
             </div>
             <div class="text-xs text-gray">
-              亲友人数
+              往来次数
             </div>
           </div>
         </div>
@@ -144,7 +281,7 @@ onMounted(() => {
           </div>
           <div>
             <div class="text-lg font-bold">
-              24562
+              {{ statsData.inTotal - statsData.outTotal }}
             </div>
             <div class="text-xs text-gray">
               收支差
@@ -175,7 +312,7 @@ onMounted(() => {
         <qiun-data-charts type="bubble" :opts="chatOpt" :chart-data="bubbleData" />
       </div>
       <div class="pt-2 font-bold">
-        年度词云
+        词云
       </div>
       <div class="h-64 rounded-2xl bg-white p-1">
         <qiun-data-charts type="word" :opts="chatOpt" :chart-data="wordData"

@@ -1,6 +1,7 @@
 export function apiFriendListGet(data: any) {
   return request.Get<Api.Friend[]>('friend/list', {
     params: data,
+    hitSource: /^friend/,
   })
 }
 
@@ -32,5 +33,6 @@ export function apiFriendDelete(data: any) {
 export function apiFriendGiftListGet(data: any) {
   return request.Get<Api.FriendGifts>('friend/gift-list', {
     params: data,
+    hitSource: /^gift/,
   })
 }

@@ -1,13 +1,14 @@
 export function apiGiftBookPageGet(data: Api.PaginationQuery) {
   return request.Get<Api.PaginationResult<Api.GiftBook>>('gift-book/page', {
     params: data,
+    hitSource: [/^gift-book/, /^gift-in/],
   })
 }
 
 export function apiGiftBookGet(data: any) {
   return request.Get<Api.GiftBook>('gift-book', {
     params: data,
-    hitSource: /^gift-book/,
+    hitSource: [/^gift-book/, /^gift-in/],
   })
 }
 

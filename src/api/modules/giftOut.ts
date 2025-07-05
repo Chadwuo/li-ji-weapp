@@ -1,6 +1,7 @@
 export function apiGiftOutPageGet(data: any) {
   return request.Get<Api.PaginationResult<Api.GiftOut>>('gift-out/page', {
     params: data,
+    hitSource: [/^gift-out/, 'friend-delete'],
   })
 }
 

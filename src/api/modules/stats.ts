@@ -1,9 +1,11 @@
 export function apiStatsOverallGet() {
-  return request.Get<Api.StatsOverall>('statistics/overall')
+  return request.Get<Api.StatsOverall>('stats/overall', {
+    hitSource: [/^gift/, 'friend-delete'],
+  })
 }
 
-export function apiStatsDashboardGet(data: any) {
-  return request.Get<Api.StatsDashboard[]>('statistics/list', {
-    params: data,
+export function apiStatsDashboardGet() {
+  return request.Get<Api.StatsDashboard>('stats/dashboard', {
+    hitSource: [/^gift/, 'friend-delete'],
   })
 }

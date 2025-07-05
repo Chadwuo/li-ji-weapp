@@ -509,11 +509,8 @@ declare namespace Api {
   }
 
   interface StatsDashboard {
-    date: string
-    inCount: number
-    outCount: number
-    inTotal: number
-    outTotal: number
+    giftInList?: GiftIn[]
+    giftOutList?: GiftOut[]
   }
 
   interface WechatPayTransactionOutput {
