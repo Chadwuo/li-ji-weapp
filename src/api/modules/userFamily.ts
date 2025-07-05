@@ -1,6 +1,6 @@
 export function apiUserFamilyListGet() {
   return request.Get<Api.UserFamily[]>('user-family/list', {
-    hitSource: /^user-family/,
+    hitSource: /^user/,
   })
 }
 

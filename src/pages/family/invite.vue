@@ -27,16 +27,14 @@ const onAgree = async () => {
     loadingColor: '#F87171',
     msg: '请稍等...',
   })
-  const res = await apiUserFamilyPost({
+  await apiUserFamilyPost({
     role: '成员',
     familyId: inviteData.value.familyId,
   })
-  if (res.succeeded) {
-    uni.navigateTo({
-      url: '/pages/family/index',
-    })
-  }
   toast.close()
+  uni.switchTab({
+    url: '/pages/index/index',
+  })
 }
 
 const onReject = () => {

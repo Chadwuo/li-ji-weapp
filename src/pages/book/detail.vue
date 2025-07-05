@@ -194,12 +194,6 @@ const onBookDel = () => {
   })
 }
 
-const onSearchClick = () => {
-  uni.navigateTo({
-    url: '/pages/search/index',
-  })
-}
-
 const menu = ref<Array<Record<string, any>>>([
   {
     iconClass: 'edit-1',
@@ -314,7 +308,7 @@ function onMenuClick(e: any) {
           />
         </div>
         <div class="flex text-xl text-red space-x-2">
-          <i class="i-hugeicons-search-02" @click="onSearchClick" />
+          <!-- <i class="i-hugeicons-search-02" @click="onSearchClick" /> -->
           <i class="i-hugeicons-plus-sign-circle" @click="onGiftAdd" />
         </div>
       </div>

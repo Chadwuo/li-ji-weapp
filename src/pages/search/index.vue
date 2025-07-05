@@ -52,8 +52,8 @@ const onClear = () => {
 }
 
 onLoad((option) => {
-  if (option?.keyword)
-    keyword.value = option.keyword
+  if (option?.activeTab)
+    activeTab.value = Number(option.activeTab)
 })
 
 onReachBottom(() => {

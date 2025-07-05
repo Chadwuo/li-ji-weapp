@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 
-const columnData = ref({})
 const lineData = ref({})
 const wordData = ref({})
 const bubbleData = ref({})
@@ -12,6 +11,7 @@ const chatOpt = {
   dataPointShape: false,
   xAxis: {
     itemCount: 12,
+    rotateLabel: true,
   },
   yAxis: {
     gridType: 'dash',
@@ -20,10 +20,6 @@ const chatOpt = {
     area: {
       type: 'curve',
       gradient: true,
-    },
-    column: {
-      type: 'group',
-      width: 12,
     },
     bubble: {
       border: 1,
@@ -55,50 +51,7 @@ onShow(async () => {
 
   const now = dayjs()
   const monthCategories = Array.from({ length: 12 }, (_, i) =>
-    now.subtract(11 - i, 'month').format('M'))
-
-  const inCountByMonth = Array.from({ length: 12 }).fill(0) as number[]
-  const outCountByMonth = Array.from({ length: 12 }).fill(0) as number[]
-
-  // 统计近12个月内每月的收礼数量
-  giftInList?.forEach((item) => {
-    const itemDate = dayjs(item.date)
-    // 判断是否在近12个月内
-    if (itemDate.isSameOrAfter(now.subtract(1, 'year').add(1, 'day'), 'day') && itemDate.isSameOrBefore(now, 'day')) {
-      const diffMonth = now.diff(itemDate, 'month')
-      if (diffMonth >= 0 && diffMonth < 12) {
-        // 计算该日期对应的下标
-        const idx = 11 - diffMonth
-        inCountByMonth[idx] += 1
-      }
-    }
-  })
-
-  // 统计近12个月内每月的送礼数量
-  giftOutList?.forEach((item) => {
-    const itemDate = dayjs(item.date)
-    if (itemDate.isSameOrAfter(now.subtract(1, 'year').add(1, 'day'), 'day') && itemDate.isSameOrBefore(now, 'day')) {
-      const diffMonth = now.diff(itemDate, 'month')
-      if (diffMonth >= 0 && diffMonth < 12) {
-        const idx = 11 - diffMonth
-        outCountByMonth[idx] += 1
-      }
-    }
-  })
-
-  columnData.value = {
-    categories: monthCategories,
-    series: [
-      {
-        name: '收礼次数',
-        data: inCountByMonth,
-      },
-      {
-        name: '送礼次数',
-        data: outCountByMonth,
-      },
-    ],
-  }
+    now.subtract(11 - i, 'month').format('YYYY.MM'))
 
   // 生成折线图数据（按近12个月统计收礼和送礼金额）
   const inMoneyByMonth = Array.from({ length: 12 }).fill(0) as number[]
@@ -198,9 +151,8 @@ onShow(async () => {
       name,
       inTotal: obj.inTotal,
       outTotal: obj.outTotal,
-      diff: obj.inTotal - obj.outTotal,
     }))
-    .sort((a, b) => b.diff - a.diff)
+    .sort(a => a.inTotal)
     .slice(0, 5)
 
   // 组装气泡图数据：x为收入，y为支出，r为收支差绝对值（最小10），name为名称
@@ -210,8 +162,8 @@ onShow(async () => {
       name: item.name,
       data: [
         [
-          Math.max(10, Math.abs(item.diff) / 30),
-          item.inTotal * 100 / (item.inTotal + item.outTotal), // r: 收入占比
+          (item.outTotal + item.inTotal) / 20,
+          Math.max(10, Math.abs(item.outTotal - item.inTotal) / 30),
           item.inTotal / 100, // r: 收入
           item.name, // 名称
         ],
@@ -288,14 +240,6 @@ onShow(async () => {
             </div>
           </div>
         </div>
-      </div>
-      <div class="pt-2 font-bold">
-        统计
-      </div>
-      <div class="h-64 rounded-2xl bg-white">
-        <qiun-data-charts type="column" :opts="chatOpt" :chart-data="columnData"
-                          canvas-id="yYyVHjIKjesnOyIwPugazNNUgJXnomSt"
-        />
       </div>
       <div class="pt-2 font-bold">
         趋势
