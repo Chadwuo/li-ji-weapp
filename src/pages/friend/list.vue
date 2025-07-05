@@ -20,7 +20,7 @@ const addNew = () => {
 }
 const performSearch = () => {
   uni.navigateTo({
-    url: '/pages/search/index?activeTab=1',
+    url: '/pages/search/index?activeTab=2',
   })
 }
 
