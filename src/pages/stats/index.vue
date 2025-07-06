@@ -177,16 +177,10 @@ onShow(async () => {
   <div class="h-full bg-[url('https://liji.poetic.ltd/oss/assets/bg/bg_friend.png')] bg-contain bg-no-repeat">
     <safe-area-inset-top />
     <div class="mx-3 space-y-3">
-      <div>
-        <div>
-          <!-- 2025 -->
-        </div>
-        <div class="mt-4 flex items-center justify-between">
-          <div class="text-2xl text-red font-bold">
-            统计
-          </div>
-        </div>
+      <div class="mt-6 text-2xl text-red font-bold">
+        统计
       </div>
+
       <div class="grid grid-cols-2 gap-5 rounded-2xl bg-white p-5">
         <div class="h-16 w-full flex items-center rounded-xl bg-gray-100">
           <div class="mx-3 h-10 w-10 flex flex-shrink-0 rounded-full bg-red">

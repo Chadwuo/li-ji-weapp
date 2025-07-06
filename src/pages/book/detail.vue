@@ -26,17 +26,8 @@ const { loading, page, data: dataList, isLastPage, reload } = usePagination((pag
   append: true,
   immediate: false,
   watchingStates: [search],
-  debounce: 500,
-})
-
-const loadingMoreState = computed(() => {
-  if (loading.value) {
-    return 'loading'
-  }
-  else if (isLastPage.value) {
-    return 'finished'
-  }
-  return ''
+  preloadPreviousPage: false,
+  preloadNextPage: false,
 })
 
 const netAmount = computed(() => {
@@ -117,7 +108,7 @@ onShow(async () => {
 })
 
 onReachBottom(() => {
-  if (isLastPage.value)
+  if (loading.value || isLastPage.value)
     return
   page.value++
 })
@@ -313,46 +304,48 @@ function onMenuClick(e: any) {
         </div>
       </div>
 
-      <div v-if="loading" class="mt-5 text-center">
-        <wd-loading color="#f87171" />
-        <div class="mt-3 text-gray">
-          正在努力加载中...
-        </div>
-      </div>
-      <div v-else>
-        <div v-if="dataList.length === 0" class="my-24">
-          <uv-empty text="还没有人情往来记录哦~" mode="favor">
-            <div class="mt-6">
-              <wd-button class="mt-6" type="primary" @click="onGiftAdd()">
-                添加收礼
-              </wd-button>
+      <div>
+        <template v-if="dataList.length === 0">
+          <div v-if="loading" class="mt-5 text-center">
+            <wd-loading color="#f87171" />
+            <div class="mt-3 text-gray">
+              正在努力加载中...
             </div>
-          </uv-empty>
-        </div>
-        <div v-else>
-          <div class="mt-2">
-            <div v-for="(gift, index) in dataList" :key="gift.id" @click="onGiftClick(gift.id)">
-              <uv-divider v-if="index" />
-              <div class="flex justify-between text-lg">
-                <div>
-                  {{ gift.friendName }}
-                </div>
-                <div class="text-red font-bold">
-                  +{{ gift.money }}
-                </div>
+          </div>
+          <div v-else class="my-24">
+            <uv-empty text="还没有人情往来记录哦~" mode="favor">
+              <div class="mt-6">
+                <wd-button class="mt-6" type="primary" @click="onGiftAdd()">
+                  添加收礼
+                </wd-button>
               </div>
-              <div class="text-sm text-gray">
-                <div v-if="gift.attendance">
-                  {{ `出席：${gift.attendance}人` }}
-                </div>
-                <div class="line-clamp-1">
-                  {{ gift.remarks }}
-                </div>
+            </uv-empty>
+          </div>
+        </template>
+        <template v-else>
+          <div v-for="(gift, index) in dataList" :key="gift.id" @click="onGiftClick(gift.id)">
+            <uv-divider v-if="index" />
+            <div class="flex justify-between text-lg">
+              <div>
+                {{ gift.friendName }}
+              </div>
+              <div class="text-red font-bold">
+                +{{ gift.money }}
+              </div>
+            </div>
+            <div class="text-sm text-gray">
+              <div v-if="gift.attendance">
+                {{ `出席：${gift.attendance}人` }}
+              </div>
+              <div class="line-clamp-1">
+                {{ gift.remarks }}
               </div>
             </div>
           </div>
-          <wd-loadmore :state="loadingMoreState" :loading-props="{ color: '#f87171' }" />
-        </div>
+          <wd-loadmore :state="loading ? 'loading' : isLastPage ? 'finished' : ''"
+                       :loading-props="{ color: '#f87171' }"
+          />
+        </template>
       </div>
     </div>
 
