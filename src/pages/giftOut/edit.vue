@@ -130,7 +130,7 @@ const openCalendar = () => {
     <div class="my-3 text-xs text-gray">
       在人情往来中，亲友举办宴席或重要事件时，前往祝贺的行为，称为送礼。
     </div>
-    <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
+    <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date" :close-on-click-overlay="false"
                   @confirm="confirmCalendar"
     />
   </div>

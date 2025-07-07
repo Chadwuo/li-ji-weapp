@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 const lineData = ref({})
 const wordData = ref({})
 const roseData = ref({})
+const radarData = ref({})
 
 const chatOpt = {
   color: ['#F87171', '#2DD4BF', '#FAC858', '#EE6666', '#73C0DE', '#1890FF', '#FC8452', '#9A60B4', '#EA7CCC'],
@@ -17,8 +18,11 @@ const chatOpt = {
       type: 'curve',
       gradient: true,
     },
-    bubble: {
-      border: 1,
+    rose: {
+      type: 'area',
+      border: true,
+      borderWidth: 2,
+      borderColor: '#FFFFFF',
     },
   },
 }
@@ -46,60 +50,75 @@ onShow(async () => {
     outTotal,
   }
 
-  // 折线图
-  const processGifts = (list: any[]) => {
-    return list.reduce((acc, item) => {
+  // 折线图数据处理
+  const yearMap: Record<number, { in: number, out: number }> = {}
+
+  // 处理收礼数据
+  if (giftInList && giftInList.length) {
+    for (let i = 0; i < giftInList.length; i++) {
+      const item = giftInList[i]
       const year = dayjs(item.date).year()
-      acc.years.add(year)
-      acc.money[year] = (acc.money[year] || 0) + (item.money || 0)
-      return acc
-    }, { years: new Set<number>(), money: {} as Record<number, number> })
+      if (!yearMap[year])
+        yearMap[year] = { in: 0, out: 0 }
+      yearMap[year].in += item.money || 0
+    }
   }
 
-  const inResult = processGifts(giftInList || [])
-  const outResult = processGifts(giftOutList || [])
-  const yearCategories = Array.from(new Set([...inResult.years, ...outResult.years])).sort((a, b) => a - b)
-  const inMoneyByYear = yearCategories.map(year => inResult.money[year] || 0)
-  const outMoneyByYear = yearCategories.map(year => outResult.money[year] || 0)
+  // 处理送礼数据
+  if (giftOutList && giftOutList.length) {
+    for (let i = 0; i < giftOutList.length; i++) {
+      const item = giftOutList[i]
+      const year = dayjs(item.date).year()
+      if (!yearMap[year])
+        yearMap[year] = { in: 0, out: 0 }
+      yearMap[year].out += item.money || 0
+    }
+  }
 
+  // 提取所有年份并排序
+  const yearCategories = Object.keys(yearMap)
+    .map(Number)
+    .sort((a, b) => a - b)
+
+  // 构建折线图数据
   lineData.value = {
     categories: yearCategories.map(year => year.toString()),
     series: [
       {
         name: '收礼金额',
-        data: inMoneyByYear,
+        data: yearCategories.map(year => yearMap[year].in),
       },
       {
         name: '送礼金额',
-        data: outMoneyByYear,
+        data: yearCategories.map(year => yearMap[year].out),
       },
     ],
   }
 
-  // 聚合收礼数据（按朋友名称）
-  const friendIncomes = (giftInList || []).reduce((acc, item) => {
-    const friendName = item.friendName || '未知朋友'
-    acc[friendName] = (acc[friendName] || 0) + (item.money || 0)
-    return acc
-  }, {} as Record<string, number>)
+  // 统计所有朋友的收支差，并取前5
+  const friendMap: Record<string, number> = {}
 
-  // 聚合送礼数据（按朋友名称）
-  const friendExpenses = (giftOutList || []).reduce((acc, item) => {
-    const friendName = item.friendName || '未知朋友'
-    acc[friendName] = (acc[friendName] || 0) + (item.money || 0)
-    return acc
-  }, {} as Record<string, number>)
+  // 统计收入
+  if (giftInList && giftInList.length) {
+    for (let i = 0; i < giftInList.length; i++) {
+      const item = giftInList[i]
+      const friendName = item.friendName || '未知朋友'
+      friendMap[friendName] = (friendMap[friendName] || 0) + (item.money || 0)
+    }
+  }
 
-  // 计算所有朋友的收支差额
-  const allFriends = new Set([...Object.keys(friendIncomes), ...Object.keys(friendExpenses)])
+  // 统计支出
+  if (giftOutList && giftOutList.length) {
+    for (let i = 0; i < giftOutList.length; i++) {
+      const item = giftOutList[i]
+      const friendName = item.friendName || '未知朋友'
+      friendMap[friendName] = (friendMap[friendName] || 0) - (item.money || 0)
+    }
+  }
 
-  const friendDiffs = Array.from(allFriends).map(friend => ({
-    friendName: friend,
-    diff: (friendIncomes[friend] || 0) - (friendExpenses[friend] || 0),
-  }))
-
-  // 按差额绝对值排序，取前5名
-  const top5Friends = friendDiffs
+  // 转为数组并排序，取前5
+  const top5Friends = Object.entries(friendMap)
+    .map(([friendName, diff]) => ({ friendName, diff }))
     .sort((a, b) => b.diff - a.diff)
     .slice(0, 5)
 
@@ -107,6 +126,33 @@ onShow(async () => {
     series: [
       {
         data: top5Friends.map(item => ({ name: item.friendName, value: item.diff })),
+      },
+    ],
+  }
+
+  // 定义雷达图分类
+  const radarCategories = ['结婚', '宝宝', '乔迁', '升学', '其他']
+  const radarMap: Record<string, number> = Object.fromEntries(radarCategories.map(key => [key, 0]))
+
+  // 遍历giftOutList，统计每个分类出现的次数
+  giftOutList?.forEach((item) => {
+    const title = item.title || ''
+    // 查找是否属于已知分类
+    const found = radarCategories.find(cat => title.includes(cat))
+    if (found) {
+      radarMap[found] += item.money || 0
+    }
+    else {
+      radarMap['其他'] += item.money || 0
+    }
+  })
+
+  radarData.value = {
+    categories: radarCategories,
+    series: [
+      {
+        name: '送礼',
+        data: radarCategories.map(cat => radarMap[cat]),
       },
     ],
   }
@@ -205,19 +251,25 @@ onShow(async () => {
         </div>
       </div>
       <div class="pt-2 font-bold">
-        趋势
+        收支趋势
       </div>
       <div class="h-64 rounded-2xl bg-white p-1">
         <qiun-data-charts type="area" :opts="chatOpt" :chart-data="lineData" />
       </div>
-      <div>
-        收支差前5
+      <div class="pt-2 font-bold">
+        收入排行榜
       </div>
       <div class="rounded-2xl bg-white p-1">
         <qiun-data-charts type="rose" :opts="chatOpt" :chart-data="roseData" />
       </div>
       <div class="pt-2 font-bold">
-        词云
+        送礼维度
+      </div>
+      <div class="rounded-2xl bg-white p-1">
+        <qiun-data-charts type="radar" :opts="chatOpt" :chart-data="radarData" />
+      </div>
+      <div class="pt-2 font-bold">
+        年度词云
       </div>
       <div class="h-64 rounded-2xl bg-white p-1">
         <qiun-data-charts type="word" :opts="chatOpt" :chart-data="wordData" />

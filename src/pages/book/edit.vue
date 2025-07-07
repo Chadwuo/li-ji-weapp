@@ -72,7 +72,7 @@ const openCalendar = () => {
     <div class="my-3 text-xs text-gray">
       一场宴席活动中，用来登记所有来宾贺礼的名册，称为礼簿。
     </div>
-    <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
+    <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date" :close-on-click-overlay="false"
                   @confirm="confirmCalendar"
     />
   </div>
