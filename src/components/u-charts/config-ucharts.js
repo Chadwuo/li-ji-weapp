@@ -411,7 +411,7 @@ const cfu = {
     "dataLabel": false,
 		"legend": {
 			"show": true,
-			"position": "right",
+			"position": "left",
       "lineHeight": 25,
 		},
 		"extra": {
