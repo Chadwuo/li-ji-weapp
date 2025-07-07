@@ -3,16 +3,12 @@ import dayjs from 'dayjs'
 
 const lineData = ref({})
 const wordData = ref({})
-const bubbleData = ref({})
+const roseData = ref({})
 
 const chatOpt = {
   color: ['#F87171', '#2DD4BF', '#FAC858', '#EE6666', '#73C0DE', '#1890FF', '#FC8452', '#9A60B4', '#EA7CCC'],
   dataLabel: false,
   dataPointShape: false,
-  xAxis: {
-    itemCount: 12,
-    rotateLabel: true,
-  },
   yAxis: {
     gridType: 'dash',
   },
@@ -42,6 +38,7 @@ onShow(async () => {
   const inTotal = giftInList?.reduce((acc, curr) => acc + (curr.money || 0), 0) || 0
   const outTotal = giftOutList?.reduce((acc, curr) => acc + (curr.money || 0), 0) || 0
 
+  // 总体统计
   statsData.value = {
     inCount,
     outCount,
@@ -49,46 +46,67 @@ onShow(async () => {
     outTotal,
   }
 
-  const now = dayjs()
-  const monthCategories = Array.from({ length: 12 }, (_, i) =>
-    now.subtract(11 - i, 'month').format('YYYY.MM'))
+  // 折线图
+  const processGifts = (list: any[]) => {
+    return list.reduce((acc, item) => {
+      const year = dayjs(item.date).year()
+      acc.years.add(year)
+      acc.money[year] = (acc.money[year] || 0) + (item.money || 0)
+      return acc
+    }, { years: new Set<number>(), money: {} as Record<number, number> })
+  }
 
-  // 生成折线图数据（按近12个月统计收礼和送礼金额）
-  const inMoneyByMonth = Array.from({ length: 12 }).fill(0) as number[]
-  const outMoneyByMonth = Array.from({ length: 12 }).fill(0) as number[]
-
-  giftInList?.forEach((item) => {
-    const itemDate = dayjs(item.date)
-    if (itemDate.isSameOrAfter(now.subtract(1, 'year').add(1, 'day'), 'day') && itemDate.isSameOrBefore(now, 'day')) {
-      const diffMonth = now.diff(itemDate, 'month')
-      if (diffMonth >= 0 && diffMonth < 12) {
-        const idx = 11 - diffMonth
-        inMoneyByMonth[idx] += item.money || 0
-      }
-    }
-  })
-
-  giftOutList?.forEach((item) => {
-    const itemDate = dayjs(item.date)
-    if (itemDate.isSameOrAfter(now.subtract(1, 'year').add(1, 'day'), 'day') && itemDate.isSameOrBefore(now, 'day')) {
-      const diffMonth = now.diff(itemDate, 'month')
-      if (diffMonth >= 0 && diffMonth < 12) {
-        const idx = 11 - diffMonth
-        outMoneyByMonth[idx] += item.money || 0
-      }
-    }
-  })
+  const inResult = processGifts(giftInList || [])
+  const outResult = processGifts(giftOutList || [])
+  const yearCategories = Array.from(new Set([...inResult.years, ...outResult.years])).sort((a, b) => a - b)
+  const inMoneyByYear = yearCategories.map(year => inResult.money[year] || 0)
+  const outMoneyByYear = yearCategories.map(year => outResult.money[year] || 0)
 
   lineData.value = {
-    categories: monthCategories,
+    categories: yearCategories.map(year => year.toString()),
     series: [
       {
         name: '收礼金额',
-        data: inMoneyByMonth,
+        data: inMoneyByYear,
       },
       {
         name: '送礼金额',
-        data: outMoneyByMonth,
+        data: outMoneyByYear,
+      },
+    ],
+  }
+
+  // 聚合收礼数据（按朋友名称）
+  const friendIncomes = (giftInList || []).reduce((acc, item) => {
+    const friendName = item.friendName || '未知朋友'
+    acc[friendName] = (acc[friendName] || 0) + (item.money || 0)
+    return acc
+  }, {} as Record<string, number>)
+
+  // 聚合送礼数据（按朋友名称）
+  const friendExpenses = (giftOutList || []).reduce((acc, item) => {
+    const friendName = item.friendName || '未知朋友'
+    acc[friendName] = (acc[friendName] || 0) + (item.money || 0)
+    return acc
+  }, {} as Record<string, number>)
+
+  // 计算所有朋友的收支差额
+  const allFriends = new Set([...Object.keys(friendIncomes), ...Object.keys(friendExpenses)])
+
+  const friendDiffs = Array.from(allFriends).map(friend => ({
+    friendName: friend,
+    diff: (friendIncomes[friend] || 0) - (friendExpenses[friend] || 0),
+  }))
+
+  // 按差额绝对值排序，取前5名
+  const top5Friends = friendDiffs
+    .sort((a, b) => b.diff - a.diff)
+    .slice(0, 5)
+
+  roseData.value = {
+    series: [
+      {
+        data: top5Friends.map(item => ({ name: item.friendName, value: item.diff })),
       },
     ],
   }
@@ -119,55 +137,6 @@ onShow(async () => {
     series: topWords.map(([name, count]) => ({
       name,
       textSize: 12 + Math.min(count, 10) * 2, // 词频越高字号越大
-    })),
-  }
-
-  // 生成气泡图数据（以金额为维度，以 friendName 为主体，统计每个人的收支情况）
-  const bubbleMap: Record<string, { inTotal: number, outTotal: number }> = {}
-
-  // 统计收礼（收入）
-  giftInList?.forEach((item) => {
-    if (item.friendName) {
-      if (!bubbleMap[item.friendName]) {
-        bubbleMap[item.friendName] = { inTotal: 0, outTotal: 0 }
-      }
-      bubbleMap[item.friendName].inTotal += item.money || 0
-    }
-  })
-
-  // 统计送礼（支出）
-  giftOutList?.forEach((item) => {
-    if (item.friendName) {
-      if (!bubbleMap[item.friendName]) {
-        bubbleMap[item.friendName] = { inTotal: 0, outTotal: 0 }
-      }
-      bubbleMap[item.friendName].outTotal += item.money || 0
-    }
-  })
-
-  // 计算收支差，并按收支差从高到低排序，取前10
-  const bubbleArr = Object.entries(bubbleMap)
-    .map(([name, obj]) => ({
-      name,
-      inTotal: obj.inTotal,
-      outTotal: obj.outTotal,
-    }))
-    .sort(a => a.inTotal)
-    .slice(0, 5)
-
-  // 组装气泡图数据：x为收入，y为支出，r为收支差绝对值（最小10），name为名称
-  // 每个人都是一个气泡
-  bubbleData.value = {
-    series: bubbleArr.map(item => ({
-      name: item.name,
-      data: [
-        [
-          (item.outTotal + item.inTotal) / 20,
-          Math.max(10, Math.abs(item.outTotal - item.inTotal) / 30),
-          item.inTotal / 100, // r: 收入
-          item.name, // 名称
-        ],
-      ],
     })),
   }
 })
@@ -239,23 +208,19 @@ onShow(async () => {
         趋势
       </div>
       <div class="h-64 rounded-2xl bg-white p-1">
-        <qiun-data-charts type="area" :opts="chatOpt" :chart-data="lineData"
-                          canvas-id="YEHelcwENZpuKFcATpnkQOWdNesmUPAL"
-        />
+        <qiun-data-charts type="area" :opts="chatOpt" :chart-data="lineData" />
       </div>
-      <div class="pt-2 font-bold">
-        来源
+      <div>
+        收支差前5
       </div>
-      <div class="h-64 rounded-2xl bg-white p-1">
-        <qiun-data-charts type="bubble" :opts="chatOpt" :chart-data="bubbleData" />
+      <div class="rounded-2xl bg-white p-1">
+        <qiun-data-charts type="rose" :opts="chatOpt" :chart-data="roseData" />
       </div>
       <div class="pt-2 font-bold">
         词云
       </div>
       <div class="h-64 rounded-2xl bg-white p-1">
-        <qiun-data-charts type="word" :opts="chatOpt" :chart-data="wordData"
-                          canvas-id="cRdrJdXetnAqEMJqtudXKJRhxxuwRmjp"
-        />
+        <qiun-data-charts type="word" :opts="chatOpt" :chart-data="wordData" />
       </div>
     </div>
   </div>
