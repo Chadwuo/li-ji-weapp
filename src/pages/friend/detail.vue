@@ -123,15 +123,14 @@ const onFriendDel = () => {
     msg: '该亲友所有人情往来记录都将被删除，确定删除？',
     title: '删除亲友',
   }).then(async () => {
-    if (await apiFriendDelete({ id: friend.value.id })) {
-      uni.showToast({
-        title: '删除成功',
-        icon: 'success',
-      })
-      setTimeout(() => {
-        uni.navigateBack()
-      }, 1000)
-    }
+    await apiFriendDelete({ id: friend.value.id })
+    uni.showToast({
+      title: '删除成功',
+      icon: 'success',
+    })
+    setTimeout(() => {
+      uni.navigateBack()
+    }, 1000)
   })
 }
 const menu = ref<Array<Record<string, any>>>([

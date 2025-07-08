@@ -34,7 +34,9 @@ const onDel = () => {
       title: '删除成功',
       icon: 'success',
     })
-    uni.navigateBack()
+    setTimeout(() => {
+      uni.navigateBack()
+    }, 1000)
   })
 }
 

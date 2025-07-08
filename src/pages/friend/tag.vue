@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { useMessage } from 'wot-design-uni'
+import { useMessage, useNotify } from 'wot-design-uni'
 import { friendCategory } from '@/constants/app'
 
+const { showNotify } = useNotify()
 const message = useMessage()
 const popupShow = ref(false)
 const dataSource = ref<Api.FriendTag>({})
@@ -23,10 +24,7 @@ const openPopup = (item?: Api.FriendTag) => {
 
 const onSave = async () => {
   dataSource.value.id ? await apiFriendTagPut(dataSource.value) : await apiFriendTagPost(dataSource.value)
-  uni.showToast({
-    title: '保存成功',
-    icon: 'none',
-  })
+  showNotify({ type: 'success', message: '保存成功' })
   popupShow.value = false
   loadData()
 }
@@ -37,10 +35,7 @@ const onDel = () => {
     title: '删除亲友标签',
   }).then(async () => {
     await apiFriendTagDelete({ id: dataSource.value.id })
-    uni.showToast({
-      title: '删除成功',
-      icon: 'none',
-    })
+    showNotify({ type: 'warning', message: '删除成功' })
     popupShow.value = false
     loadData()
   })

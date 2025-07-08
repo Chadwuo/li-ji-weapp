@@ -173,15 +173,14 @@ const onBookDel = () => {
     msg: '该礼簿所有人情往来记录都将被删除，确定删除？',
     title: '删除礼簿',
   }).then(async () => {
-    if (await apiGiftBookDelete({ id: book.value.id })) {
-      uni.showToast({
-        title: '删除成功',
-        icon: 'success',
-      })
-      setTimeout(() => {
-        uni.navigateBack()
-      }, 1000)
-    }
+    await apiGiftBookDelete({ id: book.value.id })
+    uni.showToast({
+      title: '删除成功',
+      icon: 'success',
+    })
+    setTimeout(() => {
+      uni.navigateBack()
+    }, 1000)
   })
 }
 

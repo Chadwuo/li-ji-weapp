@@ -34,7 +34,7 @@ const pay = async () => {
     fail() {
       uni.showToast({
         title: '支付取消 下次一定！',
-        icon: 'none',
+        icon: 'error',
       })
     },
     complete() {
