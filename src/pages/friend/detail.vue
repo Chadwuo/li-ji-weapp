@@ -169,10 +169,10 @@ function onMenuClick(e: any) {
           <div class="text-lg font-bold">
             {{ friend.name }}
           </div>
-          <div class="mt-1 flex items-center text-sm text-gray">
+          <div class="mt-1 flex flex-wrap items-center gap-1 text-sm text-gray">
             标签：
-            <wd-tag v-if="friend.tag" type="primary" mark>
-              {{ friend.tag }}
+            <wd-tag v-for="(tag, index) in friend.tagList" :key="index" type="primary" mark>
+              {{ tag }}
             </wd-tag>
           </div>
           <div class="mt-1 text-sm text-gray">

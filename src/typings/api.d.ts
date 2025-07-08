@@ -324,10 +324,10 @@ declare namespace Api {
     firstLetter?: string | null
     /**
      * 标签
-     * @type {string}
+     * @type {Array<string>}
      * @memberof Friend
      */
-    tag?: string | null
+    tagList?: Array<string> | null
     /**
      * 备注
      * @type {string}
