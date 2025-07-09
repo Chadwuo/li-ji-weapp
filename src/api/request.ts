@@ -12,9 +12,7 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
     handler: async () => {
       try {
         // #ifdef MP-WEIXIN
-        const { code, errMsg } = await uni.login()
-        if (!code)
-          throw new Error(errMsg)
+        const { code } = await uni.login()
         await apiWxOpenLoginPost(code)
         // #endif
         // #ifdef H5
@@ -23,17 +21,9 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
       }
       catch (error) {
         // 提取错误信息
-        let errorMessage = '未知错误'
-        if (error instanceof Error) {
-          errorMessage = error.message
-        }
-        else {
-          errorMessage = JSON.stringify(error)
-        }
-
+        const errorMessage = error instanceof Error ? error.message : JSON.stringify(error) || '未知错误'
         // token刷新失败，跳转回错误页
-        await uni.reLaunch({ url: `/pages/exception/500?error=${encodeURIComponent(errorMessage)}` })
-        // 并抛出错误
+        uni.reLaunch({ url: `/pages/exception/500?error=${encodeURIComponent(errorMessage)}` })
         throw error
       }
     },
@@ -67,9 +57,7 @@ export const request = createAlova({
     method.baseURL += envVersion === 'release' ? '/release' : ''
   }),
   responded: onResponseRefreshToken((response, method) => {
-    const { config } = method
-    const { requestType } = config
-
+    const { config: { requestType } } = method
     if (requestType === 'download' || requestType === 'upload') {
       return response
     }
@@ -80,6 +68,24 @@ export const request = createAlova({
       header,
     } = response as UniNamespace.RequestSuccessCallbackResult
 
+    // 处理 HTTP 状态码错误
+    if (rawCode !== 200) {
+      const errorMessage = ShowMessage(rawCode) || `HTTP请求错误[${rawCode}]`
+      uni.reLaunch({ url: `/pages/exception/500?error=${errorMessage}` })
+      throw new Error(`${errorMessage}：${errMsg}`)
+    }
+    const { succeeded, errors, data } = rawData as Api.Response
+    const errorMessage = JSON.stringify(errors || 'Server Error.')
+    // 处理业务错误
+    if (!succeeded) {
+      uni.showToast({
+        icon: 'none',
+        title: errorMessage,
+      })
+      throw new Error(errorMessage)
+    }
+
+    // 服务端自动刷新token
     const accessToken = header['access-token']
     const refreshAccessToken = header['x-access-token']
     if (refreshAccessToken && accessToken && accessToken !== 'invalid_token') {
@@ -87,48 +93,10 @@ export const request = createAlova({
       authStore.accessToken = accessToken
       authStore.refreshToken = refreshAccessToken
     }
-    // 处理 HTTP 状态码错误
-    if (rawCode !== 200) {
-      const errorMessage = ShowMessage(rawCode) || `HTTP请求错误[${rawCode}]`
-      uni.showToast({
-        icon: 'none',
-        title: errorMessage,
-      })
-      throw new Error(`${errorMessage}：${errMsg}`)
-    }
-    const { succeeded, statusCode, errors, data } = rawData as Api.Response
-    const errorMessage = JSON.stringify(errors || 'Server Error.')
-    if (!succeeded) {
-      uni.showToast({
-        icon: 'none',
-        title: errorMessage,
-      })
-      throw new Error(`[${statusCode}]：${errorMessage}`)
-    }
     return data
   }),
 })
 
-export enum ResultEnum {
-  Success = 0, // 成功
-  Error = 400, // 错误
-  Unauthorized = 401, // 未授权
-  Forbidden = 403, // 禁止访问（原为forbidden）
-  NotFound = 404, // 未找到（原为notFound）
-  MethodNotAllowed = 405, // 方法不允许（原为methodNotAllowed）
-  RequestTimeout = 408, // 请求超时（原为requestTimeout）
-  InternalServerError = 500, // 服务器错误（原为internalServerError）
-  NotImplemented = 501, // 未实现（原为notImplemented）
-  BadGateway = 502, // 网关错误（原为badGateway）
-  ServiceUnavailable = 503, // 服务不可用（原为serviceUnavailable）
-  GatewayTimeout = 504, // 网关超时（原为gatewayTimeout）
-  HttpVersionNotSupported = 505, // HTTP版本不支持（原为httpVersionNotSupported）
-}
-export enum ContentTypeEnum {
-  JSON = 'application/json;charset=UTF-8',
-  FORM_URLENCODED = 'application/x-www-form-urlencoded;charset=UTF-8',
-  FORM_DATA = 'multipart/form-data;charset=UTF-8',
-}
 /**
  * 根据状态码，生成对应的错误信息
  * @param {number|string} status 状态码
