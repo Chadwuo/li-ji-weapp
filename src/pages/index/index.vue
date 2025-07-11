@@ -133,33 +133,34 @@ watch(activeTab, () => {
   <div class="h-full bg-contain bg-no-repeat" :style="{ 'background-image': `url(${cur?.bgImg})` }">
     <safe-area-inset-top />
     <div class="mx-3">
-      <div class="w-36 flex items-center rounded-full bg-white p-1 px-2 text-gray" @click="performSearch()">
-        <i class="i-hugeicons-search-02" />
-        <div class="ms-1">
-          搜索人情往来
+      <div class="flex items-center space-x-xl">
+        <div class="bg-contain bg-bottom bg-no-repeat"
+             :class="[activeTab === 0 ? 'text-red text-2xl font-bold line-bg' : 'text-gray-500 text-lg']"
+             @click="activeTab = 0"
+        >
+          礼簿
+        </div>
+        <div class="bg-contain bg-bottom bg-no-repeat"
+             :class="[activeTab === 1 ? 'text-red text-2xl font-bold line-bg' : 'text-gray-500 text-lg']"
+             @click="activeTab = 1"
+        >
+          送礼
         </div>
       </div>
-      <div class="mt-4 flex items-center justify-between">
-        <div class="flex items-center space-x-xl">
-          <div class="bg-contain bg-bottom bg-no-repeat"
-               :class="[activeTab === 0 ? 'text-red text-2xl font-bold line-bg' : 'text-gray-500 text-lg']"
-               @click="activeTab = 0"
-          >
-            礼簿
-          </div>
-          <div class="bg-contain bg-bottom bg-no-repeat"
-               :class="[activeTab === 1 ? 'text-red text-2xl font-bold line-bg' : 'text-gray-500 text-lg']"
-               @click="activeTab = 1"
-          >
-            送礼
+      <div class="mt-3 flex items-center">
+        <div class="w-full flex items-center rounded-full bg-white p-1 px-2 text-gray" @click="performSearch()">
+          <i class="i-hugeicons-search-02" />
+          <div class="ms-1">
+            搜索人情往来
           </div>
         </div>
-        <div class="flex text-xl text-red space-x-2">
-          <i v-show="activeTab === 1" class="i-hugeicons-cloud-download" @click="onGiftExport()" />
-          <i class="i-hugeicons-plus-sign-circle" @click="addNew()" />
+        <div class="flex text-xl text-red">
+          <i v-show="activeTab === 1" class="i-hugeicons-cloud-download ms-3" @click="onGiftExport()" />
+          <i class="i-hugeicons-plus-sign-circle ms-3" @click="addNew()" />
         </div>
       </div>
-      <wd-tabs v-model="activeTab" swipeable animated>
+
+      <wd-tabs v-model="activeTab" swipeable animated class="mt-3">
         <wd-tab>
           <book-page ref="bookPageRef" />
         </wd-tab>

@@ -192,7 +192,7 @@ onShow(async () => {
   <div class="h-full bg-[url('https://liji.poetic.ltd/oss/assets/bg/bg_friend.png')] bg-contain bg-no-repeat">
     <safe-area-inset-top />
     <div class="mx-3 space-y-3">
-      <div class="mt-6 text-2xl text-red font-bold">
+      <div class="text-2xl text-red font-bold">
         统计
       </div>
 
