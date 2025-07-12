@@ -10,8 +10,18 @@ const chatOpt = {
   color: ['#F87171', '#2DD4BF', '#FAC858', '#EE6666', '#73C0DE', '#1890FF', '#FC8452', '#9A60B4', '#EA7CCC'],
   dataLabel: false,
   dataPointShape: false,
+  xAxis: {
+    labelCount: '7',
+    title: '年',
+  },
   yAxis: {
     gridType: 'dash',
+    showTitle: true,
+    data: [
+      {
+        title: '金额（千元）',
+      },
+    ],
   },
   extra: {
     area: {
@@ -86,11 +96,11 @@ onShow(async () => {
     series: [
       {
         name: '收礼金额',
-        data: yearCategories.map(year => yearMap[year].in),
+        data: yearCategories.map(year => yearMap[year].in / 1000),
       },
       {
         name: '送礼金额',
-        data: yearCategories.map(year => yearMap[year].out),
+        data: yearCategories.map(year => yearMap[year].out / 1000),
       },
     ],
   }

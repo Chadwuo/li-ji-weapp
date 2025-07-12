@@ -7,10 +7,10 @@ const { closeOutside } = useQueue()
 let videoAd: any = null
 const { isVip } = storeToRefs(useAuthStore())
 const search = ref({
-  keyword: '',
   field: 'id',
   order: 'asc',
 })
+const searchKeyword = ref('')
 const message = useMessage()
 const popupShow = ref(false)
 const book = ref<Api.GiftBook>({})
@@ -20,12 +20,13 @@ const sortList = ref([
   { label: '金额', field: 'money', value: 0 },
 ])
 
-const { loading, page, data: dataList, isLastPage, reload } = usePagination((page, pageSize) => apiGiftInPageGet({ giftBookId: book.value.id, page, pageSize, ...search.value }), {
+const { loading, page, data: dataList, isLastPage, reload } = usePagination((page, pageSize) => apiGiftInPageGet({ giftBookId: book.value.id, page, pageSize, keyword: searchKeyword.value, ...search.value }), {
   data: response => response.items || [],
   total: response => response.total || 0,
   append: true,
   immediate: false,
-  watchingStates: [search],
+  watchingStates: [search, searchKeyword],
+  debounce: [0, 1000],
   preloadPreviousPage: false,
   preloadNextPage: false,
 })
@@ -228,11 +229,6 @@ function onMenuClick(e: any) {
           <div class="text-lg text-red font-bold">
             {{ book.title }}
           </div>
-          <!-- <div class="flex text-xl space-x-2">
-            <i class="i-hugeicons-delete-02" @click="onBookDel" />
-            <i class="i-hugeicons-file-export" @click="onBookExport" />
-            <i class="i-hugeicons-edit-01" @click="onBookEdit" />
-          </div> -->
           <div>
             <wd-popover mode="menu" :content="menu" placement="bottom-end" @menuclick="onMenuClick">
               <i class="i-weui-more-filled text-xl" />
@@ -290,20 +286,22 @@ function onMenuClick(e: any) {
       </div>
     </div>
 
-    <div class="mt-3 rounded-2xl bg-white p-5">
+    <div class="mt-3 rounded-2xl bg-white p-3 px-5">
       <div class="w-full flex items-center justify-between">
-        <div class="space-x-3">
-          <wd-sort-button v-for="(item, index) in sortList" :key="index" v-model="item.value" :title="item.label"
-                          @change="onSortChange(item)"
-          />
-        </div>
-        <div class="flex text-xl text-red space-x-2">
+        <wd-search v-model="searchKeyword" custom-class="!p-0 w-full" :maxlength="20" placeholder="请输入亲友姓名/关键词"
+                   hide-cancel placeholder-left
+        />
+        <div class="flex text-xl text-red">
           <!-- <i class="i-hugeicons-search-02" @click="onSearchClick" /> -->
-          <i class="i-hugeicons-plus-sign-circle" @click="onGiftAdd" />
+          <i class="i-hugeicons-plus-sign-circle ms-3" @click="onGiftAdd" />
         </div>
       </div>
-
-      <div>
+      <div class="space-x-3">
+        <wd-sort-button v-for="(item, index) in sortList" :key="index" v-model="item.value" :title="item.label"
+                        @change="onSortChange(item)"
+        />
+      </div>
+      <div class="mt-3">
         <template v-if="dataList.length === 0">
           <div v-if="loading" class="mt-5 text-center">
             <wd-loading color="#f87171" />

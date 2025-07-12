@@ -86,7 +86,7 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
             {{ jinrishici }}
           </div>
         </div>
-        <div class="i-hugeicons-settings-03 ml-auto text-lg" />
+        <div class="i-hugeicons-settings-03 ml-auto text-xl" />
       </div>
       <div>
         <div

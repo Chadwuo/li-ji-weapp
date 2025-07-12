@@ -160,25 +160,27 @@ watch(activeTab, () => {
         </div>
       </div>
 
-      <wd-tabs v-model="activeTab" swipeable animated class="mt-3">
-        <wd-tab>
-          <book-page ref="bookPageRef" />
-        </wd-tab>
-        <wd-tab>
-          <div>
-            <uv-tabs :list="columns" line-width="0" line-height="0" :active-style="{
-              color: '#f87171',
-              fontWeight: 'bold',
-              transform: 'scale(1.1)',
-            }" :inactive-style="{
-              color: '#606266',
-              transform: 'scale(1)',
-            }" item-style="height: 35px;" @click="onTabsClick"
-            />
-          </div>
-          <gift-out-page ref="giftOutPageRef" />
-        </wd-tab>
-      </wd-tabs>
+      <div class="mt-3">
+        <wd-tabs v-model="activeTab" swipeable animated>
+          <wd-tab>
+            <book-page ref="bookPageRef" />
+          </wd-tab>
+          <wd-tab>
+            <div>
+              <uv-tabs :list="columns" line-width="0" line-height="0" :active-style="{
+                color: '#f87171',
+                fontWeight: 'bold',
+                transform: 'scale(1.1)',
+              }" :inactive-style="{
+                color: '#606266',
+                transform: 'scale(1)',
+              }" item-style="height: 35px;" @click="onTabsClick"
+              />
+            </div>
+            <gift-out-page ref="giftOutPageRef" />
+          </wd-tab>
+        </wd-tabs>
+      </div>
     </div>
   </div>
 </template>
