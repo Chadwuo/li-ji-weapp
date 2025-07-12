@@ -76,18 +76,19 @@ onReachBottom(() => {
 
     <div class="mx-3 mt-16">
       <div v-show="!keyword">
-        <div v-if="searchHistory?.length">
+        <div>
           <div class="my-2 flex justify-between">
             <div class="text-lg font-bold">
               搜索历史
             </div>
-            <i class="i-hugeicons-delete-02 text-lg" @click="onClear" />
+            <i v-show="searchHistory?.length" class="i-hugeicons-delete-02 text-lg" @click="onClear" />
           </div>
           <div class="flex flex-wrap gap-3">
             <wd-tag v-for="(item, index) in searchHistory" :key="index" round @click="onSearch(item)">
               {{ item }}
             </wd-tag>
           </div>
+          <uv-empty v-show="!searchHistory?.length" />
         </div>
       </div>
       <div v-show="keyword">

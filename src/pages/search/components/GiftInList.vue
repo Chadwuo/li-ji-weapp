@@ -10,6 +10,7 @@ const search = reactive({
 const { loading, page, data: dataList, isLastPage, reload } = usePagination((page, pageSize) => apiGiftInPageGet({ page, pageSize, ...search }), {
   data: response => response.items || [],
   append: true,
+  immediate: false,
   watchingStates: [search],
   preloadPreviousPage: false,
   preloadNextPage: false,

@@ -46,7 +46,7 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
   },
 })
 
-export const request = createAlova({
+const request = createAlova({
   baseURL: `${import.meta.env.VITE_SERVICE_URL}/api`,
   ...AdapterUniapp(),
   beforeRequest: onAuthRequired((method) => {
@@ -54,7 +54,10 @@ export const request = createAlova({
     method.config.httpDNSServiceId = 'wxa410372c837a5f26'
 
     const { envVersion } = useAppStore()
-    method.baseURL += envVersion === 'release' ? '/release' : ''
+    // method.baseURL = envVersion === 'release' ? '/release' : '' // 正式环境中，有概率重复追加release，导致404错误
+    if (envVersion === 'release') {
+      method.baseURL = `${import.meta.env.VITE_SERVICE_URL}/api/release`
+    }
   }),
   responded: onResponseRefreshToken((response, method) => {
     const { config: { requestType } } = method
@@ -102,7 +105,7 @@ export const request = createAlova({
  * @param {number|string} status 状态码
  * @returns {string} 错误信息
  */
-export function ShowMessage(status: number | string): string {
+function ShowMessage(status: number | string): string {
   let message: string
   switch (status) {
     case 400:
@@ -143,3 +146,5 @@ export function ShowMessage(status: number | string): string {
   }
   return message
 }
+
+export default request

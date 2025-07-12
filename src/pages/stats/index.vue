@@ -11,7 +11,7 @@ const chatOpt = {
   dataLabel: false,
   dataPointShape: false,
   xAxis: {
-    labelCount: '7',
+    labelCount: '6',
     title: '年',
   },
   yAxis: {
