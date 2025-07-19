@@ -54,7 +54,6 @@ const request = createAlova({
     method.config.httpDNSServiceId = 'wxa410372c837a5f26'
 
     const { envVersion } = useAppStore()
-    // method.baseURL = envVersion === 'release' ? '/release' : '' // 正式环境中，有概率重复追加release，导致404错误
     if (envVersion === 'release') {
       method.baseURL = `${import.meta.env.VITE_SERVICE_URL}/api/release`
     }
