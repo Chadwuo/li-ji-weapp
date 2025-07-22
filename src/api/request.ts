@@ -46,17 +46,27 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
   },
 })
 
+function resolveApiEndpoint() {
+  const base = `${import.meta.env.VITE_SERVICE_URL}/api`
+  let env: string
+
+  // #ifdef MP-WEIXIN
+  env = uni.getAccountInfoSync().miniProgram.envVersion === 'release' ? 'release' : 'develop'
+  // #endif
+
+  // #ifdef H5
+  env = import.meta.env.MODE === 'production' ? 'release' : 'develop'
+  // #endif
+
+  return `${base}/${env}`
+}
+
 const request = createAlova({
-  baseURL: `${import.meta.env.VITE_SERVICE_URL}/api`,
+  baseURL: resolveApiEndpoint(),
   ...AdapterUniapp(),
   beforeRequest: onAuthRequired((method) => {
     method.config.enableHttpDNS = true
     method.config.httpDNSServiceId = 'wxa410372c837a5f26'
-
-    const { envVersion } = useAppStore()
-    if (envVersion === 'release') {
-      method.baseURL = `${import.meta.env.VITE_SERVICE_URL}/api/release`
-    }
   }),
   responded: onResponseRefreshToken((response, method) => {
     const { config: { requestType } } = method

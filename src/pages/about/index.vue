@@ -1,6 +1,8 @@
 <script setup lang="ts">
-const appStore = useAppStore()
-const version = appStore.version
+const version = ref('5.0.0')
+// #ifdef MP-WEIXIN
+version.value = uni.getAccountInfoSync().miniProgram.version
+// #endif
 </script>
 
 <template>
