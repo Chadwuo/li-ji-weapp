@@ -5,19 +5,15 @@ import { createAlova } from 'alova'
 import { createServerTokenAuthentication } from 'alova/client'
 
 const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthentication<typeof VueHook, typeof uniappRequestAdapter>({
+  // #ifdef MP-WEIXIN
   refreshTokenOnSuccess: {
     isExpired: (response) => {
       return response.statusCode === 401
     },
     handler: async () => {
       try {
-        // #ifdef MP-WEIXIN
         const { code } = await uni.login()
         await apiWxOpenLoginPost(code)
-        // #endif
-        // #ifdef H5
-        await apiWxOpenLoginPost('github.com/Chadwuo')
-        // #endif
       }
       catch (error) {
         // 提取错误信息
@@ -28,6 +24,7 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
       }
     },
   },
+  // #endif
   assignToken(method) {
     const { accessToken, refreshToken } = useAuthStore()
     method.config.headers = {
@@ -80,12 +77,20 @@ const request = createAlova({
       header,
     } = response as UniNamespace.RequestSuccessCallbackResult
 
+    // #ifdef H5
+    if (rawCode === 401) {
+      const errorMessage = ShowMessage(rawCode) || `HTTP请求错误[${rawCode}]`
+      uni.reLaunch({ url: `/pages/login/index` })
+      throw new Error(`${errorMessage}：${errMsg}`)
+    }
+    // #endif
     // 处理 HTTP 状态码错误
     if (rawCode !== 200) {
       const errorMessage = ShowMessage(rawCode) || `HTTP请求错误[${rawCode}]`
       uni.reLaunch({ url: `/pages/exception/500?error=${errorMessage}` })
       throw new Error(`${errorMessage}：${errMsg}`)
     }
+
     const { succeeded, errors, data } = rawData as Api.Response
     const errorMessage = JSON.stringify(errors || 'Server Error.')
     // 处理业务错误
