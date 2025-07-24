@@ -5,7 +5,7 @@ onLaunch(async () => {
   })
   try {
     const authStore = useAuthStore()
-    authStore.userInfo = await apiUserInfoGet()
+    authStore.userInfo = await apiAuthUserInfoGet()
     authStore.userFamilys = await apiUserFamilyListGet()
     authStore.friendTags = await apiFriendTagListGet()
   }

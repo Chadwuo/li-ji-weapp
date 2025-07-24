@@ -43,19 +43,10 @@ const onLogin = async () => {
       <form>
         <!-- 邮箱/用户名 -->
         <div class="relative mb-6">
-          <label class="mb-2 block pl-2 text-sm text-[#475569] font-medium">邮箱或手机</label>
+          <label class="mb-2 block pl-2 text-sm text-[#475569] font-medium">手机</label>
           <div class="group relative">
-            <i class="i-hugeicons-user absolute left-5 top-1/2 transform text-lg text-[#94a3b8] transition-all duration-300 -translate-y-1/2 group-focus-within:text-[#f87171]" />
-            <input type="text" placeholder="您的邮箱或手机" class="border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-14 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 focus:border-[#f87171]/50 focus:bg-white/90 focus:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] focus:outline-none">
-          </div>
-        </div>
-
-        <!-- 密码 -->
-        <div class="relative mb-6">
-          <label class="mb-2 block pl-2 text-sm text-[#475569] font-medium">密码</label>
-          <div class="group relative">
-            <i class="i-hugeicons-circle-password absolute left-5 top-1/2 transform text-lg text-[#94a3b8] transition-all duration-300 -translate-y-1/2 group-focus-within:text-[#f87171]" />
-            <input id="password" type="password" placeholder="您的密码" class="border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-14 pr-12 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 focus:border-[#f87171]/50 focus:bg-white/90 focus:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] focus:outline-none">
+            <i class="i-hugeicons-call-02 absolute left-5 top-1/2 transform text-lg text-[#94a3b8] transition-all duration-300 -translate-y-1/2 group-focus-within:text-[#f87171]" />
+            <input type="text" placeholder="手机" class="border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-14 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 focus:border-[#f87171]/50 focus:bg-white/90 focus:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] focus:outline-none">
           </div>
         </div>
 
@@ -68,16 +59,17 @@ const onLogin = async () => {
       <!-- 分割线 -->
       <div class="my-8 flex items-center text-sm text-[#cbd5e1]">
         <div class="h-px flex-1 from-transparent via-[#e2e8f0] to-transparent bg-gradient-to-r" />
-        <span class="px-4">或使用其他方式登录</span>
+        <!-- <span class="px-4">或使用其他方式登录</span> -->
+        <span class="px-4">未注册的手机验证后自动创建账号</span>
         <div class="h-px flex-1 from-transparent via-[#e2e8f0] to-transparent bg-gradient-to-r" />
       </div>
 
       <!-- 第三方登录 -->
-      <div class="flex justify-center gap-6">
+      <!-- <div class="flex justify-center gap-6">
         <div class="h-12 w-12 flex cursor-pointer items-center justify-center border border-[#e2e8f0]/80 rounded-full bg-white/70 text-xl text-[#64748b] shadow-[0_5px_15px_rgba(0,0,0,0.05)] backdrop-blur-5 transition-all duration-400 hover:bg-green hover:text-white hover:shadow-[0_12px_25px_rgba(0,0,0,0.12)] hover:-translate-y-1.5">
           <i class="i-hugeicons-wechat" />
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
