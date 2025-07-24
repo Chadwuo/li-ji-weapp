@@ -1,10 +1,17 @@
 <script setup lang="ts">
 const onRetry = () => {
   uni.clearStorageSync()
-
+  // #ifdef MP-WEIXIN
   wx.restartMiniProgram({
     path: '/pages/index/index',
   })
+  // #endif
+
+  // #ifdef H5
+  uni.switchTab({
+    url: '/pages/index/index',
+  })
+  // #endif
 }
 
 const error = ref('')

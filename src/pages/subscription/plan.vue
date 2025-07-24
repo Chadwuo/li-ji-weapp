@@ -123,6 +123,7 @@ onLoad(async () => {
     </div>
     <div class="fixed bottom-0 w-full rounded-t-xl bg-white pt-6">
       <div class="mx-3">
+        <!-- #ifdef MP-WEIXIN -->
         <wd-button block :loading="loading" loading-color="#F87171" @click="pay">
           <div class="font-bold">
             <span>￥</span>
@@ -133,6 +134,12 @@ onLoad(async () => {
         <div class="mt-2 text-xs text-gray">
           * 你购买的是永久会员权益，在交易成功后的一年内（支付平台支持的最长时间），可以申请无条件退款。
         </div>
+        <!-- #endif -->
+        <!-- #ifdef H5 -->
+        <div class="mb-3 text-xs text-gray">
+          * 在微信小程序中购买。
+        </div>
+        <!-- #endif -->
       </div>
       <uv-safe-bottom />
     </div>

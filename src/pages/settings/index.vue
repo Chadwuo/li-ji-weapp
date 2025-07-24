@@ -70,7 +70,9 @@ const onBlur = async () => {
       <div class="rounded-2xl bg-white p-2">
         <wd-cell title-width="80px" title="备案号" value="皖ICP备2024069565号-1X" />
         <wd-cell title="开源协议" value="GPL-3.0 license" />
+        <!-- #ifdef MP-WEIXIN -->
         <wd-cell title="隐私政策" is-link @click="openPrivacyContract" />
+        <!-- #endif -->
         <wd-cell title="关于礼记" is-link to="/pages/about/index" />
       </div>
     </div>
