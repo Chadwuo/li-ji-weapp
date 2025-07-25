@@ -7,7 +7,9 @@
   <p align="center">
     每一份人情都值得礼记
     <br />
-    <a href="https://github.com/Chadwuo/li-ji-weapp/issues/new?template=bug_report.md">报告Bug</a>
+    <a href="https://liji.poetic.ltd">主页</a>
+    ·
+    <a href="https://liji.poetic.ltd">演示</a>
     ·
     <a href="https://github.com/Chadwuo/li-ji-weapp/issues/new?template=feature_request.md">提出新特性</a>
   </p>
@@ -19,23 +21,22 @@
 
 ---
 
-### 在线体验
+## 🎉 在线体验
  <img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/code.jpg" alt="Logo" width="240" height="240">
 
-### 效果图
-> 画界面太难了，求个ui帮设计一下
+## ✨ 特性
 
-<table>
-  <tr>
-    <td><img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/image1.jpeg"></td>
-    <td><img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/image2.jpeg"></td>
-    <td><img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/image3.jpeg"></td>
-    <td><img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/image4.jpeg"></td>
-    <td><img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/image5.jpeg"></td>
-  </tr>
- </table>
+- 🎁 **随礼记录** - 轻启笔触，每一份人情都值得礼记。
+- 💰 **收礼管理** - 悉心梳理，将每一份祝福妥帖安放，为感恩答谢备好序章。
+- 👨‍👩‍👧‍👦 **家庭共享** - 家人同绘人情长卷，携手共书往来情谊，记账时光亦添温馨。
+- 📊 **多维度统计** - 图表勾勒往来脉络，数据诉说人情故事，人情冷暖一目了然。
+- 🔍 **快速搜索** - 轻触指尖，穿越时光长河，精准寻回亲友馈赠的点滴温情。
+- 📱 **便捷查看** - 掌间轻展人情簿，无论天涯海角，往昔情谊随时可触，无忧遗失。
+- 🎨 **界面美观** - 简约雅韵入画来，每一次交互皆如邂逅一场艺术之约，悦目更赏心。
+- 🌐 **跨平台支持** - 跨越设备的界限，H5与小程序携手相伴，人情记账自在随心。
+- 🌈 ... ...
 
-### 贡献者
+## 🚀 贡献
 
 感谢所有已经为 礼记 做出贡献的人！
 
@@ -43,10 +44,10 @@
   <img src="https://contrib.rocks/image?repo=Chadwuo/li-ji-weapp" />
 </a>
 
-## Star History
+## 🌟 Star History
 [![Star History Chart](https://api.star-history.com/svg?repos=Chadwuo/li-ji-weapp&type=Date)](https://star-history.com/#Chadwuo/li-ji-weapp&Date)
 
-### 版权说明
+## 📜 许可证
 
 礼记 使用 GPL-3.0 开源许可协议，在此之前请您务必了解该协议的许可说明以及遵守该协议的法律条件，详情请参阅 [LICENSE](https://github.com/chadwuo/li-ji-weapp/blob/master/LICENSE)。
 

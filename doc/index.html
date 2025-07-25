@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>礼记 - 每一份人情都值得礼记</title>
+  <meta name="description" content="礼记是一个传承文化，连接心灵的开源平台。我们致力于提供免费、安全、可靠的服务，帮助用户在数字世界中建立起自己的身份和品牌。">
+  <meta name="keywords" content="规则, 文化, 连接, 心灵, 开源, 平台, 免费, 安全, 可靠, 服务, 身份, 品牌">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#f87171',
+            secondary: '#fb923c',
+            accent: '#fecdd3',
+            dark: '#2D2A32',
+            light: '#F7F3EE',
+          },
+          fontFamily: {
+            serif: ['Noto Serif SC', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      .text-shadow-lg {
+        text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+      }
+      .bg-blur {
+        backdrop-filter: blur(8px);
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .animate-float-delay-1 {
+        animation: float 6s ease-in-out 1s infinite;
+      }
+      .animate-float-delay-2 {
+        animation: float 6s ease-in-out 2s infinite;
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+      .animate-fade-in-right {
+        animation: fadeInRight 0.8s ease-out forwards;
+      }
+      .animate-fade-in-left {
+        animation: fadeInLeft 0.8s ease-out forwards;
+      }
+      .animate-scale-in {
+        animation: scaleIn 0.6s ease-out forwards;
+      }
+      .animate-stroke {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: stroke 3s ease forwards;
+      }
+      .clip-path-slant {
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+      }
+      .clip-path-diagonal {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%);
+      }
+      .perspective-1000 {
+        perspective: 1000px;
+      }
+      .preserve-3d {
+        transform-style: preserve-3d;
+      }
+      .backface-hidden {
+        backface-visibility: hidden;
+      }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes stroke {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* Base styles */
+    body {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    .serif-title {
+      font-family: 'Noto Serif SC', serif;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #8C5E3C;
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6d4730;
+    }
+  </style>
+</head>
+<body class="bg-light text-dark overflow-x-hidden">
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 bg-transparent">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center">
+          <svg class="h-10 w-10 text-primary" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 19.5C4 18.837 4.26339 18.2011 4.73223 17.7322C5.20107 17.2634 5.83696 17 6.5 17H20"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="animate-stroke"/>
+            <path d="M6.5 2H20V22H6.5C5.83696 22 5.20107 21.7366 4.73223 21.2678C4.26339 20.7989 4 20.163 4 19.5V4.5C4 3.83696 4.26339 3.20107 4.73223 2.73223C5.20107 2.26339 5.83696 2 6.5 2Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="animate-stroke" style="animation-delay: 0.5s"/>
+          </svg>
+          <span class="ml-2 text-xl font-bold serif-title text-white text-shadow">礼记</span>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#features" class="text-white hover:text-secondary transition-colors duration-300 text-shadow">特性</a>
+          <a href="#story" class="text-white hover:text-secondary transition-colors duration-300 text-shadow">故事</a>
+          <a href="#showcase" class="text-white hover:text-secondary transition-colors duration-300 text-shadow">展示</a>
+          <a href="#contributors" class="text-white hover:text-secondary transition-colors duration-300 text-shadow">贡献者</a>
+          <a href="#download" class="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+            开始使用
+          </a>
+        </div>
+
+        <!-- Mobile Navigation Toggle -->
+        <div class="md:hidden">
+          <button id="menu-toggle" class="text-white focus:outline-none">
+            <i class="fa fa-bars text-2xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+      <div class="container mx-auto px-4 py-3 space-y-3">
+        <a href="#features" class="block py-2 text-dark hover:text-primary transition-colors duration-300">特性</a>
+        <a href="#story" class="block py-2 text-dark hover:text-primary transition-colors duration-300">故事</a>
+        <a href="#showcase" class="block py-2 text-dark hover:text-primary transition-colors duration-300">展示</a>
+        <a href="#contributors" class="block py-2 text-dark hover:text-primary transition-colors duration-300">贡献者</a>
+        <a href="#download" class="block bg-primary text-white font-medium py-2 px-4 rounded-full text-center transition-all duration-300">
+          开始使用
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="relative h-screen flex items-center justify-center overflow-hidden bg-dark">
+    <!-- Background Video/Image -->
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-b from-dark/70 to-dark/90 z-10"></div>
+      <img src="https://picsum.photos/id/1067/1920/1080" alt="传统与现代融合背景" class="w-full h-full object-cover object-center">
+    </div>
+
+    <!-- Floating Elements -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary/20 blur-3xl animate-float"></div>
+      <div class="absolute bottom-1/3 right-1/3 w-48 h-48 rounded-full bg-secondary/20 blur-3xl animate-float-delay-1"></div>
+      <div class="absolute top-1/2 right-1/4 w-24 h-24 rounded-full bg-accent/20 blur-3xl animate-float-delay-2"></div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <div class="max-w-4xl mx-auto">
+        <span class="inline-block px-4 py-1 rounded-full bg-primary/20 text-secondary text-sm font-medium mb-6 animate-fade-in-up opacity-0" style="animation-delay: 0.3s">
+          开源文化传承平台
+        </span>
+        <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold text-white leading-tight mb-6 serif-title text-shadow-lg animate-fade-in-up opacity-0" style="animation-delay: 0.5s">
+          传承文明<br>连接心灵
+        </h1>
+        <p class="text-[clamp(1rem,3vw,1.25rem)] text-gray-200 mb-10 max-w-3xl mx-auto animate-fade-in-up opacity-0" style="animation-delay: 0.7s">
+          礼记，一个融合传统文化与现代科技的开源平台，致力于传承文明薪火，连接人与人之间的心灵纽带，让古老智慧焕发新生。
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up opacity-0" style="animation-delay: 0.9s">
+          <a href="#features" class="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+            探索特性
+          </a>
+          <a href="https://github.com" target="_blank" class="bg-transparent border-2 border-white hover:border-secondary text-white hover:text-secondary font-medium py-3 px-8 rounded-full transition-all duration-300 flex items-center justify-center gap-2">
+            <i class="fa fa-github"></i> 开源代码
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+      <a href="#features" class="text-white opacity-80 hover:opacity-100 transition-opacity duration-300">
+        <i class="fa fa-angle-down text-3xl"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- Features Section -->
+  <section id="features" class="py-24 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4 feature-item">核心特性</span>
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-dark mb-6 serif-title">传统与现代的完美融合</h2>
+        <p class="text-gray-600 text-lg">礼记将古老智慧与现代科技无缝结合，创造出既富有文化底蕴又具备前沿体验的数字平台</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Feature Card 1 -->
+        <div class="bg-gray-50 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 group feature-item">
+          <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6 text-primary text-2xl group-hover:bg-primary group-hover:text-white transition-all duration-300">
+            <i class="fa fa-book"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 serif-title">文化传承</h3>
+          <p class="text-gray-600 mb-4">精心整理的传统文化资源库，让千年智慧触手可及，为现代生活提供精神滋养。</p>
+          <a href="#" class="inline-flex items-center text-primary font-medium group-hover:text-primary/80 transition-colors duration-300">
+            了解更多 <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform duration-300"></i>
+          </a>
+        </div>
+
+        <!-- Feature Card 2 -->
+        <div class="bg-gray-50 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 group feature-item">
+          <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6 text-primary text-2xl group-hover:bg-primary group-hover:text-white transition-all duration-300">
+            <i class="fa fa-users"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 serif-title">社区连接</h3>
+          <p class="text-gray-600 mb-4">搭建文化爱好者的交流平台，让思想碰撞，让智慧流动，形成有温度的线上文化社区。</p>
+          <a href="#" class="inline-flex items-center text-primary font-medium group-hover:text-primary/80 transition-colors duration-300">
+            了解更多 <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform duration-300"></i>
+          </a>
+        </div>
+
+        <!-- Feature Card 3 -->
+        <div class="bg-gray-50 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 group feature-item">
+          <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6 text-primary text-2xl group-hover:bg-primary group-hover:text-white transition-all duration-300">
+            <i class="fa fa-code-fork"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 serif-title">开源协作</h3>
+          <p class="text-gray-600 mb-4">完全开源的项目架构，欢迎每一位开发者贡献智慧，共同打造更完善的文化传承平台。</p>
+          <a href="#" class="inline-flex items-center text-primary font-medium group-hover:text-primary/80 transition-colors duration-300">
+            了解更多 <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform duration-300"></i>
+          </a>
+        </div>
+
+        <!-- Feature Card 4 -->
+        <div class="bg-gray-50 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 group feature-item">
+          <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6 text-primary text-2xl group-hover:bg-primary group-hover:text-white transition-all duration-300">
+            <i class="fa fa-mobile"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 serif-title">移动优先</h3>
+          <p class="text-gray-600 mb-4">专为移动设备优化的用户体验，随时随地访问文化资源，让传统文化融入现代生活场景。</p>
+          <a href="#" class="inline-flex items-center text-primary font-medium group-hover:text-primary/80 transition-colors duration-300">
+            了解更多 <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform duration-300"></i>
+          </a>
+        </div>
+
+        <!-- Feature Card 5 -->
+        <div class="bg-gray-50 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 group feature-item">
+          <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6 text-primary text-2xl group-hover:bg-primary group-hover:text-white transition-all duration-300">
+            <i class="fa fa-line-chart"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 serif-title">智能推荐</h3>
+          <p class="text-gray-600 mb-4">基于AI技术的内容推荐系统，精准匹配用户兴趣，让每个人都能发现属于自己的文化宝藏。</p>
+          <a href="#" class="inline-flex items-center text-primary font-medium group-hover:text-primary/80 transition-colors duration-300">
+            了解更多 <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform duration-300"></i>
+          </a>
+        </div>
+
+        <!-- Feature Card 6 -->
+        <div class="bg-gray-50 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 group feature-item">
+          <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6 text-primary text-2xl group-hover:bg-primary group-hover:text-white transition-all duration-300">
+            <i class="fa fa-creative-commons"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 serif-title">开放共享</h3>
+          <p class="text-gray-600 mb-4">采用知识共享协议，鼓励内容自由传播与创新应用，让文化价值最大化扩散。</p>
+          <a href="#" class="inline-flex items-center text-primary font-medium group-hover:text-primary/80 transition-colors duration-300">
+            了解更多 <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform duration-300"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story Section with Diagonal Divider -->
+  <section id="story" class="py-24 bg-primary clip-path-slant relative overflow-hidden">
+    <div class="absolute inset-0 z-0 opacity-10">
+      <div class="absolute top-0 left-0 w-full h-full bg-[url('https://picsum.photos/id/1060/1920/1080')] bg-cover bg-center"></div>
+    </div>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1">
+          <span class="inline-block px-4 py-1 rounded-full bg-white/20 text-white text-sm font-medium mb-4 story-item">我们的故事</span>
+          <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-white mb-6 serif-title story-item">传承文明薪火，连接心灵家园</h2>
+          <p class="text-white/90 text-lg mb-6 story-item">礼记诞生于对传统文化传承的深切关怀与对现代数字生活的深刻理解。在信息爆炸的时代，我们深感传统文化的珍贵价值与传播困境。</p>
+          <p class="text-white/90 text-lg mb-8 story-item">于是，一群热爱传统文化的开发者与设计师携手，打造了这个融合传统与现代的开源平台。我们相信，只有让古老智慧与现代科技相遇，才能让传统文化在数字时代焕发新生。</p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-8 story-item">
+            <div class="text-center">
+              <div class="text-4xl font-bold text-white mb-1" id="counter-users">0</div>
+              <div class="text-white/80 text-sm">活跃用户</div>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl font-bold text-white mb-1" id="counter-contributors">0</div>
+              <div class="text-white/80 text-sm">贡献者</div>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl font-bold text-white mb-1" id="counter-resources">0</div>
+              <div class="text-white/80 text-sm">文化资源</div>
+            </div>
+          </div>
+
+          <a href="#" class="inline-block bg-white text-primary hover:bg-gray-100 font-medium py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg story-item">
+            加入我们的旅程
+          </a>
+        </div>
+
+        <div class="order-1 lg:order-2 perspective-1000">
+          <div class="relative transform rotate-3 hover:rotate-0 transition-transform duration-700 preserve-3d backface-hidden">
+            <img src="https://picsum.photos/id/1071/600/800" alt="礼记应用界面展示" class="rounded-2xl shadow-2xl w-full max-w-lg mx-auto object-cover h-[500px] story-image">
+            <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl transform -rotate-6 hover:rotate-0 transition-transform duration-500 w-48">
+              <div class="flex items-center mb-2">
+                <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                <span class="text-sm font-medium">持续更新</span>
+              </div>
+              <p class="text-xs text-gray-600">每周文化内容更新，让传统智慧常学常新</p>
+            </div>
+            <div class="absolute -top-6 -right-6 bg-white p-4 rounded-xl shadow-xl transform rotate-6 hover:rotate-0 transition-transform duration-500 w-48">
+              <div class="flex items-center mb-2">
+                <div class="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+                <span class="text-sm font-medium">开源项目</span>
+              </div>
+              <p class="text-xs text-gray-600">GitHub 4.9星评分，来自全球开发者的信赖</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Showcase Section -->
+  <section id="showcase" class="py-24 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4 showcase-item">产品展示</span>
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-dark mb-6 serif-title">优雅设计，卓越体验</h2>
+        <p class="text-gray-600 text-lg">精心打磨的用户界面，让传统文化以现代美学方式呈现，带来沉浸式的文化体验</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Showcase Item 1 -->
+        <div class="rounded-2xl overflow-hidden shadow-lg group showcase-item">
+          <div class="relative overflow-hidden">
+            <img src="https://picsum.photos/id/1082/600/400" alt="首页展示" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+              <div class="p-6">
+                <h3 class="text-white font-bold text-xl mb-2">首页设计</h3>
+                <p class="text-white/80 text-sm">简洁大气的首页布局，传统文化与现代设计的完美融合</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Showcase Item 2 -->
+        <div class="rounded-2xl overflow-hidden shadow-lg group showcase-item">
+          <div class="relative overflow-hidden">
+            <img src="https://picsum.photos/id/1068/600/400" alt="内容浏览" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+              <div class="p-6">
+                <h3 class="text-white font-bold text-xl mb-2">内容浏览</h3>
+                <p class="text-white/80 text-sm">沉浸式阅读体验，让传统文化内容赏心悦目</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Showcase Item 3 -->
+        <div class="rounded-2xl overflow-hidden shadow-lg group showcase-item">
+          <div class="relative overflow-hidden">
+            <img src="https://picsum.photos/id/1069/600/400" alt="社区互动" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+              <div class="p-6">
+                <h3 class="text-white font-bold text-xl mb-2">社区互动</h3>
+                <p class="text-white/80 text-sm">文化爱好者的交流空间，思想碰撞的乐园</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Showcase Item 4 -->
+        <div class="rounded-2xl overflow-hidden shadow-lg group showcase-item">
+          <div class="relative overflow-hidden">
+            <img src="https://picsum.photos/id/1070/600/400" alt="个人中心" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+              <div class="p-6">
+                <h3 class="text-white font-bold text-xl mb-2">个人中心</h3>
+                <p class="text-white/80 text-sm">个性化的用户空间，记录您的文化探索之旅</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Showcase Item 5 -->
+        <div class="rounded-2xl overflow-hidden shadow-lg group showcase-item">
+          <div class="relative overflow-hidden">
+            <img src="https://picsum.photos/id/1072/600/400" alt="文化日历" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+              <div class="p-6">
+                <h3 class="text-white font-bold text-xl mb-2">文化日历</h3>
+                <p class="text-white/80 text-sm">每日文化精选，让传统文化融入日常生活</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Showcase Item 6 -->
+        <div class="rounded-2xl overflow-hidden shadow-lg group showcase-item">
+          <div class="relative overflow-hidden">
+            <img src="https://picsum.photos/id/1073/600/400" alt="离线阅读" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+              <div class="p-6">
+                <h3 class="text-white font-bold text-xl mb-2">离线阅读</h3>
+                <p class="text-white/80 text-sm">随时随地访问文化内容，不受网络限制</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Source Section -->
+  <section class="py-24 bg-gray-900 text-white clip-path-diagonal relative overflow-hidden">
+    <div class="absolute inset-0 z-0 opacity-20">
+      <div class="absolute top-0 left-0 w-full h-full bg-[url('https://picsum.photos/id/20/1920/1080')] bg-cover bg-center"></div>
+    </div>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-2">
+          <span class="inline-block px-4 py-1 rounded-full bg-white/20 text-white text-sm font-medium mb-4 os-item">开源项目</span>
+          <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-white mb-6 serif-title os-item">开放协作，共创未来</h2>
+          <p class="text-white/90 text-lg mb-6 os-item">礼记是一个完全开源的项目，我们相信开放协作是推动文化传承与技术创新的最佳方式。源代码托管在GitHub上，欢迎全球开发者参与贡献。</p>
+          <p class="text-white/90 text-lg mb-8 os-item">无论您是经验丰富的开发者，还是刚入门的技术爱好者，都能在礼记项目中找到适合自己的贡献方式，共同为传统文化的数字传承贡献力量。</p>
+
+          <div class="flex flex-wrap gap-4 mb-8 os-item">
+            <a href="https://github.com" target="_blank" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-300">
+              <i class="fa fa-github text-white text-xl"></i>
+            </a>
+            <a href="https://gitee.com" target="_blank" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-300">
+              <i class="fa fa-code-fork text-white text-xl"></i>
+            </a>
+            <a href="https://discord.com" target="_blank" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-300">
+              <i class="fa fa-comments text-white text-xl"></i>
+            </a>
+            <a href="https://twitter.com" target="_blank" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-300">
+              <i class="fa fa-twitter text-white text-xl"></i>
+            </a>
+          </div>
+
+          <a href="https://github.com" target="_blank" class="inline-block bg-white text-gray-900 hover:bg-gray-100 font-medium py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg os-item">
+            <i class="fa fa-github mr-2"></i> 查看源代码
+          </a>
+        </div>
+
+        <div class="order-1 lg:order-1">
+          <div class="bg-gray-800 rounded-2xl p-6 shadow-xl">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div class="text-gray-400 text-sm">github.com/li-ji-weapp</div>
+            </div>
+            <pre class="text-gray-300 text-sm overflow-x-auto scrollbar-hide"><code>## 礼记 - 传承文化，连接心灵的开源平台
+
+礼记是一个融合传统文化与现代科技的开源平台，致力于传承文明薪火，连接人与人之间的心灵纽带。
+
+### 核心特性
+
+- 文化传承：精心整理的传统文化资源库
+- 社区连接：文化爱好者的交流平台
+- 开源协作：完全开源的项目架构
+- 移动优先：专为移动设备优化的用户体验
+- 智能推荐：基于AI技术的内容推荐系统
+- 开放共享：采用知识共享协议
+
+### 贡献指南
+
+我们欢迎所有形式的贡献，无论是代码改进、文档完善、bug报告还是功能建议。
+
+1. Fork 本仓库
+2. 创建特性分支: `git checkout -b feature/amazing-feature`
+3. 提交更改: `git commit -m 'Add some amazing feature'`
+4. 推送到分支: `git push origin feature/amazing-feature`
+5. 创建Pull Request
+
+### 许可证
+
+本项目采用 MIT 许可证 - 详情参见 LICENSE 文件</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contributors Section -->
+  <section id="contributors" class="py-24 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4 contributors-item">社区贡献者</span>
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-dark mb-6 serif-title">感谢每一位贡献者</h2>
+        <p class="text-gray-600 text-lg">礼记的成长离不开全球各地贡献者的热情参与，正是你们的智慧与汗水，让这个项目不断完善</p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 contributors-grid">
+        <!-- Contributor 1 -->
+        <div class="text-center contributors-item">
+          <div class="relative w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white shadow-lg group">
+            <img src="https://picsum.photos/id/1001/200/200" alt="贡献者头像" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <a href="#" class="text-white text-xl">
+                <i class="fa fa-github"></i>
+              </a>
+            </div>
+          </div>
+          <h3 class="font-bold text-dark mb-1">Chadwuo</h3>
+          <p class="text-gray-500 text-sm">项目创始人</p>
+        </div>
+
+        <!-- Contributor 2 -->
+        <div class="text-center contributors-item">
+          <div class="relative w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white shadow-lg group">
+            <img src="https://picsum.photos/id/1002/200/200" alt="贡献者头像" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <a href="#" class="text-white text-xl">
+                <i class="fa fa-github"></i>
+              </a>
+            </div>
+          </div>
+          <h3 class="font-bold text-dark mb-1">李华</h3>
+          <p class="text-gray-500 text-sm">核心开发者</p>
+        </div>
+
+        <!-- Contributor 3 -->
+        <div class="text-center contributors-item">
+          <div class="relative w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white shadow-lg group">
+            <img src="https://picsum.photos/id/1003/200/200" alt="贡献者头像" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <a href="#" class="text-white text-xl">
+                <i class="fa fa-github"></i>
+              </a>
+            </div>
+          </div>
+          <h3 class="font-bold text-dark mb-1">王芳</h3>
+          <p class="text-gray-500 text-sm">UI设计师</p>
+        </div>
+
+        <!-- Contributor 4 -->
+        <div class="text-center contributors-item">
+          <div class="relative w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white shadow-lg group">
+            <img src="https://picsum.photos/id/1004/200/200" alt="贡献者头像" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <a href="#" class="text-white text-xl">
+                <i class="fa fa-github"></i>
+              </a>
+            </div>
+          </div>
+          <h3 class="font-bold text-dark mb-1">赵伟</h3>
+          <p class="text-gray-500 text-sm">后端开发</p>
+        </div>
+
+        <!-- Contributor 5 -->
+        <div class="text-center contributors-item">
+          <div class="relative w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white shadow-lg group">
+            <img src="https://picsum.photos/id/1005/200/200" alt="贡献者头像" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <a href="#" class="text-white text-xl">
+                <i class="fa fa-github"></i>
+              </a>
+            </div>
+          </div>
+          <h3 class="font-bold text-dark mb-1">陈静</h3>
+          <p class="text-gray-500 text-sm">文档贡献者</p>
+        </div>
+
+        <!-- Contributor 6 -->
+        <div class="text-center contributors-item">
+          <div class="relative w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white shadow-lg group">
+            <img src="https://picsum.photos/id/1006/200/200" alt="贡献者头像" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <a href="#" class="text-white text-xl">
+                <i class="fa fa-github"></i>
+              </a>
+            </div>
+          </div>
+          <h3 class="font-bold text-dark mb-1">刘强</h3>
+          <p class="text-gray-500 text-sm">测试工程师</p>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="#" class="inline-flex items-center text-primary font-medium hover:text-primary/80 transition-colors duration-300">
+          查看所有贡献者 <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform duration-300"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download Section -->
+  <section id="download" class="py-24 bg-gray-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+          <div class="p-8 md:p-12 flex flex-col justify-center">
+            <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-dark mb-6 serif-title">开始您的礼记</h2>
+            <p class="text-gray-600 text-lg mb-8">下载礼记应用，开启传统文化与现代生活的融合之旅，让古老智慧伴随您的日常。</p>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-8">
+              <a href="#" class="flex items-center bg-dark hover:bg-dark/90 text-white font-medium py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105">
+                <i class="fa fa-wechat text-2xl mr-3"></i>
+                <div class="text-left">
+                  <div class="font-bold">微信小程序</div>
+                </div>
+              </a>
+              <a href="#" class="flex items-center bg-dark hover:bg-dark/90 text-white font-medium py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105">
+                <i class="fa fa-chrome text-2xl mr-3"></i>
+                <div class="text-left">
+                  <div class="font-bold">H5 访问</div>
+                </div>
+              </a>
+            </div>
+
+            <div class="flex items-center text-gray-500 text-sm">
+              <i class="fa fa-shield mr-2"></i>
+              <span>支持 iOS 12.0+ 和 Android 8.0+</span>
+            </div>
+          </div>
+
+          <div class="bg-primary p-8 md:p-12 flex items-center justify-center relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
+            <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24"></div>
+
+            <div class="relative z-10 text-center">
+              <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fa fa-qrcode text-primary text-4xl"></i>
+              </div>
+              <h3 class="text-white text-xl font-bold mb-2">扫码访问</h3>
+              <p class="text-white/80 mb-6">使用微信扫码，立即获取礼记应用</p>
+              <div class="bg-white p-4 rounded-xl inline-block shadow-lg">
+                <div class="w-48 h-48 bg-gray-200 flex items-center justify-center">
+                  <i class="fa fa-qrcode text-5xl text-primary/30"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white pt-16 pb-8">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center mb-6">
+            <svg class="h-10 w-10 text-primary" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 19.5C4 18.837 4.26339 18.2011 4.73223 17.7322C5.20107 17.2634 5.83696 17 6.5 17H20"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6.5 2H20V22H6.5C5.83696 22 5.20107 21.7366 4.73223 21.2678C4.26339 20.7989 4 20.163 4 19.5V4.5C4 3.83696 4.26339 3.20107 4.73223 2.73223C5.20107 2.26339 5.83696 2 6.5 2Z"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="ml-2 text-xl font-bold serif-title">礼记</span>
+          </div>
+          <p class="text-gray-400 mb-6">传承文明薪火，连接心灵家园，让传统文化在数字时代焕发新生。</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">
+              <i class="fa fa-weibo"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">
+              <i class="fa fa-wechat"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">
+              <i class="fa fa-github"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-bold mb-6">快速链接</h3>
+          <ul class="space-y-3">
+            <li><a href="#features" class="text-gray-400 hover:text-primary transition-colors duration-300">核心特性</a></li>
+            <li><a href="#story" class="text-gray-400 hover:text-primary transition-colors duration-300">我们的故事</a></li>
+            <li><a href="#showcase" class="text-gray-400 hover:text-primary transition-colors duration-300">产品展示</a></li>
+            <li><a href="#contributors" class="text-gray-400 hover:text-primary transition-colors duration-300">社区贡献者</a></li>
+            <li><a href="#download" class="text-gray-400 hover:text-primary transition-colors duration-300">下载应用</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-bold mb-6">资源中心</h3>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">使用文档</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">开发者指南</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">API 文档</a></li>
+            <li><a href="https://github.com/chadwuo/li-ji-weapp/blob/main/LICENSE" class="text-gray-400 hover:text-primary transition-colors duration-300">开源协议</a></li>
+            <li><a href="https://github.com/Chadwuo/li-ji-weapp/discussions" class="text-gray-400 hover:text-primary transition-colors duration-300">社区论坛</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-bold mb-6">联系我们</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <i class="fa fa-envelope text-primary mt-1 mr-3"></i>
+              <span class="text-gray-400">poetic_liji@163.com</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-map-marker text-primary mt-1 mr-3"></i>
+              <span class="text-gray-400">www.poetic.ltd</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-github text-primary mt-1 mr-3"></i>
+              <a href="https://github.com" target="_blank" class="text-gray-400 hover:text-primary transition-colors duration-300">github.com/li-ji-weapp</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-gray-500 text-sm mb-4 md:mb-0">Copyright © Chadwuo Design. All Rights Reserved.</p>
+          <a href="#" class="text-gray-500 hover:text-gray-400 text-sm transition-colors duration-300">皖ICP备2024069565号</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transform transition-all duration-300 scale-0 hover:bg-primary/90">
+    <i class="fa fa-angle-up text-xl"></i>
+  </button>
+
+  <!-- JavaScript -->
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    const backToTop = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 50) {
+        navbar.classList.add('bg-dark/90', 'shadow-lg');
+        navbar.classList.remove('bg-transparent');
+        backToTop.classList.remove('scale-0');
+        backToTop.classList.add('scale-100');
+      } else {
+        navbar.classList.remove('bg-dark/90', 'shadow-lg');
+        navbar.classList.add('bg-transparent');
+        backToTop.classList.add('scale-0');
+        backToTop.classList.remove('scale-100');
+      }
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', function() {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+
+          // Close mobile menu if open
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+          }
+        }
+      });
+    });
+
+    // Back to top button
+    backToTop.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Counter animation
+    function animateCounter(elementId, target, duration = 2000) {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+
+      const start = 0;
+      const increment = target / (duration / 16);
+      let current = start;
+
+      const timer = setInterval(function() {
+        current += increment;
+        if (current >= target) {
+          clearInterval(timer);
+          element.textContent = target.toLocaleString();
+        } else {
+          element.textContent = Math.floor(current).toLocaleString();
+        }
+      }, 16);
+    }
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target;
+          const delay = element.dataset.delay || 0;
+
+          setTimeout(() => {
+            if (element.classList.contains('feature-item')) {
+              element.classList.add('animate-fade-in-up');
+            } else if (element.classList.contains('story-item')) {
+              element.classList.add('animate-fade-in-right');
+            } else if (element.classList.contains('story-image')) {
+              element.classList.add('animate-scale-in');
+            } else if (element.classList.contains('showcase-item')) {
+              element.classList.add('animate-fade-in-up');
+            } else if (element.classList.contains('contributors-item')) {
+              element.classList.add('animate-fade-in-up');
+            } else if (element.classList.contains('download-item')) {
+              element.classList.add('animate-fade-in-left');
+            } else if (element.id === 'counter-users') {
+              animateCounter('counter-users', 10000);
+              animateCounter('counter-contributors', 128);
+              animateCounter('counter-resources', 500);
+              observer.unobserve(element);
+            }
+          }, delay);
+
+          observer.unobserve(element);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements that need animation
+    document.querySelectorAll('.feature-item, .story-item, .story-image, .showcase-item, .contributors-item, .download-item, #counter-users').forEach(element => {
+      observer.observe(element);
+    });
+
+    // Initialize with navbar background based on scroll position
+    window.dispatchEvent(new Event('scroll'));
+  </script>
+</body>
+</html>
