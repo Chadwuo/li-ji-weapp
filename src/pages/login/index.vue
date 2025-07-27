@@ -1,30 +1,54 @@
 <script setup lang="ts">
 const loading = ref(false)
+const authLoginInput = ref({
+  phone: '',
+})
 const onLogin = async () => {
-  loading.value = true
-  // 模拟登录请求
-  await new Promise(resolve => setTimeout(resolve, 2000))
-  loading.value = false
-  uni.showToast({
-    title: '登录成功',
-    icon: 'success',
-  })
-  // 跳转到首页或其他页面
-  uni.switchTab({
-    url: '/pages/index/index',
-  })
+  try {
+    loading.value = true
+    await apiAuthLoginPost(authLoginInput.value)
+    const authStore = useAuthStore()
+    authStore.userInfo = await apiAuthUserInfoGet()
+    authStore.userFamilys = await apiUserFamilyListGet()
+    authStore.friendTags = await apiFriendTagListGet()
+    uni.showToast({
+      title: '登录成功',
+      icon: 'success',
+    })
+    // 跳转到首页或其他页面
+    uni.switchTab({
+      url: '/pages/index/index',
+    })
+  }
+  catch (error) {
+    const errorMessage = error instanceof Error ? error.message : JSON.stringify(error) || '未知错误'
+    uni.reLaunch({ url: `/pages/exception/500?error=${encodeURIComponent(errorMessage)}` })
+  }
+  finally {
+    loading.value = false
+  }
 }
 </script>
 
 <template>
-  <div class="relative m-0 min-h-screen flex items-center justify-center overflow-hidden from-[#f0f5ff] to-[#e6eeff] bg-gradient-to-br px-5">
+  <div
+    class="relative m-0 min-h-screen flex items-center justify-center overflow-hidden from-[#f0f5ff] to-[#e6eeff] bg-gradient-to-br px-5"
+  >
     <!-- 背景装饰元素 -->
-    <div class="animate-float absolute left-[10%] top-[10%] h-[350px] w-[350px] rounded-full bg-[#f87171] opacity-40 filter-blur-70" />
-    <div class="animate-float animation-delay-3000 absolute bottom-[10%] right-[10%] h-[450px] w-[450px] rounded-full bg-[#7dd3fc] opacity-40 filter-blur-70" />
-    <div class="animate-float animation-delay-6000 absolute right-[15%] top-[20%] h-[280px] w-[280px] rounded-full bg-[#a78bfa] opacity-40 filter-blur-70" />
+    <div
+      class="animate-float absolute left-[10%] top-[10%] h-[350px] w-[350px] rounded-full bg-[#f87171] opacity-40 filter-blur-70"
+    />
+    <div
+      class="animate-float animation-delay-3000 absolute bottom-[10%] right-[10%] h-[450px] w-[450px] rounded-full bg-[#7dd3fc] opacity-40 filter-blur-70"
+    />
+    <div
+      class="animate-float animation-delay-6000 absolute right-[15%] top-[20%] h-[280px] w-[280px] rounded-full bg-[#a78bfa] opacity-40 filter-blur-70"
+    />
 
     <!-- 登录卡片容器 -->
-    <div class="animate-fadeIn relative z-10 max-w-[420px] w-full overflow-hidden border border-white/40 rounded-[28px] bg-white/60 p-8 shadow-[0_10px_35px_rgba(0,0,0,0.08),inset_0_0_15px_rgba(255,255,255,0.5)] backdrop-blur-20">
+    <div
+      class="animate-fadeIn relative z-10 max-w-[420px] w-full overflow-hidden border border-white/40 rounded-[28px] bg-white/60 p-8 shadow-[0_10px_35px_rgba(0,0,0,0.08),inset_0_0_15px_rgba(255,255,255,0.5)] backdrop-blur-20"
+    >
       <!-- 顶部装饰条 -->
       <div class="absolute left-0 top-0 h-[6px] w-full from-[#f87171] via-[#7dd3fc] to-[#a78bfa] bg-gradient-to-r" />
 
@@ -45,8 +69,12 @@ const onLogin = async () => {
         <div class="relative mb-6">
           <label class="mb-2 block pl-2 text-sm text-[#475569] font-medium">手机</label>
           <div class="group relative">
-            <i class="i-hugeicons-call-02 absolute left-5 top-1/2 transform text-lg text-[#94a3b8] transition-all duration-300 -translate-y-1/2 group-focus-within:text-[#f87171]" />
-            <input type="text" placeholder="手机" class="border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-14 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 focus:border-[#f87171]/50 focus:bg-white/90 focus:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] focus:outline-none">
+            <i
+              class="i-hugeicons-call-02 absolute left-5 top-1/2 transform text-lg text-[#94a3b8] transition-all duration-300 -translate-y-1/2 group-focus-within:text-[#f87171]"
+            />
+            <input v-model="authLoginInput.phone" type="text" placeholder="手机"
+                   class="border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-14 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 focus:border-[#f87171]/50 focus:bg-white/90 focus:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] focus:outline-none"
+            >
           </div>
         </div>
 
@@ -75,49 +103,67 @@ const onLogin = async () => {
 </template>
 
 <style lang="scss" scoped>
- /* 自定义动画 */
- @keyframes float {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      33% { transform: translate(10px, -15px) rotate(5deg); }
-      66% { transform: translate(-10px, 10px) rotate(-5deg); }
-      100% { transform: translate(0, 0) rotate(0deg); }
-    }
+/* 自定义动画 */
+@keyframes float {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+  33% {
+    transform: translate(10px, -15px) rotate(5deg);
+  }
 
-    .animate-float {
-      animation: float 12s infinite ease-in-out;
-    }
+  66% {
+    transform: translate(-10px, 10px) rotate(-5deg);
+  }
 
-    .animate-fadeIn {
-      animation: fadeIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
 
-    .animation-delay-3000 {
-      animation-delay: 3s;
-    }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
 
-    .animation-delay-6000 {
-      animation-delay: 6s;
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    /* 自定义模糊效果 */
-    .filter-blur-70 {
-      filter: blur(70px);
-    }
+.animate-float {
+  animation: float 12s infinite ease-in-out;
+}
 
-    .backdrop-blur-20 {
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-    }
+.animate-fadeIn {
+  animation: fadeIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
 
-    .backdrop-blur-5 {
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-    }
+.animation-delay-3000 {
+  animation-delay: 3s;
+}
+
+.animation-delay-6000 {
+  animation-delay: 6s;
+}
+
+/* 自定义模糊效果 */
+.filter-blur-70 {
+  filter: blur(70px);
+}
+
+.backdrop-blur-20 {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.backdrop-blur-5 {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
 </style>
 
 <route lang="json">

@@ -5,26 +5,29 @@ import { createAlova } from 'alova'
 import { createServerTokenAuthentication } from 'alova/client'
 
 const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthentication<typeof VueHook, typeof uniappRequestAdapter>({
-  // #ifdef MP-WEIXIN
   refreshTokenOnSuccess: {
     isExpired: (response) => {
       return response.statusCode === 401
     },
     handler: async () => {
+      // #ifdef MP-WEIXIN
       try {
         const { code } = await uni.login()
         await apiWxOpenLoginPost(code)
       }
       catch (error) {
-        // 提取错误信息
         const errorMessage = error instanceof Error ? error.message : JSON.stringify(error) || '未知错误'
-        // token刷新失败，跳转回错误页
         uni.reLaunch({ url: `/pages/exception/500?error=${encodeURIComponent(errorMessage)}` })
         throw error
       }
+      // #endif
+
+      // #ifdef H5
+      uni.reLaunch({ url: `/pages/login/index` })
+      throw new Error('H5环境下去登录页')
+      // #endif
     },
   },
-  // #endif
   assignToken(method) {
     const { accessToken, refreshToken } = useAuthStore()
     method.config.headers = {
@@ -48,11 +51,11 @@ function resolveApiEndpoint() {
   let env: string
 
   // #ifdef MP-WEIXIN
-  env = uni.getAccountInfoSync().miniProgram.envVersion === 'release' ? 'release' : 'develop'
+  env = uni.getAccountInfoSync().miniProgram.envVersion === 'release' ? 'release' : ''
   // #endif
 
   // #ifdef H5
-  env = import.meta.env.MODE === 'production' ? 'release' : 'develop'
+  env = import.meta.env.MODE === 'production' ? 'release' : ''
   // #endif
 
   return `${base}/${env}`
@@ -77,13 +80,6 @@ const request = createAlova({
       header,
     } = response as UniNamespace.RequestSuccessCallbackResult
 
-    // #ifdef H5
-    if (rawCode === 401) {
-      const errorMessage = ShowMessage(rawCode) || `HTTP请求错误[${rawCode}]`
-      uni.reLaunch({ url: `/pages/login/index` })
-      throw new Error(`${errorMessage}：${errMsg}`)
-    }
-    // #endif
     // 处理 HTTP 状态码错误
     if (rawCode !== 200) {
       const errorMessage = ShowMessage(rawCode) || `HTTP请求错误[${rawCode}]`
