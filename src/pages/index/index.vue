@@ -5,6 +5,7 @@ import { giftCategory } from '@/constants/app'
 import BookPage from './components/BookPage.vue'
 import GiftOutPage from './components/GiftOutPage.vue'
 
+let videoAd: any = null
 const { isVip } = storeToRefs(useAuthStore())
 const columns = [
   { name: '全部', value: '' },
@@ -50,32 +51,21 @@ const cur = computed(() => {
   }
 })
 
-onShow(() => {
-  cur.value?.refreshAsync()
-})
-
-onPullDownRefresh(async () => {
-  await cur.value?.refreshAsync()
-  uni.stopPullDownRefresh()
-})
-
-onReachBottom(() => {
-  cur.value?.loadMoreAsync()
-})
-const addNew = () => {
-  cur.value?.handleAdd()
-}
-
-const performSearch = () => {
-  uni.navigateTo({
-    url: `/pages/search/index?activeTab=${activeTab.value}`,
-  })
-}
-
-const onTabsClick = (item: any) => {
-  giftOutPageRef.value?.handleSearch({
-    icon: item.value,
-  })
+const handlePlayVideoAd = () => {
+  if (videoAd) {
+    videoAd.show().catch(() => {
+      // 失败重试
+      videoAd.load()
+        .then(() => videoAd.show())
+        .catch((err: any) => {
+          uni.showToast({
+            icon: 'none',
+            title: '激励视频 广告显示失败',
+          })
+          console.error('激励视频 广告显示失败', err)
+        })
+    })
+  }
 }
 
 const handleGiftExport = async () => {
@@ -103,22 +93,19 @@ const onGiftExport = () => {
     handleGiftExport()
   }
   else {
-    message
-      .confirm({
-        msg: '成为会员，即可解锁数据导出无限制权益',
-        title: '数据导出权益',
-        confirmButtonText: '开通会员',
-        cancelButtonText: '看广告解锁',
+    message.confirm({
+      msg: '成为会员，即可解锁数据导出无限制权益',
+      title: '数据导出权益',
+      confirmButtonText: '开通会员',
+      cancelButtonText: '看广告解锁',
+    }).then(() => {
+      uni.navigateTo({
+        url: '/pages/subscription/plan',
       })
-      .then(() => {
-        uni.navigateTo({
-          url: '/pages/subscription/plan',
-        })
-      })
-      .catch(({ action }) => {
-        if (action === 'cancel')
-          handleGiftExport()
-      })
+    }).catch(({ action }) => {
+      if (action === 'cancel')
+        handlePlayVideoAd()
+    })
   }
 }
 
@@ -127,6 +114,54 @@ watch(activeTab, () => {
     cur.value?.refreshAsync()
   })
 })
+
+onShow(() => {
+  cur.value?.refreshAsync()
+})
+
+onLoad(async () => {
+  // 在页面onLoad回调事件中创建激励视频广告实例
+  if (wx.createRewardedVideoAd) {
+    videoAd = wx.createRewardedVideoAd({
+      adUnitId: 'adunit-f2113fa7b839e7e6',
+    })
+    videoAd.onLoad(() => { })
+    videoAd.onError((err: any) => {
+      console.error('激励视频广告加载失败', err)
+    })
+    videoAd.onClose((res: any) => {
+      // 用户点击了【关闭广告】按钮
+      if (res && res.isEnded) {
+        // 正常播放结束，可以下发游戏奖励
+        handleGiftExport()
+      }
+    })
+  }
+})
+
+onPullDownRefresh(async () => {
+  await cur.value?.refreshAsync()
+  uni.stopPullDownRefresh()
+})
+
+onReachBottom(() => {
+  cur.value?.loadMoreAsync()
+})
+const addNew = () => {
+  cur.value?.handleAdd()
+}
+
+const performSearch = () => {
+  uni.navigateTo({
+    url: `/pages/search/index?activeTab=${activeTab.value}`,
+  })
+}
+
+const onTabsClick = (item: any) => {
+  giftOutPageRef.value?.handleSearch({
+    icon: item.value,
+  })
+}
 </script>
 
 <template>
