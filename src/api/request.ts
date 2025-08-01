@@ -48,14 +48,14 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
 
 function resolveApiEndpoint() {
   const base = `${import.meta.env.VITE_SERVICE_URL}/api`
-  let env: string
+  let env: string = import.meta.env.MODE
+
+  if (env === 'development' || env === 'mock') {
+    return base
+  }
 
   // #ifdef MP-WEIXIN
-  env = uni.getAccountInfoSync().miniProgram.envVersion === 'release' ? 'release' : ''
-  // #endif
-
-  // #ifdef H5
-  env = import.meta.env.MODE === 'production' ? 'release' : ''
+  uni.getAccountInfoSync().miniProgram.envVersion === 'release' && (env = 'release')
   // #endif
 
   return `${base}/${env}`
