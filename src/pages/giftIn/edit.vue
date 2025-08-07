@@ -48,11 +48,11 @@ const onSelectFriend = () => {
   <div class="mx-3">
     <div class="rounded-2xl bg-white p-2 py-5">
       <wd-form ref="formRef" :model="dataSource">
-        <wd-input v-model="dataSource.friendName" label="亲友" prop="friendName" placeholder="点击右侧图标选择亲友"
+        <wd-input v-show="!dataSource.id" v-model="dataSource.friendName" label="亲友" prop="friendName" placeholder="点击右侧图标选择亲友"
                   :rules="[{ required: true, message: '请输入亲友姓名' }]"
         >
           <template #suffix>
-            <div v-show="!dataSource.id" class="i-hugeicons-contact-01 text-base text-gray" @click="onSelectFriend" />
+            <div class="i-hugeicons-contact-01 text-base text-gray" @click="onSelectFriend" />
           </template>
         </wd-input>
         <wd-input v-model="dataSource.money" label="礼金" prop="money" placeholder="随礼金额" type="number"
