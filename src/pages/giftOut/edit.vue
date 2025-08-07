@@ -108,11 +108,12 @@ const openCalendar = () => {
             <div class="i-hugeicons-calendar-01 text-base text-gray" />
           </template>
         </wd-input>
-        <wd-input v-model="dataSource.friendName" label="亲友" prop="friendName" placeholder="点击右侧图标选择亲友"
+        <wd-input v-show="!dataSource.id" v-model="dataSource.friendName" label="亲友" prop="friendName" placeholder="点击右侧图标选择亲友"
+
                   :rules="[{ required: true, message: '请输入亲友姓名' }]"
         >
           <template #suffix>
-            <div v-show="!dataSource.id" class="i-hugeicons-contact-01 text-base text-gray" @click="onSelectFriend" />
+            <div class="i-hugeicons-contact-01 text-base text-gray" @click="onSelectFriend" />
           </template>
         </wd-input>
         <wd-input v-model="dataSource.title" label="事由" prop="title" placeholder="随礼事由"

@@ -110,18 +110,6 @@ declare namespace Api {
      */
     id: string
     /**
-     * 创建时间
-     * @type {string}
-     * @memberof User
-     */
-    createTime?: string
-    /**
-     * 更新时间
-     * @type {string}
-     * @memberof User
-     */
-    updateTime?: string | null
-    /**
      * OpenId
      * @type {string}
      * @memberof User
@@ -152,11 +140,35 @@ declare namespace Api {
      */
     phone?: string
     /**
+     * email
+     * @type {string}
+     * @memberof User
+     */
+    email?: string
+    /**
+     * password
+     * @type {string}
+     * @memberof User
+     */
+    password?: string
+    /**
      * 账号类型
      * @type {boolean}
      * @memberof User
      */
     accountType?: int
+    /**
+     * 创建时间
+     * @type {string}
+     * @memberof User
+     */
+    createTime?: string
+    /**
+     * 更新时间
+     * @type {string}
+     * @memberof User
+     */
+    updateTime?: string | null
   }
   interface UserFamily {
     /**
