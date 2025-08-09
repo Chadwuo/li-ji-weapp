@@ -1,13 +1,17 @@
-<script setup>
+<script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useMessage, useToast } from 'wot-design-uni'
 
 const message = useMessage()
 const toast = useToast()
 const { userFamilys } = storeToRefs(useAuthStore())
-const inviteData = ref({})
+const inviteData = ref({
+  familyId: '',
+  avatarUrl: '',
+  word: '',
+})
 
-onLoad((options) => {
+onLoad((options: any) => {
   inviteData.value = options
 })
 const onAgree = async () => {
@@ -15,7 +19,7 @@ const onAgree = async () => {
     message.alert({
       msg: '你当前已属于一个家庭账户，无法直接加入新的家庭。若要接受新邀请，请先退出当前家庭。',
       title: '提示',
-      confirmText: '我的家庭',
+      confirmButtonText: '我的家庭',
     }).then(() => {
       uni.navigateTo({
         url: '/pages/family/index',

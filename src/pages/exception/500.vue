@@ -17,7 +17,7 @@ const onRetry = () => {
 const error = ref('')
 onLoad((option) => {
   if (option?.error) {
-    error.value = option.error
+    error.value = decodeURIComponent(option.error)
   }
 })
 </script>

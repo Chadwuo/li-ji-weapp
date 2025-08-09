@@ -48,17 +48,18 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
 
 function resolveApiEndpoint() {
   const base = `${import.meta.env.VITE_SERVICE_URL}/api`
-  let env: string = import.meta.env.MODE
-
-  if (env === 'development' || env === 'mock') {
-    return base
-  }
 
   // #ifdef MP-WEIXIN
-  uni.getAccountInfoSync().miniProgram.envVersion === 'release' && (env = 'release')
+  if (uni.getAccountInfoSync().miniProgram.envVersion === 'release') {
+    return `${base}/release`
+  }
   // #endif
-
-  return `${base}/${env}`
+  // #ifdef H5
+  if (import.meta.env.MODE === 'production') {
+    return `${base}/release`
+  }
+  // #endif
+  return base
 }
 
 const request = createAlova({
