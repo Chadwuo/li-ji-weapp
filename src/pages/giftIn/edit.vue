@@ -48,7 +48,7 @@ const onSelectFriend = () => {
   <div class="mx-3">
     <div class="rounded-2xl bg-white p-2 py-5">
       <wd-form ref="formRef" :model="dataSource">
-        <wd-input v-show="!dataSource.friendId" v-model="dataSource.friendName" label="亲友" prop="friendName" placeholder="点击右侧图标选择亲友"
+        <wd-input v-if="!dataSource.id" v-model="dataSource.friendName" label="亲友" prop="friendName" placeholder="点击右侧图标选择亲友"
                   :rules="[{ required: true, message: '请输入亲友姓名' }]"
         >
           <template #suffix>
