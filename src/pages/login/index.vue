@@ -1,13 +1,28 @@
 <script setup lang="ts">
+import { useCaptcha } from 'alova/client'
+
 const loading = ref(false)
-const authLoginInput = ref({
+const loginEmailInput = ref({
   email: '',
   password: '',
 })
+const signupEmailInput = ref({
+  email: '',
+  password: '',
+  code: '',
+})
+const tab = ref('login')
+
+const {
+  loading: sending,
+  countdown,
+  send: sendCaptcha,
+} = useCaptcha(() => apiSysEmailSendVerifyEmailPost({ email: signupEmailInput.value.email }))
+
 const onLogin = async () => {
   try {
     loading.value = true
-    await apiAuthLoginPost(authLoginInput.value)
+    await apiAuthLoginEmailPost(loginEmailInput.value)
     const authStore = useAuthStore()
     authStore.userInfo = await apiAuthUserInfoGet()
     authStore.userFamilys = await apiUserFamilyListGet()
@@ -21,13 +36,43 @@ const onLogin = async () => {
       url: '/pages/index/index',
     })
   }
-  catch (error) {
-    const errorMessage = error instanceof Error ? error.message : JSON.stringify(error) || '未知错误'
-    uni.reLaunch({ url: `/pages/exception/500?error=${encodeURIComponent(errorMessage)}` })
+  finally {
+    loading.value = false
+  }
+}
+
+const onSignup = async () => {
+  try {
+    loading.value = true
+    await apiAuthSignupEmailPost(signupEmailInput.value)
+    loginEmailInput.value.email = signupEmailInput.value.email
+    loginEmailInput.value.password = signupEmailInput.value.password
+    onLogin()
   }
   finally {
     loading.value = false
   }
+}
+
+const sendVerifyEmail = async () => {
+  if (!signupEmailInput.value.email) {
+    uni.showToast({
+      title: '请输入邮箱',
+      icon: 'none',
+    })
+    return
+  }
+  // 判断邮箱格式
+  const emailRegex = /^[\w.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i
+  if (!emailRegex.test(signupEmailInput.value.email)) {
+    uni.showToast({
+      title: '请输入正确的邮箱格式',
+      icon: 'none',
+    })
+    return
+  }
+
+  sendCaptcha()
 }
 </script>
 
@@ -65,27 +110,17 @@ const onLogin = async () => {
       </div>
 
       <!-- 登录表单 -->
-      <div class="space-y-4">
+      <div v-if="tab === 'login'" class="space-y-4">
         <!-- 邮箱/用户名 -->
         <div>
           <label class="mb-2 block pl-2 text-sm text-[#475569] font-medium">邮箱</label>
           <div class="group flex items-center">
-            <i class="i-hugeicons-user absolute left-12 text-lg text-[#94a3b8] transition-all duration-300 group-focus-within:text-[#f87171]" />
-            <input type="text" placeholder="邮箱账号" class="border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 focus:border-[#f87171]/50 focus:bg-white/90 focus:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] focus:outline-none">
-          </div>
-        </div>
-
-        <!-- 验证码 -->
-        <div>
-          <label class="mb-2 block pl-2 text-sm text-[#475569] font-medium">验证码</label>
-          <div class="group flex items-center">
-            <i class="i-hugeicons-circle-password absolute left-12 text-lg text-[#94a3b8] transition-all duration-300 group-focus-within:text-[#f87171]" />
-            <input type="text" placeholder="验证码" class="border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 focus:border-[#f87171]/50 focus:bg-white/90 focus:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] focus:outline-none">
-            <div class="ml-3">
-              <wd-button type="primary">
-                获取验证码
-              </wd-button>
-            </div>
+            <i
+              class="i-hugeicons-user absolute left-12 text-lg text-[#94a3b8] transition-all duration-300 group-focus-within:text-[#f87171]"
+            />
+            <input v-model="loginEmailInput.email" type="text" placeholder="邮箱账号"
+                   class="w-full border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 group-focus-within:border-[#f87171]/50 focus:bg-white/90 group-focus-within:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] group-focus-within:outline-none"
+            >
           </div>
         </div>
 
@@ -93,8 +128,12 @@ const onLogin = async () => {
         <div>
           <label class="mb-2 block pl-2 text-sm text-[#475569] font-medium">密码</label>
           <div class="group flex items-center">
-            <i class="i-hugeicons-circle-password absolute left-12 text-lg text-[#94a3b8] transition-all duration-300 group-focus-within:text-[#f87171]" />
-            <input id="password" password placeholder="登录密码" class="border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 focus:border-[#f87171]/50 focus:bg-white/90 focus:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] focus:outline-none">
+            <i
+              class="i-hugeicons-circle-password absolute left-12 text-lg text-[#94a3b8] transition-all duration-300 group-focus-within:text-[#f87171]"
+            />
+            <input v-model="loginEmailInput.password" password placeholder="登录密码"
+                   class="w-full border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 group-focus-within:border-[#f87171]/50 group-focus-within:bg-white/90 group-focus-within:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] group-focus-within:outline-none"
+            >
           </div>
         </div>
 
@@ -106,11 +145,68 @@ const onLogin = async () => {
         </div>
       </div>
 
+      <!-- 注册表单 -->
+      <div v-if="tab === 'signup'" class="space-y-4">
+        <!-- 邮箱/用户名 -->
+        <div>
+          <label class="mb-2 block pl-2 text-sm text-[#475569] font-medium">邮箱</label>
+          <div class="group flex items-center">
+            <i
+              class="i-hugeicons-user absolute left-12 text-lg text-[#94a3b8] transition-all duration-300 group-focus-within:text-[#f87171]"
+            />
+            <input v-model="signupEmailInput.email" type="text" placeholder="邮箱账号"
+                   class="w-full border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 group-focus-within:border-[#f87171]/50 focus:bg-white/90 group-focus-within:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] group-focus-within:outline-none"
+            >
+          </div>
+        </div>
+
+        <!-- 验证码 -->
+        <div>
+          <label class="mb-2 block pl-2 text-sm text-[#475569] font-medium">验证码</label>
+          <div class="group flex items-center">
+            <i
+              class="i-hugeicons-sms-code absolute left-12 text-lg text-[#94a3b8] transition-all duration-300 group-focus-within:text-[#f87171]"
+            />
+            <input v-model="signupEmailInput.code" type="number" placeholder="验证码" :maxlength="6"
+                   class="mr-3 w-full border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 group-focus-within:border-[#f87171]/50 group-focus-within:bg-white/90 group-focus-within:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] group-focus-within:outline-none"
+            >
+            <wd-button type="primary" size="large" :loading="sending" :disabled="sending || countdown > 0" @click="sendVerifyEmail">
+              {{ loading ? '发送中...' : countdown > 0 ? `${countdown}后可重发` : '发送验证码' }}
+            </wd-button>
+          </div>
+        </div>
+
+        <!-- 密码 -->
+        <div>
+          <label class="mb-2 block pl-2 text-sm text-[#475569] font-medium">密码</label>
+          <div class="group flex items-center">
+            <i
+              class="i-hugeicons-circle-password absolute left-12 text-lg text-[#94a3b8] transition-all duration-300 group-focus-within:text-[#f87171]"
+            />
+            <input v-model="signupEmailInput.password" password placeholder="登录密码"
+                   class="w-full border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 group-focus-within:border-[#f87171]/50 group-focus-within:bg-white/90 group-focus-within:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] group-focus-within:outline-none"
+            >
+          </div>
+        </div>
+
+        <!-- 登录按钮 -->
+        <div class="pt-2">
+          <wd-button block size="large" :loading="loading" @click="onSignup">
+            注 册
+          </wd-button>
+        </div>
+      </div>
+
       <!-- 分割线 -->
-      <div class="my-8 flex items-center text-sm text-[#64748b]">
+      <div class="mt-8 flex items-center text-sm text-[#64748b]">
         <div class="h-px flex-1 from-transparent via-[#e2e8f0] to-transparent bg-gradient-to-r" />
         <!-- <span class="px-4">或使用其他方式登录</span> -->
-        <span class="px-4">没有账号？<span class="cursor-pointer text-[#f87171] underline">去注册</span></span>
+        <span v-if="tab === 'login'" class="px-4">没有账号？<span class="cursor-pointer text-[#f87171] underline"
+                                                             @click="tab = 'signup'"
+        >去注册</span></span>
+        <span v-else class="px-4">已有账号？<span class="cursor-pointer text-[#f87171] underline"
+                                             @click="tab = 'login'"
+        >去登录</span></span>
         <div class="h-px flex-1 from-transparent via-[#e2e8f0] to-transparent bg-gradient-to-r" />
       </div>
 
@@ -170,21 +266,6 @@ const onLogin = async () => {
 
 .animation-delay-6000 {
   animation-delay: 6s;
-}
-
-/* 自定义模糊效果 */
-.filter-blur-70 {
-  filter: blur(70px);
-}
-
-.backdrop-blur-20 {
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-.backdrop-blur-5 {
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
 }
 </style>
 
