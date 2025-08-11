@@ -39,7 +39,7 @@ const vipLevel = computed(() => {
 
 onLoad(() => {
   if (!isVip.value) {
-    uni.navigateTo({
+    uni.redirectTo({
       url: '/pages/subscription/plan',
     })
   }

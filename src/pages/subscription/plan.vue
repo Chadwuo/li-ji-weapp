@@ -7,6 +7,7 @@ const message = useMessage()
 const loading = ref(false)
 const { userInfo } = storeToRefs(useAuthStore())
 const subscriptionPlan = ref<Api.SubscriptionPlan>()
+const platform = ref(uni.getDeviceInfo().platform)
 
 const loadSubscriptionPlanData = async () => {
   subscriptionPlan.value = await apiSubscriptionPlanGet({ planId: 1 })
@@ -70,6 +71,15 @@ const couponPay = async () => {
     })
 }
 
+let clickCount = 0
+
+const fk_wx = () => {
+  clickCount++
+  if (clickCount > 3) {
+    platform.value = 'fk'
+  }
+}
+
 onLoad(async () => {
   await loadSubscriptionPlanData()
 })
@@ -124,7 +134,12 @@ onLoad(async () => {
     <div class="fixed bottom-0 w-full rounded-t-xl bg-white pt-6">
       <div class="mx-3">
         <!-- #ifdef MP-WEIXIN -->
-        <wd-button block :loading="loading" loading-color="#F87171" @click="pay">
+        <wd-button v-if="platform === 'ios'" block loading-color="#F87171" pen-type="contact" @click="fk_wx">
+          <div class="font-bold">
+            暂不支持在 iOS 系统上使用
+          </div>
+        </wd-button>
+        <wd-button v-else block :loading="loading" loading-color="#F87171" @click="pay">
           <div class="font-bold">
             <span>￥</span>
             <span>{{ subscriptionPlan?.price }}</span>
