@@ -73,10 +73,10 @@ const couponPay = async () => {
 
 let clickCount = 0
 
-const fk_wx = () => {
+const fk_apple = () => {
   clickCount++
   if (clickCount > 3) {
-    platform.value = 'fk'
+    // platform.value = 'fk_apple'
   }
 }
 
@@ -134,7 +134,7 @@ onLoad(async () => {
     <div class="fixed bottom-0 w-full rounded-t-xl bg-white pt-6">
       <div class="mx-3">
         <!-- #ifdef MP-WEIXIN -->
-        <wd-button v-if="platform === 'ios'" block loading-color="#F87171" pen-type="contact" @click="fk_wx">
+        <wd-button v-if="platform === 'ios'" block loading-color="#F87171" pen-type="contact" @click="fk_apple">
           <div class="font-bold">
             暂不支持在 iOS 系统上使用
           </div>
