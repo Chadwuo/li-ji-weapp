@@ -46,20 +46,31 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
   },
 })
 
+const API_ENV_MAP = {
+  // 微信小程序环境映射
+  MP: {
+    release: 'release', // 正式环境
+    trial: 'trial', // 体验版
+    develop: '', // 开发版（空表示不加后缀）
+  },
+  // H5 环境映射
+  H5: {
+    production: 'release', // 生产环境
+    development: '', // 开发环境
+  },
+}
+
 function resolveApiEndpoint() {
   const base = `${import.meta.env.VITE_SERVICE_URL}/api`
-
+  let envSuffix = ''
   // #ifdef MP-WEIXIN
-  if (uni.getAccountInfoSync().miniProgram.envVersion === 'release') {
-    return `${base}/release`
-  }
+  envSuffix = API_ENV_MAP.MP[uni.getAccountInfoSync().miniProgram.envVersion]
   // #endif
+
   // #ifdef H5
-  if (import.meta.env.MODE === 'production') {
-    return `${base}/release`
-  }
+  envSuffix = API_ENV_MAP.H5[import.meta.env.MODE as keyof typeof API_ENV_MAP.H5]
   // #endif
-  return base
+  return envSuffix ? `${base}/${envSuffix}` : base
 }
 
 const request = createAlova({
