@@ -1,5 +1,5 @@
 name: 我想要个新功能
-about: 创建一个 Issue 描述一下你的功能需求
+description: 创建一个 Issue 描述一下你的功能需求
 labels: ['feature: need confirm']
 title: '[新功能需求] 请在此填写标题'
 body:

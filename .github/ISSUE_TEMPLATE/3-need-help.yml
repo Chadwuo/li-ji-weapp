@@ -1,5 +1,5 @@
 name: 需要帮助
-about: 创建一个 Issue 来寻求使用帮助
+description: 创建一个 Issue 来寻求使用帮助
 labels: [question]
 title: '[需要帮助] 请在此填写标题'
 body:
