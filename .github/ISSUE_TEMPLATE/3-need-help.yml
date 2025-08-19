@@ -1,0 +1,17 @@
+name: 需要帮助
+about: 创建一个 Issue 来寻求使用帮助
+labels: [question]
+title: '[需要帮助] 请在此填写标题'
+body:
+  - type: markdown
+    attributes:
+      value: |
+        在提交问题求助前，请注意：
+        - 尝试在 [Issue](https://github.com/Chadwuo/li-ji-weapp/issues)列表中搜索，并且没有发现同样的问题。
+        - 可以先到 [Discussions 讨论区](https://github.com/Chadwuo/li-ji-weapp/discussions) 发帖，可能会有其他开发者帮助你。
+
+  - type: textarea
+    id: description
+    attributes:
+      label: ❓ 你的问题是什么？
+      description: 请尽可能详细地描述你遇到的问题。
