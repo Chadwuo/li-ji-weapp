@@ -1,6 +1,6 @@
 name: 让我逮到 Bug 了！
 description: 创建一个 Issue 描述你遇到的问题
-labels: ['bug: need confirm']
+labels: [bug：需要确认]
 title: '[Bug 上报] 请在此填写标题'
 body:
   - type: markdown
