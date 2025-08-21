@@ -2,10 +2,10 @@
 import { useMessage } from 'wot-design-uni'
 
 const message = useMessage()
-const dataSource = ref<Api.GiftOut>({})
+const dataSource = ref<Api.BookItem>({})
 
 const loadData = async () => {
-  dataSource.value = await apiGiftOutGet({ id: dataSource.value.id })
+  dataSource.value = await apiGiftInGet({ id: dataSource.value.id })
 }
 
 onLoad((option) => {
@@ -20,7 +20,7 @@ onShow(async () => {
 
 const onEdit = () => {
   uni.navigateTo({
-    url: `/pages/giftOut/edit?id=${dataSource.value.id}`,
+    url: `/pages/bookItem/edit?id=${dataSource.value.id}`,
   })
 }
 
@@ -29,7 +29,7 @@ const onDel = () => {
     msg: '此操作无法恢复，确定删除？',
     title: '删除来往记录',
   }).then(async () => {
-    await apiGiftOutDelete({ id: dataSource.value.id })
+    await apiGiftInDelete({ id: dataSource.value.id })
     uni.showToast({
       title: '删除成功',
       icon: 'success',
@@ -50,22 +50,14 @@ const navigateToFriendDetailPage = () => {
 <template>
   <div class="mx-3">
     <div class="rounded-2xl bg-white p-5">
-      <div class="flex flex-col items-center space-y-3">
-        <div class="h-12 w-12 flex flex-shrink-0 rounded-full" :class="[
-          dataSource.icon === 'i-tabler-candle'
-            ? 'bg-gray-100 text-gray'
-            : 'bg-red-50 text-red',
-        ]"
-        >
-          <div class="m-auto h-8 w-8" :class="dataSource.icon" />
-        </div>
-        <div class="text-xl">
+      <div class="space-y-3">
+        <div class="text-center text-xl">
           {{ dataSource.friendName }}
         </div>
-        <div class="text-3xl text-teal">
-          -{{ dataSource.money }}
+        <div class="text-center text-3xl text-red">
+          +{{ dataSource.money }}
         </div>
-        <div>
+        <div class="text-center">
           {{ dataSource.title }}
         </div>
       </div>
@@ -81,6 +73,12 @@ const navigateToFriendDetailPage = () => {
             农历
           </div>
           <div>{{ dataSource.lunarDate }}</div>
+        </div>
+        <div class="flex">
+          <div class="w-18 text-gray">
+            出席
+          </div>
+          <div>{{ dataSource.attendance }}</div>
         </div>
         <div class="flex">
           <div class="w-18 text-gray">
@@ -131,8 +129,8 @@ const navigateToFriendDetailPage = () => {
 
 <route lang="json">
 {
-  "style": {
-    "navigationBarTitleText": "送礼记录"
-  }
+    "style": {
+        "navigationBarTitleText": "收礼记录"
+    }
 }
 </route>

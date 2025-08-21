@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const calendarRef = ref<any>(null)
-const dataSource = ref<Api.GiftBook>({})
+const dataSource = ref<Api.Book>({})
 const formRef = ref()
 const loading = ref(false)
 

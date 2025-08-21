@@ -13,7 +13,7 @@ import { giftCategory } from '@/constants/app'
 // '其他': 'i-mingcute-wallet-2-line',
 const columns = Object.entries(giftCategory)
   .map(([name, icon]) => ({ name, icon }))
-const dataSource = ref<Api.GiftOut>({})
+const dataSource = ref<Api.Gift>({})
 
 const calendarRef = ref<any>(null)
 const loading = ref(false)
@@ -24,7 +24,7 @@ onLoad(async (option) => {
     uni.setNavigationBarTitle({
       title: '编辑',
     })
-    dataSource.value = await apiGiftOutGet({ id: option.id })
+    dataSource.value = await apiGiftGet({ id: option.id })
   }
 })
 
@@ -46,7 +46,7 @@ const onSubmit = async () => {
   if (!valid)
     return
   loading.value = true
-  const api = dataSource.value.id ? apiGiftOutPut : apiGiftOutPost
+  const api = dataSource.value.id ? apiGiftPut : apiGiftPost
   await api(dataSource.value)
   uni.navigateBack()
   uni.showToast({

@@ -85,10 +85,6 @@ declare namespace Api {
     order?: 'asc' | 'desc'
   }
 
-  type LoadMoreDataType<T = any> = Omit<PaginationResult<T>, 'items'> & {
-    list: Array<T>
-  }
-
   interface LoginToken {
     /**
      * 令牌Token
@@ -114,7 +110,7 @@ declare namespace Api {
      * @type {string}
      * @memberof User
      */
-    openId: string
+    openId?: string
     /**
      * UnionId
      * @type {string}
@@ -170,6 +166,7 @@ declare namespace Api {
      */
     updateTime?: string | null
   }
+
   interface UserFamily {
     /**
      * 用户Id
@@ -255,7 +252,7 @@ declare namespace Api {
     userId?: string
   }
 
-  interface GiftBook {
+  interface Book {
     /**
      * ID
      * @type {string}
@@ -295,7 +292,7 @@ declare namespace Api {
      * 人情份数
      * @type {number}
      */
-    giftCount?: number
+    count?: number
     /**
      * 总计
      * @type {number}
@@ -363,166 +360,164 @@ declare namespace Api {
     name?: string | null
   }
 
-  interface GiftIn {
+  interface BookItem {
     /**
      * 雪花Id
      * @type {string}
-     * @memberof GiftIn
+     * @memberof BookItem
      */
     id?: string
     /**
      * 创建时间
      * @type {string}
-     * @memberof GiftIn
+     * @memberof BookItem
      */
     createTime?: string
     /**
      * 更新时间
      * @type {string}
-     * @memberof GiftIn
+     * @memberof BookItem
      */
     updateTime?: string | null
     /**
      * 金额
      * @type {number}
-     * @memberof GiftIn
+     * @memberof BookItem
      */
     money?: number
     /**
      * 出席人数
      * @type {number}
-     * @memberof GiftIn
+     * @memberof BookItem
      */
     attendance?: number
     /**
      * 备注
      * @type {string}
-     * @memberof GiftIn
+     * @memberof BookItem
      */
     remarks?: string | null
     /**
      * 礼簿Id
      * @type {string}
-     * @memberof GiftIn
+     * @memberof BookItem
      */
-    giftBookId?: string
+    bookId?: string
     /**
      *
      * @type {string}
-     * @memberof GiftIn
+     * @memberof BookItem
      */
     title?: string | null
     /**
      * 日期
      * @type {string}
-     * @memberof GiftOut
+     * @memberof BookItem
      */
     date?: string
     /**
      * 农历
      * @type {string}
-     * @memberof GiftIn
+     * @memberof BookItem
      */
     lunarDate?: string | null
     /**
      * 亲友Id
      * @type {string}
-     * @memberof GiftIn
+     * @memberof BookItem
      */
     friendId?: string
     /**
      *
      * @type {string}
-     * @memberof GiftIn
+     * @memberof BookItem
      */
     friendName?: string | null
   }
 
-  interface GiftOut {
+  interface Gift {
     /**
      * 雪花Id
      * @type {string}
-     * @memberof GiftOut
+     * @memberof Gift
      */
     id?: string
     /**
      * 创建时间
      * @type {string}
-     * @memberof GiftOut
+     * @memberof Gift
      */
     createTime?: string
     /**
      * 更新时间
      * @type {string}
-     * @memberof GiftOut
+     * @memberof Gift
      */
     updateTime?: string | null
     /**
+     * 类型
+     * @type {boolean}
+     * @memberof Gift
+     */
+    type?: int
+    /**
      * 主题
      * @type {string}
-     * @memberof GiftOut
+     * @memberof Gift
      */
     title?: string
     /**
      * 金额
      * @type {number}
-     * @memberof GiftOut
+     * @memberof Gift
      */
     money?: number
     /**
      * Icon
      * @type {string}
-     * @memberof GiftOut
+     * @memberof Gift
      */
     icon?: string | null
     /**
      * 备注
      * @type {string}
-     * @memberof GiftOut
+     * @memberof Gift
      */
     remarks?: string | null
     /**
      * 日期
      * @type {string}
-     * @memberof GiftOut
+     * @memberof Gift
      */
     date?: string
     /**
      * 农历
      * @type {string}
-     * @memberof GiftOut
+     * @memberof Gift
      */
     lunarDate?: string | null
     /**
      * 亲友Id
      * @type {string}
-     * @memberof GiftOut
+     * @memberof Gift
      */
     friendId?: string
     /**
      *
      * @type {string}
-     * @memberof GiftOut
+     * @memberof Gift
      */
     friendName?: string | null
   }
 
   interface FriendGifts {
-    giftInList?: GiftIn[]
-    giftOutList?: GiftOut[]
-  }
-
-  interface StatsOverall {
-
-    inCount: number
-    outCount: number
-    inTotal: number
-    outTotal: number
+    bookItems: BookItem[]
+    gfts: Gift[]
   }
 
   interface StatsDashboard {
-    giftInList?: GiftIn[]
-    giftOutList?: GiftOut[]
+    bookItems: BookItem[]
+    gifts: Gift[]
   }
 
   interface WechatPayTransactionOutput {

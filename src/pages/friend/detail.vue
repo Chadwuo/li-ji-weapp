@@ -100,7 +100,7 @@ onShow(async () => {
   loading.value = false
 })
 
-const onGiftClick = (e: Api.GiftIn | Api.GiftOut) => {
+const onGiftClick = (e: Api.BookItem | Api.Gift) => {
   if ('giftBookId' in e && e.giftBookId) {
     uni.navigateTo({
       url: `/pages/giftIn/detail?id=${e.id}`,

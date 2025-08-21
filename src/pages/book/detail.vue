@@ -13,14 +13,14 @@ const search = ref({
 const searchKeyword = ref('')
 const message = useMessage()
 const popupShow = ref(false)
-const book = ref<Api.GiftBook>({})
+const book = ref<Api.Book>({})
 const sortList = ref([
   { label: '默认', field: 'id', value: 1 },
   { label: '姓名', field: 'friendName', value: 0 },
   { label: '金额', field: 'money', value: 0 },
 ])
 
-const { loading, page, data: dataList, isLastPage, reload } = usePagination((page, pageSize) => apiGiftInPageGet({ giftBookId: book.value.id, page, pageSize, keyword: searchKeyword.value, ...search.value }), {
+const { loading, page, data: dataList, isLastPage, reload } = usePagination((page, pageSize) => apiBookItemPageGet({ bookId: book.value.id, page, pageSize, keyword: searchKeyword.value, ...search.value }), {
   data: response => response.items || [],
   total: response => response.total || 0,
   append: true,
@@ -39,7 +39,7 @@ const netAmount = computed(() => {
 })
 
 const loadData = async () => {
-  book.value = await apiGiftBookGet({ id: book.value.id })
+  book.value = await apiBookGet({ id: book.value.id })
 }
 const handlePlayVideoAd = () => {
   if (videoAd) {
@@ -63,7 +63,7 @@ const handleBookExport = async () => {
     title: '正在导出数据...',
     mask: true,
   })
-  const { tempFilePath } = await apiGiftBookExportGet(book.value.id)
+  const { tempFilePath } = await apiBookExportGet(book.value.id)
   uni.openDocument({
     filePath: tempFilePath,
     showMenu: true,
@@ -128,14 +128,14 @@ const onSortChange = (sort: any) => {
 const onGiftClick = (gid?: string) => {
   if (gid) {
     uni.navigateTo({
-      url: `/pages/giftIn/detail?id=${gid}`,
+      url: `/pages/bookItem/detail?id=${gid}`,
     })
   }
 }
 
 const onGiftAdd = () => {
   uni.navigateTo({
-    url: `/pages/giftIn/edit?bookId=${book.value.id}`,
+    url: `/pages/bookItem/edit?bookId=${book.value.id}`,
   })
 }
 
@@ -174,7 +174,7 @@ const onBookDel = () => {
     msg: '该礼簿所有人情往来记录都将被删除，确定删除？',
     title: '删除礼簿',
   }).then(async () => {
-    await apiGiftBookDelete({ id: book.value.id })
+    await apiBookDelete({ id: book.value.id })
     uni.showToast({
       title: '删除成功',
       icon: 'success',
@@ -249,7 +249,7 @@ function onMenuClick(e: any) {
       <div class="grid grid-cols-4 gap-5 divide-x">
         <div class="text-center">
           <div class="text-lg text-black font-bold">
-            {{ book.giftCount }}
+            {{ book.count }}
           </div>
           <div class="flex items-center justify-center text-xs text-gray space-x-1">
             <div class="i-hugeicons-home-12" />

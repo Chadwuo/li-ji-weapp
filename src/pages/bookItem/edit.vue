@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const loading = ref(false)
-const dataSource = ref<Api.GiftIn>({})
+const dataSource = ref<Api.BookItem>({})
 const formRef = ref()
 
 onLoad(async (option) => {
@@ -11,7 +11,7 @@ onLoad(async (option) => {
     dataSource.value = await apiGiftInGet({ id: option.id })
   }
   else {
-    dataSource.value.giftBookId = option?.bookId
+    dataSource.value.bookId = option?.bookId
   }
 })
 

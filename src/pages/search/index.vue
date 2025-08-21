@@ -2,7 +2,7 @@
 import { useDebounceFn } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import FriendList from '@/pages/friend/components/FriendList.vue'
-import GiftOutPage from '@/pages/index/components/GiftOutPage.vue'
+import GiftOutPage from '@/pages/index/components/GiftPage.vue'
 import GiftInList from '@/pages/search/components/GiftInList.vue'
 
 const { searchHistory } = storeToRefs(useAppStore())
