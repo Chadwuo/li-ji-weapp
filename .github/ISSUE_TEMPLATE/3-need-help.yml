@@ -1,6 +1,6 @@
 name: 需要帮助
 description: 创建一个 Issue 来寻求使用帮助
-labels: [question]
+labels: [提问 & 建议 📢]
 title: '[需要帮助] 请在此填写标题'
 body:
   - type: markdown
