@@ -18,3 +18,9 @@ export function apiUserAvatarPut(data: any) {
     name: 'user-avatar-put',
   })
 }
+
+export function apiUserDelete() {
+  return request.Delete<boolean>('user', {
+    name: 'user-delete',
+  })
+}

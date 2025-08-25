@@ -9,8 +9,8 @@ const { isVip } = storeToRefs(useAuthStore())
 const search = ref({
   field: 'id',
   order: 'asc',
+  keyword: '',
 })
-const searchKeyword = ref('')
 const message = useMessage()
 const popupShow = ref(false)
 const book = ref<Api.Book>({})
@@ -20,13 +20,13 @@ const sortList = ref([
   { label: '金额', field: 'money', value: 0 },
 ])
 
-const { loading, page, data: dataList, isLastPage, reload } = usePagination((page, pageSize) => apiBookItemPageGet({ bookId: book.value.id, page, pageSize, keyword: searchKeyword.value, ...search.value }), {
+const { loading, page, data: dataList, isLastPage, reload } = usePagination((page, pageSize) => apiBookItemPageGet({ bookId: book.value.id, page, pageSize, ...search.value }), {
   data: response => response.items || [],
   total: response => response.total || 0,
   append: true,
   immediate: false,
-  watchingStates: [search, searchKeyword],
-  debounce: [0, 1000],
+  watchingStates: [search],
+  debounce: [300],
   preloadPreviousPage: false,
   preloadNextPage: false,
 })
@@ -288,7 +288,7 @@ function onMenuClick(e: any) {
 
     <div class="mt-3 rounded-2xl bg-white p-3 px-5">
       <div class="w-full flex items-center justify-between">
-        <wd-search v-model="searchKeyword" custom-class="!p-0 w-full" :maxlength="20" placeholder="请输入亲友姓名/关键词"
+        <wd-search v-model="search.keyword" custom-class="!p-0 w-full" :maxlength="20" placeholder="请输入亲友姓名/关键词"
                    hide-cancel placeholder-left
         />
         <div class="flex text-xl text-red">

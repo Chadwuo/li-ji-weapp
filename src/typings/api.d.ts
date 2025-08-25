@@ -606,4 +606,11 @@ declare namespace Api {
      */
     desc?: string | null
   }
+
+  interface SearchOutput {
+    books: Book[]
+    bookItems: BookItem[]
+    gfts: Gift[]
+    friends: Friend[]
+  }
 }

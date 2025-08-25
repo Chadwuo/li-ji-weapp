@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import { usePagination } from 'alova/client'
 
-const search = reactive({
-  keyword: '',
-  field: 'id',
-  order: 'asc',
-})
+const { keyword } = defineProps(['keyword'])
 
-const { loading, page, data: dataList, isLastPage, reload } = usePagination((page, pageSize) => apiGiftInPageGet({ page, pageSize, ...search }), {
+const { loading, page, data: dataList, isLastPage } = usePagination((page, pageSize) => apiBookItemPageGet({ page, pageSize, keyword: keyword.value }), {
   data: response => response.items || [],
   append: true,
   immediate: false,
-  watchingStates: [search],
+  watchingStates: [keyword],
+  debounce: [300],
   preloadPreviousPage: false,
   preloadNextPage: false,
 })
@@ -24,19 +21,11 @@ const onGiftClick = (gid?: string) => {
   }
 }
 
-const handleSearch = (input: any) => {
-  search.keyword = input.keyword || ''
-}
-
 defineExpose({
-  handleSearch,
   loadMoreAsync: async () => {
     if (loading.value || isLastPage.value)
       return
     page.value++
-  },
-  refreshAsync: async () => {
-    await reload()
   },
 })
 </script>
@@ -77,3 +66,11 @@ defineExpose({
     />
   </div>
 </template>
+
+<route lang="json">
+{
+  "style": {
+    "navigationBarTitleText": "Vue3"
+  }
+}
+</route>

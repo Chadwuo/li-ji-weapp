@@ -17,7 +17,6 @@ const { isVip } = storeToRefs(useAuthStore())
 
 const message = useMessage()
 const search = reactive({
-  keyword: '',
   icon: '',
 })
 
@@ -103,7 +102,7 @@ const onAdd = () => {
 }
 const onSearch = () => {
   uni.navigateTo({
-    url: `/pages/search/index?activeTab=1`,
+    url: `/pages/search/index`,
   })
 }
 
@@ -176,14 +175,13 @@ defineExpose({
         </div>
       </div>
       <div v-else class="my-24">
-        <uv-empty v-if="!search.keyword" text="还没有人情往来记录哦~" mode="favor">
+        <uv-empty text="还没有人情往来记录哦~" mode="favor">
           <div class="mt-6">
             <wd-button class="mt-6" type="primary" @click="onAdd()">
               添加送礼
             </wd-button>
           </div>
         </uv-empty>
-        <uv-empty v-else mode="search" />
       </div>
     </template>
     <div v-else class="m-2">

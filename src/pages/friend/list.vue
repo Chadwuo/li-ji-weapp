@@ -1,16 +1,30 @@
 <script setup lang="ts">
-import FriendList from './components/FriendList.vue'
-
-const friendsListRef = ref<InstanceType<typeof FriendList> | null>(null)
-
-onShow(() => {
-  nextTick(() => {
-    friendsListRef.value?.loadData()
-  })
+const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
+const search = reactive({
+  tag: '',
 })
+const loadData = async () => {
+  const data = await apiFriendListGet({
+    ...search,
+  })
+  // 根据首字母firstLetter进行分组
+  const map = new Map()
+  data?.forEach((item) => {
+    const key = item.firstLetter?.toUpperCase()
+    if (!map.has(key))
+      map.set(key, [])
 
-onPullDownRefresh(async () => {
-  friendsListRef.value?.loadData()
+    map.get(key).push(item)
+  })
+
+  const keys = Array.from(map.keys()).sort()
+  friendsList.value = keys.map(key => ({
+    index: key,
+    data: map.get(key),
+  }))
+}
+onShow(() => {
+  loadData()
 })
 
 const addNew = () => {
@@ -20,13 +34,18 @@ const addNew = () => {
 }
 const performSearch = () => {
   uni.navigateTo({
-    url: '/pages/search/index?activeTab=2',
+    url: '/pages/search/index',
   })
 }
 
 const onTabsClick = (item: any) => {
-  friendsListRef.value?.handleSearch({
-    tag: item.value,
+  search.tag = item.value
+  loadData()
+}
+
+const onFriendClick = (id?: string) => {
+  uni.navigateTo({
+    url: `/pages/friend/detail?id=${id}`,
   })
 }
 </script>
@@ -61,7 +80,23 @@ const onTabsClick = (item: any) => {
       }" item-style="height: 35px;" @click="onTabsClick"
       />
     </div>
-    <friend-List ref="friendsListRef" />
+    <div v-if="friendsList?.length === 0" class="my-24">
+      <uv-empty text="还没有亲友记录哦~" mode="favor">
+        <div class="mt-6">
+          <wd-button class="mt-6" type="primary" @click="addNew()">
+            添加亲友
+          </wd-button>
+        </div>
+      </uv-empty>
+    </div>
+    <wd-index-bar sticky>
+      <div v-for="item in friendsList" :key="item.index">
+        <wd-index-anchor :index="item.index" />
+        <wd-cell v-for="cell in item.data" :key="cell.id" clickable border :title="cell.name"
+                 @click="onFriendClick(cell.id)"
+        />
+      </div>
+    </wd-index-bar>
   </div>
 </template>
 
@@ -70,8 +105,7 @@ const onTabsClick = (item: any) => {
 <route lang="json">
 {
   "style": {
-    "navigationStyle": "custom",
-    "enablePullDownRefresh": true
+    "navigationStyle": "custom"
   }
 }
 </route>
