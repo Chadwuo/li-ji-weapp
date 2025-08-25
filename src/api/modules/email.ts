@@ -1,7 +1,7 @@
-export function apiSysEmailSendVerifyEmailPost(data: any) {
-  return request.Post('sys-email/send-verify-email', data)
+export function apiEmailSendVerifyEmailPost(data: any) {
+  return request.Post('email/send-verify-email', data)
 }
 
-export function apiSysEmailVerifyEmailPost(data: any) {
-  return request.Post('sys-email/verify-email', data)
+export function apiEmailVerifyEmailPost(data: any) {
+  return request.Post('email/verify-email-code', data)
 }

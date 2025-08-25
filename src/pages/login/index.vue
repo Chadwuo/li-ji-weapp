@@ -17,7 +17,7 @@ const {
   loading: sending,
   countdown,
   send: sendCaptcha,
-} = useCaptcha(() => apiSysEmailSendVerifyEmailPost({ email: signupEmailInput.value.email }))
+} = useCaptcha(() => apiEmailSendVerifyEmailPost({ email: signupEmailInput.value.email }))
 
 const onLogin = async () => {
   try {
