@@ -7,7 +7,9 @@ const { searchHistory } = storeToRefs(useAppStore())
 const keyword = ref<string>('')
 
 const { loading, data } = useWatcher(
-  () => apiSearchGet(),
+  () => apiSearchGet({
+    keyword: keyword.value,
+  }),
   [keyword],
   // {
   //   debounce: [300]
