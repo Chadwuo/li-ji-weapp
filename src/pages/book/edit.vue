@@ -9,7 +9,7 @@ onLoad(async (option) => {
     uni.setNavigationBarTitle({
       title: '更新礼簿',
     })
-    dataSource.value = await apiGiftBookGet({ id: option.id })
+    dataSource.value = await apiBookGet({ id: option.id })
   }
 })
 
@@ -19,7 +19,7 @@ const onSubmit = async () => {
     return
   loading.value = true
   if (dataSource.value.id) {
-    await apiGiftBookPut(dataSource.value)
+    await apiBookPut(dataSource.value)
     uni.navigateBack()
     uni.showToast({
       title: '保存成功',
@@ -27,7 +27,7 @@ const onSubmit = async () => {
     })
   }
   else {
-    const id = await apiGiftBookPost(dataSource.value)
+    const id = await apiBookPost(dataSource.value)
     uni.redirectTo({
       url: `/pages/book/detail?id=${id}`,
     })

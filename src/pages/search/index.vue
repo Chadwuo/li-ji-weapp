@@ -34,10 +34,24 @@ const onClear = () => {
   searchHistory.value = []
 }
 
-const onFriendClick = (id?: string) => {
-  uni.navigateTo({
-    url: `/pages/friend/detail?id=${id}`,
-  })
+const onItemClick = (id?: string, type?: string) => {
+  switch (type) {
+    case 'friend':
+      uni.navigateTo({
+        url: `/pages/friend/detail?id=${id}`,
+      })
+      break
+    case 'book-item':
+      uni.navigateTo({
+        url: `/pages/book-item/detail?id=${id}`,
+      })
+      break
+    case 'gift':
+      uni.navigateTo({
+        url: `/pages/gift/detail?id=${id}`,
+      })
+      break
+  }
 }
 </script>
 
@@ -49,53 +63,73 @@ const onFriendClick = (id?: string) => {
       />
     </div>
 
-    <div class="mx-3 mt-16">
-      <div v-show="!keyword">
-        <div>
-          <div class="my-2 flex justify-between">
-            <div class="text-lg font-bold">
-              搜索历史
-            </div>
-            <i v-show="searchHistory?.length" class="i-hugeicons-delete-02 text-lg" @click="onClear" />
+    <div>
+      <div v-show="!keyword" class="mx-3 mt-14">
+        <div class="my-2 flex items-center justify-between">
+          <div class="text-lg font-bold">
+            搜索历史
           </div>
-          <div class="flex flex-wrap gap-3">
-            <wd-tag v-for="(item, index) in searchHistory" :key="index" round @click="onSearch(item)">
-              {{ item }}
-            </wd-tag>
-          </div>
-          <uv-empty v-show="!searchHistory?.length" />
+          <i v-show="searchHistory?.length" class="i-hugeicons-delete-02 text-lg" @click="onClear" />
         </div>
+        <div class="flex flex-wrap gap-3">
+          <wd-tag v-for="(item, index) in searchHistory" :key="index" round @click="onSearch(item)">
+            {{ item }}
+          </wd-tag>
+        </div>
+        <uv-empty v-show="!searchHistory?.length" />
       </div>
-      <div v-show="keyword">
-        <div v-if="loading">
+      <div v-show="keyword" class="mt-10 space-y-2">
+        <div v-if="loading" class="flex justify-center py-3">
           <wd-loading color="#f87171" />
         </div>
-        <wd-cell v-for="cell in data.friends" :key="cell.id" clickable border :title="cell.name"
-                 @click="onFriendClick(cell.id)"
-        />
+        <div class="bg-white py-2">
+          <div class="mx-3 my-2 flex justify-between text-gray">
+            <div>
+              联系人
+            </div>
+            <div class="flex items-center">
+              更多
+              <i class="i-hugeicons-arrow-right-01" />
+            </div>
+          </div>
+          <wd-cell v-for="cell in data?.friends" :key="cell.id" clickable border :title="cell.name"
+                   @click="onItemClick(cell.id, 'friend')"
+          />
+        </div>
+        <div class="bg-white py-2">
+          <div class="mx-3 my-2 flex justify-between text-gray">
+            <div>
+              礼簿
+            </div>
+            <div class="flex items-center">
+              更多
+              <i class="i-hugeicons-arrow-right-01" />
+            </div>
+          </div>
+          <wd-cell v-for="cell in data?.bookItems" :key="cell.id" clickable border :title="cell.title"
+                   @click="onItemClick(cell.id, 'book-item')"
+          />
+        </div>
+        <div class="bg-white py-2">
+          <div class="mx-3 my-2 flex justify-between text-gray">
+            <div>
+              送礼
+            </div>
+            <div class="flex items-center">
+              更多
+              <i class="i-hugeicons-arrow-right-01" />
+            </div>
+          </div>
+          <wd-cell v-for="cell in data?.gfts" :key="cell.id" clickable border :title="cell.title"
+                   @click="onItemClick(cell.id, 'gift')"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-:deep(.wd-tabs) {
-  background: transparent !important;
-}
-
-:deep(.wd-tabs__nav) {
-  position: fixed !important;
-  top: 40px;
-  /*  #ifdef H5  */
-  top: 80px;
-  /*  #endif  */
-
-  z-index: 9;
-}
-
-:deep(.wd-tabs__container) {
-  padding-top: 24px;
-}
 </style>
 
 <route lang="json">

@@ -1,5 +1,5 @@
 export function apiSearchGet(data: any) {
-  return request.Get<Api.SearchOutput>('search', {
+  return request.Post<Api.SearchOutput>('search', {
     params: data,
     hitSource: [/^book/, /^book-item/, /^friend/, /^gift/],
   })

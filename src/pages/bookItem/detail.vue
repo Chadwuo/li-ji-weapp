@@ -5,7 +5,7 @@ const message = useMessage()
 const dataSource = ref<Api.BookItem>({})
 
 const loadData = async () => {
-  dataSource.value = await apiGiftInGet({ id: dataSource.value.id })
+  dataSource.value = await apiBookItemGet({ id: dataSource.value.id })
 }
 
 onLoad((option) => {
@@ -29,7 +29,7 @@ const onDel = () => {
     msg: '此操作无法恢复，确定删除？',
     title: '删除来往记录',
   }).then(async () => {
-    await apiGiftInDelete({ id: dataSource.value.id })
+    await apiBookItemDelete({ id: dataSource.value.id })
     uni.showToast({
       title: '删除成功',
       icon: 'success',

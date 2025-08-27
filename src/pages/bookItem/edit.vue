@@ -8,7 +8,7 @@ onLoad(async (option) => {
     uni.setNavigationBarTitle({
       title: '编辑',
     })
-    dataSource.value = await apiGiftInGet({ id: option.id })
+    dataSource.value = await apiBookItemGet({ id: option.id })
   }
   else {
     dataSource.value.bookId = option?.bookId
@@ -20,7 +20,7 @@ const onSubmit = async () => {
   if (!valid)
     return
   loading.value = true
-  const api = dataSource.value.id ? apiGiftInPut : apiGiftInPost
+  const api = dataSource.value.id ? apiBookItemPut : apiBookItemPost
   await api(dataSource.value)
   uni.navigateBack()
   uni.showToast({
