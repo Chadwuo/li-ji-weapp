@@ -5,7 +5,6 @@ import UniHelperManifest from '@uni-helper/vite-plugin-uni-manifest'
 import UniHelperPages from '@uni-helper/vite-plugin-uni-pages'
 import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
-import UniPolyfill from 'vite-plugin-uni-polyfill'
 
 // https://vitejs.dev/config
 export default async () => {
@@ -28,7 +27,6 @@ export default async () => {
         directoryAsNamespace: true,
       }),
       Uni(),
-      UniPolyfill(),
       // https://github.com/antfu/unplugin-auto-import
       AutoImport({
         imports: ['vue', '@vueuse/core', 'uni-app'],
