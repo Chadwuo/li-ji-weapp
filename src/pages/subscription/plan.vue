@@ -13,9 +13,9 @@ const loadSubscriptionPlanData = async () => {
   subscriptionPlan.value = await apiSubscriptionPlanGet({ planId: 1 })
 }
 
-const pay = async () => {
+const jsapiPay = async () => {
   loading.value = true
-  const { singInfo, outTradeNumber } = await apiSubscriptionCreatePayPost({
+  const { singInfo, outTradeNumber } = await apiSubscriptionCreateJsapiPayPost({
     planId: 1,
   })
   wx.requestPayment({
@@ -41,6 +41,16 @@ const pay = async () => {
     complete() {
       loading.value = false
     },
+  })
+}
+
+const h5Pay = async () => {
+  loading.value = true
+  const { singInfo } = await apiSubscriptionCreateH5PayPost({
+    planId: 1,
+  })
+  uni.navigateTo({
+    url: singInfo.h5Url,
   })
 }
 
@@ -139,22 +149,26 @@ onLoad(async () => {
             暂不支持在 iOS 系统上使用
           </div>
         </wd-button>
-        <wd-button v-else block :loading="loading" loading-color="#F87171" @click="pay">
+        <wd-button v-else block :loading="loading" loading-color="#F87171" @click="jsapiPay">
           <div class="font-bold">
             <span>￥</span>
             <span>{{ subscriptionPlan?.price }}</span>
             <span class="ml-2">立即购买</span>
           </div>
         </wd-button>
+        <!-- #endif -->
+        <!-- #ifdef H5 -->
+        <wd-button block :loading="loading" loading-color="#F87171" @click="h5Pay">
+          <div class="font-bold">
+            <span>￥</span>
+            <span>{{ subscriptionPlan?.price }}</span>
+            <span class="ml-2">立即购买</span>
+          </div>
+        </wd-button>
+        <!-- #endif -->
         <div class="mt-2 text-xs text-gray">
           * 你购买的是永久会员权益，在交易成功后的一年内（支付平台支持的最长时间），可以申请无条件退款。
         </div>
-        <!-- #endif -->
-        <!-- #ifdef H5 -->
-        <div class="mb-3 text-xs text-gray">
-          * 在微信小程序中购买。
-        </div>
-        <!-- #endif -->
       </div>
       <uv-safe-bottom />
     </div>

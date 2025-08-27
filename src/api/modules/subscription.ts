@@ -4,6 +4,10 @@ export function apiSubscriptionPlanGet(data: any) {
   })
 }
 
-export function apiSubscriptionCreatePayPost(data: any) {
-  return request.Post<Api.WechatPayTransactionOutput>('subscription/pay', data)
+export function apiSubscriptionCreateJsapiPayPost(data: any) {
+  return request.Post<Api.WechatPayTransactionOutput<Api.WechatPayTransactionJsapiSingInfo>>('subscription/jsapi-pay', data)
+}
+
+export function apiSubscriptionCreateH5PayPost(data: any) {
+  return request.Post<Api.WechatPayTransactionOutput<Api.WechartPayTransactionH5SingInfo>>('subscription/h5-pay', data)
 }

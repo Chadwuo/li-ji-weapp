@@ -520,13 +520,7 @@ declare namespace Api {
     gifts: Gift[]
   }
 
-  interface WechatPayTransactionOutput {
-    /**
-     *
-     * @type {string}
-     * @memberof WechatPayTransactionOutput
-     */
-    prepayId: string
+  interface WechatPayTransactionOutput<T = any> {
     /**
      *
      * @type {string}
@@ -535,49 +529,53 @@ declare namespace Api {
     outTradeNumber: string
     /**
      *
-     * @type {WechatPayParaOutput}
+     * @type {object}
      * @memberof WechatPayTransactionOutput
      */
-    singInfo: WechatPayParaOutput
+    singInfo: T
   }
 
-  interface WechatPayParaOutput {
+  interface WechatPayTransactionJsapiSingInfo {
     /**
      *
      * @type {string}
-     * @memberof WechatPayParaOutput
+     * @memberof WechatPayTransactionJsapiSingInfo
      */
     appId: string
     /**
      *
      * @type {string}
-     * @memberof WechatPayParaOutput
+     * @memberof WechatPayTransactionJsapiSingInfo
      */
     timeStamp: string
     /**
      *
      * @type {string}
-     * @memberof WechatPayParaOutput
+     * @memberof WechatPayTransactionJsapiSingInfo
      */
     nonceStr: string
     /**
      *
      * @type {string}
-     * @memberof WechatPayParaOutput
+     * @memberof WechatPayTransactionJsapiSingInfo
      */
     package: string
     /**
      *
      * @type {string}
-     * @memberof WechatPayParaOutput
+     * @memberof WechatPayTransactionJsapiSingInfo
      */
     signType: 'MD5' | 'HMAC-SHA256' | 'RSA' | undefined
     /**
      *
      * @type {string}
-     * @memberof WechatPayParaOutput
+     * @memberof WechatPayTransactionJsapiSingInfo
      */
     paySign: string
+  }
+
+  interface WechartPayTransactionH5SingInfo {
+    h5Url: string
   }
 
   interface SubscriptionPlan {
