@@ -53,6 +53,26 @@ const onItemClick = (id?: string, type?: string) => {
       break
   }
 }
+
+const onMoreClick = (type?: string) => {
+  switch (type) {
+    case 'friend':
+      uni.navigateTo({
+        url: `/pages/search/more/friend`,
+      })
+      break
+    case 'book-item':
+      uni.navigateTo({
+        url: `/pages/search/more/bookitem`,
+      })
+      break
+    case 'gift':
+      uni.navigateTo({
+        url: `/pages/search/more/gift`,
+      })
+      break
+  }
+}
 </script>
 
 <template>
@@ -82,12 +102,12 @@ const onItemClick = (id?: string, type?: string) => {
         <div v-if="loading" class="flex justify-center py-3">
           <wd-loading color="#f87171" />
         </div>
-        <div class="bg-white py-2">
+        <div v-if="data?.friends?.length" class="bg-white py-2">
           <div class="mx-3 my-2 flex justify-between text-gray">
             <div>
               联系人
             </div>
-            <div class="flex items-center">
+            <div v-if="data?.friends?.length > 4" class="flex items-center" @click="onMoreClick('friend')">
               更多
               <i class="i-hugeicons-arrow-right-01" />
             </div>
@@ -96,12 +116,12 @@ const onItemClick = (id?: string, type?: string) => {
                    @click="onItemClick(cell.id, 'friend')"
           />
         </div>
-        <div class="bg-white py-2">
+        <div v-if="data?.bookItems?.length" class="bg-white py-2">
           <div class="mx-3 my-2 flex justify-between text-gray">
             <div>
               礼簿
             </div>
-            <div class="flex items-center">
+            <div v-if="data?.bookItems?.length > 4" class="flex items-center" @click="onMoreClick('book-item')">
               更多
               <i class="i-hugeicons-arrow-right-01" />
             </div>
@@ -110,12 +130,12 @@ const onItemClick = (id?: string, type?: string) => {
                    @click="onItemClick(cell.id, 'book-item')"
           />
         </div>
-        <div class="bg-white py-2">
+        <div v-if="data?.gfts?.length" class="bg-white py-2">
           <div class="mx-3 my-2 flex justify-between text-gray">
             <div>
               送礼
             </div>
-            <div class="flex items-center">
+            <div v-if="data?.gfts?.length > 4" class="flex items-center" @click="onMoreClick('gift')">
               更多
               <i class="i-hugeicons-arrow-right-01" />
             </div>
@@ -129,8 +149,7 @@ const onItemClick = (id?: string, type?: string) => {
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
 
 <route lang="json">
 {
