@@ -5,10 +5,6 @@ import { apiUserDelete } from '@/api/modules/user'
 const message = useMessage()
 const loading = ref(false)
 
-const onCancel = () => {
-  uni.navigateBack()
-}
-
 const onConfirmDelete = async () => {
   try {
     loading.value = true
@@ -56,7 +52,7 @@ const showDeleteConfirm = () => {
         <div class="ml-2">
           <div class="mb-2 block text-[14.5px] text-[#515154]">
             <span class="mr-2 inline-block text-red font-bold">•</span>
-            <span>您的个人信息、礼簿数据、亲友关系等所有数据将被永久删除</span>
+            <span>您的个人信息、礼簿数据、亲友关系等所有数据将被永久删除且无法恢复</span>
           </div>
           <div class="mb-2 block pl-0 text-[14.5px] text-[#515154]">
             <span class="mr-2 inline-block text-red font-bold">•</span>
@@ -79,7 +75,7 @@ const showDeleteConfirm = () => {
         <div class="ml-2">
           <div class="mb-2 block text-sm text-[#515154]">
             <span class="mr-2 inline-block text-red font-bold">•</span>
-            <span>您已备份所有重要数据</span>
+            <span>您已备份导出所有重要数据</span>
           </div>
           <div class="mb-2 block pl-0 text-sm text-[#515154]">
             <span class="mr-2 inline-block text-red font-bold">•</span>
@@ -89,25 +85,17 @@ const showDeleteConfirm = () => {
       </div>
     </div>
     <!-- 风险提示 -->
-    <div class="mb-6 rounded-2xl bg-red-50 p-5">
-      <div class="flex items-start space-x-3">
-        <i class="i-hugeicons-information-circle mt-1 text-xl text-red-500" />
-        <div class="flex-1 space-y-2">
-          <h2 class="text-lg text-red-700 font-semibold">
-            注销风险提示
-          </h2>
-          <p class="text-sm text-red-600">
-            账号注销是不可恢复的操作，请您谨慎考虑！
-          </p>
-        </div>
+    <div class="mb-6 rounded-2xl bg-red-50 p-3">
+      <div class="text-center text-lg text-red-700 font-semibold">
+        注销风险提示
+      </div>
+      <div class="mt-2 text-center text-red-600">
+        账号注销是不可恢复的操作，请您谨慎操作！
       </div>
     </div>
 
     <!-- 操作按钮 -->
     <div class="p-5 space-y-3">
-      <wd-button plain block size="large" @click="onCancel">
-        返回
-      </wd-button>
       <wd-button block size="large" :loading="loading" @click="showDeleteConfirm">
         确认注销账号
       </wd-button>
