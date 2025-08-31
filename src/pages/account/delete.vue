@@ -10,10 +10,18 @@ const onConfirmDelete = async () => {
     loading.value = true
     await apiUserDelete()
 
+    // #ifdef H5
+    uni.clearStorageSync()
     // 跳转到登录页面
     uni.redirectTo({
       url: '/pages/login/index',
     })
+    // #endif
+
+    // #ifdef MP-WEIXIN
+    // 跳转到登录页面
+    wx.exitMiniProgram()
+    // #endif
   }
   finally {
     loading.value = false
@@ -36,11 +44,14 @@ const showDeleteConfirm = () => {
 
 <template>
   <div class="mx-3 mt-5">
-    <!-- 标题区域 -->
-    <div class="my-8">
-      <h1 class="text-center text-2xl text-gray-800 font-bold">
+    <!-- 风险提示 -->
+    <div class="mb-6 rounded-2xl bg-red-50 p-3">
+      <div class="text-center text-lg text-red-700 font-semibold">
         你正在申请注销账号
-      </h1>
+      </div>
+      <div class="mt-2 text-center text-red-600">
+        账号注销是不可恢复的操作，请您谨慎操作！
+      </div>
     </div>
 
     <!-- 注销说明 -->
@@ -82,15 +93,6 @@ const showDeleteConfirm = () => {
             <span>您清楚了解注销后果并自愿注销</span>
           </div>
         </div>
-      </div>
-    </div>
-    <!-- 风险提示 -->
-    <div class="mb-6 rounded-2xl bg-red-50 p-3">
-      <div class="text-center text-lg text-red-700 font-semibold">
-        注销风险提示
-      </div>
-      <div class="mt-2 text-center text-red-600">
-        账号注销是不可恢复的操作，请您谨慎操作！
       </div>
     </div>
 

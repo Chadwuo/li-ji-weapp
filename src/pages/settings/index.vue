@@ -38,6 +38,12 @@ const onBlur = async () => {
     userInfo.value.nickName = nickName_edit.value
   }
 }
+
+const goAccountDelete = () => {
+  uni.navigateTo({
+    url: '/pages/account/delete',
+  })
+}
 </script>
 
 <template>
@@ -77,7 +83,7 @@ const onBlur = async () => {
         <wd-cell title="关于礼记" is-link to="/pages/about/index" />
       </div>
 
-      <div class="rounded-xl bg-white p-2 text-center text-red">
+      <div class="rounded-xl bg-white p-2 text-center text-red" @click="goAccountDelete">
         注销账号
       </div>
     </div>

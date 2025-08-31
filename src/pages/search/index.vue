@@ -112,8 +112,8 @@ const onMoreClick = (type?: string) => {
               <i class="i-hugeicons-arrow-right-01" />
             </div>
           </div>
-          <wd-cell v-for="cell in data?.friends" :key="cell.id" clickable border :title="cell.name"
-                   @click="onItemClick(cell.id, 'friend')"
+          <wd-cel v-for="cell in data?.friends" :key="cell.id" l clickable border :title="cell.name"
+                  @click="onItemClick(cell.id, 'friend')"
           />
         </div>
         <div v-if="data?.bookItems?.length" class="bg-white py-2">
