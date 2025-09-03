@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useWatcher } from 'alova/client'
 import { giftCategory } from '@/constants/app'
 
 // '结婚': 'i-bi-postcard-heart',
@@ -18,6 +19,17 @@ const dataSource = ref<Api.Gift>({})
 const calendarRef = ref<any>(null)
 const loading = ref(false)
 const formRef = ref()
+const friendSearchKeyword = ref('')
+
+const { loading: friendSearchLoading, data: friendSearchData } = useWatcher(
+  () => apiFriendListGet({
+    keyword: friendSearchKeyword.value,
+  }),
+  [friendSearchKeyword],
+  // {
+  //   debounce: [300]
+  // }
+)
 
 onLoad(async (option) => {
   if (option?.id) {
@@ -79,6 +91,12 @@ const confirmCalendar = (e: any) => {
 const openCalendar = () => {
   calendarRef.value.open()
 }
+
+const onItemClick = (e: Api.Friend) => {
+  dataSource.value.friendId = e.id
+  dataSource.value.friendName = e.name
+  friendSearchKeyword.value = ''
+}
 </script>
 
 <template>
@@ -108,13 +126,23 @@ const openCalendar = () => {
             <div class="i-hugeicons-calendar-01 text-base text-gray" />
           </template>
         </wd-input>
-        <wd-input v-if="!dataSource.id" v-model="dataSource.friendName" label="亲友" prop="friendName" placeholder="点击右侧图标选择亲友"
-                  :rules="[{ required: true, message: '请输入亲友姓名' }]"
-        >
-          <template #suffix>
-            <div class="i-hugeicons-contact-01 text-base text-gray" @click="onSelectFriend" />
+        <wd-popover use-content-slot class="w-full">
+          <template #content>
+            <div class="pop-content">
+              <wd-loading v-if="friendSearchLoading" color="#f87171" />
+              <wd-cell v-for="cell in friendSearchData" :key="cell.id" l clickable border :title="cell.name"
+                       @click="onItemClick(cell)"
+              />
+            </div>
           </template>
-        </wd-input>
+          <wd-input v-if="!dataSource.id" v-model="dataSource.friendName" label="亲友" prop="friendName" placeholder="点击右侧图标选择亲友"
+                    :rules="[{ required: true, message: '请输入亲友姓名' }]" @input="(e:any) => friendSearchKeyword = e.value"
+          >
+            <template #suffix>
+              <div class="i-hugeicons-contact-01 text-base text-gray" @click="onSelectFriend" />
+            </template>
+          </wd-input>
+        </wd-popover>
         <wd-input v-model="dataSource.title" label="事由" prop="title" placeholder="随礼事由"
                   :rules="[{ required: true, message: '请填写随礼事由' }]"
         />
@@ -130,13 +158,24 @@ const openCalendar = () => {
     <div class="my-3 text-xs text-gray">
       在人情往来中，亲友举办宴席或重要事件时，前往祝贺的行为，称为送礼。
     </div>
-    <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date" :close-on-click-overlay="false"
-                  @confirm="confirmCalendar"
+    <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
+                  :close-on-click-overlay="false" @confirm="confirmCalendar"
     />
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.pop-content {
+  /* 必填 开始 */
+  position: relative;
+  z-index: 500;
+  border-radius: 4px;
+  /* 必填 结束 */
+  background: #fff;
+  padding: 10px;
+  width: 200px;
+}
+</style>
 
 <route lang="json">
 {
