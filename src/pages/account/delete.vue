@@ -9,17 +9,15 @@ const onConfirmDelete = async () => {
   try {
     loading.value = true
     await apiUserDelete()
+    uni.clearStorageSync()
 
     // #ifdef H5
-    uni.clearStorageSync()
-    // 跳转到登录页面
     uni.redirectTo({
       url: '/pages/login/index',
     })
     // #endif
 
     // #ifdef MP-WEIXIN
-    // 跳转到登录页面
     wx.exitMiniProgram()
     // #endif
   }
@@ -105,8 +103,7 @@ const showDeleteConfirm = () => {
   </div>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
 
 <route lang="json">
 {
