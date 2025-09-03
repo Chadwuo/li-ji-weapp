@@ -37,17 +37,6 @@
       </div>
       <div class="grid grid-cols-3 justify-items-center border-t border-gray-100">
         <div class="px-4 py-3 text-gray-600">
-          定制服务
-        </div>
-        <div class="px-4 py-3 text-center">
-          🚫
-        </div>
-        <div class="px-4 py-3 text-center">
-          ✅
-        </div>
-      </div>
-      <div class="grid grid-cols-3 justify-items-center border-t border-gray-100">
-        <div class="px-4 py-3 text-gray-600">
           优先响应
         </div>
         <div class="px-4 py-3 text-center text-sm text-gray-500">
