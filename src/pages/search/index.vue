@@ -99,7 +99,7 @@ const onMoreClick = (type?: string) => {
         <uv-empty v-show="!searchHistory?.length" />
       </div>
       <div v-show="keyword" class="mt-10 space-y-2">
-        <div v-if="loading" class="flex justify-center py-3">
+        <div v-if="loading" class="flex justify-center pt-5">
           <wd-loading color="#f87171" />
         </div>
         <div v-if="data?.friends?.length" class="bg-white py-2">
