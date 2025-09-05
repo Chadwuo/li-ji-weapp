@@ -85,6 +85,8 @@ const onItemClick = (e: Api.Friend) => {
   dataSource.value.friendId = e.id
   dataSource.value.friendName = e.name
 }
+
+const presetMoney = [200, 500, 1000, 2000]
 </script>
 
 <template>
@@ -107,6 +109,17 @@ const onItemClick = (e: Api.Friend) => {
 
     <div class="mt-3 rounded-2xl bg-white px-2 py-5">
       <wd-form ref="formRef" :model="dataSource">
+        <wd-cell title="类型" title-width="100px" center>
+          <div class="flex items-center justify-end">
+            <div class="mr-2">
+              {{ dataSource.type === 1 ? '收入' : '支出' }}
+            </div>
+            <wd-switch v-model="dataSource.type" active-color="#f87171" inactive-color="#2dd4bf" :active-value="1"
+                       :inactive-value="0"
+            />
+          </div>
+        </wd-cell>
+
         <wd-input v-model="dataSource.date" label="日期" prop="date" placeholder="请选择日期" readonly
                   :rules="[{ required: true, message: '请选择日期' }]" @click="openCalendar"
         >
@@ -116,8 +129,9 @@ const onItemClick = (e: Api.Friend) => {
         </wd-input>
 
         <div class="relative">
-          <wd-input v-if="!dataSource.id" v-model="dataSource.friendName" label="亲友" prop="friendName" placeholder="点击右侧图标选择亲友"
-                    :rules="[{ required: true, message: '请输入亲友姓名' }]" @input="(e:any) => friendSearchKeyword = e.value"
+          <wd-input v-if="!dataSource.id" v-model="dataSource.friendName" label="亲友" prop="friendName"
+                    placeholder="点击右侧图标选择亲友" :rules="[{ required: true, message: '请输入亲友姓名' }]"
+                    @input="(e: any) => friendSearchKeyword = e.value"
           >
             <template #suffix>
               <div class="i-hugeicons-contact-01 text-base text-gray" @click="onSelectFriend" />
@@ -125,12 +139,17 @@ const onItemClick = (e: Api.Friend) => {
           </wd-input>
           <friend-search :keyword="friendSearchKeyword" @selected="onItemClick" />
         </div>
-        <wd-input v-model="dataSource.title" label="事由" prop="title" placeholder="随礼事由"
+        <wd-input v-model="dataSource.title" label="事由" prop="title" placeholder="来往事由"
                   :rules="[{ required: true, message: '请填写随礼事由' }]"
         />
-        <wd-input v-model="dataSource.money" label="礼金" prop="money" placeholder="随礼金额" type="number"
-                  :rules="[{ required: true, message: '请填写随礼金额' }]"
+        <wd-input v-model="dataSource.money" label="礼金" prop="money" placeholder="金额" type="number"
+                  :rules="[{ required: true, message: '请填写金额' }]"
         />
+        <div class="flex justify-end space-x-2">
+          <wd-button v-for="i in presetMoney" :key="i" plain size="small" @click="dataSource.money = i">
+            {{ i }}
+          </wd-button>
+        </div>
         <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
       </wd-form>
       <wd-button block :loading="loading" @click="onSubmit">
@@ -146,8 +165,7 @@ const onItemClick = (e: Api.Friend) => {
   </div>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
 
 <route lang="json">
 {

@@ -24,11 +24,11 @@ const loadGifts = async () => {
   const data = await apiFriendGiftListGet({ id: friend.value.id })
   if (!data)
     return
-  const giftInList = data?.giftInList ?? []
-  const giftOutList = data?.giftOutList ?? []
-  statisticsData.value.sadCount = giftOutList.length // 送礼次数
-  statisticsData.value.happyCount = giftInList.length// 收礼次数
-  const inList = giftInList.map((i) => {
+  const bookItems = data?.bookItems ?? []
+  const gifts = data?.gifts ?? []
+  statisticsData.value.sadCount = bookItems.length // 送礼次数
+  statisticsData.value.happyCount = gifts.length// 收礼次数
+  const inList = bookItems.map((i) => {
     // 收礼金额总计
     statisticsData.value.happyTotal += i.money || 0
     return {
@@ -38,12 +38,12 @@ const loadGifts = async () => {
       date: i.date,
       lunarDate: i.lunarDate,
       year: dayjs(i.date).year(),
-      giftBookId: i.giftBookId,
+      bookId: i.bookId,
       attendance: i.attendance,
-      self: false,
+      type: '9',
     }
   })
-  const outList = giftOutList.map((i) => {
+  const outList = gifts.map((i) => {
     // 送礼金额总计
     statisticsData.value.sadTotal += i.money || 0
     return {
@@ -55,7 +55,7 @@ const loadGifts = async () => {
       year: dayjs(i.date).year(),
       icon: i.icon,
       remarks: i.remarks,
-      self: true,
+      type: i.type,
     }
   })
 
@@ -101,14 +101,14 @@ onShow(async () => {
 })
 
 const onGiftClick = (e: Api.BookItem | Api.Gift) => {
-  if ('giftBookId' in e && e.giftBookId) {
+  if ('bookId' in e && e.bookId) {
     uni.navigateTo({
-      url: `/pages/giftIn/detail?id=${e.id}`,
+      url: `/pages/bookitem/detail?id=${e.id}`,
     })
   }
   else {
     uni.navigateTo({
-      url: `/pages/giftOut/detail?id=${e.id}`,
+      url: `/pages/gift/detail?id=${e.id}`,
     })
   }
 }
@@ -131,6 +131,11 @@ const onFriendDel = () => {
     setTimeout(() => {
       uni.navigateBack()
     }, 1000)
+  })
+}
+const onAdd = () => {
+  uni.navigateTo({
+    url: '/pages/gift/edit',
   })
 }
 const menu = ref<Array<Record<string, any>>>([
@@ -231,7 +236,7 @@ function onMenuClick(e: any) {
           {{ gift.year }}
         </div>
         <div v-for="item in gift.list" :key="item._id" class="cu-item" @click="onGiftClick(item)">
-          <div class="rounded-2xl bg-white p-4" :class="item.self ? 'text-teal' : 'text-red'">
+          <div class="rounded-2xl bg-white p-4" :class="item.type === 1 ? 'text-red' : 'text-teal'">
             <div class="flex justify-between">
               <div class="mr-3 flex flex-col space-y-1">
                 <div class="text-bold text-lg">
@@ -247,7 +252,7 @@ function onMenuClick(e: any) {
               </div>
               <div class="ml-3 flex-shrink-0 text-right text-lg font-bold">
                 <div>
-                  {{ item.self ? '-' : '+' }}{{ item.money }}
+                  {{ item.type === 1 ? '+' : '-' }}{{ item.money }}
                 </div>
               </div>
             </div>
@@ -255,6 +260,8 @@ function onMenuClick(e: any) {
         </div>
       </div>
     </div>
+
+    <wd-fab position="right-bottom" :expandable="false" @click="onAdd" />
   </div>
 </template>
 
