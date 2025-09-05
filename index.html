@@ -1,21 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="static/logo.png">
-    <script>
-      const coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)')
-  || CSS.supports('top: constant(a)'))
-      document.write(
-        `<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0${
-  coverSupport ? ', viewport-fit=cover' : ''}" />`)
-    </script>
-    <title></title>
-    <!--preload-links-->
-    <!--app-context-->
-  </head>
-  <body>
-    <div id="app"><!--app-html--></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="static/logo.png">
+  <script>
+    const coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)')
+      || CSS.supports('top: constant(a)'))
+    document.write(
+      `<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0${coverSupport ? ', viewport-fit=cover' : ''}" />`)
+  </script>
+  <title></title>
+  <link rel="stylesheet" href="/src/static/adapt-pc/pc.css" />
+  <!--preload-links-->
+  <!--app-context-->
+</head>
+
+<body>
+  <div id="app"><!--app-html--></div>
+
+  <!-- uni-app 电脑端兼容模板容器 -->
+  <uni-adapt-pc></uni-adapt-pc>
+  <!-- uni-app 电脑端兼容模板 -->
+  <!-- 电脑端放置H5内容容器 -->
+  <script type="text/html" id="tpl-adapt-pc">
+			<div class="container">
+				<div class="iframe">
+					<iframe src="mobile-href"></iframe>
+				</div>
+				<div class="content">
+					<h1>礼记</h1>
+					<h3>uni-app h5平台在电脑浏览器打开解决方案</h3>
+					<div class="qrcode">
+						<img src="/src/static/qrcode_h5.png" alt="二维码" style="display: block;">
+					</div>
+					<p>使用手机扫描二维码获得更佳体验</p>
+				</div>
+			</div>
+		</script>
+
+  <!-- built files will be auto injected -->
+  <script type="module" src="/src/main.ts"></script>
+  <!-- uni-app 电脑端浏览兼容脚本文件 -->
+  <script type="text/javascript" src="/src/static/adapt-pc/pc.js"></script>
+</body>
+
 </html>
