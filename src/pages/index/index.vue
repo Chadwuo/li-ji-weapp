@@ -67,7 +67,7 @@ onReachBottom(() => {
              :class="[activeTab === 1 ? 'text-red text-2xl font-bold line-bg' : 'text-gray-500 text-lg']"
              @click="activeTab = 1"
         >
-          送礼
+          日常往来
         </div>
       </div>
       <wd-tabs v-model="activeTab" swipeable animated>

@@ -512,7 +512,7 @@ declare namespace Api {
 
   interface FriendGifts {
     bookItems: BookItem[]
-    gfts: Gift[]
+    gifts: Gift[]
   }
 
   interface StatsDashboard {
