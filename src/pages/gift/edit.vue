@@ -90,7 +90,7 @@ const presetMoney = [200, 500, 1000, 2000]
 </script>
 
 <template>
-  <div class="mx-3">
+  <div class="mx-3 space-y-3">
     <div class="grid grid-cols-5 mt-3 justify-items-center gap-2 rounded-2xl bg-white p-4">
       <div v-for="i in columns" :key="i.name" @click="onSelectIcont(i)">
         <div class="h-12 w-12 flex rounded-full" :class="[
@@ -107,7 +107,7 @@ const presetMoney = [200, 500, 1000, 2000]
       </div>
     </div>
 
-    <div class="mt-3 rounded-2xl bg-white px-2 py-5">
+    <div class="rounded-2xl bg-white px-2 py-5">
       <wd-form ref="formRef" :model="dataSource">
         <wd-cell title="类型" title-width="100px" center>
           <div class="flex items-center justify-end">
@@ -152,11 +152,11 @@ const presetMoney = [200, 500, 1000, 2000]
         </div>
         <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
       </wd-form>
-      <wd-button block :loading="loading" @click="onSubmit">
-        保存
-      </wd-button>
     </div>
-    <div class="my-3 text-xs text-gray">
+    <wd-button block :loading="loading" @click="onSubmit">
+      保存
+    </wd-button>
+    <div class="text-xs text-gray">
       在人情往来中，亲友举办宴席或重要事件时，前往祝贺的行为，称为送礼。
     </div>
     <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"

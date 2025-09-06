@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { useMessage } from 'wot-design-uni'
+import { useMessage, useNotify } from 'wot-design-uni'
 
+const { showNotify } = useNotify()
 const message = useMessage()
 const { userFamilys, userInfo, isVip } = storeToRefs(useAuthStore())
 const actionSheetShow = ref(false)
@@ -47,6 +48,9 @@ const onSelectedAction = async (e: any) => {
   e.loading = true
   const { data } = e.item
   await apiUserFamilyDelete({ userId: data.userId, familyId: data.familyId })
+  e.loading = false
+  actionSheetShow.value = false
+  showNotify({ type: 'success', message: '操作成功' })
   loadData()
 }
 

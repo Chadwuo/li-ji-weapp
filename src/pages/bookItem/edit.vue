@@ -45,7 +45,7 @@ const onSelectFriend = () => {
 </script>
 
 <template>
-  <div class="mx-3">
+  <div class="mx-3 space-y-3">
     <div class="rounded-2xl bg-white p-2 py-5">
       <wd-form ref="formRef" :model="dataSource">
         <wd-input v-if="!dataSource.id" v-model="dataSource.friendName" label="亲友" prop="friendName" placeholder="点击右侧图标选择亲友"
@@ -61,10 +61,11 @@ const onSelectFriend = () => {
         <wd-input v-model="dataSource.attendance" label="出席" prop="attendance" type="number" placeholder="参加宴席人数" />
         <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
       </wd-form>
-      <wd-button block :loading="loading" @click="onSubmit">
-        保存
-      </wd-button>
     </div>
+
+    <wd-button block :loading="loading" @click="onSubmit">
+      保存
+    </wd-button>
   </div>
 </template>
 

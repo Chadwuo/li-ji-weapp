@@ -27,7 +27,7 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  <div class="mx-3">
+  <div class="mx-3 space-y-3">
     <div class="rounded-2xl bg-white p-2 py-5">
       <wd-form ref="formRef" :model="dataSource">
         <wd-input v-model="dataSource.name" label="姓名" prop="name" clearable placeholder="请输入姓名"
@@ -38,10 +38,10 @@ const onSubmit = async () => {
         />
         <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
       </wd-form>
-      <wd-button block :loading="loading" @click="onSubmit">
-        保存
-      </wd-button>
     </div>
+    <wd-button block :loading="loading" @click="onSubmit">
+      保存
+    </wd-button>
   </div>
 </template>
 

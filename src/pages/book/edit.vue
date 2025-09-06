@@ -48,7 +48,7 @@ const openCalendar = () => {
 </script>
 
 <template>
-  <div class="mx-3" :class="{ memorial: hasMourningWords(dataSource.title) }">
+  <div class="mx-3 space-y-3" :class="{ memorial: hasMourningWords(dataSource.title) }">
     <div class="rounded-2xl bg-white p-2 py-5">
       <wd-form ref="formRef" :model="dataSource">
         <wd-input v-model="dataSource.date" label="日期" prop="date" placeholder="请选择日期" readonly
@@ -64,12 +64,11 @@ const openCalendar = () => {
         <wd-input v-model="dataSource.cost" label="成本" prop="cost" type="number" placeholder="宴席、伴手礼等费用" />
         <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
       </wd-form>
-
-      <wd-button block :loading="loading" @click="onSubmit">
-        保存
-      </wd-button>
     </div>
-    <div class="my-3 text-xs text-gray">
+    <wd-button block :loading="loading" @click="onSubmit">
+      保存
+    </wd-button>
+    <div class="text-xs text-gray">
       一场宴席活动中，用来登记所有来宾贺礼的名册，称为礼簿。
     </div>
     <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date" :close-on-click-overlay="false"

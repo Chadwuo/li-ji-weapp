@@ -26,12 +26,13 @@ const loadGifts = async () => {
     return
   const bookItems = data?.bookItems ?? []
   const gifts = data?.gifts ?? []
-  statisticsData.value.sadCount = bookItems.length // 送礼次数
-  statisticsData.value.happyCount = gifts.length// 收礼次数
-  const inList = bookItems.map((i) => {
-    // 收礼金额总计
+
+  const giftsRaw = [] as any[]
+
+  bookItems.forEach((i) => {
     statisticsData.value.happyTotal += i.money || 0
-    return {
+    statisticsData.value.happyCount++
+    giftsRaw.push({
       id: i.id,
       title: i.title,
       money: i.money,
@@ -40,13 +41,20 @@ const loadGifts = async () => {
       year: dayjs(i.date).year(),
       bookId: i.bookId,
       attendance: i.attendance,
-      type: '9',
-    }
+      type: 1,
+    })
   })
-  const outList = gifts.map((i) => {
-    // 送礼金额总计
-    statisticsData.value.sadTotal += i.money || 0
-    return {
+
+  gifts.forEach((i) => {
+    if (i.type === 1) {
+      statisticsData.value.happyTotal += i.money || 0
+      statisticsData.value.happyCount++
+    }
+    else {
+      statisticsData.value.sadTotal += i.money || 0
+      statisticsData.value.sadCount++
+    }
+    giftsRaw.push({
       id: i.id,
       title: i.title,
       money: i.money,
@@ -56,16 +64,13 @@ const loadGifts = async () => {
       icon: i.icon,
       remarks: i.remarks,
       type: i.type,
-    }
+    })
   })
 
-  // Merge and sort all gifts by date
-  const allGifts = [...inList, ...outList].sort(
-    (a, b) => dayjs(b.date).unix() - dayjs(a.date).unix(),
-  )
-
   // Group gifts by year
-  const groupedGifts = allGifts.reduce((acc, curr) => {
+  const groupedGifts = giftsRaw.sort(
+    (a, b) => dayjs(b.date).unix() - dayjs(a.date).unix(),
+  ).reduce((acc, curr) => {
     const year = curr.year
     if (!acc[year]) {
       acc[year] = []
@@ -103,7 +108,7 @@ onShow(async () => {
 const onGiftClick = (e: Api.BookItem | Api.Gift) => {
   if ('bookId' in e && e.bookId) {
     uni.navigateTo({
-      url: `/pages/bookitem/detail?id=${e.id}`,
+      url: `/pages/bookItem/detail?id=${e.id}`,
     })
   }
   else {
