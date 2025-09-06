@@ -90,7 +90,7 @@ const onGiftExport = () => {
 const onGiftClick = (id?: string) => {
   if (id) {
     uni.navigateTo({
-      url: `/pages/giftOut/detail?id=${id}`,
+      url: `/pages/gift/detail?id=${id}`,
     })
   }
 }
@@ -209,10 +209,10 @@ defineExpose({
             </div>
           </div>
           <div class="text-lg font-bold" :class="[
-            i.icon === 'i-tabler-candle' ? 'text-gray' : 'text-teal',
+            i.type === 1 ? 'text-red' : 'text-teal',
           ]"
           >
-            -{{ i.money }}
+            {{ i.type === 1 ? '+' : '-' }}{{ i.money }}
           </div>
         </div>
       </div>

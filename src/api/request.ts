@@ -24,7 +24,7 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
 
       // #ifdef H5
       uni.reLaunch({ url: `/pages/login/index` })
-      throw new Error('H5环境下去登录页')
+      throw new Error('登录失效，请重新登录')
       // #endif
     },
   },

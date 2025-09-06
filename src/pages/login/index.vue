@@ -119,7 +119,7 @@ const sendVerifyEmail = async () => {
               class="i-hugeicons-user absolute left-12 text-lg text-[#94a3b8] transition-all duration-300 group-focus-within:text-[#f87171]"
             />
             <input v-model="loginEmailInput.email" type="text" placeholder="邮箱账号"
-                   class="w-full border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 group-focus-within:border-[#f87171]/50 focus:bg-white/90 group-focus-within:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] group-focus-within:outline-none"
+                   class="w-full border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-[8px] pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 group-focus-within:border-[#f87171]/50 focus:bg-white/90 group-focus-within:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] group-focus-within:outline-none"
             >
           </div>
         </div>
@@ -132,14 +132,14 @@ const sendVerifyEmail = async () => {
               class="i-hugeicons-circle-password absolute left-12 text-lg text-[#94a3b8] transition-all duration-300 group-focus-within:text-[#f87171]"
             />
             <input v-model="loginEmailInput.password" password placeholder="登录密码"
-                   class="w-full border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 group-focus-within:border-[#f87171]/50 group-focus-within:bg-white/90 group-focus-within:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] group-focus-within:outline-none"
+                   class="w-full border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-[8px] pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 group-focus-within:border-[#f87171]/50 group-focus-within:bg-white/90 group-focus-within:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] group-focus-within:outline-none"
             >
           </div>
         </div>
 
         <!-- 登录按钮 -->
         <div class="pt-2">
-          <wd-button block size="large" :loading="loading" @click="onLogin">
+          <wd-button block :loading="loading" @click="onLogin">
             登 录
           </wd-button>
         </div>
@@ -155,7 +155,7 @@ const sendVerifyEmail = async () => {
               class="i-hugeicons-user absolute left-12 text-lg text-[#94a3b8] transition-all duration-300 group-focus-within:text-[#f87171]"
             />
             <input v-model="signupEmailInput.email" type="text" placeholder="邮箱账号"
-                   class="w-full border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 group-focus-within:border-[#f87171]/50 focus:bg-white/90 group-focus-within:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] group-focus-within:outline-none"
+                   class="w-full border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-[8px] pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 group-focus-within:border-[#f87171]/50 focus:bg-white/90 group-focus-within:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] group-focus-within:outline-none"
             >
           </div>
         </div>
@@ -168,11 +168,11 @@ const sendVerifyEmail = async () => {
               class="i-hugeicons-sms-code absolute left-12 text-lg text-[#94a3b8] transition-all duration-300 group-focus-within:text-[#f87171]"
             />
             <input v-model="signupEmailInput.code" type="number" placeholder="验证码" :maxlength="6"
-                   class="mr-3 w-full border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 group-focus-within:border-[#f87171]/50 group-focus-within:bg-white/90 group-focus-within:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] group-focus-within:outline-none"
+                   class="mr-3 w-full border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-[8px] pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 group-focus-within:border-[#f87171]/50 group-focus-within:bg-white/90 group-focus-within:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] group-focus-within:outline-none"
             >
-            <wd-button type="primary" size="large" :loading="sending" :disabled="sending || countdown > 0" @click="sendVerifyEmail">
+            <div class="flex-shrink-0 rounded-2xl bg-red p-[8px] text-4 text-white" :loading="sending" :disabled="sending || countdown > 0" @click="sendVerifyEmail">
               {{ loading ? '发送中...' : countdown > 0 ? `${countdown}后可重发` : '发送验证码' }}
-            </wd-button>
+            </div>
           </div>
         </div>
 
@@ -184,14 +184,14 @@ const sendVerifyEmail = async () => {
               class="i-hugeicons-circle-password absolute left-12 text-lg text-[#94a3b8] transition-all duration-300 group-focus-within:text-[#f87171]"
             />
             <input v-model="signupEmailInput.password" password placeholder="登录密码"
-                   class="w-full border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-2 pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 group-focus-within:border-[#f87171]/50 group-focus-within:bg-white/90 group-focus-within:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] group-focus-within:outline-none"
+                   class="w-full border border-[#e2e8f0]/80 rounded-xl bg-white/70 py-[8px] pl-12 pr-5 text-base text-[#334155] shadow-[0_5px_15px_rgba(0,0,0,0.03)] transition-all duration-300 group-focus-within:border-[#f87171]/50 group-focus-within:bg-white/90 group-focus-within:shadow-[0_0_0_4px_rgba(248,113,113,0.15),0_8px_25px_rgba(0,0,0,0.08)] group-focus-within:outline-none"
             >
           </div>
         </div>
 
         <!-- 登录按钮 -->
         <div class="pt-2">
-          <wd-button block size="large" :loading="loading" @click="onSignup">
+          <wd-button block :loading="loading" @click="onSignup">
             注 册
           </wd-button>
         </div>
@@ -228,11 +228,11 @@ const sendVerifyEmail = async () => {
   }
 
   33% {
-    transform: translate(10px, -15px) rotate(5deg);
+    transform: translate(100px, -150px) rotate(5deg);
   }
 
   66% {
-    transform: translate(-10px, 10px) rotate(-5deg);
+    transform: translate(-100px, 100px) rotate(-5deg);
   }
 
   100% {

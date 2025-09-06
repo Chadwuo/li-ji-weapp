@@ -44,6 +44,13 @@ const goAccountDelete = () => {
     url: '/pages/account/delete',
   })
 }
+
+const logout = () => {
+  uni.clearStorageSync()
+  uni.redirectTo({
+    url: '/pages/login/index',
+  })
+}
 </script>
 
 <template>
@@ -75,7 +82,7 @@ const goAccountDelete = () => {
       </div>
 
       <div class="rounded-2xl bg-white p-2">
-        <wd-cell title-width="80px" title="备案号" value="皖ICP备2024069565号-1X" />
+        <wd-cell title-width="60px" title="备案号" value="皖ICP备2024069565号-1X" />
         <wd-cell title="开源协议" value="GPL-3.0 license" />
         <!-- #ifdef MP-WEIXIN -->
         <wd-cell title="隐私政策" is-link @click="openPrivacyContract" />
@@ -83,9 +90,15 @@ const goAccountDelete = () => {
         <wd-cell title="关于礼记" is-link to="/pages/about/index" />
       </div>
 
-      <div class="rounded-xl bg-white p-2 text-center text-red" @click="goAccountDelete">
+      // #ifdef H5
+      <wd-button block @click="logout">
+        退出登录
+      </wd-button>
+      // #endif
+
+      <wd-button plain block @click="goAccountDelete">
         注销账号
-      </div>
+      </wd-button>
     </div>
   </div>
 </template>
