@@ -37,7 +37,7 @@ const chatOpt = {
   },
 }
 
-const statsData = ref<Api.StatsOverall>({
+const statsData = ref({
   inCount: 0,
   outCount: 0,
   inTotal: 0,
@@ -45,12 +45,12 @@ const statsData = ref<Api.StatsOverall>({
 })
 
 onShow(async () => {
-  const { giftInList, giftOutList } = await apiStatsDashboardGet()
+  const { bookItems, gifts } = await apiStatsDashboardGet()
 
-  const inCount = giftInList?.length || 0
-  const outCount = giftOutList?.length || 0
-  const inTotal = giftInList?.reduce((acc, curr) => acc + (curr.money || 0), 0) || 0
-  const outTotal = giftOutList?.reduce((acc, curr) => acc + (curr.money || 0), 0) || 0
+  const inCount = bookItems?.length || 0
+  const outCount = gifts?.length || 0
+  const inTotal = bookItems?.reduce((acc, curr) => acc + (curr.money || 0), 0) || 0
+  const outTotal = gifts?.reduce((acc, curr) => acc + (curr.money || 0), 0) || 0
 
   // 总体统计
   statsData.value = {
@@ -64,9 +64,9 @@ onShow(async () => {
   const yearMap: Record<number, { in: number, out: number }> = {}
 
   // 处理收礼数据
-  if (giftInList && giftInList.length) {
-    for (let i = 0; i < giftInList.length; i++) {
-      const item = giftInList[i]
+  if (bookItems && bookItems.length) {
+    for (let i = 0; i < bookItems.length; i++) {
+      const item = bookItems[i]
       const year = dayjs(item.date).year()
       if (!yearMap[year])
         yearMap[year] = { in: 0, out: 0 }
@@ -75,9 +75,9 @@ onShow(async () => {
   }
 
   // 处理送礼数据
-  if (giftOutList && giftOutList.length) {
-    for (let i = 0; i < giftOutList.length; i++) {
-      const item = giftOutList[i]
+  if (gifts && gifts.length) {
+    for (let i = 0; i < gifts.length; i++) {
+      const item = gifts[i]
       const year = dayjs(item.date).year()
       if (!yearMap[year])
         yearMap[year] = { in: 0, out: 0 }
@@ -109,18 +109,18 @@ onShow(async () => {
   const friendMap: Record<string, number> = {}
 
   // 统计收入
-  if (giftInList && giftInList.length) {
-    for (let i = 0; i < giftInList.length; i++) {
-      const item = giftInList[i]
+  if (bookItems && bookItems.length) {
+    for (let i = 0; i < bookItems.length; i++) {
+      const item = bookItems[i]
       const friendName = item.friendName || '未知朋友'
       friendMap[friendName] = (friendMap[friendName] || 0) + (item.money || 0)
     }
   }
 
   // 统计支出
-  if (giftOutList && giftOutList.length) {
-    for (let i = 0; i < giftOutList.length; i++) {
-      const item = giftOutList[i]
+  if (gifts && gifts.length) {
+    for (let i = 0; i < gifts.length; i++) {
+      const item = gifts[i]
       const friendName = item.friendName || '未知朋友'
       friendMap[friendName] = (friendMap[friendName] || 0) - (item.money || 0)
     }
@@ -144,8 +144,8 @@ onShow(async () => {
   const radarCategories = ['结婚', '宝宝', '乔迁', '升学', '其他']
   const radarMap: Record<string, number> = Object.fromEntries(radarCategories.map(key => [key, 0]))
 
-  // 遍历giftOutList，统计每个分类出现的次数
-  giftOutList?.forEach((item) => {
+  // 遍历gifts，统计每个分类出现的次数
+  gifts?.forEach((item) => {
     const title = item.title || ''
     // 查找是否属于已知分类
     const found = radarCategories.find(cat => title.includes(cat))
@@ -169,7 +169,7 @@ onShow(async () => {
 
   // 生成词云数据（统计送礼/收礼对象出现频率）
   const wordMap: Record<string, number> = {}
-  giftInList?.forEach((item) => {
+  bookItems?.forEach((item) => {
     if (item.friendName) {
       wordMap[item.friendName] = (wordMap[item.friendName] || 0) + 1
     }
@@ -177,7 +177,7 @@ onShow(async () => {
       wordMap[item.title] = (wordMap[item.title] || 0) + 1
     }
   })
-  giftOutList?.forEach((item) => {
+  gifts?.forEach((item) => {
     if (item.friendName) {
       wordMap[item.friendName] = (wordMap[item.friendName] || 0) + 1
     }

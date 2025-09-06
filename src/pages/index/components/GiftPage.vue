@@ -178,7 +178,7 @@ defineExpose({
         <uv-empty text="还没有人情往来记录哦~" mode="favor">
           <div class="mt-6">
             <wd-button class="mt-6" type="primary" @click="onAdd()">
-              添加送礼
+              添加记录
             </wd-button>
           </div>
         </uv-empty>

@@ -50,7 +50,7 @@ const API_ENV_MAP = {
   // 微信小程序环境映射
   MP: {
     release: 'release', // 正式环境
-    trial: 'trial', // 体验版
+    trial: '', // 体验版
     develop: '', // 开发版（空表示不加后缀）
   },
   // H5 环境映射

@@ -91,12 +91,12 @@ const logout = () => {
       </div>
 
       // #ifdef H5
-      <wd-button block @click="logout">
+      <wd-button plain block @click="logout">
         退出登录
       </wd-button>
       // #endif
 
-      <wd-button plain block @click="goAccountDelete">
+      <wd-button block @click="goAccountDelete">
         注销账号
       </wd-button>
     </div>

@@ -128,7 +128,7 @@ onShareAppMessage(() => {
       </div>
       <div v-else class="rounded-2xl bg-white p-4 space-y-2xl">
         <div class="text-center">
-          <img src="/static/family/index.webp" class="w-full">
+          <i class="i-hugeicons-user-group-02 p-10 text-red" />
           <div class="mt-5 text-xl font-bold">
             家人共享
           </div>
@@ -144,7 +144,7 @@ onShareAppMessage(() => {
                 协同记账
               </div>
               <div class="text-sm text-gray">
-                贴心记账伙伴，让家庭人情往来记录更轻松。
+                家人同绘人情长卷，携手共书往来情谊。
               </div>
             </div>
           </div>
