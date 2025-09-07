@@ -146,9 +146,11 @@ const presetMoney = [200, 500, 1000, 2000]
                   :rules="[{ required: true, message: '请填写金额' }]"
         />
         <div class="flex justify-end space-x-2">
-          <wd-button v-for="i in presetMoney" :key="i" plain size="small" @click="dataSource.money = i">
-            {{ i }}
-          </wd-button>
+          <div v-for="i in presetMoney" :key="i">
+            <wd-button plain size="small" @click="dataSource.money = i">
+              {{ i }}
+            </wd-button>
+          </div>
         </div>
         <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
       </wd-form>

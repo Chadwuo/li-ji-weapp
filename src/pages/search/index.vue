@@ -126,7 +126,7 @@ const onMoreClick = (type?: string) => {
               <i class="i-hugeicons-arrow-right-01" />
             </div>
           </div>
-          <wd-cell v-for="cell in data?.bookItems" :key="cell.id" clickable border :title="cell.title"
+          <wd-cell v-for="cell in data?.bookItems" :key="cell.id" clickable center border :label="cell.friendName" :title="cell.title" :value="cell.money"
                    @click="onItemClick(cell.id, 'book-item')"
           />
         </div>
@@ -140,7 +140,7 @@ const onMoreClick = (type?: string) => {
               <i class="i-hugeicons-arrow-right-01" />
             </div>
           </div>
-          <wd-cell v-for="cell in data?.gfts" :key="cell.id" clickable border :title="cell.title"
+          <wd-cell v-for="cell in data?.gfts" :key="cell.id" clickable center border :title="cell.title" :label="cell.friendName" :value="cell.money"
                    @click="onItemClick(cell.id, 'gift')"
           />
         </div>
