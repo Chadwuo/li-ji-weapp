@@ -27,7 +27,7 @@ const onSearch = (word?: string) => {
 }
 
 const searchEmpty = computed(() => {
-  return !data.value?.gfts?.length && !data.value?.bookItems?.length && !data.value?.friends?.length
+  return !data.value?.gifts?.length && !data.value?.bookItems?.length && !data.value?.friends?.length
 })
 
 const onCancel = () => {
@@ -135,17 +135,17 @@ const onMoreClick = (type?: string) => {
                    @click="onItemClick(cell.id, 'book-item')"
           />
         </div>
-        <div v-show="data?.gfts?.length" class="bg-white py-2">
+        <div v-show="data?.gifts?.length" class="bg-white py-2">
           <div class="mx-3 my-2 flex justify-between text-gray">
             <div>
               送礼
             </div>
-            <div v-show="data?.gfts?.length > 4" class="flex items-center" @click="onMoreClick('gift')">
+            <div v-show="data?.gifts?.length > 4" class="flex items-center" @click="onMoreClick('gift')">
               更多
               <i class="i-hugeicons-arrow-right-01" />
             </div>
           </div>
-          <wd-cell v-for="cell in data?.gfts" :key="cell.id" clickable center border :title="cell.title" :label="cell.friendName" :value="cell.money"
+          <wd-cell v-for="cell in data?.gifts" :key="cell.id" clickable center border :title="cell.title" :label="cell.friendName" :value="cell.money"
                    @click="onItemClick(cell.id, 'gift')"
           />
         </div>

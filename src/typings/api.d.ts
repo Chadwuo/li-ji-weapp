@@ -608,7 +608,7 @@ declare namespace Api {
   interface SearchOutput {
     books: Book[]
     bookItems: BookItem[]
-    gfts: Gift[]
+    gifts: Gift[]
     friends: Friend[]
   }
 }
