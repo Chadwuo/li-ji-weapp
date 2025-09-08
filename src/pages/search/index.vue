@@ -26,6 +26,10 @@ const onSearch = (word?: string) => {
   }
 }
 
+const searchEmpty = computed(() => {
+  return !data.value?.gfts?.length && !data.value?.bookItems?.length && !data.value?.friends?.length
+})
+
 const onCancel = () => {
   uni.navigateBack()
 }
@@ -43,7 +47,7 @@ const onItemClick = (id?: string, type?: string) => {
       break
     case 'book-item':
       uni.navigateTo({
-        url: `/pages/book-item/detail?id=${id}`,
+        url: `/pages/bookItem/detail?id=${id}`,
       })
       break
     case 'gift':
@@ -63,7 +67,7 @@ const onMoreClick = (type?: string) => {
       break
     case 'book-item':
       uni.navigateTo({
-        url: `/pages/search/more/bookitem`,
+        url: `/pages/search/more/bookItem`,
       })
       break
     case 'gift':
@@ -102,7 +106,8 @@ const onMoreClick = (type?: string) => {
         <div v-show="loading" class="flex justify-center pt-5">
           <wd-loading color="#f87171" />
         </div>
-        <div class="bg-white py-2">
+        <uv-empty v-show="searchEmpty" mode="search" />
+        <div v-show="data?.friends?.length" class="bg-white py-2">
           <div class="mx-3 my-2 flex justify-between text-gray">
             <div>
               联系人
@@ -112,12 +117,11 @@ const onMoreClick = (type?: string) => {
               <i class="i-hugeicons-arrow-right-01" />
             </div>
           </div>
-          <uv-empty v-show="!data?.friends?.length" />
           <wd-cell v-for="cell in data?.friends" :key="cell.id" l clickable border :title="cell.name"
                    @click="onItemClick(cell.id, 'friend')"
           />
         </div>
-        <div class="bg-white py-2">
+        <div v-show="data?.bookItems?.length" class="bg-white py-2">
           <div class="mx-3 my-2 flex justify-between text-gray">
             <div>
               礼簿
@@ -127,12 +131,11 @@ const onMoreClick = (type?: string) => {
               <i class="i-hugeicons-arrow-right-01" />
             </div>
           </div>
-          <uv-empty v-show="!data?.bookItems?.length" />
           <wd-cell v-for="cell in data?.bookItems" :key="cell.id" clickable center border :label="cell.friendName" :title="cell.title" :value="cell.money"
                    @click="onItemClick(cell.id, 'book-item')"
           />
         </div>
-        <div class="bg-white py-2">
+        <div v-show="data?.gfts?.length" class="bg-white py-2">
           <div class="mx-3 my-2 flex justify-between text-gray">
             <div>
               送礼
@@ -142,7 +145,6 @@ const onMoreClick = (type?: string) => {
               <i class="i-hugeicons-arrow-right-01" />
             </div>
           </div>
-          <uv-empty v-show="!data?.gfts?.length" />
           <wd-cell v-for="cell in data?.gfts" :key="cell.id" clickable center border :title="cell.title" :label="cell.friendName" :value="cell.money"
                    @click="onItemClick(cell.id, 'gift')"
           />

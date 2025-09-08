@@ -5,6 +5,7 @@
 <template>
   <div>
     <!-- template -->
+    <uv-empty mode="page" text="Coming soon" />
   </div>
 </template>
 
