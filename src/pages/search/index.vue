@@ -99,47 +99,50 @@ const onMoreClick = (type?: string) => {
         <uv-empty v-show="!searchHistory?.length" />
       </div>
       <div v-show="keyword" class="mt-10 space-y-2">
-        <div v-if="loading" class="flex justify-center pt-5">
+        <div v-show="loading" class="flex justify-center pt-5">
           <wd-loading color="#f87171" />
         </div>
-        <div v-if="data?.friends?.length" class="bg-white py-2">
+        <div class="bg-white py-2">
           <div class="mx-3 my-2 flex justify-between text-gray">
             <div>
               联系人
             </div>
-            <div v-if="data?.friends?.length > 4" class="flex items-center" @click="onMoreClick('friend')">
+            <div v-show="data?.friends?.length > 4" class="flex items-center" @click="onMoreClick('friend')">
               更多
               <i class="i-hugeicons-arrow-right-01" />
             </div>
           </div>
+          <uv-empty v-show="!data?.friends?.length" />
           <wd-cell v-for="cell in data?.friends" :key="cell.id" l clickable border :title="cell.name"
                    @click="onItemClick(cell.id, 'friend')"
           />
         </div>
-        <div v-if="data?.bookItems?.length" class="bg-white py-2">
+        <div class="bg-white py-2">
           <div class="mx-3 my-2 flex justify-between text-gray">
             <div>
               礼簿
             </div>
-            <div v-if="data?.bookItems?.length > 4" class="flex items-center" @click="onMoreClick('book-item')">
+            <div v-show="data?.bookItems?.length > 4" class="flex items-center" @click="onMoreClick('book-item')">
               更多
               <i class="i-hugeicons-arrow-right-01" />
             </div>
           </div>
+          <uv-empty v-show="!data?.bookItems?.length" />
           <wd-cell v-for="cell in data?.bookItems" :key="cell.id" clickable center border :label="cell.friendName" :title="cell.title" :value="cell.money"
                    @click="onItemClick(cell.id, 'book-item')"
           />
         </div>
-        <div v-if="data?.gfts?.length" class="bg-white py-2">
+        <div class="bg-white py-2">
           <div class="mx-3 my-2 flex justify-between text-gray">
             <div>
               送礼
             </div>
-            <div v-if="data?.gfts?.length > 4" class="flex items-center" @click="onMoreClick('gift')">
+            <div v-show="data?.gfts?.length > 4" class="flex items-center" @click="onMoreClick('gift')">
               更多
               <i class="i-hugeicons-arrow-right-01" />
             </div>
           </div>
+          <uv-empty v-show="!data?.gfts?.length" />
           <wd-cell v-for="cell in data?.gfts" :key="cell.id" clickable center border :title="cell.title" :label="cell.friendName" :value="cell.money"
                    @click="onItemClick(cell.id, 'gift')"
           />
