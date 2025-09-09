@@ -47,41 +47,49 @@ const statsData = ref({
 onShow(async () => {
   const { bookItems, gifts } = await apiStatsDashboardGet()
 
-  const inCount = bookItems?.length || 0
-  const outCount = gifts?.length || 0
-  const inTotal = bookItems?.reduce((acc, curr) => acc + (curr.money || 0), 0) || 0
-  const outTotal = gifts?.reduce((acc, curr) => acc + (curr.money || 0), 0) || 0
+  const rawData: { friendName: string, money: number, title: string, date: string, type: string | number }[] = []
+
+  bookItems.forEach((item) => {
+    rawData.push({
+      friendName: item.friendName || '未知',
+      money: item.money || 0,
+      title: item.title || '未知',
+      date: item.date || '',
+      type: 'in',
+    })
+  })
+  gifts.forEach((item) => {
+    rawData.push({
+      friendName: item.friendName || '未知',
+      money: item.money || 0,
+      title: item.title || '未知',
+      date: item.date || '',
+      type: item.type === 1 ? 'in' : 'out',
+    })
+  })
 
   // 总体统计
   statsData.value = {
-    inCount,
-    outCount,
-    inTotal,
-    outTotal,
+    inCount: rawData.filter(item => item.type === 'in').length,
+    outCount: rawData.filter(item => item.type === 'out').length,
+    inTotal: rawData.filter(item => item.type === 'in').reduce((acc, curr) => acc + (curr.money || 0), 0),
+    outTotal: rawData.filter(item => item.type === 'out').reduce((acc, curr) => acc + (curr.money || 0), 0),
   }
 
   // 折线图数据处理
   const yearMap: Record<number, { in: number, out: number }> = {}
 
   // 处理收礼数据
-  if (bookItems && bookItems.length) {
-    for (let i = 0; i < bookItems.length; i++) {
-      const item = bookItems[i]
+  if (rawData && rawData.length) {
+    for (let i = 0; i < rawData.length; i++) {
+      const item = rawData[i]
       const year = dayjs(item.date).year()
       if (!yearMap[year])
         yearMap[year] = { in: 0, out: 0 }
-      yearMap[year].in += item.money || 0
-    }
-  }
-
-  // 处理送礼数据
-  if (gifts && gifts.length) {
-    for (let i = 0; i < gifts.length; i++) {
-      const item = gifts[i]
-      const year = dayjs(item.date).year()
-      if (!yearMap[year])
-        yearMap[year] = { in: 0, out: 0 }
-      yearMap[year].out += item.money || 0
+      if (item.type === 'in')
+        yearMap[year].in += item.money || 0
+      else
+        yearMap[year].out += item.money || 0
     }
   }
 
@@ -107,22 +115,18 @@ onShow(async () => {
 
   // 统计所有朋友的收支差，并取前5
   const friendMap: Record<string, number> = {}
-
-  // 统计收入
-  if (bookItems && bookItems.length) {
-    for (let i = 0; i < bookItems.length; i++) {
-      const item = bookItems[i]
+  // 使用rawData数据统计每个朋友的收支差
+  if (rawData && rawData.length) {
+    for (let i = 0; i < rawData.length; i++) {
+      const item = rawData[i]
       const friendName = item.friendName || '未知朋友'
-      friendMap[friendName] = (friendMap[friendName] || 0) + (item.money || 0)
-    }
-  }
-
-  // 统计支出
-  if (gifts && gifts.length) {
-    for (let i = 0; i < gifts.length; i++) {
-      const item = gifts[i]
-      const friendName = item.friendName || '未知朋友'
-      friendMap[friendName] = (friendMap[friendName] || 0) - (item.money || 0)
+      // 根据类型决定是加还是减金额
+      if (item.type === 'in') {
+        friendMap[friendName] = (friendMap[friendName] || 0) + (item.money || 0)
+      }
+      else {
+        friendMap[friendName] = (friendMap[friendName] || 0) - (item.money || 0)
+      }
     }
   }
 
@@ -145,7 +149,7 @@ onShow(async () => {
   const radarMap: Record<string, number> = Object.fromEntries(radarCategories.map(key => [key, 0]))
 
   // 遍历gifts，统计每个分类出现的次数
-  gifts?.forEach((item) => {
+  rawData.filter(item => item.type === 'out').forEach((item) => {
     const title = item.title || ''
     // 查找是否属于已知分类
     const found = radarCategories.find(cat => title.includes(cat))
@@ -169,15 +173,7 @@ onShow(async () => {
 
   // 生成词云数据（统计送礼/收礼对象出现频率）
   const wordMap: Record<string, number> = {}
-  bookItems?.forEach((item) => {
-    if (item.friendName) {
-      wordMap[item.friendName] = (wordMap[item.friendName] || 0) + 1
-    }
-    if (item.title) {
-      wordMap[item.title] = (wordMap[item.title] || 0) + 1
-    }
-  })
-  gifts?.forEach((item) => {
+  rawData.forEach((item) => {
     if (item.friendName) {
       wordMap[item.friendName] = (wordMap[item.friendName] || 0) + 1
     }
