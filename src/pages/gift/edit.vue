@@ -159,7 +159,7 @@ const presetMoney = [200, 500, 1000, 2000]
       保存
     </wd-button>
     <div class="text-xs text-gray">
-      在人情往来中，亲友举办宴席或重要事件时，前往祝贺的行为，称为送礼。
+      点亮人情往来的记忆微光，让每一次记账都成为温情的诗行。
     </div>
     <uv-calendars ref="calendarRef" lunar color="#F87171" confirm-color="#F87171" :date="dataSource.date"
                   :close-on-click-overlay="false" @confirm="confirmCalendar"
