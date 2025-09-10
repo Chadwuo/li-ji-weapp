@@ -6,21 +6,15 @@ const { closeOutside } = useQueue()
 const message = useMessage()
 const friend = ref<Api.Friend>({})
 
-const statisticsData = ref({
-  happyTotal: 0,
-  sadTotal: 0,
-  happyCount: 0,
-  sadCount: 0,
+const statsData = ref({
+  inCount: 0,
+  outCount: 0,
+  inTotal: 0,
+  outTotal: 0,
 })
 const giftList = ref<Array<any>>()
 const loading = ref(false)
 const loadGifts = async () => {
-  statisticsData.value = {
-    happyTotal: 0,
-    sadTotal: 0,
-    happyCount: 0,
-    sadCount: 0,
-  }
   const data = await apiFriendGiftListGet({ id: friend.value.id })
   if (!data)
     return
@@ -30,8 +24,6 @@ const loadGifts = async () => {
   const giftsRaw = [] as any[]
 
   bookItems.forEach((i) => {
-    statisticsData.value.happyTotal += i.money || 0
-    statisticsData.value.happyCount++
     giftsRaw.push({
       id: i.id,
       title: i.title,
@@ -46,14 +38,6 @@ const loadGifts = async () => {
   })
 
   gifts.forEach((i) => {
-    if (i.type === 1) {
-      statisticsData.value.happyTotal += i.money || 0
-      statisticsData.value.happyCount++
-    }
-    else {
-      statisticsData.value.sadTotal += i.money || 0
-      statisticsData.value.sadCount++
-    }
     giftsRaw.push({
       id: i.id,
       title: i.title,
@@ -66,6 +50,14 @@ const loadGifts = async () => {
       type: i.type,
     })
   })
+
+  // 总体统计
+  statsData.value = {
+    inCount: giftsRaw.filter(item => item.type === 1).length,
+    outCount: giftsRaw.filter(item => item.type === 0).length,
+    inTotal: giftsRaw.filter(item => item.type === 1).reduce((acc, curr) => acc + (curr.money || 0), 0),
+    outTotal: giftsRaw.filter(item => item.type === 0).reduce((acc, curr) => acc + (curr.money || 0), 0),
+  }
 
   // Group gifts by year
   const groupedGifts = giftsRaw.sort(
@@ -196,30 +188,30 @@ function onMenuClick(e: any) {
         </div>
       </div>
       <div class="text-center">
-        <span class="text-lg font-bold" :class="statisticsData.happyTotal >= statisticsData.sadTotal
+        <span class="text-lg font-bold" :class="statsData.inTotal >= statsData.outTotal
           ? 'text-red'
           : 'text-teal'
         "
         >
-          {{ statisticsData.happyTotal - statisticsData.sadTotal }}
+          {{ statsData.inTotal - statsData.outTotal }}
         </span>
         <span class="text-sm">(收支差)</span>
       </div>
       <div class="grid grid-cols-2 gap-5 divide-x">
         <div class="text-center">
           <div class="text-lg text-red font-bold">
-            <span class="text-sm">￥</span>{{ statisticsData.happyTotal }}
+            <span class="text-sm">￥</span>{{ statsData.inTotal }}
           </div>
           <div class="flex items-center justify-center text-sm text-gray space-x-1">
-            <div>收礼({{ statisticsData.happyCount }})</div>
+            <div>收礼({{ statsData.inCount }})</div>
           </div>
         </div>
         <div class="text-center">
           <div class="text-lg text-teal font-bold">
-            <span class="text-sm">￥</span>{{ statisticsData.sadTotal }}
+            <span class="text-sm">￥</span>{{ statsData.outTotal }}
           </div>
           <div class="flex items-center justify-center text-sm text-gray space-x-1">
-            <div>送礼({{ statisticsData.sadCount }})</div>
+            <div>送礼({{ statsData.outCount }})</div>
           </div>
         </div>
       </div>

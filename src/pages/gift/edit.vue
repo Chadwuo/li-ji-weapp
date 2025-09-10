@@ -172,7 +172,7 @@ const presetMoney = [200, 500, 1000, 2000]
 <route lang="json">
 {
   "style": {
-    "navigationBarTitleText": "送礼记录"
+    "navigationBarTitleText": "人情往来"
   }
 }
 </route>
