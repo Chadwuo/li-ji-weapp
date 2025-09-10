@@ -47,7 +47,7 @@ const statsData = ref({
 onShow(async () => {
   const { bookItems, gifts } = await apiStatsDashboardGet()
 
-  const rawData: { friendName: string, money: number, title: string, date: string, type: string | number }[] = []
+  const rawData: { friendName: string, money: number, title: string, date: string, type: string }[] = []
 
   bookItems.forEach((item) => {
     rawData.push({
@@ -119,7 +119,7 @@ onShow(async () => {
   if (rawData && rawData.length) {
     for (let i = 0; i < rawData.length; i++) {
       const item = rawData[i]
-      const friendName = item.friendName || '未知朋友'
+      const friendName = item.friendName
       // 根据类型决定是加还是减金额
       if (item.type === 'in') {
         friendMap[friendName] = (friendMap[friendName] || 0) + (item.money || 0)
@@ -289,8 +289,7 @@ onShow(async () => {
 <route lang="json">
 {
   "style": {
-    "navigationStyle": "custom",
-    "enablePullDownRefresh": true
+    "navigationStyle": "custom"
   }
 }
 </route>
