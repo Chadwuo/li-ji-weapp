@@ -143,6 +143,7 @@ defineExpose({
 
 <template>
   <div>
+    <wd-message-box />
     <div class="mt-3 flex items-center">
       <div class="w-full flex items-center rounded-full bg-white p-1 px-2 text-gray" @click="onSearch()">
         <i class="i-hugeicons-search-02" />
