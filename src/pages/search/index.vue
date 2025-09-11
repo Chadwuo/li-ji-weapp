@@ -88,7 +88,7 @@ const onMoreClick = (type?: string) => {
     </div>
 
     <div>
-      <div v-show="!keyword" class="mx-3 mt-14">
+      <div v-if="!keyword" class="mx-3 mt-14">
         <div class="my-2 flex items-center justify-between">
           <div class="text-lg font-bold">
             搜索历史
@@ -100,13 +100,17 @@ const onMoreClick = (type?: string) => {
             {{ item }}
           </wd-tag>
         </div>
-        <uv-empty v-show="!searchHistory?.length" />
+        <div v-show="!searchHistory?.length" class="py-12">
+          <uv-empty />
+        </div>
       </div>
-      <div v-show="keyword" class="mt-10 space-y-2">
+      <div v-else class="mt-10 space-y-2">
         <div v-show="loading" class="flex justify-center pt-5">
           <wd-loading color="#f87171" />
         </div>
-        <uv-empty v-show="searchEmpty" mode="search" />
+        <div v-show="searchEmpty" class="py-16">
+          <uv-empty mode="search" />
+        </div>
         <div v-show="data?.friends?.length" class="bg-white py-2">
           <div class="mx-3 my-2 flex justify-between text-gray">
             <div>
