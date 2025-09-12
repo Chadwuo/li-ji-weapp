@@ -51,7 +51,7 @@ const handleGiftExport = async () => {
     title: '正在导出数据...',
     mask: true,
   })
-  const { tempFilePath } = await apiGiftOutExportGet()
+  const { tempFilePath } = await apiGiftExportGet()
   uni.openDocument({
     filePath: tempFilePath,
     showMenu: true,

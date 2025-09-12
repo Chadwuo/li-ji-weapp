@@ -19,7 +19,7 @@ const cur = computed(() => {
       }
     case 1:
       return {
-        bgImg: `${import.meta.env.VITE_SERVICE_URL}/oss/assets/bg/bg_giftout.png`,
+        bgImg: `${import.meta.env.VITE_SERVICE_URL}/oss/assets/bg/bg_gift.png`,
         loadMoreAsync: () => {
           giftPageRef.value?.loadMoreAsync()
         },
