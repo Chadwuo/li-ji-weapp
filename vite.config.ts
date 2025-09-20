@@ -29,7 +29,7 @@ export default async () => {
       Uni(),
       // https://github.com/antfu/unplugin-auto-import
       AutoImport({
-        imports: ['vue', '@vueuse/core', 'uni-app'],
+        imports: ['vue', 'uni-app'],
         dts: 'src/auto-imports.d.ts',
         dirs: ['src/composables', 'src/stores', 'src/utils', 'src/api'],
         vueTemplate: true,
