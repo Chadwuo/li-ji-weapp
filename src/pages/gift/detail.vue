@@ -132,7 +132,7 @@ const navigateToFriendDetailPage = () => {
 <route lang="json">
 {
   "style": {
-    "navigationBarTitleText": "送礼记录"
+    "navigationBarTitleText": "人情往来"
   }
 }
 </route>

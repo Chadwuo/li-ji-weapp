@@ -132,7 +132,7 @@ const onFriendDel = () => {
 }
 const onAdd = () => {
   uni.navigateTo({
-    url: '/pages/gift/edit',
+    url: `/pages/gift/edit?friendId=${friend.value.id}&friendName=${friend.value.name}`,
   })
 }
 const menu = ref<Array<Record<string, any>>>([

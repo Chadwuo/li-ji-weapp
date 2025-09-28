@@ -27,6 +27,11 @@ onLoad(async (option) => {
     })
     dataSource.value = await apiGiftGet({ id: option.id })
   }
+
+  if (option?.friendId) {
+    dataSource.value.friendId = option.friendId
+    dataSource.value.friendName = option.friendName
+  }
 })
 
 function onSelectIcont(i: any) {
