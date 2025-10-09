@@ -152,7 +152,7 @@ declare namespace Api {
      * @type {boolean}
      * @memberof User
      */
-    accountType?: int
+    accountType?: number
     /**
      * 创建时间
      * @type {string}
@@ -459,7 +459,7 @@ declare namespace Api {
      * @type {boolean}
      * @memberof Gift
      */
-    type?: int
+    type?: number
     /**
      * 主题
      * @type {string}

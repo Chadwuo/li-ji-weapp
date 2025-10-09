@@ -90,6 +90,10 @@ const fk_apple = () => {
   }
 }
 
+const price = computed(() => {
+  return (subscriptionPlan.value?.price ?? 0) / 100
+})
+
 onLoad(async () => {
   await loadSubscriptionPlanData()
 })
@@ -105,7 +109,7 @@ onLoad(async () => {
           🎉
         </div>
         <div class="mt-4 text-xl font-bold">
-          永久VIP会员 限时 1 折起
+          永久 VIP 会员 限时优惠活动
         </div>
         <div class="mt-2 text-sm text-gray">
           为效率和情怀充值，让你的人情往来记账更高效
@@ -124,7 +128,7 @@ onLoad(async () => {
           <div class="my-auto text-center">
             <div>
               <span class="text-lg text-red font-bold">￥</span>
-              <span class="text-3xl text-red font-bold">{{ subscriptionPlan?.price }}</span>
+              <span class="text-3xl text-red font-bold">{{ price }}</span>
               <span class="ml-2 text-lg text-gray font-bold line-through">￥98</span>
             </div>
           </div>
@@ -152,7 +156,7 @@ onLoad(async () => {
         <wd-button v-else block :loading="loading" loading-color="#F87171" @click="jsapiPay">
           <div class="font-bold">
             <span>￥</span>
-            <span>{{ subscriptionPlan?.price }}</span>
+            <span>{{ price }}</span>
             <span class="ml-2">立即购买</span>
           </div>
         </wd-button>
@@ -161,7 +165,7 @@ onLoad(async () => {
         <wd-button block :loading="loading" loading-color="#F87171" @click="h5Pay">
           <div class="font-bold">
             <span>￥</span>
-            <span>{{ subscriptionPlan?.price }}</span>
+            <span>{{ price }}</span>
             <span class="ml-2">立即购买</span>
           </div>
         </wd-button>
