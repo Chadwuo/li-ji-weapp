@@ -149,7 +149,7 @@ declare namespace Api {
     password?: string
     /**
      * 账号类型
-     * @type {boolean}
+     * @type {number}
      * @memberof User
      */
     accountType?: number
@@ -193,6 +193,10 @@ declare namespace Api {
      * @type {string}
      */
     familyId?: string | null
+    /**
+     * 账号类型
+     */
+    accountType?: number
   }
 
   interface UserSubscription {

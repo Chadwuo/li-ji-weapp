@@ -22,7 +22,7 @@ const vipLevel = computed(() => {
     default:
       return {
         name: '普通用户',
-        text: '会员限时 1 折，享专属服务 >',
+        text: '会员限时折扣，享专属服务 >',
       }
   }
 })
@@ -64,11 +64,12 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
   >
     <div class="mx-3 space-y-3">
       <div class="flex items-center" @click="toSettings">
-        <uv-avatar :src="userInfo?.avatar" :size="55" />
+        <uv-avatar :src="userInfo?.avatar" :size="64" />
         <div class="ml-3">
           <div class="text-lg">
             {{ welcome() }}，{{ userInfo?.nickName }}
           </div>
+          <vip-level-tag :account-type="userInfo?.accountType" />
           <div class="mt-1 text-sm text-gray">
             {{ jinrishici }}
           </div>

@@ -115,10 +115,18 @@ onShareAppMessage(() => {
       <div v-if="userFamilys && userFamilys.length">
         <div class="rounded-2xl bg-white px-1 py-3 space-y-3">
           <template v-for="i in userFamilys" :key="i.userId">
-            <wd-cell center :title="i.nickName" :label="i.role" is-link @click="onClick(i)">
+            <wd-cell center :label="i.role" is-link title-width="100%" @click="onClick(i)">
               <template #icon>
                 <div class="mr-3">
                   <uv-avatar :src="i.avatar" />
+                </div>
+              </template>
+              <template #title>
+                <div class="flex items-center space-x-2">
+                  <div class="text-lg">
+                    {{ i.nickName }}
+                  </div>
+                  <vip-level-tag v-if="i.accountType" :account-type="i.accountType" />
                 </div>
               </template>
             </wd-cell>
