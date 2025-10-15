@@ -86,11 +86,6 @@ const openCalendar = () => {
   calendarRef.value.open()
 }
 
-const onItemClick = (e: Api.Friend) => {
-  dataSource.value.friendId = e.id
-  dataSource.value.friendName = e.name
-}
-
 const presetMoney = [200, 500, 1000, 2000]
 </script>
 
@@ -142,7 +137,6 @@ const presetMoney = [200, 500, 1000, 2000]
               <div class="i-hugeicons-contact-01 text-base text-gray" @click="onSelectFriend" />
             </template>
           </wd-input>
-          <friend-search :keyword="friendSearchKeyword" @selected="onItemClick" />
         </div>
         <wd-input v-model="dataSource.title" label="事由" prop="title" placeholder="来往事由"
                   :rules="[{ required: true, message: '请填写随礼事由' }]"

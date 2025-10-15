@@ -69,7 +69,6 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
           <div class="text-lg">
             {{ welcome() }}，{{ userInfo?.nickName }}
           </div>
-          <vip-level-tag :account-type="userInfo?.accountType" />
           <div class="mt-1 text-sm text-gray">
             {{ jinrishici }}
           </div>
@@ -98,7 +97,7 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
         </div>
 
         <div class="rounded-2xl bg-white p-2">
-          <wd-cell v-if="userFamilys && userFamilys.length" value="家人共享" is-link center to="/pages/family/index">
+          <wd-cell v-if="userFamilys && userFamilys.length" value="家人共享" center is-link to="/pages/family/index">
             <template #title>
               <uv-avatar-group :urls="userFamilys.map((i) => i.avatar)" gap="0.4" />
             </template>
