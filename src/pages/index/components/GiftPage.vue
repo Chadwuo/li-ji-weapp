@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { usePagination } from 'alova/client'
-import { storeToRefs } from 'pinia'
-import { useMessage } from 'wot-design-uni'
+// import { storeToRefs } from 'pinia'
+// import { useMessage } from 'wot-design-uni'
 import { giftCategory } from '@/constants/app'
 
 const columns = [
@@ -12,10 +12,10 @@ const columns = [
   })),
 ]
 
-let videoAd: any = null
-const { isVip } = storeToRefs(useAuthStore())
+// let videoAd: any = null
+// const { isVip } = storeToRefs(useAuthStore())
 
-const message = useMessage()
+// const message = useMessage()
 const search = reactive({
   icon: '',
 })
@@ -29,22 +29,22 @@ const { loading, page, data: dataList, isLastPage, reload } = usePagination((pag
   preloadNextPage: false,
 })
 
-const handlePlayVideoAd = () => {
-  if (videoAd) {
-    videoAd.show().catch(() => {
-      // 失败重试
-      videoAd.load()
-        .then(() => videoAd.show())
-        .catch((err: any) => {
-          uni.showToast({
-            icon: 'none',
-            title: '激励视频 广告显示失败',
-          })
-          console.error('激励视频 广告显示失败', err)
-        })
-    })
-  }
-}
+// const handlePlayVideoAd = () => {
+//   if (videoAd) {
+//     videoAd.show().catch(() => {
+//       // 失败重试
+//       videoAd.load()
+//         .then(() => videoAd.show())
+//         .catch((err: any) => {
+//           uni.showToast({
+//             icon: 'none',
+//             title: '激励视频 广告显示失败',
+//           })
+//           console.error('激励视频 广告显示失败', err)
+//         })
+//     })
+//   }
+// }
 
 const handleGiftExport = async () => {
   uni.showLoading({
@@ -67,24 +67,25 @@ const handleGiftExport = async () => {
 }
 
 const onGiftExport = () => {
-  if (isVip.value) {
-    handleGiftExport()
-  }
-  else {
-    message.confirm({
-      msg: '成为会员，即可解锁数据导出无限制权益',
-      title: '数据导出权益',
-      confirmButtonText: '开通会员',
-      cancelButtonText: '看广告解锁',
-    }).then(() => {
-      uni.navigateTo({
-        url: '/pages/subscription/plan',
-      })
-    }).catch(({ action }) => {
-      if (action === 'cancel')
-        handlePlayVideoAd()
-    })
-  }
+  handleGiftExport()
+  // if (isVip.value) {
+  //   handleGiftExport()
+  // }
+  // else {
+  //   message.confirm({
+  //     msg: '成为会员，即可解锁数据导出无限制权益',
+  //     title: '数据导出权益',
+  //     confirmButtonText: '开通会员',
+  //     cancelButtonText: '看广告解锁',
+  //   }).then(() => {
+  //     uni.navigateTo({
+  //       url: '/pages/subscription/plan',
+  //     })
+  //   }).catch(({ action }) => {
+  //     if (action === 'cancel')
+  //       handlePlayVideoAd()
+  //   })
+  // }
 }
 
 const onGiftClick = (id?: string) => {
@@ -111,22 +112,22 @@ const onTabsClick = (item: any) => {
 }
 
 onMounted(() => {
-  if (wx.createRewardedVideoAd) {
-    videoAd = wx.createRewardedVideoAd({
-      adUnitId: 'adunit-f2113fa7b839e7e6',
-    })
-    videoAd.onLoad(() => { })
-    videoAd.onError((err: any) => {
-      console.error('激励视频广告加载失败', err)
-    })
-    videoAd.onClose((res: any) => {
-      // 用户点击了【关闭广告】按钮
-      if (res && res.isEnded) {
-        // 正常播放结束，可以下发游戏奖励
-        handleGiftExport()
-      }
-    })
-  }
+  // if (wx.createRewardedVideoAd) {
+  //   videoAd = wx.createRewardedVideoAd({
+  //     adUnitId: 'adunit-f2113fa7b839e7e6',
+  //   })
+  //   videoAd.onLoad(() => { })
+  //   videoAd.onError((err: any) => {
+  //     console.error('激励视频广告加载失败', err)
+  //   })
+  //   videoAd.onClose((res: any) => {
+  //     // 用户点击了【关闭广告】按钮
+  //     if (res && res.isEnded) {
+  //       // 正常播放结束，可以下发游戏奖励
+  //       handleGiftExport()
+  //     }
+  //   })
+  // }
 })
 
 defineExpose({
