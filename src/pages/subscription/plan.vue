@@ -3,6 +3,12 @@ import { storeToRefs } from 'pinia'
 import { useMessage } from 'wot-design-uni'
 import VipEquity from './components/VipEquity.vue'
 
+definePage({
+  style: {
+    navigationBarTitleText: '',
+  },
+})
+
 const message = useMessage()
 const loading = ref(false)
 const { userInfo } = storeToRefs(useAuthStore())
@@ -181,12 +187,3 @@ onLoad(async () => {
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "layout": false,
-  "style": {
-    "navigationBarTitleText": ""
-  }
-}
-</route>

@@ -1,4 +1,10 @@
 <script setup lang="ts">
+definePage({
+  style: {
+    navigationBarTitleText: '新增礼簿',
+  },
+})
+
 const calendarRef = ref<any>(null)
 const dataSource = ref<Api.Book>({})
 const formRef = ref()
@@ -78,11 +84,3 @@ const openCalendar = () => {
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationBarTitleText": "新增礼簿"
-  }
-}
-</route>

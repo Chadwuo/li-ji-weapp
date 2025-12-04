@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { useMessage } from 'wot-design-uni'
 
+definePage({
+  style: {
+    navigationBarTitleText: '收礼记录',
+  },
+})
+
 const message = useMessage()
 const dataSource = ref<Api.BookItem>({})
 
@@ -126,11 +132,3 @@ const navigateToFriendDetailPage = () => {
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-    "style": {
-        "navigationBarTitleText": "收礼记录"
-    }
-}
-</route>

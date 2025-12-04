@@ -29,3 +29,9 @@ export function apiBookItemDelete(data: any) {
     name: 'book-item-delete',
   })
 }
+
+export function apiBookItemBatchPost(data: Api.BookItem[]) {
+  return request.Post<string[]>('book-item/batch', data, {
+    name: 'book-item-batch-post',
+  })
+}

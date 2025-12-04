@@ -2,6 +2,12 @@
 import { useMessage } from 'wot-design-uni'
 import { apiUserDelete } from '@/api/modules/user'
 
+definePage({
+  style: {
+    navigationBarTitleText: '账号注销',
+  },
+})
+
 const message = useMessage()
 const loading = ref(false)
 
@@ -104,11 +110,3 @@ const showDeleteConfirm = () => {
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationBarTitleText": "账号注销"
-  }
-}
-</route>

@@ -3,6 +3,12 @@ import { usePagination } from 'alova/client'
 import { storeToRefs } from 'pinia'
 import { useMessage, useQueue } from 'wot-design-uni'
 
+definePage({
+  style: {
+    navigationBarTitleText: '详情',
+  },
+})
+
 const { closeOutside } = useQueue()
 let videoAd: any = null
 const { isVip } = storeToRefs(useAuthStore())
@@ -376,11 +382,3 @@ function onMenuClick(e: any) {
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationBarTitleText": "详情"
-  }
-}
-</route>

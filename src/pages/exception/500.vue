@@ -1,4 +1,10 @@
 <script setup lang="ts">
+definePage({
+  style: {
+    navigationStyle: 'custom',
+  },
+})
+
 const onRetry = () => {
   uni.clearStorageSync()
   // #ifdef MP-WEIXIN
@@ -37,11 +43,3 @@ onLoad((option) => {
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationStyle": "custom"
-  }
-}
-</route>

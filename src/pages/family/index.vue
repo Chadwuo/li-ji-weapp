@@ -2,6 +2,13 @@
 import { storeToRefs } from 'pinia'
 import { useMessage, useNotify } from 'wot-design-uni'
 
+definePage({
+  style: {
+    navigationBarTitleText: '家人共享',
+    enablePullDownRefresh: true,
+  },
+})
+
 const { showNotify } = useNotify()
 const message = useMessage()
 const { userFamilys, userInfo, isVip } = storeToRefs(useAuthStore())
@@ -115,7 +122,7 @@ onShareAppMessage(() => {
       <div v-if="userFamilys && userFamilys.length">
         <div class="rounded-2xl bg-white px-1 py-3 space-y-3">
           <template v-for="i in userFamilys" :key="i.userId">
-            <wd-cell center :label="i.role" is-link title-width="100%" @click="onClick(i)">
+            <wd-cell :label="i.role" is-link center title-width="100%" @click="onClick(i)">
               <template #icon>
                 <div class="mr-3">
                   <uv-avatar :src="i.avatar" />
@@ -189,12 +196,3 @@ onShareAppMessage(() => {
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationBarTitleText": "家人共享",
-    "enablePullDownRefresh": true
-  }
-}
-</route>

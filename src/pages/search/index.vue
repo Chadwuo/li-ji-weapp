@@ -3,6 +3,13 @@ import { useWatcher } from 'alova/client'
 import { storeToRefs } from 'pinia'
 import { apiSearchGet } from '@/api/modules/search'
 
+definePage({
+  style: {
+    navigationBarTitleText: '搜索',
+    navigationBarBackgroundColor: '#fff',
+  },
+})
+
 const { searchHistory } = storeToRefs(useAppStore())
 const keyword = ref<string>('')
 
@@ -121,7 +128,7 @@ const onMoreClick = (type?: string) => {
               <i class="i-hugeicons-arrow-right-01" />
             </div>
           </div>
-          <wd-cell v-for="cell in data?.friends" :key="cell.id" l clickable border :title="cell.name"
+          <wd-cell v-for="cell in data?.friends" :key="cell.id" clickable l border :title="cell.name"
                    @click="onItemClick(cell.id, 'friend')"
           />
         </div>
@@ -159,12 +166,3 @@ const onMoreClick = (type?: string) => {
 </template>
 
 <style scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "搜索"
-  }
-}
-</route>

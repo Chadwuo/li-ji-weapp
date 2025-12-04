@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { useCaptcha } from 'alova/client'
 
+definePage({
+  layout: false,
+  style: {
+    navigationBarTitleText: '登录',
+  },
+})
+
 const loading = ref(false)
 const loginEmailInput = ref({
   email: '',
@@ -268,12 +275,3 @@ const sendVerifyEmail = async () => {
   animation-delay: 6s;
 }
 </style>
-
-<route lang="json">
-{
-  "layout": false,
-  "style": {
-    "navigationStyle": "custom"
-  }
-}
-</route>

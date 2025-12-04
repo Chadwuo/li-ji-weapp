@@ -3,6 +3,12 @@ import { JSONStringify } from '@alova/shared'
 import { storeToRefs } from 'pinia'
 import { useNotify } from 'wot-design-uni'
 
+definePage({
+  style: {
+    navigationBarTitleText: '设置',
+  },
+})
+
 const { showNotify } = useNotify()
 const { userInfo } = storeToRefs(useAuthStore())
 const nickName_edit = ref(userInfo.value?.nickName)
@@ -108,11 +114,3 @@ const logout = () => {
   align-items: center;
 }
 </style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationBarTitleText": "设置"
-  }
-}
-</route>

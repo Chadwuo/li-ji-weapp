@@ -3,6 +3,12 @@ import { storeToRefs } from 'pinia'
 import { useMessage, useNotify } from 'wot-design-uni'
 import { friendCategory } from '@/constants/app'
 
+definePage({
+  style: {
+    navigationBarTitleText: '亲友标签',
+  },
+})
+
 const { showNotify } = useNotify()
 const message = useMessage()
 const popupShow = ref(false)
@@ -81,11 +87,3 @@ const onDel = () => {
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationBarTitleText": "亲友标签"
-  }
-}
-</route>

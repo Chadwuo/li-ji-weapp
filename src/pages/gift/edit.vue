@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { giftCategory } from '@/constants/app'
 
+definePage({
+  style: {
+    navigationBarTitleText: '人情往来',
+  },
+})
+
 // '结婚': 'i-bi-postcard-heart',
 // '宝宝': 'i-hugeicons-baby-01',
 // '周岁': 'i-icon-park-outline-baby-feet',
@@ -167,11 +173,3 @@ const presetMoney = [200, 500, 1000, 2000]
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationBarTitleText": "人情往来"
-  }
-}
-</route>

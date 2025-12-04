@@ -1,4 +1,9 @@
 <script setup lang="ts">
+definePage({
+  style: {
+    navigationBarTitleText: '选择亲友',
+  },
+})
 const instance: any = getCurrentInstance()
 const eventChannel = instance.proxy.getOpenerEventChannel()
 const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
@@ -58,7 +63,7 @@ function searchCancel() {
 <template>
   <div>
     <div>
-      <wd-search v-model="search.keyword" light :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left
+      <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left light
                  @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
       />
       <uv-tabs :list="useAuthStore().friendTabsList" line-width="0" line-height="0" :active-style="{
@@ -88,11 +93,3 @@ function searchCancel() {
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationBarTitleText": "选择亲友"
-  }
-}
-</route>

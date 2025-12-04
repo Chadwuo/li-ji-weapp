@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 
+definePage({
+  style: {
+    navigationStyle: 'custom',
+  },
+})
+
 const lineData = ref({})
 const wordData = ref({})
 const roseData = ref({})
@@ -285,11 +291,3 @@ onShow(async () => {
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationStyle": "custom"
-  }
-}
-</route>

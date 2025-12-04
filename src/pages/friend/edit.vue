@@ -1,4 +1,9 @@
 <script setup lang="ts">
+definePage({
+  style: {
+    navigationBarTitleText: '亲友',
+  },
+})
 const dataSource = ref<Api.Friend>({})
 onLoad(async (option) => {
   if (option?.id) {
@@ -46,11 +51,3 @@ const onSubmit = async () => {
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationBarTitleText": "亲友"
-  }
-}
-</route>

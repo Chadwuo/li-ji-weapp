@@ -2,6 +2,12 @@
 import { storeToRefs } from 'pinia'
 import VipEquity from './components/VipEquity.vue'
 
+definePage({
+  style: {
+    navigationBarTitleText: '',
+  },
+})
+
 const { isVip, userInfo } = storeToRefs(useAuthStore())
 const vipLevel = computed(() => {
   switch (userInfo.value?.accountType) {
@@ -69,11 +75,3 @@ onLoad(() => {
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationBarTitleText": ""
-  }
-}
-</route>

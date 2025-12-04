@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 
+definePage({
+  style: {
+    navigationStyle: 'custom',
+  },
+})
+
 const { userInfo, userFamilys, isVip } = storeToRefs(useAuthStore())
 const vipLevel = computed(() => {
   switch (userInfo.value?.accountType) {
@@ -151,11 +157,3 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationStyle": "custom"
-  }
-}
-</route>

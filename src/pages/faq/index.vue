@@ -1,4 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePage({
+  layout: false,
+  style: {
+    navigationBarTitleText: '常见问题',
+  },
+})
+</script>
 
 <template>
   <div class="mx-3 py-2">
@@ -48,12 +55,3 @@
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "layout": false,
-  "style": {
-    "navigationBarTitleText": "常见问题"
-  }
-}
-</route>

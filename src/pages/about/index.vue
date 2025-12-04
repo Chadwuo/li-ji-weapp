@@ -1,4 +1,10 @@
 <script setup lang="ts">
+definePage({
+  style: {
+    navigationBarTitleText: '',
+  },
+})
+
 const version = ref('5.0.0')
 // #ifdef MP-WEIXIN
 version.value = uni.getAccountInfoSync().miniProgram.version
@@ -31,11 +37,3 @@ version.value = uni.getAccountInfoSync().miniProgram.version
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationBarTitleText": ""
-  }
-}
-</route>

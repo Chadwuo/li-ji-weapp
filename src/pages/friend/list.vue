@@ -1,4 +1,9 @@
 <script setup lang="ts">
+definePage({
+  style: {
+    navigationStyle: 'custom',
+  },
+})
 const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
 const search = reactive({
   tag: '',
@@ -101,11 +106,3 @@ const onFriendClick = (id?: string) => {
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationStyle": "custom"
-  }
-}
-</route>

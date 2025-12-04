@@ -2,6 +2,14 @@
 import BookPage from './components/BookPage.vue'
 import GiftPage from './components/GiftPage.vue'
 
+definePage({
+  type: 'home',
+  style: {
+    navigationStyle: 'custom',
+    enablePullDownRefresh: true,
+  },
+})
+
 const bookPageRef = ref<InstanceType<typeof BookPage> | null>(null)
 const giftPageRef = ref<InstanceType<typeof GiftPage> | null>(null)
 const activeTab = ref(0)
@@ -95,12 +103,3 @@ onReachBottom(() => {
   display: none;
 }
 </style>
-
-<route lang="json" type="home">
-{
-  "style": {
-    "navigationStyle": "custom",
-    "enablePullDownRefresh": true
-  }
-}
-</route>

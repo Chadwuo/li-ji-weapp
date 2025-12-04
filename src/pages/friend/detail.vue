@@ -2,6 +2,12 @@
 import dayjs from 'dayjs'
 import { useMessage, useQueue } from 'wot-design-uni'
 
+definePage({
+  style: {
+    navigationBarTitleText: '好友详情',
+  },
+})
+
 const { closeOutside } = useQueue()
 const message = useMessage()
 const friend = ref<Api.Friend>({})
@@ -345,11 +351,3 @@ function onMenuClick(e: any) {
   margin-top: 20rpx;
 }
 </style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationBarTitleText": "详情"
-  }
-}
-</route>

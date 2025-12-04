@@ -2,6 +2,12 @@
 import { storeToRefs } from 'pinia'
 import { useMessage, useToast } from 'wot-design-uni'
 
+definePage({
+  style: {
+    navigationBarTitleText: '家人共享',
+  },
+})
+
 const message = useMessage()
 const toast = useToast()
 const { userFamilys } = storeToRefs(useAuthStore())
@@ -103,11 +109,3 @@ const onReject = () => {
 </template>
 
 <style lang="scss" scoped></style>
-
-<route lang="json">
-{
-  "style": {
-    "navigationBarTitleText": "家人共享"
-  }
-}
-</route>
