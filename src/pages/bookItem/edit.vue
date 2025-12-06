@@ -213,16 +213,7 @@ const presetMoney = [200, 500, 1000, 2000]
       <!-- 空状态 -->
       <div v-else class="rounded-2xl bg-white p-8 text-center text-gray-400">
         <div class="i-hugeicons-note-add mx-auto mb-2 text-4xl" />
-        <div>暂无记录，点击下方按钮添加</div>
-      </div>
-
-      <!-- 添加按钮 -->
-      <div
-        class="flex items-center justify-center border-2 border-gray-200 rounded-2xl border-dashed bg-white p-4 text-gray-500"
-        @click="onOpenAddPopup"
-      >
-        <div class="i-hugeicons-add-circle mr-2 text-xl" />
-        添加记录
+        <div>暂无记录</div>
       </div>
 
       <!-- 统计信息 -->
@@ -230,9 +221,14 @@ const presetMoney = [200, 500, 1000, 2000]
         已添加 {{ batchStats.count }} 条，共 ¥{{ batchStats.total }}
       </div>
 
+      <!-- 添加按钮 -->
+      <wd-button plain block @click="onOpenAddPopup">
+        添加记录
+      </wd-button>
+
       <!-- 批量保存按钮 -->
       <wd-button block :loading="loading" :disabled="batchList.length === 0" @click="onBatchSubmit">
-        批量保存（{{ batchList.length }}条）
+        批量保存
       </wd-button>
     </template>
 

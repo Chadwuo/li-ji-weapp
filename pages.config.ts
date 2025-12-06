@@ -1,7 +1,14 @@
 import { defineUniPages } from '@uni-helper/vite-plugin-uni-pages'
 
 export default defineUniPages({
-  pages: [],
+  pages: [
+    {
+      path: 'pages/calendar/index',
+      style: {
+        navigationBarTitleText: '万年历',
+      },
+    },
+  ],
   globalStyle: {
     backgroundColor: '@bgColor',
     backgroundColorBottom: '@bgColorBottom',
