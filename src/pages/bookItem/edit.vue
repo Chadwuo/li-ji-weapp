@@ -9,8 +9,8 @@ const loading = ref(false)
 const dataSource = ref<Api.BookItem>({})
 const formRef = ref()
 
-// 模式：single 单条录入，batch 批量录入
-const mode = ref<'single' | 'batch'>('single')
+// 模式：单条录入，批量录入
+const mode = ref<'单条录入' | '批量录入'>('单条录入')
 const isEdit = ref(false)
 const bookId = ref<string>()
 
@@ -34,19 +34,6 @@ onLoad(async (option) => {
     dataSource.value.bookId = option?.bookId
   }
 })
-
-// 切换模式
-const onModeChange = (newMode: 'single' | 'batch') => {
-  if (isEdit.value)
-    return
-  mode.value = newMode
-  if (newMode === 'batch') {
-    uni.setNavigationBarTitle({ title: '批量录入' })
-  }
-  else {
-    uni.setNavigationBarTitle({ title: '收礼记录' })
-  }
-}
 
 // 单条提交
 const onSubmit = async () => {
@@ -107,7 +94,7 @@ const onConfirmAdd = async () => {
     return
 
   // 检查是否已存在相同亲友
-  const exists = batchList.value.some(item => item.friendId === currentItem.value.friendId)
+  const exists = batchList.value.some(item => item.friendName === currentItem.value.friendName)
   if (exists) {
     uni.showToast({ title: '该亲友已添加', icon: 'none' })
     return
@@ -147,11 +134,6 @@ const onBatchSubmit = async () => {
   loading.value = false
 }
 
-// 快捷设置默认金额
-const onSetDefaultMoney = (money: number) => {
-  defaultMoney.value = money
-}
-
 // 计算批量录入统计
 const batchStats = computed(() => {
   const count = batchList.value.length
@@ -165,25 +147,12 @@ const presetMoney = [200, 500, 1000, 2000]
 <template>
   <div class="mx-3 space-y-3">
     <!-- 模式切换 Tab（仅新增时显示） -->
-    <div v-if="!isEdit" class="flex rounded-xl bg-white p-1">
-      <div
-        class="flex-1 rounded-lg py-2 text-center transition-all"
-        :class="mode === 'single' ? 'bg-red-500 text-white' : 'text-gray-600'"
-        @click="onModeChange('single')"
-      >
-        单条录入
-      </div>
-      <div
-        class="flex-1 rounded-lg py-2 text-center transition-all"
-        :class="mode === 'batch' ? 'bg-red-500 text-white' : 'text-gray-600'"
-        @click="onModeChange('batch')"
-      >
-        批量录入
-      </div>
+    <div v-if="!isEdit" class="flex rounded-2xl bg-white p-1">
+      <wd-segmented v-if="!isEdit" v-model:value="mode" :options="['单条录入', '批量录入']" />
     </div>
 
     <!-- 单条录入模式 -->
-    <template v-if="mode === 'single'">
+    <template v-if="mode === '单条录入'">
       <div class="rounded-2xl bg-white p-2 py-5">
         <wd-form ref="formRef" :model="dataSource">
           <wd-input
@@ -217,43 +186,19 @@ const presetMoney = [200, 500, 1000, 2000]
 
     <!-- 批量录入模式 -->
     <template v-else>
-      <!-- 默认金额设置 -->
-      <div class="rounded-2xl bg-white p-4">
-        <div class="mb-2 text-sm text-gray-500">
-          默认礼金（新增记录自动填充）
-        </div>
-        <div class="flex items-center space-x-2">
-          <input
-            v-model="defaultMoney"
-            type="number"
-            placeholder="自定义金额"
-            class="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm"
-          >
-          <div v-for="i in presetMoney" :key="i">
-            <wd-button
-              :plain="defaultMoney !== i"
-              :type="defaultMoney === i ? 'primary' : 'default'"
-              size="small"
-              @click="onSetDefaultMoney(i)"
-            >
-              {{ i }}
-            </wd-button>
-          </div>
-        </div>
-      </div>
-
       <!-- 已添加的记录列表 -->
-      <div v-if="batchList.length > 0" class="space-y-2">
+      <div v-if="batchList.length > 0" class="rounded-2xl bg-white">
         <div
           v-for="(item, index) in batchList"
           :key="index"
-          class="flex items-center justify-between rounded-2xl bg-white p-4"
+          class="flex items-center justify-between p-4"
         >
+          <uv-divider v-if="index" />
           <div class="flex-1" @click="onEditItem(index)">
             <div class="font-medium">
               {{ item.friendName }}
             </div>
-            <div class="text-sm text-gray-500">
+            <div class="mt-1 text-sm text-gray-500">
               ¥{{ item.money }} · {{ item.attendance || 1 }}人
               <span v-if="item.remarks" class="ml-1">· {{ item.remarks }}</span>
             </div>
@@ -334,7 +279,7 @@ const presetMoney = [200, 500, 1000, 2000]
 
         <div class="mt-4">
           <wd-button block @click="onConfirmAdd">
-            确认添加
+            添加
           </wd-button>
         </div>
       </div>
@@ -342,4 +287,14 @@ const presetMoney = [200, 500, 1000, 2000]
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+:deep(.wd-segmented__item.is-active) {
+    background: #f87171;
+    color: #fff;
+    border-radius: 12px;
+}
+
+:deep(.wd-segmented) {
+    background: #fff;
+}
+</style>
