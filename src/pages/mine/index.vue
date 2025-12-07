@@ -123,9 +123,9 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
           </template>
         </wd-cell>
 
-        <wd-cell title="万年历" is-link to="/pages/calendar/index">
+        <wd-cell title="老黄历" is-link to="/pages/calendar/index">
           <template #icon>
-            <div class="i-hugeicons-calendar-01 mx-2 text-lg text-blue" />
+            <div class="i-hugeicons-calendar-01 mx-2 text-lg text-yellow" />
           </template>
         </wd-cell>
       </div>

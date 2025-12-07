@@ -5,9 +5,9 @@ import { SolarDay } from 'tyme4ts'
 definePage({
   layout: false,
   style: {
-    navigationBarTitleText: '黄历',
-    navigationBarBackgroundColor: '#f8f5f0',
-    backgroundColor: '#f8f5f0',
+    // navigationStyle: 'custom',
+    navigationBarTitleText: '',
+    navigationBarBackgroundColor: '#c9463d',
   },
 })
 
@@ -139,7 +139,7 @@ const unluckyGods = computed(() => gods.value.filter(g => g.getLuck().getName() 
 <template>
   <div class="min-h-screen bg-[#f8f5f0] pb-8">
     <!-- 顶部日期导航 -->
-    <div class="from-[#c9463d] to-[#a63830] bg-gradient-to-b px-4 pb-6 pt-4">
+    <div class="sticky top-25px z-10 from-[#c9463d] to-[#a63830] bg-gradient-to-b px-4 pb-6 pt-4 uni-h5:top-40px">
       <!-- 日期切换按钮 -->
       <div class="flex items-center justify-between text-white">
         <div class="flex items-center gap-3">
@@ -247,50 +247,30 @@ const unluckyGods = computed(() => gods.value.filter(g => g.getLuck().getName() 
 
     <!-- 宜忌卡片 -->
     <div class="mx-4 mt-4 rounded-2xl bg-white p-4 shadow-sm">
-      <div class="flex justify-between">
-        <!-- 宜 -->
-        <div class="flex-1">
-          <div class="mb-3 flex items-center justify-center gap-2">
-            <div class="h-6 w-6 flex items-center justify-center rounded-full bg-green-500 text-xs text-white font-bold">
-              宜
-            </div>
-            <span class="text-sm text-gray-500">今日宜做</span>
-          </div>
-          <div class="grid grid-cols-3 gap-2">
-            <span
-              v-for="(item, index) in recommends.slice(0, 8)" :key="index"
-              class="rounded-md bg-green-50 px-2 py-1 text-center text-sm text-green-700"
-            >
-              {{ item.getName() }}
-            </span>
-            <span v-if="recommends.length > 8" class="rounded-md bg-gray-50 px-2 py-1 text-sm text-gray-500">
-              +{{ recommends.length - 8 }}
-            </span>
-          </div>
+      <!-- 宜 -->
+      <div class="mb-4 flex items-center space-x-3">
+        <div class="h-8 w-8 flex shrink-0 items-center justify-center rounded-full bg-green-500 text-xs text-white font-bold">
+          宜
         </div>
+        <div class="flex flex-wrap gap-2 text-sm text-green-700">
+          <span v-for="(item, index) in recommends" :key="index">
+            {{ item.getName() }}
+          </span>
+        </div>
+      </div>
 
-        <!-- 分隔线 -->
-        <div class="mx-1 w-px bg-gray-100" />
+      <!-- 分隔线 -->
+      <div class="my-2 h-px bg-gray-200" />
 
-        <!-- 忌 -->
-        <div class="flex-1">
-          <div class="mb-3 flex items-center justify-center gap-2">
-            <div class="h-6 w-6 flex items-center justify-center rounded-full bg-red-500 text-xs text-white font-bold">
-              忌
-            </div>
-            <span class="text-sm text-gray-500">今日忌做</span>
-          </div>
-          <div class="grid grid-cols-3 gap-2">
-            <span
-              v-for="(item, index) in avoids.slice(0, 8)" :key="index"
-              class="rounded-md bg-red-50 px-2 py-1 text-center text-sm text-red-700"
-            >
-              {{ item.getName() }}
-            </span>
-            <span v-if="avoids.length > 8" class="rounded-md bg-gray-50 px-2 py-1 text-sm text-gray-500">
-              +{{ avoids.length - 8 }}
-            </span>
-          </div>
+      <!-- 忌 -->
+      <div class="flex items-center space-x-3">
+        <div class="h-8 w-8 flex items-center justify-center rounded-full bg-red-500 text-xs text-white font-bold">
+          忌
+        </div>
+        <div class="flex flex-wrap gap-2 text-sm text-red-700">
+          <span v-for="(item, index) in avoids" :key="index">
+            {{ item.getName() }}
+          </span>
         </div>
       </div>
     </div>
