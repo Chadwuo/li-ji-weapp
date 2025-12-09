@@ -88,14 +88,14 @@ const onMoreClick = (type?: string) => {
 
 <template>
   <div>
-    <div class="fixed right-0 top-0 z-9 w-full uni-h5:top-40px">
+    <div class="sticky top-0 z-9 w-full uni-h5:top-40px">
       <wd-search v-model="keyword" :maxlength="20" focus placeholder="请输入亲友姓名/关键词" @search="onSearch()"
                  @cancel="onCancel"
       />
     </div>
 
     <div>
-      <div v-if="!keyword" class="mx-3 mt-14">
+      <div v-if="!keyword" class="mx-3">
         <div class="my-2 flex items-center justify-between">
           <div class="text-lg font-bold">
             搜索历史
@@ -111,7 +111,7 @@ const onMoreClick = (type?: string) => {
           <uv-empty />
         </div>
       </div>
-      <div v-else class="mt-10 space-y-2">
+      <div v-else class="space-y-2">
         <div v-show="loading" class="flex justify-center pt-5">
           <wd-loading color="#f87171" />
         </div>

@@ -139,7 +139,7 @@ const unluckyGods = computed(() => gods.value.filter(g => g.getLuck().getName() 
 <template>
   <div class="min-h-screen bg-[#f8f5f0] pb-8">
     <!-- 顶部日期导航 -->
-    <div class="sticky top-25px z-10 from-[#c9463d] to-[#a63830] bg-gradient-to-b px-4 pb-6 pt-4 uni-h5:top-40px">
+    <div class="sticky top-0 z-10 from-[#c9463d] to-[#a63830] bg-gradient-to-b px-4 pb-6 pt-4 uni-h5:top-40px">
       <!-- 日期切换按钮 -->
       <div class="flex items-center justify-between text-white">
         <div class="flex items-center gap-3">
@@ -264,7 +264,7 @@ const unluckyGods = computed(() => gods.value.filter(g => g.getLuck().getName() 
 
       <!-- 忌 -->
       <div class="flex items-center space-x-3">
-        <div class="h-8 w-8 flex items-center justify-center rounded-full bg-red-500 text-xs text-white font-bold">
+        <div class="h-8 w-8 flex shrink-0 items-center justify-center rounded-full bg-red-500 text-xs text-white font-bold">
           忌
         </div>
         <div class="flex flex-wrap gap-2 text-sm text-red-700">
