@@ -134,6 +134,13 @@ const yangDirection = computed(() => dayHeavenStem.value.getYangDirection()) // 
 // 分类吉神凶煞
 const luckyGods = computed(() => gods.value.filter(g => g.getLuck().getName() === '吉'))
 const unluckyGods = computed(() => gods.value.filter(g => g.getLuck().getName() !== '吉'))
+
+// 选择吉日
+function goLukyday() {
+  uni.redirectTo({
+    url: '/pages/calendar/lucky-day',
+  })
+}
 </script>
 
 <template>
@@ -153,8 +160,8 @@ const unluckyGods = computed(() => gods.value.filter(g => g.getLuck().getName() 
             {{ solarDay.getYear() }}年{{ solarDay.getMonth() }}月
           </div>
           <div v-if="isToday" class="mt-1 text-white/70">
-            <div class="rounded-full bg-white/20 px-4 py-1 text-sm text-white active:bg-white/30" @click="goToday">
-              点击选择日期
+            <div class="rounded-full bg-white/20 px-4 py-1 text-sm text-white active:bg-white/30" @click="goLukyday">
+              择吉日
             </div>
           </div>
           <!-- 回到今天按钮 -->
