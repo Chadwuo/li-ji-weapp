@@ -45,7 +45,7 @@
     "wot-design-uni": "^1.13.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^6.4.2",
+    "@antfu/eslint-config": "^6.6.1",
     "@dcloudio/types": "^3.4.16",
     "@dcloudio/uni-automator": "3.0.0-4070520250711001",
     "@dcloudio/uni-cli-shared": "3.0.0-4070520250711001",
@@ -55,7 +55,7 @@
     "@iconify/json": "^2.2.395",
     "@mini-types/alipay": "^3.0.14",
     "@types/node": "^22.10.6",
-    "@uni-helper/eslint-config": "^0.3.0",
+    "@uni-helper/eslint-config": "^0.6.1",
     "@uni-helper/plugin-uni": "^0.1.0",
     "@uni-helper/unh": "^0.2.3",
     "@uni-helper/uni-env": "^0.1.7",
