@@ -148,7 +148,7 @@ const presetMoney = [200, 500, 1000, 2000]
   <div class="mx-3 space-y-3">
     <!-- 模式切换 Tab（仅新增时显示） -->
     <div v-if="!isEdit" class="flex rounded-2xl bg-white p-1">
-      <wd-segmented v-if="!isEdit" v-model:value="mode" :options="['单条录入', '批量录入']" />
+      <wd-segmented v-if="!isEdit" v-model:value="mode" custom-class="!bg-white" :options="['单条录入', '批量录入']" />
     </div>
 
     <!-- 单条录入模式 -->
@@ -288,9 +288,5 @@ const presetMoney = [200, 500, 1000, 2000]
     background: #f87171;
     color: #fff;
     border-radius: 12px;
-}
-
-:deep(.wd-segmented) {
-    background: #fff;
 }
 </style>
