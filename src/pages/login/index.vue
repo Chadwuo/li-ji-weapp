@@ -4,7 +4,7 @@ import { useCaptcha } from 'alova/client'
 definePage({
   layout: false,
   style: {
-    navigationBarTitleText: '登录',
+    navigationStyle: 'custom',
   },
 })
 

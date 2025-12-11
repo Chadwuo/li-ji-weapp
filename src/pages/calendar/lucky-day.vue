@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import dayjs from 'dayjs'
 import { SolarDay } from 'tyme4ts'
 
 definePage({
@@ -12,14 +11,19 @@ definePage({
 
 // 事项列表
 const eventTypes = [
-  { key: '嫁娶', label: '结婚', icon: 'i-carbon-favorite-filled', color: 'rose' },
+  { key: '嫁娶', label: '嫁娶', icon: 'i-bi-postcard-heart', color: 'rose' },
   { key: '订婚', label: '订婚', icon: 'i-carbon-events', color: 'pink' },
-  { key: '入宅', label: '乔迁', icon: 'i-carbon-home', color: 'amber' },
-  { key: '搬家', label: '搬家', icon: 'i-carbon-delivery-truck', color: 'orange' },
+  { key: '入宅', label: '入宅', icon: 'i-carbon-home', color: 'amber' },
   { key: '装修', label: '装修', icon: 'i-carbon-tool-kit', color: 'teal' },
+  { key: '祈福', label: '祈福', icon: 'i-carbon-star', color: 'purple' },
+  { key: '求嗣', label: '求嗣', icon: 'i-hugeicons-baby-01', color: 'pink' },
   { key: '开业', label: '开业', icon: 'i-carbon-store', color: 'emerald' },
   { key: '出行', label: '出行', icon: 'i-carbon-plane', color: 'sky' },
-  { key: '祈福', label: '祈福', icon: 'i-carbon-star', color: 'purple' },
+  { key: '订盟', label: '签约', icon: 'i-carbon-document-signed', color: 'indigo' },
+  { key: '动土', label: '动土', icon: 'i-carbon-construction', color: 'lime' },
+  { key: '安葬', label: '安葬', icon: 'i-carbon-worship-christian', color: 'gray' },
+  { key: '祭祀', label: '祭祀', icon: 'i-carbon-tree', color: 'amber' },
+
 ]
 
 // 选中的事项
@@ -145,12 +149,27 @@ function formatWeekday(date: Date): string {
   return weekdays[date.getDay()]
 }
 
-// 判断是否是今天
-function isToday(date: Date): boolean {
+// 获取日期与今天的差值描述
+function getDaysFromToday(date: Date): string {
+  // 创建只包含日期部分的对象，忽略时间
   const today = new Date()
-  return date.getFullYear() === today.getFullYear()
-    && date.getMonth() === today.getMonth()
-    && date.getDate() === today.getDate()
+  const compareDate = new Date(date)
+
+  // 重置时间为00:00:00，确保只比较日期
+  today.setHours(0, 0, 0, 0)
+  compareDate.setHours(0, 0, 0, 0)
+
+  // 计算毫秒差并转换为天数
+  const diffTime = compareDate.getTime() - today.getTime()
+  const diff = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+
+  if (diff === 0)
+    return '今天'
+  if (diff === 1)
+    return '明天'
+  if (diff === 2)
+    return '后天'
+  return `${diff}天后`
 }
 
 // 获取事项的配置
@@ -229,9 +248,7 @@ function getEventConfig(key: string) {
             <div class="flex items-center gap-3">
               <!-- 日期数字 -->
               <div class="relative">
-                <div class="h-12 w-12 flex items-center justify-center rounded-xl text-xl font-bold"
-                     :class="isToday(day.date) ? 'bg-[#c9463d] text-white' : 'bg-gradient-to-br from-amber-50 to-orange-50 text-[#c9463d]'"
-                >
+                <div class="h-12 w-12 flex items-center justify-center rounded-xl bg-[#c9463d] text-xl text-white font-bold">
                   {{ day.date.getDate() }}
                 </div>
               </div>
@@ -251,10 +268,9 @@ function getEventConfig(key: string) {
                 </div>
               </div>
             </div>
-            <!-- 干支 -->
             <div class="text-right">
               <div class="text-sm text-[#c9463d] font-medium">
-                {{ dayjs(day.date).diff(new Date(), 'day') }} 天后
+                {{ getDaysFromToday(day.date) }}
               </div>
             </div>
           </div>
@@ -415,5 +431,66 @@ function getEventConfig(key: string) {
 .ring-pink-300 {
   --un-ring-opacity: 1;
   --un-ring-color: rgb(249 168 212 / var(--un-ring-opacity));
+}
+
+/* 补充缺失的颜色类 */
+.bg-indigo-100 {
+  --un-bg-opacity: 1;
+  background-color: rgb(224 231 255 / var(--un-bg-opacity));
+}
+
+.text-indigo-600 {
+  --un-text-opacity: 1;
+  color: rgb(79 70 229 / var(--un-text-opacity));
+}
+
+.ring-indigo-300 {
+  --un-ring-opacity: 1;
+  --un-ring-color: rgb(165 180 252 / var(--un-ring-opacity));
+}
+
+.bg-lime-100 {
+  --un-bg-opacity: 1;
+  background-color: rgb(247 254 231 / var(--un-bg-opacity));
+}
+
+.text-lime-600 {
+  --un-text-opacity: 1;
+  color: rgb(100 192 24 / var(--un-text-opacity));
+}
+
+.ring-lime-300 {
+  --un-ring-opacity: 1;
+  --un-ring-color: rgb(187 247 126 / var(--un-ring-opacity));
+}
+
+.bg-gray-100 {
+  --un-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--un-bg-opacity));
+}
+
+.text-gray-600 {
+  --un-text-opacity: 1;
+  color: rgb(75 85 99 / var(--un-text-opacity));
+}
+
+.ring-gray-300 {
+  --un-ring-opacity: 1;
+  --un-ring-color: rgb(209 213 219 / var(--un-ring-opacity));
+}
+
+.bg-stone-100 {
+  --un-bg-opacity: 1;
+  background-color: rgb(245 245 244 / var(--un-bg-opacity));
+}
+
+.text-stone-600 {
+  --un-text-opacity: 1;
+  color: rgb(87 83 78 / var(--un-text-opacity));
+}
+
+.ring-stone-300 {
+  --un-ring-opacity: 1;
+  --un-ring-color: rgb(214 211 209 / var(--un-ring-opacity));
 }
 </style>
