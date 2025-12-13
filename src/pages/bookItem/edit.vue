@@ -247,7 +247,7 @@ const presetMoney = [200, 500, 1000, 2000]
                     </wd-button>
                   </div>
                 </div>
-                <wd-button size="small" class="w-20" @click="onConfirmAdd">
+                <wd-button size="small" class="w-20" :disabled="!currentItem.friendName" @click="onConfirmAdd">
                   添加
                 </wd-button>
               </div>
@@ -337,6 +337,7 @@ const presetMoney = [200, 500, 1000, 2000]
     <wd-button block :loading="loading" :disabled="batchList.length === 0" @click="onBatchSubmit">
       批量保存
     </wd-button>
+    <uv-safe-bottom />
   </div>
 </template>
 
