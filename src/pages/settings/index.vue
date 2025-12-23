@@ -96,11 +96,11 @@ const logout = () => {
         <wd-cell title="关于礼记" is-link to="/pages/about/index" />
       </div>
 
-      // #ifdef H5
+      <!-- #ifdef H5 -->
       <wd-button plain block @click="logout">
         退出登录
       </wd-button>
-      // #endif
+      <!-- #endif -->
 
       <wd-button block @click="goAccountDelete">
         注销账号
