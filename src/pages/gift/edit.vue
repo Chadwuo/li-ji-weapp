@@ -118,7 +118,7 @@ const presetMoney = [200, 500, 1000, 2000]
         <wd-cell title="类型" title-width="100px" center>
           <div class="flex items-center justify-end">
             <div class="mr-2">
-              {{ dataSource.type === 1 ? '收入' : '支出' }}
+              {{ dataSource.type === 1 ? '收礼' : '送礼' }}
             </div>
             <wd-switch v-model="dataSource.type" active-color="#f87171" inactive-color="#2dd4bf" :active-value="1"
                        :inactive-value="0"
