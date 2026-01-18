@@ -57,14 +57,14 @@ const openCalendar = () => {
   <div class="mx-3 space-y-3" :class="{ memorial: hasMourningWords(dataSource.title) }">
     <div class="rounded-2xl bg-white p-2 py-5">
       <wd-form ref="formRef" :model="dataSource">
-        <wd-input v-model="dataSource.date" label="日期" prop="date" placeholder="请选择日期" readonly
+        <wd-input v-model="dataSource.date" label="日期" prop="date" placeholder="选择日期" readonly
                   :rules="[{ required: true, message: '请选择日期' }]" @click="openCalendar"
         >
           <template #suffix>
             <div class="i-hugeicons-calendar-01 text-base text-gray" />
           </template>
         </wd-input>
-        <wd-input v-model="dataSource.title" label="名称" prop="title" placeholder="礼簿名称" clearable
+        <wd-input v-model="dataSource.title" label="名称" prop="title" placeholder="例如：新婚礼簿" clearable
                   :rules="[{ required: true, message: '请填写礼簿名称' }]"
         />
         <wd-input v-model="dataSource.cost" label="成本" prop="cost" type="number" placeholder="宴席、伴手礼等费用" />

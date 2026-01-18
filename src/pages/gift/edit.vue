@@ -19,7 +19,9 @@ definePage({
 // '其他': 'i-mingcute-wallet-2-line',
 const columns = Object.entries(giftCategory)
   .map(([name, icon]) => ({ name, icon }))
-const dataSource = ref<Api.Gift>({})
+const dataSource = ref<Api.Gift>({
+  type: 0,
+})
 
 const calendarRef = ref<any>(null)
 const loading = ref(false)
@@ -92,7 +94,7 @@ const openCalendar = () => {
   calendarRef.value.open()
 }
 
-const presetMoney = [200, 500, 1000, 2000]
+const presetMoney = [100, 200, 500, 800, 1000, 2000]
 </script>
 
 <template>
@@ -115,19 +117,21 @@ const presetMoney = [200, 500, 1000, 2000]
 
     <div class="rounded-2xl bg-white px-2 py-5">
       <wd-form ref="formRef" :model="dataSource">
-        <wd-cell title="类型" title-width="100px" center>
-          <div class="flex items-center justify-end">
-            <div class="mr-2">
-              {{ dataSource.type === 1 ? '收入' : '支出' }}
-            </div>
-            <wd-switch v-model="dataSource.type" active-color="#f87171" inactive-color="#2dd4bf" :active-value="1"
-                       :inactive-value="0"
-            />
-          </div>
+        <wd-segmented :options="['送礼', '收礼']" />
+
+        <wd-cell title="礼物类型" title-width="100px" center>
+          <wd-radio-group v-model="dataSource.type" shape="button" class="text-left line-height-none">
+            <wd-radio :value="0">
+              现金
+            </wd-radio>
+            <wd-radio :value="1">
+              实物
+            </wd-radio>
+          </wd-radio-group>
         </wd-cell>
 
-        <wd-input v-model="dataSource.date" label="日期" prop="date" placeholder="请选择日期" readonly
-                  :rules="[{ required: true, message: '请选择日期' }]" @click="openCalendar"
+        <wd-input v-model="dataSource.date" label="日期时间" prop="date" placeholder="请选择日期时间" readonly
+                  :rules="[{ required: true, message: '请选择日期时间' }]" @click="openCalendar"
         >
           <template #suffix>
             <div class="i-hugeicons-calendar-01 text-base text-gray" />
@@ -136,7 +140,7 @@ const presetMoney = [200, 500, 1000, 2000]
 
         <div class="relative">
           <wd-input v-if="!dataSource.id" v-model="dataSource.friendName" label="亲友" prop="friendName"
-                    placeholder="点击右侧图标选择亲友" :rules="[{ required: true, message: '请输入亲友姓名' }]"
+                    placeholder="输入姓名，或点击右侧选择" :rules="[{ required: true, message: '请输入亲友姓名' }]"
                     @input="(e: any) => friendSearchKeyword = e.value"
           >
             <template #suffix>
@@ -144,20 +148,20 @@ const presetMoney = [200, 500, 1000, 2000]
             </template>
           </wd-input>
         </div>
-        <wd-input v-model="dataSource.title" label="事由" prop="title" placeholder="来往事由"
-                  :rules="[{ required: true, message: '请填写随礼事由' }]"
+        <wd-input v-model="dataSource.title" label="事由" prop="title" placeholder="例如：结婚"
+                  :rules="[{ required: true, message: '请填写事由' }]"
         />
-        <wd-input v-model="dataSource.money" label="礼金" prop="money" placeholder="金额" type="number"
+        <wd-input v-model="dataSource.money" label="金额" prop="money" placeholder="礼金或实物金额" type="number"
                   :rules="[{ required: true, message: '请填写金额' }]"
         />
-        <div class="flex justify-end space-x-2">
+        <div class="flex justify-around">
           <div v-for="i in presetMoney" :key="i">
-            <wd-button plain size="small" @click="dataSource.money = i">
+            <wd-button size="small" type="info" @click="dataSource.money = i">
               {{ i }}
             </wd-button>
           </div>
         </div>
-        <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
+        <wd-input v-model="dataSource.remarks" :label="dataSource.type === 0 ? '备注' : '实物描述'" placeholder="请输入内容" />
       </wd-form>
     </div>
     <wd-button block :loading="loading" @click="onSubmit">

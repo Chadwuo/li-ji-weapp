@@ -222,6 +222,7 @@ defineExpose({
                    :loading-props="{ color: '#f87171' }"
       />
     </div>
+    <wd-fab position="right-bottom" :expandable="false" @click="onAdd" />
   </div>
 </template>
 

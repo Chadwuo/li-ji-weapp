@@ -131,7 +131,7 @@ const batchStats = computed(() => {
   return { count, total }
 })
 
-const presetMoney = [200, 500, 1000, 2000]
+const presetMoney = [100, 200, 500, 800, 1000, 2000]
 </script>
 
 <template>
@@ -157,9 +157,9 @@ const presetMoney = [200, 500, 1000, 2000]
             v-model="dataSource.money" label="礼金" prop="money" placeholder="随礼金额" type="number"
             :rules="[{ required: true, message: '请填写随礼金额' }]"
           />
-          <div class="flex justify-end space-x-2">
+          <div class="flex justify-around">
             <div v-for="i in presetMoney" :key="i">
-              <wd-button plain size="small" @click="dataSource.money = i">
+              <wd-button plain size="small" type="info" @click="dataSource.money = i">
                 {{ i }}
               </wd-button>
             </div>
@@ -186,6 +186,9 @@ const presetMoney = [200, 500, 1000, 2000]
               <div class="text-sm text-gray-500 font-medium">
                 添加新记录
               </div>
+              <wd-button size="small" class="w-20" :disabled="!currentItem.friendName" @click="onConfirmAdd">
+                添加
+              </wd-button>
             </div>
             <div class="space-y-3">
               <wd-input
@@ -239,18 +242,6 @@ const presetMoney = [200, 500, 1000, 2000]
                   </div>
                 </template>
               </wd-input>
-              <div class="flex justify-between">
-                <div class="flex space-x-2">
-                  <div v-for="i in presetMoney" :key="i">
-                    <wd-button plain size="small" @click="currentItem.money = i">
-                      {{ i }}
-                    </wd-button>
-                  </div>
-                </div>
-                <wd-button size="small" class="w-20" :disabled="!currentItem.friendName" @click="onConfirmAdd">
-                  添加
-                </wd-button>
-              </div>
             </div>
           </div>
 
