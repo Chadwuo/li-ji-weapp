@@ -12,14 +12,14 @@ definePage({
 // 事项列表
 const eventTypes = [
   { key: '嫁娶', label: '嫁娶', icon: 'i-bi-postcard-heart', color: 'rose' },
-  { key: '订婚', label: '订婚', icon: 'i-carbon-events', color: 'pink' },
+  { key: '订盟', label: '订盟', icon: 'i-carbon-document-signed', color: 'indigo' },
   { key: '入宅', label: '入宅', icon: 'i-carbon-home', color: 'amber' },
   { key: '装修', label: '装修', icon: 'i-carbon-tool-kit', color: 'teal' },
   { key: '祈福', label: '祈福', icon: 'i-carbon-star', color: 'purple' },
   { key: '求嗣', label: '求嗣', icon: 'i-hugeicons-baby-01', color: 'pink' },
   { key: '开业', label: '开业', icon: 'i-carbon-store', color: 'emerald' },
   { key: '出行', label: '出行', icon: 'i-carbon-plane', color: 'sky' },
-  { key: '订盟', label: '签约', icon: 'i-carbon-document-signed', color: 'indigo' },
+  { key: '纳采', label: '纳采', icon: 'i-carbon-events', color: 'pink' },
   { key: '动土', label: '动土', icon: 'i-carbon-construction', color: 'lime' },
   { key: '安葬', label: '安葬', icon: 'i-carbon-worship-christian', color: 'gray' },
   { key: '祭祀', label: '祭祀', icon: 'i-carbon-tree', color: 'amber' },
