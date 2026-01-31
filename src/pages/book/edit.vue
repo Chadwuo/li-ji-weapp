@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePage({
   style: {
-    navigationBarTitleText: '新增礼簿',
+    navigationBarTitleText: '添加礼簿',
   },
 })
 
@@ -13,7 +13,7 @@ const loading = ref(false)
 onLoad(async (option) => {
   if (option?.id) {
     uni.setNavigationBarTitle({
-      title: '更新礼簿',
+      title: '编辑礼簿',
     })
     dataSource.value = await apiBookGet({ id: option.id })
   }

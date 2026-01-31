@@ -264,7 +264,7 @@ function onMenuClick(e: any) {
       </div>
     </div>
 
-    <wd-fab position="right-bottom" :expandable="false" @click="onAdd" />
+    <wd-fab :gap="{ bottom: 64 }" :expandable="false" @click="onAdd" />
   </div>
 </template>
 

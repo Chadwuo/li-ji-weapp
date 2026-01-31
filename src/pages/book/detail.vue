@@ -378,6 +378,8 @@ function onMenuClick(e: any) {
         </div>
       </div>
     </wd-popup>
+
+    <wd-fab :gap="{ bottom: 64 }" :expandable="false" @click="onGiftAdd()" />
   </div>
 </template>
 

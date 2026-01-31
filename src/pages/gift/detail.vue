@@ -68,8 +68,15 @@ const navigateToFriendDetailPage = () => {
         <div class="text-xl">
           {{ dataSource.friendName }}
         </div>
-        <div class="text-3xl" :class="dataSource.type === 1 ? 'text-red' : 'text-teal'">
-          {{ dataSource.type === 1 ? '+' : '-' }}{{ dataSource.money }}
+        <div class="flex items-center space-x-2">
+          <div class="text-3xl" :class="(dataSource.money ?? 0) > 0 ? 'text-red' : 'text-teal'">
+            {{ (dataSource.money ?? 0) > 0 ? `+${dataSource.money}` : dataSource.money }}
+          </div>
+          <div>
+            <wd-tag type="primary" round>
+              {{ dataSource.type === 0 ? '现金' : '实物' }}
+            </wd-tag>
+          </div>
         </div>
         <div>
           {{ dataSource.title }}

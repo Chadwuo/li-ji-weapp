@@ -17,7 +17,7 @@ const bookId = ref<string>()
 // 批量录入相关
 const batchList = ref<Api.BookItem[]>([])
 const defaultMoney = ref<number>()
-const currentItem = ref<Api.BookItem>({ bookId: bookId.value, money: defaultMoney.value, attendance: 1 })
+const currentItem = ref<Api.BookItem>({ bookId: bookId.value, money: defaultMoney.value, attendance: 0 })
 const addFormRef = ref()
 
 onLoad(async (option) => {
@@ -94,7 +94,7 @@ const onConfirmAdd = async () => {
   // 将新数据添加到数组开头，实现倒序显示
   batchList.value.unshift({ ...currentItem.value })
   // 重置表单
-  currentItem.value = { bookId: bookId.value, money: defaultMoney.value, attendance: 1 }
+  currentItem.value = { bookId: bookId.value, money: defaultMoney.value, attendance: 0 }
   uni.showToast({ title: '已添加', icon: 'none' })
 }
 
@@ -146,7 +146,7 @@ const presetMoney = [100, 200, 500, 800, 1000, 2000]
       <div class="rounded-2xl bg-white p-2 py-5">
         <wd-form ref="formRef" :model="dataSource">
           <wd-input
-            v-if="!dataSource.id" v-model="dataSource.friendName" label="亲友" prop="friendName" placeholder="点击右侧图标选择亲友"
+            v-model="dataSource.friendName" :disabled="dataSource.id" label="亲友" prop="friendName" placeholder="点击右侧图标选择亲友"
             :rules="[{ required: true, message: '请输入亲友姓名' }]"
           >
             <template #suffix>

@@ -211,10 +211,10 @@ defineExpose({
             </div>
           </div>
           <div class="text-lg font-bold" :class="[
-            i.type === 1 ? 'text-red' : 'text-teal',
+            (i.money ?? 0) > 0 ? 'text-red' : 'text-teal',
           ]"
           >
-            {{ i.type === 1 ? '+' : '-' }}{{ i.money }}
+            {{ (i.money ?? 0) > 0 ? `+${i.money}` : i.money }}
           </div>
         </div>
       </div>
@@ -222,7 +222,6 @@ defineExpose({
                    :loading-props="{ color: '#f87171' }"
       />
     </div>
-    <wd-fab position="right-bottom" :expandable="false" @click="onAdd" />
   </div>
 </template>
 

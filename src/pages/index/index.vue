@@ -40,6 +40,19 @@ const cur = computed(() => {
   }
 })
 
+const onAdd = () => {
+  if (activeTab.value === 0) {
+    uni.navigateTo({
+      url: '/pages/book/edit',
+    })
+  }
+  else {
+    uni.navigateTo({
+      url: '/pages/gift/edit',
+    })
+  }
+}
+
 watch(activeTab, () => {
   nextTick(() => {
     cur.value?.refreshAsync()
@@ -87,6 +100,7 @@ onReachBottom(() => {
         </wd-tab>
       </wd-tabs>
     </div>
+    <wd-fab :gap="{ bottom: 64 }" :expandable="false" @click="onAdd" />
   </div>
 </template>
 
