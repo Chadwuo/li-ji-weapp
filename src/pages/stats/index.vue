@@ -7,6 +7,7 @@ definePage({
   },
 })
 
+const serviceUrl = import.meta.env.VITE_SERVICE_URL
 const lineData = ref({})
 const wordData = ref({})
 const roseData = ref({})
@@ -201,7 +202,7 @@ onShow(async () => {
 </script>
 
 <template>
-  <div class="h-full bg-[url('https://liji.poetic.ltd/oss/assets/bg/bg_friend.png')] bg-contain bg-no-repeat">
+  <div class="bg-contain bg-no-repeat" :style="{ 'background-image': `url(${serviceUrl}/oss/assets/bg/bg_friend.png)` }">
     <safe-area-inset-top />
     <div class="mx-3 space-y-3">
       <div class="text-2xl text-red font-bold">

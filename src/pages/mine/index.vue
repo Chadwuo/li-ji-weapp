@@ -7,6 +7,7 @@ definePage({
   },
 })
 
+const serviceUrl = import.meta.env.VITE_SERVICE_URL
 const { userInfo, userFamilys, isVip } = storeToRefs(useAuthStore())
 const vipLevel = computed(() => {
   switch (userInfo.value?.accountType) {
@@ -65,9 +66,7 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
 </script>
 
 <template>
-  <div class="bg-[url('https://liji.poetic.ltd/oss/assets/bg/bg_mine.png')] bg-contain bg-no-repeat"
-       :style="{ 'padding-top': `${paddingTop || 55}px` }"
-  >
+  <div class="bg-contain bg-no-repeat" :style="{ 'padding-top': `${paddingTop || 55}px`, 'background-image': `url(${serviceUrl}/oss/assets/bg/bg_mine.png)` }">
     <div class="mx-3 space-y-3">
       <div class="flex items-center" @click="toSettings">
         <uv-avatar :src="userInfo?.avatar" :size="64" />
@@ -83,7 +82,8 @@ const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
       </div>
       <div>
         <div
-          class="h-18 flex bg-[url('https://liji.poetic.ltd/oss/assets/subscription/vip_equity_bg.webp')] bg-contain bg-no-repeat px-4 -mb-4"
+          class="h-18 flex"
+          :style="{ 'background-image': `url(${serviceUrl}/oss/assets/subscription/vip_equity_bg.webp)` }"
           @click="toSubscription"
         >
           <div class="mt-2">

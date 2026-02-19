@@ -5,6 +5,7 @@ definePage({
   },
 })
 
+const serviceUrl = import.meta.env.VITE_SERVICE_URL
 const version = ref('5.0.0')
 // #ifdef MP-WEIXIN
 version.value = uni.getAccountInfoSync().miniProgram.version
@@ -12,7 +13,7 @@ version.value = uni.getAccountInfoSync().miniProgram.version
 </script>
 
 <template>
-  <div class="bg-[url('https://liji.poetic.ltd/oss/assets/bg/bg_about.webp')] bg-contain bg-no-repeat">
+  <div class="bg-contain bg-no-repeat" :style="{ 'background-image': `url(${serviceUrl}/oss/assets/bg/bg_about.webp)` }">
     <div class="mx-10">
       <div class="w-20 pt-12 text-center">
         <img class="h-20 w-20" src="/static/logo.png">

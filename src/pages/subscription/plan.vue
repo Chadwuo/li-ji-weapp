@@ -9,6 +9,7 @@ definePage({
   },
 })
 
+const serviceUrl = import.meta.env.VITE_SERVICE_URL
 const message = useMessage()
 const loading = ref(false)
 const { userInfo } = storeToRefs(useAuthStore())
@@ -109,7 +110,8 @@ onLoad(async () => {
   <div>
     <div class="mx-3 h-full pb-36 space-y-3">
       <div
-        class="bg-[url('https://liji.poetic.ltd/oss/assets/subscription/congratulate.webp')] bg-contain bg-no-repeat text-center"
+        class="bg-no-repeat text-center"
+        :style="{ 'background-image': `url(${serviceUrl}/oss/assets/subscription/congratulate.webp)` }"
       >
         <div class="mt-6 text-6xl">
           🎉
@@ -122,7 +124,8 @@ onLoad(async () => {
         </div>
       </div>
       <div
-        class="w-full bg-[length:100%_100%] bg-[url('https://liji.poetic.ltd/oss/assets/subscription/vip_price_bg.webp')] bg-no-repeat"
+        class="w-full bg-no-repeat"
+        :style="{ 'background-image': `url(${serviceUrl}/oss/assets/subscription/vip_price_bg.webp)` }"
       >
         <div class="h-28 flex flex-col p-5">
           <div class="ml-8 text-xl text-[#9F5300] font-bold">

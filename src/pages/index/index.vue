@@ -10,6 +10,7 @@ definePage({
   },
 })
 
+const serviceUrl = import.meta.env.VITE_SERVICE_URL
 const bookPageRef = ref<InstanceType<typeof BookPage> | null>(null)
 const giftPageRef = ref<InstanceType<typeof GiftPage> | null>(null)
 const activeTab = ref(0)
@@ -17,7 +18,7 @@ const cur = computed(() => {
   switch (activeTab.value) {
     case 0:
       return {
-        bgImg: `${import.meta.env.VITE_SERVICE_URL}/oss/assets/bg/bg_book.png`,
+        bgImg: `${serviceUrl}/oss/assets/bg/bg_book.png`,
         loadMoreAsync: () => {
           bookPageRef.value?.loadMoreAsync()
         },
@@ -27,7 +28,7 @@ const cur = computed(() => {
       }
     case 1:
       return {
-        bgImg: `${import.meta.env.VITE_SERVICE_URL}/oss/assets/bg/bg_gift.png`,
+        bgImg: `${serviceUrl}/oss/assets/bg/bg_gift.png`,
         loadMoreAsync: () => {
           giftPageRef.value?.loadMoreAsync()
         },

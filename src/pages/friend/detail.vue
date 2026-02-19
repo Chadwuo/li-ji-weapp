@@ -39,7 +39,6 @@ const loadGifts = async () => {
       year: dayjs(i.date).year(),
       bookId: i.bookId,
       attendance: i.attendance,
-      type: 1,
     })
   })
 
@@ -53,16 +52,15 @@ const loadGifts = async () => {
       year: dayjs(i.date).year(),
       icon: i.icon,
       remarks: i.remarks,
-      type: i.type,
     })
   })
 
   // 总体统计
   statsData.value = {
-    inCount: giftsRaw.filter(item => item.type === 1).length,
-    outCount: giftsRaw.filter(item => item.type === 0).length,
-    inTotal: giftsRaw.filter(item => item.type === 1).reduce((acc, curr) => acc + (curr.money || 0), 0),
-    outTotal: giftsRaw.filter(item => item.type === 0).reduce((acc, curr) => acc + (curr.money || 0), 0),
+    inCount: giftsRaw.filter(item => item.money > 0).length,
+    outCount: giftsRaw.filter(item => item.money < 0).length,
+    inTotal: giftsRaw.filter(item => item.money > 0).reduce((acc, curr) => acc + (curr.money || 0), 0),
+    outTotal: giftsRaw.filter(item => item.money < 0).reduce((acc, curr) => acc + (curr.money || 0), 0),
   }
 
   // Group gifts by year
@@ -239,7 +237,7 @@ function onMenuClick(e: any) {
           {{ gift.year }}
         </div>
         <div v-for="item in gift.list" :key="item._id" class="cu-item" @click="onGiftClick(item)">
-          <div class="rounded-2xl bg-white p-4" :class="item.type === 1 ? 'text-red' : 'text-teal'">
+          <div class="rounded-2xl bg-white p-4">
             <div class="flex justify-between">
               <div class="mr-3 flex flex-col space-y-1">
                 <div class="text-bold text-lg">
@@ -253,10 +251,8 @@ function onMenuClick(e: any) {
                   <span class="ml-2">({{ item.date }}) </span>
                 </div>
               </div>
-              <div class="ml-3 flex-shrink-0 text-right text-lg font-bold">
-                <div>
-                  {{ item.type === 1 ? '+' : '-' }}{{ item.money }}
-                </div>
+              <div class="ml-3 flex-shrink-0 text-right">
+                <money-amount :money="item.money" />
               </div>
             </div>
           </div>

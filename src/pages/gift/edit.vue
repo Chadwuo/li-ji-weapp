@@ -18,9 +18,12 @@ definePage({
 // '白事': 'i-tabler-candle',
 // '其他': 'i-mingcute-wallet-2-line',
 
-const presetMoney = [100, 200, 500, 800, 1000, 2000]
-const moneyType = ref('送礼')
-const money = ref(0)
+const money = ref({
+  amount: 0,
+  type: '送礼',
+  preset: [100, 200, 500, 800, 1000, 2000],
+})
+
 const columns = Object.entries(giftCategory)
   .map(([name, icon]) => ({ name, icon }))
 const dataSource = ref<Api.Gift>({
@@ -38,8 +41,8 @@ onLoad(async (option) => {
       title: '编辑',
     })
     dataSource.value = await apiGiftGet({ id: option.id })
-    moneyType.value = (dataSource.value.money ?? 0) > 0 ? '收礼' : '送礼'
-    money.value = Math.abs(dataSource.value.money || 0)
+    money.value.type = (dataSource.value.money ?? 0) > 0 ? '收礼' : '送礼'
+    money.value.amount = Math.abs(dataSource.value.money || 0)
   }
 
   if (option?.friendId) {
@@ -66,10 +69,10 @@ const onSubmit = async () => {
   if (!valid)
     return
   loading.value = true
-  if (moneyType.value === '送礼')
-    dataSource.value.money = -Math.abs(money.value || 0)
+  if (money.value.type === '送礼')
+    dataSource.value.money = -Math.abs(money.value.amount || 0)
   else
-    dataSource.value.money = Math.abs(money.value || 0)
+    dataSource.value.money = Math.abs(money.value.amount || 0)
 
   const api = dataSource.value.id ? apiGiftPut : apiGiftPost
   await api(dataSource.value)
@@ -126,10 +129,10 @@ const openCalendar = () => {
 
     <div class="rounded-2xl bg-white px-2 py-5">
       <wd-form ref="formRef" :model="dataSource">
-        <wd-segmented v-model:value="moneyType" :options="['送礼', '收礼']" />
+        <wd-segmented v-model:value="money.type" :options="['送礼', '收礼']" />
 
         <wd-cell title="礼物类型" title-width="100px" center>
-          <wd-radio-group v-model="dataSource.type" shape="button" class="text-left line-height-none">
+          <wd-radio-group v-model="dataSource.type" shape="button" class="pl-3 text-left line-height-none">
             <wd-radio :value="0">
               现金
             </wd-radio>
@@ -160,12 +163,10 @@ const openCalendar = () => {
         <wd-input v-model="dataSource.title" label="事由" prop="title" placeholder="例如：结婚"
                   :rules="[{ required: true, message: '请填写事由' }]"
         />
-        <wd-input v-model="money" label="金额" prop="money" placeholder="礼金或实物金额" type="number"
-                  :rules="[{ required: true, message: '请填写金额' }]"
-        />
+        <wd-input v-model="money.amount" label="金额" prop="money" placeholder="礼金或实物金额" type="number" />
         <div class="flex justify-around">
-          <div v-for="i in presetMoney" :key="i">
-            <wd-button size="small" type="info" @click="money = i">
+          <div v-for="i in money.preset" :key="i">
+            <wd-button size="small" type="info" @click="money.amount = i">
               {{ i }}
             </wd-button>
           </div>

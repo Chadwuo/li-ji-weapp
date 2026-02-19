@@ -302,6 +302,11 @@ declare namespace Api {
      * @type {number}
      */
     moneyTotal?: number
+    /**
+     * 是否举办宴会
+     * @type {boolean}
+     */
+    isBanquet?: boolean
   }
 
   interface Friend {

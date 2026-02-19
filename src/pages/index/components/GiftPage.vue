@@ -210,12 +210,7 @@ defineExpose({
               <span class="ml-2">({{ i.date }}) </span>
             </div>
           </div>
-          <div class="text-lg font-bold" :class="[
-            (i.money ?? 0) > 0 ? 'text-red' : 'text-teal',
-          ]"
-          >
-            {{ (i.money ?? 0) > 0 ? `+${i.money}` : i.money }}
-          </div>
+          <money-amount :money="i.money" />
         </div>
       </div>
       <wd-loadmore :state="loading ? 'loading' : isLastPage ? 'finished' : ''"
