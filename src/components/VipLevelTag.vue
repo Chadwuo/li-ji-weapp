@@ -33,8 +33,8 @@ const vipLevelInfo = computed(() => {
 
 <template>
   <div>
-    <wd-tag :color="vipLevelInfo.color" :bg-color="vipLevelInfo.bgColor" round>
-      <div class="flex items-center">
+    <wd-tag :color="vipLevelInfo.color" :bg-color="vipLevelInfo.bgColor" mark>
+      <div class="flex items-center text-3">
         <i class="i-hugeicons-crown-03 mr-1" />
         <div class="leading-none">
           {{ vipLevelInfo.name }}

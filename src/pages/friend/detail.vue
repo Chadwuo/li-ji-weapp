@@ -197,7 +197,7 @@ function onMenuClick(e: any) {
           : 'text-teal'
         "
         >
-          {{ statsData.inTotal - statsData.outTotal }}
+          {{ statsData.inTotal + statsData.outTotal }}
         </span>
         <span class="text-sm">(收支差)</span>
       </div>

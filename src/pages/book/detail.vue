@@ -333,13 +333,13 @@ function onMenuClick(e: any) {
                 +{{ gift.money }}
               </div>
             </div>
-            <div class="text-sm text-gray">
-              <div v-if="gift.attendance">
-                {{ `出席：${gift.attendance}人` }}
-              </div>
-              <div class="line-clamp-1">
-                {{ gift.remarks }}
-              </div>
+            <div class="mt-1 flex flex-wrap items-center gap-1 text-sm">
+              <wd-tag v-for="(tag, index) in gift.friendTagList" :key="index" plain type="primary">
+                {{ tag }}
+              </wd-tag>
+            </div>
+            <div class="line-clamp-1 text-sm text-gray">
+              {{ gift.remarks }}
             </div>
           </div>
           <wd-loadmore :state="loading ? 'loading' : isLastPage ? 'finished' : ''"

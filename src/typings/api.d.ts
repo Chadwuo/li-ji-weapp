@@ -442,6 +442,8 @@ declare namespace Api {
      * @memberof BookItem
      */
     friendName?: string | null
+    friendRelation?: string | null
+    friendTagList?: Array<string> | null
   }
 
   interface Gift {
