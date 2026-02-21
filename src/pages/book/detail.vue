@@ -325,21 +325,26 @@ function onMenuClick(e: any) {
         <template v-else>
           <div v-for="(gift, index) in dataList" :key="gift.id" @click="onGiftClick(gift.id)">
             <uv-divider v-if="index" />
-            <div class="flex justify-between text-lg">
-              <div>
-                {{ gift.friendName }}
+            <div class="space-y-1">
+              <div class="flex justify-between text-lg">
+                <div class="flex items-center">
+                  {{ gift.friendName }}
+                  <div v-if="gift.friendRelation" class="ml-1 text-sm text-gray">
+                    @{{ gift.friendRelation }}
+                  </div>
+                </div>
+                <div class="text-red font-bold">
+                  +{{ gift.money }}
+                </div>
               </div>
-              <div class="text-red font-bold">
-                +{{ gift.money }}
+              <div class="flex flex-wrap items-center gap-1 text-sm">
+                <wd-tag v-for="(tag, index) in gift.friendTagList" :key="index" plain type="primary">
+                  {{ tag }}
+                </wd-tag>
               </div>
-            </div>
-            <div class="mt-1 flex flex-wrap items-center gap-1 text-sm">
-              <wd-tag v-for="(tag, index) in gift.friendTagList" :key="index" plain type="primary">
-                {{ tag }}
-              </wd-tag>
-            </div>
-            <div class="line-clamp-1 text-sm text-gray">
-              {{ gift.remarks }}
+              <div v-if="gift.remarks" class="line-clamp-1 text-sm text-gray">
+                备注：{{ gift.remarks }}
+              </div>
             </div>
           </div>
           <wd-loadmore :state="loading ? 'loading' : isLastPage ? 'finished' : ''"

@@ -172,12 +172,17 @@ function onMenuClick(e: any) {
     <div v-else class="rounded-2xl bg-white p-5 space-y-3">
       <div class="flex justify-between">
         <div>
-          <div class="text-lg font-bold">
-            {{ friend.name }}
+          <div class="flex items-center">
+            <div class="text-lg font-bold">
+              {{ friend.name }}
+            </div>
+            <div class="ml-1 text-gray">
+              @{{ friend.relation }}
+            </div>
           </div>
           <div class="mt-1 flex flex-wrap items-center gap-1 text-sm text-gray">
             标签：
-            <wd-tag v-for="(tag, index) in friend.tagList" :key="index" type="primary" mark>
+            <wd-tag v-for="(tag, index) in friend.tagList" :key="index" type="primary" plain>
               {{ tag }}
             </wd-tag>
           </div>
@@ -240,8 +245,13 @@ function onMenuClick(e: any) {
           <div class="rounded-2xl bg-white p-4">
             <div class="flex justify-between">
               <div class="mr-3 flex flex-col space-y-1">
-                <div class="text-bold text-lg">
-                  {{ item.title }}
+                <div class="flex items-center">
+                  <div class="text-bold text-lg text-black">
+                    {{ item.title }}
+                  </div>
+                  <wd-tag v-if="item.bookId" type="primary" plain class="ml-1">
+                    礼簿
+                  </wd-tag>
                 </div>
                 <div class="text-sm text-gray">
                   {{ item.remarks }}

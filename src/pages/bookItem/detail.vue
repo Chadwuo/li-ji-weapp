@@ -57,8 +57,18 @@ const navigateToFriendDetailPage = () => {
   <div class="mx-3">
     <div class="rounded-2xl bg-white p-5">
       <div class="space-y-3">
-        <div class="text-center text-xl">
-          {{ dataSource.friendName }}
+        <div class="flex items-center justify-center">
+          <div class="text-center text-xl">
+            {{ dataSource.friendName }}
+          </div>
+          <div v-if="dataSource.friendRelation" class="ml-1 text-gray">
+            @{{ dataSource.friendRelation }}
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-1 text-sm">
+          <wd-tag v-for="(tag, index) in dataSource.friendTagList" :key="index" plain type="primary">
+            {{ tag }}
+          </wd-tag>
         </div>
         <div class="text-center text-3xl text-red">
           +{{ dataSource.money }}

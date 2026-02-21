@@ -352,6 +352,12 @@ declare namespace Api {
      * @memberof Friend
      */
     remarks?: string | null
+    /**
+     * 关系
+     * @type {string}
+     * @memberof Friend
+     */
+    relation?: string | null
   }
 
   interface FriendTag {
@@ -519,6 +525,8 @@ declare namespace Api {
      * @memberof Gift
      */
     friendName?: string | null
+    friendRelation?: string | null
+    friendTagList?: Array<string> | null
   }
 
   interface FriendGifts {

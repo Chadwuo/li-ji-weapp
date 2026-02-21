@@ -38,6 +38,7 @@ const onSubmit = async () => {
         <wd-input v-model="dataSource.name" label="姓名" prop="name" clearable placeholder="请输入姓名"
                   :rules="[{ required: true, message: '请填写亲友姓名' }]"
         />
+        <wd-input v-model="dataSource.relation" label="关系" placeholder="例如：舅舅" />
         <wd-select-picker v-model="dataSource.tagList" label="标签"
                           :columns="useAuthStore().friendTagPickerColumns"
         />
