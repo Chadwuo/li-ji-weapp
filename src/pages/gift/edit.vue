@@ -131,8 +131,8 @@ const openCalendar = () => {
       <wd-form ref="formRef" :model="dataSource">
         <wd-segmented v-model:value="money.type" :options="['送礼', '收礼']" />
 
-        <wd-cell title="礼物类型" title-width="100px" center>
-          <wd-radio-group v-model="dataSource.type" shape="button" class="pl-3 text-left line-height-none">
+        <wd-cell title="礼物类型" title-width="33%" center>
+          <wd-radio-group v-model="dataSource.type" shape="button" class="text-left line-height-none">
             <wd-radio :value="0">
               现金
             </wd-radio>

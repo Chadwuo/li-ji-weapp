@@ -67,8 +67,8 @@ const openCalendar = () => {
         <wd-input v-model="dataSource.title" label="礼簿名称" prop="title" placeholder="例如：新婚礼簿" clearable
                   :rules="[{ required: true, message: '请填写礼簿名称' }]"
         />
-        <wd-cell title="是否有宴席" center prop="isBanquet" title-width="100px">
-          <div class="pl-3 text-left line-height-none">
+        <wd-cell title="是否有宴席" center prop="isBanquet" title-width="33%">
+          <div class="text-left line-height-none">
             <wd-switch v-model="dataSource.isBanquet" />
           </div>
         </wd-cell>

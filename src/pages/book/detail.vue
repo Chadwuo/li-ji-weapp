@@ -18,7 +18,6 @@ const search = ref({
   keyword: '',
 })
 const message = useMessage()
-const popupShow = ref(false)
 const book = ref<Api.Book>({})
 const sortList = ref([
   { label: '默认', field: 'id', value: 1 },
@@ -35,13 +34,6 @@ const { loading, page, data: dataList, isLastPage, reload } = usePagination((pag
   debounce: [300],
   preloadPreviousPage: false,
   preloadNextPage: false,
-})
-
-const netAmount = computed(() => {
-  if (book.value.moneyTotal !== undefined && book.value.cost !== undefined) {
-    return book.value.moneyTotal - book.value.cost
-  }
-  return 0
 })
 
 const loadData = async () => {
@@ -244,12 +236,7 @@ function onMenuClick(e: any) {
           <span class="ml-2">({{ book.date }}) </span>
         </div>
       </div>
-      <div class="text-sm font-bold">
-        <i class="i-hugeicons-information-circle text-sm text-gray" @click="() => popupShow = true" /> 礼金：<span
-          class="text-sm"
-        >￥</span><span class="text-xl">{{ book.moneyTotal }}</span>
-      </div>
-      <div class="grid grid-cols-4 gap-5 divide-x">
+      <div class="flex justify-around divide-x">
         <div class="text-center">
           <div class="text-lg text-black font-bold">
             {{ book.count }}
@@ -259,7 +246,7 @@ function onMenuClick(e: any) {
             <div>亲友</div>
           </div>
         </div>
-        <div class="text-center">
+        <div v-if="book.isBanquet" class="text-center">
           <div class="text-lg text-black font-bold">
             {{ book.attendanceTotal }}
           </div>
@@ -268,7 +255,7 @@ function onMenuClick(e: any) {
             <div>出席</div>
           </div>
         </div>
-        <div class="text-center text-sm text-gray">
+        <div v-if="book.isBanquet" class="text-center">
           <div class="text-lg text-black font-bold">
             {{ book.cost }}
           </div>
@@ -279,11 +266,11 @@ function onMenuClick(e: any) {
         </div>
         <div class="text-center text-sm text-gray">
           <div class="text-lg text-black font-bold">
-            {{ netAmount }}
+            {{ book.moneyTotal }}
           </div>
           <div class="flex items-center justify-center text-xs text-gray space-x-1">
             <div class="i-mingcute-wallet-2-line" />
-            <div>合计</div>
+            <div>礼金</div>
           </div>
         </div>
       </div>
@@ -353,36 +340,6 @@ function onMenuClick(e: any) {
         </template>
       </div>
     </div>
-
-    <wd-popup v-model="popupShow" safe-area-inset-bottom position="bottom" custom-class="rounded-t-2xl">
-      <div class="px-5 pt-4">
-        <div class="text-center font-bold">
-          名词解释
-        </div>
-        <div class="mt-5 text-sm space-y-1">
-          <div>
-            <span class="font-bold">礼金：</span>
-            <span>指所有礼金收入的总和</span>
-          </div>
-          <div>
-            <span class="font-bold">亲友：</span>
-            <span>统计亲友来礼份数，预先备好伴手礼以表心意</span>
-          </div>
-          <div>
-            <span class="font-bold">出席：</span>
-            <span>与亲友提前协商确定当日宴席的实际到场人数，并据此预定酒席，恭候亲朋光临</span>
-          </div>
-          <div>
-            <span class="font-bold">支出：</span>
-            <span>在礼簿编辑阶段，可记录下诸如伴手礼、酒席等本次宴席相关成本费用</span>
-          </div>
-          <div>
-            <span class="font-bold">合计：</span>
-            <span>即全部礼金收入减去宴席相关成本后的净额</span>
-          </div>
-        </div>
-      </div>
-    </wd-popup>
 
     <wd-fab :gap="{ bottom: 64 }" :expandable="false" @click="onGiftAdd()" />
   </div>

@@ -63,13 +63,19 @@ onShareAppMessage(() => {
 // #ifdef MP-WEIXIN
 const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
 // #endif
+const userAvatar = computed(() => {
+  const avatar = userInfo.value?.avatar
+  if (avatar?.startsWith('http') || avatar?.startsWith('/static'))
+    return avatar
+  return `${serviceUrl}${avatar}`
+})
 </script>
 
 <template>
   <div class="bg-contain bg-no-repeat" :style="{ 'padding-top': `${paddingTop || 55}px`, 'background-image': `url(${serviceUrl}/oss/assets/bg/bg_mine.png)` }">
     <div class="mx-3 space-y-3">
       <div class="flex items-center" @click="toSettings">
-        <uv-avatar :src="userInfo?.avatar" :size="64" />
+        <uv-avatar :src="userAvatar" :size="64" />
         <div class="ml-3">
           <div class="text-lg">
             {{ welcome() }}，{{ userInfo?.nickName }}

@@ -71,7 +71,7 @@ onShow(async () => {
       money: item.money || 0,
       title: item.title || '未知',
       date: item.date || '',
-      type: item.type === 1 ? 'in' : 'out',
+      type: (item.money ?? 0) > 0 ? 'in' : 'out',
     })
   })
 
@@ -115,7 +115,7 @@ onShow(async () => {
       },
       {
         name: '送礼金额',
-        data: yearCategories.map(year => yearMap[year].out / 1000),
+        data: yearCategories.map(year => Math.abs(yearMap[year].out) / 1000),
       },
     ],
   }
@@ -127,13 +127,7 @@ onShow(async () => {
     for (let i = 0; i < rawData.length; i++) {
       const item = rawData[i]
       const friendName = item.friendName
-      // 根据类型决定是加还是减金额
-      if (item.type === 'in') {
-        friendMap[friendName] = (friendMap[friendName] || 0) + (item.money || 0)
-      }
-      else {
-        friendMap[friendName] = (friendMap[friendName] || 0) - (item.money || 0)
-      }
+      friendMap[friendName] = (friendMap[friendName] || 0) + (item.money || 0)
     }
   }
 
@@ -161,10 +155,10 @@ onShow(async () => {
     // 查找是否属于已知分类
     const found = radarCategories.find(cat => title.includes(cat))
     if (found) {
-      radarMap[found] += item.money || 0
+      radarMap[found] += Math.abs(item.money || 0)
     }
     else {
-      radarMap['其他'] += item.money || 0
+      radarMap['其他'] += Math.abs(item.money || 0)
     }
   })
 

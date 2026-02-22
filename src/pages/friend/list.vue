@@ -97,7 +97,7 @@ const onFriendClick = (id?: string) => {
         </div>
       </uv-empty>
     </div>
-    <wd-index-bar sticky>
+    <wd-index-bar>
       <div v-for="item in friendsList" :key="item.index">
         <wd-index-anchor :index="item.index" />
         <wd-cell v-for="cell in item.data" :key="cell.id" clickable border :title="cell.name"

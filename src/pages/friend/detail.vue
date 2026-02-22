@@ -197,14 +197,8 @@ function onMenuClick(e: any) {
         </div>
       </div>
       <div class="text-center">
-        <span class="text-lg font-bold" :class="statsData.inTotal >= statsData.outTotal
-          ? 'text-red'
-          : 'text-teal'
-        "
-        >
-          {{ statsData.inTotal + statsData.outTotal }}
-        </span>
-        <span class="text-sm">(收支差)</span>
+        <money-amount :money="statsData.inTotal + statsData.outTotal" size="text-2xl" />
+        <span class="text-sm text-gray">(收支差)</span>
       </div>
       <div class="grid grid-cols-2 gap-5 divide-x">
         <div class="text-center">
