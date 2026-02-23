@@ -105,9 +105,6 @@ const sendVerifyEmail = async () => {
     <div
       class="liquid-glass animate-fadeIn relative z-10 max-w-[420px] w-full overflow-hidden rounded-[32px] p-8"
     >
-      <!-- 顶部装饰条 -->
-      <div class="absolute left-0 top-0 h-[3px] w-full from-white/60 via-white/20 to-white/60 bg-gradient-to-r" />
-
       <!-- 标题区域 -->
       <div class="mb-10 text-center">
         <img class="mb-5 h-16 w-16 drop-shadow-[0_4px_12px_rgba(255,255,255,0.4)]" src="/static/logo.png">
