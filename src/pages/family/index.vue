@@ -129,11 +129,13 @@ onShareAppMessage(() => {
                 </div>
               </template>
               <template #title>
-                <div class="flex items-center space-x-2">
+                <div class="flex items-center">
                   <div class="text-lg">
                     {{ i.nickName }}
                   </div>
-                  <vip-level-tag v-if="i.accountType" :account-type="i.accountType" />
+                  <div class="ml-2 text-sm">
+                    <vip-level-tag v-if="i.accountType" :account-type="i.accountType" />
+                  </div>
                 </div>
               </template>
             </wd-cell>
