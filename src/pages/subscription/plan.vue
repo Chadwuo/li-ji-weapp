@@ -110,7 +110,7 @@ onLoad(async () => {
   <div>
     <div class="mx-3 h-full pb-36 space-y-3">
       <div
-        class="bg-no-repeat text-center"
+        class="bg-contain bg-no-repeat text-center"
         :style="{ 'background-image': `url(${serviceUrl}/oss/assets/subscription/congratulate.webp)` }"
       >
         <div class="mt-6 text-6xl">
@@ -124,7 +124,7 @@ onLoad(async () => {
         </div>
       </div>
       <div
-        class="w-full bg-no-repeat"
+        class="w-full bg-[length:100%_100%] bg-no-repeat"
         :style="{ 'background-image': `url(${serviceUrl}/oss/assets/subscription/vip_price_bg.webp)` }"
       >
         <div class="h-28 flex flex-col p-5">
