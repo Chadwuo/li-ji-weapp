@@ -249,7 +249,7 @@ onShow(async () => {
           </div>
           <div>
             <div class="text-lg font-bold">
-              {{ statsData.inTotal - statsData.outTotal }}
+              {{ statsData.inTotal + statsData.outTotal }}
             </div>
             <div class="text-xs text-gray">
               收支差

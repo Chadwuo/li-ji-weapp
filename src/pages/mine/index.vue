@@ -88,7 +88,7 @@ const userAvatar = computed(() => {
       </div>
       <div>
         <div
-          class="h-18 flex"
+          class="h-18 flex bg-contain bg-no-repeat px-4 -mb-4"
           :style="{ 'background-image': `url(${serviceUrl}/oss/assets/subscription/vip_equity_bg.webp)` }"
           @click="toSubscription"
         >

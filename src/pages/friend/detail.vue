@@ -243,7 +243,7 @@ function onMenuClick(e: any) {
                   <div class="text-bold text-lg text-black">
                     {{ item.title }}
                   </div>
-                  <wd-tag v-if="item.bookId" type="primary" plain class="ml-1">
+                  <wd-tag v-if="item.bookId" type="primary" plain>
                     礼簿
                   </wd-tag>
                 </div>

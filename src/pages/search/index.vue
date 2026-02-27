@@ -128,7 +128,7 @@ const onMoreClick = (type?: string) => {
               <i class="i-hugeicons-arrow-right-01" />
             </div>
           </div>
-          <wd-cell v-for="cell in data?.friends" :key="cell.id" clickable l border :title="cell.name"
+          <wd-cell v-for="cell in data?.friends" :key="cell.id" clickable l border :title="cell.name" :label="cell.relation"
                    @click="onItemClick(cell.id, 'friend')"
           />
         </div>
@@ -142,14 +142,16 @@ const onMoreClick = (type?: string) => {
               <i class="i-hugeicons-arrow-right-01" />
             </div>
           </div>
-          <wd-cell v-for="cell in data?.bookItems" :key="cell.id" clickable center border :label="cell.friendName" :title="cell.title" :value="cell.money"
+          <wd-cell v-for="cell in data?.bookItems" :key="cell.id" clickable center border :label="cell.friendName" :title="cell.title"
                    @click="onItemClick(cell.id, 'book-item')"
-          />
+          >
+            <money-amount :money="cell.money" />
+          </wd-cell>
         </div>
         <div v-show="data?.gifts?.length" class="bg-white py-2">
           <div class="mx-3 my-2 flex justify-between text-gray">
             <div>
-              送礼
+              人情往来
             </div>
             <div v-show="data?.gifts?.length > 4" class="flex items-center" @click="onMoreClick('gift')">
               更多
@@ -158,7 +160,9 @@ const onMoreClick = (type?: string) => {
           </div>
           <wd-cell v-for="cell in data?.gifts" :key="cell.id" clickable center border :title="cell.title" :label="cell.friendName" :value="cell.money"
                    @click="onItemClick(cell.id, 'gift')"
-          />
+          >
+            <money-amount :money="cell.money" />
+          </wd-cell>
         </div>
       </div>
     </div>
