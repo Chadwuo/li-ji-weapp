@@ -82,7 +82,7 @@ const navigateToFriendDetailPage = () => {
           <money-amount :money="dataSource.money" size="text-3xl" />
           <div>
             <wd-tag type="primary" plain>
-              {{ dataSource.type === 0 ? '现金' : '实物' }}
+              {{ dataSource.moneyType === 0 ? '现金' : '实物' }}
             </wd-tag>
           </div>
         </div>

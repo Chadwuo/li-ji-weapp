@@ -1,14 +1,14 @@
 export function apiGiftPageGet(data: any) {
   return request.Get<Api.PaginationResult<Api.Gift>>('gift/page', {
     params: data,
-    hitSource: [/^gift/, 'friend-delete'],
+    hitSource: [/^gift/, /^friend/],
   })
 }
 
 export function apiGiftGet(data: any) {
   return request.Get<Api.Gift>('gift', {
     params: data,
-    hitSource: /^gift/,
+    hitSource: [/^gift/, /^friend/],
   })
 }
 

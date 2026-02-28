@@ -199,8 +199,13 @@ defineExpose({
             <div class="m-auto h-8 w-8" :class="i.icon || 'i-mingcute-wallet-2-line'" />
           </div>
           <div class="mx-4 grow">
-            <div class="text-lg font-bold">
-              {{ i.friendName }}
+            <div class="flex items-center">
+              <div class="text-lg font-bold">
+                {{ i.friendName }}
+              </div>
+              <div v-if="i.friendRelation" class="ml-1 text-gray">
+                @{{ i.friendRelation }}
+              </div>
             </div>
             <div class="text-gray">
               {{ i.title }}<span v-if="i.remarks">({{ i.remarks }})</span>

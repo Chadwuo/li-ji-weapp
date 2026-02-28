@@ -56,7 +56,7 @@ const navigateToFriendDetailPage = () => {
 <template>
   <div class="mx-3">
     <div class="rounded-2xl bg-white p-5">
-      <div class="space-y-3">
+      <div class="flex flex-col items-center space-y-3">
         <div class="flex items-center justify-center">
           <div class="text-center text-xl">
             {{ dataSource.friendName }}
@@ -70,8 +70,11 @@ const navigateToFriendDetailPage = () => {
             {{ tag }}
           </wd-tag>
         </div>
-        <div class="text-center text-3xl text-red">
-          +{{ dataSource.money }}
+        <div class="flex items-center space-x-2">
+          <money-amount :money="dataSource.money" size="text-3xl" />
+          <wd-tag type="primary" plain>
+            {{ dataSource.moneyType === 0 ? '现金' : '实物' }}
+          </wd-tag>
         </div>
         <div class="text-center">
           {{ dataSource.title }}

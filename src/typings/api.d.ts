@@ -401,6 +401,12 @@ declare namespace Api {
      */
     money?: number
     /**
+     * 类型
+     * @type {number}
+     * @memberof BookItem
+     */
+    moneyType?: number
+    /**
      * 出席人数
      * @type {number}
      * @memberof BookItem
@@ -472,12 +478,6 @@ declare namespace Api {
      */
     updateTime?: string | null
     /**
-     * 类型
-     * @type {boolean}
-     * @memberof Gift
-     */
-    type?: number
-    /**
      * 主题
      * @type {string}
      * @memberof Gift
@@ -489,6 +489,12 @@ declare namespace Api {
      * @memberof Gift
      */
     money?: number
+    /**
+     * 类型
+     * @type {number}
+     * @memberof Gift
+     */
+    moneyType?: number
     /**
      * Icon
      * @type {string}

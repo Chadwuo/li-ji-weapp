@@ -145,6 +145,16 @@ const presetMoney = [100, 200, 500, 800, 1000, 2000]
     <template v-if="mode === '单条录入'">
       <div class="rounded-2xl bg-white p-2 py-5">
         <wd-form ref="formRef" :model="dataSource">
+          <wd-cell title="礼金类型" center>
+            <wd-radio-group v-model="dataSource.moneyType" shape="button" class="line-height-none">
+              <wd-radio :value="0">
+                现金
+              </wd-radio>
+              <wd-radio :value="1">
+                实物
+              </wd-radio>
+            </wd-radio-group>
+          </wd-cell>
           <wd-input
             v-model="dataSource.friendName" :disabled="dataSource.id" label="亲友" prop="friendName" placeholder="点击右侧图标选择亲友"
             :rules="[{ required: true, message: '请输入亲友姓名' }]"

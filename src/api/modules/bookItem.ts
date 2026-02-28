@@ -1,14 +1,14 @@
 export function apiBookItemPageGet(data: any) {
   return request.Get<Api.PaginationResult<Api.BookItem>>('book-item/page', {
     params: data,
-    hitSource: [/^book-item/, 'friend-delete'],
+    hitSource: [/^book-item/, /^friend/],
   })
 }
 
 export function apiBookItemGet(data: any) {
   return request.Get<Api.BookItem>('book-item', {
     params: data,
-    hitSource: /^book-item/,
+    hitSource: [/^book-item/, /^friend/],
   })
 }
 

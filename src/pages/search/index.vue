@@ -111,57 +111,97 @@ const onMoreClick = (type?: string) => {
           <uv-empty />
         </div>
       </div>
-      <div v-else class="space-y-2">
+      <div v-else class="pb-4">
         <div v-show="loading" class="flex justify-center pt-5">
           <wd-loading color="#f87171" />
         </div>
         <div v-show="searchEmpty" class="py-16">
           <uv-empty mode="search" />
         </div>
-        <div v-show="data?.friends?.length" class="bg-white py-2">
-          <div class="mx-3 my-2 flex justify-between text-gray">
-            <div>
-              联系人
+        <div v-show="data?.friends?.length" class="mt-2 bg-white p-3">
+          <div class="mb-2 flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <i class="i-hugeicons-user text-lg text-red" />
+              <div class="text-sm font-bold">
+                联系人
+              </div>
             </div>
-            <div v-show="data?.friends?.length > 4" class="flex items-center" @click="onMoreClick('friend')">
+            <div v-show="data?.friends?.length > 4" class="flex items-center text-xs text-gray" @click="onMoreClick('friend')">
               更多
-              <i class="i-hugeicons-arrow-right-01" />
+              <i class="i-hugeicons-arrow-right-01 ml-0.5" />
             </div>
           </div>
-          <wd-cell v-for="cell in data?.friends" :key="cell.id" clickable l border :title="cell.name" :label="cell.relation"
-                   @click="onItemClick(cell.id, 'friend')"
-          />
-        </div>
-        <div v-show="data?.bookItems?.length" class="bg-white py-2">
-          <div class="mx-3 my-2 flex justify-between text-gray">
-            <div>
-              礼簿
-            </div>
-            <div v-show="data?.bookItems?.length > 4" class="flex items-center" @click="onMoreClick('book-item')">
-              更多
-              <i class="i-hugeicons-arrow-right-01" />
-            </div>
-          </div>
-          <wd-cell v-for="cell in data?.bookItems" :key="cell.id" clickable center border :label="cell.friendName" :title="cell.title"
-                   @click="onItemClick(cell.id, 'book-item')"
-          >
-            <money-amount :money="cell.money" />
+          <wd-cell v-for="cell in data?.friends" :key="cell.id" clickable border @click="onItemClick(cell.id, 'friend')">
+            <template #title>
+              <div class="flex items-center">
+                <div class="font-bold">
+                  {{ cell.name }}
+                </div>
+                <div v-if="cell.relation" class="ml-1 text-xs text-gray">
+                  @{{ cell.relation }}
+                </div>
+              </div>
+            </template>
           </wd-cell>
         </div>
-        <div v-show="data?.gifts?.length" class="bg-white py-2">
-          <div class="mx-3 my-2 flex justify-between text-gray">
-            <div>
-              人情往来
+        <div v-show="data?.bookItems?.length" class="mt-2 bg-white p-3">
+          <div class="mb-2 flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <i class="i-hugeicons-notebook text-lg text-red" />
+              <div class="text-sm font-bold">
+                礼簿
+              </div>
             </div>
-            <div v-show="data?.gifts?.length > 4" class="flex items-center" @click="onMoreClick('gift')">
+            <div v-show="data?.bookItems?.length > 4" class="flex items-center text-xs text-gray" @click="onMoreClick('book-item')">
               更多
-              <i class="i-hugeicons-arrow-right-01" />
+              <i class="i-hugeicons-arrow-right-01 ml-0.5" />
             </div>
           </div>
-          <wd-cell v-for="cell in data?.gifts" :key="cell.id" clickable center border :title="cell.title" :label="cell.friendName" :value="cell.money"
-                   @click="onItemClick(cell.id, 'gift')"
-          >
-            <money-amount :money="cell.money" />
+          <wd-cell v-for="cell in data?.bookItems" :key="cell.id" clickable center border @click="onItemClick(cell.id, 'book-item')">
+            <template #title>
+              <div>
+                <div class="font-bold">
+                  {{ cell.title }}
+                </div>
+                <div class="mt-0.5 text-xs text-gray">
+                  {{ cell.friendName }}
+                </div>
+              </div>
+            </template>
+            <template #default>
+              <money-amount :money="cell.money" />
+            </template>
+          </wd-cell>
+        </div>
+        <div v-show="data?.gifts?.length" class="mt-2 bg-white p-3">
+          <div class="mb-2 flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <i class="i-mingcute-wallet-2-line text-lg text-red" />
+              <div class="text-sm font-bold">
+                人情往来
+              </div>
+            </div>
+            <div v-show="data?.gifts?.length > 4" class="flex items-center text-xs text-gray" @click="onMoreClick('gift')">
+              更多
+              <i class="i-hugeicons-arrow-right-01 ml-0.5" />
+            </div>
+          </div>
+          <wd-cell v-for="cell in data?.gifts" :key="cell.id" clickable center border @click="onItemClick(cell.id, 'gift')">
+            <template #title>
+              <div>
+                <div class="flex items-center">
+                  <div class="font-bold">
+                    {{ cell.title }}
+                  </div>
+                </div>
+                <div class="mt-0.5 text-xs text-gray">
+                  {{ cell.friendName }}
+                </div>
+              </div>
+            </template>
+            <template #default>
+              <money-amount :money="cell.money" />
+            </template>
           </wd-cell>
         </div>
       </div>
