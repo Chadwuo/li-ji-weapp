@@ -33,7 +33,13 @@ const dataSource = ref<Api.Gift>({
 const calendarRef = ref<any>(null)
 const loading = ref(false)
 const formRef = ref()
-const friendSearchKeyword = ref('')
+const friendList = ref<Api.Friend[]>([])
+
+const candidates = computed(() => {
+  if (!friendList.value.length)
+    return []
+  return friendList.value.map(f => f.name).filter((name): name is string => typeof name === 'string')
+})
 
 onLoad(async (option) => {
   if (option?.id) {
@@ -49,6 +55,8 @@ onLoad(async (option) => {
     dataSource.value.friendId = option.friendId
     dataSource.value.friendName = option.friendName
   }
+
+  friendList.value = await apiFriendListGet({})
 })
 
 function onSelectIcont(i: any) {
@@ -85,18 +93,6 @@ const onSubmit = async () => {
   loading.value = false
 }
 
-const onSelectFriend = () => {
-  uni.navigateTo({
-    url: '/pages/friend/select',
-    events: {
-      acceptDataFromOpenedPage(e: Api.Friend) {
-        dataSource.value.friendId = e.id
-        dataSource.value.friendName = e.name
-      },
-    },
-  })
-}
-
 const confirmCalendar = (e: any) => {
   const { lunar, fulldate } = e
   dataSource.value.date = fulldate
@@ -128,19 +124,8 @@ const openCalendar = () => {
     </div>
 
     <div class="rounded-2xl bg-white px-2 py-5">
-      <wd-form ref="formRef" :model="dataSource">
+      <wd-form ref="formRef" :model="dataSource" error-type="toast">
         <wd-segmented v-model:value="money.type" :options="['送礼', '收礼']" />
-
-        <wd-cell title="礼金类型" center>
-          <wd-radio-group v-model="dataSource.moneyType" shape="button" class="line-height-none">
-            <wd-radio :value="0">
-              现金
-            </wd-radio>
-            <wd-radio :value="1">
-              实物
-            </wd-radio>
-          </wd-radio-group>
-        </wd-cell>
 
         <wd-input v-model="dataSource.date" label="日期时间" prop="date" placeholder="请选择日期时间" readonly
                   :rules="[{ required: true, message: '请选择日期时间' }]" @click="openCalendar"
@@ -149,20 +134,19 @@ const openCalendar = () => {
             <div class="i-hugeicons-calendar-01 text-base text-gray" />
           </template>
         </wd-input>
-
-        <div class="relative">
-          <wd-input v-model="dataSource.friendName" :disabled="dataSource.id" label="亲友" prop="friendName"
-                    placeholder="输入姓名，或点击右侧选择" :rules="[{ required: true, message: '请输入亲友姓名' }]"
-                    @input="(e: any) => friendSearchKeyword = e.value"
-          >
-            <template #suffix>
-              <div class="i-hugeicons-contact-01 text-base text-gray" @click="onSelectFriend" />
-            </template>
-          </wd-input>
-        </div>
+        <wd-cell title="亲友" title-width="33.3%" :rules="[{ required: true, message: '请输入亲友姓名' }]" prop="friendName"
+                 center
+        >
+          <div class="text-left">
+            <select-box v-model="dataSource.friendName" :candidates="candidates" placeholder="请输入亲友姓名"
+                        class="z-999 !border-0 !p-0"
+            />
+          </div>
+        </wd-cell>
         <wd-input v-model="dataSource.title" label="事由" prop="title" placeholder="例如：结婚"
                   :rules="[{ required: true, message: '请填写事由' }]"
         />
+
         <wd-input v-model="money.amount" label="金额" prop="money" placeholder="礼金或实物金额" type="number" />
         <div class="flex justify-around">
           <div v-for="i in money.preset" :key="i">
@@ -171,6 +155,16 @@ const openCalendar = () => {
             </wd-button>
           </div>
         </div>
+        <wd-cell title="礼金类型" center title-width="33.3%">
+          <wd-radio-group v-model="dataSource.moneyType" shape="button" class="text-left line-height-none">
+            <wd-radio :value="0">
+              现金
+            </wd-radio>
+            <wd-radio :value="1">
+              实物
+            </wd-radio>
+          </wd-radio-group>
+        </wd-cell>
         <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
       </wd-form>
     </div>
@@ -186,4 +180,11 @@ const openCalendar = () => {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+:deep(.wd-cell) {
+  overflow: visible !important;
+}
+:deep(.wd-cell__wrapper) {
+  overflow: visible !important;
+}
+</style>

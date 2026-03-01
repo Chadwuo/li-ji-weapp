@@ -100,7 +100,7 @@ const onMoreClick = (type?: string) => {
           <div class="text-lg font-bold">
             搜索历史
           </div>
-          <i v-show="searchHistory?.length" class="i-hugeicons-delete-02 text-lg" @click="onClear" />
+          <i v-show="searchHistory?.length" class="i-hugeicons-delete-02 text-lg text-gray-600" @click="onClear" />
         </div>
         <div class="flex flex-wrap gap-3">
           <wd-tag v-for="(item, index) in searchHistory" :key="index" round @click="onSearch(item)">
