@@ -325,7 +325,7 @@ function onMenuClick(e: any) {
                 </div>
               </div>
               <div class="flex flex-wrap items-center gap-1 text-sm">
-                <wd-tag v-for="(tag, index) in gift.friendTagList" :key="index" plain type="primary">
+                <wd-tag v-for="(tag, childIndex) in gift.friendTagList" :key="childIndex" plain type="primary">
                   {{ tag }}
                 </wd-tag>
               </div>

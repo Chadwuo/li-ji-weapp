@@ -97,14 +97,15 @@ const onFriendClick = (id?: string) => {
         </div>
       </uv-empty>
     </div>
-    <wd-index-bar>
-      <div v-for="item in friendsList" :key="item.index">
-        <wd-index-anchor :index="item.index" />
+
+    <uv-index-list v-else :index-list="friendsList?.map(item => item.index) || []">
+      <template v-for="(item, index) in friendsList" :key="index">
+        <uv-index-anchor :text="item.index" bg-color="#efefef" />
         <wd-cell v-for="cell in item.data" :key="cell.id" clickable border :title="cell.name"
                  @click="onFriendClick(cell.id)"
         />
-      </div>
-    </wd-index-bar>
+      </template>
+    </uv-index-list>
   </div>
 </template>
 

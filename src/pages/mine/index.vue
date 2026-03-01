@@ -129,7 +129,7 @@ const userAvatar = computed(() => {
           </template>
         </wd-cell>
 
-        <wd-cell title="老黄历" is-link to="/pages/calendar/index">
+        <wd-cell title="择吉日" is-link to="/pages/calendar/index">
           <template #icon>
             <div class="i-hugeicons-calendar-01 mx-2 text-lg text-yellow" />
           </template>

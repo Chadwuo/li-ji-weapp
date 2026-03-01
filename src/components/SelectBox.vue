@@ -111,7 +111,6 @@ export default {
     },
     onSelectorClick(index) {
       this.inputVal = this.filterCandidates[index]
-      this.showSelector = false
       this.$emit('input', this.inputVal)
       this.$emit('update:modelValue', this.inputVal)
     },

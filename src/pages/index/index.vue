@@ -101,7 +101,7 @@ onReachBottom(() => {
         </wd-tab>
       </wd-tabs>
     </div>
-    <wd-fab :gap="{ bottom: 64 }" :expandable="false" @click="onAdd" />
+    <wd-fab v-show="activeTab === 1" :gap="{ bottom: 64 }" :expandable="false" @click="onAdd" />
   </div>
 </template>
 
