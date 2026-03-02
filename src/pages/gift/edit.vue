@@ -155,7 +155,7 @@ const openCalendar = () => {
             </wd-button>
           </div>
         </div>
-        <wd-cell title="礼金类型" center title-width="33.3%">
+        <wd-cell title="礼金类型" center title-width="33%">
           <wd-radio-group v-model="dataSource.moneyType" shape="button" class="text-left line-height-none">
             <wd-radio :value="0">
               现金
@@ -165,7 +165,7 @@ const openCalendar = () => {
             </wd-radio>
           </wd-radio-group>
         </wd-cell>
-        <wd-input v-model="dataSource.remarks" label="备注" placeholder="请输入内容" />
+        <wd-textarea v-model="dataSource.remarks" label="备注" placeholder="添加细节，让回忆更完整" />
       </wd-form>
     </div>
     <wd-button block :loading="loading" @click="onSubmit">
