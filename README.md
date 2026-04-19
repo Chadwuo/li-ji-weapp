@@ -21,25 +21,6 @@
 
 ---
 
-## 📌 广告
-
-<table>
-  <tr>
-    <td align="center">
-      <strong>ChatGPT Plus 充值</strong><br />
-      <sub>如果你刚好有相关需求，这里提供一个简单靠谱的方式</sub>
-      <br /><br />
-      低至 <strong>15 r/月</strong>，直充到你自己的账号
-      <br />
-      不是共享、不是拼车，完全独立使用
-      <br />
-      如果会员异常掉线，按比例退款；如果是个人使用原因导致封号，不退（这点请理解）
-      <br /><br />
-      <a href="https://pay.ldxp.cn/shop/goOpenAI">购买链接</a>
-    </td>
-  </tr>
-</table>
-
 ## 🎉 在线体验
  <img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/code.jpg" alt="Logo" width="240" height="240">
 
