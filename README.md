@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/chadwuo/li-ji-weapp">
-    <img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://gitee.com/Chadwuo/li-ji-weapp/raw/main/doc/logo.webp" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">礼记</h3>

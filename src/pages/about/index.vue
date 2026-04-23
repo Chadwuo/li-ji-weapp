@@ -16,7 +16,7 @@ version.value = uni.getAccountInfoSync().miniProgram.version
   <div class="bg-contain bg-no-repeat" :style="{ 'background-image': `url(${serviceUrl}/oss/assets/bg/bg_about.webp)` }">
     <div class="mx-10">
       <div class="w-20 pt-12 text-center">
-        <img class="h-20 w-20" src="/static/logo.png">
+        <img class="h-20 w-20" src="/static/logo.webp">
         <div class="mt-5 text-xl font-bold">
           礼记
         </div>

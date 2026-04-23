@@ -107,7 +107,7 @@ const sendVerifyEmail = async () => {
     >
       <!-- 标题区域 -->
       <div class="mb-10 text-center">
-        <img class="mb-5 h-16 w-16 drop-shadow-[0_4px_12px_rgba(255,255,255,0.4)]" src="/static/logo.png">
+        <img class="mb-5 h-16 w-16 drop-shadow-[0_4px_12px_rgba(255,255,255,0.4)]" src="/static/logo_white.webp">
         <h1 class="mb-2 text-3xl text-[#1e293b]/85 font-bold tracking-tight drop-shadow-[0_1px_2px_rgba(255,255,255,0.6)]">
           礼记
         </h1>
