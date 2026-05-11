@@ -225,7 +225,9 @@ onShow(() => {
 </script>
 
 <template>
-  <div class="bg-contain bg-no-repeat" :style="{ 'background-image': `url(${serviceUrl}/oss/assets/bg/bg_friend.png)` }">
+  <div class="bg-contain bg-no-repeat"
+       :style="{ 'background-image': `url(${serviceUrl}/oss/assets/bg/bg_friend.png)` }"
+  >
     <safe-area-inset-top />
     <div class="mx-3 space-y-3">
       <div class="text-2xl text-red font-bold">
@@ -233,11 +235,8 @@ onShow(() => {
       </div>
       <div class="rounded-2xl bg-white p-3">
         <div class="mb-3 ms-auto w-52">
-          <wd-segmented
-            v-model:value="selectedYear"
-            :options="yearOptions"
-            custom-class="rounded-2xl"
-            @change="loadData"
+          <wd-segmented v-model:value="selectedYear" :options="yearOptions" custom-class="rounded-2xl"
+                        @change="loadData"
           />
         </div>
         <div class="grid grid-cols-2 gap-5">
@@ -328,6 +327,11 @@ onShow(() => {
 :deep(.wd-segmented__item.is-active) {
   background: #f87171;
   color: #fff;
+  border-radius: 1rem;
+}
+
+:deep(.wd-segmented__slider) {
+  background: #f87171;
   border-radius: 1rem;
 }
 

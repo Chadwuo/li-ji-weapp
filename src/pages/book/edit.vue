@@ -10,8 +10,6 @@ definePage({
 
 const dataSource = ref<Api.Book>({
   date: dayjs().format('YYYY-MM-DD'),
-  title: '',
-  id: '0',
 })
 const formRef = ref<FormInstance>()
 const loading = ref(false)

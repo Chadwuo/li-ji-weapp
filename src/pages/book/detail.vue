@@ -152,6 +152,7 @@ const onBookExport = () => {
       title: '数据导出权益',
       confirmButtonText: '开通会员',
       cancelButtonText: '看广告解锁',
+      closeOnClickModal: true,
     }).then(() => {
       uni.navigateTo({
         url: '/pages/subscription/plan',

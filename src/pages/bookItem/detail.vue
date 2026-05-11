@@ -54,7 +54,7 @@ const navigateToFriendDetailPage = () => {
 </script>
 
 <template>
-  <div class="mx-3">
+  <div class="mx-3" :class="{ memorial: hasMourningWords(dataSource.title) }">
     <div class="rounded-2xl bg-white p-5">
       <div class="flex flex-col items-center space-y-3">
         <div class="flex items-center justify-center">
@@ -65,19 +65,11 @@ const navigateToFriendDetailPage = () => {
             @{{ dataSource.friendRelation }}
           </div>
         </div>
-        <div class="flex flex-wrap items-center justify-center gap-1 text-sm">
-          <wd-tag v-for="(tag, index) in dataSource.friendTagList" :key="index" variant="light" type="primary" round>
-            {{ tag }}
-          </wd-tag>
-        </div>
+        <wd-tag round variant="light" type="primary" size="extra-large">
+          {{ dataSource.title }}
+        </wd-tag>
         <div class="flex items-center space-x-2">
           <money-amount :money="dataSource.money" size="text-3xl" />
-          <wd-tag type="primary" plain>
-            {{ dataSource.moneyType === 0 ? '现金' : '实物' }}
-          </wd-tag>
-        </div>
-        <div class="text-center">
-          {{ dataSource.title }}
         </div>
       </div>
       <div class="mt-6 space-y-2">
@@ -92,6 +84,18 @@ const navigateToFriendDetailPage = () => {
             农历
           </div>
           <div>{{ generateLunarDate(dataSource.date) }}</div>
+        </div>
+        <div v-if="dataSource.moneyType === 0" class="flex">
+          <div class="w-18 text-gray">
+            支付方式
+          </div>
+          <div>{{ dataSource.payway }}</div>
+        </div>
+        <div v-if="dataSource.moneyType === 1" class="flex">
+          <div class="w-18 text-gray">
+            实物内容
+          </div>
+          <div>{{ dataSource.entityName }}</div>
         </div>
         <div class="flex">
           <div class="w-18 text-gray">

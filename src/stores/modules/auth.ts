@@ -15,7 +15,7 @@ export const useAuthStore = defineStore(
       return [...friendCategory.map(item => ({ label: item, value: item })), ...friendTags.value.map(item => ({ label: item.name, value: item.name }))]
     })
     const friendTabsList = computed(() => {
-      return [{ name: '全部', value: '' }, ...friendCategory.map(item => ({ name: item, value: item })), ...friendTags.value.map(item => ({ name: item.name, value: item.name }))]
+      return ['全部', ...friendCategory, ...friendTags.value.map(item => item.name)].map(item => ({ name: item, value: item }))
     })
 
     return {

@@ -161,7 +161,7 @@ const rules: FormSchema = {
             </div>
           </wd-radio-group>
         </wd-form-item>
-        <wd-form-item title="支付方式">
+        <wd-form-item v-if="dataSource.moneyType === 0" title="支付方式">
           <wd-radio-group v-model="dataSource.payway" type="button">
             <div class="flex justify-between">
               <wd-radio value="支付宝">
@@ -178,6 +178,9 @@ const rules: FormSchema = {
               </wd-radio>
             </div>
           </wd-radio-group>
+        </wd-form-item>
+        <wd-form-item v-if="dataSource.moneyType === 1" title="实物内容">
+          <wd-input v-model="dataSource.entityName" placeholder="例如：香奈儿邂逅淡香水" :compact="false" />
         </wd-form-item>
         <wd-form-item title="金额" prop="money.amount">
           <wd-input v-model="money.amount" placeholder="礼金或实物金额" type="number" :compact="false" />
@@ -201,7 +204,7 @@ const rules: FormSchema = {
           <wd-input v-model="dataSource.title" placeholder="例如：结婚" :compact="false" />
         </wd-form-item>
         <wd-form-item title="备注" prop="remarks">
-          <wd-textarea v-model="dataSource.remarks" placeholder="添加细节，让回忆更完整" :compact="false" />
+          <wd-input v-model="dataSource.remarks" placeholder="添加细节，让回忆更完整" :compact="false" />
         </wd-form-item>
       </wd-form>
     </div>

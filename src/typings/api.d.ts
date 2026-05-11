@@ -445,6 +445,8 @@ declare namespace Api {
     friendName?: string
     friendRelation?: string
     friendTagList?: Array<string>
+    entityName?: string
+    payway?: string
   }
 
   interface Gift {
@@ -516,6 +518,7 @@ declare namespace Api {
     friendName?: string
     friendRelation?: string
     friendTagList?: Array<string>
+    entityName?: string
     payway?: string
   }
 

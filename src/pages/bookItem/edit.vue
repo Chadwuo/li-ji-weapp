@@ -173,6 +173,27 @@ const presetMoney = [100, 200, 500, 800, 1000, 2000]
               </wd-radio>
             </wd-radio-group>
           </wd-form-item>
+          <wd-form-item v-if="dataSource.moneyType === 0" title="支付方式">
+            <wd-radio-group v-model="dataSource.payway" type="button">
+              <div class="flex justify-between">
+                <wd-radio value="支付宝">
+                  支付宝
+                </wd-radio>
+                <wd-radio value="微信">
+                  微信
+                </wd-radio>
+                <wd-radio value="现金">
+                  现金
+                </wd-radio>
+                <wd-radio value="其他">
+                  其他
+                </wd-radio>
+              </div>
+            </wd-radio-group>
+          </wd-form-item>
+          <wd-form-item v-if="dataSource.moneyType === 1" title="实物内容">
+            <wd-input v-model="dataSource.entityName" placeholder="例如：香奈儿邂逅淡香水" :compact="false" />
+          </wd-form-item>
           <wd-form-item title="金额" prop="money">
             <wd-input v-model="dataSource.money" placeholder="礼金或实物金额" type="number" :compact="false" />
             <div class="mt-2 flex justify-between">
@@ -195,7 +216,7 @@ const presetMoney = [100, 200, 500, 800, 1000, 2000]
             <wd-input v-model="dataSource.attendance" placeholder="参加宴席人数" type="number" :compact="false" />
           </wd-form-item>
           <wd-form-item title="备注" prop="remarks">
-            <wd-textarea v-model="dataSource.remarks" placeholder="添加细节，让回忆更完整" :compact="false" />
+            <wd-input v-model="dataSource.remarks" placeholder="添加细节，让回忆更完整" :compact="false" />
           </wd-form-item>
         </wd-form>
       </div>
