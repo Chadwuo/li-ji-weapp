@@ -26,6 +26,7 @@ export default defineConfig({
   ],
   shortcuts: [
     ['memorial', '!grayscale !filter'],
+    ['gradient-card', 'rounded-2xl from-[#fff7f7] via-white to-[#eef9fb] bg-gradient-to-br shadow-[0_8px_24px_rgba(15,23,42,0.06)]'],
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
 })

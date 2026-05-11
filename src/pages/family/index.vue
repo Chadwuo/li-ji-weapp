@@ -130,7 +130,7 @@ onShareAppMessage(() => {
                   <div class="text-lg">
                     {{ i.nickName }}
                   </div>
-                  <div class="ml-2 text-sm">
+                  <div v-if="i.accountType !== 0" class="ml-2 text-sm">
                     <vip-level-tag :account-type="i.accountType" />
                   </div>
                 </div>
@@ -144,7 +144,7 @@ onShareAppMessage(() => {
           </wd-button>
         </div>
       </div>
-      <div v-else class="rounded-2xl bg-white p-4 space-y-2xl">
+      <div v-else class="gradient-card p-4">
         <div class="text-center">
           <i class="i-hugeicons-user-group-02 p-10 text-red" />
           <div class="mt-5 text-xl font-bold">

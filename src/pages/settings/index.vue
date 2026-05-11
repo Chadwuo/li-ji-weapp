@@ -12,6 +12,17 @@ definePage({
 const { showNotify } = useNotify()
 const { userInfo } = storeToRefs(useAuthStore())
 const nickName_edit = ref(userInfo.value?.nickName)
+const currentEmail = computed(() => userInfo.value?.email || '')
+const emailCellValue = computed(() => currentEmail.value ? maskEmail(currentEmail.value) : '未绑定')
+
+function maskEmail(email: string) {
+  const [name, domain] = email.split('@')
+  if (!domain)
+    return email
+
+  const visibleName = name.length <= 2 ? `${name.slice(0, 1)}***` : `${name.slice(0, 2)}***${name.slice(-1)}`
+  return `${visibleName}@${domain}`
+}
 
 const openPrivacyContract = () => {
   wx.openPrivacyContract({ fail: () => { } })
@@ -51,6 +62,12 @@ const goAccountDelete = () => {
   })
 }
 
+const goEmailBinding = () => {
+  uni.navigateTo({
+    url: '/pages/settings/email',
+  })
+}
+
 const logout = () => {
   uni.clearStorageSync()
   uni.redirectTo({
@@ -70,6 +87,7 @@ const logout = () => {
       <wd-cell title="昵称" is-link center title-width="80px">
         <input v-model="nickName_edit" class="text-right text-sm" type="nickname" @blur="onBlur">
       </wd-cell>
+      <wd-cell title="邮箱" :value="emailCellValue" is-link center title-width="80px" @click="goEmailBinding" />
     </div>
     <!-- #ifdef MP-WEIXIN -->
     <div>
