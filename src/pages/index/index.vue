@@ -10,7 +10,6 @@ definePage({
   },
 })
 
-const serviceUrl = import.meta.env.VITE_SERVICE_URL
 const bookPageRef = ref<InstanceType<typeof BookPage> | null>(null)
 const giftPageRef = ref<InstanceType<typeof GiftPage> | null>(null)
 const activeTab = ref<'book' | 'gift'>('book')
@@ -18,7 +17,6 @@ const cur = computed(() => {
   switch (activeTab.value) {
     case 'book':
       return {
-        bgImg: `${serviceUrl}/oss/assets/bg/bg_book.png`,
         loadMoreAsync: () => {
           bookPageRef.value?.loadMoreAsync()
         },
@@ -28,7 +26,6 @@ const cur = computed(() => {
       }
     case 'gift':
       return {
-        bgImg: `${serviceUrl}/oss/assets/bg/bg_gift.png`,
         loadMoreAsync: () => {
           giftPageRef.value?.loadMoreAsync()
         },
@@ -75,7 +72,7 @@ onReachBottom(() => {
 </script>
 
 <template>
-  <div class="h-full bg-contain bg-no-repeat" :style="{ 'background-image': `url(${cur?.bgImg})` }">
+  <div class="h-full">
     <safe-area-inset-top />
     <div class="mx-3">
       <div class="flex items-center space-x-xl">

@@ -7,7 +7,6 @@ definePage({
   },
 })
 
-const serviceUrl = import.meta.env.VITE_SERVICE_URL
 const lineData = ref({})
 const wordData = ref({})
 const roseData = ref({})
@@ -225,9 +224,7 @@ onShow(() => {
 </script>
 
 <template>
-  <div class="bg-contain bg-no-repeat"
-       :style="{ 'background-image': `url(${serviceUrl}/oss/assets/bg/bg_friend.png)` }"
-  >
+  <div>
     <safe-area-inset-top />
     <div class="mx-3 space-y-3">
       <div class="text-2xl text-red font-bold">

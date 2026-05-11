@@ -72,7 +72,7 @@ const userAvatar = computed(() => {
 </script>
 
 <template>
-  <div class="bg-contain bg-no-repeat" :style="{ 'padding-top': `${paddingTop || 55}px`, 'background-image': `url(${serviceUrl}/oss/assets/bg/bg_mine.png)` }">
+  <div :style="{ 'padding-top': `${paddingTop || 55}px` }">
     <div class="mx-3 space-y-3">
       <div class="flex items-center" @click="toSettings">
         <uv-avatar :src="userAvatar" :size="64" />

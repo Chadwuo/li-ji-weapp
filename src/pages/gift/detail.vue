@@ -73,9 +73,11 @@ const navigateToFriendDetailPage = () => {
             @{{ dataSource.friendRelation }}
           </div>
         </div>
-        <wd-tag round variant="light" type="primary" size="extra-large">
-          {{ dataSource.title }}
-        </wd-tag>
+        <div>
+          <wd-tag round variant="light" type="primary">
+            {{ dataSource.title }}
+          </wd-tag>
+        </div>
         <div class="flex items-center space-x-2">
           <money-amount :money="dataSource.money" size="text-3xl" />
         </div>
