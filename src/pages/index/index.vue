@@ -89,14 +89,16 @@ onReachBottom(() => {
           人情往来
         </div>
       </div>
-      <wd-tabs v-model="activeTab" swipeable animated>
+      <!-- <wd-tabs v-model="activeTab" swipeable animated>
         <wd-tab name="book">
           <book-page ref="bookPageRef" />
         </wd-tab>
         <wd-tab name="gift">
           <gift-page ref="giftPageRef" />
         </wd-tab>
-      </wd-tabs>
+      </wd-tabs> -->
+      <book-page v-show="activeTab === 'book'" ref="bookPageRef" />
+      <gift-page v-show="activeTab === 'gift'" ref="giftPageRef" />
     </div>
     <wd-fab v-show="activeTab === 'gift'" :gap="{ bottom: 64 }" :expandable="false" @click="onAdd" />
   </div>

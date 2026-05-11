@@ -66,9 +66,7 @@ const navigateToFriendDetailPage = () => {
           </div>
         </div>
         <div>
-          <wd-tag round variant="light" type="primary">
-            {{ dataSource.title }}
-          </wd-tag>
+          {{ dataSource.title }}
         </div>
         <div class="flex items-center space-x-2">
           <money-amount :money="dataSource.money" size="text-3xl" />
