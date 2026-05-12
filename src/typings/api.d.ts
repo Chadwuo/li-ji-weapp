@@ -446,7 +446,7 @@ declare namespace Api {
     friendRelation?: string
     friendTagList?: Array<string>
     entityName?: string
-    payway?: string
+    payWay?: string
   }
 
   interface Gift {
@@ -503,7 +503,7 @@ declare namespace Api {
      * @type {string}
      * @memberof Gift
      */
-    date: string
+    date?: string
     /**
      * 亲友Id
      * @type {string}
@@ -519,7 +519,7 @@ declare namespace Api {
     friendRelation?: string
     friendTagList?: Array<string>
     entityName?: string
-    payway?: string
+    payWay?: string
   }
 
   interface FriendGifts {

@@ -174,7 +174,7 @@ const presetMoney = [100, 200, 500, 800, 1000, 2000]
             </wd-radio-group>
           </wd-form-item>
           <wd-form-item v-if="dataSource.moneyType === 0" title="支付方式">
-            <wd-radio-group v-model="dataSource.payway" type="button">
+            <wd-radio-group v-model="dataSource.payWay" type="button">
               <div class="flex justify-between">
                 <wd-radio value="支付宝">
                   支付宝

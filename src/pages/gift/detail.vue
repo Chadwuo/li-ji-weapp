@@ -97,7 +97,7 @@ const navigateToFriendDetailPage = () => {
           <div class="w-18 text-gray">
             支付方式
           </div>
-          <div>{{ dataSource.payway }}</div>
+          <div>{{ dataSource.payWay }}</div>
         </div>
         <div v-if="dataSource.moneyType === 1" class="flex">
           <div class="w-18 text-gray">

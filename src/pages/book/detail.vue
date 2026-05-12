@@ -325,8 +325,11 @@ function onMenuClick(e: any) {
                 </div>
               </div>
               <div class="flex flex-wrap items-center gap-1 text-sm">
-                <wd-tag v-for="(tag, childIndex) in gift.friendTagList" :key="childIndex" variant="light" type="primary" round>
-                  {{ tag }}
+                <wd-tag variant="light" type="primary" round>
+                  {{ gift.moneyType === 0 ? '礼金' : '实物' }}
+                </wd-tag>
+                <wd-tag v-if="gift.payWay" variant="light" type="primary" round>
+                  {{ gift.payWay }}
                 </wd-tag>
               </div>
               <div v-if="gift.remarks" class="line-clamp-1 text-sm text-gray">
