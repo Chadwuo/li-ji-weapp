@@ -100,13 +100,9 @@ const request = createAlova({
     }
 
     const { succeeded, errors, data } = rawData as Api.Response
-    const errorMessage = JSON.stringify(errors || 'Server Error.')
     // 处理业务错误
     if (!succeeded) {
-      uni.showToast({
-        icon: 'none',
-        title: errorMessage,
-      })
+      const errorMessage = showBusinessError(errors)
       throw new Error(errorMessage)
     }
 
@@ -166,6 +162,28 @@ function ShowMessage(status: number | string): string {
     default:
       message = `连接出错(${status})!`
   }
+  return message
+}
+
+function showBusinessError(errors: unknown) {
+  let message = 'Server Error.'
+  if (typeof errors === 'string') {
+    message = errors
+  }
+  else if (errors) {
+    try {
+      message = JSON.stringify(errors)
+    }
+    catch {
+      message = String(errors)
+    }
+  }
+
+  uni.showToast({
+    icon: 'none',
+    title: message,
+  })
+
   return message
 }
 

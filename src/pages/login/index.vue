@@ -19,12 +19,78 @@ const signupEmailInput = ref({
   code: '',
 })
 const tab = ref('login')
+type FormValidateScene = 'login' | 'signup' | 'sendCode'
+const emailRegex = /^[\w.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i
 
 const {
   loading: sending,
   countdown,
   send: sendCaptcha,
 } = useCaptcha(() => apiEmailSendVerifyEmailPost({ email: signupEmailInput.value.email }))
+
+const validateFormInput = (scene: FormValidateScene) => {
+  const formModel = scene === 'login' ? loginEmailInput.value : signupEmailInput.value
+  const email = formModel.email.trim()
+
+  if (!email) {
+    uni.showToast({
+      title: '请输入邮箱',
+      icon: 'none',
+    })
+    return false
+  }
+
+  if (!emailRegex.test(email)) {
+    uni.showToast({
+      title: '请输入正确的邮箱格式',
+      icon: 'none',
+    })
+    return false
+  }
+
+  formModel.email = email
+
+  if (scene === 'sendCode') {
+    return true
+  }
+
+  if (!formModel.password.trim()) {
+    uni.showToast({
+      title: '请输入密码',
+      icon: 'none',
+    })
+    return false
+  }
+
+  if (formModel.password.length < 4) {
+    uni.showToast({
+      title: '密码不能少于4位',
+      icon: 'none',
+    })
+    return false
+  }
+
+  if (scene === 'signup') {
+    const code = signupEmailInput.value.code.trim()
+    if (!code) {
+      uni.showToast({
+        title: '请输入验证码',
+        icon: 'none',
+      })
+      return false
+    }
+    if (!/^\d{6}$/.test(code)) {
+      uni.showToast({
+        title: '请输入6位验证码',
+        icon: 'none',
+      })
+      return false
+    }
+    signupEmailInput.value.code = code
+  }
+
+  return true
+}
 
 const onLogin = async () => {
   try {
@@ -49,12 +115,16 @@ const onLogin = async () => {
 }
 
 const onSignup = async () => {
+  if (!validateFormInput('signup')) {
+    return
+  }
+
   try {
     loading.value = true
     await apiAuthSignupEmailPost(signupEmailInput.value)
     loginEmailInput.value.email = signupEmailInput.value.email
     loginEmailInput.value.password = signupEmailInput.value.password
-    onLogin()
+    await onLogin()
   }
   finally {
     loading.value = false
@@ -62,23 +132,9 @@ const onSignup = async () => {
 }
 
 const sendVerifyEmail = async () => {
-  if (!signupEmailInput.value.email) {
-    uni.showToast({
-      title: '请输入邮箱',
-      icon: 'none',
-    })
+  if (!validateFormInput('sendCode')) {
     return
   }
-  // 判断邮箱格式
-  const emailRegex = /^[\w.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i
-  if (!emailRegex.test(signupEmailInput.value.email)) {
-    uni.showToast({
-      title: '请输入正确的邮箱格式',
-      icon: 'none',
-    })
-    return
-  }
-
   sendCaptcha()
 }
 </script>
