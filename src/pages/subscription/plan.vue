@@ -39,20 +39,31 @@ const xPay = async () => {
       paySig: singInfo.paySig,
       signature: singInfo.signature,
       async success() {
-        uni.showToast({
-          title: '支付成功 谢谢！',
-          icon: 'success',
-        })
         await syncMemberStatusAfterPayment(outTradeNumber)
-        uni.redirectTo({
-          url: '/pages/subscription/index',
+        dialog.alert({
+          icon: 'success',
+          title: '支付成功',
+          msg: '感谢你的支持！如果你有任何问题或需要帮助，请随时联系我们的客服团队。',
+        }).then(() => {
+          uni.redirectTo({
+            url: '/pages/subscription/index',
+          })
         })
       },
       fail({ errCode }) {
-        uni.showToast({
-          title: errCode === -2 ? `支付取消` : `支付失败(${errCode})`,
-          icon: 'none',
-        })
+        if (errCode === -2) {
+          uni.showToast({
+            title: '支付取消',
+            icon: 'none',
+          })
+        }
+        else {
+          dialog.alert({
+            icon: 'danger',
+            title: '支付失败',
+            msg: `请稍后再试(${errCode})`,
+          })
+        }
       },
       complete() {
         loading.value = false
