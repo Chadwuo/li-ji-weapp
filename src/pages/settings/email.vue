@@ -70,9 +70,6 @@ const openForm = () => {
 }
 
 const closeForm = () => {
-  if (loading.value || sending.value)
-    return
-
   formVisible.value = false
 }
 
@@ -101,17 +98,11 @@ const onSubmit = async () => {
 
   try {
     loading.value = true
-    const wasBound = isBound.value
-    await apiEmailVerifyEmailPost(form.value)
-    userInfo.value = await apiAuthUserInfoGet()
-    showNotify({ type: 'success', message: wasBound ? '邮箱更换成功' : '邮箱绑定成功' })
-    uni.navigateBack({
-      fail: () => {
-        uni.redirectTo({
-          url: '/pages/settings/index',
-        })
-      },
-    })
+    await apiUserEmailPut(form.value)
+    showNotify({ type: 'success', message: isBound.value ? '邮箱更换成功' : '邮箱绑定成功' })
+    if (userInfo.value)
+      userInfo.value.email = form.value.email
+    closeForm()
   }
   finally {
     loading.value = false
@@ -131,7 +122,9 @@ const onSubmit = async () => {
             绑定后可使用邮箱登录账号，也能在需要时接收账号验证信息。
           </div>
         </div>
-        <div class="h-13 w-13 flex flex-shrink-0 items-center justify-center rounded-full bg-white text-[#f87171] shadow-[0_6px_18px_rgba(248,113,113,0.18)]">
+        <div
+          class="h-13 w-13 flex flex-shrink-0 items-center justify-center rounded-full bg-white text-[#f87171] shadow-[0_6px_18px_rgba(248,113,113,0.18)]"
+        >
           <i class="i-hugeicons-mail-01 text-7" />
         </div>
       </div>
@@ -146,11 +139,9 @@ const onSubmit = async () => {
               {{ displayEmail }}
             </div>
           </div>
-          <button
-            v-if="currentEmail"
-            class="reset-button h-9 w-9 flex flex-shrink-0 items-center justify-center rounded-full bg-white text-[#6b7280]"
-            :aria-label="showEmail ? '隐藏完整邮箱' : '显示完整邮箱'"
-            @click="showEmail = !showEmail"
+          <button v-if="currentEmail"
+                  class="reset-button h-9 w-9 flex flex-shrink-0 items-center justify-center rounded-full bg-white text-[#6b7280]"
+                  :aria-label="showEmail ? '隐藏完整邮箱' : '显示完整邮箱'" @click="showEmail = !showEmail"
           >
             <i :class="showEmail ? 'i-hugeicons-view-off' : 'i-hugeicons-view'" class="text-5" />
           </button>

@@ -18,3 +18,9 @@ export function apiUserDelete() {
     name: 'user-delete',
   })
 }
+
+export function apiUserEmailPut(data: any) {
+  return request.Put<boolean>('user/email', data, {
+    name: 'user-email-put',
+  })
+}

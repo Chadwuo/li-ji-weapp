@@ -20,7 +20,7 @@ const handleClickLeft = () => {
     <wd-navbar left-arrow custom-style="background-color: transparent !important;" @click-left="handleClickLeft" />
     <div class="mx-10">
       <div class="w-20 pt-12 text-center">
-        <img class="h-20 w-20 drop-shadow-[0_12px_24px_rgba(248,113,113,0.16)]" src="/static/logo.webp">
+        <img class="h-20 w-20 drop-shadow-[0_12px_24px_rgba(248,113,113,0.16)]" src="/static/logo.png">
         <div class="mt-5 text-xl text-[#1f2937] font-bold">
           礼记
         </div>
