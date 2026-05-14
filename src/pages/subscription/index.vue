@@ -61,7 +61,7 @@ onLoad(() => {
           {{ vipLevel.name }}
         </div>
         <div class="my-auto flex items-center">
-          <uv-avatar :src="userInfo?.avatar" :size="28" />
+          <wd-avatar :src="userInfo?.avatar" :size="28" />
           <div class="ml-2 bg-gradient-to-r bg-clip-text text-transparent" :class="vipLevel.color">
             {{ userInfo?.nickName }}
           </div>

@@ -81,7 +81,7 @@ const logout = () => {
     <div class="rounded-2xl bg-white p-2">
       <wd-cell title="头像" is-link center title-width="80px">
         <button class="reset-button flex flex-row-reverse" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
-          <uv-avatar :src="userInfo?.avatar" />
+          <wd-avatar :src="userInfo?.avatar" />
         </button>
       </wd-cell>
       <wd-cell title="昵称" is-link center title-width="80px">

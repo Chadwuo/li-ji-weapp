@@ -63,7 +63,7 @@ function validateEmail() {
 
 const openForm = () => {
   form.value = {
-    email: currentEmail.value,
+    email: '',
     code: '',
   }
   formVisible.value = true
@@ -167,10 +167,10 @@ const onSubmit = async () => {
     <div v-else class="rounded-2xl bg-white px-4 py-5 shadow-[0_6px_20px_rgba(15,23,42,0.04)]">
       <wd-form :model="form" layout="vertical">
         <wd-form-item title="邮箱">
-          <wd-input v-model:value="form.email" placeholder="请输入邮箱地址" :compact="false" />
+          <wd-input v-model="form.email" placeholder="请输入邮箱地址" :compact="false" />
         </wd-form-item>
         <wd-form-item title="验证码">
-          <wd-input v-model:value="form.code" placeholder="请输入验证码" :compact="false">
+          <wd-input v-model="form.code" placeholder="请输入验证码" :compact="false">
             <template #suffix>
               <wd-button size="small" :loading="sending" :disabled="sending" @click="onSendCode">
                 {{ countdown > 0 ? `${countdown}s后重试` : '发送验证码' }}

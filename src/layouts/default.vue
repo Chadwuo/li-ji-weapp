@@ -1,14 +1,21 @@
 <script setup lang="ts">
 const bgClass = ref('')
-
+const pageClassMap: Record<string, string> = {
+  'pages/index/index': 'home-page',
+  'pages/friend/list': 'friend-page',
+  'pages/mine/index': 'mine-page',
+  'pages/stats/index': 'stats-page',
+  'pages/about/index': 'about-page',
+}
 function updateBgClass() {
   const pages = getCurrentPages()
   const currentPagePath = pages[pages.length - 1]?.route
-  bgClass.value = currentPagePath ? `${currentPagePath.split('/')[1]}-page` : ''
+  if (!currentPagePath)
+    return
+  bgClass.value = pageClassMap[currentPagePath]
 }
 
 onLoad(updateBgClass)
-onShow(updateBgClass)
 </script>
 
 <template>
@@ -25,7 +32,7 @@ onShow(updateBgClass)
 </template>
 
 <style lang="scss" scoped>
-.index-page {
+.home-page {
   background:
     linear-gradient(180deg, rgba(239, 239, 239, 0) 0%, #efefef 100%) top / 100% 38vh no-repeat,
     radial-gradient(circle at 84% 0%, rgba(45, 212, 191, 0.16), transparent 35%) top / 100% 33vh no-repeat,

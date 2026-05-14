@@ -311,7 +311,7 @@ function onMenuClick(e: any) {
         </template>
         <template v-else>
           <div v-for="(gift, index) in dataList" :key="gift.id" @click="onGiftClick(gift.id)">
-            <uv-divider v-if="index" />
+            <wd-divider v-if="index" />
             <div class="space-y-1">
               <div class="flex justify-between text-lg">
                 <div class="flex items-center">

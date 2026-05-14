@@ -75,7 +75,7 @@ const userAvatar = computed(() => {
   <div :style="{ 'padding-top': `${paddingTop || 55}px` }">
     <div class="mx-3 space-y-3">
       <div class="flex items-center" @click="toSettings">
-        <uv-avatar :src="userAvatar" :size="64" />
+        <wd-avatar :src="userAvatar" :size="64" />
         <div class="ml-3">
           <div class="text-lg">
             {{ welcome() }}，{{ userInfo?.nickName }}
@@ -111,7 +111,11 @@ const userAvatar = computed(() => {
         <div class="rounded-2xl bg-white p-2">
           <wd-cell v-if="userFamilys && userFamilys.length" value="家人共享" center is-link to="/pages/family/index" size="large">
             <template #title>
-              <uv-avatar-group :urls="userFamilys.map((i) => i.avatar)" gap="0.4" />
+              <wd-avatar-group>
+                <template v-for="i in userFamilys" :key="i.userId">
+                  <wd-avatar :src="i.avatar" :size="24" />
+                </template>
+              </wd-avatar-group>
             </template>
           </wd-cell>
           <wd-cell v-else title="开通家人共享" is-link to="/pages/family/index" size="large">
