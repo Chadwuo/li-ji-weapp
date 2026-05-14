@@ -16,14 +16,14 @@ export function apiSubscriptionCreateXPayPost(data: any) {
   return request.Post<Api.WechatPayTransactionOutput<Api.XPayGoodsTransactionOutput>>('subscription/x-pay', data)
 }
 
-export function apiSubscriptionRedeemCouponPut(data: any) {
-  return request.Put<Api.User>(`subscription/redeem-coupon/`, data, {
-    name: 'subscription-redeem-coupon-put',
+export function apiSubscriptionRedeemCouponPost(data: any) {
+  return request.Post<Api.User>('subscription/redeem-coupon', data, {
+    name: 'subscription-redeem-coupon-post',
   })
 }
 
-export function apiSubscriptionSyncMemberStatusFromPaymentGatewayPut(data: any) {
-  return request.Put<Api.User>(`subscription/sync-member-status-from-payment-gateway`, data, {
-    name: 'subscription-sync-member-status-put',
+export function apiSubscriptionSyncMemberStatusFromPaymentGatewayPost(data: any) {
+  return request.Post<Api.User>('subscription/sync-member-status-from-payment-gateway', data, {
+    name: 'subscription-sync-member-status-post',
   })
 }

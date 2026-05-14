@@ -113,7 +113,7 @@ const userAvatar = computed(() => {
             <template #title>
               <wd-avatar-group>
                 <template v-for="i in userFamilys" :key="i.userId">
-                  <wd-avatar :src="i.avatar" :size="24" />
+                  <wd-avatar :src="i.avatar" size="medium" />
                 </template>
               </wd-avatar-group>
             </template>

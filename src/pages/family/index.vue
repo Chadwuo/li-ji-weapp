@@ -122,7 +122,7 @@ onShareAppMessage(() => {
             <wd-cell :label="i.role || '成员'" is-link center title-width="90%" @click="onClick(i)">
               <template #prefix>
                 <div class="mr-3">
-                  <wd-avatar :src="i.avatar" />
+                  <wd-avatar :src="i.avatar" size="medium" />
                 </div>
               </template>
               <template #title>
