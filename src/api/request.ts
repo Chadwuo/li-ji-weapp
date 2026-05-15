@@ -106,7 +106,9 @@ const request = createAlova({
       throw new Error(errorMessage)
     }
 
-    // 服务端自动刷新token
+    // #ifndef MP-WEIXIN
+    // 服务端自动刷新token，
+    // 小程序端不自动刷新token
     const accessToken = header['access-token']
     const refreshAccessToken = header['x-access-token']
     if (refreshAccessToken && accessToken && accessToken !== 'invalid_token') {
@@ -114,6 +116,8 @@ const request = createAlova({
       authStore.accessToken = accessToken
       authStore.refreshToken = refreshAccessToken
     }
+    // #endif
+
     return data
   }),
 })
