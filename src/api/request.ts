@@ -106,17 +106,27 @@ const request = createAlova({
       throw new Error(errorMessage)
     }
 
-    // #ifndef MP-WEIXIN
-    // 服务端自动刷新token，
-    // 小程序端不自动刷新token
+    // 服务端自动刷新token
     const accessToken = header['access-token']
     const refreshAccessToken = header['x-access-token']
     if (refreshAccessToken && accessToken && accessToken !== 'invalid_token') {
       const authStore = useAuthStore()
       authStore.accessToken = accessToken
       authStore.refreshToken = refreshAccessToken
+
+      // #ifdef MP-WEIXIN
+      wx.checkSession({
+        success() {
+          // session_key 未过期，并且在本生命周期一直有效
+        },
+        fail: async () => {
+          // session_key 已经失效，需要重新执行登录流程
+          const { code } = await uni.login()
+          await apiWxOpenLoginPost(code)
+        },
+      })
+      // #endif
     }
-    // #endif
 
     return data
   }),
