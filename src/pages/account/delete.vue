@@ -34,12 +34,25 @@ const onConfirmDelete = async () => {
 
 const showDeleteConfirm = () => {
   dialog.confirm({
-    title: '确认注销账号',
-    msg: '账号注销后，您的所有数据将被永久删除，且无法恢复。\n\n确定要继续注销账号吗？',
-    confirmButtonText: '确认注销',
+    title: '确定要注销账号吗？',
+    msg: '账号注销后，您的所有数据将被永久删除，且无法恢复。',
+    confirmButtonText: '继续',
     cancelButtonText: '我再想想',
+    icon: 'warning',
   }).then(() => {
-    onConfirmDelete()
+    dialog.prompt({
+      title: '请输入‘确认注销’继续',
+      inputProps: {
+        placeholder: '确认注销',
+      },
+      inputPattern: /^确认注销$/,
+      inputError: '无效的输入',
+      icon: 'warning',
+    }).then(async ({ action, value }) => {
+      if (action === 'confirm' && value === '确认注销') {
+        onConfirmDelete()
+      }
+    })
   }).catch(() => {
     // 用户取消注销
   })
@@ -101,7 +114,7 @@ const showDeleteConfirm = () => {
     </div>
 
     <!-- 操作按钮 -->
-    <div class="p-5 space-y-3">
+    <div class="space-y-3">
       <wd-button round block size="large" :loading="loading" @click="showDeleteConfirm">
         确认注销账号
       </wd-button>
