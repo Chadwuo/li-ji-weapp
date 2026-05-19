@@ -70,9 +70,17 @@ const goEmailBinding = () => {
 
 const logout = () => {
   uni.clearStorageSync()
-  uni.redirectTo({
-    url: '/pages/login/index',
+  // #ifdef MP-WEIXIN
+  wx.restartMiniProgram({
+    path: '/pages/index/index',
   })
+  // #endif
+
+  // #ifdef H5
+  uni.switchTab({
+    url: '/pages/index/index',
+  })
+  // #endif
 }
 </script>
 
@@ -112,11 +120,14 @@ const logout = () => {
       <!-- #endif -->
     </div>
 
-    <!-- #ifdef H5 -->
     <wd-button plain round block variant="plain" @click="logout">
+      <!-- #ifdef H5 -->
       退出登录
+      <!-- #endif -->
+      <!-- #ifdef MP-WEIXIN -->
+      重启应用
+      <!-- #endif -->
     </wd-button>
-    <!-- #endif -->
 
     <wd-button round block @click="goAccountDelete">
       注销账号

@@ -138,7 +138,7 @@ const unluckyGods = computed(() => gods.value.filter(g => g.getLuck().getName() 
 // 选择吉日
 function goLukyday() {
   uni.navigateTo({
-    url: '/pages/calendar/lucky-day',
+    url: '/pages/tools/lucky-day',
   })
 }
 </script>

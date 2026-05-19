@@ -127,15 +127,15 @@ const userAvatar = computed(() => {
       </div>
 
       <div class="rounded-2xl bg-white p-2">
-        <wd-cell title="亲友标签" is-link to="/pages/friend/tag" size="large">
+        <wd-cell title="个性化" is-link to="/pages/settings/custom" size="large">
           <template #prefix>
-            <div class="i-hugeicons-tag-01 mr-2 text-lg text-red" />
+            <div class="i-hugeicons-customize mr-2 text-lg text-red" />
           </template>
         </wd-cell>
 
-        <wd-cell title="择吉日" is-link to="/pages/calendar/index" size="large">
+        <wd-cell title="小工具" is-link to="/pages/tools/index" size="large">
           <template #prefix>
-            <div class="i-hugeicons-calendar-01 mr-2 text-lg text-yellow" />
+            <div class="i-hugeicons-tools mr-2 text-lg text-yellow" />
           </template>
         </wd-cell>
       </div>
