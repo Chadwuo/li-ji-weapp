@@ -2,7 +2,6 @@
 definePage({
   style: {
     navigationBarTitleText: '小工具',
-    navigationBarBackgroundColor: '#f8f5f0',
   },
 })
 
@@ -48,10 +47,9 @@ function openTool(path: string) {
 </script>
 
 <template>
-  <div class="min-h-screen overflow-hidden bg-[#f8f5f0] pb-8">
+  <div>
     <div class="relative px-4 pb-7 pt-5">
-      <div class="absolute right-[-54px] top-[-68px] h-42 w-42 rounded-full bg-[#fecaca]/55 blur-3xl" />
-      <div class="absolute bottom-8 left-[-68px] h-36 w-36 rounded-full bg-[#ccfbf1]/65 blur-3xl" />
+      <div class="absolute right-[-54px] top-[38px] h-42 w-42 rounded-full bg-[#fecaca]/55 blur-3xl" />
 
       <div class="relative">
         <div class="mt-1 text-xl text-[#3f2b22] font-bold">

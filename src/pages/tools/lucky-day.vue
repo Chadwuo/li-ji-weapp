@@ -5,7 +5,7 @@ definePage({
   layout: false,
   style: {
     navigationBarTitleText: '择吉日',
-    navigationBarBackgroundColor: '#f8f5f0',
+    navigationBarBackgroundColor: '#fff',
   },
 })
 
