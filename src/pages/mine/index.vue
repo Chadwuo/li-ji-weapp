@@ -116,9 +116,12 @@ const userAvatar = computed(() => {
                   <wd-avatar :src="i.avatar" size="medium" />
                 </template>
               </wd-avatar-group>
+              <div v-if="userFamilys.length < 5">
+                家人共享
+              </div>
             </template>
           </wd-cell>
-          <wd-cell v-else title="开通家人共享" is-link to="/pages/family/index" size="large">
+          <wd-cell v-else title="开通家人共享" is-link to="/pages/family/index" size="large" center>
             <template #prefix>
               <div class="i-hugeicons-home-12 mr-2 text-lg text-red" />
             </template>
@@ -127,13 +130,13 @@ const userAvatar = computed(() => {
       </div>
 
       <div class="rounded-2xl bg-white p-2">
-        <wd-cell title="个性化" is-link to="/pages/settings/custom" size="large">
+        <wd-cell title="个性化" is-link to="/pages/settings/custom" size="large" center>
           <template #prefix>
             <div class="i-hugeicons-customize mr-2 text-lg text-red" />
           </template>
         </wd-cell>
 
-        <wd-cell title="小工具" is-link to="/pages/tools/index" size="large">
+        <wd-cell title="小工具" is-link to="/pages/tools/index" size="large" center>
           <template #prefix>
             <div class="i-hugeicons-tools mr-2 text-lg text-yellow" />
           </template>
@@ -141,23 +144,23 @@ const userAvatar = computed(() => {
       </div>
       <div class="rounded-2xl bg-white p-2">
         <button class="reset-button" open-type="share">
-          <wd-cell is-link title="分享好友" size="large">
+          <wd-cell is-link title="分享好友" size="large" center>
             <template #prefix>
               <div class="i-hugeicons-share-01 mr-2 text-lg text-teal" />
             </template>
           </wd-cell>
         </button>
-        <wd-cell title="常见问题" is-link to="/pages/faq/index" size="large">
+        <wd-cell title="常见问题" is-link to="/pages/faq/index" size="large" center>
           <template #prefix>
             <div class="i-hugeicons-bubble-chat-question mr-2 text-lg text-blue" />
           </template>
         </wd-cell>
-        <wd-cell title="个人设置" is-link to="/pages/settings/index" size="large">
+        <wd-cell title="个人设置" is-link to="/pages/settings/index" size="large" center>
           <template #prefix>
             <div class="i-hugeicons-settings-03 mr-2 text-lg text-gray" />
           </template>
         </wd-cell>
-        <wd-cell title="关于礼记" is-link to="/pages/about/index" size="large">
+        <wd-cell title="关于礼记" is-link to="/pages/about/index" size="large" center>
           <template #prefix>
             <div class="i-hugeicons-information-circle mr-2 text-lg text-green" />
           </template>
