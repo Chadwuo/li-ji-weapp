@@ -4,28 +4,62 @@ import AdapterUniapp from '@alova/adapter-uniapp'
 import { createAlova } from 'alova'
 import { createServerTokenAuthentication } from 'alova/client'
 
+const refreshToken = async () => {
+  const authStore = useAuthStore()
+  if (authStore.isLogin) {
+    // 有accessToken，表示登陆过，自动刷新token
+    const data = await apiAuthRefreshTokenGet()
+    authStore.accessToken = data?.accessToken
+    authStore.refreshToken = data?.refreshToken
+
+    // #ifdef MP-WEIXIN
+    wx.checkSession({
+      success() {
+      // session_key 未过期，并且在本生命周期一直有效
+      },
+      fail: async () => {
+      // session_key 已经失效，需要重新执行登录流程
+        const { code } = await uni.login()
+        await apiWxOpenLoginPost(code)
+      },
+    })
+  // #endif
+  }
+  else {
+    // #ifdef MP-WEIXIN
+    // 微信静默登陆
+    try {
+      const { code } = await uni.login()
+      await apiWxOpenLoginPost(code)
+    }
+    catch (error) {
+      const errorMessage = error instanceof Error ? error.message : JSON.stringify(error) || '未知错误'
+      uni.reLaunch({ url: `/pages/exception/500?error=${encodeURIComponent(errorMessage)}` })
+      throw error
+    }
+    // #endif
+
+    // #ifdef H5
+    // H5 去登陆页
+    uni.reLaunch({ url: `/pages/login/index` })
+    throw new Error('登录失效，请重新登录')
+  // #endif
+  }
+}
+
 const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthentication<typeof VueHook, typeof uniappRequestAdapter>({
   refreshTokenOnSuccess: {
     isExpired: (response) => {
       return response.statusCode === 401
     },
     handler: async () => {
-      // #ifdef MP-WEIXIN
+      // eslint-disable-next-line no-useless-catch
       try {
-        const { code } = await uni.login()
-        await apiWxOpenLoginPost(code)
+        await refreshToken()
       }
       catch (error) {
-        const errorMessage = error instanceof Error ? error.message : JSON.stringify(error) || '未知错误'
-        uni.reLaunch({ url: `/pages/exception/500?error=${encodeURIComponent(errorMessage)}` })
         throw error
       }
-      // #endif
-
-      // #ifdef H5
-      uni.reLaunch({ url: `/pages/login/index` })
-      throw new Error('登录失效，请重新登录')
-      // #endif
     },
   },
   assignToken(method) {
@@ -89,7 +123,7 @@ const request = createAlova({
       statusCode: rawCode,
       data: rawData,
       errMsg,
-      header,
+      // header,
     } = response as UniNamespace.RequestSuccessCallbackResult
 
     // 处理 HTTP 状态码错误
@@ -107,26 +141,13 @@ const request = createAlova({
     }
 
     // 服务端自动刷新token
-    const accessToken = header['access-token']
-    const refreshAccessToken = header['x-access-token']
-    if (refreshAccessToken && accessToken && accessToken !== 'invalid_token') {
-      const authStore = useAuthStore()
-      authStore.accessToken = accessToken
-      authStore.refreshToken = refreshAccessToken
-
-      // #ifdef MP-WEIXIN
-      wx.checkSession({
-        success() {
-          // session_key 未过期，并且在本生命周期一直有效
-        },
-        fail: async () => {
-          // session_key 已经失效，需要重新执行登录流程
-          const { code } = await uni.login()
-          await apiWxOpenLoginPost(code)
-        },
-      })
-      // #endif
-    }
+    // const accessToken = header['access-token']
+    // const refreshAccessToken = header['x-access-token']
+    // if (refreshAccessToken && accessToken && accessToken !== 'invalid_token') {
+    //   const authStore = useAuthStore()
+    //   authStore.accessToken = accessToken
+    //   authStore.refreshToken = refreshAccessToken
+    // }
 
     return data
   }),
