@@ -109,17 +109,17 @@ const userAvatar = computed(() => {
         </div>
 
         <div class="rounded-2xl bg-white p-2">
-          <wd-cell v-if="userFamilys && userFamilys.length" value="家人共享" center is-link to="/pages/family/index" size="large">
+          <wd-cell v-if="userFamilys && userFamilys.length" center is-link to="/pages/family/index" size="large">
             <template #title>
               <wd-avatar-group>
                 <template v-for="i in userFamilys" :key="i.userId">
                   <wd-avatar :src="i.avatar" size="medium" />
                 </template>
               </wd-avatar-group>
-              <div v-if="userFamilys.length < 5">
-                家人共享
-              </div>
             </template>
+            <div v-if="userFamilys.length < 5">
+              家人共享
+            </div>
           </wd-cell>
           <wd-cell v-else title="开通家人共享" is-link to="/pages/family/index" size="large" center>
             <template #prefix>
