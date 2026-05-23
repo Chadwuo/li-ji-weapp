@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { FormInstance, FormSchema } from '@wot-ui/ui/components/wd-form/types'
+import FriendSelectorPopup from '@/components/FriendSelectorPopup.vue'
 
 definePage({
   style: {
@@ -23,6 +24,8 @@ const batchList = ref<Api.BookItem[]>([])
 const defaultMoney = ref<number>()
 const currentItem = ref<Api.BookItem>({ bookId: bookId.value, money: defaultMoney.value, attendance: 0 })
 const addFormRef = ref<any>()
+const friendSelectorVisible = ref(false)
+const friendSelectorTarget = ref<'single' | 'batch'>('single')
 
 onLoad(async (option) => {
   if (option?.id) {
@@ -72,28 +75,28 @@ const rules: FormSchema = {
 
 // 选择亲友（单条模式）
 const onSelectFriend = () => {
-  uni.navigateTo({
-    url: '/pages/friend/select',
-    events: {
-      acceptDataFromOpenedPage(e: Api.Friend) {
-        dataSource.value.friendId = e.id
-        dataSource.value.friendName = e.name
-      },
-    },
-  })
+  if (dataSource.value.id)
+    return
+
+  friendSelectorTarget.value = 'single'
+  friendSelectorVisible.value = true
 }
 
 // 批量模式 - 选择亲友
 const onSelectFriendForBatch = () => {
-  uni.navigateTo({
-    url: '/pages/friend/select',
-    events: {
-      acceptDataFromOpenedPage(e: Api.Friend) {
-        currentItem.value.friendId = e.id
-        currentItem.value.friendName = e.name
-      },
-    },
-  })
+  friendSelectorTarget.value = 'batch'
+  friendSelectorVisible.value = true
+}
+
+const onFriendSelected = (friend: Api.Friend) => {
+  if (friendSelectorTarget.value === 'single') {
+    dataSource.value.friendId = friend.id
+    dataSource.value.friendName = friend.name
+    return
+  }
+
+  currentItem.value.friendId = friend.id
+  currentItem.value.friendName = friend.name
 }
 
 // 批量模式 - 确认添加一条记录
@@ -382,6 +385,7 @@ const presetMoney = [100, 200, 500, 800, 1000, 2000]
     </wd-button>
     <uv-safe-bottom />
   </div>
+  <FriendSelectorPopup v-model:visible="friendSelectorVisible" @select="onFriendSelected" />
 </template>
 
 <style lang="scss" scoped>

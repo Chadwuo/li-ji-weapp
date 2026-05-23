@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { FormInstance, FormSchema } from '@wot-ui/ui/components/wd-form/types'
 import dayjs from 'dayjs'
+import FriendSelectorPopup from '@/components/FriendSelectorPopup.vue'
 import { giftCategory } from '@/constants/app'
 
 definePage({
@@ -32,6 +33,7 @@ const dataSource = ref<Api.Gift>({
   moneyType: 0,
   date: dayjs().format('YYYY-MM-DD'),
 })
+const friendSelectorVisible = ref(false)
 
 const loading = ref(false)
 const formRef = ref<FormInstance>()
@@ -87,15 +89,15 @@ const onSubmit = async () => {
 }
 
 const onSelectFriend = () => {
-  uni.navigateTo({
-    url: '/pages/friend/select',
-    events: {
-      acceptDataFromOpenedPage(e: Api.Friend) {
-        dataSource.value.friendId = e.id
-        dataSource.value.friendName = e.name
-      },
-    },
-  })
+  if (dataSource.value.id)
+    return
+
+  friendSelectorVisible.value = true
+}
+
+const onFriendSelected = (friend: Api.Friend) => {
+  dataSource.value.friendId = friend.id
+  dataSource.value.friendName = friend.name
 }
 
 const rules: FormSchema = {
@@ -215,6 +217,7 @@ const rules: FormSchema = {
       点亮人情往来的记忆微光，让每一次记账都成为温情的诗行。
     </div>
   </div>
+  <FriendSelectorPopup v-model:visible="friendSelectorVisible" @select="onFriendSelected" />
 </template>
 
 <style lang="scss" scoped>
