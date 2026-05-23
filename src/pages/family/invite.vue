@@ -41,6 +41,7 @@ const onAgree = async () => {
     role: '成员',
     familyId: inviteData.value.familyId,
   })
+  await apiAuthUserInfoGet()
   toast.close()
   uni.switchTab({
     url: '/pages/index/index',

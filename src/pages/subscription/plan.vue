@@ -21,9 +21,10 @@ const loadSubscriptionPlanData = async () => {
 }
 
 const syncMemberStatusAfterPayment = async (outTradeNumber: string) => {
-  userInfo.value = await apiSubscriptionSyncMemberStatusFromPaymentGatewayPost({
+  await apiSubscriptionSyncMemberStatusFromPaymentGatewayPost({
     outTradeNumber,
   }).catch(() => undefined)
+  userInfo.value = await apiAuthUserInfoGet()
 }
 
 const xPay = async () => {
@@ -113,9 +114,10 @@ const couponPay = async () => {
       uni.showLoading({
         title: '兑换中...',
       })
-      userInfo.value = await apiSubscriptionRedeemCouponPost({
+      await apiSubscriptionRedeemCouponPost({
         couponCode: value,
       })
+      userInfo.value = await apiAuthUserInfoGet()
       uni.redirectTo({
         url: '/pages/subscription/index',
       })

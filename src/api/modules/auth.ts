@@ -1,11 +1,3 @@
-export function apiAuthRefreshTokenGet() {
-  return request.Get<Api.LoginToken>('auth/refresh-token', {
-    meta: {
-      authRole: 'refreshToken',
-    },
-  })
-}
-
 export function apiAuthUserInfoGet() {
   return request.Get<Api.User>('auth/user-info')
 }

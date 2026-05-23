@@ -4,47 +4,52 @@ import AdapterUniapp from '@alova/adapter-uniapp'
 import { createAlova } from 'alova'
 import { createServerTokenAuthentication } from 'alova/client'
 
+const API_ENV_MAP = {
+  // 微信小程序环境映射
+  MP: {
+    release: 'release', // 正式环境
+    trial: '', // 体验版
+    develop: '', // 开发版（空表示不加后缀）
+  },
+  // H5 环境映射
+  H5: {
+    production: 'release', // 生产环境
+    development: '', // 开发环境
+  },
+}
+
+function resolveApiEndpoint() {
+  const base = `${import.meta.env.VITE_SERVICE_URL}/api`
+  let envSuffix = ''
+  // #ifdef MP-WEIXIN
+  envSuffix = API_ENV_MAP.MP[uni.getAccountInfoSync().miniProgram.envVersion]
+  // #endif
+
+  // #ifdef H5
+  envSuffix = API_ENV_MAP.H5[import.meta.env.MODE as keyof typeof API_ENV_MAP.H5]
+  // #endif
+  return envSuffix ? `${base}/${envSuffix}` : base
+}
+
 const refreshToken = async () => {
-  const authStore = useAuthStore()
-  if (authStore.isLogin) {
-    // 有accessToken，表示登陆过，自动刷新token
-    const data = await apiAuthRefreshTokenGet()
-    authStore.accessToken = data?.accessToken
-    authStore.refreshToken = data?.refreshToken
-
-    // #ifdef MP-WEIXIN
-    wx.checkSession({
-      success() {
-      // session_key 未过期，并且在本生命周期一直有效
-      },
-      fail: async () => {
-      // session_key 已经失效，需要重新执行登录流程
-        const { code } = await uni.login()
-        await apiWxOpenLoginPost(code)
-      },
-    })
-  // #endif
+  // #ifdef MP-WEIXIN
+  // 微信静默登陆
+  try {
+    const { code } = await uni.login()
+    await apiWxOpenLoginPost(code)
   }
-  else {
-    // #ifdef MP-WEIXIN
-    // 微信静默登陆
-    try {
-      const { code } = await uni.login()
-      await apiWxOpenLoginPost(code)
-    }
-    catch (error) {
-      const errorMessage = error instanceof Error ? error.message : JSON.stringify(error) || '未知错误'
-      uni.reLaunch({ url: `/pages/exception/500?error=${encodeURIComponent(errorMessage)}` })
-      throw error
-    }
-    // #endif
-
-    // #ifdef H5
-    // H5 去登陆页
-    uni.reLaunch({ url: `/pages/login/index` })
-    throw new Error('登录失效，请重新登录')
-  // #endif
+  catch (error) {
+    const errorMessage = error instanceof Error ? error.message : JSON.stringify(error) || '未知错误'
+    uni.reLaunch({ url: `/pages/exception/500?error=${encodeURIComponent(errorMessage)}` })
+    throw error
   }
+  // #endif
+
+  // #ifdef H5
+  // H5 去登陆页
+  uni.reLaunch({ url: `/pages/login/index` })
+  throw new Error('登录失效，请重新登录')
+  // #endif
 }
 
 const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthentication<typeof VueHook, typeof uniappRequestAdapter>({
@@ -80,33 +85,6 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
   },
 })
 
-const API_ENV_MAP = {
-  // 微信小程序环境映射
-  MP: {
-    release: 'release', // 正式环境
-    trial: '', // 体验版
-    develop: '', // 开发版（空表示不加后缀）
-  },
-  // H5 环境映射
-  H5: {
-    production: 'release', // 生产环境
-    development: '', // 开发环境
-  },
-}
-
-function resolveApiEndpoint() {
-  const base = `${import.meta.env.VITE_SERVICE_URL}/api`
-  let envSuffix = ''
-  // #ifdef MP-WEIXIN
-  envSuffix = API_ENV_MAP.MP[uni.getAccountInfoSync().miniProgram.envVersion]
-  // #endif
-
-  // #ifdef H5
-  envSuffix = API_ENV_MAP.H5[import.meta.env.MODE as keyof typeof API_ENV_MAP.H5]
-  // #endif
-  return envSuffix ? `${base}/${envSuffix}` : base
-}
-
 const request = createAlova({
   baseURL: resolveApiEndpoint(),
   ...AdapterUniapp(),
@@ -123,7 +101,7 @@ const request = createAlova({
       statusCode: rawCode,
       data: rawData,
       errMsg,
-      // header,
+      header,
     } = response as UniNamespace.RequestSuccessCallbackResult
 
     // 处理 HTTP 状态码错误
@@ -141,13 +119,26 @@ const request = createAlova({
     }
 
     // 服务端自动刷新token
-    // const accessToken = header['access-token']
-    // const refreshAccessToken = header['x-access-token']
-    // if (refreshAccessToken && accessToken && accessToken !== 'invalid_token') {
-    //   const authStore = useAuthStore()
-    //   authStore.accessToken = accessToken
-    //   authStore.refreshToken = refreshAccessToken
-    // }
+    const accessToken = header['access-token']
+    const refreshAccessToken = header['x-access-token']
+    if (refreshAccessToken && accessToken && accessToken !== 'invalid_token') {
+      const authStore = useAuthStore()
+      authStore.accessToken = accessToken
+      authStore.refreshToken = refreshAccessToken
+
+      // #ifdef MP-WEIXIN
+      wx.checkSession({
+        success() {
+          // session_key 未过期，并且在本生命周期一直有效
+        },
+        fail: async () => {
+          // session_key 已经失效，需要重新执行登录流程
+          const { code } = await uni.login()
+          await apiWxOpenLoginPost(code)
+        },
+      })
+      // #endif
+    }
 
     return data
   }),
