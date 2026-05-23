@@ -10,8 +10,7 @@ const friendTagPickerColumns = computed(() => {
 })
 
 const friendTabsList = computed(() => {
-  return ['全部', ...friendCategory, ...friendTags.value.map(item => item.name)]
-    .map(item => ({ name: item, value: item }))
+  return [{ name: '全部', value: '' }, ...friendCategory.map(item => ({ name: item, value: item })), ...friendTags.value.map(item => ({ name: item.name, value: item.name }))]
 })
 
 const loadFriendTags = async () => {
