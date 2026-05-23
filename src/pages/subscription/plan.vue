@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useDialog } from '@wot-ui/ui'
-import { storeToRefs } from 'pinia'
 import VipEquity from './components/VipEquity.vue'
 
 definePage({
@@ -13,7 +12,8 @@ const planId = 1
 const serviceUrl = import.meta.env.VITE_SERVICE_URL
 const dialog = useDialog()
 const loading = ref(false)
-const { userInfo } = storeToRefs(useAuthStore())
+const authStore = useAuthStore()
+const { loadUserInfo } = authStore
 const subscriptionPlan = ref<Api.SubscriptionPlan>()
 
 const loadSubscriptionPlanData = async () => {
@@ -24,7 +24,7 @@ const syncMemberStatusAfterPayment = async (outTradeNumber: string) => {
   await apiSubscriptionSyncMemberStatusFromPaymentGatewayPost({
     outTradeNumber,
   }).catch(() => undefined)
-  userInfo.value = await apiAuthUserInfoGet()
+  await loadUserInfo()
 }
 
 const xPay = async () => {
@@ -117,7 +117,7 @@ const couponPay = async () => {
       await apiSubscriptionRedeemCouponPost({
         couponCode: value,
       })
-      userInfo.value = await apiAuthUserInfoGet()
+      await loadUserInfo()
       uni.redirectTo({
         url: '/pages/subscription/index',
       })

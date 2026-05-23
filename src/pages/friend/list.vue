@@ -9,6 +9,7 @@ const friendsList = ref<Array<{ index: string, data: Array<Api.Friend> }>>()
 const search = reactive({
   tag: '',
 })
+const { friendTabsList, loadFriendTags } = useFriendTags()
 const loadData = async () => {
   const data = await apiFriendListGet({
     ...search,
@@ -29,7 +30,8 @@ const loadData = async () => {
     data: map.get(key),
   }))
 }
-onShow(() => {
+onShow(async () => {
+  await loadFriendTags()
   loadData()
 })
 
@@ -76,7 +78,7 @@ const onFriendClick = (id?: string) => {
       </div>
     </div>
     <div class="mt-3">
-      <uv-tabs :list="useAuthStore().friendTabsList" line-width="0" line-height="0" :active-style="{
+      <uv-tabs :list="friendTabsList" line-width="0" line-height="0" :active-style="{
         color: '#f87171',
         fontWeight: 'bold',
         transform: 'scale(1.1)',

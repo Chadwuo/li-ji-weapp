@@ -12,6 +12,7 @@ const search = ref({
   tag: '',
   showAction: false,
 })
+const { friendTabsList, loadFriendTags } = useFriendTags()
 const loadData = async () => {
   const data = await apiFriendListGet({
     keyword: search.value.keyword,
@@ -33,7 +34,8 @@ const loadData = async () => {
     data: map.get(key),
   }))
 }
-onLoad(() => {
+onLoad(async () => {
+  await loadFriendTags()
   loadData()
 })
 
@@ -66,7 +68,7 @@ function searchCancel() {
       <wd-search v-model="search.keyword" :hide-cancel="!search.showAction" placeholder="请输入搜索内容" placeholder-left light
                  @search="searchOk" @cancel="searchCancel" @focus="search.showAction = true"
       />
-      <uv-tabs :list="useAuthStore().friendTabsList" line-width="0" line-height="0" :active-style="{
+      <uv-tabs :list="friendTabsList" line-width="0" line-height="0" :active-style="{
         color: '#f87171',
         fontWeight: 'bold',
         transform: 'scale(1.1)',

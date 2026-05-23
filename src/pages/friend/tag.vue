@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useDialog, useNotify } from '@wot-ui/ui'
-import { storeToRefs } from 'pinia'
 import { friendCategory } from '@/constants/app'
 
 definePage({
@@ -13,10 +12,10 @@ const { showNotify } = useNotify()
 const dialog = useDialog()
 const popupShow = ref(false)
 const dataSource = ref<Api.FriendTag>({})
-const { friendTags } = storeToRefs(useAuthStore())
+const { friendTags, loadFriendTags } = useFriendTags()
 
 const loadData = async () => {
-  friendTags.value = await apiFriendTagListGet()
+  await loadFriendTags()
 }
 
 onLoad(() => {
@@ -60,7 +59,7 @@ const onDel = () => {
   <div class="mx-3">
     <div class="rounded-2xl bg-white p-2">
       <wd-cell v-for="(item, index) in friendCategory" :key="index" :title="item" />
-      <wd-cell v-for="(item, index) in useAuthStore().friendTags" :key="index" is-link :title="item.name"
+      <wd-cell v-for="(item, index) in friendTags" :key="index" is-link :title="item.name"
                @click="openPopup(item)"
       />
     </div>

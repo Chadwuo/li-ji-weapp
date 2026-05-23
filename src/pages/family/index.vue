@@ -11,12 +11,13 @@ definePage({
 
 const { showNotify } = useNotify()
 const dialog = useDialog()
-const { userFamilys, userInfo, isVip } = storeToRefs(useAuthStore())
+const { userInfo, isVip } = storeToRefs(useAuthStore())
+const { userFamilies, loadUserFamilies } = useUserFamilies()
 const actionSheetShow = ref(false)
 const actionSheetList = ref()
 const loading = ref(false)
 const loadData = async () => {
-  userFamilys.value = await apiUserFamilyListGet()
+  await loadUserFamilies()
 }
 
 const onCreate = async () => {
@@ -72,11 +73,11 @@ onPullDownRefresh(async () => {
 
 onShareAppMessage(() => {
   const promise = new Promise<Page.CustomShareContent>((resolve, reject) => {
-    if (!userFamilys.value) {
+    if (!userFamilies.value) {
       reject(new Error('User families not found'))
     }
     else {
-      if (userFamilys.value.length >= 2 && !isVip.value) {
+      if (userFamilies.value.length >= 2 && !isVip.value) {
         reject(new Error('Family member limit exceeded'))
         dialog.confirm({
           msg: '成为会员，即可解锁无限成员权益',
@@ -91,7 +92,7 @@ onShareAppMessage(() => {
         })
       }
       else {
-        const familyId = userFamilys.value[0].familyId
+        const familyId = userFamilies.value[0].familyId
         const word = `${userInfo.value?.nickName}邀请你一起记录家庭中的人情往来`
         const avatarUrl = userInfo.value?.avatar
         resolve({
@@ -116,9 +117,9 @@ onShareAppMessage(() => {
 <template>
   <div class="mx-3">
     <div class="mt-3 h-full flex flex-col">
-      <div v-if="userFamilys && userFamilys.length">
+      <div v-if="userFamilies && userFamilies.length">
         <div class="rounded-2xl bg-white px-1 py-3 space-y-3">
-          <template v-for="i in userFamilys" :key="i.userId">
+          <template v-for="i in userFamilies" :key="i.userId">
             <wd-cell :label="i.role || '成员'" is-link center title-width="90%" @click="onClick(i)">
               <template #prefix>
                 <div class="mr-3">

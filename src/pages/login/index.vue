@@ -96,10 +96,7 @@ const onLogin = async () => {
   try {
     loading.value = true
     await apiAuthLoginEmailPost(loginEmailInput.value)
-    const authStore = useAuthStore()
-    authStore.userInfo = await apiAuthUserInfoGet()
-    authStore.userFamilys = await apiUserFamilyListGet()
-    authStore.friendTags = await apiFriendTagListGet()
+    await useAuthStore().loadUserInfo()
     uni.showToast({
       title: '登录成功',
       icon: 'success',

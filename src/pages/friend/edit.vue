@@ -9,7 +9,9 @@ definePage({
 const dataSource = ref<Api.Friend>({
   tagList: [],
 })
+const { friendTagPickerColumns, loadFriendTags } = useFriendTags()
 onLoad(async (option) => {
+  await loadFriendTags()
   if (option?.id) {
     uni.setNavigationBarTitle({
       title: '编辑',
@@ -66,7 +68,7 @@ const tagPickerVisible = ref(false)
             <wd-select-picker
               v-model="dataSource.tagList!"
               v-model:visible="tagPickerVisible"
-              :columns="useAuthStore().friendTagPickerColumns"
+              :columns="friendTagPickerColumns"
             />
             <div class="flex items-center rounded-lg bg-[#F2F3F5] p-2" @click="tagPickerVisible = true">
               <div class="friend-tag-trigger__value" :class="{ 'is-placeholder': !dataSource.tagList?.length }">

@@ -8,7 +8,8 @@ definePage({
 })
 
 const serviceUrl = import.meta.env.VITE_SERVICE_URL
-const { userInfo, userFamilys, isVip } = storeToRefs(useAuthStore())
+const { userInfo, isVip } = storeToRefs(useAuthStore())
+const { userFamilies, loadUserFamilies } = useUserFamilies()
 const vipLevel = computed(() => {
   switch (userInfo.value?.accountType) {
     case 1:
@@ -36,6 +37,7 @@ const vipLevel = computed(() => {
 const jinrishici = ref('')
 
 onLoad(() => {
+  loadUserFamilies()
   jinrishiciLoad((result: any) => {
     jinrishici.value = result.data.content
   })
@@ -109,15 +111,15 @@ const userAvatar = computed(() => {
         </div>
 
         <div class="rounded-2xl bg-white p-2">
-          <wd-cell v-if="userFamilys && userFamilys.length" center is-link to="/pages/family/index" size="large">
+          <wd-cell v-if="userFamilies && userFamilies.length" center is-link to="/pages/family/index" size="large">
             <template #title>
               <wd-avatar-group>
-                <template v-for="i in userFamilys" :key="i.userId">
+                <template v-for="i in userFamilies" :key="i.userId">
                   <wd-avatar :src="i.avatar" size="medium" />
                 </template>
               </wd-avatar-group>
             </template>
-            <div v-if="userFamilys.length < 5">
+            <div v-if="userFamilies.length < 5">
               家人共享
             </div>
           </wd-cell>

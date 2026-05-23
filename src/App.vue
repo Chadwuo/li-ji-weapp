@@ -4,10 +4,7 @@ onLaunch(async () => {
     title: '加载中...',
   })
   try {
-    const authStore = useAuthStore()
-    authStore.userInfo = await apiAuthUserInfoGet()
-    authStore.userFamilys = await apiUserFamilyListGet()
-    authStore.friendTags = await apiFriendTagListGet()
+    await useAuthStore().loadUserInfo()
   }
   catch (error) {
     const errorMessage = error instanceof Error ? error.message : JSON.stringify(error) || '未知错误'
