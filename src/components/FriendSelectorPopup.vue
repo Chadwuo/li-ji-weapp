@@ -137,13 +137,12 @@ function onFriendClick(friend: Api.Friend) {
 
 <style lang="scss" scoped>
 :deep(.friend-selector-popup) {
-  height: 75vh;
-  overflow: hidden;
-  border-radius: 16px 16px 0 0;
+  height: 520px;
+  border-radius: 24px 24px 0 0;
 }
 
 .friend-selector {
-  height: 100%;
+   height: 520px;
   display: flex;
   flex-direction: column;
 }

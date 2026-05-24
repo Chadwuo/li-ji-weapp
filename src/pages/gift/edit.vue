@@ -198,7 +198,7 @@ const rules: FormSchema = {
         <wd-form-item title="亲友" prop="friendName" required>
           <wd-input v-model="dataSource.friendName" :disabled="!!dataSource.id" placeholder="输入姓名，或点击右侧选择" :compact="false">
             <template #suffix>
-              <div class="i-hugeicons-contact-01 text-base text-gray" @click="onSelectFriend" />
+              <div class="i-hugeicons-contact-01 p-1 text-base text-gray" @click="onSelectFriend" />
             </template>
           </wd-input>
         </wd-form-item>

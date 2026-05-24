@@ -257,7 +257,7 @@ const presetMoney = [100, 200, 500, 800, 1000, 2000]
                   </div>
                 </template>
                 <template #suffix>
-                  <div class="i-hugeicons-contact-01 text-base text-gray" @click="onSelectFriendForBatch" />
+                  <div class="i-hugeicons-contact-01 p-1 text-base text-gray" @click="onSelectFriendForBatch" />
                 </template>
               </wd-input>
               <div class="flex space-x-3">
