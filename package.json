@@ -35,7 +35,7 @@
     "@dcloudio/uni-mp-weixin": "3.0.0-4080720251210001",
     "@dcloudio/uni-mp-xhs": "3.0.0-4080720251210001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-4080720251210001",
-    "@wot-ui/ui": "^2.0.5",
+    "@wot-ui/ui": "^2.0.8",
     "alova": "^3.5.1",
     "dayjs": "^1.11.20",
     "pinia": "^2.3.0",

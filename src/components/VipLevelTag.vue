@@ -5,7 +5,7 @@ const vipLevelInfo = computed(() => {
   switch (props.accountType) {
     case 1:
       return {
-        name: 'VIP PRO',
+        name: 'PRO',
         color: '#F2CB69',
         bgColor: '#332B49',
       }
@@ -33,14 +33,14 @@ const vipLevelInfo = computed(() => {
 
 <template>
   <div>
-    <wd-tag :color="vipLevelInfo.color" :bg-color="vipLevelInfo.bgColor" mark>
+    <div :style="{ backgroundColor: vipLevelInfo.bgColor, color: vipLevelInfo.color }" class="rounded-full p-1">
       <div class="flex items-center text-3">
         <i class="i-hugeicons-crown-03 mr-1" />
-        <div class="leading-none">
+        <div class="leading-0">
           {{ vipLevelInfo.name }}
         </div>
       </div>
-    </wd-tag>
+    </div>
   </div>
 </template>
 

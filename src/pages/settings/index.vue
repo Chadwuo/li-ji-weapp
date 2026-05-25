@@ -77,8 +77,8 @@ const logout = () => {
   // #endif
 
   // #ifdef H5
-  uni.switchTab({
-    url: '/pages/index/index',
+  uni.redirectTo({
+    url: '/pages/login/index',
   })
   // #endif
 }

@@ -47,7 +47,7 @@ const refreshToken = async () => {
 
   // #ifdef H5
   // H5 去登陆页
-  uni.reLaunch({ url: `/pages/login/index` })
+  uni.redirectTo({ url: `/pages/login/index` })
   throw new Error('登录失效，请重新登录')
   // #endif
 }
