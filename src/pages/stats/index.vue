@@ -67,12 +67,94 @@ const chatOpt = {
   },
 }
 
+const trendChatOpt = computed(() => ({
+  ...chatOpt,
+  xAxis: {
+    ...chatOpt.xAxis,
+    labelCount: selectedYear.value === '全部' ? '6' : '12',
+    title: selectedYear.value === '全部' ? '年' : '月',
+  },
+}))
+
 const statsData = ref({
   inCount: 0,
   outCount: 0,
   inTotal: 0,
   outTotal: 0,
 })
+
+function buildTrendData(rawData: { money: number, date: string, type: string }[]) {
+  const isAllYears = selectedYear.value === '全部'
+
+  if (isAllYears) {
+    const yearMap: Record<number, { in: number, out: number }> = {}
+
+    rawData.forEach((item) => {
+      const date = dayjs(item.date)
+      if (!date.isValid())
+        return
+
+      const year = date.year()
+      if (!yearMap[year])
+        yearMap[year] = { in: 0, out: 0 }
+
+      if (item.type === 'in')
+        yearMap[year].in += item.money || 0
+      else
+        yearMap[year].out += item.money || 0
+    })
+
+    const yearCategories = Object.keys(yearMap)
+      .map(Number)
+      .sort((a, b) => a - b)
+
+    return {
+      categories: yearCategories.map(year => year.toString()),
+      series: [
+        {
+          name: '收礼金额',
+          data: yearCategories.map(year => yearMap[year].in / 1000),
+        },
+        {
+          name: '送礼金额',
+          data: yearCategories.map(year => Math.abs(yearMap[year].out) / 1000),
+        },
+      ],
+    }
+  }
+
+  const monthMap: Record<number, { in: number, out: number }> = Object.fromEntries(
+    Array.from({ length: 12 }, (_, index) => [index + 1, { in: 0, out: 0 }]),
+  )
+
+  rawData.forEach((item) => {
+    const date = dayjs(item.date)
+    if (!date.isValid())
+      return
+
+    const month = date.month() + 1
+    if (item.type === 'in')
+      monthMap[month].in += item.money || 0
+    else
+      monthMap[month].out += item.money || 0
+  })
+
+  const monthCategories = Array.from({ length: 12 }, (_, index) => index + 1)
+
+  return {
+    categories: monthCategories.map(month => `${month}月`),
+    series: [
+      {
+        name: '收礼金额',
+        data: monthCategories.map(month => monthMap[month].in / 1000),
+      },
+      {
+        name: '送礼金额',
+        data: monthCategories.map(month => Math.abs(monthMap[month].out) / 1000),
+      },
+    ],
+  }
+}
 
 async function loadData() {
   const params = getDateParams()
@@ -107,42 +189,8 @@ async function loadData() {
     outTotal: rawData.filter(item => item.type === 'out').reduce((acc, curr) => acc + (curr.money || 0), 0),
   }
 
-  // 折线图数据处理
-  const yearMap: Record<number, { in: number, out: number }> = {}
-
-  // 处理收礼数据
-  if (rawData && rawData.length) {
-    for (let i = 0; i < rawData.length; i++) {
-      const item = rawData[i]
-      const year = dayjs(item.date).year()
-      if (!yearMap[year])
-        yearMap[year] = { in: 0, out: 0 }
-      if (item.type === 'in')
-        yearMap[year].in += item.money || 0
-      else
-        yearMap[year].out += item.money || 0
-    }
-  }
-
-  // 提取所有年份并排序
-  const yearCategories = Object.keys(yearMap)
-    .map(Number)
-    .sort((a, b) => a - b)
-
   // 构建折线图数据
-  lineData.value = {
-    categories: yearCategories.map(year => year.toString()),
-    series: [
-      {
-        name: '收礼金额',
-        data: yearCategories.map(year => yearMap[year].in / 1000),
-      },
-      {
-        name: '送礼金额',
-        data: yearCategories.map(year => Math.abs(yearMap[year].out) / 1000),
-      },
-    ],
-  }
+  lineData.value = buildTrendData(rawData)
 
   // 统计所有朋友的收支差，并取前5
   const friendMap: Record<string, number> = {}
@@ -296,7 +344,7 @@ onShow(() => {
         收支趋势
       </div>
       <div class="h-64 rounded-2xl bg-white p-1">
-        <qiun-data-charts type="area" :opts="chatOpt" :chart-data="lineData" />
+        <qiun-data-charts type="area" :opts="trendChatOpt" :chart-data="lineData" />
       </div>
       <div class="pt-2 font-bold">
         收入排行榜

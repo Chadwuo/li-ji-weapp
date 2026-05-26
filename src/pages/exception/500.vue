@@ -14,7 +14,7 @@ const onRetry = () => {
   // #endif
 
   // #ifdef H5
-  uni.switchTab({
+  uni.reLaunch({
     url: '/pages/index/index',
   })
   // #endif

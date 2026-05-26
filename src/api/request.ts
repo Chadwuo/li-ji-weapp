@@ -92,55 +92,62 @@ const request = createAlova({
     method.config.enableHttpDNS = true
     method.config.httpDNSServiceId = 'wxa410372c837a5f26'
   }),
-  responded: onResponseRefreshToken((response, method) => {
-    const { config: { requestType } } = method
-    if (requestType === 'download' || requestType === 'upload') {
-      return response
-    }
-    const {
-      statusCode: rawCode,
-      data: rawData,
-      errMsg,
-      header,
-    } = response as UniNamespace.RequestSuccessCallbackResult
+  responded: onResponseRefreshToken({
+    onSuccess: async (response, method) => {
+      const { config: { requestType } } = method
+      if (requestType === 'download' || requestType === 'upload') {
+        return response
+      }
+      const {
+        statusCode: rawCode,
+        data: rawData,
+        errMsg,
+        header,
+      } = response as UniNamespace.RequestSuccessCallbackResult
 
-    // 处理 HTTP 状态码错误
-    if (rawCode !== 200) {
-      const errorMessage = ShowMessage(rawCode) || `HTTP请求错误[${rawCode}]`
-      uni.reLaunch({ url: `/pages/exception/500?error=${errorMessage}` })
-      throw new Error(`${errorMessage}：${errMsg}`)
-    }
+      // 处理 HTTP 状态码错误
+      if (rawCode !== 200) {
+        const errorMessage = ShowMessage(rawCode) || `HTTP请求错误[${rawCode}]`
+        uni.reLaunch({ url: `/pages/exception/500?error=${errorMessage}` })
+        throw new Error(`${errorMessage}：${errMsg}`)
+      }
 
-    const { succeeded, errors, data } = rawData as Api.Response
-    // 处理业务错误
-    if (!succeeded) {
-      const errorMessage = showBusinessError(errors)
-      throw new Error(errorMessage)
-    }
+      const { succeeded, errors, data } = rawData as Api.Response
+      // 处理业务错误
+      if (!succeeded) {
+        const errorMessage = showBusinessError(errors)
+        throw new Error(errorMessage)
+      }
 
-    // 服务端自动刷新token
-    const accessToken = header['access-token']
-    const refreshAccessToken = header['x-access-token']
-    if (refreshAccessToken && accessToken && accessToken !== 'invalid_token') {
-      const authStore = useAuthStore()
-      authStore.accessToken = accessToken
-      authStore.refreshToken = refreshAccessToken
+      // 服务端自动刷新token
+      const accessToken = header['access-token']
+      const refreshAccessToken = header['x-access-token']
+      if (refreshAccessToken && accessToken && accessToken !== 'invalid_token') {
+        const authStore = useAuthStore()
+        authStore.accessToken = accessToken
+        authStore.refreshToken = refreshAccessToken
 
-      // #ifdef MP-WEIXIN
-      wx.checkSession({
-        success() {
-          // session_key 未过期，并且在本生命周期一直有效
-        },
-        fail: async () => {
-          // session_key 已经失效，需要重新执行登录流程
-          const { code } = await uni.login()
-          await apiWxOpenLoginPost(code)
-        },
-      })
-      // #endif
-    }
+        // #ifdef MP-WEIXIN
+        wx.checkSession({
+          success() {
+            // session_key 未过期，并且在本生命周期一直有效
+          },
+          fail: async () => {
+            // session_key 已经失效，需要重新执行登录流程
+            const { code } = await uni.login()
+            await apiWxOpenLoginPost(code)
+          },
+        })
+        // #endif
+      }
 
-    return data
+      return data
+    },
+    onError: (error) => {
+      console.error(error)
+      uni.reLaunch({ url: `/pages/exception/500?error=系统正在维护升级，请稍后再试~(${error.message})` })
+      throw error
+    },
   }),
 })
 
