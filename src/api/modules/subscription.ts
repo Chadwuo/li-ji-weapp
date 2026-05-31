@@ -17,13 +17,9 @@ export function apiSubscriptionCreateXPayPost(data: any) {
 }
 
 export function apiSubscriptionRedeemCouponPost(data: any) {
-  return request.Post<Api.User>('subscription/redeem-coupon', data, {
-    name: 'subscription-redeem-coupon-post',
-  })
+  return request.Post<Api.User>('subscription/redeem-coupon', data)
 }
 
 export function apiSubscriptionSyncMemberStatusFromPaymentGatewayPost(data: any) {
-  return request.Post<Api.User>('subscription/sync-member-status-from-payment-gateway', data, {
-    name: 'subscription-sync-member-status-post',
-  })
+  return request.Post<Api.User>('subscription/sync-member-status-from-payment-gateway', data)
 }

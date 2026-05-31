@@ -11,15 +11,15 @@ const vipLevelInfo = computed(() => {
       }
     case 2:
       return {
-        name: 'VIP',
-        color: '#DB695B',
-        bgColor: '#FCA69F',
-      }
-    case 9:
-      return {
         name: 'SVIP',
         color: '#EC70AE',
         bgColor: '#EDB0E5',
+      }
+    case 9:
+      return {
+        name: 'VIP',
+        color: '#DB695B',
+        bgColor: '#FCA69F',
       }
     default:
       return {

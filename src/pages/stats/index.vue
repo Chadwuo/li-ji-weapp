@@ -142,7 +142,7 @@ function buildTrendData(rawData: { money: number, date: string, type: string }[]
   const monthCategories = Array.from({ length: 12 }, (_, index) => index + 1)
 
   return {
-    categories: monthCategories.map(month => `${month}月`),
+    categories: monthCategories.map(month => `${month}`),
     series: [
       {
         name: '收礼金额',

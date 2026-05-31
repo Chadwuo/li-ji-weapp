@@ -20,6 +20,10 @@ const statsData = ref({
 })
 const giftList = ref<Array<any>>()
 const loading = ref(false)
+
+const getRecordTone = (money?: number) => (money ?? 0) > 0 ? 'income' : 'expense'
+const getRecordTypeText = (money?: number) => (money ?? 0) > 0 ? '收礼' : '送礼'
+
 const loadGifts = async () => {
   const data = await apiFriendGiftListGet({ id: friend.value.id })
   if (!data)
@@ -33,11 +37,13 @@ const loadGifts = async () => {
     giftsRaw.push({
       id: i.id,
       title: i.title,
-      money: i.money,
+      money: i.money ?? 0,
       date: i.date,
       year: dayjs(i.date).year(),
+      monthDay: dayjs(i.date).format('MM.DD'),
       bookId: i.bookId,
       attendance: i.attendance,
+      remarks: i.remarks,
     })
   })
 
@@ -45,9 +51,10 @@ const loadGifts = async () => {
     giftsRaw.push({
       id: i.id,
       title: i.title,
-      money: i.money,
+      money: i.money ?? 0,
       date: i.date,
       year: dayjs(i.date).year(),
+      monthDay: dayjs(i.date).format('MM.DD'),
       icon: i.icon,
       remarks: i.remarks,
     })
@@ -75,10 +82,14 @@ const loadGifts = async () => {
 
   // Convert to array and sort by year
   giftList.value = Object.entries(groupedGifts)
-    .map(([year, list]) => ({
-      year: Number.parseInt(year, 10), // Ensure year is a number
-      list,
-    }))
+    .map(([year, rawList]) => {
+      const list = rawList as any[]
+      return {
+        year: Number.parseInt(year, 10), // Ensure year is a number
+        list,
+        netTotal: list.reduce((acc, curr) => acc + (curr.money || 0), 0),
+      }
+    })
     .sort((a, b) => b.year - a.year)
 }
 
@@ -167,7 +178,7 @@ function onMenuClick(e: any) {
         :row-col="[{ width: '30%' }, { width: '50%' }, [{ width: '0' }, { width: '30%' }, { width: '0' }], { width: '0' }, [{ width: '0' }, { width: '20%' }, { width: '20%' }, { width: '0' }]]"
       />
     </div>
-    <div v-else class="rounded-2xl bg-white p-5 space-y-3">
+    <div v-else class="gradient-card p-5 space-y-2">
       <div class="flex justify-between">
         <div>
           <div class="flex items-center">
@@ -194,9 +205,9 @@ function onMenuClick(e: any) {
           </wd-popover>
         </div>
       </div>
-      <div class="text-center">
+      <div class="flex items-center justify-center text-center">
         <money-amount :money="statsData.inTotal + statsData.outTotal" size="text-2xl" />
-        <span class="text-sm text-gray">(收支差)</span>
+        <span class="ms-1 text-sm text-gray">(收支差)</span>
       </div>
       <div class="grid grid-cols-2 gap-5 divide-x">
         <div class="text-center">
@@ -228,30 +239,69 @@ function onMenuClick(e: any) {
     <div v-if="giftList?.length === 0 && !loading" class="my-24">
       <wd-empty tip="还没有人情往来记录哦~" />
     </div>
-    <div class="my-5 space-y-3">
-      <div v-for="(gift, index) in giftList" :key="index" class="cu-timeline">
-        <div class="cu-time">
-          {{ gift.year }}
+    <div v-if="giftList?.length" class="ledger-timeline pt-2">
+      <div v-for="gift in giftList" :key="gift.year" class="timeline-year">
+        <div class="year-marker">
+          <div class="year-marker-main">
+            <span class="year-marker-text">{{ gift.year }}</span>
+            <span class="year-marker-count">{{ gift.list.length }} 笔</span>
+          </div>
+          <div class="year-marker-balance">
+            小计
+            <money-amount :money="gift.netTotal" size="text-sm" />
+          </div>
         </div>
-        <div v-for="item in gift.list" :key="item._id" class="cu-item" @click="onGiftClick(item)">
-          <div class="rounded-2xl bg-white p-4">
-            <div class="flex justify-between">
-              <div class="mr-3 flex flex-col space-y-1">
-                <div class="flex items-center">
-                  <div class="text-bold text-lg text-black">
-                    {{ item.title }}
-                  </div>
+
+        <div class="record-flow">
+          <div
+            v-for="item in gift.list"
+            :key="item.id"
+            class="record-row"
+            @click="onGiftClick(item)"
+          >
+            <div class="record-date">
+              <div class="record-day">
+                {{ item.monthDay }}
+              </div>
+            </div>
+
+            <div class="record-axis">
+              <div class="record-line" />
+              <div class="record-dot" :class="`record-dot--${getRecordTone(item.money)}`">
+                <i :class="item.money > 0 ? 'i-hugeicons-arrow-down-left-01' : 'i-hugeicons-arrow-up-right-01'" />
+              </div>
+            </div>
+
+            <div
+              class="record-card"
+              :class="`record-card--${getRecordTone(item.money)}`"
+            >
+              <div class="record-card-head">
+                <div class="record-title">
+                  {{ item.title }}
                 </div>
-                <div class="text-sm text-gray">
-                  {{ item.remarks }}
-                </div>
-                <div class="mt-1 text-xs text-gray">
-                  <span>{{ generateLunarDate(item.date) }}</span>
-                  <span class="ml-2">({{ item.date }}) </span>
+                <div class="record-money">
+                  <money-amount :money="item.money" />
                 </div>
               </div>
-              <div class="ml-3 flex-shrink-0 text-right">
-                <money-amount :money="item.money" />
+
+              <div class="record-meta">
+                <div class="record-pill" :class="`record-pill--${getRecordTone(item.money)}`">
+                  {{ getRecordTypeText(item.money) }}
+                </div>
+                <div v-if="item.attendance" class="record-pill">
+                  出席 {{ item.attendance }} 人
+                </div>
+                <div class="record-full-date">
+                  {{ item.date }}
+                </div>
+              </div>
+
+              <div v-if="item.remarks" class="record-remarks">
+                {{ item.remarks }}
+              </div>
+              <div v-else class="record-remarks record-remarks--empty">
+                点击查看往来详情
               </div>
             </div>
           </div>
@@ -264,85 +314,197 @@ function onMenuClick(e: any) {
 </template>
 
 <style lang="scss" scoped>
-/* ==================
-         时间轴
- ==================== */
-
-.cu-timeline {
-  display: block;
-  background-color: var(--white);
+.ledger-timeline {
+  margin: 28rpx 0 48rpx;
 }
 
-.cu-timeline .cu-time {
-  width: 120rpx;
-  text-align: center;
-  padding: 20rpx 0;
-  font-size: 26rpx;
-  color: #888;
-  display: block;
+.timeline-year {
+  margin-bottom: 28rpx;
 }
 
-.cu-timeline>.cu-item {
-  padding: 30rpx 0 30rpx 120rpx;
+.timeline-year:last-child {
+  margin-bottom: 0;
+}
+
+.year-marker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 16rpx 118rpx;
+  color: #9ca3af;
+}
+
+.year-marker-main,
+.year-marker-balance {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.year-marker-text {
+  color: #111827;
+  font-size: 32rpx;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.year-marker-count,
+.year-marker-balance {
+  font-size: 22rpx;
+}
+
+.year-marker-balance :deep(div) {
+  line-height: 1;
+}
+
+.record-flow {
+  margin-top: 0;
+}
+
+.record-row {
+  display: grid;
+  grid-template-columns: 104rpx 46rpx minmax(0, 1fr);
+  column-gap: 14rpx;
+  min-height: 172rpx;
+}
+
+.record-date {
+  padding-top: 28rpx;
+  text-align: right;
+}
+
+.record-day {
+  color: #111827;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.record-axis {
   position: relative;
-  display: block;
-  z-index: 0;
+  display: flex;
+  justify-content: center;
 }
 
-.cu-timeline>.cu-item:not([class*='text-']) {
-  color: #ccc;
-}
-
-.cu-timeline>.cu-item::after {
-  content: '';
-  display: block;
+.record-line {
   position: absolute;
-  width: 1rpx;
-  background-color: #ddd;
-  left: 60rpx;
-  height: 100%;
   top: 0;
-  z-index: 8;
+  bottom: 0;
+  left: 50%;
+  width: 2rpx;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(248, 113, 113, 0.2), rgba(20, 184, 166, 0.22));
 }
 
-.cu-timeline>.cu-item::before {
-  font-family: 'cuIcon';
-  display: block;
-  position: absolute;
-  top: 36rpx;
-  z-index: 9;
-  background-color: var(--white);
-  width: 50rpx;
-  height: 50rpx;
+.record-dot {
+  position: relative;
+  z-index: 1;
+  width: 36rpx;
+  height: 36rpx;
+  margin-top: 26rpx;
+  border: 6rpx solid #efefef;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 22rpx;
+  line-height: 30rpx;
   text-align: center;
-  border: none;
-  line-height: 50rpx;
-  left: 36rpx;
+  box-shadow: 0 8rpx 20rpx rgba(15, 23, 42, 0.1);
 }
 
-.cu-timeline>.cu-item[class*='cicon-']::before {
-  background-color: var(--white);
-  width: 50rpx;
-  height: 50rpx;
-  text-align: center;
-  border: none;
-  line-height: 50rpx;
-  left: 36rpx;
+.record-dot--income {
+  background: #f87171;
 }
 
-.cu-timeline>.cu-item>.content {
-  padding: 30rpx;
-  border-radius: 6rpx;
-  display: block;
-  line-height: 1.6;
+.record-dot--expense {
+  background: #14b8a6;
 }
 
-.cu-timeline>.cu-item>.content:not([class*='bg-']) {
-  background-color: var(--ghostWhite);
-  color: var(--black);
+.record-card {
+  min-width: 0;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+  border: 1rpx solid rgba(229, 231, 235, 0.9);
+  border-radius: 24rpx;
+  background: #fff;
+  padding: 22rpx 24rpx;
+  box-shadow: 0 10rpx 28rpx rgba(15, 23, 42, 0.045);
 }
 
-.cu-timeline>.cu-item>.content+.content {
-  margin-top: 20rpx;
+.record-card--income {
+  background: linear-gradient(90deg, rgba(255, 245, 245, 0.95), #fff 46%);
+}
+
+.record-card--expense {
+  background: linear-gradient(90deg, rgba(240, 253, 250, 0.95), #fff 46%);
+}
+
+.record-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18rpx;
+}
+
+.record-title {
+  min-width: 0;
+  overflow: hidden;
+  color: #111827;
+  font-size: 32rpx;
+  font-weight: 700;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.record-money {
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.record-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10rpx;
+  margin-top: 14rpx;
+}
+
+.record-pill {
+  border-radius: 999rpx;
+  background: #f3f4f6;
+  padding: 6rpx 14rpx;
+  color: #6b7280;
+  font-size: 22rpx;
+  line-height: 1.2;
+}
+
+.record-pill--income {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.record-pill--expense {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+
+.record-full-date {
+  color: #9ca3af;
+  font-size: 22rpx;
+  line-height: 1.2;
+}
+
+.record-remarks {
+  display: -webkit-box;
+  overflow: hidden;
+  margin-top: 14rpx;
+  color: #6b7280;
+  font-size: 26rpx;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.record-remarks--empty {
+  color: #c4c4c4;
 }
 </style>

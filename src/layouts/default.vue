@@ -5,7 +5,6 @@ const pageClassMap: Record<string, string> = {
   'pages/friend/list': 'friend-page',
   'pages/mine/index': 'mine-page',
   'pages/stats/index': 'stats-page',
-  'pages/about/index': 'about-page',
 }
 function updateBgClass() {
   const pages = getCurrentPages()
@@ -66,9 +65,5 @@ onLoad(updateBgClass)
     radial-gradient(circle at 10% 8%, rgba(248, 113, 113, 0.2), transparent 34%) top / 100% 33vh no-repeat,
     linear-gradient(150deg, #fff5f5 0%, #ffffff 50%, #eff6ff 100%) top / 100% 33vh no-repeat,
     #efefef;
-}
-
-.about-page {
-  background: linear-gradient(145deg, #fff7f7 0%, #ffffff 46%, #eef9fb 100%);
 }
 </style>

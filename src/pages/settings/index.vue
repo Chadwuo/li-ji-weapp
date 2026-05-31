@@ -68,6 +68,12 @@ const goEmailBinding = () => {
   })
 }
 
+const goContact = () => {
+  uni.navigateTo({
+    url: '/pages/contact/index',
+  })
+}
+
 const logout = () => {
   uni.clearStorageSync()
   // #ifdef MP-WEIXIN
@@ -97,12 +103,12 @@ const logout = () => {
       </wd-cell>
       <wd-cell title="邮箱" :value="emailCellValue" is-link center title-width="80px" @click="goEmailBinding" />
     </div>
-    <!-- #ifdef MP-WEIXIN -->
     <div>
       <div class="rounded-2xl bg-white p-2">
-        <button class="reset-button" open-type="contact">
+        <!-- <button class="reset-button" open-type="contact">
           <wd-cell is-link :clickable="false" title="在线客服" />
-        </button>
+        </button> -->
+        <wd-cell is-link title="联系客服" @click="goContact" />
         <button class="reset-button" open-type="feedback">
           <wd-cell is-link :clickable="false" title="异常反馈" />
         </button>
@@ -111,7 +117,6 @@ const logout = () => {
         使用异常反馈，向开发者报告App功能异常问题，与开发者共享诊断日志，帮助开发者快速定位问题，改进App。
       </div>
     </div>
-    <!-- #endif -->
     <div class="rounded-2xl bg-white p-2">
       <wd-cell title-width="60px" title="备案号" value="皖ICP备2024069565号-1X" />
       <wd-cell title="开源协议" value="GPL-3.0 license" />

@@ -22,15 +22,14 @@ const vipLevel = computed(() => {
     case 2:
       return {
         name: 'VIP',
-        color: 'from-[#C02625] to-[#DB695B]',
+        color: 'from-[#D044CF] to-[#EC70AE]',
         bg: `${serviceUrl}/oss/assets/subscription/vip_free_bg.webp`,
-
         text: '专属礼遇，馈赠予重要伙伴的特殊权益',
       }
     case 9:
       return {
         name: 'SVIP',
-        color: 'from-[#D044CF] to-[#EC70AE]',
+        color: 'from-[#C02625] to-[#DB695B]',
         bg: `${serviceUrl}/oss/assets/subscription/vip_svip_bg.webp`,
         text: '终身尊享，解锁平台无期限的特权礼遇',
       }

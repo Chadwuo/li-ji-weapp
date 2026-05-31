@@ -1,5 +1,5 @@
 export function apiAuthUserInfoGet() {
-  return request.Get<Api.User>('auth/user-info')
+  return request.Get<Api.User>('auth/user-info').send(true)
 }
 
 export function apiAuthLoginEmailPost(data: any) {

@@ -106,6 +106,11 @@ const mineCells = [
     url: '/pages/faq/index',
   },
   {
+    title: '联系我们',
+    icon: 'i-hugeicons-customer-service',
+    url: '/pages/contact/index',
+  },
+  {
     title: '个人设置',
     icon: 'i-hugeicons-settings-03',
     url: '/pages/settings/index',
