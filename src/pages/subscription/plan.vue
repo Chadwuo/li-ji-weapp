@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useDialog } from '@wot-ui/ui'
+import { resolveAssetUrl } from '@/utils'
 import VipEquity from './components/VipEquity.vue'
 
 definePage({
@@ -9,7 +10,6 @@ definePage({
   },
 })
 const planId = 1
-const serviceUrl = import.meta.env.VITE_SERVICE_URL
 const dialog = useDialog()
 const loading = ref(false)
 const authStore = useAuthStore()
@@ -143,7 +143,7 @@ onLoad(async () => {
     <div class="mx-3 h-full pb-[152px] space-y-3">
       <div
         class="bg-contain bg-no-repeat text-center"
-        :style="{ 'background-image': `url(${serviceUrl}/oss/assets/subscription/congratulate.webp)` }"
+        :style="{ 'background-image': `url(${resolveAssetUrl('/oss/assets/subscription/congratulate.webp')})` }"
       >
         <div class="mt-6 text-6xl">
           🎉
@@ -157,7 +157,7 @@ onLoad(async () => {
       </div>
       <div
         class="w-full bg-[length:100%_100%] bg-no-repeat"
-        :style="{ 'background-image': `url(${serviceUrl}/oss/assets/subscription/vip_price_bg.webp)` }"
+        :style="{ 'background-image': `url(${resolveAssetUrl('/oss/assets/subscription/vip_price_bg.webp')})` }"
       >
         <div class="h-28 flex flex-col p-5">
           <div class="ml-8 text-xl text-[#9F5300] font-bold">

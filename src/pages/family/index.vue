@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useDialog, useNotify } from '@wot-ui/ui'
 import { storeToRefs } from 'pinia'
+import { resolveAssetUrl } from '@/utils'
 
 definePage({
   style: {
@@ -123,7 +124,7 @@ onShareAppMessage(() => {
             <wd-cell :label="i.role || '成员'" is-link center title-width="90%" @click="onClick(i)">
               <template #prefix>
                 <div class="mr-3">
-                  <wd-avatar :src="i.avatar" size="medium" />
+                  <wd-avatar :src="resolveAssetUrl(i.avatar)" size="medium" />
                 </div>
               </template>
               <template #title>

@@ -2,6 +2,7 @@
 import { JSONStringify } from '@alova/shared'
 import { useNotify } from '@wot-ui/ui'
 import { storeToRefs } from 'pinia'
+import { resolveAssetUrl } from '@/utils'
 
 definePage({
   style: {
@@ -95,7 +96,7 @@ const logout = () => {
     <div class="rounded-2xl bg-white p-2">
       <wd-cell title="头像" is-link center title-width="80px">
         <button class="reset-button flex flex-row-reverse" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
-          <wd-avatar :src="userInfo?.avatar" />
+          <wd-avatar :src="resolveAssetUrl(userInfo?.avatar)" />
         </button>
       </wd-cell>
       <wd-cell title="昵称" is-link center title-width="80px">

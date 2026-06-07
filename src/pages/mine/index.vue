@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+import { resolveAssetUrl } from '@/utils'
 
 definePage({
   style: {
@@ -7,7 +8,6 @@ definePage({
   },
 })
 
-const serviceUrl = import.meta.env.VITE_SERVICE_URL
 const { userInfo, isVip } = storeToRefs(useAuthStore())
 const { userFamilies, loadUserFamilies } = useUserFamilies()
 const vipLevel = computed(() => {
@@ -148,19 +148,13 @@ onShareAppMessage(() => {
 // #ifdef MP-WEIXIN
 const paddingTop = uni.getMenuButtonBoundingClientRect().bottom + 5
 // #endif
-const userAvatar = computed(() => {
-  const avatar = userInfo.value?.avatar
-  if (avatar?.startsWith('http') || avatar?.startsWith('/static'))
-    return avatar
-  return `${serviceUrl}${avatar}`
-})
 </script>
 
 <template>
   <div :style="{ 'padding-top': `${paddingTop || 55}px` }">
     <div class="mx-3 space-y-3">
       <div class="flex items-center" @click="toSettings">
-        <wd-avatar :src="userAvatar" :size="64" />
+        <wd-avatar :src="resolveAssetUrl(userInfo?.avatar)" :size="64" />
         <div class="ml-3">
           <div class="text-lg">
             {{ welcome() }}，{{ userInfo?.nickName }}
@@ -174,7 +168,7 @@ const userAvatar = computed(() => {
       <div>
         <div
           class="h-18 flex bg-contain bg-no-repeat px-4 -mb-4"
-          :style="{ 'background-image': `url(${serviceUrl}/oss/assets/subscription/vip_equity_bg.webp)` }"
+          :style="{ 'background-image': `url(${resolveAssetUrl('/oss/assets/subscription/vip_equity_bg.webp')})` }"
           @click="toSubscription"
         >
           <div class="mt-2">
@@ -198,7 +192,7 @@ const userAvatar = computed(() => {
             <template #title>
               <wd-avatar-group>
                 <template v-for="i in userFamilies" :key="i.userId">
-                  <wd-avatar :src="i.avatar" size="medium" />
+                  <wd-avatar :src="resolveAssetUrl(i.avatar)" size="medium" />
                 </template>
               </wd-avatar-group>
             </template>

@@ -1,5 +1,19 @@
 import { SolarDay } from 'tyme4ts'
 
+const serviceUrl = import.meta.env.VITE_SERVICE_URL
+
+const isAbsoluteUrl = (url: string) => /^(?:https?:)?\/\//.test(url)
+
+export function resolveAssetUrl(url?: string) {
+  if (!url)
+    return ''
+
+  if (isAbsoluteUrl(url) || url.startsWith('/static') || url.startsWith('data:') || url.startsWith('blob:'))
+    return url
+
+  return `${serviceUrl}${url.startsWith('/') ? url : `/${url}`}`
+}
+
 /**
  * 问个好
  *
