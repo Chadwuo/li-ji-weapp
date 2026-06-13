@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useDialog, useToast } from '@wot-ui/ui'
+import { resolveAssetUrl } from '@/utils'
 
 definePage({
   style: {
@@ -10,14 +11,16 @@ definePage({
 const dialog = useDialog()
 const toast = useToast()
 const { userFamilies, loadUserFamilies } = useUserFamilies()
-const inviteData = ref({
+const inviteData = reactive({
   familyId: '',
   avatarUrl: '',
   word: '',
 })
 
 onLoad((options: any) => {
-  inviteData.value = options
+  inviteData.familyId = options.familyId ?? ''
+  inviteData.avatarUrl = options.avatarUrl ?? ''
+  inviteData.word = options.word ?? ''
 })
 const onAgree = async () => {
   await loadUserFamilies()
@@ -39,7 +42,7 @@ const onAgree = async () => {
   })
   await apiUserFamilyPost({
     role: '成员',
-    familyId: inviteData.value.familyId,
+    familyId: inviteData.familyId,
   })
   await loadUserFamilies()
   await useAuthStore().loadUserInfo()
@@ -63,7 +66,7 @@ const onReject = () => {
         <div class="mt-5 flex items-center justify-center space-x-3xl">
           <div class="i-iconoir-favourite-book text-12 text-red" />
           <div class="i-mingcute-transfer-3-fill text-2xl text-teal" />
-          <wd-avatar :src="inviteData.avatarUrl" :size="55" />
+          <wd-avatar :src="resolveAssetUrl(inviteData.avatarUrl)" :size="55" />
         </div>
         <div class="mt-3 text-xl font-bold">
           {{ inviteData.word }}
@@ -98,7 +101,7 @@ const onReject = () => {
           </div>
         </div>
       </div>
-      <div class="mt-10 flex justify-around">
+      <div class="mt-10 flex justify-around gap-5">
         <wd-button variant="plain" round block @click="onReject">
           拒绝
         </wd-button>

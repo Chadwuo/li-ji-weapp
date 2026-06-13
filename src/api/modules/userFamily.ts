@@ -1,13 +1,5 @@
 export function apiUserFamilyListGet() {
-  return request.Get<Api.UserFamily[]>('user-family/list', {
-    hitSource: /^user/,
-  })
-}
-
-export function apiUserFamilyGet(data: any) {
-  return request.Get<Api.UserFamily>('user-family', {
-    params: data,
-  })
+  return request.Get<Api.UserFamily[]>('user-family/list').send(true)
 }
 
 export function apiUserFamilyPost(data: any) {
