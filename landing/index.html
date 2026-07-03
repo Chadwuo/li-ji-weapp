@@ -6,56 +6,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="专注于记录和管理人情往来中的随礼、收礼、份子钱、礼金、心意、礼物、红包、封包等，多维度查询和统计亲友间的往来记录，家人共享记账，你贴心的人情往来数字记账伙伴。">
   <meta name="keywords" content="人情记账,人情账簿,人情账本,礼尚往来,家人共享记账,随礼,收礼,份子钱,礼金,心意,礼物,红包,封包">
-  <meta name="theme-color" content="#f8f1e6" />
+  <meta name="theme-color" content="#f7f4ee" />
   <title>人情礼记｜每一份人情都值得礼记</title>
-  <link rel="stylesheet" href="./styles.css?v=20260703" />
+  <link rel="stylesheet" href="./styles.css?v=20260703-apple" />
 </head>
 
 <body>
   <div class="site-shell" data-shell>
     <header class="topbar" aria-label="礼记导航">
-      <a class="brand-lockup" href="#cover" aria-label="回到礼记封面">
+      <a class="brand-lockup" href="#cover" aria-label="回到礼记首页">
         <img src="./assets/logo.webp" alt="礼记" />
         <span>礼记</span>
       </a>
       <nav class="topnav" aria-label="页面章节">
         <a href="#cover">封面</a>
-        <a href="#origin">起笔</a>
-        <a href="#ledger">入册</a>
-        <a href="#timeline">成册</a>
+        <a href="#morph">入账</a>
+        <a href="#timeline">时光轴</a>
         <a href="#start">翻开</a>
       </nav>
     </header>
 
     <main>
-      <section class="section cover-section" id="cover" data-section aria-labelledby="cover-title">
+      <section class="section cover-section" id="cover" data-section data-scene="cover" aria-labelledby="cover-title">
         <div class="cover-copy" data-reveal>
           <p class="eyebrow">人情礼记</p>
           <h1 id="cover-title" aria-label="每一份人情，都值得礼记。">
             <span aria-hidden="true">每一份人情，</span>
             <span aria-hidden="true">都值得礼记。</span>
           </h1>
-          <p class="cover-lead">把来往的心意、年月里的祝福，妥帖收进一册。</p>
-          <div class="cover-actions" aria-label="主要行动">
-            <a class="action-primary" href="#start">翻开礼簿</a>
-            <a class="action-secondary" href="#ledger">看它入册</a>
-          </div>
+          <p class="cover-lead">从一张请柬开始，把来往的心意，整理成可回望的时间。</p>
         </div>
 
-        <div class="paper-scene" data-reveal data-depth="0.32" aria-label="礼记纸本与小程序主视觉">
-          <div class="paper-sheet sheet-back" aria-hidden="true"></div>
-          <div class="paper-sheet sheet-middle" aria-hidden="true"></div>
-
-          <article class="ledger-book hero-ledger">
-            <div class="book-spine" aria-hidden="true"></div>
-            <p>礼记</p>
-            <h2>心意有来处，岁月有回声。</h2>
-            <span>人情往来 · 岁月成册</span>
-          </article>
-
-          <article class="invitation-paper hero-invite">
+        <div class="hero-invitation" data-reveal aria-label="礼记请柬开场">
+          <div class="paper-halo" aria-hidden="true"></div>
+          <article class="invitation-card">
             <p>良辰吉日</p>
-            <h3>新婚之喜</h3>
+            <h2>新婚之喜</h2>
             <dl>
               <div>
                 <dt>姓名</dt>
@@ -63,179 +49,133 @@
               </div>
               <div>
                 <dt>时间</dt>
-                <dd>二零二六 · 夏</dd>
+                <dd>二零二六 · 五月</dd>
               </div>
               <div>
                 <dt>心意</dt>
                 <dd>礼金 1000</dd>
               </div>
             </dl>
+            <span class="seal-mark" aria-hidden="true">礼</span>
           </article>
-
-          <div class="cinnabar-stamp" aria-hidden="true">礼</div>
-
-          <article class="timeline-phone hero-phone" aria-label="礼记小程序时光轴示意">
-            <div class="phone-top">
-              <span>9:41</span>
-              <i></i>
-            </div>
-            <div class="phone-brand">
-              <img src="./assets/logo.webp" alt="" />
-              <span>礼记</span>
-            </div>
-            <div class="phone-title">
-              <p>时光轴</p>
-              <strong>二零二六</strong>
-            </div>
-            <div class="phone-record active">
-              <span>五月 · 新婚</span>
-              <strong>吴家有喜</strong>
-              <em>+1000</em>
-            </div>
-            <div class="phone-record">
-              <span>三月 · 乔迁</span>
-              <strong>舅舅新居</strong>
-              <em>-800</em>
-            </div>
-            <div class="phone-record muted">
-              <span>去年 · 满月</span>
-              <strong>林家满月</strong>
-              <em>+600</em>
-            </div>
-          </article>
+          <div class="cover-orbit orbit-one" aria-hidden="true"></div>
+          <div class="cover-orbit orbit-two" aria-hidden="true"></div>
         </div>
       </section>
 
-      <section class="section origin-section" id="origin" data-section aria-labelledby="origin-title">
-        <div class="section-copy" data-reveal>
-          <p class="eyebrow">起笔</p>
-          <h2 id="origin-title">故事，常常从一张请柬开始。</h2>
-          <p>席散之后，名字还留在纸上；日子久了，心意却容易散在记忆里。</p>
-        </div>
-
-        <div class="origin-fragments" data-reveal aria-label="人生礼事片段">
-          <article>
-            <span>婚礼</span>
-            <strong>父母坐在桌边，核对每一个名字。</strong>
-          </article>
-          <article>
-            <span>满月</span>
-            <strong>孩子还小，家里替他记得每一份祝福。</strong>
-          </article>
-          <article>
-            <span>乔迁</span>
-            <strong>新房亮起灯，旧情谊也被重新照亮。</strong>
-          </article>
-        </div>
-      </section>
-
-      <section class="ledger-scroll" id="ledger" data-section data-step="0" aria-labelledby="ledger-title">
-        <div class="ledger-sticky">
-          <div class="ledger-copy" data-reveal>
-            <p class="eyebrow">入册</p>
-            <h2 id="ledger-title">取下姓名、日子与礼金，轻轻归入同一条时间。</h2>
-            <p>不是把人情变成冰冷的数字，而是让值得回望的往来，有了安放的位置。</p>
+      <section class="product-cinema" id="morph" data-section data-scene="morph" aria-labelledby="morph-title">
+        <div class="cinema-pin">
+          <div class="cinema-copy" data-reveal>
+            <p class="eyebrow">请柬入账</p>
+            <h2 id="morph-title">请柬上的信息，飞入一条新的时光轴。</h2>
+            <p>姓名、日期、事由、礼金被轻轻取下，在礼记里生成一条可回望的记录。</p>
           </div>
 
-          <div class="ledger-stage" aria-label="请柬信息入册动画">
-            <article class="invitation-paper ledger-invite">
+          <div class="morph-stage" aria-label="请柬入账到时光轴形成的产品动画">
+            <article class="source-invitation" data-morph-card>
               <p>请柬</p>
               <h3>新婚之喜</h3>
-              <dl>
-                <div>
-                  <dt>姓名</dt>
-                  <dd>吴家</dd>
-                </div>
-                <div>
-                  <dt>事由</dt>
-                  <dd>婚礼</dd>
-                </div>
-                <div>
-                  <dt>时间</dt>
-                  <dd>二零二六 · 五月</dd>
-                </div>
-                <div>
-                  <dt>礼金</dt>
-                  <dd>1000</dd>
-                </div>
-              </dl>
+              <span>吴家 · 二零二六 · 礼金 1000</span>
             </article>
 
-            <div class="field-slip slip-name">姓名</div>
-            <div class="field-slip slip-event">事由</div>
-            <div class="field-slip slip-date">时间</div>
-            <div class="field-slip slip-amount">礼金</div>
-            <div class="field-slip slip-note">备注</div>
+            <div class="field-stream" aria-hidden="true">
+              <span class="field-pill field-name" data-field="name">吴家</span>
+              <span class="field-pill field-date" data-field="date">二零二六 · 五月</span>
+              <span class="field-pill field-event" data-field="event">新婚之喜</span>
+              <span class="field-pill field-amount" data-field="amount">+1000</span>
+            </div>
 
-            <article class="timeline-phone ledger-phone" aria-label="礼记时光轴记录">
-              <div class="phone-top">
-                <span>9:41</span>
-                <i></i>
-              </div>
-              <div class="phone-brand">
-                <img src="./assets/logo.webp" alt="" />
-                <span>礼记</span>
-              </div>
-              <div class="phone-title">
-                <p>时光轴</p>
-                <strong>二零二六</strong>
-              </div>
-              <div class="timeline-thread" aria-hidden="true"></div>
-              <div class="phone-record incoming">
-                <span>五月 · 新婚之喜</span>
-                <strong>吴家</strong>
+            <div class="iphone-stage">
+              <div class="iphone-shadow" aria-hidden="true"></div>
+              <article class="iphone-shell" aria-label="礼记小程序 iOS 风时光轴界面">
+                <div class="phone-status">
+                  <span>9:41</span>
+                  <i></i>
+                </div>
+                <div class="app-header">
+                  <div>
+                    <img src="./assets/logo.webp" alt="" />
+                    <span>礼记</span>
+                  </div>
+                  <button type="button" aria-label="更多">···</button>
+                </div>
+
+                <section class="summary-panel">
+                  <p>本月心意</p>
+                  <strong>¥ 4,860</strong>
+                  <span>8 条往来 · 3 个礼事</span>
+                </section>
+
+                <section class="record-stack" aria-label="礼记记录卡片">
+                  <article class="record-card primary-record">
+                    <span>五月 · 新婚之喜</span>
+                    <div>
+                      <strong>吴家</strong>
+                      <em>+1000</em>
+                    </div>
+                    <p>敬备薄酌，盼你到场。</p>
+                  </article>
+                  <article class="record-card">
+                    <span>三月 · 乔迁</span>
+                    <div>
+                      <strong>舅舅新居</strong>
+                      <em>-800</em>
+                    </div>
+                  </article>
+                  <article class="record-card muted">
+                    <span>二零二五 · 满月</span>
+                    <div>
+                      <strong>林家满月</strong>
+                      <em>+600</em>
+                    </div>
+                  </article>
+                </section>
+
+                <section class="timeline-rail" aria-label="礼记时光轴">
+                  <article>
+                    <span>2024</span>
+                    <strong>婚礼</strong>
+                  </article>
+                  <article>
+                    <span>2025</span>
+                    <strong>满月</strong>
+                  </article>
+                  <article class="active">
+                    <span>2026</span>
+                    <strong>乔迁 · 新婚</strong>
+                  </article>
+                </section>
+              </article>
+
+              <div class="ui-layer layer-record" data-ui-layer="record">
+                <span>新记录</span>
+                <strong>吴家有喜</strong>
                 <em>+1000</em>
-                <small>敬备薄酌，盼你到场。</small>
               </div>
-              <div class="phone-record muted">
-                <span>三月 · 乔迁</span>
-                <strong>舅舅</strong>
-                <em>-800</em>
+              <div class="ui-layer layer-amount" data-ui-layer="amount">
+                <span>礼金</span>
+                <strong>¥1000</strong>
               </div>
-              <div class="phone-record muted">
-                <span>二零二五 · 满月</span>
-                <strong>林家</strong>
-                <em>+600</em>
+              <div class="ui-layer layer-date" data-ui-layer="date">
+                <span>时间</span>
+                <strong>二零二六 · 五月</strong>
               </div>
-            </article>
+              <div class="ui-layer layer-axis" data-ui-layer="axis">
+                <span>时光轴</span>
+                <strong>2024 → 2026</strong>
+              </div>
+            </div>
           </div>
-
-          <div class="ledger-notes" aria-live="polite">
-            <article data-note="0">
-              <span>见礼</span>
-              <p>请柬摊开，姓名、日子与心意仍在纸面上。</p>
-            </article>
-            <article data-note="1">
-              <span>取字</span>
-              <p>一枚枚签条从纸上浮起，像把往来轻轻拾起。</p>
-            </article>
-            <article data-note="2">
-              <span>入册</span>
-              <p>它们归入礼记，成为一条可以回望的记录。</p>
-            </article>
-            <article data-note="3">
-              <span>回望</span>
-              <p>前后的年份连起来，生活节点慢慢成册。</p>
-            </article>
-          </div>
-        </div>
-
-        <div class="ledger-steps" aria-hidden="true">
-          <article class="ledger-step" data-step="0"></article>
-          <article class="ledger-step" data-step="1"></article>
-          <article class="ledger-step" data-step="2"></article>
-          <article class="ledger-step" data-step="3"></article>
         </div>
       </section>
 
-      <section class="section timeline-section" id="timeline" data-section aria-labelledby="timeline-title">
-        <div class="section-copy" data-reveal>
-          <p class="eyebrow">成册</p>
-          <h2 id="timeline-title">一年一年翻过去，心意都有了可回望的位置。</h2>
-          <p>婚礼、满月、乔迁、升学，不必记成清单。它们会在礼记里，慢慢成为你的时光轴。</p>
+      <section class="section timeline-section" id="timeline" data-section data-scene="timeline" aria-labelledby="timeline-title">
+        <div class="timeline-copy" data-reveal>
+          <p class="eyebrow">时光轴</p>
+          <h2 id="timeline-title">一年一年展开，礼事都有了位置。</h2>
+          <p>婚礼、满月、乔迁、升学，不必再散落在聊天记录和旧纸张里。</p>
         </div>
-
-        <div class="year-spread" data-reveal aria-label="礼记年份索引">
+        <div class="year-cards" data-reveal aria-label="礼记年份节点">
           <article>
             <span>二零二四</span>
             <strong>婚礼</strong>
@@ -248,13 +188,13 @@
           </article>
           <article>
             <span>二零二六</span>
-            <strong>乔迁</strong>
+            <strong>乔迁 · 新婚</strong>
             <p>新屋灯下，旧情谊仍然明亮。</p>
           </article>
         </div>
       </section>
 
-      <section class="section start-section" id="start" data-section aria-labelledby="start-title">
+      <section class="section start-section" id="start" data-section data-scene="start" aria-labelledby="start-title">
         <div class="start-copy" data-reveal>
           <p class="eyebrow">翻开</p>
           <h2 id="start-title">
@@ -264,18 +204,18 @@
           <p>微信扫码，开启你的礼记。</p>
         </div>
 
-        <div class="opening-book" data-reveal aria-label="礼记微信小程序二维码">
-          <div class="book-page page-left">
+        <div class="opening-ledger" data-reveal aria-label="礼记微信小程序二维码">
+          <article class="ledger-cover">
             <img src="./assets/logo.webp" alt="" />
             <span>礼记</span>
             <strong>每一份人情，都值得礼记。</strong>
-          </div>
-          <div class="book-page page-right">
-            <div class="qr-plate">
+          </article>
+          <article class="ledger-qr">
+            <div class="qr-frame">
               <img class="qr-code" src="./assets/code.jpg" width="344" height="344" loading="lazy" decoding="async" alt="礼记微信小程序二维码" />
             </div>
             <span>微信小程序</span>
-          </div>
+          </article>
         </div>
 
         <footer class="site-footer" aria-label="项目页脚">
@@ -292,7 +232,10 @@
       </section>
     </main>
   </div>
-  <script src="./script.js"></script>
+
+  <script defer src="./vendor/gsap.min.js"></script>
+  <script defer src="./vendor/ScrollTrigger.min.js"></script>
+  <script defer src="./script.js?v=20260703-apple"></script>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="7d1b9189-6ac8-4f04-958b-4c7336682a48"></script>
 </body>
 
