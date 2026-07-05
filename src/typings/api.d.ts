@@ -302,6 +302,11 @@ declare namespace Api {
      * @type {boolean}
      */
     isBanquet?: boolean
+    /**
+     * 软删除时间
+     * @type {string}
+     */
+    deleteTime?: string
   }
 
   interface Friend {
@@ -353,6 +358,12 @@ declare namespace Api {
      * @memberof Friend
      */
     relation?: string
+    /**
+     * 软删除时间
+     * @type {string}
+     * @memberof Friend
+     */
+    deleteTime?: string
   }
 
   interface FriendTag {
@@ -447,6 +458,7 @@ declare namespace Api {
     friendTagList?: Array<string>
     entityName?: string
     payWay?: string
+    deleteTime?: string
   }
 
   interface Gift {
@@ -520,6 +532,7 @@ declare namespace Api {
     friendTagList?: Array<string>
     entityName?: string
     payWay?: string
+    deleteTime?: string
   }
 
   interface FriendGifts {

@@ -5,6 +5,13 @@ export function apiGiftPageGet(data: any) {
   })
 }
 
+export function apiGiftRecyclePageGet(data: any) {
+  return request.Get<Api.PaginationResult<Api.Gift>>('gift/recycle-page', {
+    params: data,
+    hitSource: [/^gift/, /^friend/],
+  })
+}
+
 export function apiGiftGet(data: any) {
   return request.Get<Api.Gift>('gift', {
     params: data,
@@ -27,6 +34,18 @@ export function apiGiftPost(data: any) {
 export function apiGiftDelete(data: any) {
   return request.Delete<boolean>('gift', data, {
     name: 'gift-delete',
+  })
+}
+
+export function apiGiftDeleteConfirm(data: Array<number | string>) {
+  return request.Delete<number>('gift/confirm', data, {
+    name: 'gift-delete-confirm',
+  })
+}
+
+export function apiGiftRecoveryPost(data: Array<number | string>) {
+  return request.Post<number>('gift/recovery', data, {
+    name: 'gift-recovery',
   })
 }
 

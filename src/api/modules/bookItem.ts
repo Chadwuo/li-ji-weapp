@@ -5,6 +5,13 @@ export function apiBookItemPageGet(data: any) {
   })
 }
 
+export function apiBookItemRecyclePageGet(data: any) {
+  return request.Get<Api.PaginationResult<Api.BookItem>>('book-item/recycle-page', {
+    params: data,
+    hitSource: [/^book-item/, /^book/, /^friend/],
+  })
+}
+
 export function apiBookItemGet(data: any) {
   return request.Get<Api.BookItem>('book-item', {
     params: data,
@@ -27,6 +34,18 @@ export function apiBookItemPost(data: any) {
 export function apiBookItemDelete(data: any) {
   return request.Delete<boolean>('book-item', data, {
     name: 'book-item-delete',
+  })
+}
+
+export function apiBookItemDeleteConfirm(data: Array<number | string>) {
+  return request.Delete<number>('book-item/confirm', data, {
+    name: 'book-item-delete-confirm',
+  })
+}
+
+export function apiBookItemRecoveryPost(data: Array<number | string>) {
+  return request.Post<number>('book-item/recovery', data, {
+    name: 'book-item-recovery',
   })
 }
 

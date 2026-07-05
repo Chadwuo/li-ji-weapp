@@ -32,12 +32,12 @@ const onEdit = () => {
 
 const onDel = () => {
   dialog.confirm({
-    msg: '此操作无法恢复，确定删除？',
+    msg: '删除后将移入回收站，可在回收站恢复。',
     title: '删除来往记录',
   }).then(async () => {
     await apiGiftDelete({ id: dataSource.value.id })
     uni.showToast({
-      title: '删除成功',
+      title: '已移入回收站',
       icon: 'success',
     })
     setTimeout(() => {

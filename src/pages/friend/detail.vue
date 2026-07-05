@@ -130,12 +130,12 @@ const onFriendEdit = () => {
 }
 const onFriendDel = () => {
   dialog.confirm({
-    msg: '该亲友所有人情往来记录都将被删除，确定删除？',
+    msg: '删除后将移入回收站，可在回收站恢复。关联往来记录会一并移动。',
     title: '删除亲友',
   }).then(async () => {
     await apiFriendDelete({ id: friend.value.id })
     uni.showToast({
-      title: '删除成功',
+      title: '已移入回收站',
       icon: 'success',
     })
     setTimeout(() => {

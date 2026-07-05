@@ -5,6 +5,13 @@ export function apiFriendListGet(data: any) {
   })
 }
 
+export function apiFriendRecyclePageGet(data: Api.PaginationQuery) {
+  return request.Get<Api.PaginationResult<Api.Friend>>('friend/recycle-page', {
+    params: data,
+    hitSource: [/^gift/, /^book-item/, /^friend/],
+  })
+}
+
 export function apiFriendGet(data: any) {
   return request.Get<Api.Friend>('friend', {
     params: data,
@@ -27,6 +34,18 @@ export function apiFriendPost(data: any) {
 export function apiFriendDelete(data: any) {
   return request.Delete<boolean>('friend', data, {
     name: 'friend-delete',
+  })
+}
+
+export function apiFriendDeleteConfirm(data: Array<number | string>) {
+  return request.Delete<number>('friend/confirm', data, {
+    name: 'friend-delete-confirm',
+  })
+}
+
+export function apiFriendRecoveryPost(data: Array<number | string>) {
+  return request.Post<number>('friend/recovery', data, {
+    name: 'friend-recovery',
   })
 }
 

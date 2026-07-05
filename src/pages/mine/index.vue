@@ -65,9 +65,10 @@ const quickActions = [
   },
   {
     title: '回收站',
-    desc: '敬请期待',
+    desc: '恢复数据',
     icon: 'i-hugeicons-recycle-02',
     tone: 'tone-emerald',
+    url: '/pages/recycle/index',
   },
   {
     title: '人情债',

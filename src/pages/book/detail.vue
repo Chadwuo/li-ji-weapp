@@ -166,12 +166,12 @@ const onBookExport = () => {
 
 const onBookDel = () => {
   dialog.confirm({
-    msg: '该礼簿所有人情往来记录都将被删除，确定删除？',
+    msg: '删除后将移入回收站，可在回收站恢复。该礼簿内的收礼记录会一并移动。',
     title: '删除礼簿',
   }).then(async () => {
     await apiBookDelete({ id: book.value.id })
     uni.showToast({
-      title: '删除成功',
+      title: '已移入回收站',
       icon: 'success',
     })
     setTimeout(() => {
