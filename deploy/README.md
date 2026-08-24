@@ -16,8 +16,10 @@
 ```bash
 mkdir -p li-ji-deploy
 cd li-ji-deploy
-curl -fsSL https://raw.githubusercontent.com/chadwuo/li-ji-weapp/main/deploy/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/chadwuo/li-ji-weapp/main/deploy/install.sh | sudo bash
 ```
+
+安装脚本会把 `data/`、`logs/` 和 `wwwroot/oss/avatar/` 授权给 API 镜像中的非 root 用户，因此需要 root 或 sudo 权限。
 
 脚本默认使用当前目录，并会询问部署目录、API 端口和前端端口。API 和前端镜像固定使用以下默认值：
 

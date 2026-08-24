@@ -175,6 +175,28 @@ download_config_file() {
   return 0
 }
 
+prepare_runtime_permissions() {
+  local api_uid api_gid
+
+  if [[ "$(id -u)" -ne 0 ]]; then
+    fail "持久化目录需要授权给容器用户，请使用 root 或 sudo 执行安装脚本。"
+  fi
+
+  api_uid="$(docker run --rm --entrypoint id "$API_IMAGE" -u)" \
+    || fail "无法读取 API 镜像的运行用户 UID。"
+  api_gid="$(docker run --rm --entrypoint id "$API_IMAGE" -g)" \
+    || fail "无法读取 API 镜像的运行用户 GID。"
+
+  chown -R "${api_uid}:${api_gid}" data logs wwwroot/oss/avatar \
+    || fail "无法设置持久化目录所有者 ${api_uid}:${api_gid}。"
+  chmod -R u+rwX data logs wwwroot/oss/avatar \
+    || fail "无法设置持久化目录写权限。"
+  chmod 750 data logs wwwroot/oss/avatar \
+    || fail "无法设置持久化目录访问权限。"
+
+  info "已将持久化目录授权给容器用户 ${api_uid}:${api_gid}。"
+}
+
 validate_port() {
   local normalized
 
@@ -252,6 +274,8 @@ detail "$API_IMAGE"
 detail "$WEB_IMAGE"
 docker compose pull
 success '镜像拉取完成'
+
+prepare_runtime_permissions
 
 step '6/6' '启动 Li-Ji 服务'
 docker compose up -d

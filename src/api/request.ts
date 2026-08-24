@@ -13,7 +13,7 @@ const API_ENV_MAP = {
   },
   // H5 环境映射
   H5: {
-    production: 'release', // 生产环境
+    production: '', // 生产环境
     development: '', // 开发环境
   },
 }

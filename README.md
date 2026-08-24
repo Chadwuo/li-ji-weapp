@@ -38,12 +38,12 @@
 
 ## 🚀 Docker 部署
 
-在 Linux 服务器安装 Docker 和 Docker Compose v2 后执行：
+执行以下安装脚本，根据命令行提示完成安装：
 
 ```bash
 mkdir -p li-ji-deploy
 cd li-ji-deploy
-curl -fsSL https://raw.githubusercontent.com/chadwuo/li-ji-weapp/main/deploy/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/chadwuo/li-ji-weapp/main/deploy/install.sh | sudo bash
 ```
 
 完整的配置和运维说明见 [`deploy/README.md`](deploy/README.md)。
