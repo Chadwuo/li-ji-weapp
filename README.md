@@ -45,7 +45,7 @@
 </a>
 
 ## 🌟 Star History
-[![Star History Chart](https://api.star-history.com/svg?repos=Chadwuo/li-ji-weapp&type=Date)](https://star-history.com/#Chadwuo/li-ji-weapp&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=Chadwuo/li-ji-weapp&type=Date)](https://star-history.dera.page/#Chadwuo/li-ji-weapp&Date)
 
 ## 📜 许可证
 
