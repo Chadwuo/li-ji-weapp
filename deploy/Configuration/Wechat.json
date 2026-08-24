@@ -1,0 +1,33 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  "Wechat": {
+    // 微信公众号
+    "WechatAppId": "",
+    "WechatAppSecret": "",
+    "WechatToken": "", // 微信公众号服务器配置 Token
+    "WechatEncodingAESKey": "", // 微信公众号消息加解密 EncodingAESKey
+
+    // 微信小程序
+    "WxOpenAppId": "",
+    "WxOpenAppSecret": "",
+    "WxToken": "", // 小程序消息推送 Token
+    "WxEncodingAESKey": "", // 小程序消息加解密 EncodingAESKey
+    "QRImagePath": "", // 小程序二维码保存目录，按需配置
+
+    // 微信小程序虚拟支付
+    "WxXPayAppId": "",
+    "WxXPayOfferID": "",
+    "WxXPayAppKey": ""
+  },
+
+  "WechatPay": {
+    "AppId": "", // 微信支付 AppId
+    "MerchantId": "", // 商户号
+    "MerchantV3Secret": "", // APIv3 密钥
+    "MerchantCertificateSerialNumber": "", // 商户证书序列号
+    "MerchantCertificatePrivateKey": "/app/data/WxPayCert/apiclient_key.pem", // 商户私钥路径，把文件放到宿主机 data/WxPayCert/
+    "PayCallBackUrl": "", // 支付回调地址，建议填写公网 HTTPS 地址
+    "RefundUrl": "" // 退款回调地址，建议填写公网 HTTPS 地址
+  }
+}

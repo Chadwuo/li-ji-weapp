@@ -11,7 +11,7 @@
     ·
     <a href="https://liji.poetic.ltd">演示</a>
     ·
-    <a href="https://github.com/Chadwuo/li-ji-weapp/issues/new?template=feature_request.md">提出新特性</a>
+    <a href="https://github.com/chadwuo/li-ji-weapp/issues/new?template=feature_request.md">提出新特性</a>
   </p>
 </p>
 
@@ -35,6 +35,18 @@
 - 🎨 **界面美观** - 简约雅韵入画来，每一次交互皆如邂逅一场艺术之约，悦目更赏心。
 - 🌐 **跨平台支持** - 跨越设备的界限，H5与小程序携手相伴，人情记账自在随心。
 - 🌈 ... ...
+
+## 🚀 Docker 部署
+
+在 Linux 服务器安装 Docker 和 Docker Compose v2 后执行：
+
+```bash
+mkdir -p li-ji-deploy
+cd li-ji-deploy
+curl -fsSL https://raw.githubusercontent.com/chadwuo/li-ji-weapp/main/deploy/install.sh | bash
+```
+
+完整的配置和运维说明见 [`deploy/README.md`](deploy/README.md)。
 
 ## 🚀 贡献
 

@@ -1,0 +1,13 @@
+.git
+.github
+.trae
+.vscode
+node_modules
+dist
+doc
+landing
+*.log
+*.err.log
+.env
+.env.*
+!.env.example

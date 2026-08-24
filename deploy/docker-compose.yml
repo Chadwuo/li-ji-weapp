@@ -1,0 +1,31 @@
+services:
+  li-ji-api:
+    image: ${LIJI_IMAGE:-chadwuo/li-ji-api:latest}
+    container_name: li-ji-api
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: "${ASPNETCORE_ENVIRONMENT:-Production}"
+      LIJI_DATA_DIR: "${LIJI_DATA_DIR:-/app/data}"
+    ports:
+      - "${LIJI_PORT:-8080}:8080"
+    volumes:
+      - ./Configuration:/app/Configuration:ro
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./wwwroot/oss/avatar:/app/wwwroot/oss/avatar
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8080/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  li-ji-web:
+    image: ${LIJI_WEB_IMAGE:-chadwuo/li-ji-web:latest}
+    container_name: li-ji-web
+    restart: unless-stopped
+    depends_on:
+      li-ji-api:
+        condition: service_healthy
+    ports:
+      - "${LIJI_WEB_PORT:-80}:80"

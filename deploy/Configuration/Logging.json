@@ -1,0 +1,20 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning",
+      "Microsoft.EntityFrameworkCore": "Information",
+      "AspNetCoreRateLimit": "None",
+      "System.Net.Http.HttpClient": "Warning"
+    },
+    "Database": {
+      "Enabled": true, // 是否启用数据库日志
+      "MinimumLevel": "Information"
+    },
+    "Console": {
+      "Enabled": true // 是否启用控制台日志
+    }
+  }
+}

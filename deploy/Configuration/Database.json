@@ -1,0 +1,18 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  // 详细数据库配置见 SqlSugar 文档。生产环境推荐 PostgreSQL。
+  // 连接字符串参考：https://www.connectionstrings.com/
+  "DbConnection": {
+    "EnableConsoleSql": false, // 是否在控制台打印 SQL，生产环境建议 false
+    "EnableUnderLine": true, // 是否启用驼峰转下划线
+    "DbType": "Sqlite", // MySql、SqlServer、Sqlite、Oracle、PostgreSQL 等 SqlSugar 支持的类型
+    "ConnectionString": "DataSource=/app/data/liji.poetic.db", // 默认 SQLite 数据库文件，位于持久化数据目录
+    //"ConnectionString": "PORT=5432;DATABASE=xxx;HOST=postgres;PASSWORD=xxx;USER ID=xxx", // PostgreSQL 示例
+    //"ConnectionString": "Server=mysql;Database=xxx;Uid=xxx;Pwd=xxx;SslMode=None;AllowPublicKeyRetrieval=True;", // MySQL 示例
+    //"ConnectionString": "Server=sqlserver;Database=xxx;User Id=xxx;Password=xxx;Encrypt=True;TrustServerCertificate=True;", // SQL Server 示例
+    "EnableInitDb": true, // 是否自动创建数据库
+    "EnableInitTable": true, // 是否自动初始化表结构
+    "EnableInitSeed": true // 是否自动初始化种子数据
+  }
+}

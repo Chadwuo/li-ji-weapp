@@ -1,0 +1,14 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  "Email": {
+    "SmtpHost": "smtp.163.com", // SMTP 服务器地址
+    "SmtpPort": 465, // SMTP 端口，常见值：465、587、25
+    "SmtpUserName": "", // SMTP 登录账号
+    "SmtpPassword": "", // SMTP 密码或授权码
+    "EnableSsl": true, // 是否启用 SSL/TLS
+    "FromName": "礼记", // 发件人显示名称
+    "FromEmail": "", // 发件人邮箱地址
+    "DefaultFromName": "礼记" // 默认发件人显示名称
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+
+  "JWTSettings": {
+    "ValidateIssuerSigningKey": true, // 是否验证签名密钥
+    "IssuerSigningKey": "", // JWT 签名密钥，安装脚本首次下载时会自动生成
+    "ValidateIssuer": true, // 是否验证签发方
+    "ValidIssuer": "li-ji-api", // 签发方
+    "ValidateAudience": true, // 是否验证接收方
+    "ValidAudience": "li-ji-api", // 接收方
+    "ValidateLifetime": true, // 是否验证过期时间
+    "ExpiredTime": 43200, // 过期时间，单位：分钟，43200 表示 30 天
+    "ClockSkew": 5, // 过期时间容错值，单位：秒
+    "Algorithm": "HS256", // 签名算法
+    "RequireExpirationTime": true // 是否要求 token 必须有过期时间
+  }
+}
