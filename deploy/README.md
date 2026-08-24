@@ -19,7 +19,7 @@ cd li-ji-deploy
 curl -fsSL https://raw.githubusercontent.com/chadwuo/li-ji-weapp/main/deploy/install.sh | bash
 ```
 
-脚本默认使用当前目录，并会询问部署目录、API 镜像、前端镜像、API 端口和前端端口。回车即可接受默认值：
+脚本默认使用当前目录，并会询问部署目录、API 端口和前端端口。API 和前端镜像固定使用以下默认值：
 
 - API 镜像：`chadwuo/li-ji-api:latest`
 - 前端镜像：`chadwuo/li-ji-web:latest`
@@ -28,7 +28,7 @@ curl -fsSL https://raw.githubusercontent.com/chadwuo/li-ji-weapp/main/deploy/ins
 
 确认后脚本会下载 Compose 和业务配置，拉取两个镜像并启动完整服务。部署只将用户头像持久化到宿主机 `wwwroot/oss/avatar/`；邮件模板、导出模板和其他内置资源继续保留在 API 镜像内，不会复制到宿主机。安装完成后访问 `http://服务器IP/`；API 健康检查地址为 `http://服务器IP:8080/health`。
 
-重复执行脚本会保留现有 `.env`、业务配置和新版 Compose 文件。检测到旧版 API-only Compose 时，脚本会先备份为 `docker-compose.yml.backup`，再下载包含前端服务的版本。
+重复执行脚本会保留业务配置，并按本次输入更新 `.env` 中的镜像和端口。
 
 ## 配置与运维
 
